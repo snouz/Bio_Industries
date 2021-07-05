@@ -10,8 +10,6 @@ data:extend({
   {
     type = "recipe",
     name = "bi-seed-1",
-    localised_name = {"recipe-name.bi-seed-1"},
-    localised_description = {"recipe-description.bi-seed-1"},
     icon = ICONPATH .. "bio_seed1.png",
     icon_size = 64,
     icons = {
@@ -45,8 +43,6 @@ data:extend({
   {
     type = "recipe",
     name = "bi-seed-2",
-    localised_name = {"recipe-name.bi-seed-2"},
-    localised_description = {"recipe-description.bi-seed-2"},
     icon = ICONPATH .. "bio_seed2.png",
     icon_size = 64,
     icons = {
@@ -81,8 +77,6 @@ data:extend({
   {
     type = "recipe",
     name = "bi-seed-3",
-    localised_name = {"recipe-name.bi-seed-3"},
-    localised_description = {"recipe-description.bi-seed-3"},
     icon = ICONPATH .. "bio_seed3.png",
     icon_size = 64,
     icons = {
@@ -117,8 +111,6 @@ data:extend({
   {
     type = "recipe",
     name = "bi-seed-4",
-    localised_name = {"recipe-name.bi-seed-4"},
-    localised_description = {"recipe-description.bi-seed-4"},
     icon = ICONPATH .. "bio_seed4.png",
     icon_size = 64,
     icons = {
@@ -153,8 +145,6 @@ data:extend({
   {
     type = "recipe",
     name = "bi-seedling-1",
-    localised_name = {"recipe-name.bi-seedling-1"},
-    localised_description = {"recipe-description.bi-seedling-1"},
     icon = ICONPATH .. "Seedling1.png",
     icon_size = 64,
     icons = {
@@ -188,8 +178,6 @@ data:extend({
   {
     type = "recipe",
     name = "bi-seedling-2",
-    localised_name = {"recipe-name.bi-seedling-2"},
-    localised_description = {"recipe-description.bi-seedling-2"},
     icon = ICONPATH .. "Seedling2.png",
     icon_size = 64,
     icons = {
@@ -224,8 +212,6 @@ data:extend({
   {
     type = "recipe",
     name = "bi-seedling-3",
-    localised_name = {"recipe-name.bi-seedling-3"},
-    localised_description = {"recipe-description.bi-seedling-3"},
     icon = ICONPATH .. "Seedling3.png",
     icon_size = 64,
     icons = {
@@ -259,8 +245,6 @@ data:extend({
   {
     type = "recipe",
     name = "bi-seedling-4",
-    localised_name = {"recipe-name.bi-seedling-4"},
-    localised_description = {"recipe-description.bi-seedling-4"},
     icon = ICONPATH .. "Seedling4.png",
     icon_size = 64,
     icons = {
@@ -295,8 +279,6 @@ data:extend({
   {
     type = "recipe",
     name = "bi-logs-1",
-    localised_name = {"recipe-name.bi-logs-1"},
-    localised_description = {"recipe-description.bi-logs-1"},
     icon = ICONPATH .. "raw-wood-mk1.png",
     icon_size = 64,
     icons = {
@@ -318,7 +300,7 @@ data:extend({
       {type = "item", name = "wood", amount = 40},
       {type = "item", name = "bi-woodpulp", amount = 80},
     },
-    main_product = "wood",
+    main_product = "",
     subgroup = "bio-bio-farm-fluid-3",
     order = "c[bi]-ssw-c1[raw-wood1]",
     -- This is a custom property for use by "Krastorio 2" (it will change
@@ -331,8 +313,6 @@ data:extend({
   {
     type = "recipe",
     name = "bi-logs-2",
-    localised_name = {"recipe-name.bi-logs-2"},
-    localised_description = {"recipe-description.bi-logs-2"},
     icon = ICONPATH .. "raw-wood-mk2.png",
     icon_size = 64,
     icons = {
@@ -355,7 +335,7 @@ data:extend({
       {type = "item", name = "wood", amount = 75},
       {type = "item", name = "bi-woodpulp", amount = 150},
     },
-    main_product = "wood",
+    main_product = "",
     subgroup = "bio-bio-farm-fluid-3",
     order = "c[bi]-ssw-c1[raw-wood2]",
     -- This is a custom property for use by "Krastorio 2" (it will change
@@ -368,8 +348,6 @@ data:extend({
   {
     type = "recipe",
     name = "bi-logs-3",
-    localised_name = {"recipe-name.bi-logs-3"},
-    localised_description = {"recipe-description.bi-logs-3"},
     icon = ICONPATH .. "raw-wood-mk3.png",
     icon_size = 64,
     icons = {
@@ -392,7 +370,7 @@ data:extend({
       {type = "item", name = "wood", amount = 135},
       {type = "item", name = "bi-woodpulp", amount = 270},
     },
-    main_product = "wood",
+    main_product = "",
     subgroup = "bio-bio-farm-fluid-3",
     order = "c[bi]-ssw-c1[raw-wood3]",
     -- This is a custom property for use by "Krastorio 2" (it will change
@@ -405,8 +383,6 @@ data:extend({
   {
     type = "recipe",
     name = "bi-logs-4",
-    localised_name = {"recipe-name.bi-logs-4"},
-    localised_description = {"recipe-description.bi-logs-4"},
     icon = ICONPATH .. "raw-wood-mk4.png",
     icon_size = 64,
     icons = {
@@ -429,7 +405,7 @@ data:extend({
       {type = "item", name = "wood", amount = 160},
       {type = "item", name = "bi-woodpulp", amount = 320},
     },
-    main_product = "wood",
+    main_product = "",
     subgroup = "bio-bio-farm-fluid-3",
     order = "c[bi]-ssw-c1[raw-wood4]",
     -- This is a custom property for use by "Krastorio 2" (it will change
@@ -442,6 +418,8 @@ data:extend({
   {
     type = "recipe",
     name = "bi-bio-greenhouse",
+    localised_name = {"entity-name.bi-bio-greenhouse"},
+    localised_description = {"entity-description.bi-bio-greenhouse"},
     icon = ICONPATH .. "bio_greenhouse.png",
     icon_size = 64,
     icons = {
@@ -487,6 +465,8 @@ data:extend({
   {
     type = "recipe",
     name = "bi-bio-farm",
+    localised_name = {"entity-name.bi-bio-farm"},
+    localised_description = {"entity-description.bi-bio-farm"},
     icon = ICONPATH .. "Bio_Farm_Icon.png",
     icon_size = 64,
     icons = {
@@ -626,6 +606,8 @@ data:extend({
   {
     type = "recipe",
     name = "bi-wood-fuel-brick",
+    --~ localised_name = {"item-name.wood-bricks"},
+    --~ localised_description = {"item-description.wood-bricks"},
     icon = ICONPATH .. "Fuel_Brick.png",
     icon_size = 64,
     icons = {
@@ -655,8 +637,6 @@ data:extend({
   {
     type = "recipe",
     name = "bi-ash-1",
-    localised_name = {"recipe-name.bi-ash-1"},
-    localised_description = {"recipe-description.bi-ash-1"},
     icon = ICONPATH .. "ash_raw-wood.png",
     icon_size = 64,
     icons = {
@@ -687,8 +667,6 @@ data:extend({
   {
     type = "recipe",
     name = "bi-ash-2",
-    localised_name = {"recipe-name.bi-ash-2"},
-    localised_description = {"recipe-description.bi-ash-2"},
     icon = ICONPATH .. "ash_woodpulp.png",
     icon_size = 64,
     icons = {
@@ -749,8 +727,6 @@ data:extend({
   {
     type = "recipe",
     name = "bi-charcoal-2",
-    localised_name = {"recipe-name.bi-charcoal-2"},
-    localised_description = {"recipe-description.bi-charcoal-2"},
     icon = ICONPATH .. "charcoal_raw-wood.png",
     icon_size = 64,
     icons = {
@@ -808,8 +784,6 @@ data:extend({
   {
     type = "recipe",
     name = "bi-coal-2",
-    localised_name = {"recipe-name.bi-coal-2"},
-    localised_description = {"recipe-description.bi-coal-2"},
     icon = ICONPATH .. "coal_mk2.png",
     icon_size = 64,
     icons = {
@@ -860,10 +834,12 @@ data:extend({
   },
 
 
-  -- Pellet-Coke from Coal -- Use to be Coke-Coal
+  -- Pellet-Coke from Coal -- Used to be Coke-Coal
     {
     type = "recipe",
     name = "bi-coke-coal",
+    --~ localised_name = {"item-name.pellet-coke"},
+    --~ localised_description = {"item-description.pellet-coke"},
     icon = ICONPATH .. "pellet_coke_coal.png",
     icon_size = 64,
     icons = {
@@ -886,10 +862,12 @@ data:extend({
   },
 
 
-    -- Pellet-Coke from Solid Fuel -- Use to be Coke-Coal
+    -- Pellet-Coke from Solid Fuel -- Used to be Coke-Coal
     {
     type = "recipe",
     name = "bi-pellet-coke",
+    --~ localised_name = {"item-name.pellet-coke"},
+    --~ localised_description = {"item-description.pellet-coke"},
     icon = ICONPATH .. "pellet_coke_solid.png",
     --icon = "__Bio_Industries__/graphics/icons/pellet_coke_c.png",
     icon_size = 64,
@@ -942,6 +920,7 @@ data:extend({
   {
     type = "recipe",
     name = "bi-crushed-stone-2",
+    localised_description = {"recipe-description.bi-crushed-stone"},
     icon = ICONPATH .. "crushed-stone-concrete.png",
     icon_size = 64,
     icons = {
@@ -968,6 +947,7 @@ data:extend({
   {
     type = "recipe",
     name = "bi-crushed-stone-3",
+    localised_description = {"recipe-description.bi-crushed-stone"},
     icon = ICONPATH .. "crushed-stone-hazard-concrete.png",
     icon_size = 64,
     icons = {
@@ -994,6 +974,7 @@ data:extend({
   {
     type = "recipe",
     name = "bi-crushed-stone-4",
+    localised_description = {"recipe-description.bi-crushed-stone"},
     icon = ICONPATH .. "crushed-stone-refined-concrete.png",
     icon_size = 64,
     icons = {
@@ -1020,6 +1001,7 @@ data:extend({
   {
     type = "recipe",
     name = "bi-crushed-stone-5",
+    localised_description = {"recipe-description.bi-crushed-stone"},
     icon = ICONPATH .. "crushed-stone-refined-hazard-concrete.png",
     icon_size = 64,
     icons = {
@@ -1077,6 +1059,8 @@ data:extend({
   {
     type = "recipe",
     name = "bi-cokery",
+    localised_name = {"entity-name.bi-cokery"},
+    localised_description = {"entity-description.bi-cokery"},
     icon = ICONPATH .. "cokery.png",
     icon_size = 64,
     icons = {
@@ -1118,6 +1102,8 @@ data:extend({
   {
     type = "recipe",
     name = "bi-stone-crusher",
+    localised_name = {"entity-name.bi-stone-crusher"},
+    localised_description = {"entity-description.bi-stone-crusher"},
     icon = ICONPATH .. "stone_crusher.png",
     icon_size = 64,
     icons = {
@@ -1219,8 +1205,6 @@ data:extend({
   {
     type = "recipe",
     name = "bi-fertiliser-1",
-    localised_name = {"recipe-name.bi-fertiliser-1"},
-    localised_description = {"recipe-description.bi-fertiliser-1"},
     icon = ICONPATH .. "fertiliser_sulfur.png",
     icon_size = 64,
     icons = {
@@ -1253,8 +1237,6 @@ data:extend({
   {
     type = "recipe",
     name = "bi-adv-fertiliser-1",
-    localised_name = {"recipe-name.bi-adv-fertiliser-1"},
-    localised_description = {"recipe-description.bi-adv-fertiliser-1"},
     icon = ICONPATH .. "advanced_fertiliser_64.png",
     icon_size = 64,
     icons = {
@@ -1267,7 +1249,7 @@ data:extend({
     energy_required = 50,
     ingredients = {
       {type = "item", name = "fertiliser", amount = 25},
-      --{type = "item", name = "bi-biomass", amount = 10}, -- <== Need to add during Data Updates
+      {type = "fluid", name = "bi-biomass", amount = 10}, -- <== Need to add during Data Updates
       --{type = "fluid", name = "NE_enhanced-nutrient-solution", amount = 5}, -- Will be added if you have Natural Evolution Buildings Mod installed.
     },
     results = {
@@ -1287,8 +1269,6 @@ data:extend({
   {
     type = "recipe",
     name = "bi-adv-fertiliser-2",
-    localised_name = {"recipe-name.bi-adv-fertiliser-2"},
-    localised_description = {"recipe-description.bi-adv-fertiliser-2"},
     icon = ICONPATH .. "advanced_fertiliser_64.png",
     icon_size = 64,
     icons = {
@@ -1301,7 +1281,7 @@ data:extend({
     energy_required = 50,
     ingredients = {
       {type = "item", name = "fertiliser", amount = 20},
-      --{type = "item", name = "bi-biomass", amount = 10}, -- <== Need to add during Data Updates
+      {type = "fluid", name = "bi-biomass", amount = 10},
       {type = "item", name = "bi-woodpulp", amount = 10},
     },
     results = {
@@ -1324,6 +1304,8 @@ data:extend({
      {
     type = "recipe",
     name = "bi-seed-bomb-basic",
+    --~ localised_name = {"item-name.bi-seed-bomb-basic"},
+    --~ localised_description = {"item-description.bi-seed-bomb-basic"},
     icon = ICONPATH .. "Seed_bomb_icon_b.png",
     icon_size = 64,
     icons = {
@@ -1364,6 +1346,8 @@ data:extend({
      {
     type = "recipe",
     name = "bi-seed-bomb-standard",
+    --~ localised_name = {"item-name.bi-seed-bomb-standard"},
+    --~ localised_description = {"item-description.bi-seed-bomb-standard"},
     icon = ICONPATH .. "Seed_bomb_icon_s.png",
     icon_size = 64,
     icons = {
@@ -1405,6 +1389,8 @@ data:extend({
      {
     type = "recipe",
     name = "bi-seed-bomb-advanced",
+    --~ localised_name = {"item-name.bi-seed-bomb-advanced"},
+    --~ localised_description = {"item-description.bi-seed-bomb-advanced"},
     icon = ICONPATH .. "Seed_bomb_icon_a.png",
     icon_size = 64,
     icons = {
@@ -1446,6 +1432,8 @@ data:extend({
   {
     type = "recipe",
     name = "bi-arboretum",
+    localised_name = {"entity-name.bi-arboretum"},
+    localised_description = {"entity-description.bi-arboretum"},
     icon = ICONPATH .. "Arboretum_Icon.png",
     icon_size = 64,
     icons = {
@@ -1489,8 +1477,6 @@ data:extend({
   {
     type = "recipe",
     name = "bi-arboretum-r1",
-    localised_name = {"recipe-name.bi-arboretum-r1"},
-    localised_description = {"recipe-description.bi-arboretum-r1"},
     icon = ICONPATH .. "Seedling_b.png",
     icon_size = 64,
     icons = {
@@ -1522,8 +1508,6 @@ data:extend({
   {
     type = "recipe",
     name = "bi-arboretum-r2",
-    localised_name = {"recipe-name.bi-arboretum-r2"},
-    localised_description = {"recipe-description.bi-arboretum-r2"},
     icon = ICONPATH .. "bi_change_1.png",
     icon_size = 64,
     icons = {
@@ -1555,8 +1539,6 @@ data:extend({
   {
     type = "recipe",
     name = "bi-arboretum-r3",
-    localised_name = {"recipe-name.bi-arboretum-r3"},
-    localised_description = {"recipe-description.bi-arboretum-r3"},
     icon = ICONPATH .. "bi_change_2.png",
     icon_size = 64,
     icons = {
@@ -1588,8 +1570,6 @@ data:extend({
   {
     type = "recipe",
     name = "bi-arboretum-r4",
-    localised_name = {"recipe-name.bi-arboretum-r4"},
-    localised_description = {"recipe-description.bi-arboretum-r4"},
     icon = ICONPATH .. "bi_change_plant_1.png",
     icon_size = 64,
     icons = {
@@ -1622,8 +1602,6 @@ data:extend({
   {
     type = "recipe",
     name = "bi-arboretum-r5",
-    localised_name = {"recipe-name.bi-arboretum-r5"},
-    localised_description = {"recipe-description.bi-arboretum-r5"},
     icon = ICONPATH .. "bi_change_plant_2.png",
     icon_size = 64,
     icons = {
@@ -1650,6 +1628,4 @@ data:extend({
     subgroup = "bio-arboretum-fluid",
     order = "a[bi]-ssw-a1[bi-arboretum-r5]",
   },
-
-
 })

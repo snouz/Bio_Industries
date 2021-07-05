@@ -22,7 +22,7 @@ BI.Settings.BI_Game_Tweaks_Disassemble = settings.startup["BI_Game_Tweaks_Disass
 BI.Settings.BI_Game_Tweaks_Bot = settings.startup["BI_Game_Tweaks_Bot"].value
 BI.Settings.BI_Solar_Additions = settings.startup["BI_Solar_Additions"].value
 
-
+log("BI.Settings.BI_Game_Tweaks_Disassemble: " .. tostring(BI.Settings.BI_Game_Tweaks_Disassemble))
 --- Help Files
 require ("libs.item-functions") -- From Bob's Libary
 require ("libs.recipe-functions") -- From Bob's Libary

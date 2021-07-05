@@ -6,7 +6,7 @@ local ICONPATHMIPS = BioInd.modRoot .. "/graphics/icons/mips/"
 data:extend({
   {
     type = "recipe",
-    name = "bi-pellete-coal-2",
+    name = "bi-pellet-coke-2",
     icon = ICONPATH .. "pellet_coke_b.png",
     icon_size = 64,
     icons = {
@@ -154,23 +154,23 @@ end
 
  -- Pellet-Coke from Carbon - Bobs & Angels
 if data.raw.item["solid-carbon"] and mods["angelspetrochem"] then
-  thxbob.lib.recipe.add_new_ingredient("bi-pellete-coal-2", {type = "item", name = "solid-carbon", amount = 10})
+  thxbob.lib.recipe.add_new_ingredient("bi-pellet-coke-2", {type = "item", name = "solid-carbon", amount = 10})
   data.raw.recipe["bi-coke-coal"].icon = ICONPATH .. "pellet_coke_1.png"
   data.raw.recipe["bi-coke-coal"].icon_size = 64
-  data.raw.recipe["bi-pellete-coal-2"].icon = ICONPATH .. "pellet_coke_a.png"
-  data.raw.recipe["bi-pellete-coal-2"].icon_size = 64
+  data.raw.recipe["bi-pellet-coke-2"].icon = ICONPATH .. "pellet_coke_a.png"
+  data.raw.recipe["bi-pellet-coke-2"].icon_size = 64
   data.raw.recipe["bi-pellet-coke"].icon = ICONPATH .. "pellet_coke_c.png"
   data.raw.recipe["bi-pellet-coke"].icon_size = 64
-  thxbob.lib.tech.add_recipe_unlock("bi-tech-coal-processing-2", "bi-pellete-coal-2")
+  thxbob.lib.tech.add_recipe_unlock("bi-tech-coal-processing-2", "bi-pellet-coke-2")
 elseif data.raw.item["carbon"] and mods["bobplates"] then
-  thxbob.lib.recipe.add_new_ingredient ("bi-pellete-coal-2", {type = "item", name = "carbon", amount = 10})
+  thxbob.lib.recipe.add_new_ingredient ("bi-pellet-coke-2", {type = "item", name = "carbon", amount = 10})
   data.raw.recipe["bi-coke-coal"].icon = ICONPATH .. "pellet_coke_1.png"
   data.raw.recipe["bi-coke-coal"].icon_size = 64
-  data.raw.recipe["bi-pellete-coal-2"].icon = ICONPATH .. "pellet_coke_b.png"
-  data.raw.recipe["bi-pellete-coal-2"].icon_size = 64
+  data.raw.recipe["bi-pellet-coke-2"].icon = ICONPATH .. "pellet_coke_b.png"
+  data.raw.recipe["bi-pellet-coke-2"].icon_size = 64
   data.raw.recipe["bi-pellet-coke"].icon = ICONPATH .. "pellet_coke_c.png"
   data.raw.recipe["bi-pellet-coke"].icon_size = 64
-  thxbob.lib.tech.add_recipe_unlock("bi-tech-coal-processing-2", "bi-pellete-coal-2")
+  thxbob.lib.tech.add_recipe_unlock("bi-tech-coal-processing-2", "bi-pellet-coke-2")
 end
 
 
@@ -214,19 +214,39 @@ if data.raw.fluid["gas-nitrogen"] and data.raw.fluid["gas-compressed-air"] and m
   thxbob.lib.recipe.replace_ingredient("bi-biomass-3", "liquid-air", "gas-compressed-air")
 end
 
+-- If Angels, replace icons for biomass-conversion-2 and bi_basic_gas_processing
+if mods["angelspetrochem"] then
+  local conversion = data.raw.recipe["bi-biomass-conversion-2"]
+  conversion.icon = ICONPATH .. "bio_conversion_2_angels.png"
+  conversion.icons[1].icon = ICONPATH .. "bio_conversion_2_angels.png"
+  conversion.localised_name = {"recipe-name.bi-biomass-conversion-2-methane"}
+  conversion.localised_description = {"recipe-description.bi-biomass-conversion-2-methane"}
+
+  local gas_processing = data.raw.recipe["bi-basic-gas-processing"]
+  gas_processing.icon = ICONPATH .. "bi_basic_gas_processing_angels.png"
+  gas_processing.icons[1].icon = ICONPATH .. "bi_basic_gas_processing_angels.png"
+
+end
+
 -- If Angels, replace water with water-yellow-waste
 if data.raw.fluid["water-yellow-waste"] and mods["angelspetrochem"] then
+  -- Replace water with water-yellow-waste in Algae Biomass conversion 4
   thxbob.lib.recipe.remove_result("bi-biomass-conversion-4", "water")
   thxbob.lib.recipe.add_result("bi-biomass-conversion-4", {
     type = "fluid",
     name = "water-yellow-waste",
     amount = 40
   })
+  -- Change recipe localizations
+  data.raw.recipe["bi-biomass-conversion-4"].localised_name =
+    {"recipe-name.bi-biomass-conversion-4-yellow-waste"}
+  data.raw.recipe["bi-biomass-conversion-4"].localised_description =
+    {"recipe-description.bi-biomass-conversion-4-yellow-waste"}
 end
 
 -- Krastorio
 if mods["Krastorio"] then
-  -- Replace liquid air with oxygen in Algae Biomass 2 and 3
+  -- Replace liquid air with oxygen in Algae Biomass conversion 2 and 3
   thxbob.lib.recipe.replace_ingredient("bi-fertiliser-1", "nitrogen", "k-nitrogen")
   thxbob.lib.recipe.replace_ingredient("bi-fertiliser-2", "nitrogen", "k-nitrogen")
 
@@ -237,7 +257,7 @@ end
 
 -- Krastorio2
 if mods["Krastorio2"] then
-  -- Replace liquid air with oxygen in Algae Biomass 2 and 3
+  -- Replace liquid air with oxygen in Algae Biomass conversion 2 and 3
   thxbob.lib.recipe.replace_ingredient("bi-biomass-2", "liquid-air", "oxygen")
   thxbob.lib.recipe.replace_ingredient("bi-biomass-3", "liquid-air", "oxygen")
 end
@@ -325,6 +345,7 @@ if data.raw.item["wooden-board"] and mods["bobelectronics"] then
     {
       type = "recipe",
       name = "bi-press-wood",
+      localised_name = {"recipe-name.bi-press-wood"},
       icon = ICONPATH .. "bi_wooden_board.png",
       icon_size = 64,
       icons = {
@@ -429,4 +450,11 @@ BioInd.writeDebug("Using Krastorio icon …")
   -- Add recipe to technology
 BioInd.writeDebug("Add unlock for recipe bi-sand")
   thxbob.lib.tech.add_recipe_unlock("steel-processing", "bi-sand")
+
+  -- Use alternative descriptions for stone crusher!
+BioInd.writeDebug("Using alternative descriptions for \"bi-stone-crusher\"!")
+  for _, t in ipairs({"furnace", "item", "recipe"}) do
+    data.raw[t]["bi-stone-crusher"].localised_description =
+      {"entity-description.bi-stone-crusher-sand"}
+  end
 end

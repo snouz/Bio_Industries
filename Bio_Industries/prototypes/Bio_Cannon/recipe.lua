@@ -8,7 +8,8 @@ if BI.Settings.Bio_Cannon then
    {
     type = "recipe",
     name = "bi-bio-cannon",
-
+    localised_name = {"entity-name.bi-bio-cannon"},
+    localised_description = {"entity-description.bi-bio.cannon"},
     normal = {
         enabled = false,
         energy_required = 50,

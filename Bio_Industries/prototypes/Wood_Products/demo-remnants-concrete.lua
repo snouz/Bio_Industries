@@ -20,6 +20,8 @@ data:extend(
   {
     type = "rail-remnants",
     name = "straight-rail-remnants",
+    localised_name = {"entity-name.rail-remnants"},
+    localised_description = {"entity_description.rail-remnants"},
     icon = ICONPATH .. "straight-rail-remnants.png",
     icon_size = BIGICONS and 64 or 32,
     icons = {
@@ -45,6 +47,8 @@ data:extend(
   {
     type = "rail-remnants",
     name = "curved-rail-remnants",
+    localised_name = {"entity-name.rail-remnants"},
+    localised_description = {"entity_description.rail-remnants"},
     icon = ICONPATH .. "curved-rail-remnants.png",
     icon_size = BIGICONS and 64 or 32,
     icons = {

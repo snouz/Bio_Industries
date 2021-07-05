@@ -101,10 +101,10 @@ data:extend({
         type = "unlock-recipe",
         recipe = "bi-wood-fuel-brick"
       },
-      {
-        type = "unlock-recipe",
-        recipe = "bi-solid-fuel"
-      },
+      --~ {
+        --~ type = "unlock-recipe",
+        --~ recipe = "bi-solid-fuel"
+      --~ },
       {
         type = "unlock-recipe",
         recipe = "bi-seed-2"
@@ -117,10 +117,10 @@ data:extend({
         type = "unlock-recipe",
         recipe = "bi-logs-2"
       },
-      {
-        type = "unlock-recipe",
-        recipe = "bi-stone-brick"
-      },
+      --~ {
+        --~ type = "unlock-recipe",
+        --~ recipe = "bi-stone-brick"
+      --~ },
       {
         type = "unlock-recipe",
         recipe = "bi-cokery"
@@ -158,6 +158,15 @@ data:extend({
       {
         type = "unlock-recipe",
         recipe = "bi-pellet-coke"
+      },
+      -- Moved here from "bi-tech-coal-processing-1" (0.18.29):
+      {
+        type = "unlock-recipe",
+        recipe = "bi-solid-fuel"
+      },
+      {
+        type = "unlock-recipe",
+        recipe = "bi-stone-brick"
       },
     },
     --~ prerequisites = {"bi-tech-coal-processing-1"},

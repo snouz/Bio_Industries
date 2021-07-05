@@ -18,19 +18,18 @@ local function remove_entity(surface, data)
     name = name,
     type = type,
   }
-  BioInd.writeDebug("Found " .. tostring(#surface_entities) .. " " .. desc .. "s.")
+  --~ BioInd.writeDebug("Found " .. tostring(#surface_entities) .. " " .. desc .. "s.")
 
   -- Check against entities in list
   for index, entity in pairs(surface_entities) do
-    BioInd.writeDebug(tostring(index) .. ": Looking for " .. desc .. " " .. tostring(entity.unit_number) .. ".")
+    BioInd.writeDebug("%g: Looking for %s: %s.", {index, desc, entity.unit_number})
 
     local match = false
     for _a, arboretum in pairs(global.Arboretum_Table) do
-    --~ BioInd.writeDebug("arboretum: " .. serpent.block(arboretum))
+    --~ BioInd.writeDebug("arboretum: %s", {arboretum})
       if entity == arboretum[name_in_table] then
-        BioInd.writeDebug("The " .. desc .. " " .. tostring(entity.unit_number) ..
-                          " belongs to arboretum/terraformer " .. tostring(_a) .. "!")
-        match = true
+        BioInd.writeDebug("The %s (%g) belongs to arboretum/terraformer %g!", {desc, entity.unit_number, _a})
+        match = trueentity.unit_number
         break
       end
     end
@@ -54,7 +53,7 @@ if global.Arboretum_Table then
   for index, arboretum in pairs(global.Arboretum_Table) do
       local entity = arboretum.inventory
 
-      BioInd.writeDebug("Arboretum " .. tostring(index) .. " is valid: " .. tostring(entity and entity.valid))
+      BioInd.writeDebug("Arboretum %g is valid: %s", {index, entity and entity.valid})
       if not entity.valid then
         global.Arboretum_Table[index] = nil
         count = count + 1
@@ -67,8 +66,7 @@ if global.Arboretum_Table then
   ------------------------------------------------------------------------------------
   -- Check for left-over entities from moved/removed arboretums/terraformers
   for index, surface in pairs(game.surfaces) do
-    BioInd.writeDebug("Looking for left-over hidden entities from moved/removed terraformers on " ..
-                      surface.name .. ".")
+    BioInd.writeDebug("Looking for left-over hidden entities from moved/removed terraformers on %s.", {surface.name})
 
     for _, entity in pairs({
       {"bi-arboretum-radar", "radar", "radar"},

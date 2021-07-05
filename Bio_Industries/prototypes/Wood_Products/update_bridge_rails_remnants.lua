@@ -4,6 +4,9 @@ local ICONPATH = BioInd.modRoot .. "/graphics/entities/wood_products/rails/remna
 local PIX
 
 local rails_c_remnants = data.raw["rail-remnants"]["straight-rail-remnants-wood-bridge"]
+rails_c_remnants.localised_name = {"entity-name.rail-remnants-wood-bridge"}
+rails_c_remnants.localised_description = {"entity-description.rail-remnants-wood-bridge"}
+
 PIX = rails_c_remnants.pictures
 
 PIX.straight_rail_horizontal.stone_path_background.filename = ICONPATH ..  "remnants.png"
@@ -35,6 +38,8 @@ PIX.straight_rail_diagonal_left_bottom.stone_path.hr_version.filename = ICONPATH
 
 
 local rails_curved_c_remnants = data.raw["rail-remnants"]["curved-rail-remnants-wood-bridge"]
+rails_curved_c_remnants.localised_name = {"entity-name.rail-remnants-wood-bridge"}
+rails_curved_c_remnants.localised_description = {"entity-description.rail-remnants-wood-bridge"}
 PIX = rails_curved_c_remnants.pictures
 
 PIX.curved_rail_vertical_left_top.stone_path_background.filename = ICONPATH ..  "remnants.png"

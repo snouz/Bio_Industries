@@ -106,11 +106,12 @@ end
 ---- Game Tweaks ---- Disassemble Recipes
 require("prototypes.Bio_Tweaks.recipe")
 if BI.Settings.BI_Game_Tweaks_Disassemble then
-  for tech, recipe in pairs({
-    ["advanced-material-processing"] = "bi-steel-furnace-disassemble",
-    ["automation-2"] = "bi-burner-mining-drill-disassemble",
-    ["automation-2"] = "bi-stone-furnace-disassemble",
-    ["automation-2"] = "bi-burner-inserter-disassemble",
+  for recipe, tech in pairs({
+    ["bi-burner-mining-drill-disassemble"] = "automation-2",
+    ["bi-burner-inserter-disassemble"] = "automation-2",
+    ["bi-long-handed-inserter-disassemble"] = "automation-2",
+    ["bi-stone-furnace-disassemble"] = "automation-2",
+    ["bi-steel-furnace-disassemble"] = "advanced-material-processing",
   }) do
     thxbob.lib.tech.add_recipe_unlock(tech, recipe)
   end

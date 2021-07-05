@@ -40,6 +40,8 @@ data:extend(
   {
     type = "item",
     name = "seedling",
+    localised_name = {"entity-name.seedling"},
+    localised_description = {"entity-description.seedling"},
     icon = ICONPATH .. "Seedling.png",
     icon_size = 64,
     icons = {
@@ -81,6 +83,8 @@ data:extend(
   {
     type= "item",
     name= "bi-bio-farm",
+    localised_name = {"entity-name.bi-bio-farm"},
+    localised_description = {"entity-description.bi-bio-farm"},
     icon = ICONPATH .. "Bio_Farm_Icon.png",
     icon_size = 64,
     icons = {
@@ -99,6 +103,8 @@ data:extend(
   {
     type= "item",
     name= "bi-bio-greenhouse",
+    localised_name = {"entity-name.bi-bio-greenhouse"},
+    localised_description = {"entity-description.bi-bio-greenhouse"},
     icon = ICONPATH .. "bio_greenhouse.png",
     icon_size = 64,
     icons = {
@@ -135,6 +141,8 @@ data:extend(
   {
     type = "item",
     name = "bi-stone-crusher",
+    localised_name = {"entity-name.bi-stone-crusher"},
+    localised_description = {"entity-description.bi-stone-crusher"},
     icon = ICONPATH .. "stone_crusher.png",
     icon_size = 64,
     icons = {
@@ -524,12 +532,12 @@ if BioInd.AB_tiles() then
       name = "fertiliser",
       icon = ICONPATH .. "fertiliser_64.png",
       icon_size = 64,
-    icons = {
-      {
-        icon = ICONPATH .. "fertiliser_64.png",
-        icon_size = 64,
-      }
-    },
+      icons = {
+        {
+          icon = ICONPATH .. "fertiliser_64.png",
+          icon_size = 64,
+        }
+      },
       subgroup = "intermediate-product",
       order = "b[fertiliser]",
       stack_size = 200,

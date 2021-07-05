@@ -21,8 +21,7 @@ local type = {
 }
 
 for class, info in pairs(type) do
-   local proto = data.raw[info.prefix]
---BioInd.writeDebug("doing" .. tostring(class) .. " " .. tostring(info.prefix) .. "   " .. tostring(info.dir) .. "    ".. tostring(proto).. "   " )
+  local proto = data.raw[info.prefix]
   data.raw[info.prefix]["bi-" .. info.prefix .. "-wood-bridge"].pictures[class].stone_path.hr_version.filename = ICONPATH .. info.prefix .. "-bridge/hr-" .. info.prefix .. "-" .. info.dir .. "-stone-path.png"
   data.raw[info.prefix]["bi-" .. info.prefix .. "-wood-bridge"].pictures[class].stone_path_background.hr_version.filename = ICONPATH .. info.prefix .. "-bridge/hr-" .. info.prefix .. "-" .. info.dir .. "-stone-path-background.png"
   data.raw[info.prefix]["bi-" .. info.prefix .. "-wood-bridge"].pictures[class].stone_path.filename = ICONPATH ..info.prefix .. "-bridge/" .. info.prefix .. "-" .. info.dir .. "-stone-path.png"

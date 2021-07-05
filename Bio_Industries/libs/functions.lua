@@ -56,7 +56,7 @@ function thxbob.lib.result_check(object)
     end
 
   else
-    BioInd.writeDebug(tostring(object) .. " does not exist.")
+    BioInd.writeDebug("%s does not exist.", {object})
   end
 end
 

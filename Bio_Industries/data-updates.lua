@@ -434,16 +434,24 @@ end
 require("prototypes.Bio_Farm.compatible_recipes") -- Bob and Angels mesh
 require("prototypes.Bio_Farm.technology2")
 
-if BI.Settings.BI_Bio_Fuel or mods["Natural_Evolution_Buildings"] then
-  thxbob.lib.tech.add_recipe_unlock("bi-tech-advanced-biotechnology", "bi-purified-air-2")
-end
+
+-- Changed for 0.18.29: We always have advanced fertilizer now, so we can unlock this
+-- recipe even if BI.Settings.BI_Bio_Fuel has been turned off!
+--~ if BI.Settings.BI_Bio_Fuel or mods["Natural_Evolution_Buildings"] then
+  --~ thxbob.lib.tech.add_recipe_unlock("bi-tech-advanced-biotechnology", "bi-purified-air-2")
+--~ end
 
 -- Adds Bio recipes
 if BI.Settings.BI_Bio_Fuel then
-  thxbob.lib.tech.add_recipe_unlock("bi-tech-advanced-biotechnology", "bi-bio-reactor")
+  --~ thxbob.lib.tech.add_recipe_unlock("bi-tech-advanced-biotechnology", "bi-bio-reactor")
   thxbob.lib.tech.add_recipe_unlock("bi-tech-advanced-biotechnology", "bi-cellulose-1")
   thxbob.lib.tech.add_recipe_unlock("bi-tech-advanced-biotechnology", "bi-cellulose-2")
+
+  -- Remove unlock for biomass-1 and add it again so all biomass recipes are next to each
+  -- other in the preview of technology unlocks!
+  thxbob.lib.tech.remove_recipe_unlock("bi-tech-advanced-biotechnology", "bi-biomass-1")
   thxbob.lib.tech.add_recipe_unlock("bi-tech-advanced-biotechnology", "bi-biomass-1")
+
   thxbob.lib.tech.add_recipe_unlock("bi-tech-advanced-biotechnology", "bi-biomass-2")
   thxbob.lib.tech.add_recipe_unlock("bi-tech-advanced-biotechnology", "bi-biomass-3")
   thxbob.lib.tech.add_recipe_unlock("bi-tech-advanced-biotechnology", "bi-battery")
@@ -454,8 +462,9 @@ if BI.Settings.BI_Bio_Fuel then
   thxbob.lib.tech.add_recipe_unlock("bi-tech-advanced-biotechnology", "bi-acid")
   thxbob.lib.tech.add_recipe_unlock("bi-tech-advanced-biotechnology", "bi-bio-boiler")
 
-  -- Added for 0.17.49/0.18.17
-  thxbob.lib.tech.add_recipe_unlock("bi-tech-coal-processing-1", "bi-basic-gas-processing")
+  -- Added for 0.17.49/0.18.17 (changed for 0.18.29)
+  --~ thxbob.lib.tech.add_recipe_unlock("bi-tech-coal-processing-1", "bi-basic-gas-processing")
+  thxbob.lib.tech.add_recipe_unlock("bi-tech-coal-processing-2", "bi-basic-gas-processing")
 
   -- Blacklist bioreactor in Assembler Pipe Passthrough
   if mods["assembler-pipe-passthrough"] then
@@ -467,8 +476,8 @@ if BI.Settings.BI_Bio_Fuel then
   else
     thxbob.lib.tech.add_recipe_unlock("bi-tech-advanced-biotechnology", "bi-sulfur")
   end
-  thxbob.lib.recipe.add_new_ingredient("bi-adv-fertiliser-1", {type = "fluid", name = "bi-biomass", amount = 10})
-  thxbob.lib.recipe.add_new_ingredient("bi-adv-fertiliser-2", {type = "fluid", name = "bi-biomass", amount = 10})
+  --~ thxbob.lib.recipe.add_new_ingredient("bi-adv-fertiliser-1", {type = "fluid", name = "bi-biomass", amount = 10})
+  --~ thxbob.lib.recipe.add_new_ingredient("bi-adv-fertiliser-2", {type = "fluid", name = "bi-biomass", amount = 10})
 else
   thxbob.lib.recipe.add_new_ingredient("bi-adv-fertiliser-1", {type = "item", name = "fertiliser", amount = 50})
   thxbob.lib.recipe.remove_ingredient ("bi-adv-fertiliser-2", "fertiliser")

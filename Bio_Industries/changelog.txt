@@ -1,4 +1,52 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.18.29
+Date: 2020-11-30
+  Uploaded by:
+    - Pi-C
+
+  Bugfixes:
+    - Fixed that some disassembling recipes were not available.
+    - Fixed crash with an old migration script. (https://mods.factorio.com/mod/Bio_Industries/discussion/5f5f4f358985e0b8e5ba5115)
+    - Removed obsolete "per_user = false" attribute from settings. :-) (https://forums.factorio.com/viewtopic.php?p=305644#p305644)
+    - Fixed that we didn't reload technologies when the configuration changed. Thus, an alternative recipe we've added for another mod would remain in the game (and be useless) even after that mod had been removed.
+    - Fixed that compound entities (bio farm, cannon, powered rails etc.) placed by "Construction Drones" and similar mods reviving ghosts didn't work.  (https://mods.factorio.com/mod/Bio_Industries/discussion/5f824c45b1a1a0637d24d056)
+
+  Changes:
+    - Moved recipes "Solid fuel from wood bricks", "Bio stone brick", and "Basic gas processing" from "Coal processing 1" to "Coal processing 2". These recipes can only be used in chemical plants, which are guaranteed to be available when "Coal processing 2" is researched. Also, the move gives an incentive to really use wooden bricks as fuel instead of converting them to solid fuel almost immediately.
+    - Rearranged settings and unified/shortened setting names.
+    - Inverted setting: "Hide electric grid overlay" for Musk floor is now "Enable: Electric grid overlay". This way, it blends in with the other settings.
+    - Changed debugging routines so that debugging output is only formatted if debugging is activated. This should make the mod a bit more performant.
+    - The recipe for advanced fertilizer was only unlocked if Bio Fuels were enabled per startup setting. Advanced fertilizer (as well as the bioreactor and the basic recipe for algae biomass) will always be available now, regardless of this setting. (https://mods.factorio.com/mod/Bio_Industries/discussion/5ec7ff6cbe5352000eb8f875)
+
+  Graphics:
+    - Made new battery icon so it's in sync with the vanilla icon again.
+    - Gave all graphics the "optipng" treatment.
+    - TheSAguy provided alternative icons for use with the recipes "Bio-mass conversion 2" and "Basic gas processing" if "Angel's Petro Chemical Processing" is active.
+
+  Localization:
+    - Completely reworked localization -- no need to translate everything, using crossreferences is way easier! Also, the new descriptions should explain some things that many players apparently didn't understand.
+    - Removed some obsolete strings.
+    - Added German locale. Thanks to Tobilike! (https://forums.factorio.com/viewtopic.php?p=508622#p508622)
+    - Fixed some typos in the English localization.
+    - I've cleaned up the Russian localization by removing obsolete strings and adding placeholders for new ones. This should make work easier for translators. However, I don't speak Russian, so it would be best if somebody would look over all strings again and update them!
+
+  Modding:
+    - Added support for "Lua API global Variable Viewer (gvv)" by x2605. If that mod is active, you can inspect the global table of this mod at runtime -- just enter "/gvv" at the console, it's quite useful for debugging! (https://mods.factorio.com/mod/gvv)
+
+  TODO:
+    - Compatibility with "Tree growth: Scaled trees." (https://mods.factorio.com/mod/Bio_Industries/discussion/5e7cd3f3304f21000db9542c)
+    - Add an alternative way to produce plastic without fluids. (https://mods.factorio.com/mod/Bio_Industries/discussion/5e3f5fadc359e6000d54cfb2)
+    - Add Big gardens for absorbing more pollution. (https://mods.factorio.com/mod/Bio_Industries/discussion/5f318f69f3644760ee6d001e)
+    - Add "fluid fertilizer" (fertilizer + water) as alternative to the existing fertilizer. (https://mods.factorio.com/mod/Bio_Industries/discussion/5f318f69f3644760ee6d001e)
+    - Make algae grow on water to contain pollution there. (https://mods.factorio.com/mod/Bio_Industries/discussion/5f07bed0b6dcd7af988b9fb0)
+    - Just an idea: Wood harvesters like they used to be in <https://mods.factorio.com/mod/WoodHarvester>. Could harvest (only) fully grown trees planted by terraformers, and output "trees" that would have to be processed by a sawmill to make wood and wood pulp. Bio farms would also output "trees". The current bio farms already look a bit like a sawmill, so use the current pix for it and get new ones for the bio farm! This would also solve a problem with the German translation: A "Baumschule" is a tree nursery -- it's just for growing trees, not for processing them!
+    - Add tar recipe if tar is available in the game.
+    - Activate new Bio-Cannon (0.18.33 version)
+    - control-arboretum.lua contains almost-duplicate functions (with/without water). As these are quite long, combine them and remove one copy!
+
+
+
+---------------------------------------------------------------------------------------------------
 Version: 0.18.28
 Date: 2020-08-14
   Uploaded by:
@@ -9,13 +57,6 @@ Date: 2020-08-14
 
   Bugfixes:
     - Fixed crash in migration script if a bio-reactor had no recipe set. (https://mods.factorio.com/mod/Bio_Industries/discussion/5f36deb43b315081c5dd4496)
-
-  TODO:
-    - Compatibility with "Tree growth: Scaled trees." (https://mods.factorio.com/mod/Bio_Industries/discussion/5e7cd3f3304f21000db9542c)
-    - Add an alternative way to produce plastic without fluids. (https://mods.factorio.com/mod/Bio_Industries/discussion/5e3f5fadc359e6000d54cfb2)
-    - Add Big gardens for absorbing more pollution. (https://mods.factorio.com/mod/Bio_Industries/discussion/5f318f69f3644760ee6d001e)
-    - Add "fluid fertilizer" (fertilizer + water) as alternative to the existing fertilizer. (https://mods.factorio.com/mod/Bio_Industries/discussion/5f318f69f3644760ee6d001e)
-    - Make algae grow on water to contain pollution there. (https://mods.factorio.com/mod/Bio_Industries/discussion/5f07bed0b6dcd7af988b9fb0)
 
 ---------------------------------------------------------------------------------------------------
 Version: 0.18.27

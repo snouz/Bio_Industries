@@ -106,18 +106,16 @@ end
 ---- Game Tweaks ---- Disassemble Recipes
 require("prototypes.Bio_Tweaks.recipe")
 if BI.Settings.BI_Game_Tweaks_Disassemble then
-  for tech, recipe in pairs({
-    ["advanced-material-processing"] = "bi-steel-furnace-disassemble",
-    ["automation-2"] = "bi-burner-mining-drill-disassemble",
-    ["automation-2"] = "bi-stone-furnace-disassemble",
-    ["automation-2"] = "bi-burner-inserter-disassemble",
+  for recipe, tech in pairs({
+    ["bi-burner-mining-drill-disassemble"] = "automation-2",
+    ["bi-burner-inserter-disassemble"] = "automation-2",
+    ["bi-long-handed-inserter-disassemble"] = "automation-2",
+    ["bi-stone-furnace-disassemble"] = "automation-2",
+    ["bi-steel-furnace-disassemble"] = "advanced-material-processing",
   }) do
     thxbob.lib.tech.add_recipe_unlock(tech, recipe)
   end
 
-  if data.raw.item["bi-burner-pump"] then
-    thxbob.lib.tech.add_recipe_unlock("automation-2", "bi-basic-pumpjack-disassemble")
-  end
 end
 
 ---- Game Tweaks ---- Production science pack recipe
@@ -244,12 +242,12 @@ if mods["Krastorio2"] then
     "bi-seed", "seedling", "water",
   }
   for _, recipe in pairs(data.raw.recipe) do
-    BioInd.writeDebug("Recipe has \"mod\" property: " .. tostring(recipe.mod and true or false))
+    BioInd.writeDebug("Recipe has \"mod\" property: %s", {recipe.mod and true or false})
     if recipe.mod == "Bio_Industries" then
       krastorio.recipes.multiplyIngredients(recipe.name, update, 4)
       krastorio.recipes.multiplyProducts(recipe.name, update, 4)
-      BioInd.writeDebug("Changed ingredients for " .. tostring(recipe.name) .. ": " .. serpent.block(recipe.ingredients))
-      BioInd.writeDebug("Changed results for " .. tostring(recipe.name) .. ": " .. serpent.block(recipe.results))
+      BioInd.writeDebug("Changed ingredients for %s: %s", {recipe.name, recipe.ingredients})
+      BioInd.writeDebug("Changed results for %s: %s", {recipe.name, recipe.results})
     end
   end
 

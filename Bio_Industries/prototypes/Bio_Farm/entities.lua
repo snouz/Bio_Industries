@@ -85,6 +85,8 @@ data:extend({
   {
     type = "simple-entity-with-force",
     name = "seedling",
+    localised_name = {"entity-name.seedling"},
+    localised_description = {"entity-description.seedling"},
     icon = ICONPATH .. "Seedling.png",
     icon_size = 64,
     icons = {
@@ -127,6 +129,8 @@ data:extend({
   {
     type = "simple-entity-with-force",
     name = "seedling-2",
+    localised_name = {"entity-name.seedling"},
+    localised_description = {"entity-description.seedling"},
     icon = ICONPATH .. "Seedling.png",
     icon_size = 64,
     icons = {
@@ -168,6 +172,8 @@ data:extend({
   {
     type = "simple-entity-with-force",
     name = "seedling-3",
+    localised_name = {"entity-name.seedling"},
+    localised_description = {"entity-description.seedling"},
     icon = ICONPATH .. "Seedling.png",
     icon_size = 64,
     icons = {
@@ -900,6 +906,8 @@ data:extend({
   {
     type = "radar",
     name = "bi-arboretum-radar",
+    localised_name = {"entity-name.bi-arboretum"},
+    localised_description = {"entity-description.bi-arboretum"},
     icon = ICONPATH .. "Arboretum_Icon.png",
     icon_size = 64,
     icons = {
@@ -966,6 +974,8 @@ data:extend({
   {
     type = "ammo-turret",
     name = "bi-arboretum-area",
+    localised_name = {"entity-name.bi-arboretum"},
+    localised_description = {"entity-description.bi-arboretum"},
     icon = ICONPATH .. "Arboretum_Icon.png",
     icon_size = 64,
     icons = {
@@ -1091,7 +1101,9 @@ data:extend({
 
 local my_pole_1 = util.table.deepcopy(data.raw["electric-pole"]["bi-bio-farm-electric-pole"])
 my_pole_1.name = "bi-hidden-power-pole"
-my_pole_1.draw_copper_wires = false
+--~ my_pole_1.draw_copper_wires = false
+my_pole_1.draw_copper_wires = BioInd.is_debug
+my_pole_1.pictures = BioInd.is_debug and data.raw["electric-pole"]["small-electric-pole"].pictures  or my_pole_1.pictures
 data:extend({my_pole_1})
 
 --[[

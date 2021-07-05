@@ -930,6 +930,8 @@ data:extend({
   {
     type = "straight-rail",
     name = "bi-straight-rail-wood",
+    localised_name = {"entity-name.bi-rail-wood"},
+    localised_description = {"entity-description.bi-rail-wood"},
     icon = ICONPATH .. "straight-rail-wood.png",
     icon_size = 64,
     icons = {
@@ -973,6 +975,8 @@ data:extend({
   {
     type = "curved-rail",
     name = "bi-curved-rail-wood",
+    localised_name = {"entity-name.bi-rail-wood"},
+    localised_description = {"entity-description.bi-rail-wood"},
     icon = ICONPATH .. "curved-rail-wood.png",
     icon_size = 64,
     icons = {
@@ -1016,6 +1020,8 @@ data:extend({
   {
     type = "straight-rail",
     name = "bi-straight-rail-wood-bridge",
+    localised_name = {"entity-name.bi-rail-wood-bridge"},
+    localised_description = {"entity-description.bi-rail-wood-bridge"},
     icon = ICONPATH .. "straight-rail-wood.png",
     icon_size = 64,
     icons = {
@@ -1044,6 +1050,8 @@ data:extend({
   {
     type = "curved-rail",
     name = "bi-curved-rail-wood-bridge",
+    localised_name = {"entity-name.bi-rail-wood-bridge"},
+    localised_description = {"entity-description.bi-rail-wood-bridge"},
     icon = ICONPATH .. "rail-wood.png",
     icon_size = 64,
     icons = {
@@ -1078,6 +1086,8 @@ data:extend({
   {
     type = "straight-rail",
     name = "bi-straight-rail-power",
+    localised_name = {"entity-name.bi-rail-power"},
+    localised_description = {"entity-description.bi-rail-power"},
     icon = ICONPATH .. "rail-concrete-power.png",
     icon_size = 64,
     icons = {
@@ -1109,6 +1119,8 @@ data:extend({
     type = "curved-rail",
     name = "bi-curved-rail-power",
     icon = ICONPATH .. "rail-concrete-power.png",
+    localised_name = {"entity-name.bi-rail-power"},
+    localised_description = {"entity-description.bi-rail-power"},
     icon_size = 64,
     icons = {
       {

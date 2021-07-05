@@ -9,6 +9,8 @@ data:extend({
   {
     type = "recipe",
     name = "bi-bio-garden",
+    localised_name = {"entity-name.bi-bio-garden"},
+    localised_description = {"entity-description.bi-bio-garden"},
     icon = ICONPATH .. "bio_garden_icon.png",
     icon_size = 64,
     icons = {
@@ -42,8 +44,8 @@ data:extend({
   {
     type = "recipe",
     name = "bi-purified-air-1",
-    localised_name = {"recipe-name.bi-purified-air-1"},
-    localised_description = {"recipe-description.bi-purified-air-1"},
+    --~ localised_name = {"recipe-name.bi-purified-air-1"},
+    --~ localised_description = {"recipe-description.bi-purified-air-1"},
     icon = ICONPATH .. "clean-air_mk1.png",
     icon_size = 64,
     icons = {
@@ -75,8 +77,8 @@ data:extend({
   {
     type = "recipe",
     name = "bi-purified-air-2",
-    localised_name = {"recipe-name.bi-purified-air-2"},
-    localised_description = {"recipe-description.bi-purified-air-2"},
+    --~ localised_name = {"recipe-name.bi-purified-air-2"},
+    --~ localised_description = {"recipe-description.bi-purified-air-2"},
     icon = ICONPATH .. "clean-air_mk2.png",
     icon_size = 64,
     icons = {

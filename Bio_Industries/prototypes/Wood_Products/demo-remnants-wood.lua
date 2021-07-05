@@ -18,6 +18,8 @@ data:extend(
   {
     type = "rail-remnants",
     name = "straight-rail-remnants-wood",
+    localised_name = {"entity-name.rail-remnants-wood"},
+    localised_description = {"entity_description.rail-remnants-wood"},
     icon = ICONPATH .. "straight-rail-remnants.png",
     icon_size = BIGICONS and 64 or 32,
     icons = {
@@ -43,6 +45,8 @@ data:extend(
   {
     type = "rail-remnants",
     name = "curved-rail-remnants-wood",
+    localised_name = {"entity-name.rail-remnants-wood"},
+    localised_description = {"entity_description.rail-remnants-wood"},
     icon = ICONPATH .. "curved-rail-remnants.png",
     icon_size = BIGICONS and 64 or 32,
     icons = {
@@ -70,6 +74,8 @@ data:extend(
   {
     type = "rail-remnants",
     name = "straight-rail-remnants-wood-bridge",
+    localised_name = {"entity-name.rail-remnants-wood-bridge"},
+    localised_description = {"entity_description.rail-remnants-wood-bridge"},
     icon = ICONPATH .. "straight-rail-remnants.png",
     icon_size = BIGICONS and 64 or 32,
     icons = {
@@ -95,6 +101,8 @@ data:extend(
   {
     type = "rail-remnants",
     name = "curved-rail-remnants-wood-bridge",
+    localised_name = {"entity-name.rail-remnants-wood-bridge"},
+    localised_description = {"entity_description.rail-remnants-wood-bridge"},
     icon = ICONPATH .. "curved-rail-remnants.png",
     icon_size = BIGICONS and 64 or 32,
     icons = {

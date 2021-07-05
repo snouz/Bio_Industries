@@ -205,6 +205,8 @@ data:extend({
   {
     type = "electric-pole",
     name = "bi-large-substation",
+    localised_name = {"entity-name.bi-large-substation"},
+    localised_description = {"entity-description.bi-large-substation"},
     icon = ICONPATH .. "bi_LargeSubstation_icon.png",
     icon_size = 64,
     icons = {
@@ -276,6 +278,8 @@ data:extend({
   {
     type = "tile",
     name = "bi-solar-mat",
+    localised_name = {"entity-name.bi-solar-mat"},
+    localised_description = {"entity-description.bi-solar-mat"},
     icon = ICONPATH .. "solar-mat.png",
     icon_size = 64,
     icons = {
@@ -380,7 +384,10 @@ data:extend({
     supply_area_distance = 3,
     pictures = {
       --~ filename = ICONPATH .. "empty.png",
-      filename = "__base__/graphics/icons/small-electric-pole.png",
+      --~ filename = "__base__/graphics/icons/small-electric-pole.png",
+      filename = BioInd.is_debug and
+        "__base__/graphics/icons/small-electric-pole.png" or
+        ICONPATH .. "empty.png",
       priority = "low",
       width = 1,
       height = 1,
@@ -471,6 +478,8 @@ data:extend({
   {
     type = "solar-panel",
     name = "bi-solar-boiler-panel",
+    localised_name = {"entity-name.bi-solar-boiler"},
+    localised_description = {"entity-description.bi-solar-boiler"},
     icon = ICONPATH .. "Bio_Solar_Boiler_Panel_Icon.png",
     icon_size = 64,
     icons = {

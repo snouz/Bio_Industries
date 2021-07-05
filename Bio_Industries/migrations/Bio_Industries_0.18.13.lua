@@ -20,7 +20,7 @@ if global.bi_solar_boiler_table then
   for index, solar_boiler in pairs(global.bi_solar_boiler_table) do
     -- Remove invalid solar boilers from list
     if not solar_boiler.base.valid then
-      BioInd.writeDebug("Removing invalid solar boiler " .. tostring(index) .. " from global list.")
+      BioInd.writeDebug("Removing invalid solar boiler %g from global list.",  {index})
       if solar_boiler.boiler.valid then
         solar_boiler.boiler.destroy()
       end
@@ -31,7 +31,7 @@ if global.bi_solar_boiler_table then
 
     -- Restore hidden power pole if necessary
     elseif not solar_boiler.pole.valid then
-      BioInd.writeDebug("Creating new hidden power pole for solar boiler " .. tostring(index) .. ".")
+      BioInd.writeDebug("Creating new hidden power pole for solar boiler %g.", {index})
       global.bi_solar_boiler_table[index].pole = solar_boiler.base.surface.create_entity({
         name = pole_name,
         position = solar_boiler.base.position,
@@ -54,7 +54,7 @@ if global.bi_solar_farm_table then
   for index, solar_farm in pairs(global.bi_solar_farm_table) do
     -- Remove invalid solar boilers from list
     if not solar_farm.base.valid then
-      BioInd.writeDebug("Removing invalid solar farm " .. tostring(index) .. " from global list.")
+      BioInd.writeDebug("Removing invalid solar farm %g from global list.", {index})
       if solar_farm.pole.valid then
         solar_farm.pole.destroy()
       end
@@ -62,7 +62,7 @@ if global.bi_solar_farm_table then
 
     -- Restore hidden power pole if necessary
     elseif not solar_farm.pole.valid then
-      BioInd.writeDebug("Creating new hidden power pole for solar farm " .. tostring(index) .. ".")
+      BioInd.writeDebug("Creating new hidden power pole for solar farm %g.", {index})
       --~ local new_pole = solar_farm.base.surface.create_entity({
       global.bi_solar_farm_table[index].pole = solar_farm.base.surface.create_entity({
         name = pole_name,
@@ -87,7 +87,7 @@ if global.bi_bio_farm_table then
   for index, bio_farm in pairs(global.bi_bio_farm_table) do
     -- Remove invalid solar boilers from list
     if not bio_farm.base.valid then
-      BioInd.writeDebug("Removing invalid solar farm " .. tostring(index) .. " from global list.")
+      BioInd.writeDebug("Removing invalid solar farm %g from global list.", {index})
       if bio_farm.pole.valid then
         bio_farm.pole.destroy()
       end
@@ -103,7 +103,7 @@ if global.bi_bio_farm_table then
     else
       -- Restore hidden power pole
       if not bio_farm.pole.valid then
-        BioInd.writeDebug("Creating new hidden power pole for solar farm " .. tostring(index) .. ".")
+        BioInd.writeDebug("Creating new hidden power pole for solar farm %g.", {index})
         --~ local new_pole = bio_farm.base.surface.create_entity({
         global.bi_bio_farm_table[index].pole = bio_farm.base.surface.create_entity({
           name = pole_name,
@@ -115,7 +115,7 @@ if global.bi_bio_farm_table then
       end
       -- Restore hidden lamp
       if not bio_farm.lamp.valid then
-        BioInd.writeDebug("Creating new hidden lamp for solar farm " .. tostring(index) .. ".")
+        BioInd.writeDebug("Creating new hidden lamp for solar farm %g.", {index})
         --~ local new_lamp = bio_farm.base.surface.create_entity({
         global.bi_bio_farm_table[index].lamp = bio_farm.base.surface.create_entity({
           name = lamp_name,

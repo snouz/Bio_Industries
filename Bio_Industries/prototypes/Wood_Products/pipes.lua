@@ -141,7 +141,6 @@ function change_graphics (was_picture, sheet_element, quality)
   local picture = {}
   local k = 1
   if not sheet_element.shift then sheet_element.shift = {x= 0, y= 0} end
-  ----BioInd.writeDebug(serpent.block(was_picture, {comment = false}))
   if (quality == "hq") and (was_picture.hr_version) then
     --BioInd.writeDebug("hq")
     picture = was_picture.hr_version
@@ -151,7 +150,7 @@ function change_graphics (was_picture, sheet_element, quality)
     picture = was_picture
     k = 1
   end
-  --BioInd.writeDebug(tostring(sheet_element.number) .. " Quality = " .. tostring(quality))
+  --BioInd.writeDebug("%s Quality: %s", {sheet_element.number, quality})
 
   if not (picture) then
     return
@@ -167,7 +166,7 @@ function change_graphics (was_picture, sheet_element, quality)
   --picture.shift.y = -8/32 * k * sheet_element.shift.y
   picture.shift.x = -8/32  * sheet_element.shift.x
   picture.shift.y = -8/32  * sheet_element.shift.y
-  --BioInd.writeDebug(tostring(sheet_element.number) .. " Quality = " .. tostring(quality) .. " - Success")
+  --BioInd.writeDebug("%s Quality: %s - Success", {sheet_element.number, quality})
 end
 
 
@@ -177,7 +176,7 @@ local pipe_pictures = data.raw.pipe["bi-wood-pipe"].pictures
 for i, was_picture in pairs (pipe_pictures) do
   for j, sheet_element in pairs (pipes_sheet) do
     if i == j then
-      --BioInd.writeDebug(tostring(i))
+      --BioInd.writeDebug("%s", {i}))
       change_graphics (was_picture, sheet_element, "hq")
       change_graphics (was_picture, sheet_element, "lq")
     end
@@ -190,7 +189,7 @@ local pipe_to_ground_pictures = data.raw["pipe-to-ground"]["bi-wood-pipe-to-grou
 for i, was_picture in pairs (pipe_to_ground_pictures) do
   for j, sheet_element in pairs (pipes_sheet) do
     if i == j then
-      --BioInd.writeDebug(tostring(i))
+      --BioInd.writeDebug("%s", {i})
       change_graphics (was_picture, sheet_element, "hq")
       change_graphics (was_picture, sheet_element, "lq")
     end

@@ -8,6 +8,8 @@ data:extend({
   {
     type = "recipe",
     name = "bi-wooden-pole-big",
+    localised_name = {"entity-name.bi-wooden-pole-big"},
+    localised_description = {"entity-description.bi-wooden-pole-big"},
     icon = ICONPATH .. "big-wooden-pole.png",
     icon_size = 64,
     icons = {
@@ -47,6 +49,8 @@ data:extend({
   {
     type = "recipe",
     name = "bi-wooden-pole-huge",
+    localised_name = {"entity-name.bi-wooden-pole-huge"},
+    localised_description = {"entity-description.bi-wooden-pole-huge"},
     icon = ICONPATH .. "huge-wooden-pole.png",
     icon_size = 64,
     icons = {
@@ -88,6 +92,8 @@ data:extend({
   {
     type = "recipe",
     name = "bi-wooden-fence",
+    localised_name = {"entity-name.bi-wooden-fence"},
+    localised_description = {"entity-description.bi-wooden-fence"},
     icon = ICONPATH .. "wooden-fence.png",
     icon_size = 64,
     icons = {
@@ -124,6 +130,8 @@ data:extend({
   {
     type = "recipe",
     name = "bi-rail-wood",
+    localised_name = {"entity-name.bi-rail-wood"},
+    localised_description = {"entity-description.bi-rail-wood"},
     icon = ICONPATH .. "rail-wood.png",
     icon_size = 64,
     icons = {
@@ -170,6 +178,7 @@ data:extend({
   --- Wooden Rail to Concrete Rail
   {
     type = "recipe",
+    name = "bi-rail-wood-to-concrete",
     icon = ICONPATH .. "rail-wood-to-concrete.png",
     icon_size = 64,
     icons = {
@@ -178,7 +187,6 @@ data:extend({
         icon_size = 64,
       }
     },
-    name = "bi-rail-wood-to-concrete",
     normal = {
       enabled = false,
       ingredients = {
@@ -210,6 +218,9 @@ data:extend({
   --- Wooden Bridge Rail
   {
     type = "recipe",
+    name = "bi-rail-wood-bridge",
+    localised_name = {"entity-name.bi-rail-wood-bridge"},
+    localised_description = {"entity-description.bi-rail-wood-bridge"},
     name = "bi-rail-wood-bridge",
     icon = ICONPATH .. "rail-wood-bridge.png",
     icon_size = 64,
@@ -256,6 +267,8 @@ data:extend({
   {
     type = "recipe",
     name = "bi-rail-power",
+    localised_name = {"entity-name.bi-rail-power"},
+    localised_description = {"entity-description.bi-rail-power"},
     icon = ICONPATH .. "rail-concrete-power.png",
     icon_size = 64,
     icons = {
@@ -296,6 +309,8 @@ data:extend({
   {
     type = "recipe",
     name = "bi-wood-pipe",
+    localised_name = {"entity-name.bi-wood-pipe"},
+    localised_description = {"entity-description.bi-wood-pipe"},
     icon = ICONPATH .. "wood_pipe.png",
     icon_size = 64,
     icons = {
@@ -341,6 +356,8 @@ data:extend({
   {
     type = "recipe",
     name = "bi-wood-pipe-to-ground",
+    localised_name = {"entity-name.bi-wood-pipe-to-ground"},
+    localised_description = {"entity-description.bi-wood-pipe-to-ground"},
     icon = ICONPATH .. "pipe-to-ground-wood.png",
     icon_size = 64,
     icons = {
@@ -381,6 +398,8 @@ data:extend({
   {
     type = "recipe",
     name = "bi-power-to-rail-pole",
+    localised_name = {"entity-name.bi-power-to-rail-pole"},
+    localised_description = {"entity-description.bi-power-to-rail-pole"},
     icon = ICONPATH .. "electric-to-rail.png",
     icon_size = 64,
     icon_mipmaps = 1,
@@ -418,6 +437,8 @@ data:extend({
   {
     type = "recipe",
     name = "bi-wooden-chest-large",
+    localised_name = {"entity-name.bi-wooden-chest-large"},
+    localised_description = {"entity-description.bi-wooden-chest-large"},
     icon = ICONPATH .. "large_wooden_chest_icon.png",
     icon_size = 64,
     icons = {
@@ -462,6 +483,8 @@ data:extend({
   {
     type = "recipe",
     name = "bi-wooden-chest-huge",
+    localised_name = {"entity-name.bi-wooden-chest-huge"},
+    localised_description = {"entity-description.bi-wooden-chest-huge"},
     icon = ICONPATH .. "huge_wooden_chest_icon.png",
     icon_size = 64,
     icons = {
@@ -506,6 +529,8 @@ data:extend({
   {
     type = "recipe",
     name = "bi-wooden-chest-giga",
+    localised_name = {"entity-name.bi-wooden-chest-giga"},
+    localised_description = {"entity-description.bi-wooden-chest-giga"},
     icon = ICONPATH .. "giga_wooden_chest_icon.png",
     icon_size = 64,
     icons = {

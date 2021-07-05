@@ -7,6 +7,8 @@ data:extend({
   {
     type = "recipe",
     name = "bi-dart-magazine-basic",
+    localised_name = {"item-name.bi-dart-magazine-basic"},
+    localised_description = {"item-description.bi-dart-magazine-basic"},
     icon = ICONPATH .. "basic_dart_icon.png",
     icon_size = 64,
     icons = {
@@ -48,6 +50,8 @@ data:extend({
   {
     type = "recipe",
     name = "bi-dart-magazine-standard",
+    localised_name = {"item-name.bi-dart-magazine-standard"},
+    localised_description = {"item-description.bi-dart-magazine-standard"},
     icon = ICONPATH .. "standard_dart_icon.png",
     icon_size = 64,
     icons = {
@@ -88,6 +92,8 @@ data:extend({
   {
     type = "recipe",
     name = "bi-dart-magazine-enhanced",
+    localised_name = {"item-name.bi-dart-magazine-enhanced"},
+    localised_description = {"item-description.bi-dart-magazine-enhanced"},
     icon = ICONPATH .. "enhanced_dart_icon.png",
     icon_size = 64,
     icons = {
@@ -128,6 +134,8 @@ data:extend({
   {
     type = "recipe",
     name = "bi-dart-magazine-poison",
+    localised_name = {"item-name.bi-dart-magazine-poison"},
+    localised_description = {"item-description.bi-dart-magazine-poison"},
     icon = ICONPATH .. "poison_dart_icon.png",
     icon_size = 64,
     icons = {
@@ -168,6 +176,8 @@ data:extend({
   {
     type = "recipe",
     name = "bi-dart-turret",
+    localised_name = {"entity-name.bi-dart-turret"},
+    localised_description = {"entity-description.bi-dart-turret"},
     icon = ICONPATH .. "bio_turret_icon.png",
     icon_size = 64,
     icons = {
@@ -211,6 +221,8 @@ data:extend({
   {
     type = "recipe",
     name = "bi-dart-rifle",
+    localised_name = {"item-name.bi-dart-rifle"},
+    localised_description = {"item-description.bi-dart-rifle"},
     icon = ICONPATH .. "bi_dart_rifle_icon.png",
     icon_size = 64,
     icons = {

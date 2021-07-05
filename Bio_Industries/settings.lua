@@ -1,139 +1,127 @@
 data:extend(
 {
 
-        -- A
+        -- Add/enable stuff
    {
     type = "bool-setting",
     name = "BI_Solar_Additions",
     setting_type = "startup",
     default_value = true,
     order = "a[modifier]-a[Solar_Farm]",
-    per_user = false,
   },
-        -- B
+
   {
     type = "bool-setting",
     name = "BI_Bio_Fuel",
     setting_type = "startup",
     default_value = true,
-    order = "b[modifier]-b[Bio_Fuel]",
-    per_user = false,
+    order = "a[modifier]-b[Bio_Fuel]",
   },
 
-        -- C
   {
     type = "bool-setting",
     name = "BI_Bio_Cannon",
     setting_type = "startup",
     default_value = true,
-    order = "c[modifier]-c[Bio_Cannon]",
-    per_user = false,
+    order = "a[modifier]-c[Bio_Cannon]",
   },
 
-        -- D1
+  {
+    type = "bool-setting",
+    name = "BI_Show_musk_floor_in_mapview",
+    setting_type = "startup",
+    default_value = true,
+    order = "a[modifier]-d[Musk_floor]",
+  },
+
+        -- Game tweaks
   {
     type = "bool-setting",
     name = "BI_Game_Tweaks_Emissions_Multiplier",
     setting_type = "startup",
     default_value = true,
-    order = "d[modifier]-d1[Game_Tweaks]",
+    order = "b[tweaks]-a[Fuel_emission_multiplier]",
     per_user = true,
   },
 
-
-        -- D2
   {
     type = "bool-setting",
     name = "BI_Game_Tweaks_Stack_Size",
     setting_type = "startup",
     default_value = true,
-    order = "d[modifier]-d2[Game_Tweaks]",
-    per_user = false,
+    order = "b[tweaks]-b[Stack_size]",
   },
 
-        -- D3
   {
     type = "bool-setting",
     name = "BI_Game_Tweaks_Recipe",
     setting_type = "startup",
     default_value = true,
-    order = "d[modifier]-d3[Game_Tweaks]",
-    per_user = false,
+    order = "b[tweaks]-c1[Recipe]",
   },
-
-        -- D4
-  {
-    type = "bool-setting",
-    name = "BI_Game_Tweaks_Tree",
-    setting_type = "startup",
-    default_value = true,
-    order = "d[modifier]-d4[Game_Tweaks]",
-    per_user = false,
-  },
-
-        -- D5
-  {
-    type = "bool-setting",
-    name = "BI_Game_Tweaks_Small_Tree_Collisionbox",
-    setting_type = "startup",
-    default_value = true,
-        order = "d[modifier]-d5[Game_Tweaks]",
-    per_user = false,
-  },
-
-        -- D6
   {
     type = "bool-setting",
     name = "BI_Game_Tweaks_Disassemble",
     setting_type = "startup",
     default_value = true,
-    order = "d[modifier]-d6[Game_Tweaks]",
-    per_user = false,
+    order = "b[tweaks]-c2[Disassemble]",
   },
-
-        -- D7
-  {
-    type = "bool-setting",
-    name = "BI_Game_Tweaks_Player",
-    setting_type = "startup",
-    default_value = false,
-        order = "d[modifier]-d7[Game_Tweaks]",
-    per_user = false,
-  },
-
-        -- D8
-  {
-    type = "bool-setting",
-    name = "BI_Game_Tweaks_Bot",
-    setting_type = "startup",
-    default_value = false,
-        order = "d[modifier]-d8[Game_Tweaks]",
-    per_user = false,
-  },
-
-
-        -- D9
   {
     type = "bool-setting",
     name = "BI_Game_Tweaks_Production_Science",
     setting_type = "startup",
     default_value = true,
-        order = "d[modifier]-d9[Game_Tweaks]",
-    per_user = false,
+    order = "b[tweaks]-c3[Production_science]",
   },
 
-
-        -- E
   {
     type = "bool-setting",
-    name = "BI_Hide_musk_floor_in_mapview",
+    name = "BI_Game_Tweaks_Tree",
     setting_type = "startup",
-    default_value = false,
-        order = "e[modifier]-e[Musk_floor]",
-    per_user = false,
+    default_value = true,
+    order = "b[tweaks]-d1[Trees]",
   },
 
+  {
+    type = "bool-setting",
+    name = "BI_Game_Tweaks_Small_Tree_Collisionbox",
+    setting_type = "startup",
+    default_value = true,
+    order = "b[tweaks]-d2[Tree_collision_box]",
+  },
 
+  {
+    type = "bool-setting",
+    name = "BI_Game_Tweaks_Player",
+    setting_type = "startup",
+    default_value = false,
+    order = "b[tweaks]-e[Player_tweaks]",
+  },
+
+  {
+    type = "bool-setting",
+    name = "BI_Game_Tweaks_Bot",
+    setting_type = "startup",
+    default_value = false,
+    order = "b[tweaks]-f[Bot_tweaks]",
+  },
+
+})
+
+-- Compatibility with other mods (optional)
+
+        -- Debugging
+if mods["gvv"] then
+  data:extend({
+  {
+    type = "bool-setting",
+    name = "BI_Enable_gvv_support",
+    setting_type = "startup",
+    default_value = false,
+        order = "c[compatibility]-c1[debugging_gvv]",
+  },
+})
+end
 
 
 --[[
@@ -203,6 +191,3 @@ Using in CONTROL.lua and in other code for reading:
         GET: set = settings.get_player_settings(LuaPlayer) - current values for per-player settings; then use set["setting-name"].value
         GET: settings.player - default values
 ]]
-
-}
-)

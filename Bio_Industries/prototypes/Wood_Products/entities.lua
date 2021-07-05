@@ -1291,124 +1291,121 @@ data:extend({
   },
 })
 
-------- Large Wooden Chest
-data:extend({
-  {
-    type = "container",
-    name = "bi-wooden-chest-large",
-    icon = ICONPATH .. "large_wooden_chest_icon.png",
-    icon_size = 64,
-    icons = {
-      {
-        icon = ICONPATH .. "large_wooden_chest_icon.png",
-        icon_size = 64,
-      }
-    },
-    flags = {"placeable-neutral", "player-creation"},
-    minable = {mining_time = 1, result = "bi-wooden-chest-large"},
-    max_health = 200,
-    corpse = "small-remnants",
-    collision_box = {{-0.7, -0.7}, {0.7, 0.7}},
-    selection_box = {{-1.0, -1.0}, {1.0, 1.0}},
-    fast_replaceable_group = "container",
-    inventory_size = 128, -- 64
-    open_sound = { filename = "__base__/sound/wooden-chest-open.ogg" },
-    close_sound = { filename = "__base__/sound/wooden-chest-close.ogg" },
-    --~ vehicle_impact_sound =  { filename = "__base__/sound/car-wood-impact.ogg", volume = 1.0 },
-    vehicle_impact_sound = sounds.car_wood_impact,
-    picture = {
-      filename = WOODPATH .. "large_wooden_chest.png",
-      priority = "extra-high",
-      width = 184,
-      height = 132,
-      shift = {0.5, 0},
-      scale = 0.5,
-    },
-    circuit_wire_connection_point = circuit_connector_definitions["chest"].points,
-    circuit_connector_sprites = circuit_connector_definitions["chest"].sprites,
-    circuit_wire_max_distance = default_circuit_wire_max_distance
-  },
-})
+--~ ------- Large Wooden Chest
+--~ data:extend({
+  --~ {
+    --~ type = "container",
+    --~ name = "bi-wooden-chest-large",
+    --~ icon = ICONPATH .. "large_wooden_chest_icon.png",
+    --~ icon_size = 64,
+    --~ icons = {
+      --~ {
+        --~ icon = ICONPATH .. "large_wooden_chest_icon.png",
+        --~ icon_size = 64,
+      --~ }
+    --~ },
+    --~ flags = {"placeable-neutral", "player-creation"},
+    --~ minable = {mining_time = 1, result = "bi-wooden-chest-large"},
+    --~ max_health = 200,
+    --~ corpse = "small-remnants",
+    --~ collision_box = {{-0.7, -0.7}, {0.7, 0.7}},
+    --~ selection_box = {{-1.0, -1.0}, {1.0, 1.0}},
+    --~ fast_replaceable_group = "container",
+    --~ inventory_size = 128, -- 64
+    --~ open_sound = { filename = "__base__/sound/wooden-chest-open.ogg" },
+    --~ close_sound = { filename = "__base__/sound/wooden-chest-close.ogg" },
+    --~ vehicle_impact_sound = sounds.car_wood_impact,
+    --~ picture = {
+      --~ filename = WOODPATH .. "large_wooden_chest.png",
+      --~ priority = "extra-high",
+      --~ width = 184,
+      --~ height = 132,
+      --~ shift = {0.5, 0},
+      --~ scale = 0.5,
+    --~ },
+    --~ circuit_wire_connection_point = circuit_connector_definitions["chest"].points,
+    --~ circuit_connector_sprites = circuit_connector_definitions["chest"].sprites,
+    --~ circuit_wire_max_distance = default_circuit_wire_max_distance
+  --~ },
+--~ })
 
-------- Huge Wooden Chest
-data:extend({
-  {
-    type = "container",
-    name = "bi-wooden-chest-huge",
-    icon = ICONPATH .. "huge_wooden_chest_icon.png",
-    icon_size = 64,
-    icons = {
-      {
-        icon = ICONPATH .. "huge_wooden_chest_icon.png",
-        icon_size = 64,
-      }
-    },
-    scale_info_icons = true,
-    flags = {"placeable-neutral", "player-creation"},
-    minable = {mining_time = 1.5, result = "bi-wooden-chest-huge"},
-    max_health = 350,
-    corpse = "small-remnants",
-    collision_box = {{-1.2, -1.2}, {1.2, 1.2}},
-    selection_box = {{-1.5, -1.5}, {1.5, 1.5}},
-    fast_replaceable_group = "container",
-    inventory_size = 432, --144
-    open_sound = { filename = "__base__/sound/wooden-chest-open.ogg" },
-    close_sound = { filename = "__base__/sound/wooden-chest-close.ogg" },
-    --~ vehicle_impact_sound =  { filename = "__base__/sound/car-wood-impact.ogg", volume = 1.0 },
-    vehicle_impact_sound = sounds.car_wood_impact,
-    picture = {
-      filename = WOODPATH .. "huge_wooden_chest.png",
-      priority = "extra-high",
-      width = 184,
-      height = 132,
-      shift = {0.5, 0},
-      scale = 0.75,
-    },
-    circuit_wire_connection_point = circuit_connector_definitions["chest"].points,
-    circuit_connector_sprites = circuit_connector_definitions["chest"].sprites,
-    circuit_wire_max_distance = default_circuit_wire_max_distance
-  },
-})
+--~ ------- Huge Wooden Chest
+--~ data:extend({
+  --~ {
+    --~ type = "container",
+    --~ name = "bi-wooden-chest-huge",
+    --~ icon = ICONPATH .. "huge_wooden_chest_icon.png",
+    --~ icon_size = 64,
+    --~ icons = {
+      --~ {
+        --~ icon = ICONPATH .. "huge_wooden_chest_icon.png",
+        --~ icon_size = 64,
+      --~ }
+    --~ },
+    --~ scale_info_icons = true,
+    --~ flags = {"placeable-neutral", "player-creation"},
+    --~ minable = {mining_time = 1.5, result = "bi-wooden-chest-huge"},
+    --~ max_health = 350,
+    --~ corpse = "small-remnants",
+    --~ collision_box = {{-1.2, -1.2}, {1.2, 1.2}},
+    --~ selection_box = {{-1.5, -1.5}, {1.5, 1.5}},
+    --~ fast_replaceable_group = "container",
+    --~ inventory_size = 432, --144
+    --~ open_sound = { filename = "__base__/sound/wooden-chest-open.ogg" },
+    --~ close_sound = { filename = "__base__/sound/wooden-chest-close.ogg" },
+    --~ vehicle_impact_sound = sounds.car_wood_impact,
+    --~ picture = {
+      --~ filename = WOODPATH .. "huge_wooden_chest.png",
+      --~ priority = "extra-high",
+      --~ width = 184,
+      --~ height = 132,
+      --~ shift = {0.5, 0},
+      --~ scale = 0.75,
+    --~ },
+    --~ circuit_wire_connection_point = circuit_connector_definitions["chest"].points,
+    --~ circuit_connector_sprites = circuit_connector_definitions["chest"].sprites,
+    --~ circuit_wire_max_distance = default_circuit_wire_max_distance
+  --~ },
+--~ })
 
-------- Giga Wooden Chest
-data:extend({
-  {
-    type = "container",
-    name = "bi-wooden-chest-giga",
-    icon = ICONPATH .. "giga_wooden_chest_icon.png",
-    icon_size = 64,
-    icons = {
-      {
-        icon = ICONPATH .. "giga_wooden_chest_icon.png",
-        icon_size = 64,
-      }
-    },
-    scale_info_icons = true,
-    flags = {"placeable-neutral", "player-creation"},
-    minable = {mining_time = 3.5, result = "bi-wooden-chest-giga"},
-    max_health = 350,
-    corpse = "big-remnants",
-    collision_box = {{-2.8, -2.8}, {2.8, 2.8}},
-    selection_box = {{-3, -3}, {3, 3}},
-    fast_replaceable_group = "container",
-    inventory_size = 1728, --576
-    open_sound = { filename = "__base__/sound/wooden-chest-open.ogg" },
-    close_sound = { filename = "__base__/sound/wooden-chest-close.ogg" },
-    --~ vehicle_impact_sound =  { filename = "__base__/sound/car-wood-impact.ogg", volume = 1.0 },
-    vehicle_impact_sound = sounds.car_wood_impact,
-    picture = {
-      filename = WOODPATH .. "giga_wooden_chest.png",
-      priority = "extra-high",
-      width = 501,
-      height = 366,
-      shift = {0.88, -0.170},
-      scale = 0.5,
-    },
-    circuit_wire_connection_point = circuit_connector_definitions["chest"].points,
-    circuit_connector_sprites = circuit_connector_definitions["chest"].sprites,
-    circuit_wire_max_distance = default_circuit_wire_max_distance
-  },
-})
+--~ ------- Giga Wooden Chest
+--~ data:extend({
+  --~ {
+    --~ type = "container",
+    --~ name = "bi-wooden-chest-giga",
+    --~ icon = ICONPATH .. "giga_wooden_chest_icon.png",
+    --~ icon_size = 64,
+    --~ icons = {
+      --~ {
+        --~ icon = ICONPATH .. "giga_wooden_chest_icon.png",
+        --~ icon_size = 64,
+      --~ }
+    --~ },
+    --~ scale_info_icons = true,
+    --~ flags = {"placeable-neutral", "player-creation"},
+    --~ minable = {mining_time = 3.5, result = "bi-wooden-chest-giga"},
+    --~ max_health = 350,
+    --~ corpse = "big-remnants",
+    --~ collision_box = {{-2.8, -2.8}, {2.8, 2.8}},
+    --~ selection_box = {{-3, -3}, {3, 3}},
+    --~ fast_replaceable_group = "container",
+    --~ inventory_size = 1728, --576
+    --~ open_sound = { filename = "__base__/sound/wooden-chest-open.ogg" },
+    --~ close_sound = { filename = "__base__/sound/wooden-chest-close.ogg" },
+    --~ vehicle_impact_sound = sounds.car_wood_impact,
+    --~ picture = {
+      --~ filename = WOODPATH .. "giga_wooden_chest.png",
+      --~ priority = "extra-high",
+      --~ width = 501,
+      --~ height = 366,
+      --~ shift = {0.88, -0.170},
+      --~ scale = 0.5,
+    --~ },
+    --~ circuit_wire_connection_point = circuit_connector_definitions["chest"].points,
+    --~ circuit_connector_sprites = circuit_connector_definitions["chest"].sprites,
+    --~ circuit_wire_max_distance = default_circuit_wire_max_distance
+  --~ },
+--~ })
 
 ------ Power to Rail Pole
 -- Changed to medium-electric pole so the built entity resembles the icon (0.18.1)

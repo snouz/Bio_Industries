@@ -134,18 +134,24 @@ BioInd.writeDebug("Ignoring %s \"%s\" (%s)", {
   -- Finished checks for this type
   end
 end
-BioInd.show("potential_fuel_items", potential_fuel_items)
-BioInd.show("fuel_items", fuel_items)
+--~ BioInd.show("potential_fuel_items", potential_fuel_items)
+--~ BioInd.show("fuel_items", fuel_items)
 
-BioInd.show("Number of potential_fuel_items", table_size(potential_fuel_items))
-BioInd.show("Number of fuel_items", table_size(fuel_items))
+--~ BioInd.show("Number of potential_fuel_items", table_size(potential_fuel_items))
+--~ BioInd.show("Number of fuel_items", table_size(fuel_items))
+--~ BioInd.show("Number of ignored items", cnt)
+--~ BioInd.show("potential_fuel_items", potential_fuel_items)
+log("Number of potential_fuel_items: " .. table_size(potential_fuel_items))
+for k, v in pairs(potential_fuel_items) do
+  log(string.format("\"%s\" = \"%s\"" , k, v.type))
+end
 BioInd.show("Number of ignored items", cnt)
 
-local test = {}
-for k, v in pairs(potential_fuel_items) do
-  test[k] = v.type
-end
-BioInd.show("Potential fuel items", test)
+--~ local test = {}
+--~ for k, v in pairs(potential_fuel_items) do
+  --~ test[k] = v.type
+--~ end
+--~ BioInd.show("Potential fuel items", test)
 
 --~ error("Test!")
 
@@ -670,9 +676,11 @@ for item_name, item_data in pairs(fuel_values) do
   if not item.fuel_value then
     item.fuel_value = item_data.fuel_value
     item.fuel_category = fuel_category
-BioInd.writeDebug("Set fuel_value of %s \"%s\" to %s", {item_data.type, item_name, item.fuel_value})
+--~ BioInd.writeDebug("Set fuel_value of %s \"%s\" to %s", {item_data.type, item_name, item.fuel_value})
+log(string.format("Set fuel_value of %s \"%s\" to %s", item_data.type, item_name, item.fuel_value))
   end
 end
+log("Number of entries in fuel_values " .. table_size(fuel_values))
 
 
 ------------------------------------------------------------------------------------

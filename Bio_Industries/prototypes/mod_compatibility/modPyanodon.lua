@@ -2,8 +2,9 @@
 --                                 Pyanodon's mods                                --
 ------------------------------------------------------------------------------------
 if not BioInd.check_mods({
-  "pycoalprocessing",
+  --~ "pycoalprocessing",
   "pyrawores",
+  "pyindustry",
 
 }) then
   BioInd.nothing_to_do("*")
@@ -19,7 +20,53 @@ end
 
 local items = data.raw.item
 local recipes = data.raw.recipe
-local item, old, new
+local item
+local walls = data.raw.wall
+local fence_bi, fence_py, factor, ingredients, recipe
+local py_name = "wood-fence"
+
+
+------------------------------------------------------------------------------------
+--    Our wooden fence has more health, so it should require more ingredients!    --
+------------------------------------------------------------------------------------
+fence_bi = BI.additional_entities.BI_Darts and walls[BI.additional_entities.BI_Darts.wooden_fence.name]
+fence_py = walls[py_name]
+
+if fence_bi and fence_py and recipes[py_name] then
+--~ log(string.format("fence_bi: %s\tfence_py: %s", serpent.block(fence_bi), serpent.block(fence_py)))
+  factor = fence_bi.max_health / (fence_py.max_health or 1)
+--~ log(string.format("factor: %s", factor))
+--~ log("Wooden fence: " .. serpent.block(recipes[BI.additional_recipes.BI_Darts.wooden_fence.name]))
+  recipe = recipes[BI.additional_recipes.BI_Darts.wooden_fence.name]
+
+  for d, diff in ipairs({"", "normal", "expensive"}) do
+    ingredients = BI_Functions.lib.get_difficulty_recipe_ingredients(py_name, diff)
+    item = ingredients["wood"] or ingredients["treated-wood"]
+
+    if item then
+      item = thxbob.lib.item.item(item)
+      item.name = "wood"
+      item.amount = item.amount and item.amount * factor
+      item.amount_min = item.amount_min and item.amount_min * factor
+      item.amount_max = item.amount_max and item.amount_max * factor
+
+      thxbob.lib.recipe.set_difficulty_ingredient(recipe, diff, item)
+      BioInd.modified_msg("ingredients", recipe)
+    end
+  end
+end
+
+
+
+------------------------------------------------------------------------------------
+--     If there are wooden rails, replace wood with concrete in normal rails!     --
+------------------------------------------------------------------------------------
+recipe = recipes["rail-2"]
+if recipe and recipes[BI.additional_recipes.BI_Rails.rail_wood.name] then
+  thxbob.lib.recipe.replace_ingredient(recipe, "wood", "concrete")
+  thxbob.lib.recipe.replace_ingredient(recipe, "treated-wood", "concrete")
+  BioInd.modified_msg("ingredients", recipe)
+end
 
 
 

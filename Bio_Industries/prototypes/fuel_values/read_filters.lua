@@ -35,6 +35,8 @@ filters["FoodIndustry"]         = require("prototypes.fuel_values.filtersFoodInd
 filters["IndustrialRevolution"] = require("prototypes.fuel_values.filtersIndustrialRevolution")
 filters["Krastorio2"]           = require("prototypes.fuel_values.filtersKrastorio2")
 filters["creative-mod"]         = require("prototypes.fuel_values.filtersCreativeMod")
+filters["Pyanodons"]            = require("prototypes.fuel_values.filtersPyanodon")
+
 
 BioInd.show("filters", filters)
 
@@ -59,6 +61,7 @@ end
 local mod_suites = {
   ["Angels"]    = { "angelspetrochem", "angelsbioprocessing", "angelsrefining", },
   ["Bobs"]      = { "bobelectronics", "bobgreenhouse", "bobores", "bobplates", "bobpower", "bobrevamp", },
+  ["Pyanodons"] = { "pyalienlife", "pycoalprocessing", "pyfusionenergy", "pyhightech", "pyindustry",                    "pypetroleumhandling", "pyrawores", },
 }
 
 -- Make reverse look-up list (mod_name --> mod_alias used in filters)

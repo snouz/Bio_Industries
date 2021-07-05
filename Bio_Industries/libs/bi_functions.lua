@@ -9,55 +9,6 @@ function BI_Functions.lib.allow_productivity(recipe_name)
   end
 end
 
---~ -- Returns table with all results for a difficulty, or nil
---~ function BI_Functions.lib.get_difficulty_recipe_results(recipe_in, difficulty)
---~ BioInd.entered_function()
-  --~ -- Sanitize arguments
-  --~ if difficulty ~= "" and difficulty ~= "normal" and difficulty ~= "expensive" then
-    --~ error(string.format("%s is not a valid difficulty!", difficulty))
-  --~ end
-  --~ local recipe = type(recipe_in) == "table" and recipe_in.type == "recipe" and recipe_in.name and
-                  --~ data.raw.recipe[recipe_in.name] or
-                  --~ data.raw.recipe[recipe_in]
-  --~ local ret = {}
---~ BioInd.show("recipe", recipe and recipe.name or "nil")
---~ BioInd.show("difficulty", difficulty == "" and "no difficulty" or difficulty)
-
-  --~ if recipe then
-    --~ local name, amount, results, crafting_time
-    --~ if difficulty == "" then
-      --~ thxbob.lib.result_check(recipe)
-      --~ results = recipe.results
-      --~ crafting_time = recipe.energy_required or 0.5
-    --~ else
-      --~ if not recipe[difficulty] then
-        --~ thxbob.lib.recipe.difficulty_split(recipe)
-      --~ end
-      --~ thxbob.lib.result_check(recipe[difficulty])
-      --~ results = recipe[difficulty].results
-      --~ crafting_time = recipe[difficulty].energy_required or 0.5
-    --~ end
---~ BioInd.writeDebug("results for %s: %s", {
-  --~ difficulty == "" and "no difficulty" or "difficulty " .. difficulty, results
---~ })
-    --~ for r, result in ipairs(results) do
-      --~ name = result[1] or result.name
-      --~ amount = result[2] or result.amount
-      --~ if name and amount then
-        --~ ret[name] = ret[name] or {
-          --~ name = name,
-          --~ type = result.type or "item",
-          --~ amount = 0
-        --~ }
-        --~ ret[name].amount = ret[name].amount + amount
-        --~ ret[name].amount_per_sec = ret[name].amount / crafting_time
-      --~ end
-    --~ end
-  --~ end
---~ BioInd.show("ret", ret)
---~ BioInd.entered_function("leave")
-  --~ return ret
---~ end
 
 -- Returns table with all results for a difficulty, or nil
 function BI_Functions.lib.get_difficulty_recipe_results(recipe_in, difficulty)
@@ -116,7 +67,7 @@ BioInd.writeDebug("ret[\"%s\"]: %s", {name, ret[name]})
         -- amount has precedence over amount_min/amount_max!
         if amount and amount > 0 then
           ret[name].amount                = ret[name].amount + amount
-        -- amount_max must by >= amount_min!
+        -- amount_max must be >= amount_min!
         else
           amount_min = result.amount_min
           amount_max = result.amount_max
@@ -238,50 +189,6 @@ BioInd.entered_function("leave")
 end
 
 
--- Returns dictionary indexed by ingredient name
---~ function BI_Functions.lib.get_difficulty_recipe_ingredients(recipe_in, difficulty)
---~ BioInd.entered_function()
-  --~ -- Sanitize arguments
-  --~ if difficulty ~= "" and difficulty ~= "normal" and difficulty ~= "expensive" then
-    --~ error(string.format("%s is not a valid difficulty!", difficulty))
-  --~ end
-  --~ local recipe = type(recipe_in) == "table" and recipe_in.type == "recipe" and recipe_in.name and
-                  --~ data.raw.recipe[recipe_in.name] or
-                  --~ data.raw.recipe[recipe_in]
-  --~ local ret = {}
-  --~ local ingredients
-
-  --~ if recipe then
-    --~ if difficulty == "" then
-      --~ ingredients = recipe.ingredients
-    --~ else
-      --~ if not recipe[difficulty] then
-        --~ thxbob.lib.recipe.difficulty_split(recipe)
-      --~ end
-      --~ ingredients = recipe[difficulty].ingredients
-    --~ end
-
-    --~ local name, amount
-    --~ for i, ingredient in ipairs(ingredients or {}) do
---~ BioInd.writeDebug("Ingredient %s: %s", {i, ingredient}, "line")
-      --~ name = ingredient.name or ingredient[1]
-      --~ amount = ingredient.amount or ingredient[2]
-      --~ if not (name and amount) then
-        --~ error(string.format("%s is not a valid recipe ingredient specification!"),
-                              --~ serpent.line(ingredient))
-      --~ end
-      --~ ret[name] = ret[name] or {
-        --~ name = name,
-        --~ type = ingredient.type or "item",
-        --~ amount = 0
-      --~ }
-      --~ ret[name].amount = ret[name].amount + amount
-    --~ end
-  --~ end
---~ BioInd.show("ret", ret)
---~ BioInd.entered_function("leave")
-  --~ return next(ret) and ret
---~ end
 function BI_Functions.lib.get_difficulty_recipe_ingredients(recipe_in, difficulty)
 BioInd.entered_function()
   -- Sanitize arguments
@@ -306,7 +213,7 @@ BioInd.entered_function()
 
     local name, amount, t_min, t_max
     for i, ingredient in ipairs(ingredients or {}) do
-BioInd.writeDebug("Ingredient %s: %s", {i, ingredient}, "line")
+--~ BioInd.writeDebug("Ingredient %s: %s", {i, ingredient}, "line")
       name = ingredient.name or ingredient[1]
       amount = ingredient.amount or ingredient[2]
       if not (name and amount) then
@@ -327,8 +234,8 @@ BioInd.writeDebug("Ingredient %s: %s", {i, ingredient}, "line")
       }
       ret[name].amount = ret[name].amount + amount
       ret[name].catalyst_amount = ret[name].catalyst_amount + (ingredient.catalyst_amount or 0)
-BioInd.show("amount", amount)
-BioInd.show("catalyst_amount", catalyst_amount)
+--~ BioInd.show("amount", amount)
+--~ BioInd.show("catalyst_amount", catalyst_amount)
 
       ret[name].cnt = ret[name].cnt + 1
 
@@ -403,8 +310,8 @@ BioInd.show("catalyst_amount", catalyst_amount)
       i_data.cnt, i_data.min_max_cnt = nil
     end
   end
-BioInd.show("ret", ret)
-BioInd.entered_function("leave")
+--~ BioInd.show("ret", ret)
+--~ BioInd.entered_function("leave")
   return next(ret) and ret
 end
 
@@ -425,29 +332,10 @@ BioInd.entered_function()
     ret = BI_Functions.lib.get_difficulty_recipe_ingredients(recipe, "normal") or
           BI_Functions.lib.get_difficulty_recipe_ingredients(recipe, "expensive")
   end
-BioInd.show("ret", ret)
-BioInd.entered_function("leave")
-  return ret
-end
---~ function BI_Functions.lib.get_recipe_ingredients(ingredients)
---~ BioInd.entered_function()
---~ BioInd.writeDebug("List of ingredients to check: %s", {ingredients}, "line")
-  --~ local name, amount
-  --~ local ret = {}
-  --~ for i, ingredient in ipairs(ingredients or {}) do
---~ BioInd.writeDebug("Ingredient %s: %s", {i, ingredient}, "line")
-    --~ name = ingredient.name or ingredient[1]
-    --~ amount = ingredient.amount or ingredient[2]
-    --~ if not (name and amount) then
-      --~ error(string.format("%s is not a valid recipe ingredient specification!"),
-                            --~ serpent.line(ingredient))
-    --~ end
-    --~ ret[name] = {type = ingredient.type or "item", name = name, amount = amount}
-  --~ end
 --~ BioInd.show("ret", ret)
 --~ BioInd.entered_function("leave")
-  --~ return next(ret) and ret
---~ end
+  return ret
+end
 
 
 function BI_Functions.lib.recipe_has_ingredient(recipe_in, ingredient)
@@ -459,19 +347,16 @@ BioInd.entered_function()
   local recipe = type(recipe_in) == "string" and data.raw.recipe[recipe_in] or
             type(recipe_in) == "table" and recipe_in.type == "recipe" and recipe_in.name and
             data.raw.recipe[recipe_in.name]
-BioInd.writeDebug("Checking recipe %s for %s", {recipe and recipe.name or "nil", ingredient})
+--~ BioInd.writeDebug("Checking recipe %s for %s", {recipe and recipe.name or "nil", ingredient})
   local ret, ingredients
 
   if recipe then
 --~ BioInd.writeDebug("Recipe %s exists.", {recipe.name})
---~ if recipe.name == "bi-wood-pipe" then
---~ BioInd.show("recipe", recipe)
---~ end
     ingredients = BI_Functions.lib.get_recipe_ingredients(recipe.ingredients)
-BioInd.show("Found ingredients", ingredients)
+--~ BioInd.show("Found ingredients", ingredients)
     ret = ingredients and ingredients[ingredient]
   end
-BioInd.show("Return", ret)
+--~ BioInd.show("Return", ret)
 BioInd.entered_function("leave")
   return ret
 end
@@ -485,16 +370,16 @@ end
 
 function BI_Functions.lib.fuel_emissions_multiplier_update(item, value)
 BioInd.entered_function()
-BioInd.show("item", item)
-BioInd.show("factor", value)
+--~ BioInd.show("item", item)
+--~ BioInd.show("factor", value)
 
   local target = type(item) == "string" and data.raw.item[item] or
                   type(item) == "table" and item.type == "item" and item
 
   if target and target.fuel_value then
-BioInd.show("fuel_emissions_multiplier", target.fuel_emissions_multiplier)
+--~ BioInd.show("fuel_emissions_multiplier", target.fuel_emissions_multiplier)
 
     target.fuel_emissions_multiplier = value
-BioInd.show("fuel_emissions_multiplier", target.fuel_emissions_multiplier)
+--~ BioInd.show("fuel_emissions_multiplier", target.fuel_emissions_multiplier)
   end
 end

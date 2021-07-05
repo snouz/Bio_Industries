@@ -52,14 +52,14 @@ BioInd.entered_function()
         unlock_other[#unlock_other + 1] = effect
       end
     end
-BioInd.show("Unsorted recipe unlocks", unlock_recipes)
+--~ BioInd.show("Unsorted recipe unlocks", unlock_recipes)
     table.sort(unlock_recipes, function(a,b) return a.order < b.order end)
-BioInd.show("Sorted recipe unlocks", unlock_recipes)
+--~ BioInd.show("Sorted recipe unlocks", unlock_recipes)
     effects = table.deepcopy(unlock_recipes)
     for u, unlock in ipairs(unlock_other) do
       effects[#effects] = unlock
     end
-BioInd.show("Final unlocks of " .. tech.name, tech)
+--~ BioInd.show("Final unlocks of " .. tech.name, tech)
 
   end
 --~ BioInd.entered_function("leave")
@@ -222,7 +222,6 @@ function thxbob.lib.tech.replace_difficulty_science_pack(technology, difficulty,
       amount = 0
       for i, ingredient in ipairs(ingredients) do
         if ingredient[1] == old or ingredient.name == old then
-          --~ doit = true
           amount = (ingredient[2] or ingredient.amount) + amount
         end
       end
@@ -492,7 +491,7 @@ function thxbob.lib.tech.add_difficulty_recipe_unlock(technology, difficulty, re
     else
       if not tech[difficulty] then
         thxbob.lib.tech.add_difficulty(technology, difficulty)
-BioInd.writeDebug("Created difficulty): %s", {difficulty})
+--~ BioInd.writeDebug("Created difficulty): %s", {difficulty})
       end
       tech[difficulty].effects = tech[difficulty].effects or {}
       effects = tech[difficulty].effects

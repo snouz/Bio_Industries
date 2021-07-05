@@ -75,7 +75,7 @@ end
 
 function thxbob.lib.item.basic_item(inputs)
 BioInd.entered_function()
-BioInd.show("Inputs", inputs)
+--~ BioInd.show("Inputs", inputs)
   --~ local item = {}
 
   --~ if inputs.name then
@@ -115,7 +115,7 @@ BioInd.show("Inputs", inputs)
   local item = {}
 
   item.name = inputs.name or inputs[1]
-BioInd.show("item.name", item.name)
+--~ BioInd.show("item.name", item.name)
 
   item.amount = inputs.amount or inputs[2]
   if not item.amount then
@@ -131,10 +131,10 @@ BioInd.show("item.name", item.name)
       item.amount = 1
     end
   end
-BioInd.show("item.amount", item.amount)
+--~ BioInd.show("item.amount", item.amount)
 
   item.type = inputs.type or thxbob.lib.item.get_basic_type(item.name)
-BioInd.show("item.type", item.type)
+--~ BioInd.show("item.type", item.type)
 
   -- Amount of "item" must be an integer because there can be no fractional
   -- items in the player's inventory!
@@ -145,7 +145,7 @@ BioInd.show("item.type", item.type)
       item.amount = math.floor(item.amount)
     end
   end
-BioInd.show("item", item)
+--~ BioInd.show("item", item)
 BioInd.entered_function("leave")
   return item
 end
@@ -273,12 +273,12 @@ end
 function thxbob.lib.item.add(list, item_in) --increments amount if exists
 BioInd.entered_function()
   local item = thxbob.lib.item.item(item_in)
-BioInd.writeDebug("Need to add %s to %s", {item, list}, "line")
+--~ BioInd.writeDebug("Need to add %s to %s", {item, list}, "line")
   local addit = true
   for i, object in pairs(list or {}) do
-BioInd.writeDebug("object: %s\titem.name: %s", {object, item.name}, "line")
+--~ BioInd.writeDebug("object: %s\titem.name: %s", {object, item.name}, "line")
     if object[1] == item.name or object.name == item.name then
-BioInd.writeDebug("Item already exists!")
+--~ BioInd.writeDebug("Item already exists!")
       addit = false
       list[i] = thxbob.lib.item.combine(object, item)
     end
@@ -286,7 +286,7 @@ BioInd.writeDebug("Item already exists!")
   if addit then
     table.insert(list, item)
   end
-BioInd.show("list", list)
+--~ BioInd.show("list", list)
 BioInd.entered_function("leave")
 end
 
@@ -328,13 +328,13 @@ end
 function thxbob.lib.item.set(list, item_in)
 BioInd.entered_function()
   local item = thxbob.lib.item.item(item_in)
-BioInd.show("list", list)
-BioInd.show("item", item)
+--~ BioInd.show("list", list)
+--~ BioInd.show("item", item)
   for i, object in pairs(list or {}) do
-BioInd.show("object", object)
+--~ BioInd.show("object", object)
     if object[1] == item.name or object.name == item.name then
       list[i] = item
-BioInd.writeDebug("Set item!")
+--~ BioInd.writeDebug("Set item!")
     end
   end
 end

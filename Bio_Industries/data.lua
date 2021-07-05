@@ -413,7 +413,7 @@ require("prototypes.mod_compatibility.modKrastorio2")
 --                                 Pyanodon's mods                                --
 --      (Replacing "bi-ash" with "ash" is now independent of specific mods!)      --
 ------------------------------------------------------------------------------------
---~ require("prototypes.mod_compatibility.modPyanodon")
+require("prototypes.mod_compatibility.modPyanodon")
 
 
 

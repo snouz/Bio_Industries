@@ -84,7 +84,7 @@ if not data.raw.item["resin"] then
         { size = 64, filename = ICONPATHMIPS.."Resin_2.png", scale = 0.2 },
         { size = 64, filename = ICONPATHMIPS.."Resin_3.png", scale = 0.2 },
         { size = 64, filename = ICONPATHMIPS.."Resin_4.png", scale = 0.2 }
-},
+      },
       subgroup = "bio-bio-farm-raw",
       --~ order = "a[bi]-a-b[bi-resin]",
       order = "a[bi]-a-bb[bi-resin]",
@@ -128,13 +128,6 @@ if not data.raw.item["resin"] then
   })
   -- Order in table reflects order in display (Tech tree), so we remove the last
   -- recipes, add the new one, and re-add the removed recipes where they belong.
-  --~ for _, recipe in ipairs({"bi-resin-pulp", "bi-wood-from-pulp"}) do
-  --~ thxbob.lib.tech.remove_recipe_unlock("bi-tech-bio-farming", recipe)
-  --~ end
-  --~ thxbob.lib.tech.add_recipe_unlock("bi-tech-bio-farming", "bi-resin-wood")
-  --~ for _, recipe in ipairs({"bi-resin-pulp", "bi-wood-from-pulp"}) do
-    --~ thxbob.lib.tech.add_recipe_unlock("bi-tech-bio-farming", recipe)
-  --~ end
   for _, recipe in ipairs({"bi-woodpulp", "bi-resin-pulp", "bi-wood-from-pulp"}) do
     thxbob.lib.tech.remove_recipe_unlock("bi-tech-bio-farming", recipe)
   end

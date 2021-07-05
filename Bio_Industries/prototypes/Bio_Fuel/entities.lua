@@ -7,125 +7,109 @@ require ("util")
 require ("prototypes.Bio_Fuel.pipeConnectors")
 
 --~ if BI.Settings.BI_Bio_Fuel then
-  -- demo-sounds exists only in Factorio 0.18, so we need to check the game version!
-  --~ local version = util.split(mods["base"], '.')
-  --~ for i=1, #version do
-    --~ version[i] = tonumber(version[i])
-  --~ end
-  local sound_def = nil
 
-  --~ if version[2] >= 18 then
-    --~ sound_def = require("__base__.prototypes.entity.demo-sounds")
-  --~ end
-  if BioInd.check_base_version("0.18.0") then
-    sound_def = require("__base__.prototypes.entity.demo-sounds")
-  end
-  local sounds = {}
+-- demo-sounds has been removed in Factorio 1.1, so we need to check the game version!
+local sound_def = BioInd.check_version("base", "<", "1.1.0") and
+                    require("__base__.prototypes.entity.demo-sounds") or
+                    require("__base__.prototypes.entity.sounds")
+local sounds = {}
+sounds.generic_impact = sound_def.generic_impact
+for _, sound in ipairs(sounds.generic_impact) do
+  sound.volume = 0.65
+end
 
 
-  --~ if version[2] >= 18 then
-  if BioInd.check_base_version("0.18.0") then
-    sounds.generic_impact = sound_def.generic_impact
-    for _, sound in ipairs(sounds.generic_impact) do
-      sound.volume = 0.65
-    end
-  else
-    sounds.generic_impact = {
-      { filename = "__base__/sound/car-metal-impact.ogg", volume = 0.65 },
-    }
-  end
 
+bio_boiler_tint = {r = 0.5, g = 0.5, b = 0.1, a = 0.7}
 
-  bio_boiler_tint = {r = 0.5, g = 0.5, b = 0.1, a = 0.7}
-
-  -- Changed for 0.18.29: We always want to make advanced fertilizer, so we need to
-  -- unlock the bio-reactor and the most basic recipe for algae biomass even if
-  -- BI.Settings.BI_Bio_Fuel has been turned off!
-  data:extend({
-    -- BIOREACTOR
-    {
-      type = "assembling-machine",
-      name = "bi-bio-reactor",
-      icon = ICONPATH .. "bioreactor.png",
-      icon_size = 64,
-      icons = {
-        {
-          icon = ICONPATH .. "bioreactor.png",
-          icon_size = 64,
-        }
-      },
-      flags = {"placeable-neutral", "player-creation"},
-      minable = {hardness = 0.2, mining_time = 0.5, result = "bi-bio-reactor"},
-      max_health = 100,
-      corpse = "big-remnants",
-      fluid_boxes = {
-        {
-          production_type = "input",
-          pipe_picture = assembler2pipepicturesBioreactor(),
-          pipe_covers = pipecoverspicturesBioreactor(),
-          base_area = 10,
-          base_level = -1,
-          pipe_connections = {{ type = "input", position = {0, -2} }}
-        },
-        {
-          production_type = "input",
-          pipe_picture = assembler2pipepicturesBioreactor(),
-          pipe_covers = pipecoverspicturesBioreactor(),
-          base_area = 10,
-          base_level = -1,
-          pipe_connections = {{ type = "input", position = {2, 0} }}
-        },
-        {
-          production_type = "input",
-          pipe_picture = assembler2pipepicturesBioreactor(),
-          pipe_covers = pipecoverspicturesBioreactor(),
-          base_area = 10,
-          base_level = -1,
-          pipe_connections = {{ type = "input", position = {0, 2} }}
-        },
-        {
-          production_type = "output",
-          pipe_picture = assembler2pipepicturesBioreactor(),
-          pipe_covers = pipecoverspicturesBioreactor(),
-          base_area = 10,
-          base_level = 1,
-          pipe_connections = {{ type = "output", position = {-2, -1} }}
-        },
-        {
-          production_type = "output",
-          pipe_picture = assembler2pipepicturesBioreactor(),
-          pipe_covers = pipecoverspicturesBioreactor(),
-          base_area = 10,
-          base_level = 1,
-          pipe_connections = {{ type = "output", position = {-2, 1} }}
-        },
-        off_when_no_fluid_recipe = false
-      },
-      collision_box = {{-1.2, -1.2}, {1.2, 1.2}},
-      selection_box = {{-1.5, -1.5}, {1.5, 1.5}},
-      animation = {
-        filename = "__Bio_Industries__/graphics/entities/bioreactor/bioreactor.png",
-        priority = "high",
-        width = 128,
-        height = 150,
-        frame_count = 26,
-        line_length = 13,
-        animation_speed = 0.4,
-        shift = {0.55, -0.33}
-      },
-      energy_source = {
-        type = "electric",
-        usage_priority = "secondary-input"
-      },
-      crafting_categories = {"biofarm-mod-bioreactor"},
-      ingredient_count = 3,
-      crafting_speed = 1,
-      energy_usage = "10kW",
-      module_specification = {
-        module_slots = 3
-      },
-      allowed_effects = {"consumption", "speed", "productivity", "pollution"},
+-- Changed for 0.18.29: We always want to make advanced fertilizer, so we need to
+-- unlock the bio-reactor and the most basic recipe for algae biomass even if
+-- BI.Settings.BI_Bio_Fuel has been turned off!
+data:extend({
+  -- BIOREACTOR
+  {
+    type = "assembling-machine",
+    name = "bi-bio-reactor",
+    icon = ICONPATH .. "bioreactor.png",
+    icon_size = 64,
+    icons = {
+      {
+        icon = ICONPATH .. "bioreactor.png",
+        icon_size = 64,
+      }
     },
+    flags = {"placeable-neutral", "player-creation"},
+    minable = {hardness = 0.2, mining_time = 0.5, result = "bi-bio-reactor"},
+    max_health = 100,
+    corpse = "big-remnants",
+    fluid_boxes = {
+      {
+        production_type = "input",
+        pipe_picture = assembler2pipepicturesBioreactor(),
+        pipe_covers = pipecoverspicturesBioreactor(),
+        base_area = 10,
+        base_level = -1,
+        pipe_connections = {{ type = "input", position = {0, -2} }}
+      },
+      {
+        production_type = "input",
+        pipe_picture = assembler2pipepicturesBioreactor(),
+        pipe_covers = pipecoverspicturesBioreactor(),
+        base_area = 10,
+        base_level = -1,
+        pipe_connections = {{ type = "input", position = {2, 0} }}
+      },
+      {
+        production_type = "input",
+        pipe_picture = assembler2pipepicturesBioreactor(),
+        pipe_covers = pipecoverspicturesBioreactor(),
+        base_area = 10,
+        base_level = -1,
+        pipe_connections = {{ type = "input", position = {0, 2} }}
+      },
+      {
+        production_type = "output",
+        pipe_picture = assembler2pipepicturesBioreactor(),
+        pipe_covers = pipecoverspicturesBioreactor(),
+        base_area = 10,
+        base_level = 1,
+        pipe_connections = {{ type = "output", position = {-2, -1} }}
+      },
+      {
+        production_type = "output",
+        pipe_picture = assembler2pipepicturesBioreactor(),
+        pipe_covers = pipecoverspicturesBioreactor(),
+        base_area = 10,
+        base_level = 1,
+        pipe_connections = {{ type = "output", position = {-2, 1} }}
+      },
+      off_when_no_fluid_recipe = false
+    },
+    collision_box = {{-1.2, -1.2}, {1.2, 1.2}},
+    selection_box = {{-1.5, -1.5}, {1.5, 1.5}},
+    animation = {
+      filename = "__Bio_Industries__/graphics/entities/bioreactor/bioreactor.png",
+      priority = "high",
+      width = 128,
+      height = 150,
+      frame_count = 26,
+      line_length = 13,
+      animation_speed = 0.4,
+      shift = {0.55, -0.33}
+    },
+    energy_source = {
+      type = "electric",
+      usage_priority = "secondary-input"
+    },
+    crafting_categories = {"biofarm-mod-bioreactor"},
+    ingredient_count = 3,
+    crafting_speed = 1,
+    energy_usage = "10kW",
+    module_specification = {
+      module_slots = 3
+    },
+    allowed_effects = {"consumption", "speed", "productivity", "pollution"},
+  },
 })
 
 if BI.Settings.BI_Bio_Fuel then
@@ -148,7 +132,6 @@ if BI.Settings.BI_Bio_Fuel then
       minable = {hardness = 0.2, mining_time = 0.5, result = "bi-bio-boiler"},
       max_health = 300,
       corpse = "small-remnants",
-      --~ vehicle_impact_sound =  { filename = "__base__/sound/car-metal-impact.ogg", volume = 0.65 },
       vehicle_impact_sound = sounds.generic_impact,
       mode = "output-to-separate-pipe",
       resistances = {

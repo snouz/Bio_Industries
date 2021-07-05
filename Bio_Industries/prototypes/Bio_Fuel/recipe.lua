@@ -1,7 +1,7 @@
 local BioInd = require('common')('Bio_Industries')
 
 local ICONPATH = BioInd.modRoot .. "/graphics/icons/"
-local new_battery_icon = BioInd.check_base_version("0.18.47")
+--~ local new_battery_icon = BioInd.check_base_version("0.18.47")
 
 -- Changed for 0.18.29: We always want to make advanced fertilizer, so we need to
 -- unlock the bio-reactor and the most basic recipe for algae biomass even if
@@ -586,18 +586,14 @@ if BI.Settings.BI_Bio_Fuel then
     {
       type = "recipe",
       name = "bi-battery",
-      --~ icon = ICONPATH .. "bio_battery.png",
-      --~ icon_size = 64,
-      icon = ICONPATH .. (new_battery_icon and "bio_battery.png" or "bio_battery_64.png"),
+      icon = ICONPATH .. "bio_battery.png",
       icon_size = 64,
-      icon_mipmaps = new_battery_icon and 4 or 1,
+      icon_mipmaps = 4,
       icons = {
         {
-          --~ icon = ICONPATH .. "bio_battery.png",
-          --~ icon_size = 64,
-          icon = ICONPATH .. (new_battery_icon and "bio_battery.png" or "bio_battery_64.png"),
+          icon = ICONPATH .. "bio_battery.png",
           icon_size = 64,
-          icon_mipmaps = new_battery_icon and 4 or 1,
+          icon_mipmaps = 4,
         }
       },
       category = "chemistry",

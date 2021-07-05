@@ -196,11 +196,70 @@ return function (mod_name)
       return ret
     end
 
+    ------------------------------------------------------------------------------------
+    -- Greatly improved version check for mods (thanks to eradicator!)
+    common.Version = {}
+    do
+      local V = common.Version
+
+      local function parse_version(vstr) -- string "Major.Minor.Patch"
+        local err = function()
+          error('Invalid Version String: <' .. tostring(vstr) .. '>')
+        end
+        local r = {vstr:match('^(%d+)%.(%d+)%.(%d+)$')}
+
+        if #r ~= 3 then
+          err()
+        end
+
+        for i=1, 3 do
+          r[i] = tonumber(r[i])
+        end
+
+        return r
+      end
+
+      V.gtr = function(verA, verB)
+        local a, b, c = unpack(parse_version(verA))
+        local x, y, z = unpack(parse_version(verB))
+        return (a > x) or (a == x and b > y) or (a == x and b == y and c > z)
+      end
+      local map = {
+        ['=' ] = function(A, B) return not (V.gtr(A, B)   or V.gtr(B, A)) end,
+        ['>' ] = V.gtr,
+        ['!='] = function(A, B) return (V.gtr(A, B)       or V.gtr(B, A)) end,
+        ['<='] = function(A, B) return V.gtr(B, A)        or (not V.gtr(A, B)) end,
+        ['>='] = function(A, B) return V.gtr(A, B)        or (not V.gtr(B, A)) end,
+        ['~='] = function(A, B) return (V.gtr(A, B)       or V.gtr(B, A)) end,
+        ['<' ] = function(A, B) return V.gtr(B, A) end,
+      }
+
+      --~ common.Version.compare = function(mod_name, operator, need_version)
+      common.check_version = function(mod_name, operator, need_version)
+common.writeDebug("modname: %s\toperator: %s\tneeded version: %s", {mod_name, operator, need_version})
+        --~ local mod_version = script and script.active_mods[mod_name] or
+                             --~ game and game.active_mods[mod_name]
+        local mod_version = (mods and mods[mod_name]) or (script and script.active_mods[mod_name])
+        return map[operator](mod_version, need_version)
+      end
+    end
 
     -- Function for removing all parts of compound entities
     common.remove_entity = function(entity)
       if entity and entity.valid then
         entity.destroy()
+      end
+    end
+
+
+    -- Function to normalize positions
+    common.normalize_position = function(pos)
+      if pos and type(pos) == "table" and table_size(pos) == 2 then
+        local x = pos.x or pos[1]
+        local y = pos.y or pos[2]
+        if x and y and type(x) == "number" and type(y) == "number" then
+          return { x = x, y = y }
+        end
       end
     end
 ------------------------------------------------------------------------------------

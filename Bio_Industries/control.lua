@@ -17,6 +17,12 @@ end
 
 local BioInd = require('common')('Bio_Industries')
 
+-- We can't just check if Alien Biomes is active, because we need to know if
+-- the tiles we need from it exist in the game! To check this, we must call
+-- game.get_tile_prototypes(), but this will crash in script.on_load(). So,
+-- let's just declare the variable here and fill it later.
+local AlienBiomes
+
 --~ local Event = require('__stdlib__/stdlib/event/event').set_protected_mode(true)
 local Event = require('__stdlib__/stdlib/event/event').set_protected_mode(false)
 require ("util")
@@ -56,24 +62,25 @@ local function Create_dummy_force()
 end
 
 --------------------------------------------------------------------
-local function On_Init()
-log("Entered On_Init!")
-game.check_prototype_translations()
+--~ local function On_Init()
+--~ log("Entered On_Init!")
+local function init()
+BioInd.writeDebug("Entered init!")
+  if BioInd.is_debug then
+    game.check_prototype_translations()
+  end
 
   if global.Bio_Cannon_Table ~= nil then
     Event.register(defines.events.on_tick, function(event) end)
   end
 
-  if global.bi == nil then
-    global.bi = {}
-    global.bi.tree_growing = {}
-    global.bi.tree_growing_stage_1 = {}
-    global.bi.tree_growing_stage_2 = {}
-    global.bi.tree_growing_stage_3 = {}
-    global.bi.tree_growing_stage_4 = {}
-    global.bi.terrains = {}
-    global.bi.trees = {}
+  global.bi = global.bi or {}
+  global.bi.tree_growing = global.bi.tree_growing or {}
+  for i = 1, 4 do
+    global.bi["tree_growing_stage_" .. i] = global.bi["tree_growing_stage_" .. i] or {}
   end
+  global.bi.terrains = global.bi.terrains or {}
+  global.bi.trees = global.bi.trees or {}
 
   global.bi.seed_bomb = {}
   global.bi.seed_bomb["seedling"] = "seedling"
@@ -92,16 +99,34 @@ game.check_prototype_translations()
   -- Global table for power rail
   global.bi_power_rail_table = global.bi_power_rail_table or {}
 
+  -- Global table for Musk floor
+  global.bi_musk_floor_table = global.bi_musk_floor_table or {}
+  global.bi_musk_floor_table.tiles = global.bi_musk_floor_table.tiles or {}
+  global.bi_musk_floor_table.forces = global.bi_musk_floor_table.forces or {}
+
   -- Global table for arboretum
   global.Arboretum_Table = global.Arboretum_Table or {}
 
   -- Global table for arboretum radars
   global.Arboretum_Radar_Table = global.Arboretum_Radar_Table or {}
 
-  -- enable researched recipes
+  --~ -- enable researched recipes
+  --~ for i, force in pairs(game.forces) do
+    --~ force.reset_technologies()
+    --~ force.reset_recipes()
+  --~ end
+ -- enable researched recipes
   for i, force in pairs(game.forces) do
-    force.reset_technologies()
-    force.reset_recipes()
+    for _, tech in pairs(force.technologies) do
+      if tech.researched then
+        for _, effect in pairs(tech.effects) do
+          if effect.type == "unlock-recipe" then
+            force.recipes[effect.recipe].enabled = false
+            force.recipes[effect.recipe].enabled = true
+          end
+        end
+      end
+    end
   end
 
   -- Create dummy force for musk floor if electric grid overlay should NOT be shown in map view
@@ -138,67 +163,16 @@ BioInd.writeDebug("On Configuration changed: %s", {ConfigurationChangedData})
     Event.register(defines.events.on_tick, function(event) end)
   end
 
-
-  -- Reset technologies
-  for f, force in pairs(game.forces) do
-    force.reset_technology_effects()
-  end
-  BioInd.writeDebug("Reset technologies for all forces!")
-
-  if global.bi == nil then
-    global.bi = {}
-    global.bi.tree_growing = {}
-    global.bi.tree_growing_stage_1 = {}
-    global.bi.tree_growing_stage_2 = {}
-    global.bi.tree_growing_stage_3 = {}
-    global.bi.tree_growing_stage_4 = {}
-    global.bi.terrains = {}
-    global.bi.trees = {}
-  end
-
-  global.bi.seed_bomb = {}
-  global.bi.seed_bomb["seedling"] = "seedling"
-  global.bi.seed_bomb["seedling-2"] = "seedling-2"
-  global.bi.seed_bomb["seedling-3"] = "seedling-3"
-
-  -- Global table for bio farm
-  global.bi_bio_farm_table = global.bi_bio_farm_table or {}
-
-  -- Global table for solar boiler
-  global.bi_solar_boiler_table = global.bi_solar_boiler_table or {}
-
-  -- Global table for solar farm
-  global.bi_solar_farm_table = global.bi_solar_farm_table or {}
-
-  -- Global table for power rail
-  global.bi_power_rail_table = global.bi_power_rail_table or {}
-
-  -- Global table for arboretum
-  global.Arboretum_Table = global.Arboretum_Table or {}
-
-  -- Global table for arboretum radars
-  global.Arboretum_Radar_Table = global.Arboretum_Radar_Table or {}
-
-  -- enable researched recipes
-  for i, force in pairs(game.forces) do
-    for _, tech in pairs(force.technologies) do
-      if tech.researched then
-        for _, effect in pairs(tech.effects) do
-          if effect.type == "unlock-recipe" then
-            force.recipes[effect.recipe].enabled = false
-            force.recipes[effect.recipe].enabled = true
-          end
-        end
-      end
-    end
-  end
+  -- Re-initialize global tables etc.
+  init()
 
   -- Has setting BI_Show_musk_floor_in_mapview changed?
   if ConfigurationChangedData.mod_startup_settings_changed then
-    -- Create dummy force if necessary
-    if UseMuskForce and not game.forces[MuskForceName] then
-      Create_dummy_force()
-    end
+    --~ -- Create dummy force if necessary (Moved to init()!)
+    --~ if UseMuskForce and not game.forces[MuskForceName] then
+      --~ Create_dummy_force()
+    --~ end
+
 
   -- Look for solar panels on every surface. They determine the force poles will use
   -- if the electric grid overlay will be shown in mapview.
@@ -294,7 +268,9 @@ Event.register(defines.events.on_trigger_created_entity, function(event)
   local surface = ent.surface
   local position = ent.position
 
-  local AlienBiomes = BioInd.AB_tiles()
+  -- 'AlienBiomes' is a bool value -- we don't want to read it again if it's false,
+  -- but only if it hasn't been set yet!
+  AlienBiomes = AlienBiomes ~= nil and AlienBiomes or BioInd.AB_tiles()
 
   -- Basic
   if global.bi.seed_bomb[ent.name] == "seedling" then
@@ -304,26 +280,14 @@ Event.register(defines.events.on_trigger_created_entity, function(event)
   -- Standard
   elseif global.bi.seed_bomb[ent.name] == "seedling-2" then
     BioInd.writeDebug("Seed Bomb Activated - Standard")
-    local terrain_name_s
-    --~ if game.active_mods["alien-biomes"] then
-    if AlienBiomes then
-      terrain_name_s = "vegetation-green-grass-3"
-    else
-      terrain_name_s = "grass-3"
-    end
+    local terrain_name_s = AlienBiomes and "vegetation-green-grass-3" or "grass-3"
     surface.set_tiles{{name = terrain_name_s, position = position}}
     seed_planted_trigger(event)
 
   -- Advanced
   elseif global.bi.seed_bomb[ent.name] == "seedling-3" then
     BioInd.writeDebug("Seed Bomb Activated - Advanced")
-    local terrain_name_a
-    --~ if game.active_mods["alien-biomes"] then
-    if AlienBiomes then
-      terrain_name_a = "vegetation-green-grass-1"
-    else
-      terrain_name_a = "grass-1"
-    end
+    local terrain_name_a = AlienBiomes and "vegetation-green-grass-1" or "grass-1"
     surface.set_tiles{{name = terrain_name_a, position = position}}
     seed_planted_trigger(event)
   end
@@ -567,9 +531,11 @@ BioInd.writeDebug("Entity name: %s", {entity.name})
       pole = create_pole,
       lamp = create_lamp
     }
+    global.Arboretum_Radar_Table[create_radar.unit_number] = create_arboretum.unit_number
 
     BioInd.writeDebug("built: entity unit_number: %s", {create_arboretum.unit_number})
     BioInd.writeDebug("built: global.Arboretum_Table: %s", {global.Arboretum_Table[create_arboretum.unit_number]})
+    BioInd.writeDebug("built: global.Arboretum_Radar_Table: %s", {global.Arboretum_Radar_Table[create_radar.unit_number]})
 
     -- Remove the "Overlay" Entity
     event.created_entity.destroy()
@@ -744,8 +710,15 @@ local function On_Remove(event)
   --- Seedling Removed
   if entity.valid and entity.name == "seedling" then
     BioInd.writeDebug("Seedling has been removed")
+    -- positions from entity and table
+    local e = {}
+    local t = {}
+    e.x = entity.position.x or entity.position[1]
+    e.y = entity.position.y or entity.position[2]
     for k, v in pairs(global.bi.tree_growing) do
-      if v.position.x == entity.position.x and v.position.y == entity.position.y then
+      t.x = v.position.x or v.position[1]
+      t.y = v.position.y or v.position[2]
+      if t.x == e.x and t.y == e.y then
         table.remove(global.bi.tree_growing, k)
         return
       end
@@ -753,7 +726,7 @@ local function On_Remove(event)
   end
 
   --- Tree Stage 1 Removed
-  if entity.valid and entity.type == "tree" then --and global.bi.trees[entity.name] then
+  if entity.valid and entity.type == "tree" and global.bi.trees[entity.name] then
     BioInd.writeDebug("Tree Removed removed name: %s", {entity.name})
     local tree_name = (string.find(entity.name, "bio%-tree%-"))
     BioInd.writeDebug("Tree Removed removed name: %s", {tree_name})
@@ -771,7 +744,7 @@ local function On_Remove(event)
 
       local tree_stage_2 = (string.find(entity.name, '2.-$'))
       if tree_stage_2 then
-        BioInd.writeDebug("2: Entity Name: %s (%g)\tTree last two digits: %s", {entity.name, tree_stage_2})
+        BioInd.writeDebug("2: Entity Name: %s (%g)", {entity.name, tree_stage_2})
         for k, v in pairs(global.bi.tree_growing_stage_2) do
           if v.position.x == entity.position.x and v.position.y == entity.position.y then
             table.remove(global.bi.tree_growing_stage_2, k)
@@ -782,7 +755,7 @@ local function On_Remove(event)
 
       local tree_stage_3 = (string.find(entity.name, '3.-$'))
       if tree_stage_3 then
-        BioInd.writeDebug("3: Entity Name: %s (%g)\tTree last two digits: %s", {entity.name, tree_stage_3})
+        BioInd.writeDebug("3: Entity Name: %s (%g)", {entity.name, tree_stage_3})
         for k, v in pairs(global.bi.tree_growing_stage_3) do
           if v.position.x == entity.position.x and v.position.y == entity.position.y then
             table.remove(global.bi.tree_growing_stage_3, k)
@@ -793,7 +766,7 @@ local function On_Remove(event)
 
       local tree_stage_4 = (string.find(entity.name, '4.-$'))
       if tree_stage_4 then
-        BioInd.writeDebug("4: Entity Name: %s (%g)\tTree last two digits: %s", {entity.name, tree_stage_4})
+        BioInd.writeDebug("4: Entity Name: %s (%g)", {entity.name, tree_stage_4})
         for k, v in pairs(global.bi.tree_growing_stage_4) do
           if v.position.x == entity.position.x and v.position.y == entity.position.y then
             table.remove(global.bi.tree_growing_stage_4, k)
@@ -922,7 +895,7 @@ local function On_Death(event)
 
       local tree_stage_4 = (string.find(entity.name, '4.-$'))
       if tree_stage_4 then
-        BioInd.writeDebug("4: Entity Name: %s\tTree last two digits: %s", {entity.nametree_stage_4})
+        BioInd.writeDebug("4: Entity Name: %s\tTree last two digits: %s", {entity.name, tree_stage_4})
         for k, v in pairs(global.bi.tree_growing_stage_4) do
           if v.position.x == entity.position.x and v.position.y == entity.position.y then
             table.remove(global.bi.tree_growing_stage_4, k)
@@ -942,11 +915,11 @@ Event.register(defines.events.on_sector_scanned, function(event)
   if event.radar.name == "bi-arboretum-radar" then
     local arboretum = (global.Arboretum_Radar_Table[event.radar.unit_number])
 
-    if OMNImatter_fluid then
-      Get_Arboretum_Recipe_omnimatter_fluid(global.Arboretum_Table[arboretum], event)
-    else
+    --~ if OMNImatter_fluid then
+      --~ Get_Arboretum_Recipe_omnimatter_fluid(global.Arboretum_Table[arboretum], event)
+    --~ else
       Get_Arboretum_Recipe(global.Arboretum_Table[arboretum], event)
-    end
+    --~ end
   end
 end)
 
@@ -1013,17 +986,23 @@ BioInd.show("Entered function \"solar_mat_built\"", event)
 --~ log("event: " .. serpent.block(event))
   local surface = game.surfaces[event.surface_index]
 
+  --~ local force = (UseMuskForce and MuskForceName) or
+                --~ (event.player_index and game.players[event.player_index].force) or
+                --~ (event.robot and event.robot.force) or
+                --~ event.force
   local force = (UseMuskForce and MuskForceName) or
-                (event.player_index and game.players[event.player_index].force) or
-                (event.robot and event.robot.force) or
-                event.force
+                (event.player_index and game.players[event.player_index].force.name) or
+                (event.robot and event.robot.force.name) or
+                event.force.name
+BioInd.show("Force", force )
+
   --~ local old_tiles = event.tiles or {}
   local old_tiles = event.tiles
 
 
   -- Musk floor has been built -- create hidden entities!
   if tile.name == "bi-solar-mat" then
-    BioInd.writeDebug("Solar Mat has been built")
+    BioInd.writeDebug("Solar Mat has been built -- must create hidden entities!")
 BioInd.show("Tile data", tile )
     local position
 
@@ -1063,9 +1042,10 @@ BioInd.show("Read old_tile inside loop", old_tile)
       BioInd.show("Created panel", create_sm_panel.unit_number)
 
       -- Add to global tables!
+BioInd.show("global.bi_musk_floor_table", global.bi_musk_floor_table)
       global.bi_musk_floor_table.tiles[x] = global.bi_musk_floor_table.tiles[x] or {}
       global.bi_musk_floor_table.tiles[x][y] = force
-
+BioInd.show("Forces: ", game.forces)
       global.bi_musk_floor_table.forces[force] =
         global.bi_musk_floor_table.forces[force] or {}
       global.bi_musk_floor_table.forces[force][x] =
@@ -1075,7 +1055,7 @@ BioInd.show("Read old_tile inside loop", old_tile)
     end
   -- Some other tile has been built -- check if it replaced musk floor!
   else
-    BioInd.writeDebug("%s has been built.", {tile.name})
+    BioInd.writeDebug("%s has been built -- nothing to do!", {tile.name})
     --~ solar_mat_removed(surface, old_tiles)
   end
 
@@ -1086,7 +1066,8 @@ end
 
 
 Event.register(Event.core_events.configuration_changed, On_Config_Change)
-Event.register(Event.core_events.init, On_Init)
+--~ Event.register(Event.core_events.init, On_Init)
+Event.register(Event.core_events.init, init)
 Event.register(Event.core_events.load, On_Load)
 
 

@@ -4,74 +4,29 @@ require ("util")
 local ICONPATH = BioInd.modRoot .. "/graphics/icons/"
 local ENTITYPATH = "__Bio_Industries__/graphics/entities/bio_solar_farm/"
 
-local BIGICONS = BioInd.check_base_version("0.18.0")
+--~ local BIGICONS = BioInd.check_base_version("0.18.0")
 
 
 if BI.Settings.BI_Solar_Additions then
 
--- This check is necessary because sounds.car_wood_impact didn't exist before Factorio 0.18.4 and
--- was changed in Factorio 0.18.18!
---~ local game_version = mods["base"]
---~ if game_version then
---~ local version = util.split(mods["base"], '.')
---~ for i=1, #version do
-  --~ version[i] = tonumber(version[i])
---~ end
 
-
--- Does the active Factorio version support new sounds? (Must be >= 0.18.18)
-
-local sound_def
+-- demo-sounds has been removed in Factorio 1.1, so we need to check the game version!
+local sound_def = BioInd.check_version("base", "<", "1.1.0") and
+                    require("__base__.prototypes.entity.demo-sounds") or
+                    require("__base__.prototypes.entity.sounds")
 local sounds = {}
-
---~ if (tonumber(version[2]) or 0) == 18 then
-  --~ sound_def = require("__base__.prototypes.entity.demo-sounds")
---~ end
-if BioInd.check_base_version("0.18.0")  then
-  sound_def = require("__base__.prototypes.entity.demo-sounds")
-end
-
---Factorio >= 0.18.18
---~ if ((tonumber(version[2]) or 0) == 18) and ((tonumber(version[3]) or 0) >= 18) and sound_def then
-if BioInd.check_base_version("0.18.18")  and sound_def then
-
-  log("car_wood_impact sound is function")
-  sounds.car_wood_impact = sound_def.car_wood_impact(1)
-  sounds.generic_impact = sound_def.generic_impact
-
--- Factorio 0.18.4 -- 0.18.17
---~ elseif ((tonumber(version[2]) or 0) == 18 and
-        --~ (tonumber(version[3]) or 0) >= 4) and sound_def  then
-elseif BioInd.check_base_version("0.18.4") and sound_def  then
-
-  sounds.car_wood_impact = sound_def.car_wood_impact
-  for _, sound in ipairs(sounds.car_wood_impact) do
-      sound.volume = 1
-  end
-  sounds.generic_impact = sound_def.generic_impact
-
--- Factorio 0.18.0 -- 0.18.4
---~ elseif version[2] >= 18 then
-elseif BioInd.check_base_version("0.18.0")  then
-  sounds.car_wood_impact = {
-    { filename = "__base__/sound/car-wood-impact.ogg", volume = 1 },
-    { filename = "__base__/sound/car-wood-impact-02.ogg", volume = 1 },
-    { filename = "__base__/sound/car-wood-impact-03.ogg", volume = 1 },
-    { filename = "__base__/sound/car-wood-impact-04.ogg", volume = 1 }
-  }
-  sounds.generic_impact = sound_def.generic_impact
--- Factorio 0.17
-else
-  sounds.car_wood_impact = {
-    { filename = "__base__/sound/car-wood-impact.ogg", volume = 1 },
-  }
-  sounds.generic_impact = {
-    { filename = "__base__/sound/car-metal-impact.ogg", volume = 1 },
-  }
-end
-
+sounds.car_wood_impact = sound_def.car_wood_impact(1)
+sounds.generic_impact = sound_def.generic_impact
 for _, sound in ipairs(sounds.generic_impact) do
   sound.volume = 0.65
+end
+
+sounds.walking_sound = {}
+for i = 1, 11 do
+  sounds.walking_sound[i] = {
+    filename = "__base__/sound/walking/concrete-" .. (i < 10 and "0" or "")  .. i ..".ogg",
+    volume = 1.2
+  }
 end
 
 data:extend({
@@ -172,7 +127,6 @@ data:extend({
     },
     discharge_cooldown = 60,
     discharge_light = {intensity = 0.7, size = 7, color = {r = 1.0, g = 1.0, b = 1.0}},
-    --~ vehicle_impact_sound =  { filename = "__base__/sound/car-metal-impact.ogg", volume = 0.65 },
     vehicle_impact_sound = sounds.generic_impact,
     working_sound = {
       sound = {
@@ -241,7 +195,6 @@ data:extend({
       direction_count = 1,
       scale = 0.5,
     },
-    --~ vehicle_impact_sound =  { filename = "__base__/sound/car-metal-impact.ogg", volume = 0.65 },
     vehicle_impact_sound = sounds.generic_impact,
     working_sound = {
       sound = { filename = "__base__/sound/substation.ogg" },
@@ -335,24 +288,25 @@ data:extend({
         count = 1
       }
     },
-    walking_sound = {
-      {
-        filename = "__base__/sound/walking/concrete-01.ogg",
-        volume = 1.2
-      },
-      {
-        filename = "__base__/sound/walking/concrete-02.ogg",
-        volume = 1.2
-      },
-      {
-        filename = "__base__/sound/walking/concrete-03.ogg",
-        volume = 1.2
-      },
-      {
-        filename = "__base__/sound/walking/concrete-04.ogg",
-        volume = 1.2
-      }
-    },
+    --~ walking_sound = {
+      --~ {
+        --~ filename = "__base__/sound/walking/concrete-01.ogg",
+        --~ volume = 1.2
+      --~ },
+      --~ {
+        --~ filename = "__base__/sound/walking/concrete-02.ogg",
+        --~ volume = 1.2
+      --~ },
+      --~ {
+        --~ filename = "__base__/sound/walking/concrete-03.ogg",
+        --~ volume = 1.2
+      --~ },
+      --~ {
+        --~ filename = "__base__/sound/walking/concrete-04.ogg",
+        --~ volume = 1.2
+      --~ }
+    --~ },
+    walking_sound = sounds.walking_sound,
     map_color = {r = 93, g = 138, b = 168},
     pollution_absorption_per_second = 0,
     vehicle_friction_modifier = dirt_vehicle_speed_modifer
@@ -547,7 +501,6 @@ data:extend({
     minable = {hardness = 0.2, mining_time = 1, result = "bi-solar-boiler"},
     max_health = 400,
     corpse = "small-remnants",
-    --~ vehicle_impact_sound =  { filename = "__base__/sound/car-metal-impact.ogg", volume = 0.65 },
     vehicle_impact_sound = sounds.generic_impact,
     mode = "output-to-separate-pipe",
     resistances = {

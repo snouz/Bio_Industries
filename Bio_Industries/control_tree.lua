@@ -218,96 +218,68 @@ Bi_Industries.fertility = {
     ["volcanic-purple-heat-1"] = 1,
     ["volcanic-purple-heat-2"] = 1,
     ["volcanic-purple-heat-3"] = 1,
-    ["volcanic-purple-heat-4"] = 1
+    ["volcanic-purple-heat-4"] = 1,
+    ["landfill"] = 1,
 }
 
 
-function seed_planted (event)
-  -- Seed Planted (Put the seedling in the table
-  local entity = event.created_entity
-  local surface = entity.surface
-  local position = entity.position
-  local fertility
-  local currentTilename = surface.get_tile(position.x, position.y).name
+local function __err(arg, arg_type)
+  error(string.format("Wrong argument! %s is not a valid %s!", arg or "nil", arg_type))
+end
 
-  if Bi_Industries.fertility[currentTilename] then
-    fertility = Bi_Industries.fertility[currentTilename]
-  else
-    fertility = 1 -- < Always a minimum of 1.
+-- t_base, t_penalty: numbers; seedbomb: Boolean
+local function plant_seed(event, t_base, t_penalty, seedbomb)
+
+  if not (event and type(event) == "table") then
+    _err(event, "table")
+  elseif not (t_base and type(t_base) == "number") then
+    __err(t_base, "number")
+  elseif not (t_penalty and type(t_penalty) == "number") then
+    __err(t_penalty, "number")
+  -- seedbomb must be a boolean value!
+  --~ elseif not (seedbomb and (seedbomb == "yes" or seedbomb == "no")) then
+    --~ _err(seedbomb, "string")
   end
+BioInd.show("event", event)
+BioInd.show("t_base", t_base)
+BioInd.show("t_penalty", t_penalty)
+BioInd.show("seedbomb", seedbomb)
+  -- Seed Planted (Put the seedling in the table)
+  local entity = event.entity or event.created_entity or __err("nil", "entity")
+  local surface = entity.surface
+  local pos = BioInd.normalize_position(entity.position)
+  local currentTilename = surface.get_tile(pos.x, pos.y).name
+  -- Minimum will always be 1
+  local fertility = Bi_Industries.fertility[currentTilename] or 1
 
-  -- Fertile tiles will grow faster than barren tiles
-  local max_grow_time = math.random(1000) + 4000 - (40 * fertility)
+  -- Things will grow faster on fertile than on barren tiles
+  -- (No penalty for tiles with maximum fertility)
+  local grow_time = math.random(t_base) + t_penalty - (40 * fertility)
   table.insert(global.bi.tree_growing, {
-    position = position,
-    time = event.tick + max_grow_time,
+    position = pos,
+    time = event.tick + grow_time,
     surface = surface,
-    seed_bomb = "no"
+    seed_bomb = seedbomb
   })
   table.sort(global.bi.tree_growing, function(a, b) return a.time < b.time end)
+end
+
+function seed_planted(event)
+  plant_seed(event, 1000, 4000, false)
 end
 
 function seed_planted_trigger (event)
-  -- Seed Planted
-  local entity = event.entity
-  local surface = entity.surface
-  local position = entity.position
-  local fertility
-  local currentTilename = surface.get_tile(position.x, position.y).name
-  BioInd.writeDebug("Current tile: %s", {currentTilename})
-
-  if Bi_Industries.fertility[currentTilename] then
-    fertility = Bi_Industries.fertility[currentTilename]
-  else
-    fertility = 1 -- < Always a minimum of 1.
-    BioInd.writeDebug("Tile NOT in table")
-  end
-
-  BioInd.writeDebug("Fertility: %s", {fertility})
-  -- Fertile tiles will grow faster than barren tiles
-  local max_grow_time = math.random(2000) + 6000 - (40 * fertility)
-  table.insert(global.bi.tree_growing, {
-    position = position,
-    time = event.tick + max_grow_time,
-    surface = surface,
-    seed_bomb = "yes"
-  })
-  table.sort(global.bi.tree_growing, function(a, b) return a.time < b.time end)
+  plant_seed(event, 2000, 6000, true)
 end
 
-function seed_planted_arboretum (event, entity)
-  -- Seed Planted by arboretum
-  local surface = entity.surface
-  local position = entity.position
-  local fertility
-  local currentTilename = surface.get_tile(position.x, position.y).name
+function seed_planted_arboretum(event, entity)
+BioInd.show("event", event)
+BioInd.show("entity", entity)
 
-  if Bi_Industries.fertility[currentTilename] then
-    fertility = Bi_Industries.fertility[currentTilename]
-  else
-    fertility = 1 -- < Always a minimum of 1.
-  end
-
-  BioInd.writeDebug("Fertility: %s", {fertility})
-  -- Fertile tiles will grow faster than barren tiles
-  local max_grow_time = math.random(2000) + 6000 - (40 * fertility)
-  table.insert(global.bi.tree_growing, {
-    position = position,
-    time = event.tick + max_grow_time,
-    surface = surface,
-    seed_bomb = "no"
-  })
-  table.sort(global.bi.tree_growing, function(a, b) return a.time < b.time end)
+  event.created_entity = entity
+  plant_seed(event, 2000, 6000, false)
 end
 
-function is_value_as_index_in_table (value, tabl)
-  for index, v in pairs (tabl) do
-    if value == index then
-      return true
-    end
-  end
-  return false
-end
 
 function summ_weight (tabl)
   local summ = 0
@@ -321,7 +293,7 @@ end
 
 function tree_from_max_index_tabl (max_index, tabl)
   local rnd_index = math.random (max_index)
-  for tree_name, tree_weights in pairs (tabl) do
+  for tree_name, tree_weights in pairs(tabl) do
     if (type (tree_weights) == "table") and tree_weights.weight then
       rnd_index = rnd_index - tree_weights.weight
       if rnd_index <= 0 then
@@ -335,33 +307,50 @@ end
 function random_tree (surface, position)
   local tile = surface.get_tile(position.x, position.y)
   local tile_name = tile.name
-  if is_value_as_index_in_table (tile_name, terrains) then
+BioInd.show("random_tree: tile_name", tile_name)
+  if terrains[tile_name] then
     local trees_table = terrains[tile_name]
     local max_index = summ_weight(trees_table)
-    return tree_from_max_index_tabl (max_index, trees_table)
+BioInd.writeDebug("Found %s in table terrains. trees_table: %s\tmax_index: %s", {tile_name,trees_table, max_index})
+    return tree_from_max_index_tabl(max_index, trees_table)
   end
 end
 
 
-local function Grow_tree_stage_0(stage_0_table, event)
-  local foundtree = false
-  local surface = stage_0_table.surface
-  local position = stage_0_table.position
-  local seed_bomb = stage_0_table.seed_bomb
+-- Settings used for the different grow stages
+local stage_settings = {
+  [1] = {
+    fertiliser = {max = 1500, penalty = 3000, factor = 30},
+    default = {max = 1500, penalty = 6000, factor = 30},
+  },
+  [2] = {
+    fertiliser = {max = 1000, penalty = 2000, factor = 20},
+    default = {max = 1500, penalty = 6000, factor = 30},
+  },
+  [3] = {
+    fertiliser = {max = 1000, penalty = 2000, factor = 20},
+    default = {max = 1500, penalty = 6000, factor = 30},
+  },
+}
+
+local function Grow_tree_first_stage(first_stage_table, event)
+  local surface = first_stage_table and first_stage_table.surface or __err("nil", "surface")
+  local position = first_stage_table and BioInd.normalize_position(first_stage_table.position) or
+                    __err("nil", "position")
+  local seed_bomb = first_stage_table and first_stage_table.seed_bomb
 BioInd.writeDebug("seed_bomb: %s", {seed_bomb})
   local tree = surface.find_entity("seedling", position)
   local tree2 = surface.find_entity("seedling-2", position)
   local tree3 = surface.find_entity("seedling-3", position)
 BioInd.writeDebug("tree: %s\ttree2: %s\ttree3: %s", {tree or "nil", tree2 or "nil", tree3 or "nil"})
 
+  -- fertility will be 1 if terrain type is not listed above, so very small chance to grow.
   local currentTilename = surface.get_tile(position.x, position.y).name
-  -- fertility will be 1 if terrain type not listed above, so very small chance to grow.
   local fertility = 1
   -- Random value. Tree will grow if this value is smaller than the 'Fertility' value
   local growth_chance = math.random(100)
 
-  if tree and seed_bomb == "no" then
-    foundtree = true
+  if tree and not seed_bomb then
     tree.destroy()
 BioInd.writeDebug("Destroyed tree!")
     --- Depending on Terrain, choose tree type & Convert seedling into a tree
@@ -370,40 +359,40 @@ BioInd.writeDebug("Destroyed tree!")
 BioInd.writeDebug("New tree can grow!")
     -- Grow the new tree
       local tree_name = random_tree(surface, position)
-      if tree_name then
-        local can_be_placed = surface.can_place_entity{name = tree_name, position = position, force = "neutral"}
-BioInd.writeDebug("can_be_placed: %s\tgrowth_chance: %s\tfertility + 5: %s\tfound_tree: %s", {can_be_placed, growth_chance, fertility + 5, foundtree})
-        if can_be_placed and growth_chance <= (fertility + 5) and foundtree then
+      if tree_name and
+          surface.can_place_entity{name = tree_name, position = position, force = "neutral"} and
+          growth_chance <= (fertility + 5) then
 BioInd.writeDebug("Can be placed etc!")
-        -- Fertile tiles will grow faster than barren tiles
-        local max_grow_time = math.random(2000) + 4000 - (40 * fertility)
-        if max_grow_time <= 0 then max_grow_time = 1 end
-BioInd.writeDebug("max_grow_time: %s", {max_grow_time})
-          local stage_1_tree_name = "bio-tree-" .. tree_name .. "-1"
-          if game.item_prototypes[stage_1_tree_name] or game.entity_prototypes[stage_1_tree_name] then
-            stage_1_tree_name = "bio-tree-" .. tree_name .. "-1"
-          else
-            stage_1_tree_name = tree_name
-          end
-BioInd.writeDebug("stage_1_tree_name: %s", {stage_1_tree_name})
-          table.insert(global.bi.tree_growing_stage_1, {
-            tree_name = stage_1_tree_name,
-            final_tree = tree_name,
-            position = position,
-            time = event.tick + max_grow_time,
-            surface = surface
-          })
-          table.sort(global.bi.tree_growing_stage_1, function(a, b) return a.time < b.time end)
-          -- Plant the new tree
-          local new_tree = surface.create_entity({name = stage_1_tree_name, position = position, force = "neutral"})
+          -- Fertile tiles will grow faster than barren tiles
+        local grow_time = math.random(2000) + 4000 - (40 * fertility)
+        if grow_time < 1 then
+          grow_time = 1
         end
+BioInd.writeDebug("grow_time: %s", {grow_time})
+
+        local stage_1_tree_name = "bio-tree-" .. tree_name .. "-1"
+        if not (game.item_prototypes[stage_1_tree_name] or
+                game.entity_prototypes[stage_1_tree_name]) then
+          stage_1_tree_name = tree_name
+        end
+BioInd.writeDebug("stage_1_tree_name: %s", {stage_1_tree_name})
+
+        table.insert(global.bi.tree_growing_stage_1, {
+          tree_name = stage_1_tree_name,
+          final_tree = tree_name,
+          position = position,
+          time = event.tick + grow_time,
+          surface = surface
+        })
+        table.sort(global.bi.tree_growing_stage_1, function(a, b) return a.time < b.time end)
+        -- Plant the new tree
+        surface.create_entity({name = stage_1_tree_name, position = position, force = "neutral"})
       end
     end
   end
 
   --- Seed Bomb Code
   if tree2 or tree3 then
-    foundtree = true
 
     if tree2 then tree2.destroy() end
     if tree3 then tree3.destroy() end
@@ -419,7 +408,8 @@ BioInd.writeDebug("stage_1_tree_name: %s", {stage_1_tree_name})
           position = position,
           force = "neutral"
         }
-        if can_be_placed and growth_chance <= fertility and foundtree then
+        --~ if can_be_placed and growth_chance <= fertility and foundtree then
+        if can_be_placed and growth_chance <= fertility then
           local new_tree = surface.create_entity{
             name = tree_name,
             position = position,
@@ -430,10 +420,11 @@ BioInd.writeDebug("stage_1_tree_name: %s", {stage_1_tree_name})
     end
   end
 
-  if seed_bomb == "yes" then
-    foundtree = true
-    BioInd.writeDebug("Seed Bomb was YES")
-    if tree then tree.destroy() end
+  if seed_bomb then
+    BioInd.writeDebug("Seed bomb was used!")
+    if tree then
+      tree.destroy()
+    end
 
     --- Depending on Terrain, choose tree type & Convert seedling into a tree
     if Bi_Industries.fertility[currentTilename] then
@@ -443,9 +434,12 @@ BioInd.writeDebug("stage_1_tree_name: %s", {stage_1_tree_name})
       local tree_name = random_tree (surface, position)
       if tree_name then
       BioInd.writeDebug("Found Tree")
-        local can_be_placed = surface.can_place_entity{name = tree_name, position = position, force = "neutral"}
-        if can_be_placed and growth_chance <= fertility and foundtree then
-          local new_tree = surface.create_entity{name = tree_name, position = position, force = "neutral"}
+        if surface.can_place_entity{
+              name = tree_name,
+              position = position,
+              force = "neutral"
+        } and growth_chance <= fertility then
+          surface.create_entity{name = tree_name, position = position, force = "neutral"}
         end
       else
         BioInd.writeDebug("Tree not Found")
@@ -456,482 +450,174 @@ BioInd.writeDebug("stage_1_tree_name: %s", {stage_1_tree_name})
   end
 end
 
-local function Grow_tree_stage_1(stage_1_table)
-BioInd.writeDebug("Entered function Grow_tree_stage_1: %s", {stage_1_table})
-  local tree_name = stage_1_table.tree_name
-  local final_tree = stage_1_table.final_tree
-  local surface = stage_1_table.surface
-  local position = stage_1_table.position
-  local time_planted = stage_1_table.time
-  local foundtree = false
-  local tree
+local function Grow_tree_last_stage(last_stage_table)
+  local tree_name = last_stage_table and last_stage_table.tree_name or __err("nil", "string")
+  local final_tree = last_stage_table and last_stage_table.final_tree
+  local surface = last_stage_table and last_stage_table.surface
+  local position = last_stage_table and last_stage_table.position
+  local time_planted = last_stage_table and last_stage_table.time
 
-  if tree_name then
-    tree = surface.find_entity(tree_name, position)
-  end
-
+  local tree = tree_name and surface.find_entity(tree_name, position)
   local currentTilename = surface.get_tile(position.x, position.y).name
-  -- fertility will be 1 if terrain type not listed, so very small change to grow.
-  local fertility = 1
+
 
   if tree then
-    foundtree = true
     tree.destroy()
 
-    --- Depending on Terrain, choose tree type & Convert seedling into a tree
-    if Bi_Industries.fertility[currentTilename] then
-      fertility = Bi_Industries.fertility[currentTilename]
-
-      -- Select Tree
-      local stage_2_tree_name
-      if game.item_prototypes[stage_2_tree_name] or game.entity_prototypes[stage_2_tree_name] then
-        stage_2_tree_name = "bio-tree-" .. final_tree .. "-2"
-      else
-        stage_2_tree_name = final_tree
-        BioInd.writeDebug("Stage 2: Prototype did not exist")
-      end
-      BioInd.writeDebug("Stage 2 Tree Name: %s", {stage_2_tree_name})
-
-      local can_be_placed = surface.can_place_entity{
-        name = stage_2_tree_name,
-        position = position,
-        force = "neutral"
-      }
-      if can_be_placed and foundtree then
-        -- Fertile tiles will grow faster than barren tiles
-        local max_grow_time = math.random(1500) + 3000 - (30 * fertility)
-        if max_grow_time <= 0 then
-          max_grow_time = 1
-        end
-
-        if stage_2_tree_name == final_tree then
-          BioInd.writeDebug("Tree reached final stage, don't insert")
-          local new_tree = surface.create_entity({
-            name = stage_2_tree_name,
-            position = position,
-            force = "neutral"
-          })
-        else
-          table.insert(global.bi.tree_growing_stage_2, {
-            tree_name = stage_2_tree_name,
-            final_tree = final_tree,
-            position = position,
-            time = time_planted + max_grow_time,
-            surface = surface
-          })
-          table.sort(global.bi.tree_growing_stage_2, function(a, b) return a.time < b.time end)
-          local new_tree = surface.create_entity({
-            name = stage_2_tree_name,
-            position = position,
-            force = "neutral"
-          })
-        end
-      end
-
-    ---- Terrain not found.
-    else
-      BioInd.writeDebug("Terrain not found")
-      -- Select Tree
-      local stage_2_tree_name
-      if game.item_prototypes[stage_2_tree_name] or game.entity_prototypes[stage_2_tree_name] then
-        stage_2_tree_name = "bio-tree-" .. final_tree .. "-2"
-      else
-        stage_2_tree_name = final_tree
-        BioInd.writeDebug("Stage 2: Prototype did not exist")
-      end
-
-      if game.entity_prototypes[stage_2_tree_name] and growth_chance <= fertility and
-         foundtree and surface.can_place_entity({
-           name = stage_2_tree_name,
-           position = position
-         }) then
-        -- Fertile tiles will grow faster than barren tiles
-        local max_grow_time = math.random(1500) + 6000 - (30 * fertility)
-        if max_grow_time <= 0 then
-          max_grow_time = 1
-        end
-
-        if stage_2_tree_name == final_tree then
-          BioInd.writeDebug("Tree reached final stage, don't insert")
-          local new_tree = surface.create_entity({
-            name = stage_2_tree_name,
-            position = position,
-            force = "neutral"
-          })
-        else
-          table.insert(global.bi.tree_growing_stage_2, {
-            tree_name = stage_2_tree_name,
-            final_tree = final_tree,
-            position = position,
-            time = time_planted + max_grow_time,
-            surface = surface
-          })
-          table.sort(global.bi.tree_growing_stage_2, function(a, b) return a.time < b.time end)
-          local new_tree = surface.create_entity({
-            name = stage_2_tree_name,
-            position = position,
-            force = "neutral"
-          })
-        end
-      end
-    end
-  else
-    BioInd.writeDebug("Did not find that tree I was looking for...")
-  end
-end
-
-local function Grow_tree_stage_2(stage_2_table)
-  local tree_name = stage_2_table.tree_name
-  local final_tree = stage_2_table.final_tree
-  local surface = stage_2_table.surface
-  local position = stage_2_table.position
-  local time_planted = stage_2_table.time
-  local foundtree = false
-  local tree
-
-  if tree_name then
-    tree = surface.find_entity(tree_name, position)
-  end
-
-  local currentTilename = surface.get_tile(position.x, position.y).name
-  -- fertility will be 1 if terrain type not listed above, so very small change to grow.
-  local fertility = 1
-  if tree then
-    foundtree = true
-    tree.destroy()
-
-    --- Depending on Terrain, choose tree type & Convert seedling into a tree
-    if Bi_Industries.fertility[currentTilename] then
-      fertility = Bi_Industries.fertility[currentTilename]
-
-      -- Grow the new tree
-      local stage_3_tree_name
-      if game.item_prototypes[stage_3_tree_name] or game.entity_prototypes[stage_3_tree_name] then
-        stage_3_tree_name = "bio-tree-" .. final_tree .. "-3"
-      else
-        stage_3_tree_name = final_tree
-        BioInd.writeDebug("Stage 3: Prototype did not exist")
-      end
-
-      BioInd.writeDebug("Stage 3 Tree Name: %s", {stage_3_tree_name})
-      local can_be_placed = surface.can_place_entity{
-        name = stage_3_tree_name,
-        position = position,
-        force = "neutral"
-      }
-      if can_be_placed and foundtree then
-        -- Fertile tiles will grow faster than barren tiles
-        local max_grow_time = math.random(1000) + 2000 - (20 * fertility)
-        if max_grow_time <= 0 then
-          max_grow_time = 1
-        end
-        if stage_3_tree_name == final_tree then
-          BioInd.writeDebug("Tree reached final stage, don't insert")
-          local new_tree = surface.create_entity({
-            name = stage_3_tree_name,
-            position = position,
-            force = "neutral"
-          })
-        else
-          table.insert(global.bi.tree_growing_stage_3, {
-            tree_name = stage_3_tree_name,
-            final_tree = final_tree,
-            position = position,
-            time = time_planted + max_grow_time,
-            surface = surface
-          })
-          table.sort(global.bi.tree_growing_stage_3, function(a, b) return a.time < b.time end)
-          local new_tree = surface.create_entity({
-            name = stage_3_tree_name,
-            position = position,
-            force = "neutral"
-          })
-        end
-      end
-
-    ---- Terrain not found.
-    else
-      BioInd.writeDebug("Terrain not found")
-      -- Select Tree
-      local stage_3_tree_name
-      if game.item_prototypes[stage_3_tree_name] or game.entity_prototypes[stage_3_tree_name] then
-        stage_3_tree_name = "bio-tree-" .. final_tree .. "-3"
-      else
-        stage_3_tree_name = final_tree
-        BioInd.writeDebug("Stage 3: Prototype did not exist")
-      end
-
-      if game.entity_prototypes[stage_3_tree_name] and growth_chance <= fertility and
-         foundtree and surface.can_place_entity({
-           name = stage_3_tree_name,
-           position = position
-         }) then
-        -- Fertile tiles will grow faster than barren tiles
-        local max_grow_time = math.random(1500) + 6000 - (30 * fertility)
-        if max_grow_time <= 0 then
-          max_grow_time = 1
-        end
-        if stage_3_tree_name == final_tree then
-          BioInd.writeDebug("Tree reached final stage, don't insert")
-          local new_tree = surface.create_entity({
-            name = stage_3_tree_name,
-            position = position,
-            force = "neutral"
-          })
-        else
-          table.insert(global.bi.tree_growing_stage_3, {
-            tree_name = stage_3_tree_name,
-            final_tree = final_tree,
-            position = position,
-            time = time_planted + max_grow_time,
-            surface = surface
-          })
-          table.sort(global.bi.tree_growing_stage_3, function(a, b) return a.time < b.time end)
-          local new_tree = surface.create_entity({
-            name = stage_3_tree_name,
-            position = position,
-            force = "neutral"
-          })
-        end
-      end
-    end
-  else
-    BioInd.writeDebug("Did not find that tree I was looking for...")
-  end
-end
-
-local function Grow_tree_stage_3(stage_3_table)
-  local tree_name = stage_3_table.tree_name
-  local final_tree = stage_3_table.final_tree
-  local surface = stage_3_table.surface
-  local position = stage_3_table.position
-  local time_planted = stage_3_table.time
-  local foundtree = false
-  local tree
-
-  if tree_name then
-    tree = surface.find_entity(tree_name, position)
-  end
-
-  local currentTilename = surface.get_tile(position.x, position.y).name
-  -- fertility will be 1 if terrain type not listed above, so very small change to grow.
-  local fertility = 1
-
-  if tree then
-    foundtree = true
-    tree.destroy()
-
-    --- Depending on Terrain, choose tree type & Convert seedling into a tree
-    if Bi_Industries.fertility[currentTilename] then
-      fertility = Bi_Industries.fertility[currentTilename]
-
-      -- Grow the new tree
-      local stage_4_tree_name
-      if game.item_prototypes[stage_4_tree_name] or game.entity_prototypes[stage_4_tree_name] then
-        stage_4_tree_name = "bio-tree-" .. final_tree .. "-4"
-      else
-        stage_4_tree_name = final_tree
-        BioInd.writeDebug("Stage 4: Prototype did not exist")
-      end
-
-      BioInd.writeDebug("Stage 4 Tree Name: %s", {stage_4_tree_name})
-      local can_be_placed = surface.can_place_entity{
-        name = stage_4_tree_name,
-        position = position,
-        force = "neutral"
-      }
-      if can_be_placed and foundtree then
-        -- Fertile tiles will grow faster than barren tiles
-        local max_grow_time = math.random(1000) + 2000 - (20 * fertility)
-        if max_grow_time <= 0 then
-          max_grow_time = 1
-        end
-
-        if stage_4_tree_name == final_tree then
-          BioInd.writeDebug("Tree reached final stage, don't insert")
-          local new_tree = surface.create_entity({
-            name = stage_4_tree_name,
-            position = position,
-            force = "neutral"
-          })
-        else
-          table.insert(global.bi.tree_growing_stage_4, {
-            tree_name = stage_4_tree_name,
-            final_tree = final_tree,
-            position = position,
-            time = time_planted + max_grow_time,
-            surface = surface
-          })
-          table.sort(global.bi.tree_growing_stage_4, function(a, b) return a.time < b.time end)
-          local new_tree = surface.create_entity({
-            name = stage_4_tree_name,
-            position = position,
-            force = "neutral"
-          })
-        end
-      end
-    ---- Terrain not found.
-    else
-      BioInd.writeDebug("Terrain not found")
-      -- Select Tree
-      local stage_4_tree_name
-      if game.item_prototypes[stage_4_tree_name] or game.entity_prototypes[stage_4_tree_name] then
-        stage_4_tree_name = "bio-tree-" .. final_tree .. "-4"
-      else
-        stage_4_tree_name = final_tree
-        BioInd.writeDebug("Stage 3: Prototype did not exist")
-      end
-
-      if game.entity_prototypes[stage_4_tree_name] and growth_chance <= fertility and
-        foundtree and surface.can_place_entity({
-          name = stage_4_tree_name,
-          position = position
-        }) then
-        -- Fertile tiles will grow faster than barren tiles
-        local max_grow_time = math.random(1500) + 6000 - (30 * fertility)
-        if max_grow_time <= 0 then
-          max_grow_time = 1
-        end
-        if stage_4_tree_name == final_tree then
-          BioInd.writeDebug("Tree reached final stage, don't insert")
-          local new_tree = surface.create_entity({
-            name = stage_4_tree_name,
-            position = position,
-            force = "neutral"
-          })
-        else
-          table.insert(global.bi.tree_growing_stage_4, {
-            tree_name = stage_4_tree_name,
-            final_tree = final_tree,
-            position = position,
-            time = time_planted + max_grow_time,
-            surface = surface
-          })
-          table.sort(global.bi.tree_growing_stage_4, function(a, b) return a.time < b.time end)
-          local new_tree = surface.create_entity({
-            name = stage_4_tree_name,
-            position = position,
-            force = "neutral"
-          })
-        end
-      end
-    end
-  else
-    BioInd.writeDebug("Did not find that tree I was looking for...")
-  end
-end
-
-local function Grow_tree_stage_4(stage_4_table)
-  local tree_name = stage_4_table.tree_name
-  local final_tree = stage_4_table.final_tree
-  local surface = stage_4_table.surface
-  local position = stage_4_table.position
-  local time_planted = stage_4_table.time
-  local foundtree = false
-  local tree
-
-  if tree_name then
-    tree = surface.find_entity(tree_name, position)
-  end
-
-  local currentTilename = surface.get_tile(position.x, position.y).name
-  -- fertility will be 1 if terrain type not listed above, so very small change to grow.
-  local fertility = 1
-  if tree then
-    foundtree = true
-    tree.destroy()
+    -- fertility will be 1 if terrain type not listed above, so very small change to grow.
+    local fertility = Bi_Industries.fertility[currentTilename] or 1
 
     --- Depending on Terrain, choose tree type & Convert seedling into a tree
     local final_tree_name = final_tree
 
-    if Bi_Industries.fertility[currentTilename] then
-      fertility = Bi_Industries.fertility[currentTilename]
+    local can_be_placed = surface.can_place_entity{
+      name = final_tree_name,
+      position = position,
+      force = "neutral"
+    }
+
+    if can_be_placed and
+        (Bi_Industries.fertility[currentTilename] or (growth_chance <= fertility)) then
 
       -- Grow the new tree
       BioInd.writeDebug("Final Tree Name: %s", {final_tree_name})
-      local can_be_placed = surface.can_place_entity{
-        name = final_tree_name,
-        position = position,
-        force = "neutral"
-      }
-      if can_be_placed and foundtree then
-        local new_tree = surface.create_entity({
+      surface.create_entity({
           name = final_tree_name,
           position = position,
           force = "neutral"
         })
-      end
-
-    ---- Hardcode anything else to tree 9 for now.
-    else
-      BioInd.writeDebug("Terrain or Fertility not found")
-      if growth_chance <= fertility and surface.can_place_entity({
-        name = final_tree_name,
-        position = position
-      }) then
-        local new_tree = surface.create_entity({
-          name = final_tree_name,
-          position = position,
-          force = "neutral"
-        })
-      end
     end
   end
 end
 
+
+local function Grow_tree_stage(stage_table, stage)
+BioInd.writeDebug("Entered function Grow_tree_stage(%s, %s)", {stage_table, stage})
+
+  if not (stage_table and type(stage_table) == "table") then
+    __err(stage_table or "nil", "table")
+  elseif not (stage and type(stage) == "number") then
+    __err(stage or "nil", "number")
+  end
+
+  if stage == 4 then
+    Grow_tree_last_stage(stage_table)
+  else
+
+    local tree_name = stage_table.tree_name
+    local final_tree = stage_table.final_tree
+    local surface = stage_table.surface
+    local position = BioInd.normalize_position(stage_table.position)
+    local time_planted = stage_table.time
+
+
+    local tree = tree_name and surface.find_entity(tree_name, position)
+    local currentTilename = surface.get_tile(position.x, position.y).name
+
+    if tree then
+      tree.destroy()
+
+      local next_stage = stage and type(stage) == "number" and stage + 1 or
+                          error(string.format("%s is not a valid tree growth stage!", stage))
+      -- This will be "fertiliser" or "default" in table stage_settings
+      local key
+
+      --- Depending on Terrain, choose tree type & Convert seedling into a tree
+      local fertility
+      if Bi_Industries.fertility[currentTilename] then
+        fertility = Bi_Industries.fertility[currentTilename]
+        key = "fertiliser"
+      else
+        fertility = 1
+        key = "default"
+      end
+
+      local next_stage_tree_name = "bio-tree-" .. final_tree .. "-" .. next_stage
+      if not (game.item_prototypes[next_stage_tree_name] or
+                game.entity_prototypes[next_stage_tree_name]) then
+        next_stage_tree_name = final_tree
+        BioInd.writeDebug("Next stage %g: Prototype did not exist", {next_stage})
+      else
+        BioInd.writeDebug("Next stage %g: %s", {next_stage, next_stage_tree_name})
+      end
+
+      local can_be_placed = surface.can_place_entity{
+        name = next_stage_tree_name,
+        position = position,
+        force = "neutral"
+      }
+
+      if can_be_placed then
+
+        if next_stage_tree_name == final_tree then
+          BioInd.writeDebug("Tree reached final stage, don't insert")
+          surface.create_entity({
+                name = final_tree,
+                position = position,
+                force = "neutral"
+          })
+        else
+          -- Trees will grow faster on fertile than on barren tiles!
+          local s = stage_settings[stage][key]
+          local grow_time = math.random(s.max) + s.penalty - (s.factor * fertility)
+          if grow_time < 1 then
+            grow_time = 1
+          end
+
+          table.insert(global.bi["tree_growing_stage_" .. next_stage], {
+            tree_name = next_stage_tree_name,
+            final_tree = final_tree,
+            position = position,
+            time = time_planted + grow_time,
+            surface = surface
+          })
+          table.sort(global.bi.tree_growing_stage_2, function(a, b) return a.time < b.time end)
+          surface.create_entity({
+            name = next_stage_tree_name,
+            position = position,
+            force = "neutral"
+          })
+        end
+      end
+
+    else
+      BioInd.writeDebug("Did not find that tree I was looking for...")
+    end
+  end
+end
+
+
 ---- Growing Tree
 --Event.register(-12, function(event)
 Event.register(defines.events.on_tick, function(event)
-BioInd.writeDebug("Entered script for on_tick in control_tree.lua!")
+--~ BioInd.writeDebug("Entered script for on_tick in control_tree.lua!")
   if global.bi.tree_growing_stage_1 == nil then
-    global.bi.tree_growing_stage_1 = {}
-    global.bi.tree_growing_stage_2 = {}
-    global.bi.tree_growing_stage_3 = {}
-    global.bi.tree_growing_stage_4 = {}
+    for i = 1, 4 do
+      global.bi["tree_growing_stage_" .. i] = {}
+    end
   end
 
-BioInd.writeDebug("#global.bi.tree_growing: %s", {#global.bi.tree_growing})
-  while #global.bi.tree_growing > 0 do
-BioInd.writeDebug("#global.bi.tree_growing: %s", {#global.bi.tree_growing})
+  while next(global.bi.tree_growing) do
+    -- Table entries are sorted by "time", so we can stop if the first entry's
+    -- "time" refers to a tick in the future!
     if event.tick < global.bi.tree_growing[1].time then
-      BioInd.writeDebug("Still growing")
+      --~ BioInd.writeDebug("Still growing")
       break
     end
-BioInd.writeDebug("Not growing! Calling Grow_tree_stage_0")
-    Grow_tree_stage_0(global.bi.tree_growing[1], event)
+--~ BioInd.writeDebug("Not growing! Calling Grow_tree_stage_0")
+    Grow_tree_first_stage(global.bi.tree_growing[1], event)
     table.remove(global.bi.tree_growing, 1)
-BioInd.writeDebug("global.bi.tree_growing: %s", {global.bi.tree_growing}, "line")
+--~ BioInd.writeDebug("global.bi.tree_growing: %s", {global.bi.tree_growing}, "line")
   end
 
-  while #global.bi.tree_growing_stage_1 > 0 do
-    if event.tick < global.bi.tree_growing_stage_1[1].time then
-      break
+  for stage = 1, 4 do
+    local stage_table = global.bi["tree_growing_stage_" .. stage]
+    while next(stage_table) do
+      if event.tick < stage_table[1].time then
+        break
+      end
+      Grow_tree_stage(stage_table[1], stage)
+      table.remove(stage_table, 1)
     end
-    Grow_tree_stage_1(global.bi.tree_growing_stage_1[1])
-    table.remove(global.bi.tree_growing_stage_1, 1)
-  end
-
-  while #global.bi.tree_growing_stage_2 > 0 do
-    if event.tick < global.bi.tree_growing_stage_2[1].time then
-      break
-    end
-    Grow_tree_stage_2(global.bi.tree_growing_stage_2[1])
-    table.remove(global.bi.tree_growing_stage_2, 1)
-  end
-
-  while #global.bi.tree_growing_stage_3 > 0 do
-    if event.tick < global.bi.tree_growing_stage_3[1].time then
-      break
-    end
-    Grow_tree_stage_3(global.bi.tree_growing_stage_3[1])
-    table.remove(global.bi.tree_growing_stage_3, 1)
-  end
-
-  while #global.bi.tree_growing_stage_4 > 0 do
-    if event.tick < global.bi.tree_growing_stage_4[1].time then
-      break
-    end
-    Grow_tree_stage_4(global.bi.tree_growing_stage_4[1])
-    table.remove(global.bi.tree_growing_stage_4, 1)
   end
 end)

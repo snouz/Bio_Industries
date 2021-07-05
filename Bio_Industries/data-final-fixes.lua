@@ -34,11 +34,14 @@ end
 
 ---- Game Tweaks ---- Tree
 if BI.Settings.BI_Game_Tweaks_Tree then
+  local BI_tree
 
   --- Trees Give Random 1 - 6 Wood.
   for _, tree in pairs(data.raw["tree"]) do
     --CHECK FOR SINGLE RESULTS
+BioInd.writeDebug("Tree name: %s\tminable.result: %s", {tree.name, tree.minable.result or "nil"}, "line")
     if tree.minable and tree.minable.result then
+BioInd.writeDebug("Changing wood yield of %s to random value.", tree.name)
       --CHECK FOR VANILLA TREES WOOD x 4
       if tree.minable.result == "wood" and tree.minable.count == 4 then
        tree.minable = {
@@ -53,7 +56,10 @@ if BI.Settings.BI_Game_Tweaks_Tree then
       end
     else
       --CHECK FOR RESULTS TABLE
-      if tree.minable and tree.minable.results then
+      BI_tree = string.match(tree.name, "bio%-tree%-.+%-%d")
+BioInd.writeDebug("Tree name: %s\tMatch: %s", {tree.name, BI_tree})
+      if tree.minable and tree.minable.results and not BI_tree then
+BioInd.writeDebug("Changing results!")
        for k, results in pairs(tree.minable.results) do
         --CHECK FOR RESULT WOOD x 4
         if results.name == "wood" and results.amount == 4 then

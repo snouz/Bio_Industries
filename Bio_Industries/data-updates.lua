@@ -121,7 +121,7 @@ thxbob.lib.tech.add_recipe_unlock("advanced-material-processing-2", "bi-crushed-
 thxbob.lib.tech.add_recipe_unlock("advanced-material-processing-2", "bi-crushed-stone-3")
 thxbob.lib.tech.add_recipe_unlock("advanced-material-processing-2", "bi-crushed-stone-4")
 thxbob.lib.tech.add_recipe_unlock("advanced-material-processing-2", "bi-crushed-stone-5")
-thxbob.lib.tech.add_prerequisite("advanced-material-processing-2", "concrete")
+--~ thxbob.lib.tech.add_prerequisite("advanced-material-processing-2", "concrete")
 
 -- Add Wooden Chests
 thxbob.lib.tech.add_recipe_unlock("logistics", "bi-wooden-chest-large")
@@ -441,6 +441,11 @@ require("prototypes.Bio_Farm.technology2")
   --~ thxbob.lib.tech.add_recipe_unlock("bi-tech-advanced-biotechnology", "bi-purified-air-2")
 --~ end
 
+-- Blacklist bioreactor in Assembler Pipe Passthrough
+if mods["assembler-pipe-passthrough"] then
+  appmod.blacklist['bi-bio-reactor'] = true
+end
+
 -- Adds Bio recipes
 if BI.Settings.BI_Bio_Fuel then
   --~ thxbob.lib.tech.add_recipe_unlock("bi-tech-advanced-biotechnology", "bi-bio-reactor")
@@ -466,10 +471,10 @@ if BI.Settings.BI_Bio_Fuel then
   --~ thxbob.lib.tech.add_recipe_unlock("bi-tech-coal-processing-1", "bi-basic-gas-processing")
   thxbob.lib.tech.add_recipe_unlock("bi-tech-coal-processing-2", "bi-basic-gas-processing")
 
-  -- Blacklist bioreactor in Assembler Pipe Passthrough
-  if mods["assembler-pipe-passthrough"] then
-    appmod.blacklist['bi-bio-reactor'] = true
-  end
+  --~ -- Blacklist bioreactor in Assembler Pipe Passthrough
+  --~ if mods["assembler-pipe-passthrough"] then
+    --~ appmod.blacklist['bi-bio-reactor'] = true
+  --~ end
 
   if mods["angelspetrochem"] then
     thxbob.lib.tech.add_recipe_unlock("bi-tech-advanced-biotechnology", "bi-sulfur-angels")
@@ -736,7 +741,7 @@ else
   BioInd.writeDebug("Removed recipes for \"nitrogen\" and \"liquid air\".")
 end
 
---- Enable Productivity in Recipies
+--- Enable Productivity in Recipes
 BI_Functions.lib.allow_productivity("bi-seed-1")
 BI_Functions.lib.allow_productivity("bi-seed-2")
 BI_Functions.lib.allow_productivity("bi-seed-3")
@@ -788,3 +793,6 @@ BI_Functions.lib.allow_productivity("bi-cellulose-2")
 
   -- Added for 0.17.49/0.18.17
 BI_Functions.lib.allow_productivity("bi-basic-gas-processing")
+
+
+BioInd.writeDebug("OMNIFLUID Test! forbidden_boilers = %s", {forbidden_boilers})

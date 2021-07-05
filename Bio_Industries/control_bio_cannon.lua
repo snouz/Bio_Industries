@@ -123,7 +123,7 @@ Event.register(defines.events.on_tick, function(event)
     if global.Bio_Cannon_Counter == 0 or global.Bio_Cannon_Counter == nil then
       global.Bio_Cannon_Counter = 60
       for b, bio_cannon in pairs(global.Bio_Cannon_Table) do
-BioInd.writeDebug("Checking cannon %s (%g)", {b, bio_cannon.base.unit_number})
+--~ BioInd.writeDebug("Checking cannon %s (%g)", {b, bio_cannon.base.unit_number})
 
         if bio_cannon.base and bio_cannon.base.valid and
             bio_cannon.radar and bio_cannon.radar.valid then

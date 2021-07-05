@@ -19,7 +19,6 @@ data:extend({
         icon_size = 64,
       }
     },
-    --flags = {"goes-to-quickbar"},
     subgroup = "production-machine",
     order = "z[bi]-a[bi-bio-reactor]",
     place_result = "bi-bio-reactor",
@@ -42,7 +41,6 @@ if BI.Settings.BI_Bio_Fuel then
           icon_size = 64,
         }
       },
-      --flags = {"goes-to-main-inventory"},
       subgroup = "intermediate-product",
       order = "b[cellulose]",
       stack_size = 200
@@ -78,7 +76,6 @@ if BI.Settings.BI_Bio_Fuel then
           icon_size = 64,
         }
       },
-      --flags = {"goes-to-quickbar"},
       subgroup = "energy",
       order = "b[steam-power]-b[boiler]",
       place_result = "bi-bio-boiler",

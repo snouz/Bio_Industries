@@ -6,71 +6,31 @@ local WOODPATH = BioInd.modRoot .. "/graphics/entities/wood_products/"
 local ENTITYPATH = "__base__/graphics/entity/"
 local PIPEPATH = ENTITYPATH .. "pipe/"
 
-local BIGICONS = BioInd.check_base_version("0.18.0")
+--~ local BIGICONS = BioInd.check_base_version("0.18.0")
 
 
 require("prototypes.Wood_Products.demo-remnants-wood")
 
--- demo-sounds exists only in Factorio 0.18, so we need to check the game version!
---~ local version = util.split(mods["base"], '.')
---~ for i=1, #version do
-  --~ version[i] = tonumber(version[i])
---~ end
-local sound_def = nil
-
---~ if version[2] >= 18 then
-  --~ sound_def = require("__base__.prototypes.entity.demo-sounds")
---~ end
-if BioInd.check_base_version("0.18.0") then
-  sound_def = require("__base__.prototypes.entity.demo-sounds")
-end
+-- demo-sounds has been removed in Factorio 1.1, so we need to check the game version!
+local sound_def = BioInd.check_version("base", "<", "1.1.0") and
+                    require("__base__.prototypes.entity.demo-sounds") or
+                    require("__base__.prototypes.entity.sounds")
 local sounds = {}
+sounds.car_wood_impact = sound_def.car_wood_impact(0.8)
+sounds.generic_impact = sound_def.generic_impact
+for _, sound in ipairs(sounds.generic_impact) do
+  sound.volume = 0.65
+end
 
--- This check is necessary because sounds.car_wood_impact didn't exist before Factorio 0.18.4 and
--- was changed in Factorio 0.18.18!
---~ if ((version[2] or 0) == 18) and
-   --~ ((version[3] or 0) >= 18) and sound_def then
-if BioInd.check_base_version("0.18.18") and sound_def then
-
-  log("car_wood_impact sound is function")
-  sounds.car_wood_impact = sound_def.car_wood_impact(0.8)
-
---~ elseif ((version[2] or 0) == 18 and
-        --~ (version[3] or 0) >= 4) and sound_def  then
-elseif BioInd.check_base_version("0.18.4") and sound_def  then
-
-  sounds.car_wood_impact = sound_def.car_wood_impact
-  for _, sound in ipairs(sounds.car_wood_impact) do
-      sound.volume = 0.8
-  end
---~ elseif version[2] >= 18 then
-elseif BioInd.check_base_version("0.18.0")  then
-  sounds.car_wood_impact = {
-    { filename = "__base__/sound/car-wood-impact.ogg", volume = 1 },
-    { filename = "__base__/sound/car-wood-impact-02.ogg", volume = 1 },
-    { filename = "__base__/sound/car-wood-impact-03.ogg", volume = 1 },
-    { filename = "__base__/sound/car-wood-impact-04.ogg", volume = 1 }
-  }
-else
-  sounds.car_wood_impact = {
-    { filename = "__base__/sound/car-wood-impact.ogg", volume = 1 },
+sounds.walking_sound = {}
+for i = 1, 11 do
+  sounds.walking_sound[i] = {
+    filename = "__base__/sound/walking/concrete-" .. (i < 10 and "0" or "")  .. i ..".ogg",
+    volume = 1.2
   }
 end
 
---~ if version[2] >= 18 then
-if BioInd.check_base_version("0.18.0") then
-  sounds.generic_impact = sound_def.generic_impact
-  for _, sound in ipairs(sounds.generic_impact) do
-    sound.volume = 0.65
-  end
-else
-  sounds.generic_impact = {
-    { filename = "__base__/sound/car-metal-impact.ogg", volume = 0.65 }
-  }
-end
-
-
-  -- Used for Wooden Pipe Pictures
+-- Used for Wooden Pipe Pictures
 pipepictures_w = function()
   return {
     straight_vertical_single = {
@@ -89,247 +49,209 @@ pipepictures_w = function()
     straight_vertical = {
       filename = PIPEPATH .. "pipe-straight-vertical.png",
       priority = "extra-high",
-      width = BIGICONS and 64 or 32,
-      height = BIGICONS and 64 or 32,
+      size = 64,
       hr_version = {
         filename = PIPEPATH .. "hr-pipe-straight-vertical.png",
         priority = "extra-high",
-        width = 128,
-        height = 128,
+        size = 128,
         scale = 0.5
       }
     },
     straight_vertical_window = {
       filename = PIPEPATH .. "pipe-straight-vertical-window.png",
       priority = "extra-high",
-      width = BIGICONS and 64 or 32,
-      height = BIGICONS and 64 or 32,
+      size = 64,
       hr_version = {
         filename = PIPEPATH .. "hr-pipe-straight-vertical-window.png",
         priority = "extra-high",
-        width = 128,
-        height = 128,
+        size = 128,
         scale = 0.5
       }
     },
     straight_horizontal_window = {
       filename = PIPEPATH .. "pipe-straight-horizontal-window.png",
       priority = "extra-high",
-      width = BIGICONS and 64 or 32,
-      height = BIGICONS and 64 or 32,
+      size = 64,
       hr_version = {
         filename = PIPEPATH .. "hr-pipe-straight-horizontal-window.png",
         priority = "extra-high",
-        width = 128,
-        height = 128,
+        size = 128,
         scale = 0.5
       }
     },
     straight_horizontal = {
       filename = PIPEPATH .. "pipe-straight-horizontal.png",
       priority = "extra-high",
-      width = BIGICONS and 64 or 32,
-      height = BIGICONS and 64 or 32,
+      size = 64,
       hr_version = {
         filename = PIPEPATH .. "hr-pipe-straight-horizontal.png",
         priority = "extra-high",
-        width = 128,
-        height = 128,
+        size = 128,
         scale = 0.5
       }
     },
     corner_up_right = {
       filename = PIPEPATH .. "pipe-corner-up-right.png",
       priority = "extra-high",
-      width = BIGICONS and 64 or 32,
-      height = BIGICONS and 64 or 32,
+      size = 64,
       hr_version = {
         filename = PIPEPATH .. "hr-pipe-corner-up-right.png",
         priority = "extra-high",
-        width = 128,
-        height = 128,
+        size = 128,
         scale = 0.5
       }
     },
     corner_up_left = {
       filename = PIPEPATH .. "pipe-corner-up-left.png",
       priority = "extra-high",
-      width = BIGICONS and 64 or 32,
-      height = BIGICONS and 64 or 32,
+      size = 64,
       hr_version = {
         filename = PIPEPATH .. "hr-pipe-corner-up-left.png",
         priority = "extra-high",
-        width = 128,
-        height = 128,
+        size = 128,
         scale = 0.5
       }
     },
     corner_down_right = {
       filename = PIPEPATH .. "pipe-corner-down-right.png",
       priority = "extra-high",
-      width = BIGICONS and 64 or 32,
-      height = BIGICONS and 64 or 32,
+      size = 64,
       hr_version = {
         filename = PIPEPATH .. "hr-pipe-corner-down-right.png",
         priority = "extra-high",
-        width = 128,
-        height = 128,
+        size = 128,
         scale = 0.5
       }
     },
     corner_down_left = {
       filename = PIPEPATH .. "pipe-corner-down-left.png",
       priority = "extra-high",
-      width = BIGICONS and 64 or 32,
-      height = BIGICONS and 64 or 32,
+      size = 64,
       hr_version = {
         filename = PIPEPATH .. "hr-pipe-corner-down-left.png",
         priority = "extra-high",
-        width = 128,
-        height = 128,
+        size = 128,
         scale = 0.5
       }
     },
     t_up = {
       filename = PIPEPATH .. "pipe-t-up.png",
       priority = "extra-high",
-      width = BIGICONS and 64 or 32,
-      height = BIGICONS and 64 or 32,
+      size = 64,
       hr_version = {
         filename = PIPEPATH .. "hr-pipe-t-up.png",
         priority = "extra-high",
-        width = 128,
-        height = 128,
+        size = 128,
         scale = 0.5
       }
     },
     t_down = {
       filename = PIPEPATH .. "pipe-t-down.png",
       priority = "extra-high",
-      width = BIGICONS and 64 or 32,
-      height = BIGICONS and 64 or 32,
+      size = 64,
       hr_version = {
         filename = PIPEPATH .. "hr-pipe-t-down.png",
         priority = "extra-high",
-        width = 128,
-        height = 128,
+        size = 128,
         scale = 0.5
       }
     },
     t_right = {
       filename = PIPEPATH .. "pipe-t-right.png",
       priority = "extra-high",
-      width = BIGICONS and 64 or 32,
-      height = BIGICONS and 64 or 32,
+      size = 64,
       hr_version = {
         filename = PIPEPATH .. "hr-pipe-t-right.png",
         priority = "extra-high",
-        width = 128,
-        height = 128,
+        size = 128,
         scale = 0.5
       }
     },
     t_left = {
       filename = PIPEPATH .. "pipe-t-left.png",
       priority = "extra-high",
-      width = BIGICONS and 64 or 32,
-      height = BIGICONS and 64 or 32,
+      size = 64,
       hr_version = {
         filename = PIPEPATH .. "hr-pipe-t-left.png",
         priority = "extra-high",
-        width = 128,
-        height = 128,
+        size = 128,
         scale = 0.5
       }
     },
     cross = {
       filename = PIPEPATH .. "pipe-cross.png",
       priority = "extra-high",
-      width = BIGICONS and 64 or 32,
-      height = BIGICONS and 64 or 32,
+      size = 64,
       hr_version = {
         filename = PIPEPATH .. "hr-pipe-cross.png",
         priority = "extra-high",
-        width = 128,
-        height = 128,
+        size = 128,
         scale = 0.5
       }
     },
     ending_up = {
       filename = PIPEPATH .. "pipe-ending-up.png",
       priority = "extra-high",
-      width = BIGICONS and 64 or 32,
-      height = BIGICONS and 64 or 32,
+      size = 64,
       hr_version = {
         filename = PIPEPATH .. "hr-pipe-ending-up.png",
         priority = "extra-high",
-        width = 128,
-        height = 128,
+        size = 128,
         scale = 0.5
       }
     },
     ending_down = {
       filename = PIPEPATH .. "pipe-ending-down.png",
       priority = "extra-high",
-      width = BIGICONS and 64 or 32,
-      height = BIGICONS and 64 or 32,
+      size = 64,
       hr_version = {
         filename = PIPEPATH .. "hr-pipe-ending-down.png",
         priority = "extra-high",
-        width = 128,
-        height = 128,
+        size = 128,
         scale = 0.5
       }
     },
     ending_right = {
       filename = PIPEPATH .. "pipe-ending-right.png",
       priority = "extra-high",
-      width = BIGICONS and 64 or 32,
-      height = BIGICONS and 64 or 32,
+      size = 64,
       hr_version = {
         filename = PIPEPATH .. "hr-pipe-ending-right.png",
         priority = "extra-high",
-        width = 128,
-        height = 128,
+        size = 128,
         scale = 0.5
       }
     },
     ending_left = {
       filename = PIPEPATH .. "pipe-ending-left.png",
       priority = "extra-high",
-      width = BIGICONS and 64 or 32,
-      height = BIGICONS and 64 or 32,
+      size = 64,
       hr_version = {
         filename = PIPEPATH .. "hr-pipe-ending-left.png",
         priority = "extra-high",
-        width = 128,
-        height = 128,
+        size = 128,
         scale = 0.5
       }
     },
     horizontal_window_background = {
       filename = PIPEPATH .. "pipe-horizontal-window-background.png",
       priority = "extra-high",
-      width = BIGICONS and 64 or 32,
-      height = BIGICONS and 64 or 32,
+      size = 64,
       hr_version = {
         filename = PIPEPATH .. "hr-pipe-horizontal-window-background.png",
         priority = "extra-high",
-        width = 128,
-        height = 128,
+        size = 128,
         scale = 0.5
       }
     },
     vertical_window_background = {
       filename = PIPEPATH .. "pipe-vertical-window-background.png",
       priority = "extra-high",
-      width = BIGICONS and 64 or 32,
-      height = BIGICONS and 64 or 32,
+      size = 64,
       hr_version = {
         filename = PIPEPATH .. "hr-pipe-vertical-window-background.png",
         priority = "extra-high",
-        width = 128,
-        height = 128,
+        size = 128,
         scale = 0.5
       }
     },
@@ -435,24 +357,25 @@ data:extend({
         count = 1
       }
     },
-    walking_sound = {
-      {
-        filename = "__base__/sound/walking/concrete-01.ogg",
-        volume = 1.2
-      },
-      {
-        filename = "__base__/sound/walking/concrete-02.ogg",
-        volume = 1.2
-      },
-      {
-        filename = "__base__/sound/walking/concrete-03.ogg",
-        volume = 1.2
-      },
-      {
-        filename = "__base__/sound/walking/concrete-04.ogg",
-        volume = 1.2
-      }
-    },
+    --~ walking_sound = {
+      --~ {
+        --~ filename = "__base__/sound/walking/concrete-01.ogg",
+        --~ volume = 1.2
+      --~ },
+      --~ {
+        --~ filename = "__base__/sound/walking/concrete-02.ogg",
+        --~ volume = 1.2
+      --~ },
+      --~ {
+        --~ filename = "__base__/sound/walking/concrete-03.ogg",
+        --~ volume = 1.2
+      --~ },
+      --~ {
+        --~ filename = "__base__/sound/walking/concrete-04.ogg",
+        --~ volume = 1.2
+      --~ }
+    --~ },
+    walking_sound = sounds.walking_sound,
     map_color = {r = 139, g = 115, b = 85},
     pollution_absorption_per_second = 0,
     vehicle_friction_modifier = dirt_vehicle_speed_modifer
@@ -1154,11 +1077,11 @@ data:extend({
     type = "electric-pole",
     name = "bi-rail-hidden-power-pole",
     icon = "__base__/graphics/icons/small-electric-pole.png",
-    icon_size = BIGICONS and 64 or 32,
+    icon_size = 64,
     icons = {
       {
         icon = "__base__/graphics/icons/small-electric-pole.png",
-        icon_size = BIGICONS and 64 or 32,
+        icon_size = 64,
       }
     },
     flags = {
@@ -1211,11 +1134,11 @@ data:extend({
     type = "pipe",
     name = "bi-wood-pipe",
     icon = ICONPATH .. "wood_pipe.png",
-    icon_size = BIGICONS and 64 or 32,
+    icon_size = 64,
     icons = {
       {
         icon = ICONPATH .. "wood_pipe.png",
-        icon_size = BIGICONS and 64 or 32,
+        icon_size = 64,
       }
     },
     flags = {"placeable-neutral", "player-creation"},
@@ -1269,11 +1192,11 @@ data:extend({
     type = "pipe-to-ground",
     name = "bi-wood-pipe-to-ground",
     icon = ICONPATH .. "pipe-to-ground-wood.png",
-    icon_size = BIGICONS and 64 or 32,
+    icon_size = 64,
     icons = {
       {
         icon = ICONPATH .. "pipe-to-ground-wood.png",
-        icon_size = BIGICONS and 64 or 32,
+        icon_size = 64,
       }
     },
     flags = {"placeable-neutral", "player-creation"},
@@ -1307,8 +1230,7 @@ data:extend({
     underground_sprite = {
       filename = "__core__/graphics/arrows/underground-lines.png",
       priority = "extra-high-no-scale",
-      width = BIGICONS and 64 or 32,
-      height = BIGICONS and 64 or 32,
+      size = 64,
       scale = 0.5
     },
     --~ vehicle_impact_sound =  { filename = "__base__/sound/car-metal-impact.ogg", volume = 0.65 },
@@ -1317,52 +1239,44 @@ data:extend({
       up = {
         filename = ENTITYPATH .. "/pipe-to-ground/pipe-to-ground-up.png",
         priority = "high",
-        width = BIGICONS and 64 or 32,
-        height = BIGICONS and 64 or 32, --, shift = {0.10, -0.04}
+        size = 64, --, shift = {0.10, -0.04}
         hr_version = {
           filename = ENTITYPATH .. "/pipe-to-ground/hr-pipe-to-ground-up.png",
           priority = "extra-high",
-          width = 128,
-          height = 128,
+          size = 128,
           scale = 0.5
         }
       },
       down = {
         filename = ENTITYPATH .. "/pipe-to-ground/pipe-to-ground-down.png",
         priority = "high",
-        width = BIGICONS and 64 or 32,
-        height = BIGICONS and 64 or 32, --, shift = {0.05, 0}
+        size = 64, --, shift = {0.05, 0}
         hr_version = {
           filename = ENTITYPATH .. "/pipe-to-ground/hr-pipe-to-ground-down.png",
           priority = "extra-high",
-          width = 128,
-          height = 128,
+          size = 128,
           scale = 0.5
         }
       },
       left = {
         filename = ENTITYPATH .. "/pipe-to-ground/pipe-to-ground-left.png",
         priority = "high",
-        width = BIGICONS and 64 or 32,
-        height = BIGICONS and 64 or 32, --, shift = {-0.12, 0.1}
+        size = 64, --, shift = {-0.12, 0.1}
         hr_version = {
           filename = ENTITYPATH .. "/pipe-to-ground/hr-pipe-to-ground-left.png",
           priority = "extra-high",
-          width = 128,
-          height = 128,
+          size = 128,
           scale = 0.5
         }
       },
       right = {
         filename = ENTITYPATH .. "/pipe-to-ground/pipe-to-ground-right.png",
         priority = "high",
-        width = BIGICONS and 64 or 32,
-        height = BIGICONS and 64 or 32, --, shift = {0.1, 0.1}
+        size = 64, --, shift = {0.1, 0.1}
         hr_version = {
           filename = ENTITYPATH .. "/pipe-to-ground/hr-pipe-to-ground-right.png",
           priority = "extra-high",
-          width = 128,
-          height = 128,
+          size = 128,
           scale = 0.5
         }
       },
@@ -1577,11 +1491,11 @@ end
 --~ local hidden_pole = table.deepcopy(data.raw["electric-pole"]["small-electric-pole"])
 --~ hidden_pole.name = "bi-rail-hidden-power-pole"
 --~ hidden_pole.icon = "__base__/graphics/icons/small-electric-pole.png"
---~ hidden_pole.icon_size = BIGICONS and 64 or 32
+--~ hidden_pole.icon_size = 64
 --~ hidden_pole.icons = {
   --~ {
     --~ icon = "__base__/graphics/icons/small-electric-pole.png",
-    --~ icon_size = BIGICONS and 64 or 32,
+    --~ icon_size = 64,
   --~ }
 --~ }
 --~ hidden_pole.flags = {

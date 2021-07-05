@@ -98,8 +98,9 @@ BioInd.show("locale_name", locale_name)
     -- set to the default value automatically at the end of the data stage)
     -- must be set to make the radar selectable!
     radar.collision_mask = nil
-    radar.collision_box = {{-0.70, -0.70}, {0.70, 0.70}}
-    radar.selection_box = {{-0.75, -0.75}, {0.75, 0.75}}
+    radar.collision_box = {{-4.2, -0.7}, {4.2, 7.7}}
+    radar.selection_box = {{-1, -1}, {1, 1}}
+    radar.selection_priority = 254
 
     radar.energy_per_sector = "2MJ"
     radar.energy_per_nearby_scan = "200kW"

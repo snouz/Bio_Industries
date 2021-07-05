@@ -165,7 +165,7 @@ ret.compound_entities = {
       radar = {
         --~ name = "bi-arboretum-hidden-radar",
         --~ type = ret.HE_map.radar,
-        base_offset = {x = -3.5, y = 3.5},
+        base_offset = {x = 0, y = -3.5},
       },
       pole = {
         --~ name = "bi-arboretum-hidden-pole",

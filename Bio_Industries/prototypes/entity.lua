@@ -1518,7 +1518,7 @@ data:extend({
     icon = ICONPATH .. "entity/Arboretum_Icon.png",
     icon_size = 64,
     BI_add_icon = true,
-    flags = {"not-deconstructable", "not-on-map", "placeable-off-grid", "not-repairable"},
+    flags = {"not-deconstructable", "not-on-map", "not-repairable"},
     --~ open_sound = { filename = "__base__/sound/machine-open.ogg", volume = 0.85 },
     --~ close_sound = { filename = "__base__/sound/machine-close.ogg", volume = 0.75 },
     open_sound = sounds.open_sound,
@@ -1554,7 +1554,7 @@ data:extend({
         {
           filename = ENTITYPATH .. "bio_terraformer/arboretum.png",
           priority = "low",
-          width = 280,
+          width = 320,
           height = 320,
           frame_count = 1,
           direction_count = 1,
@@ -1563,7 +1563,7 @@ data:extend({
           hr_version ={
             filename = ENTITYPATH .. "bio_terraformer/hr_arboretum.png",
             priority = "low",
-            width = 560,
+            width = 640,
             height = 640,
             frame_count = 1,
             direction_count = 1,
@@ -1616,21 +1616,69 @@ data:extend({
     fluid_boxes = {
       {
         production_type = "input",
-        pipe_picture = assembler2pipepicturesBioreactor(),
+        --pipe_picture = assembler2pipepicturesBioreactor(),
         pipe_covers = pipecoverspictures(),
-        base_area = 10,
+        base_area = 1,
         base_level = -1,
-        pipe_connections = {{ type = "input", position = {-1, -5} }}
+        pipe_connections = {{ type = "input-output", position = {-1, -5} }}
       },
       {
         production_type = "input",
-        pipe_picture = assembler2pipepicturesBioreactor(),
+        --pipe_picture = assembler2pipepicturesBioreactor(),
         pipe_covers = pipecoverspictures(),
-        base_area = 10,
+        base_area = 1,
         base_level = -1,
-        pipe_connections = {{ type = "input", position = {1, -5} }}
+        pipe_connections = {{ type = "input-output", position = {1, -5} }}
       },
-      off_when_no_fluid_recipe = true
+      {
+        production_type = "input",
+        --pipe_picture = assembler2pipepicturesBioreactor(),
+        pipe_covers = pipecoverspictures(),
+        base_area = 1,
+        base_level = -1,
+        pipe_connections = {{ type = "input-output", position = {-1, 5} }}
+      },
+      {
+        production_type = "input",
+        --pipe_picture = assembler2pipepicturesBioreactor(),
+        pipe_covers = pipecoverspictures(),
+        base_area = 1,
+        base_level = -1,
+        pipe_connections = {{ type = "input-output", position = {1, 5} }}
+      },
+      {
+        production_type = "input",
+        --pipe_picture = assembler2pipepicturesBioreactor(),
+        pipe_covers = pipecoverspictures(),
+        base_area = 1,
+        base_level = -1,
+        pipe_connections = {{ type = "input-output", position = {5, -1} }}
+      },
+      {
+        production_type = "input",
+        --pipe_picture = assembler2pipepicturesBioreactor(),
+        pipe_covers = pipecoverspictures(),
+        base_area = 1,
+        base_level = -1,
+        pipe_connections = {{ type = "input-output", position = {5, 1} }}
+      },
+      {
+        production_type = "input",
+        --pipe_picture = assembler2pipepicturesBioreactor(),
+        pipe_covers = pipecoverspictures(),
+        base_area = 1,
+        base_level = -1,
+        pipe_connections = {{ type = "input-output", position = {-5, -1} }}
+      },
+      {
+        production_type = "input",
+        --pipe_picture = assembler2pipepicturesBioreactor(),
+        pipe_covers = pipecoverspictures(),
+        base_area = 1,
+        base_level = -1,
+        pipe_connections = {{ type = "input-output", position = {-5, 1} }}
+      },
+      off_when_no_fluid_recipe = false
     },
     collision_box = {{-4.2, -4.2}, {4.2, 4.2}},
     selection_box = {{-4.5, -4.5}, {4.5, 4.5}},
@@ -1640,17 +1688,19 @@ data:extend({
         {
           filename = ENTITYPATH .. "bio_terraformer/arboretum.png",
           priority = "low",
-          width = 280,
+          width = 320,
           height = 320,
           frame_count = 1,
+          repeat_count = 9,
           scale = 1,
           shift = {0, 0},
           hr_version ={
             filename = ENTITYPATH .. "bio_terraformer/hr_arboretum.png",
             priority = "low",
-            width = 560,
+            width = 640,
             height = 640,
             frame_count = 1,
+            repeat_count = 9,
             scale = 0.5,
             shift = {0, 0},
           }
@@ -1661,6 +1711,7 @@ data:extend({
           width = 280,
           height = 320,
           frame_count = 1,
+          repeat_count = 9,
           scale = 1,
           shift = {2, 0},
           draw_as_shadow = true,
@@ -1670,11 +1721,37 @@ data:extend({
             width = 560,
             height = 640,
             frame_count = 1,
+            repeat_count = 9,
             scale = 0.5,
             shift = {2, 0},
             draw_as_shadow = true,
           }
         },
+        --[[{
+          filename = ENTITYPATH .. "bio_terraformer/arboretum_radar_anim.png",
+          priority = "low",
+          width = 80,
+          height = 64,
+          frame_count = 9,
+          line_length = 9,
+          repeat_count = 1,
+          animation_speed = 1,
+          scale = 1,
+          shift = util.by_pixel(0, -127),
+          --frame_sequence = { 2, 2, 2, 2, 2, 4, 3, 4, 3 }
+          hr_version ={
+            filename = ENTITYPATH .. "bio_terraformer/hr_arboretum_radar_anim.png",
+            priority = "low",
+            width = 160,
+            height = 128,
+            frame_count = 9,
+            line_length = 9,
+            repeat_count = 1,
+            animation_speed = 1,
+            scale = 0.5,
+            shift = util.by_pixel(0, -127),
+          }
+        },]]--
       }
     },
     working_visualisations = {
@@ -1682,6 +1759,8 @@ data:extend({
         draw_as_light = true,
         effect = "flicker",
         apply_recipe_tint = "primary",
+        fadeout = true,
+        constant_speed = true,
         animation = {
           layers = {
             {
@@ -1701,13 +1780,49 @@ data:extend({
           },
         },
       },
+      {
+        constant_speed = true,
+        always_draw = true,
+        animation = {
+          layers = {
+            {
+              filename = ENTITYPATH .. "bio_terraformer/arboretum_radar_anim.png",
+              priority = "low",
+              width = 80,
+              height = 64,
+              frame_count = 9,
+              line_length = 9,
+              frame_sequence = {1,1,1,1,1,1,1,2,2,2,2,3,3,3,4,4,5,6,6,7,7,7,8,8,8,8,9,9,9,9,9,8,8,8,8,7,7,7,6,6,5,4,4,3,3,3,2,2,2,2},
+              repeat_count = 1,
+              animation_speed = 0.3,
+              scale = 1,
+              shift = util.by_pixel(0, -126),
+              --frame_sequence = { 2, 2, 2, 2, 2, 4, 3, 4, 3 }
+              hr_version ={
+                filename = ENTITYPATH .. "bio_terraformer/hr_arboretum_radar_anim.png",
+                priority = "low",
+                width = 160,
+                height = 128,
+                frame_count = 9,
+                line_length = 9,
+                frame_sequence = {1,1,1,1,1,1,1,2,2,2,2,3,3,3,4,4,5,6,6,7,7,7,8,8,8,8,9,9,9,9,9,8,8,8,8,7,7,7,6,6,5,4,4,3,3,3,2,2,2,2},
+                repeat_count = 1,
+                animation_speed = 0.3,
+                scale = 0.5,
+                shift = util.by_pixel(0, -126),
+              }
+            },
+          },
+        },
+      },
     },
     crafting_categories = {"bi-arboretum"},
     crafting_speed = 0.000000000001,
+    --crafting_speed = 1,
     energy_source = {
       type = "electric",
       usage_priority = "primary-input",
-      emissions_per_minute = -8, -- the "-" means it Absorbs pollution.
+      emissions_per_minute = -4, -- the "-" means it Absorbs pollution.
     },
     energy_usage = "150kW",
     ingredient_count = 3,

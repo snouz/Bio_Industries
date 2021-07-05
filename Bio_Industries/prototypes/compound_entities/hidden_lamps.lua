@@ -1,6 +1,7 @@
+BI.entered_file()
+
 -- Add functions that are also used in other files (debugging output etc.)
 local BioInd = require('common')('Bio_Industries')
-BioInd.writeDebug("Entered prototypes.hidden_lamps.lua of \"%s\".", {BioInd.modName})
 
 local ICONPATH = BioInd.iconpath
 
@@ -63,7 +64,7 @@ for lamp_name, locale_name in pairs(BI.hidden_entities.types[h_key]) do
   if c_entities["bi-bio-farm"] and
       lamp_name == c_entities["bi-bio-farm"].hidden[h_type].name then
 
-    lamp.icon = ICONPATH .. "entity/Bio_Farm_Lamp.png"
+    lamp.icon = ICONPATH .. "entity/biofarm_lamp.png"
     lamp.icon_size = 64
     lamp.BI_add_icon = true
     BioInd.show("Adjusted properties of", lamp_name)
@@ -79,3 +80,9 @@ end
 --~ for k, v in pairs(data.raw[h_entity.type]) do
   --~ BioInd.writeDebug("%s: %s", {k, v})
 --~ end
+
+
+------------------------------------------------------------------------------------
+--                                    END OF FILE
+------------------------------------------------------------------------------------
+BI.entered_file("leave")

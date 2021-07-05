@@ -1,0 +1,110 @@
+------------------------------------------------------------------------------------
+--                    Data for entities dependent on a setting.                   --
+------------------------------------------------------------------------------------
+BI.entered_file()
+
+local BioInd = require('common')('Bio_Industries')
+local ICONPATH = BioInd.iconpath
+
+BI.optional_entities = BI.optional_entities or {}
+
+for s, setting in pairs({
+  "Bio_Cannon",
+}) do
+  BI.optional_entities[setting] = BI.optional_entities[setting] or {}
+done
+
+------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
+
+------------------------------------------------------------------------------------
+--                           Enable: Prototype artillery                          --
+--                            (BI.Settings.Bio_Cannon)                            --
+------------------------------------------------------------------------------------
+-- Prototype Ammo
+BI.optional_entities.Bio_Cannon.bio_cannon_proto_ammo = {
+   type = "ammo",
+  name = "bi-bio-cannon-proto-ammo",
+  icon = ICONPATH .. "weapon/bio_cannon_proto_ammo_icon.png",
+  icon_size = 64,
+  BI_add_icon = true,
+  ammo_type = {
+    category = "Bio_Cannon_Ammo",
+    target_type = "direction",
+    action = {
+      {
+        type = "direct",
+        action_delivery = {
+          type = "projectile",
+          projectile = "bi-bio-cannon-proto-ammo",
+          starting_speed = 1,
+          direction_deviation = 0.8,
+          range_deviation = 0.8,
+          max_range = 90
+        }
+      }
+    }
+  },
+  subgroup = "ammo",
+  order = "z[Bio_Cannon_Ammo]-a[Proto]",
+  stack_size = 50,
+}
+
+
+-- Prototype Artillery Basic Ammo
+BI.optional_entities.Bio_Cannon.bio_cannon_basic_ammo = {
+  type = "ammo",
+  name = "bi-bio-cannon-basic-ammo",
+  icon = ICONPATH .. "weapon/bio_cannon_basic_ammo_icon.png",
+  icon_size = 64,
+  BI_add_icon = true,
+  ammo_type = {
+    category = "Bio_Cannon_Ammo",
+    target_type = "direction",
+    action = {
+      {
+        type = "direct",
+        action_delivery = {
+          type = "projectile",
+          projectile = "bi-bio-cannon-basic-ammo",
+          starting_speed = 1,
+          direction_deviation = 0.8,
+          range_deviation = 0.8,
+          max_range = 90
+        }
+      }
+    }
+  },
+  subgroup = "ammo",
+  order = "z[Bio_Cannon_Ammo]-b[Basic]",
+  stack_size = 50,
+}
+
+-- Prototype Artillery Poison Ammo
+BI.optional_entities.Bio_Cannon.bio_cannon_poison_ammo = {
+  type = "ammo",
+  name = "bi-bio-cannon-poison-ammo",
+  icon = ICONPATH .. "weapon/bio_cannon_poison_ammo_icon.png",
+  icon_size = 64,
+  BI_add_icon = true,
+  ammo_type = {
+    category = "Bio_Cannon_Ammo",
+    target_type = "direction",
+    action = {
+      {
+        type = "direct",
+        action_delivery = {
+          type = "projectile",
+          projectile = "bi-bio-cannon-poison-ammo",
+          starting_speed = 1,
+          direction_deviation = 0.8,
+          range_deviation = 0.8,
+          max_range = 90
+        }
+      }
+    }
+  },
+  subgroup = "ammo",
+  order = "z[Bio_Cannon_Ammo]-c[Poison]",
+  stack_size = 50,
+}

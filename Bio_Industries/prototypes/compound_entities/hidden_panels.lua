@@ -1,6 +1,7 @@
+BI.entered_file()
+
 -- Add functions that are also used in other files (debugging output etc.)
 local BioInd = require('common')('Bio_Industries')
-BioInd.writeDebug("Entered prototypes.hidden_panels.lua of \"%s\".", {BioInd.modName})
 
 local ICONPATH = BioInd.iconpath
 local ENTITYPATH = BioInd.entitypath
@@ -56,7 +57,7 @@ for panel_name, locale_name in pairs(BI.hidden_entities.types[h_key]) do
   if c_entities["bi-solar-boiler"] and
       panel_name == c_entities["bi-solar-boiler"].hidden[h_key].name then
 
-    panel.icon = ICONPATH .. "entity/Bio_Solar_Boiler_Icon.png"
+    panel.icon = ICONPATH .. "entity/solar-boiler.png"
     panel.icon_size = 64
     panel.BI_add_icon = true
 
@@ -90,7 +91,7 @@ for panel_name, locale_name in pairs(BI.hidden_entities.types[h_key]) do
   elseif c_entities["bi-bio-farm"] and
           panel_name == c_entities["bi-bio-farm"].hidden[h_key].name then
 
-    panel.icon = ICONPATH .. "entity/Bio_Farm_Solar.png"
+    panel.icon = ICONPATH .. "entity/biofarm_solarpanel.png"
     panel.icon_size = 64
     panel.BI_add_icon = true
     panel.production = "100kW"
@@ -126,3 +127,9 @@ end
 --~ for k, v in pairs(data.raw[h_entity.type]) do
   --~ BioInd.writeDebug("%s: %s", {k, v})
 --~ end
+
+
+------------------------------------------------------------------------------------
+--                                    END OF FILE
+------------------------------------------------------------------------------------
+BI.entered_file("leave")

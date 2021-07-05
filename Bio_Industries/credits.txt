@@ -28,8 +28,8 @@ LukeM212 &  JJtJJ - Tree Mods
 DySoch - DyTech, showing me what was possible
 Bobingabout - Bob's Mods - Learned a lot from looking at your amazing work and am using a lot of your great code!
 YuokiTani - Art!!  Amazing work!
-Pi-C - Bug squishing, maintenance, features
-Snouz - Complete art revamp for 1.2 (all entities, remnants, new gardens, icons, recipe organization, logo...)
+Pi-C - Bug squishing, maintenance, features, compatibility
+Snouz - Complete art revamp for 1.2 (all entities, remnants, new gardens, icons, recipe organization, logo...), technologies
 
 And everyone else who give feedback/suggestions/help on the forums!
 

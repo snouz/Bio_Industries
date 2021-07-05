@@ -67,17 +67,20 @@ return function (mod_name)
   ------------------------------------------------------------------------------------
   -- Sane values for collision masks
   -- Default: {"item-layer", "object-layer", "rail-layer", "floor-layer", "water-tile"}
-  --~ common.RAIL_BRIDGE_MASK = {"floor-layer", "object-layer", "consider-tile-transitions"}
-  common.RAIL_BRIDGE_MASK = {"object-layer", "consider-tile-transitions"}
+  common.RAIL_BRIDGE_MASK = {"floor-layer", "object-layer", "consider-tile-transitions"}
+  --~ common.RAIL_BRIDGE_MASK = {"object-layer", "consider-tile-transitions"}
 
-  -- "Transport Drones" removes "object-layer" from rails, so if bridges have only
-  -- {"object-layer"}, there collision mask will be empty, and they can be built even
-  -- over cliffs. So we need to add another layer to bridges ("floor-layer").
-  -- As of Factorio 1.1.0, rails need to have "rail-layer" in their mask. This will work
-  -- alright, but isn't available in earlier versions of Factorio, so we will use
-  -- "floor-layer" there instead.
-  local need = common.check_version("base", ">=", "1.1.0") and "rail-layer" or "floor-layer"
-  table.insert(common.RAIL_BRIDGE_MASK, need)
+  --~ -- "Transport Drones" removes "object-layer" from rails, so if bridges have only
+  --~ -- {"object-layer"}, there collision mask will be empty, and they can be built even
+  --~ -- over cliffs. So we need to add another layer to bridges ("floor-layer").
+  --~ -- As of Factorio 1.1.0, rails need to have "rail-layer" in their mask. This will work
+  --~ -- alright, but isn't available in earlier versions of Factorio, so we will use
+  --~ -- "floor-layer" there instead.
+  --~ local need = common.check_version("base", ">=", "1.1.0") and "rail-layer" or "floor-layer"
+  --~ table.insert(common.RAIL_BRIDGE_MASK, need)
+  --~ common.RAIL_BRIDGE_MASK = {"floor-layer", "object-layer", "consider-tile-transitions"}
+  common.RAIL_BRIDGE_MASK = {"object-layer", "rail-layer", "consider-tile-transitions"}
+
 
   -- Rails use basically the same mask as rail bridges, ...
   common.RAIL_MASK = util.table.deepcopy(common.RAIL_BRIDGE_MASK)
@@ -258,6 +261,103 @@ return function (mod_name)
     return entity and entity.valid and entity.name or ""
   end
 
+  ------------------------------------------------------------------------------------
+  -- Print message if something has been created
+  -- proto:     Prototype that has been changed
+  common.created_msg = function(proto)
+    local proto_name = proto and proto.name or common.arg_err(proto)
+    local proto_type = proto and proto.type or common.arg_err(proto)
+
+    common.writeDebug("Created %s \"%s\".", {proto_type, proto_name})
+  end
+
+
+  --~ ------------------------------------------------------------------------------------
+  --~ -- Print message if something has been removed
+  --~ -- proto:         Prototype that has been changed
+  --~ -- desc:  What has the prototype been removed from?
+  --~ common.removed_msg = function(proto, desc)
+    --~ local proto_name = proto and proto.name or common.arg_err(proto)
+    --~ local proto_type = proto and proto.type or common.arg_err(proto)
+
+    --~ local desc_name = desc and desc.name and " \"" .. desc_name .. "\"" or ""
+    --~ local desc_type = desc and desc.type and " \"" .. desc_type .. "\"" or ""
+    --~ local desc_string = desc and string.format("%s%s%s",
+                                                  --~ desc_type or desc_name and " from",
+                                                  --~ desc_type, desc_name
+                                                --~ )
+
+    --~ common.writeDebug("Removed %s \"%s\"%s.", {proto_type, proto_name, desc_string})
+  --~ end
+
+  ------------------------------------------------------------------------------------
+  -- Print message if something has been modified
+  -- desc:      Description of the changed thing (e.g. "ingredients", "localization")
+  -- proto:     Prototype that has been changed
+  -- mode:      What happened to the prototype (e.g. "Changed", "Replaced")
+  common.modified_msg = function(desc, proto, mode)
+    common.check_args(desc, "string")
+
+    local proto_name = proto and proto.name or common.arg_err(proto)
+    local proto_type = proto and proto.type or common.arg_err(proto)
+
+    mode = (type(mode) == "string") and mode or "Changed"
+    local preposition = (mode:lower() == "added") and "to" or
+                          (mode:lower() == "removed") and "from" or
+                          "of"
+    common.writeDebug("%s %s %s %s \"%s\".", {mode, desc, preposition, proto_type, proto_name})
+  end
+
+
+
+
+
+
+
+  ------------------------------------------------------------------------------------
+  -- Print message when a file or function has been entered
+  local function print_on_entered(msg, sep)
+    common.writeDebug("\n%s\n%s\n%s\n", {sep, msg, sep})
+  end
+
+  ------------------------------------------------------------------------------------
+  -- File has been entered
+  common.entered_file = function(leave)
+    --~ local sep = string.rep("*", 100) .. "\n" .. string.rep("*", 100)
+    local sep = string.rep("*", 100)
+    local prefix = leave and "Leaving" or "Entered"
+    print_on_entered(prefix .. " file " .. debug.getinfo(2).source .. "!", sep)
+  end
+
+
+  ------------------------------------------------------------------------------------
+  -- Function has been entered
+  common.entered_function = function(leave)
+    local file = debug.getinfo(2)
+    local function_name = debug.getinfo(2, "n").name or "NIL"
+    --~ local sep = string.rep("-", 100) .. "\n" .. string.rep("-", 100)
+    local sep = string.rep("-", 100)
+    local prefix = leave and "Leaving" or "Entered"
+
+    print_on_entered(prefix .. " function " .. function_name .. "\n" ..
+                    "(" .. file.source .. ": " .. file.currentline ..")", sep)
+  end
+
+
+  ------------------------------------------------------------------------------------
+  -- File or function has been entered, but there's nothing to do
+  common.nothing_to_do = function(sep)
+    --~ sep = string.rep(sep or "-", 100) .. "\n" .. string.rep(sep or "-", 100)
+    sep = string.rep(sep or "-", 100)
+
+    local file = debug.getinfo(2)
+    local function_name = debug.getinfo(2, "n").name
+    local msg = function_name and
+                  function_name .. "\n(" .. file.source .. ": " .. file.currentline .. ")" or
+                  file.source
+    print_on_entered("Nothing to do in " .. msg, sep)
+  end
+
 
   ------------------------------------------------------------------------------------
   -- Throw an error if a wrong argument has been passed to a function
@@ -278,6 +378,50 @@ return function (mod_name)
   end
 
 
+  ------------------------------------------------------------------------------------
+  -- Check if a mod (or several mods, or any of several mods) is installed
+  -- modlist: Name(s) of mod(s) we need to check (string or array of strings)
+  -- mode:    Any ("or") or all ("and") mods in modlist must be active.
+  common.check_mods = function(modlist, mode)
+    --~ common.writeDebug("Entered function check_mods(%s, %s)",
+                      --~ {modlist or "nil", mode or "nil"})
+    modlist = type(modlist) == "string" and {modlist} or
+              type(modlist) == "table" and modlist or
+              common.arg_err(modlist or "nil", "string or array of strings")
+    mode = mode and mode:lower() or "or"
+
+    local active_mods = script and script.active_mods or mods
+    local ret
+--~ common.show("modlist", modlist)
+--~ common.show("mode", mode)
+--~ common.show("active_mods", active_mods)
+
+    for m, mod in pairs(modlist) do
+      --~ common.writeDebug("Mod \"%s\": %s", {mod, active_mods[mod] or "not active"})
+      -- We've found a required mod!
+      if active_mods[mod] then
+        ret = true
+        -- If mode is "or", we've struck gold!
+        if mode == "or" then
+          common.writeDebug("Required mod %s has been found and mode is \"or\". Return: %s",
+                            {mod, ret})
+          break
+        end
+      -- Mod is not active
+      else
+        -- If mode is "and", the test has failed!
+        ret = false
+        if mode == "and" then
+          common.writeDebug("Required mod %s isn't active and mode is \"and\". Return: %s",
+                            {mod, ret})
+          break
+        end
+      end
+    end
+    --~ common.show("Return", ret)
+    return ret
+  end
+
 
   ------------------------------------------------------------------------------------
   --                                  MOD SPECIFIC                                  --
@@ -290,14 +434,17 @@ return function (mod_name)
     local ret = false
 
     if game then
-      local AB = game.item_prototypes["fertilizer"].place_as_tile_result.result.name
+      local AB = game.item_prototypes["fertilizer"].place_as_tile_result
+      AB = AB and AB.result and AB.result.name
       -- In data stage, place_as_tile is only changed to Alien Biomes tiles if
       -- both "vegetation-green-grass-1" and "vegetation-green-grass-3" exist. Therefore,
       -- we only need to check for one tile in the control stage.
-      ret = (AB == "vegetation-green-grass-3") and true or false
+      --~ ret = (AB == "vegetation-green-grass-3") and true or false
+      ret = (AB == "vegetation-green-grass-3")
     else
-      ret = data.raw.tile["vegetation-green-grass-1"] and
-            data.raw.tile["vegetation-green-grass-3"] and true or false
+      --~ ret = data.raw.tile["vegetation-green-grass-1"] and
+            --~ data.raw.tile["vegetation-green-grass-3"] and true or false
+      ret = (data.raw.tile["vegetation-green-grass-1"] and data.raw.tile["vegetation-green-grass-3"])
     end
 
     return ret
@@ -364,7 +511,8 @@ common.writeDebug("h_key: %s\th_data: %s", {h_key, h_data})
         local related_vars = c_data.add_global_values
         if related_vars then
           for var_name, value in pairs(related_vars or {}) do
-            common.writeDebug("Removing global[%s] (was: %s)", {var_name, global[var_name]})
+            common.writeDebug("Removing global[%s] (was: %s)",
+                              {var_name, global[var_name] or "nil"})
             global[var_name] = nil
           end
         end
@@ -694,7 +842,7 @@ common.show("data", data)
   common.get_garden_pole_connectors = function()
     --~ local ret = {}
     local ret
-    if common.get_startup_setting("BI_Easy_Bio_Gardens") then
+    if common.get_startup_setting("BI_Game_Tweaks_Easy_Bio_Gardens") then
 common.writeDebug("\"Easy gardens\": Compiling list of poles they can connect to!" )
       ret = {}
       local poles = game.get_filtered_entity_prototypes({
@@ -849,9 +997,38 @@ common.writeDebug("Rail %s of %s (%s): %s (%s)", {direction, base.name, base.uni
 
 
   ------------------------------------------------------------------------------------
-  -- Add the "icons" property based on the value of "icon"
+  -- Get values of all startup settings
+  common.get_startup_settings = function()
+    for var, name in pairs({
+      --~ BI_Bigger_Wooden_Chests                   = "BI_Bigger_Wooden_Chests",
+      BI_Bio_Fuel                               = "BI_Bio_Fuel",
+      BI_Darts                                  = "BI_Darts",
+      BI_Game_Tweaks_Bot                        = "BI_Game_Tweaks_Bot",
+      BI_Game_Tweaks_Disassemble                = "BI_Game_Tweaks_Disassemble",
+      BI_Game_Tweaks_Easy_Bio_Gardens           = "BI_Game_Tweaks_Easy_Bio_Gardens",
+      BI_Game_Tweaks_Player                     = "BI_Game_Tweaks_Player",
+      BI_Game_Tweaks_Production_Science         = "BI_Game_Tweaks_Production_Science",
+      BI_Game_Tweaks_Recipe                     = "BI_Game_Tweaks_Recipe",
+      BI_Game_Tweaks_Small_Tree_Collisionbox    = "BI_Game_Tweaks_Small_Tree_Collisionbox",
+      BI_Game_Tweaks_Stack_Size                 = "BI_Game_Tweaks_Stack_Size",
+      BI_Game_Tweaks_Tree                       = "BI_Game_Tweaks_Tree",
+      BI_Solar_Additions                        = "BI_Solar_Additions",
+      BI_Wood_Products                          = "BI_Wood_Products",
+      Bio_Cannon                                = "BI_Bio_Cannon",
+      BI_Stone_Crushing                         = "BI_Stone_Crushing",
+    }) do
+      BI.Settings[var] = common.get_startup_setting(name)
+    end
+  end
+
+
+  ------------------------------------------------------------------------------------
+  -- Make prototype.icons from prototype.icon
   ------------------------------------------------------------------------------------
   common.BI_add_icons = function()
+    common.entered_function()
+    common.writeDebug("Trying to convert \"icon\" to \"icons\"")
+
     for tab_name, tab in pairs(data.raw) do
       --~ common.writeDebug("Checking data.raw[%s]", {tab_name})
       for proto_type_name, proto_type in pairs(data.raw[tab_name] or {}) do
@@ -866,10 +1043,71 @@ common.writeDebug("Rail %s of %s (%s): %s (%s)", {direction, base.name, base.uni
             }
           }
           proto_type.BI_add_icon = nil
-          common.writeDebug("Added \"icons\" property to data.raw[\"%s\"][\"%s\"]: %s",
-                            {tab_name, proto_type_name, proto_type.icons}, "line")
+          --~ common.writeDebug("Added \"icons\" property to data.raw[\"%s\"][\"%s\"]: %s",
+                            --~ {tab_name, proto_type_name, proto_type.icons}, "line")
+          common.modified_msg("icons", proto_type, "Added")
         end
       end
+    end
+    common.entered_function("leave")
+  end
+
+
+  ------------------------------------------------------------------------------------
+  -- Exchange icons
+  ------------------------------------------------------------------------------------
+  --~ common.BI_change_recipe_icon = function(recipe, icon, icon_size)
+    --~ common.check_args(recipe, "string", "recipe")
+    --~ common.check_args(icon, "string", "path to an icon")
+
+    --~ recipe = data.raw.recipe[recipe]
+    --~ if recipe then
+      --~ recipe.icon = icon
+      --~ recipe.icon_size = icon_size or 64
+      --~ recipe.BI_add_icon = true
+      --~-- common.writeDebug("Changed icon of recipe \"%s\"", {recipe.name})
+      --~ common.modified_msg("icon", recipe)
+    --~ end
+  --~ end
+  common.BI_change_icon = function(prototype, icon, ...)
+    common.entered_function()
+    --~ common.check_args(recipe, "string", "recipe")
+    common.check_args(icon, "string", "path to an icon")
+    local proto_type = prototype and prototype.type or common.arg_err(prototype, "prototype")
+    local proto_name = prototype and prototype.name or common.arg_err(prototype, "prototype")
+
+    local icon_size, icon_mips = ...
+
+    --~ recipe = data.raw.recipe[recipe]
+    --~ if recipe then
+    if data.raw[proto_type][proto_name] then
+      prototype.icon = icon
+      prototype.icon_size = icon_size or 64
+      prototype.icon_mipmaps = icon_mips or 0
+      prototype.BI_add_icon = true
+      --~ common.writeDebug("Changed icon of recipe \"%s\"", {recipe.name})
+      common.modified_msg("icon", prototype)
+    end
+  end
+
+
+  ------------------------------------------------------------------------------------
+  --                       Add recipe unlocks to technologies                       --
+  ------------------------------------------------------------------------------------
+  common.BI_add_unlocks = function()
+    common.entered_function()
+
+    for r, recipe in pairs(data.raw.recipe) do
+      common.writeDebug("Checking recipe %s", {recipe.name})
+
+      -- There may be several techs that unlock a recipe!
+      for t, tech in pairs(recipe.BI_add_to_tech or {}) do
+        thxbob.lib.tech.add_recipe_unlock(tech, recipe.name)
+        common.writeDebug("Added unlock for recipe \"%s\" to tech \"%s\".",
+                          {recipe.name, tech})
+        --~ common.modified_msg("unlock", recipe, "Added")
+      end
+      recipe.BI_add_to_tech = nil
     end
   end
 
@@ -877,5 +1115,5 @@ common.writeDebug("Rail %s of %s (%s): %s (%s)", {direction, base.name, base.uni
 ------------------------------------------------------------------------------------
 --                                    END OF FILE
 ------------------------------------------------------------------------------------
-return common
+  return common
 end

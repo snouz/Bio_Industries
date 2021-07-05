@@ -1,10 +1,10 @@
---------------------------------------------------------------------
--- If startup settings have been changed, we need to check some stuff.
--- Keep that in a separate file so the main control.lua is easier to
--- read!
---------------------------------------------------------------------
+------------------------------------------------------------------------------------
+--    If startup settings have been changed, we need to check some stuff. Keep    --
+--    that in a separate file so the main control.lua is easier to read!          --
+------------------------------------------------------------------------------------
+local BioInd = require("__" .. script.mod_name .. "__.common")(script.mod_name)
+BioInd.entered_file()
 
-local BioInd = require('common')('Bio_Industries')
 
 local settings_changed = {}
 
@@ -85,11 +85,11 @@ settings_changed.bio_garden = function()
   BioInd.writeDebug("Entered function settings_changed.bio_garden!")
 
   -- Has this setting been changed since the last time the game was run?
-  local current = BioInd.get_startup_setting("BI_Easy_Bio_Gardens")
-BioInd.show("Last state of BI_Easy_Bio_Gardens", global.mod_settings.BI_Easy_Bio_Gardens)
-BioInd.show("Current state of BI_Easy_Bio_Gardens", current)
+  local current = BioInd.get_startup_setting("BI_Game_Tweaks_Easy_Bio_Gardens")
+BioInd.show("Last state of BI_Game_Tweaks_Easy_Bio_Gardens", global.mod_settings.BI_Game_Tweaks_Easy_Bio_Gardens)
+BioInd.show("Current state of BI_Game_Tweaks_Easy_Bio_Gardens", current)
 
-  if global.mod_settings.BI_Easy_Bio_Gardens ~= current then
+  if global.mod_settings.BI_Game_Tweaks_Easy_Bio_Gardens ~= current then
 BioInd.writeDebug("Setting has been changed!")
     local pole, neighbours
     -- This is the unmodified table!
@@ -211,11 +211,18 @@ BioInd.show("global.compound_entities", global.compound_entities)
     end
 
     -- Update setting!
-    global.mod_settings.BI_Easy_Bio_Gardens = current
-    BioInd.show("Updated setting to", global.mod_settings.BI_Easy_Bio_Gardens)
+    global.mod_settings.BI_Game_Tweaks_Easy_Bio_Gardens = current
+    BioInd.show("Updated setting to", global.mod_settings.BI_Game_Tweaks_Easy_Bio_Gardens)
   else
     BioInd.writeDebug("Nothing to do!")
   end
 end
+
+
+
+------------------------------------------------------------------------------------
+--                                    END OF FILE
+------------------------------------------------------------------------------------
+BioInd.entered_file("leave")
 
 return settings_changed

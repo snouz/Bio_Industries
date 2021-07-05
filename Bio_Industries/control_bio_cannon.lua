@@ -1,5 +1,6 @@
 local BioInd = require("__" .. script.mod_name .. "__.common")(script.mod_name)
-BioInd.writeDebug("Entered control_bio_cannon.lua")
+BioInd.entered_file()
+
 
 ---Bio Cannon Stuff
 local Event = require('__stdlib__/stdlib/event/event').set_protected_mode(true)

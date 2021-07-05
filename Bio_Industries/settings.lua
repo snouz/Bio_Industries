@@ -10,17 +10,43 @@ setting_list.BI_Solar_Additions = {
     order = "a[modifier]-a[Solar_Farm]",
 }
 
-setting_list.BI_Bio_Fuel = {
+--~ setting_list.BI_Bigger_Wooden_Chests = {
+    --~ type = "bool-setting",
+    --~ name = "BI_Bigger_Wooden_Chests",
+    --~ setting_type = "startup",
+    --~ default_value = true,
+    --~ order = "a[modifier]-b[Bigger_Wooden_Chests]",
+--~ }
+
+-- Chests, pipes, poles
+setting_list.BI_Wood_Products = {
     type = "bool-setting",
-    name = "BI_Bio_Fuel",
+    name = "BI_Wood_Products",
     setting_type = "startup",
     default_value = true,
-    order = "a[modifier]-b[Bio_Fuel]",
+    order = "a[modifier]-b[Bigger_Wooden_Chests]",
+}
+
+-- Darts, dart rifle, dart turret
+setting_list.BI_Darts = {
+    type = "bool-setting",
+    name = "BI_Darts",
+    setting_type = "startup",
+    default_value = true,
+    order = "a[modifier]-c[Darts]",
 }
 
 setting_list.BI_Bio_Cannon = {
     type = "bool-setting",
     name = "BI_Bio_Cannon",
+    setting_type = "startup",
+    default_value = true,
+    order = "a[modifier]-c[Bio_Cannon]",
+}
+
+setting_list.BI_Stone_Crushing = {
+    type = "bool-setting",
+    name = "BI_Stone_Crushing",
     setting_type = "startup",
     default_value = true,
     order = "a[modifier]-c[Bio_Cannon]",
@@ -34,14 +60,21 @@ setting_list.BI_Show_musk_floor_in_mapview = {
     order = "a[modifier]-d[Musk_floor]",
 }
 
-setting_list.BI_Easy_Bio_Gardens = {
+setting_list.BI_Game_Tweaks_Easy_Bio_Gardens = {
     type = "bool-setting",
-    name = "BI_Easy_Bio_Gardens",
+    name = "BI_Game_Tweaks_Easy_Bio_Gardens",
     setting_type = "startup",
     default_value = false,
     order = "a[modifier]-e[Fluid_fertilizer]",
 }
 
+setting_list.BI_Bio_Fuel = {
+    type = "bool-setting",
+    name = "BI_Bio_Fuel",
+    setting_type = "startup",
+    default_value = true,
+    order = "a[modifier]-b[Bio_Fuel]",
+}
         -- Game tweaks
 setting_list.BI_Game_Tweaks_Emissions_Multiplier = {
     type = "bool-setting",
@@ -109,13 +142,6 @@ setting_list.BI_Game_Tweaks_Bot = {
     default_value = false,
     order = "b[tweaks]-f[Bot_tweaks]",
 }
-setting_list.BI_Bigger_Wooden_Chests = {
-    type = "bool-setting",
-    name = "BI_Bigger_Wooden_Chests",
-    setting_type = "startup",
-    default_value = true,
-    order = "a[modifier]-b[Bigger_Wooden_Chests]",
-}
 
 
 -- Compatibility with other mods (optional)
@@ -130,24 +156,6 @@ if not (mods["IndustrialRevolution"] or mods["aai-industry"]) then
   }
 end
 
-if not (
-          --~ mods["ArchdruidsChests"] or           -- "Archdruid's Chest Mod"
-          mods["Juicy_mods"] or                 -- "Advanced storage +"
-          mods["Warehousing"] or                -- "Warehousing Mod"
-          mods["aai-containers"] or             -- "AAI Containers & Warehouses"
-          mods["angelsaddons-storage"] or       -- "Angel's Addons - Storage Options"
-          mods["boblogistics"] or               -- "Bob's Logistics mod"
-          mods["cruxchests"]                    -- "Crux Chests"
-        ) then
-  setting_list.BI_Bigger_Wooden_Chests = {
-      type = "bool-setting",
-      name = "BI_Bigger_Wooden_Chests",
-      setting_type = "startup",
-      default_value = true,
-      order = "a[modifier]-b[Bigger_Wooden_Chests]",
-  }
-end
-
   -- Lua API global Variable Viewer (gvv)
 if mods["gvv"] then
   setting_list.BI_Enable_gvv_support = {
@@ -159,13 +167,11 @@ if mods["gvv"] then
   }
 end
 
-local list = {}
 for name, setting in pairs(setting_list) do
-  --~ list[#list + 1] = setting
   data:extend({setting})
+  log("Added setting " .. setting.name .. "\tDefault value: " .. tostring(setting.default_value) .. "\tType: " .. setting.setting_type)
 end
---~ log("Setting list: " .. serpent.block(list))
---~ data:extend({list})
+
 --[[
 Types of settings:
         • startup - game must be restarted if changed (such a setting may affect prototypes' changes)

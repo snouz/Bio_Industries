@@ -1,5 +1,10 @@
+BI.entered_file()
+
 local BioInd = require('common')('Bio_Industries')
 local ICONPATH = BioInd.iconpath
+
+
+--~ BioInd.get_startup_settings()
 
 -- If OwnlyMe's or Tral'a "Robot Tree Farm" mods are active, they will create variatons
 -- of our variations of tree prototypes. Remove them!
@@ -16,17 +21,8 @@ for name, _ in pairs(ignore_trees or {}) do
 end
 BioInd.writeDebug("Removed %g tree prototypes. Number of trees to ignore now: %g", {removed, table_size(ignore_trees)})
 
-BI.Settings.BI_Game_Tweaks_Emissions_Multiplier = settings.startup["BI_Game_Tweaks_Emissions_Multiplier"].value
+--~ BI.Settings.BI_Game_Tweaks_Emissions_Multiplier = settings.startup["BI_Game_Tweaks_Emissions_Multiplier"].value
 
-
--- 5dim Stack changes
---~ if settings.startup["5d-change-stack"] and settings.startup["5d-change-stack"].value then
-if BioInd.get_startup_setting("5d-change-stack") then
-  local item = data.raw.item["wood"]
-   if item then
-      item.stack_size = math.max(210, item.stack_size)
-   end
-end
 
 
 -- Moved to data-updates.lua for 0.18.34/1.1.4!
@@ -52,164 +48,156 @@ end
 --~ end
 
 ---- Game Tweaks ---- Tree
-if BI.Settings.BI_Game_Tweaks_Tree then
+require("prototypes.optional.final_fixes.tweaks_tree_yield")
+--~ if BI.Settings.BI_Game_Tweaks_Tree then
 
-  local new_results = {
-    {
-      type = "item",
-      name = "wood",
-      amount_min = 1,
-      amount_max = 6
-    }
-  }
+  --~ local new_results = {
+    --~ {
+      --~ type = "item",
+      --~ name = "wood",
+      --~ amount_min = 1,
+      --~ amount_max = 6
+    --~ }
+  --~ }
 
-  for tree_name, tree in pairs(data.raw["tree"] or {}) do
-    if tree.minable and not ignore_trees[tree_name] then
-BioInd.writeDebug("Tree name: %s\tminable.result: %s\tminable.count: %s", {tree.name, (tree.minable and tree.minable.result or "nil"), (tree.minable and tree.minable.count or "nil")}, "line")
-BioInd.writeDebug("Tree name: %s\tminable.results: %s", {tree.name, (tree.minable and tree.minable.results or "nil")}, "line")
-    --CHECK FOR SINGLE RESULTS
-          -- mining.result may be set although mining.results exists (mining.result
-          -- will be ignored in that case; happens, for example with IR2's rubber
-          -- trees). In this case, overwriting mining.results with the data from
-          -- mining.result could break other mods (e.g. IR2's rubber trees should
-          -- yield "rubber-wood" instead of "wood"). So let's only
-      if tree.minable.result and not tree.minable.results then
-        BioInd.writeDebug("Tree has minable.result")
-        --CHECK FOR VANILLA TREES WOOD x 4
-        if tree.minable.result == "wood" and tree.minable.count == 4 then
-          BioInd.writeDebug("Changing wood yield of %s to random value.", {tree.name})
-          tree.minable.mining_particle = "wooden-particle"
-          tree.minable.mining_time = 1.5
+  --~ for tree_name, tree in pairs(data.raw["tree"] or {}) do
+    --~ if tree.minable and not ignore_trees[tree_name] then
+--~ BioInd.writeDebug("Tree name: %s\tminable.result: %s\tminable.count: %s", {tree.name, (tree.minable and tree.minable.result or "nil"), (tree.minable and tree.minable.count or "nil")}, "line")
+--~ BioInd.writeDebug("Tree name: %s\tminable.results: %s", {tree.name, (tree.minable and tree.minable.results or "nil")}, "line")
+    --~ --CHECK FOR SINGLE RESULTS
+          --~ -- mining.result may be set although mining.results exists (mining.result
+          --~ -- will be ignored in that case; happens, for example with IR2's rubber
+          --~ -- trees). In this case, overwriting mining.results with the data from
+          --~ -- mining.result could break other mods (e.g. IR2's rubber trees should
+          --~ -- yield "rubber-wood" instead of "wood"). So let's only
+      --~ if tree.minable.result and not tree.minable.results then
+        --~ BioInd.writeDebug("Tree has minable.result")
+        --~ --CHECK FOR VANILLA TREES WOOD x 4
+        --~ if tree.minable.result == "wood" and tree.minable.count == 4 then
+          --~ BioInd.writeDebug("Changing wood yield of %s to random value.", {tree.name})
+          --~ tree.minable.mining_particle = "wooden-particle"
+          --~ tree.minable.mining_time = 1.5
+          --~ tree.minable.results = new_results
+        --~ -- CONVERT RESULT TO RESULTS
+        --~ else
+          --~ BioInd.writeDebug("Converting tree.minable.result to tree.minable.results!")
+          --~ tree.minable.mining_particle = "wooden-particle"
           --~ tree.minable.results = {
             --~ {
               --~ type = "item",
-              --~ name = "wood",
-              --~ amount_min = 1,
-              --~ amount_max = 6
+              --~ name = tree.minable.result,
+              --~ amount = tree.minable.count,
             --~ }
           --~ }
-          tree.minable.results = new_results
-        -- CONVERT RESULT TO RESULTS
-        else
-          BioInd.writeDebug("Converting tree.minable.result to tree.minable.results!")
-          tree.minable.mining_particle = "wooden-particle"
-          tree.minable.results = {
-            {
-              type = "item",
-              name = tree.minable.result,
-              amount = tree.minable.count,
-            }
-          }
-        end
-      --CHECK FOR RESULTS TABLE
-      elseif tree.minable.results then
-        BioInd.writeDebug("Checking minable.results!")
-        for r, result in pairs(tree.minable.results) do
-          --CHECK FOR RESULT WOOD x 4
-          if result.name == "wood" and result.amount == 4 then
-            BioInd.writeDebug("Changing result %s: %s", {r, result}, "line")
-            result.amount = nil
-            result.amount_min = 1
-            result.amount_max = 6
-          end
-        end
-        tree.minable.result = nil
-        tree.minable.count = nil
-      -- NEITHER RESULT NOR RESULTS EXIST -- CREATE RESULTS!
-      else
-        BioInd.writeDebug("Creating minable.results!")
-        tree.minable.results = new_results
-      end
-      BioInd.writeDebug("New minable.results: %s",
-                        {tree.minable and tree.minable.results or "nil"}, "line")
-    else
-      BioInd.writeDebug("Won't change results of %s!", {tree.name})
-    end
-  end
-end
+        --~ end
+      --~ --CHECK FOR RESULTS TABLE
+      --~ elseif tree.minable.results then
+        --~ BioInd.writeDebug("Checking minable.results!")
+        --~ for r, result in pairs(tree.minable.results) do
+          --~ --CHECK FOR RESULT WOOD x 4
+          --~ if result.name == "wood" and result.amount == 4 then
+            --~ BioInd.writeDebug("Changing result %s: %s", {r, result}, "line")
+            --~ result.amount = nil
+            --~ result.amount_min = 1
+            --~ result.amount_max = 6
+          --~ end
+        --~ end
+        --~ tree.minable.result = nil
+        --~ tree.minable.count = nil
+      --~ -- NEITHER RESULT NOR RESULTS EXIST -- CREATE RESULTS!
+      --~ else
+        --~ BioInd.writeDebug("Creating minable.results!")
+        --~ tree.minable.results = new_results
+      --~ end
+      --~ BioInd.writeDebug("New minable.results: %s",
+                        --~ {tree.minable and tree.minable.results or "nil"}, "line")
+    --~ else
+      --~ BioInd.writeDebug("Won't change results of %s!", {tree.name})
+    --~ end
+  --~ end
+--~ end
 
 
 ---- Game Tweaks ---- Player (Changed for 0.18.34/1.1.4!)
-if BI.Settings.BI_Game_Tweaks_Player then
-  -- There may be more than one character in the game! Here's a list of
-  -- the character prototype names or patterns matching character prototype
-  -- names we want to ignore.
-  local blacklist = {
-    ------------------------------------------------------------------------------------
-    --                                  Known dummies                                 --
-    ------------------------------------------------------------------------------------
-    -- Autodrive
-    "autodrive-passenger",
-    -- AAI Programmable Vehicles
-    "^.+%-_%-driver$",
-    -- Minime
-    "minime_character_dummy",
-    -- Water Turret (currently the dummies are not characters -- but things may change!)
-    "^WT%-.+%-dummy$",
-    ------------------------------------------------------------------------------------
-    --                                Other characters                                --
-    ------------------------------------------------------------------------------------
-    -- Bob's Classes and Multiple characters mod
-    "^.*bob%-character%-.+$",
-  }
+require("prototypes.optional.final_fixes.tweaks_player")
+--~ if BI.Settings.BI_Game_Tweaks_Player then
+  --~ -- There may be more than one character in the game! Here's a list of
+  --~ -- the character prototype names or patterns matching character prototype
+  --~ -- names we want to ignore.
+  --~ local blacklist = {
+    --~ ------------------------------------------------------------------------------------
+    --~ --                                  Known dummies                                 --
+    --~ ------------------------------------------------------------------------------------
+    --~ -- Autodrive
+    --~ "autodrive-passenger",
+    --~ -- AAI Programmable Vehicles
+    --~ "^.+%-_%-driver$",
+    --~ -- Minime
+    --~ "minime_character_dummy",
+    --~ -- Water Turret (currently the dummies are not characters -- but things may change!)
+    --~ "^WT%-.+%-dummy$",
+    --~ ------------------------------------------------------------------------------------
+    --~ --                                Other characters                                --
+    --~ ------------------------------------------------------------------------------------
+    --~ -- Bob's Classes and Multiple characters mod
+    --~ "^.*bob%-character%-.+$",
+  --~ }
 
-  local whitelist = {
-    -- Default character
-    "^character$",
-    -- Characters compatible with Minime
-    "^.*skin.*$",
-  }
+  --~ local whitelist = {
+    --~ -- Default character
+    --~ "^character$",
+    --~ -- Characters compatible with Minime
+    --~ "^.*skin.*$",
+  --~ }
 
-  local tweaks = {
-    loot_pickup_distance        = 5,    -- default 2
-    build_distance              = 20,   -- Vanilla 6
-    drop_item_distance          = 20,   -- Vanilla 6
-    reach_distance              = 20,   -- Vanilla 6
-    item_pickup_distance        = 6,    -- Vanilla 1
-    reach_resource_distance     = 6,    -- Vanilla 2.7
-  }
+  --~ local tweaks = {
+    --~ loot_pickup_distance        = 5,    -- default 2
+    --~ build_distance              = 20,   -- Vanilla 6
+    --~ drop_item_distance          = 20,   -- Vanilla 6
+    --~ reach_distance              = 20,   -- Vanilla 6
+    --~ item_pickup_distance        = 6,    -- Vanilla 1
+    --~ reach_resource_distance     = 6,    -- Vanilla 2.7
+  --~ }
 
-  local found, ignore
-  for char_name, character in pairs(data.raw.character) do
-BioInd.show("Checking character", char_name)
-    found = false
+  --~ local found, ignore
+  --~ for char_name, character in pairs(data.raw.character) do
+--~ BioInd.show("Checking character", char_name)
+    --~ found = false
 
-    for w, w_pattern in ipairs(whitelist) do
---~ BioInd.show("w_pattern", w_pattern)
-      if char_name == w_pattern or char_name:match(w_pattern) then
-        ignore = false
-BioInd.show("Found whitelisted character name", char_name)
-        for b, b_pattern in ipairs(blacklist) do
---~ BioInd.show("b_pattern", b_pattern)
+    --~ for w, w_pattern in ipairs(whitelist) do
+      --~ if char_name == w_pattern or char_name:match(w_pattern) then
+        --~ ignore = false
+--~ BioInd.show("Found whitelisted character name", char_name)
+        --~ for b, b_pattern in ipairs(blacklist) do
 
-          if char_name == b_pattern or char_name:match(b_pattern) then
-BioInd.writeDebug("%s is on the ignore list!", char_name)
-            -- Mark character as found
-            ignore = true
-            break
-          end
-        end
-        if not ignore then
-          found = true
-          break
-        end
-      end
-      if found then
-        break
-      end
-    end
+          --~ if char_name == b_pattern or char_name:match(b_pattern) then
+--~ BioInd.writeDebug("%s is on the ignore list!", char_name)
+            --~ -- Mark character as found
+            --~ ignore = true
+            --~ break
+          --~ end
+        --~ end
+        --~ if not ignore then
+          --~ found = true
+          --~ break
+        --~ end
+      --~ end
+      --~ if found then
+        --~ break
+      --~ end
+    --~ end
 
-    -- Apply tweaks
-    if found then
-      for tweak_name, tweak in pairs(tweaks) do
-        if character[tweak_name] < tweak then
-BioInd.writeDebug("Changing %s from %s to %s", {tweak_name, character[tweak_name], tweak})
-          character[tweak_name] = tweak
-        end
-      end
-    end
-  end
-end
+    --~ -- Apply tweaks
+    --~ if found then
+      --~ for tweak_name, tweak in pairs(tweaks) do
+        --~ if character[tweak_name] < tweak then
+--~ BioInd.writeDebug("Changing %s from %s to %s", {tweak_name, character[tweak_name], tweak})
+          --~ character[tweak_name] = tweak
+        --~ end
+      --~ end
+    --~ end
+  --~ end
+--~ end
 
 
 -- Moved to data-updates.lua for 0.18.34/1.1.4!
@@ -228,137 +216,136 @@ end
 
 --~ end
 
----- Game Tweaks ---- Production science pack recipe
-if data.raw.recipe["bi-production-science-pack"] then
-  BI_Functions.lib.allow_productivity("bi-production-science-pack")
-  thxbob.lib.tech.add_recipe_unlock("production-science-pack", "bi-production-science-pack")
-  BioInd.writeDebug("Unlock for recipe \"bi-production-science-pack\" added.")
-end
+-- REMOVED
+--~ ---- Game Tweaks ---- Production science pack recipe
+--~ if data.raw.recipe["bi-production-science-pack"] then
+  --~ BI_Functions.lib.allow_productivity("bi-production-science-pack")
+  --~ thxbob.lib.tech.add_recipe_unlock("production-science-pack", "bi-production-science-pack")
+  --~ BioInd.writeDebug("Unlock for recipe \"bi-production-science-pack\" added.")
+--~ end
 
 ---- Game Tweaks ---- Bots
-if BI.Settings.BI_Game_Tweaks_Bot then
-  -- Logistic & Construction bots can't catch fire or be mined
-  local function immunify(bot)
-    -- Changed for 0.18.34/1.1.4!
-    --~ if not bot.flags then
-      --~ bot.flags = {}
+require("prototypes.optional.final_fixes.tweaks_bots")
+--~ if BI.Settings.BI_Game_Tweaks_Bot then
+  --~ -- Logistic & Construction bots can't catch fire or be mined
+  --~ local function immunify(bot)
+    --~ -- Changed for 0.18.34/1.1.4!
+    --~ local can_insert = true
+    --~ bot.flags = bot.flags or {}
+    --~ bot.resistances = bot.resistances or {}
+    --~ for f, flag in pairs(bot.flags) do
+      --~ if flag == "not-flammable" then
+        --~ can_insert = false
+        --~ break
+      --~ end
     --~ end
-    --~ if not bot.resistances then
-      --~ bot.resistances = {}
+    --~ if can_insert then
+      --~ table.insert(bot.flags, "not-flammable")
+      --~ BioInd.writeDebug("Added flag \"not-flammable\" to %s", {bot.name})
     --~ end
-    local can_insert = true
-    bot.flags = bot.flags or {}
-    bot.resistances = bot.resistances or {}
-    for f, flag in pairs(bot.flags) do
-      if flag == "not-flammable" then
-        can_insert = false
-        break
-      end
-    end
-    if can_insert then
-      table.insert(bot.flags, "not-flammable")
-      BioInd.writeDebug("Added flag \"not-flammable\" to %s", {bot.name})
-    end
 
-    can_insert = true
-    for r, resistance in pairs(bot.resistances) do
-      if resistance.type == "fire" and resistance.percent ~= 100 then
-        BioInd.writeDebug("Change resistance against \"fire\" from %s to 100 %% for %s", {resistance.percent or "nil", bot.name})
-        bot.resistances[r] = {type = "fire", percent = 100}
-        can_insert = false
-        break
-      end
-    end
-    if can_insert then
-      table.insert(bot.resistances, {type = "fire", percent = 100})
-      BioInd.writeDebug("Added resistance against  \"fire\" to %s", {bot.name})
-    end
+    --~ can_insert = true
+    --~ for r, resistance in pairs(bot.resistances) do
+      --~ if resistance.type == "fire" and resistance.percent ~= 100 then
+        --~ BioInd.writeDebug("Change resistance against \"fire\" from %s to 100 %% for %s", {resistance.percent or "nil", bot.name})
+        --~ bot.resistances[r] = {type = "fire", percent = 100}
+        --~ can_insert = false
+        --~ break
+      --~ end
+    --~ end
+    --~ if can_insert then
+      --~ table.insert(bot.resistances, {type = "fire", percent = 100})
+      --~ BioInd.writeDebug("Added resistance against  \"fire\" to %s", {bot.name})
+    --~ end
 
-    bot.minable = nil
-    BioInd.writeDebug("Made  %s unminable", {bot.name})
-  end
+    --~ bot.minable = nil
+    --~ BioInd.writeDebug("Made  %s unminable", {bot.name})
+  --~ end
 
-  --catches modded bots too
-  for _, bot in pairs(data.raw['construction-robot']) do
-    immunify(bot)
-  end
+  --~ --catches modded bots too
+  --~ for _, bot in pairs(data.raw['construction-robot']) do
+    --~ immunify(bot)
+  --~ end
 
-  for _, bot in pairs(data.raw['logistic-robot']) do
-    immunify(bot)
-  end
-end
+  --~ for _, bot in pairs(data.raw['logistic-robot']) do
+    --~ immunify(bot)
+  --~ end
+--~ end
 
 
 ---- Game Tweaks ----
-if BI.Settings.BI_Game_Tweaks_Stack_Size then
-  -- Changed for 0.18.34/1.1.4
-  local tweaks = {
-    ["wood"]            = 400,
-    ["stone"]           = 400,
-    ["stone-crushed"]   = 800,
-    ["concrete"]        = 400,
-    ["slag"]            = 800,
-  }
-  local item
+require("prototypes.optional.final_fixes.tweaks_stack_size")
+--~ if BI.Settings.BI_Game_Tweaks_Stack_Size then
+  --~ -- Changed for 0.18.34/1.1.4
+  --~ local tweaks = {
+    --~ ["wood"]            = 400,
+    --~ ["stone"]           = 400,
+    --~ ["stone-crushed"]   = 800,
+    --~ ["concrete"]        = 400,
+    --~ ["slag"]            = 800,
+  --~ }
+  --~ local item
 
-  for tweak_name, tweak in pairs(tweaks) do
-    item = data.raw.item[tweak_name]
-    if item and item.stack_size < tweak then
-      BioInd.writeDebug("Changing stacksize of %s from %s to %s", {item.name, item.stack_size, tweak})
-      item.stack_size = 800
-    end
-  end
-end
+  --~ for tweak_name, tweak in pairs(tweaks) do
+    --~ item = data.raw.item[tweak_name]
+    --~ if item and item.stack_size < tweak then
+      --~ BioInd.writeDebug("Changing stacksize of %s from %s to %s", {item.name, item.stack_size, tweak})
+      --~ item.stack_size = 800
+    --~ end
+  --~ end
+--~ end
 
 
 --- Update fuel_emissions_multiplier values
-if BI.Settings.BI_Game_Tweaks_Emissions_Multiplier then
-  for item, factor in pairs({
-    ["pellet-coke"] = 0.80,
-    ["enriched-fuel"] = 0.90,
-    ["solid-fuel"] = 1.00,
-    ["solid-carbon"] = 1.05,
-    ["carbon"] = 1.05,
-    ["wood-bricks"] = 1.20,
-    ["rocket-fuel"] = 1.20,
-    ["bi-seed"] = 1.30,
-    ["seedling"] = 1.30,
-    ["bi-wooden-pole-big"] = 1.30,
-    ["bi-wooden-pole-huge"] = 1.30,
-    ["bi-wooden-fence"] = 1.30,
-    ["bi-wood-pipe"] = 1.30,
-    ["bi-wood-pipe-to-ground"] = 1.30,
-    ["bi-wooden-chest-large"] = 1.30,
-    ["bi-wooden-chest-huge"] = 1.30,
-    ["bi-wooden-chest-giga"] = 1.30,
-    ["bi-ash"] = 1.30,
-    ["ash"] = 1.30,
-    ["wood-charcoal"] = 1.25,
-    ["cellulose-fiber"] = 1.40,
-    ["bi-woodpulp"] = 1.40,
-    ["solid-coke"] = 1.40,
-    ["wood-pellets"] = 1.40,
-    ["coal-crushed"] = 1.50,
-    ["wood"] = 1.60,
-    ["coal"] = 2.00,
-    -- Removed in 0.17.48/0.18.16
-    --~ ["thorium-fuel-cell"] = 5.00,
-  }) do
-    BI_Functions.lib.fuel_emissions_multiplier_update(item, factor)
-  end
-end
+require("prototypes.optional.final_fixes.tweaks_emissions_multiplier")
+--~ if BI.Settings.BI_Game_Tweaks_Emissions_Multiplier then
+  --~ for item, factor in pairs({
+    --~ ["pellet-coke"] = 0.80,
+    --~ ["enriched-fuel"] = 0.90,
+    --~ ["solid-fuel"] = 1.00,
+    --~ ["solid-carbon"] = 1.05,
+    --~ ["carbon"] = 1.05,
+    --~ ["wood-bricks"] = 1.20,
+    --~ ["rocket-fuel"] = 1.20,
+    --~ ["bi-seed"] = 1.30,
+    --~ ["seedling"] = 1.30,
+    --~ ["bi-wooden-pole-big"] = 1.30,
+    --~ ["bi-wooden-pole-huge"] = 1.30,
+    --~ ["bi-wooden-fence"] = 1.30,
+    --~ ["bi-wood-pipe"] = 1.30,
+    --~ ["bi-wood-pipe-to-ground"] = 1.30,
+    --~ ["bi-wooden-chest-large"] = 1.30,
+    --~ ["bi-wooden-chest-huge"] = 1.30,
+    --~ ["bi-wooden-chest-giga"] = 1.30,
+    --~ ["bi-ash"] = 1.30,
+    --~ ["ash"] = 1.30,
+    --~ ["wood-charcoal"] = 1.25,
+    --~ ["cellulose-fiber"] = 1.40,
+    --~ ["bi-woodpulp"] = 1.40,
+    --~ ["solid-coke"] = 1.40,
+    --~ ["wood-pellets"] = 1.40,
+    --~ ["coal-crushed"] = 1.50,
+    --~ ["wood"] = 1.60,
+    --~ ["coal"] = 2.00,
+    --~ -- Removed in 0.17.48/0.18.16
+    --~ -- ["thorium-fuel-cell"] = 5.00,
+  --~ }) do
+    --~ BI_Functions.lib.fuel_emissions_multiplier_update(item, factor)
+  --~ end
+--~ end
 
 
 
 
 -- Make vanilla and Bio boilers exchangeable
-if BI.Settings.BI_Bio_Fuel then
-  local boiler = data.raw["boiler"]["boiler"]
-  local boiler_group = boiler.fast_replaceable_group or "boiler"
+require("prototypes.optional.final_fixes.final-fixes_optionBioFuel")
+--~ if BI.Settings.BI_Bio_Fuel then
+  --~ local boiler = data.raw["boiler"]["boiler"]
+  --~ local boiler_group = boiler.fast_replaceable_group or "boiler"
 
-  boiler.fast_replaceable_group = boiler_group
-  data.raw["boiler"]["bi-bio-boiler"].fast_replaceable_group = boiler_group
-end
+  --~ boiler.fast_replaceable_group = boiler_group
+  --~ data.raw["boiler"]["bi-bio-boiler"].fast_replaceable_group = boiler_group
+--~ end
 
 --~ -- Make vanilla and wooden rails exchangeable
 --~ -- local straight = data.raw["straight-rail"]["straight-rail"].fast_replaceable_group or "rail"
@@ -379,38 +366,80 @@ end
 --~ end
 
 
-if mods["Krastorio2"] then
-  -- Krastorio² needs much more wood than usually provided by Bio Industries. If Krastorio² is
-  -- active, BI should produce much more wood/wood pulp. For better baĺancing, our recipes should
-  -- also be changed to require more wood/wood pulp as ingredients.
-  -- Recipes for making wood should also use/produce more seeds, seedlings, and water. It shouldn't
-  -- be necessary to increase the input of ash and fertilizer in these recipes as they already
-  -- require more wood/wood pulp.
-  local update = {
-    "wood", "bi-woodpulp",
-    "bi-seed", "seedling", "water",
-  }
-  for _, recipe in pairs(data.raw.recipe) do
-    BioInd.writeDebug("Recipe has \"mod\" property: %s", {recipe.mod and true or false})
-    if recipe.mod == "Bio_Industries" then
-      krastorio.recipes.multiplyIngredients(recipe.name, update, 4)
-      krastorio.recipes.multiplyProducts(recipe.name, update, 4)
-      BioInd.writeDebug("Changed ingredients for %s: %s", {recipe and recipe.name or "nil", recipe and recipe.ingredients or "nil"})
-      BioInd.writeDebug("Changed results for %s: %s", {recipe and recipe.name or "nil", recipe and recipe.results or "nil"})
-    end
-  end
+
+------------------------------------------------------------------------------------
+--                          Compatibility with other mods                         --
+------------------------------------------------------------------------------------
+
+-- 5dim Stack changes
+require("prototypes.mod_compatibility.final_fixes.5dim")
+--~ if settings.startup["5d-change-stack"] and settings.startup["5d-change-stack"].value then
+--~ if BioInd.get_startup_setting("5d-change-stack") then
+  --~ local item = data.raw.item["wood"]
+   --~ if item then
+      --~ item.stack_size = math.max(210, item.stack_size)
+   --~ end
+--~ end
+
+require("prototypes.mod_compatibility.final_fixes.krastorio_2")
+--~ if mods["Krastorio2"] then
+  --~ -- Krastorio² needs much more wood than usually provided by Bio Industries. If Krastorio² is
+  --~ -- active, BI should produce much more wood/wood pulp. For better baĺancing, our recipes should
+  --~ -- also be changed to require more wood/wood pulp as ingredients.
+  --~ -- Recipes for making wood should also use/produce more seeds, seedlings, and water. It shouldn't
+  --~ -- be necessary to increase the input of ash and fertilizer in these recipes as they already
+  --~ -- require more wood/wood pulp.
+  --~ local update = {
+    --~ "wood", "bi-woodpulp",
+    --~ "bi-seed", "seedling", "water",
+  --~ }
+  --~ for _, recipe in pairs(data.raw.recipe) do
+    --~ BioInd.writeDebug("Recipe has \"mod\" property: %s", {recipe.mod and true or false})
+    --~ if recipe.mod == "Bio_Industries" then
+      --~ krastorio.recipes.multiplyIngredients(recipe.name, update, 4)
+      --~ krastorio.recipes.multiplyProducts(recipe.name, update, 4)
+      --~ BioInd.writeDebug("Changed ingredients for %s: %s", {recipe and recipe.name or "nil", recipe and recipe.ingredients or "nil"})
+      --~ BioInd.writeDebug("Changed results for %s: %s", {recipe and recipe.name or "nil", recipe and recipe.results or "nil"})
+    --~ end--~ -- Make sure fertilizers have the "place_as_tile" property!
+--~ local AlienBiomes = data.raw.tile["vegetation-green-grass-3"] and
+                    --~ data.raw.tile["vegetation-green-grass-1"] and true or false
+
+--~ -- We've already set place_as_tile. If it doesn't exist, our fertilizer definition has
+--~ -- been overwritten by some other mod, so we restore icons and localization and add
+--~ -- place_as_tile again!
+--~ local fertilizer = data.raw.item["fertilizer"]
+--~ if not fertilizer.place_as_tile then
+  --~ fertilizer.place_as_tile = {
+    --~ result = AlienBiomes and "vegetation-green-grass-3" or "grass-3",
+    --~ condition_size = 1,
+    --~ condition = { "water-tile" }
+  --~ }
+  --~ fertilizer.icon = ICONPATH .. "fertilizer.png"
+  --~ fertilizer.icon_size = 64
+  --~ fertilizer.BI_add_icon = true
+  --~ fertilizer.localised_name = {"BI-item-name.fertilizer"}
+  --~ fertilizer.localised_description = {"BI-item-description.fertilizer"}
+--~ end
+
+--~ data.raw.item["bi-adv-fertilizer"].place_as_tile = {
+  --~ result = AlienBiomes and "vegetation-green-grass-1" or "grass-1",
+  --~ condition_size = 1,
+  --~ condition = { "water-tile" }
+--~ }
+
+  --~ end
 
 
-  --~ -- Remove recipes for liquid air and nitrogen
-  --~ thxbob.lib.tech.remove_recipe_unlock("bi-tech-fertilizer", "bi-liquid-air")
-  --~ thxbob.lib.tech.remove_recipe_unlock("bi-tech-fertilizer", "bi-nitrogen")
-  --~ data.raw.recipe["bi-liquid-air"].hidden = true
-  --~ data.raw.recipe["bi-nitrogen"].hidden = true
+  -- Remove recipes for liquid air and nitrogen
+  --~ -- thxbob.lib.tech.remove_recipe_unlock("bi-tech-fertilizer", "bi-liquid-air")
+  --~ -- thxbob.lib.tech.remove_recipe_unlock("bi-tech-fertilizer", "bi-nitrogen")
+  --~ -- data.raw.recipe["bi-liquid-air"].hidden = true
+  --~ -- data.raw.recipe["bi-nitrogen"].hidden = true
 
-  --~ -- Replace liquid air with oxygen in Algae Biomass 2 and 3
-  --~ thxbob.lib.recipe.replace_ingredient("bi-biomass-2", "liquid-air", "oxygen")
-  --~ thxbob.lib.recipe.replace_ingredient("bi-biomass-3", "liquid-air", "oxygen")
-end
+  -- Replace liquid air with oxygen in Algae Biomass 2 and 3
+  --~ -- thxbob.lib.recipe.replace_ingredient("bi-biomass-2", "liquid-air", "oxygen")
+  --~ -- thxbob.lib.recipe.replace_ingredient("bi-biomass-3", "liquid-air", "oxygen")
+--~ end
 
 
 
@@ -445,51 +474,34 @@ end
   --~ data.raw.recipe["bi-nitrogen"] = nil
 --~ end
 
---~ -- "Alien Biomes" overwrites tiles in item definitions even if these tiles have been
---~ -- disabled via start-up settings. (This has been fixed in "Alien Biomes" 0.5.2 for
---~ -- Factorio 0.18, but let's keep it the code for easier maintainability as long as
---~ --  Factorio 0.17.79 is stable!)
+
+require("prototypes.mod_compatibility.final_fixes.alien_biomes")
+--~ -- Make sure fertilizers have the "place_as_tile" property!
 --~ local AlienBiomes = data.raw.tile["vegetation-green-grass-3"] and
                     --~ data.raw.tile["vegetation-green-grass-1"] and true or false
 
---~ if not AlienBiomes then
-  --~ data.raw.item["fertilizer"].place_as_tile.result = "grass-3"
-  --~ data.raw.item["bi-adv-fertilizer"].place_as_tile.result = "grass-1"
+--~ -- We've already set place_as_tile. If it doesn't exist, our fertilizer definition has
+--~ -- been overwritten by some other mod, so we restore icons and localization and add
+--~ -- place_as_tile again!
+--~ local fertilizer = data.raw.item["fertilizer"]
+--~ if not fertilizer.place_as_tile then
+  --~ fertilizer.place_as_tile = {
+    --~ result = AlienBiomes and "vegetation-green-grass-3" or "grass-3",
+    --~ condition_size = 1,
+    --~ condition = { "water-tile" }
+  --~ }
+  --~ fertilizer.icon = ICONPATH .. "fertilizer.png"
+  --~ fertilizer.icon_size = 64
+  --~ fertilizer.BI_add_icon = true
+  --~ fertilizer.localised_name = {"BI-item-name.fertilizer"}
+  --~ fertilizer.localised_description = {"BI-item-description.fertilizer"}
 --~ end
 
--- Make sure fertilizers have the "place_as_tile" property!
-local AlienBiomes = data.raw.tile["vegetation-green-grass-3"] and
-                    data.raw.tile["vegetation-green-grass-1"] and true or false
-
--- We've already set place_as_tile. If it doesn't exist, our fertilizer definition has
--- been overwritten by some other mod, so we restore icons and localization and add
--- place_as_tile again!
-local fertilizer = data.raw.item["fertilizer"]
-if not fertilizer.place_as_tile then
-  fertilizer.place_as_tile = {
-    result = AlienBiomes and "vegetation-green-grass-3" or "grass-3",
-    condition_size = 1,
-    condition = { "water-tile" }
-  }
-  --~ fertilizer.icon = ICONPATH .. "fertilizer_64.png"
-  fertilizer.icon = ICONPATH .. "fertilizer.png"
-  fertilizer.icon_size = 64
-  fertilizer.BI_add_icon = true
-  --~ fertilizer.icons = {
-    --~ {
-      --~ icon = ICONPATH .. "fertilizer_64.png",
-      --~ icon_size = 64,
-    --~ }
-  --~ }
-  fertilizer.localised_name = {"BI-item-name.fertilizer"}
-  fertilizer.localised_description = {"BI-item-description.fertilizer"}
-end
-
-data.raw.item["bi-adv-fertilizer"].place_as_tile = {
-  result = AlienBiomes and "vegetation-green-grass-1" or "grass-1",
-  condition_size = 1,
-  condition = { "water-tile" }
-}
+--~ data.raw.item["bi-adv-fertilizer"].place_as_tile = {
+  --~ result = AlienBiomes and "vegetation-green-grass-1" or "grass-1",
+  --~ condition_size = 1,
+  --~ condition = { "water-tile" }
+--~ }
 
 if mods["pycoalprocessing"] and BI.Settings.BI_Bio_Fuel then
     -- Bio_Fuel/recipe.lua:30:      {type = "item", name = "bi-ash", amount = 15}
@@ -500,6 +512,10 @@ if mods["pycoalprocessing"] and BI.Settings.BI_Bio_Fuel then
       amount = 15
     })
 end
+
+
+-- Updates to darts etc. if NE Buildings is NOT active
+require("prototypes.mod_compatibility.final_fixes.ne_buildings")
 
 
 -- Moved to data-updates.lua for 0.18.34/1.1.4!
@@ -516,8 +532,16 @@ end
 
 
 ------------------------------------------------------------------------------------
--- Add icons to our prototypes
+--                           Add icons to our prototypes                          --
+------------------------------------------------------------------------------------
 BioInd.BI_add_icons()
+
+
+------------------------------------------------------------------------------------
+--                           Add unlocks to technologies                          --
+------------------------------------------------------------------------------------
+BioInd.BI_add_unlocks()
+
 
 
 ---TESTING!
@@ -527,7 +551,7 @@ BioInd.BI_add_icons()
 --~ for k,v in pairs(data.raw["straight-rail"]) do
 --~ log(v.name)
 --~ end
---~ for k,v in pairs(data.raw["rail-planner"]) do
+  --~ for k,v in pairs(data.raw["rail-planner"]) do
 --~ log(v.name)
 --~ end
 
@@ -545,10 +569,16 @@ BioInd.BI_add_icons()
     --~ BioInd.writeDebug("recipe: %s\torder: %s\tsubgroup: %s", {r, recipe.order or "", recipe.subgroup or "" })
   --~ end
 --~ end
-for k, v in pairs(data.raw) do
-  for t, p in pairs(v) do
-    if p.se_allow_in_space then
-      BioInd.writeDebug("%s (%s) can be built in space!", {p.name, t})
-    end
-  end
-end
+--~ for k, v in pairs(data.raw) do
+  --~ for t, p in pairs(v) do
+    --~ if p.se_allow_in_space then
+      --~ BioInd.writeDebug("%s (%s) can be built in space!", {p.name, t})
+    --~ end
+  --~ end
+--~ end
+
+
+------------------------------------------------------------------------------------
+--                                    END OF FILE                                 --
+------------------------------------------------------------------------------------
+BI.entered_file("leave")

@@ -1,9 +1,11 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.0.1
+Date: 2021-02-28
+  Changes:
+    - changed paths, added some uncompressed images
+---------------------------------------------------------------------------------------------------
 Version: 1.0.0
 Date: 2021-02-09
-  Uploaded by:
-    - Snouz
-
-  Features:
+  Changes:
     - Initial Release
     - All graphics and sounds from Bio Industries 1.2, Natural Evolution Buildings and Natural Evolution Enemies centralized in this dependency mod to avoid redownloading assets for each patch (works like e.g. "Space exploration hr graphics")

@@ -1,4 +1,4 @@
---~ log("Entered file prototypes/compound_entities.lua")
+log("Entered file" .. debug.getinfo(1).source)
 ------------------------------------------------------------------------------------
 --  This file contains the data of all compound entities. It will be used in the  --
 --  data stage to create the prototypes for the hidden enitities, and during the  --
@@ -246,8 +246,8 @@ ret.get_HE_list = function(get_complete_list)
 
     -- Easy Bio gardens: We only need the hidden pole if the setting is enabled. (But we
     -- want to keep the rest of the table even if the setting is disabled.)
-    --~ if not BI.Settings.BI_Easy_Bio_Gardens then
-    if not get_settings("BI_Easy_Bio_Gardens") then
+    --~ if not BI.Settings.BI_Game_Tweaks_Easy_Bio_Gardens then
+    if not get_settings("BI_Game_Tweaks_Easy_Bio_Gardens") then
       --~ log("\"Easy Bio gardens\" are disabled!")
       ret.compound_entities["bi-bio-garden"].hidden.pole = nil
       --~ log("Removed hidden pole from list of hidden entities!")
@@ -274,5 +274,11 @@ ret.get_HE_list = function(get_complete_list)
 
   return ret.compound_entities
 end
+
+
+------------------------------------------------------------------------------------
+--                                    END OF FILE
+------------------------------------------------------------------------------------
+log("Leaving file" .. debug.getinfo(1).source)
 
 return ret

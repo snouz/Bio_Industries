@@ -1,0 +1,619 @@
+------------------------------------------------------------------------------------
+--                           Enable: Bio fuel production                          --
+--                            (BI.Settings.BI_Bio_Fuel)                           --
+------------------------------------------------------------------------------------
+local setting = "BI_Bio_Fuel"
+if not BI.Settings[setting] then
+  BI.nothing_to_do("*")
+  return
+else
+  BI.entered_file()
+end
+
+local BioInd = require('common')('Bio_Industries')
+local ICONPATH = BioInd.iconpath
+
+------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
+
+--~ local new_battery_icon = BioInd.check_base_version("0.18.47")
+
+-- Changed for 0.18.29: We always want to make advanced fertilizer, so we need to unlock the bio-reactor
+-- and the most basic recipe for algae biomass even if BI.Settings.BI_Bio_Fuel has been turned off!
+
+
+
+--~ ------------------------------------------------------------------------------------
+--~ --                                   Bio Boiler                                   --
+--~ ------------------------------------------------------------------------------------
+--~ data:extend({
+  --~ {
+    --~ type = "recipe",
+    --~ name = "bi-bio-boiler",
+    --~ localised_name = {"entity-name.bi-bio-boiler"},
+    --~ -- localised_description = {"entity-description.bi-bio-boiler"},
+    --~ --localised_description = {""},
+    --~ icon = ICONPATH .. "entity/bio_boiler.png",
+    --~ icon_size = 64,
+    --~ BI_add_icon = true,
+    --~ normal = {
+      --~ enabled = false,
+      --~ energy_required = 10,
+      --~ ingredients = {
+        --~ {"boiler", 1},
+        --~ {"steel-plate", 5},
+        --~ {"concrete", 5},
+      --~ },
+      --~ result = "bi-bio-boiler",
+      --~ result_count = 1,
+      --~ allow_as_intermediate = false,  -- Added for 0.18.34/1.1.4
+      --~ always_show_made_in = false,    -- Added for 0.18.34/1.1.4
+      --~ allow_decomposition = true,     -- Added for 0.18.34/1.1.4
+    --~ },
+    --~ expensive = {
+      --~ enabled = false,
+      --~ energy_required = 15,
+      --~ ingredients = {
+        --~ {"boiler", 2},
+        --~ {"steel-plate", 5},
+        --~ {"concrete", 5},
+      --~ },
+      --~ result = "bi-bio-boiler",
+      --~ result_count = 1,
+      --~ allow_as_intermediate = false,  -- Added for 0.18.34/1.1.4
+      --~ always_show_made_in = false,    -- Added for 0.18.34/1.1.4
+      --~ allow_decomposition = true,     -- Added for 0.18.34/1.1.4
+   --~ },
+    --~ allow_as_intermediate = false,    -- Changed for 0.18.34/1.1.4
+    --~ always_show_made_in = false,      -- Changed for 0.18.34/1.1.4
+    --~ allow_decomposition = true,       -- Changed for 0.18.34/1.1.4
+    -- subgroup = "bio-energy-boiler",
+    --~ subgroup = "energy",              -- Changed for 0.18.34/1.1.4
+    -- order = "b-[steam-power]-a[boiler]-a[bi-bio-boiler]"      -- Changed for 0.18.34/1.1.4
+    --~ order = "b[steam-power]-a[boiler-bio]",
+    --~ -- Custom property that allows to automatically add our recipes to tech unlocks.
+    --~ BI_add_to_tech = {"bi-tech-bio-boiler"},
+  --~ },
+--~ })
+
+
+--~ ------------------------------------------------------------------------------------
+--~ --                         Basic petroleum-gas processing                         --
+--~ ------------------------------------------------------------------------------------
+--~ data:extend({
+--~ {
+    --~ type = "recipe",
+    --~ name = "bi-basic-gas-processing",
+    --~ icon = ICONPATH .. "bi_basic_gas_processing.png",
+    --~ icon_size = 64,
+    --~ BI_add_icon = true,
+    --~ category = "chemistry",
+    --~ enabled = false,
+    --~ energy_required = 5,
+    --~ ingredients = {
+      --~ {type = "item", name = "coal", amount = 20},
+      --~ {type = "item", name = "resin", amount = 10},
+      --~ {type = "fluid", name ="steam", amount = 50}
+    --~ },
+    --~ results = {
+      -- {type = "fluid", name = "petroleum-gas", amount = 15, fluidbox_index = 3},
+      --~ {type = "fluid", name = "petroleum-gas", amount = 15},
+      --~ {type = "item", name = "bi-ash", amount = 15}
+    --~ },
+    --~ subgroup = "bio-bio-fuel-other",
+    --~ order = "[bi_basic_gas_processing]",
+    --~ main_product = "",
+    --~ allow_as_intermediate = false,    -- Added for 0.18.34/1.1.4
+    --~ always_show_made_in = true,       -- Added for 0.18.34/1.1.4
+    --~ allow_decomposition = true,       -- Added for 0.18.34/1.1.4
+    --~ allow_as_intermediate = false,
+    --~ -- Custom property that allows to automatically add our recipes to tech unlocks.
+    --~ BI_add_to_tech = {"bi-tech-coal-processing-2"},
+  --~ },
+--~ })
+
+
+--~ ------------------------------------------------------------------------------------
+--~ --                                    Cellulose                                   --
+--~ ------------------------------------------------------------------------------------
+--~ data:extend({
+  --~ {
+    --~ -- Cellulose 1
+    --~ type = "recipe",
+    --~ name = "bi-cellulose-1",
+    --~ --localised_name = {"recipe-name.bi-cellulose-1"},
+    --~ localised_description = {"recipe-description.bi-cellulose-1"},
+    --~ icon = ICONPATH .. "cellulose.png",
+    --~ icon_size = 64,
+    --~ BI_add_icon = true,
+    --~ category = "chemistry",
+    --~ energy_required = 20,
+    --~ ingredients = {
+      --~ {type = "item", name = "bi-woodpulp", amount = 10},
+      --~ {type = "fluid", name = "sulfuric-acid", amount = 10},
+    --~ },
+    --~ results= {
+      --~ {type = "item", name = "bi-cellulose", amount = 10 }
+    --~ },
+    --~ enabled = false,
+    --~ always_show_made_in = true,
+    --~ allow_decomposition = false,
+    --~ subgroup = "bio-bio-farm-raw",
+    --~ order = "z[bi-cellulose-1]",
+    -- subgroup = "intermediate-product",
+    -- order = "b[cellulose-1]",
+    --~ -- Custom property that allows to automatically add our recipes to tech unlocks.
+    --~ BI_add_to_tech = {"bi-tech-cellulose-1"},
+  --~ },
+
+  --~ -- Cellulose 2
+  --~ {
+    --~ type = "recipe",
+    --~ name = "bi-cellulose-2",
+    --~ --localised_name = {"recipe-name.bi-cellulose-2"},
+    --~ localised_description = {"recipe-description.bi-cellulose-2"},
+    --~ icon = ICONPATH .. "cellulose_2.png",
+    --~ icon_size = 64,
+    --~ BI_add_icon = true,
+    --~ category = "chemistry",
+    --~ energy_required = 5,
+    --~ ingredients = {
+      --~ {type = "fluid", name = "steam", amount = 10},
+      --~ {type = "item", name = "bi-woodpulp", amount = 10},
+      --~ {type = "fluid", name = "sulfuric-acid", amount = 20},
+    --~ },
+    --~ results = {
+      --~ {type = "item", name = "bi-cellulose", amount = 10 }
+    --~ },
+    --~ enabled = false,
+    --~ always_show_made_in = true,
+    --~ allow_decomposition = false,
+    --~ subgroup = "bio-bio-farm-raw",
+    --~ order = "z[bi-cellulose-2]",
+    -- subgroup = "intermediate-product",
+    -- order = "b[cellulose-2]",
+    --~ -- This is a custom property for use by "Krastorio 2" (it will change
+    --~ -- ingredients/results; used for wood/wood pulp)
+    --~ mod = "Bio_Industries",
+    --~ allow_as_intermediate = false,
+    --~ -- Custom property that allows to automatically add our recipes to tech unlocks.
+    --~ BI_add_to_tech = {"bi-tech-cellulose-2"},
+  --~ },
+--~ })
+
+
+--~ ------------------------------------------------------------------------------------
+--~ --                                   Bio plastic                                  --
+--~ ------------------------------------------------------------------------------------
+--~ data:extend({
+  --~ -- Plastic 1
+  --~ {
+    --~ type = "recipe",
+    --~ name = "bi-plastic-1",
+    --~ localised_name = {"recipe-name.bi-plastic-1"},
+    --~ localised_description = {"recipe-description.bi-plastic-1"},
+    --~ icon = ICONPATH .. "plastic_bar_1.png",
+    --~ icon_size = 64,
+    --~ BI_add_icon = true,
+    --~ category = "chemistry",
+    --~ --subgroup = "raw-material",
+    --~ energy_required = 1,
+    --~ ingredients = {
+      --~ {type = "fluid", name = "steam", amount = 10},
+      --~ -- Let's use woodpulp instead of wood for the new version! Not changing this
+      --~ -- for 0.18.34/1.1.4  to avoid an additional (potentially factory-breaking)
+      --~ -- change shortly before the new release will change so many things anyway!
+      -- {type = "item", name = "wood", amount = 10},
+      --~ {type = "item", name = "bi-woodpulp", amount = 20},
+      --~ {type = "fluid", name = "light-oil", amount = 20},
+    --~ },
+    --~ results = {
+      --~ {type = "item", name = "plastic-bar", amount = 2}
+    --~ },
+    --~ show_amount_in_title = false,
+    --~ enabled = false,
+    --~ always_show_made_in = true,
+    --~ allow_decomposition = false,
+    --~ subgroup = "raw-material",
+    --~ order = "f[plastic-bara]",
+    -- subgroup = "intermediate-product",
+    -- order = "b[bi-plastic-1]",
+    --~ -- This is a custom property for use by "Krastorio 2" (it will change
+    --~ -- ingredients/results; used for wood/wood pulp)
+    --~ mod = "Bio_Industries",
+    --~ allow_as_intermediate = false,
+    --~ -- Custom property that allows to automatically add our recipes to tech unlocks.
+    --~ BI_add_to_tech = {"bi-tech-bio-plastics"},
+  --~ },
+
+  --~ -- Plastic 2
+  --~ {
+    --~ type = "recipe",
+    --~ name = "bi-plastic-2",
+    --~ localised_name = {"recipe-name.bi-plastic-2"},
+    --~ localised_description = {"recipe-description.bi-plastic-2"},
+    --~ icon = ICONPATH .. "plastic_bar_2.png",
+    --~ icon_size = 64,
+    --~ BI_add_icon = true,
+    --~ category = "chemistry",
+    --~ energy_required = 1,
+    --~ ingredients = {
+      --~ {type = "item", name = "bi-cellulose", amount = 1},
+      --~ {type = "fluid", name = "petroleum-gas", amount = 10},
+    --~ },
+    --~ results = {
+      --~ {type = "item", name = "plastic-bar", amount = 2}
+    --~ },
+    --~ show_amount_in_title = false,
+    --~ enabled = false,
+    --~ always_show_made_in = true,
+    --~ allow_decomposition = false,
+    --~ subgroup = "raw-material",
+    --~ order = "f[plastic-barb]",
+    -- subgroup = "intermediate-product",
+    -- order = "b[bi-plastic-2]",
+    --~ allow_as_intermediate = false,
+    --~ -- Custom property that allows to automatically add our recipes to tech unlocks.
+    --~ BI_add_to_tech = {"bi-tech-cellulose-2"},
+  --~ },
+--~ })
+
+
+--~ ------------------------------------------------------------------------------------
+--~ --                                     Biomass                                    --
+--~ ------------------------------------------------------------------------------------
+--~ data:extend({
+  --~ -- Biomass 2
+  --~ {
+    --~ type = "recipe",
+    --~ name = "bi-biomass-2",
+    --~ localised_name = {"recipe-name.bi-biomass-2"},
+    --~ localised_description = {"recipe-description.bi-biomass-2"},
+    --~ icon = ICONPATH .. "biomass_2.png",
+    --~ icon_size = 64,
+    --~ BI_add_icon = true,
+    --~ category = "biofarm-mod-bioreactor",
+    --~ energy_required = 60,
+    --~ ingredients = {
+      --~ {type = "fluid", name = "water", amount = 90},
+      --~ {type = "fluid", name = "liquid-air", amount = 10},
+      --~ {type = "fluid", name = "bi-biomass", amount = 10},
+    --~ },
+    --~ results = {
+      --~ {type = "fluid", name = "bi-biomass", amount = 35},
+    --~ },
+    --~ enabled = false,
+    --~ always_show_made_in = true,
+    --~ allow_decomposition = false,
+    -- subgroup = "bio-bio-fuel-fluid",
+    -- order = "x[oil-processing]-z3[bi-biomass]"
+    --~ subgroup = "bio-bio-fuel-fluid",
+    --~ order = "x[oil-processing]-z2[bi-biomass]",
+    --~ allow_as_intermediate = false,
+    --~ -- Custom property that allows to automatically add our recipes to tech unlocks.
+    --~ BI_add_to_tech = {"bi-tech-biomass-reprocessing-1"},
+  --~ },
+
+  --~ -- Biomass 3
+  --~ {
+    --~ type = "recipe",
+    --~ name = "bi-biomass-3",
+    --~ localised_name = {"recipe-name.bi-biomass-3"},
+    --~ localised_description = {"recipe-description.bi-biomass-3"},
+    --~ icon = ICONPATH .. "biomass_3.png",
+    --~ icon_size = 64,
+    --~ BI_add_icon = true,
+    --~ category = "biofarm-mod-bioreactor",
+    --~ energy_required = 10,
+    --~ ingredients = {
+      --~ {type = "fluid", name = "water", amount = 90},
+      --~ {type = "fluid", name = "liquid-air", amount = 10},
+      --~ {type = "fluid", name = "bi-biomass", amount = 10},
+      --~ {type = "item", name = "bi-ash", amount = 10},
+    --~ },
+    --~ results = {
+      --~ {type = "fluid", name = "bi-biomass", amount = 100},
+    --~ },
+    --~ enabled = false,
+    --~ always_show_made_in = true,
+    --~ allow_decomposition = false,
+    -- subgroup = "bio-bio-fuel-fluid",
+    -- order = "x[oil-processing]-z2[bi-biomass]"
+    --~ subgroup = "bio-bio-fuel-fluid",
+    --~ order = "x[oil-processing]-z3[bi-biomass]",
+    --~ allow_as_intermediate = false,
+    --~ -- Custom property that allows to automatically add our recipes to tech unlocks.
+    --~ BI_add_to_tech = {"bi-tech-biomass-reprocessing-2"},
+  --~ },
+--~ })
+
+
+--~ ------------------------------------------------------------------------------------
+--~ --                               Biomass conversion                               --
+--~ ------------------------------------------------------------------------------------
+--~ data:extend({
+  --~ -- Biomass to Light oil
+  --~ {
+    --~ type = "recipe",
+    --~ name = "bi-biomass-conversion-1",
+    --~ localised_name = {"recipe-name.bi-biomass-conversion-1"},
+    --~ localised_description = {"recipe-description.bi-biomass-conversion-1"},
+    --~ icon = ICONPATH .. "bio_conversion_1.png",
+    --~ icon_size = 64,
+    --~ BI_add_icon = true,
+    --~ category = "oil-processing",
+    --~ enabled = false,
+    --~ always_show_made_in = true,
+    --~ allow_decomposition = false,
+    --~ energy_required = 5,
+    --~ ingredients = {
+      --~ {type = "fluid", name = "bi-biomass", amount = 100},
+      --~ {type = "fluid", name = "water", amount = 10},
+    --~ },
+    --~ results = {
+      --~ {type = "item", name = "bi-cellulose", amount = 2},
+      --~ {type = "fluid", name = "light-oil", amount = 80},
+    --~ },
+    --~ main_product = "",
+    --~ subgroup = "bio-bio-fuel-other",
+    --~ order = "a[oil-processing]-b[advanced-oil-processing]-y[bi-Fuel_Conversion-1]",
+    --~ allow_as_intermediate = false,
+    --~ -- Custom property that allows to automatically add our recipes to tech unlocks.
+    --~ BI_add_to_tech = {"bi-tech-bio-plastics"},
+  --~ },
+
+  --~ -- Biomass to Petroleum gas
+  --~ {
+    --~ type = "recipe",
+    --~ name = "bi-biomass-conversion-2",
+    --~ --localised_name = {"recipe-name.bi-biomass-conversion-2"},
+    --~ localised_description = {"recipe-description.bi-biomass-conversion-2"},
+    --~ icon = ICONPATH .. "bio_conversion_2.png",
+    --~ icon_size = 64,
+    --~ BI_add_icon = true,
+    --~ category = "oil-processing",
+    --~ enabled = false,
+    --~ always_show_made_in = true,
+    --~ allow_decomposition = false,
+    --~ energy_required = 5,
+    --~ ingredients = {
+      --~ {type = "fluid", name = "bi-biomass", amount = 10},
+      --~ {type = "fluid", name = "water", amount = 10},
+    --~ },
+    --~ results = {
+      --~ {type = "fluid", name = "petroleum-gas", amount = 20}
+    --~ },
+    --~ main_product = "",
+    --~ subgroup = "bio-bio-fuel-other",
+    --~ order = "a[oil-processing]-b[advanced-oil-processing]-y[bi-Fuel_Conversion-2]",
+    --~ allow_as_intermediate = false,
+    --~ -- Custom property that allows to automatically add our recipes to tech unlocks.
+    --~ BI_add_to_tech = {"bi-tech-biomass-conversion"},
+  --~ },
+
+  --~ -- Biomass to Lubricant
+  --~ {
+    --~ type = "recipe",
+    --~ name = "bi-biomass-conversion-3",
+    --~ --localised_name = {"recipe-name.bi-biomass-conversion-3"},
+    --~ localised_description = {"recipe-description.bi-biomass-conversion-3"},
+    --~ icon = ICONPATH .. "bio_conversion_3.png",
+    --~ icon_size = 64,
+    --~ BI_add_icon = true,
+    --~ category = "oil-processing",
+    --~ enabled = false,
+    --~ always_show_made_in = true,
+    --~ allow_decomposition = false,
+    --~ energy_required = 2.5,
+    --~ ingredients = {
+      --~ {type = "fluid", name = "bi-biomass", amount = 10},
+      --~ {type = "fluid", name = "water", amount = 10},
+    --~ },
+    --~ results = {
+      --~ {type = "fluid", name = "lubricant", amount = 10}
+    --~ },
+    --~ main_product = "",
+    --~ crafting_machine_tint = {
+      --~ primary = {r = 0.000, g = 0.260, b = 0.010, a = 0.000}, -- #00420200
+      --~ secondary = {r = 0.071, g = 0.640, b = 0.000, a = 0.000}, -- #12a30000
+      --~ tertiary = {r = 0.026, g = 0.520, b = 0.000, a = 0.000}, -- #06840000
+    --~ },
+    --~ subgroup = "bio-bio-fuel-other",
+    --~ order = "a[oil-processing]-b[advanced-oil-processing]-y[bi-Fuel_Conversion-3]",
+    --~ allow_as_intermediate = false,
+    --~ -- Custom property that allows to automatically add our recipes to tech unlocks.
+    --~ BI_add_to_tech = {"bi-tech-biomass-conversion"},
+  --~ },
+
+  --~ -- Biomass to Crude oil
+  --~ {
+    --~ type = "recipe",
+    --~ name = "bi-biomass-conversion-4",
+    --~ localised_name = {"recipe-name.bi-biomass-conversion-4"},
+    --~ localised_description = {"recipe-description.bi-biomass-conversion-4"},
+    --~ icon = ICONPATH .. "bio_conversion_4.png",
+    --~ icon_size = 64,
+    --~ BI_add_icon = true,
+    --~ category = "oil-processing",
+    --~ enabled = false,
+    --~ always_show_made_in = true,
+    --~ allow_decomposition = false,
+    --~ energy_required = 10,
+    --~ ingredients = {
+      --~ {type = "item", name = "coal", amount = 20},
+      --~ {type = "fluid", name = "bi-biomass", amount = 10},
+      --~ {type = "fluid", name = "steam", amount = 50}
+    --~ },
+    --~ results = {
+      --~ {type = "fluid", name = "crude-oil", amount = 50},
+      --~ {type = "fluid", name = "water", amount = 50},
+    --~ },
+    --~ main_product = "",
+    --~ crafting_machine_tint = {
+      --~ primary = {r = 0.000, g = 0.260, b = 0.010, a = 0.000}, -- #00420200
+      --~ secondary = {r = 0.071, g = 0.640, b = 0.000, a = 0.000}, -- #12a30000
+      --~ tertiary = {r = 0.026, g = 0.520, b = 0.000, a = 0.000}, -- #06840000
+    --~ },
+    --~ subgroup = "bio-bio-fuel-other",
+    --~ order = "a[oil-processing]-b[advanced-oil-processing]-y[bi-Fuel_Conversion-4]",
+    --~ allow_as_intermediate = false,
+    --~ -- Custom property that allows to automatically add our recipes to tech unlocks.
+    --~ BI_add_to_tech = {"bi-tech-biomass-conversion"},
+  --~ },
+--~ })
+
+
+--~ ------------------------------------------------------------------------------------
+--~ --                                   Bio Battery                                  --
+--~ ------------------------------------------------------------------------------------
+--~ data:extend({
+  --~ {
+    --~ type = "recipe",
+    --~ name = "bi-battery",
+    --~ icon = ICONPATH .. "bio_battery.png",
+    --~ icon_size = 64,
+    --~ BI_add_icon = true,
+    --~ category = "chemistry",
+    --~ energy_required = 5,
+    --~ ingredients = {
+      --~ {type = "item", name = "plastic-bar", amount = 1},
+      --~ {type = "fluid", name = "bi-biomass", amount = 10},
+      --~ {type = "item", name = "bi-cellulose", amount = 1},
+    --~ },
+    --~ results = {
+      --~ {type = "item", name = "battery", amount = 1},
+    --~ },
+    --~ enabled = false,
+    -- always_show_made_in = true,
+    -- allow_decomposition = false,
+    --~ allow_as_intermediate = false,    -- Changed for 0.18.34/1.1.4
+    --~ always_show_made_in = true,       -- Added for 0.18.34/1.1.4
+    --~ allow_decomposition = true,       -- Added for 0.18.34/1.1.4
+    --~ crafting_machine_tint = {
+      --~ primary = {r = 0.970, g = 0.611, b = 0.000, a = 0.000}, -- #f79b0000
+      --~ secondary = {r = 0.000, g = 0.680, b = 0.894, a = 0.357}, -- #00ade45b
+      --~ tertiary = {r = 0.430, g = 0.805, b = 0.726, a = 0.000}, -- #6dcdb900
+    --~ },
+    --~ subgroup = "raw-material",
+    --~ order = "h[batteryb]",
+    -- subgroup = "raw-material",
+    -- order = "h[bi-battery]",
+    --~ allow_as_intermediate = false,
+    --~ -- Custom property that allows to automatically add our recipes to tech unlocks.
+    --~ BI_add_to_tech = {"bi-tech-cellulose-2"},
+  --~ },
+--~ })
+
+
+--~ ------------------------------------------------------------------------------------
+--~ --                                  Sulfuric acid                                 --
+--~ ------------------------------------------------------------------------------------
+--~ data:extend({
+  --~ -- Bio Acid
+  --~ {
+    --~ type = "recipe",
+    --~ name = "bi-acid",
+    --~ icon = ICONPATH .. "bio_acid.png",
+    --~ icon_size = 64,
+    --~ BI_add_icon = true,
+    --~ category = "chemistry",
+    --~ energy_required = 10,
+    --~ ingredients = {
+      --~ {type = "fluid", name = "water", amount = 90},
+      --~ {type = "fluid", name = "bi-biomass", amount = 10},
+      --~ {type = "item", name = "bi-cellulose", amount = 5},
+    --~ },
+    --~ results = {
+      --~ {type = "fluid", name = "sulfuric-acid", amount = 50},
+    --~ },
+    --~ enabled = false,
+    --~ always_show_made_in = true,
+    --~ allow_decomposition = false,
+    --~ crafting_machine_tint = {
+      --~ primary = {r = 0.875, g = 0.735, b = 0.000, a = 0.000}, -- #dfbb0000
+      --~ secondary = {r = 0.103, g = 0.940, b = 0.000, a = 0.000}, -- #1aef0000
+      --~ tertiary = {r = 0.564, g = 0.795, b = 0.000, a = 0.000}, -- #8fca0000
+    --~ },
+    --~ subgroup = "bio-bio-fuel-other",
+    --~ order = "a",
+    -- subgroup = "fluid-recipes",
+    -- order = "a",
+    --~ allow_as_intermediate = false,
+    --~ -- Custom property that allows to automatically add our recipes to tech unlocks.
+    --~ BI_add_to_tech = {"bi-tech-cellulose-1"},
+  --~ },
+
+  --~ -- Sulfuric acid to Sulfur
+  --~ {
+    --~ type = "recipe",
+    --~ name = "bi-sulfur",
+    --~ icon = ICONPATH .. "bio_sulfur.png",
+    --~ icon_size = 64,
+    --~ BI_add_icon = true,
+    --~ category = "chemistry",
+    --~ energy_required = 2,
+    --~ ingredients = {
+      --~ {type = "fluid", name = "sulfuric-acid", amount = 2},
+      --~ {type = "item", name = "bi-ash", amount = 2},
+    --~ },
+    --~ results = {
+      --~ {type = "item", name = "sulfur", amount = 2}
+    --~ },
+    --~ enabled = false,
+    --~ always_show_made_in = true,
+    --~ allow_decomposition = false,
+    --~ subgroup = "raw-material",
+    --~ order = "g[sulfur-1]",
+    -- subgroup = "raw-material",
+    -- order = "g[sulfur]-[bi-sulfur]",
+    --~ allow_as_intermediate = false,
+    --~ -- Custom property that allows to automatically add our recipes to tech unlocks.
+    --~ BI_add_to_tech = {"bi-tech-cellulose-1"},
+  --~ },
+
+
+--~ -- THIS NEEDS TO GO TO COMPATIBILITY! We use the same recipe if Angels is active, just replace the ingredients
+  --~ -- Sulfuric acid to Sulfur --IF ANGELS INSTALLED (More Expensice)
+  -- {
+    -- type = "recipe",
+    -- name = "bi-sulfur-angels",
+    -- localised_name = {"recipe-name.bi-sulfur"},
+    -- localised_description = {"recipe-description.bi-sulfur"},
+    -- icon = ICONPATH .. "bio_sulfur.png",
+    -- icon_size = 64,
+    -- BI_add_icon = true,
+    -- category = "chemistry",
+    -- energy_required = 10,
+    -- ingredients = {
+      -- {type = "fluid", name = "sulfuric-acid", amount = 50},
+      -- {type = "item", name = "bi-ash", amount = 10},
+    -- },
+    -- results = {
+      -- {type = "item", name = "sulfur", amount = 10}
+    -- },
+    -- enabled = false,
+    -- always_show_made_in = true,
+    -- allow_decomposition = false,
+    -- subgroup = "raw-material",
+    -- order = "g[sulfur-2]",
+    -- allow_as_intermediate = false,
+    -- -- Custom property that allows to automatically add our recipes to tech unlocks.
+    -- BI_add_to_tech = {"bi-tech-cellulose-1"},
+  -- },
+--~ })
+
+
+
+------------------------------------------------------------------------------------
+--                                 Create recipes                                 --
+------------------------------------------------------------------------------------
+for r, r_data in pairs(BI.optional_recipes[setting] or {}) do
+  data:extend({r_data})
+  BioInd.created_msg(r_data)
+end
+
+
+------------------------------------------------------------------------------------
+--                                    END OF FILE                                 --
+------------------------------------------------------------------------------------
+BI.entered_file("leave")

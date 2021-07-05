@@ -1,6 +1,7 @@
+BI.entered_file()
+
 -- Add functions that are also used in other files (debugging output etc.)
 local BioInd = require('common')('Bio_Industries')
-BioInd.writeDebug("Entered prototypes.hidden_radars.lua of \"%s\".", {BioInd.modName})
 
 local ICONPATH = BioInd.iconpath
 
@@ -83,7 +84,7 @@ BioInd.show("locale_name", locale_name)
 
     radar.localised_name = {"entity-name." .. radar.name}
 
-    radar.icon = ICONPATH .. "entity/Arboretum_radar_icon.png"
+    radar.icon = ICONPATH .. "entity/terraformer_radar.png"
     radar.icon_size = 64
     radar.BI_add_icon = true
 
@@ -126,3 +127,9 @@ end
 --~ for k, v in pairs(data.raw[h_entity.type]) do
   --~ BioInd.writeDebug("%s: %s", {k, v})
 --~ end
+
+
+------------------------------------------------------------------------------------
+--                                    END OF FILE
+------------------------------------------------------------------------------------
+BI.entered_file("leave")

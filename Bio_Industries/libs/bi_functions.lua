@@ -10,6 +10,25 @@ function BI_Functions.lib.allow_productivity(recipe_name)
 end
 
 
+function BI_Functions.lib.get_recipe_ingredients(ingredients)
+  ingredients = type(ingredients) == "table" and ingredients or {}
+
+  local name, amount
+  local ret = {}
+  for i, ingredient in ipairs(ingredients) do
+    name = ingredient.name or ingredient[1]
+    amount = ingredient.amount or ingredient[2]
+    if not (name and amount) then
+      error(string.format("%s is not a valid recipe ingredient specification!"),
+                            serpent.line(ingredient))
+    end
+    ret[name] = {type = ingredient.type or "item", name = name, amount = amount}
+  end
+  return ret
+end
+
+
+
 function BI_Functions.lib.remove_from_blueprint(check_tile)
   if data.raw.tile[check_tile] then
     data.raw.tile[check_tile].can_be_part_of_blueprint = false

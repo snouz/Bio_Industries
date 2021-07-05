@@ -1,0 +1,1938 @@
+------------------------------------------------------------------------------------
+--                   Data for recipes that depend on a setting.                   --
+------------------------------------------------------------------------------------
+BI.entered_file()
+
+local BioInd = require('common')('Bio_Industries')
+local ICONPATH = BioInd.iconpath
+
+BI.optional_recipes = BI.optional_recipes or {}
+
+for s, setting in pairs({
+  "BI_Game_Tweaks_Easy_Bio_Gardens",
+  "BI_Game_Tweaks_Production_Science",
+  "BI_Game_Tweaks_Disassemble",
+  "Bio_Cannon",
+  "BI_Bio_Fuel",
+  --~ "BI_Bigger_Wooden_Chests",
+  "BI_Wood_Products",
+  "BI_Solar_Additions",
+  "BI_Darts",
+  "BI_Stone_Crushing",
+}) do
+  BI.optional_recipes[setting] = BI.optional_recipes[setting] or {}
+end
+
+------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
+
+------------------------------------------------------------------------------------
+--                           "Enable: Easy Bio Gardens"                           --
+--                  (BI.Settings.BI_Game_Tweaks_Easy_Bio_Gardens)                 --
+------------------------------------------------------------------------------------
+-- Fertilizer fluid (Tints will be added later)
+BI.optional_recipes.BI_Game_Tweaks_Easy_Bio_Gardens.fertilizer_fluid = {
+  type = "recipe",
+  name = "bi-fertilizer-fluid",
+  icon = ICONPATH .. "fluid_fertilizer.png",
+  icon_size = 64,
+  BI_add_icon = true,
+  category = "chemistry",
+  energy_required = 5,
+  ingredients = {
+    {type = "item", name = "fertilizer", amount = 3},
+    {type = "fluid", name = "water", amount = 100},
+  },
+  results = {
+    {type = "fluid", name = "bi-fertilizer-fluid", amount = 100}
+  },
+  main_product = "",
+  enabled = false,
+  always_show_made_in = true,
+  allow_decomposition = false,
+  allow_as_intermediate = false,
+  subgroup = "bio-bio-farm-intermediate-product",
+  order = "b[bi-fertilizer]-b[bi-fertilizer-fluid-1]",
+  -- This will be added in optionsEasyBioGardens.lua!
+  --~ crafting_machine_tint = {
+    --~ -- Kettle
+    --~ primary = fertilizer_fluid_colors.primary,
+    --~ secondary = fertilizer_fluid_colors.secondary,
+    --~ -- Chimney
+    --~ tertiary = fertilizer_fluid_colors.tertiary,
+    --~ quaternary = fertilizer_fluid_colors.quaternary,
+  --~ },
+  -- Custom property that allows to automatically add our recipes to tech unlocks.
+  BI_add_to_tech = {"bi-tech-fertilizer"},
+}
+
+--                  (BI.Settings.BI_Game_Tweaks_Easy_Bio_Gardens)                 --
+
+
+------------------------------------------------------------------------------------
+--              Advanced fertilizer fluid (Tints will be added later)             --
+------------------------------------------------------------------------------------
+-- "Game tweaks: Easy Bio gardens" (BI.Settings.BI_Game_Tweaks_Easy_Bio_Gardens)
+BI.optional_recipes.BI_Game_Tweaks_Easy_Bio_Gardens.adv_fertilizer_fluid = {
+  type = "recipe",
+  name = "bi-adv-fertilizer-fluid",
+  icon = ICONPATH .. "fluid_fertilizer_advanced.png",
+  icon_size = 64,
+  BI_add_icon = true,
+  category = "chemistry",
+  energy_required = 5,
+  ingredients = {
+    {type = "item", name = "bi-adv-fertilizer", amount = 3},
+    {type = "fluid", name = "water", amount = 100},
+  },
+  results = {
+    {type = "fluid", name = "bi-adv-fertilizer-fluid", amount = 100}
+  },
+  main_product = "",
+  enabled = false,
+  always_show_made_in = true,
+  allow_decomposition = false,
+  allow_as_intermediate = false,
+  subgroup = "bio-bio-farm-intermediate-product",
+  order = "b[bi-fertilizer]-b[bi-fertilizer-fluid-2]",
+  -- This will be added in optionsEasyBioGardens.lua!
+  --~ crafting_machine_tint = {
+    --~ primary = adv_fertilizer_fluid_colors.primary,
+    --~ secondary = adv_fertilizer_fluid_colors.secondary,
+    --~ -- Chimney
+    --~ tertiary = adv_fertilizer_fluid_colors.tertiary,
+    --~ quaternary = adv_fertilizer_fluid_colors.quaternary,
+  --~ },
+  -- Custom property that allows to automatically add our recipes to tech unlocks.
+  BI_add_to_tech = {"bi-tech-advanced-fertilizers"},
+}
+
+
+------------------------------------------------------------------------------------
+--           Game tweaks: Alternative recipe for Production Science Pack          --
+--                 (BI.Settings.BI_Game_Tweaks_Production_Science)                --
+------------------------------------------------------------------------------------
+-- Alternative recipe for Production Science Pack
+BI.optional_recipes.BI_Game_Tweaks_Production_Science.production_science_pack = {
+  type = "recipe",
+  name = "bi-production-science-pack",
+  enabled = false,
+  energy_required = 21,
+  ingredients = {
+    {"electric-furnace", 1},
+    {"productivity-module", 1},
+    {"bi-rail-wood", 40}
+  },
+  result_count = 3,
+  result = "production-science-pack",
+  -- Custom property that allows to automatically add our recipes to tech unlocks.
+  BI_add_to_tech = {"production-science-pack"},
+}
+
+
+------------------------------------------------------------------------------------
+--                        Game tweaks: Disassemble recipes                        --
+--                    (BI.Settings.BI_Game_Tweaks_Disassemble)                    --
+------------------------------------------------------------------------------------
+-- Burner mining drill
+BI.optional_recipes.BI_Game_Tweaks_Disassemble.burner_drill = {
+  type = "recipe",
+  name = "bi-burner-mining-drill-disassemble",
+  localised_description = {"recipe-description.bi-disassemble-recipes"},
+  icon = ICONPATH .. "disassemble_burner-mining-drill.png",
+  icon_size = 64,
+  BI_add_icon = true,
+  category = "advanced-crafting",
+  subgroup = "bio-disassemble",
+  order = "a[Disassemble]-a[bi-burner-mining-drill-disassemble]",
+  enabled = false,
+  allow_as_intermediate = false,
+  always_show_made_in = false,
+  allow_decomposition = false,
+  energy_required = 2,
+  ingredients = {
+    {type = "item", name = "burner-mining-drill", amount = 1},
+  },
+  results = {
+    {"stone", 4},
+    {"iron-plate", 4}
+  },
+  main_product = "",
+  -- Custom property that allows to automatically add our recipes to tech unlocks.
+  BI_add_to_tech = {"automation-2"},
+}
+
+-- Burner inserter
+BI.optional_recipes.BI_Game_Tweaks_Disassemble.burner_inserter = {
+  type = "recipe",
+  name = "bi-burner-inserter-disassemble",
+  localised_description = {"recipe-description.bi-disassemble-recipes"},
+  icon = ICONPATH .. "disassemble_burner_inserter.png",
+  icon_size = 64,
+  BI_add_icon = true,
+  category = "advanced-crafting",
+  subgroup = "bio-disassemble",
+  order = "a[Disassemble]-b[bi-burner-inserter-disassemble]",
+  enabled = false,
+  allow_as_intermediate = false,
+  always_show_made_in = false,
+  allow_decomposition = false,
+  energy_required = 2,
+  ingredients = {
+    {type = "item", name = "burner-inserter", amount = 1},
+  },
+  results = {
+    {"iron-plate", 2},
+  },
+  main_product = "",
+  -- Custom property that allows to automatically add our recipes to tech unlocks.
+  BI_add_to_tech = {"automation-2"},
+}
+
+-- Long-handed inserter
+BI.optional_recipes.BI_Game_Tweaks_Disassemble.long_handed_inserter = {
+  type = "recipe",
+  name = "bi-long-handed-inserter-disassemble",
+  localised_description = {"recipe-description.bi-disassemble-recipes"},
+  icon = ICONPATH .. "disassemble_long_handed_inserter.png",
+  icon_size = 64,
+  BI_add_icon = true,
+  category = "advanced-crafting",
+  subgroup = "bio-disassemble",
+  order = "a[Disassemble]-c[bi-long-handed-inserter-disassemble]",
+  enabled = false,
+  allow_as_intermediate = false,
+  always_show_made_in = false,
+  allow_decomposition = false,
+  energy_required = 2,
+  ingredients = {
+    {type = "item", name = "long-handed-inserter", amount = 1},
+  },
+  results = {
+    {"iron-gear-wheel", 1},
+    {"iron-plate", 1},
+    {"electronic-circuit", 1},
+  },
+  main_product = "",
+  -- Custom property that allows to automatically add our recipes to tech unlocks.
+  BI_add_to_tech = {"automation-2"},
+}
+
+-- Stone furnace
+BI.optional_recipes.BI_Game_Tweaks_Disassemble.stone_furnace = {
+  type = "recipe",
+  name = "bi-stone-furnace-disassemble",
+  localised_description = {"recipe-description.bi-disassemble-recipes"},
+  icon = ICONPATH .. "disassemble_stone_furnace.png",
+  icon_size = 64,
+  BI_add_icon = true,
+  category = "advanced-crafting",
+  subgroup = "bio-disassemble",
+  order = "a[Disassemble]-d[bi-stone-furnace-disassemble]",
+  enabled = false,
+  allow_as_intermediate = false,
+  always_show_made_in = false,
+  allow_decomposition = false,
+  energy_required = 2,
+  ingredients = {
+    {type = "item", name = "stone-furnace", amount = 1},
+  },
+  results = {
+    {"stone", 3},
+  },
+  main_product = "",
+  -- Custom property that allows to automatically add our recipes to tech unlocks.
+  BI_add_to_tech = {"automation-2"},
+}
+
+-- Steel furnace
+BI.optional_recipes.BI_Game_Tweaks_Disassemble.steel_furnace = {
+  type = "recipe",
+  name = "bi-steel-furnace-disassemble",
+  localised_description = {"recipe-description.bi-disassemble-recipes"},
+  icon = ICONPATH .. "disassemble_steel-furnace.png",
+  icon_size = 64,
+  BI_add_icon = true,
+  category = "advanced-crafting",
+  subgroup = "bio-disassemble",
+  order = "a[Disassemble]-e[bi-steel-furnace-disassemble]",
+  enabled = false,
+  allow_as_intermediate = false,
+  always_show_made_in = false,
+  allow_decomposition = false,
+  energy_required = 2,
+  ingredients = {
+    {type = "item", name = "steel-furnace", amount = 1},
+  },
+  results = {
+    {"steel-plate", 4},
+    {"stone-brick", 4}
+  },
+  main_product = "",
+  -- Custom property that allows to automatically add our recipes to tech unlocks.
+  BI_add_to_tech = {"advanced-material-processing"},
+}
+
+
+------------------------------------------------------------------------------------
+--                          Enable: Early wooden defenses                         --
+--                             (BI.Settings.BI_Darts)                             --
+------------------------------------------------------------------------------------
+--- Basic Dart Ammo
+BI.optional_recipes.BI_Darts.dart_magazine_basic = {
+  type = "recipe",
+  name = "bi-dart-magazine-basic",
+  --localised_name = {"item-name.bi-dart-magazine-basic"},
+  --localised_description = {"item-description.bi-dart-magazine-basic"},
+  icon = ICONPATH .. "weapon/dart_1_basic.png",
+  icon_size = 64,
+  BI_add_icon = true,
+  normal = {
+    enabled = true,
+    energy_required = 4,
+    ingredients = {
+      {"wood", 10},
+    },
+    result = "bi-dart-magazine-basic",
+    result_count = 10,
+    allow_as_intermediate = false,    -- Added for 0.18.34/1.1.4
+    always_show_made_in = false,      -- Added for 0.18.34/1.1.4
+    allow_decomposition = true,       -- Added for 0.18.34/1.1.4
+  },
+  expensive = {
+    enabled = true,
+    energy_required = 6,
+    ingredients = {
+      {"wood", 10},
+    },
+    result = "bi-dart-magazine-basic",
+    result_count = 8,
+    allow_as_intermediate = false,    -- Added for 0.18.34/1.1.4
+    always_show_made_in = false,      -- Added for 0.18.34/1.1.4
+    allow_decomposition = true,       -- Added for 0.18.34/1.1.4
+  },
+  --~ always_show_made_in = true,
+  --~ allow_decomposition = false,
+  allow_as_intermediate = false,      -- Added for 0.18.34/1.1.4
+  always_show_made_in = false,        -- Changed for 0.18.34/1.1.4
+  allow_decomposition = true,         -- Changed for 0.18.34/1.1.4
+  subgroup = "bi-ammo",
+  order = "[bio-ammo]-a-[darts]-1",
+  -- This is a custom property for use by "Krastorio 2" (it will change
+  -- ingredients/results; used for wood/wood pulp)
+  mod = "Bio_Industries",
+   --~ -- Custom property that allows to automatically add our recipes to tech unlocks.
+  --~ BI_add_to_tech = {"bi-tech-depollution-2"},
+}
+
+--- Standard Dart Ammo
+BI.optional_recipes.BI_Darts.dart_magazine_standard = {
+  type = "recipe",
+  name = "bi-dart-magazine-standard",
+ --localised_name = {"item-name.bi-dart-magazine-standard"},
+  --localised_description = {"item-description.bi-dart-magazine-standard"},
+  icon = ICONPATH .. "weapon/dart_2_standard.png",
+  icon_size = 64,
+  BI_add_icon = true,
+  BI_add_to_tech = {"military"},
+  normal = {
+    enabled = false,
+    energy_required = 5,
+    ingredients = {
+      {"bi-dart-magazine-basic", 10},
+      {"copper-plate", 5},
+    },
+    result = "bi-dart-magazine-standard",
+    result_count = 10,
+    allow_as_intermediate = false,    -- Added for 0.18.34/1.1.4
+    always_show_made_in = false,      -- Added for 0.18.34/1.1.4
+    allow_decomposition = true,       -- Added for 0.18.34/1.1.4
+  },
+  expensive = {
+    enabled = false,
+    energy_required = 8,
+    ingredients = {
+      {"bi-dart-magazine-basic", 8},
+      {"copper-plate", 5},
+    },
+    result = "bi-dart-magazine-standard",
+    result_count = 8,
+    allow_as_intermediate = false,    -- Added for 0.18.34/1.1.4
+    always_show_made_in = false,      -- Added for 0.18.34/1.1.4
+    allow_decomposition = true,       -- Added for 0.18.34/1.1.4
+  },
+  --~ always_show_made_in = true,
+  --~ allow_decomposition = false,
+  allow_as_intermediate = false,      -- Added for 0.18.34/1.1.4
+  always_show_made_in = false,        -- Changed for 0.18.34/1.1.4
+  allow_decomposition = true,         -- Changed for 0.18.34/1.1.4
+  subgroup = "bi-ammo",
+  order = "[bio-ammo]-a-[darts]-2",
+}
+
+--- Enhanced Dart Ammo
+BI.optional_recipes.BI_Darts.dart_magazine_enhanced = {
+  type = "recipe",
+  name = "bi-dart-magazine-enhanced",
+  --localised_name = {"item-name.bi-dart-magazine-enhanced"},
+  --localised_description = {"item-description.bi-dart-magazine-enhanced"},
+  icon = ICONPATH .. "weapon/dart_3_enhanced.png",
+  icon_size = 64,
+  BI_add_icon = true,
+  BI_add_to_tech = {"military-2"},
+  normal = {
+    enabled = false,
+    energy_required = 6,
+    ingredients = {
+      {"bi-dart-magazine-standard", 10},
+      {"plastic-bar", 5},
+    },
+    result = "bi-dart-magazine-enhanced",
+    result_count = 10,
+    allow_as_intermediate = false,    -- Added for 0.18.34/1.1.4
+    always_show_made_in = false,      -- Added for 0.18.34/1.1.4
+    allow_decomposition = true,       -- Added for 0.18.34/1.1.4
+  },
+  expensive = {
+    enabled = false,
+    energy_required = 9,
+    ingredients = {
+      {"bi-dart-magazine-standard", 8},
+      {"plastic-bar", 5},
+    },
+    result = "bi-dart-magazine-enhanced",
+    result_count = 8,
+    allow_as_intermediate = false,    -- Added for 0.18.34/1.1.4
+    always_show_made_in = false,      -- Added for 0.18.34/1.1.4
+    allow_decomposition = true,       -- Added for 0.18.34/1.1.4
+  },
+  --~ always_show_made_in = true,
+  --~ allow_decomposition = false,
+  allow_as_intermediate = false,      -- Added for 0.18.34/1.1.4
+  always_show_made_in = false,        -- Changed for 0.18.34/1.1.4
+  allow_decomposition = true,         -- Changed for 0.18.34/1.1.4
+  subgroup = "bi-ammo",
+  order = "[bio-ammo]-a-[darts]-3",
+}
+
+--- Poison Dart Ammo
+BI.optional_recipes.BI_Darts.dart_magazine_poison = {
+  type = "recipe",
+  name = "bi-dart-magazine-poison",
+  --localised_name = {"item-name.bi-dart-magazine-poison"},
+  --localised_description = {"item-description.bi-dart-magazine-poison"},
+  icon = ICONPATH .. "weapon/dart_4_poison.png",
+  icon_size = 64,
+  BI_add_icon = true,
+  BI_add_to_tech = {"military-3"},
+  normal = {
+    enabled = false,
+    energy_required = 8,
+    ingredients = {
+      {"bi-dart-magazine-enhanced", 10},
+      {"poison-capsule", 5},
+    },
+    result = "bi-dart-magazine-poison",
+    result_count = 10,
+    allow_as_intermediate = false,    -- Added for 0.18.34/1.1.4
+    always_show_made_in = false,      -- Added for 0.18.34/1.1.4
+    allow_decomposition = true,       -- Added for 0.18.34/1.1.4
+  },
+  expensive = {
+    enabled = false,
+    energy_required = 12,
+    ingredients = {
+      {"bi-dart-magazine-enhanced", 8},
+      {"poison-capsule", 5},
+    },
+    result = "bi-dart-magazine-poison",
+    result_count = 8,
+    allow_as_intermediate = false,    -- Added for 0.18.34/1.1.4
+    always_show_made_in = false,      -- Added for 0.18.34/1.1.4
+    allow_decomposition = true,       -- Added for 0.18.34/1.1.4
+  },
+  --~ always_show_made_in = true,
+  --~ allow_decomposition = false,
+  allow_as_intermediate = false,      -- Added for 0.18.34/1.1.4
+  always_show_made_in = false,        -- Changed for 0.18.34/1.1.4
+  allow_decomposition = true,         -- Changed for 0.18.34/1.1.4
+  subgroup = "bi-ammo",
+  order = "[bio-ammo]-a-[darts]-4",
+}
+
+--- Dart Turret
+BI.optional_recipes.BI_Darts.dart_turret = {
+  type = "recipe",
+  name = "bi-dart-turret",
+  localised_name = {"entity-name.bi-dart-turret"},
+  --~ localised_description = {"entity-description.bi-dart-turret"},
+  localised_description = {"entity"},
+  icon = ICONPATH .. "entity/dart_turret.png",
+  icon_size = 64,
+  BI_add_icon = true,
+  normal = {
+    enabled = true,
+    energy_required = 8,
+    ingredients = {
+      {"iron-gear-wheel", 5},
+      {"wood", 20},
+    },
+    result = "bi-dart-turret",
+    result_count = 1,
+    allow_as_intermediate = false,    -- Added for 0.18.34/1.1.4
+    always_show_made_in = false,      -- Added for 0.18.34/1.1.4
+    allow_decomposition = true,       -- Added for 0.18.34/1.1.4
+  },
+  expensive = {
+    enabled = true,
+    energy_required = 16,
+    ingredients = {
+      {"iron-gear-wheel", 10},
+      {"wood", 25},
+    },
+    result = "bi-dart-turret",
+    result_count = 1,
+    main_product = "",
+    allow_as_intermediate = false,    -- Added for 0.18.34/1.1.4
+    always_show_made_in = false,      -- Added for 0.18.34/1.1.4
+    allow_decomposition = true,       -- Added for 0.18.34/1.1.4
+  },
+  --~ always_show_made_in = true,
+  --~ allow_decomposition = false,
+  allow_as_intermediate = false,      -- Added for 0.18.34/1.1.4
+  always_show_made_in = false,        -- Changed for 0.18.34/1.1.4
+  allow_decomposition = true,         -- Changed for 0.18.34/1.1.4
+  subgroup = "defensive-structure",
+  order = "b[turret]-e[bi-dart-turret]",
+  -- This is a custom property for use by "Krastorio 2" (it will change
+  -- ingredients/results; used for wood/wood pulp)
+  mod = "Bio_Industries",
+}
+
+--- Dart Rifle
+BI.optional_recipes.BI_Darts.dart_rifle = {
+  type = "recipe",
+  name = "bi-dart-rifle",
+  --localised_name = {"item-name.bi-dart-rifle"},
+  --~ localised_description = {"item-description.bi-dart-rifle"},
+  icon = ICONPATH .. "weapon/dart_rifle.png",
+  icon_size = 64,
+  BI_add_icon = true,
+  normal = {
+    enabled = true,
+    energy_required = 8,
+    ingredients = {
+      {"copper-plate", 5},
+      {"wood", 15},
+    },
+    result = "bi-dart-rifle",
+    result_count = 1,
+    allow_as_intermediate = false,    -- Added for 0.18.34/1.1.4
+    always_show_made_in = false,      -- Added for 0.18.34/1.1.4
+    allow_decomposition = true,       -- Added for 0.18.34/1.1.4
+  },
+  expensive = {
+    enabled = true,
+    energy_required = 16,
+    ingredients = {
+      {"copper-plate", 10},
+      {"wood", 25},
+    },
+    result = "bi-dart-rifle",
+    result_count = 1,
+    allow_as_intermediate = false,    -- Added for 0.18.34/1.1.4
+    always_show_made_in = false,      -- Added for 0.18.34/1.1.4
+    allow_decomposition = true,       -- Added for 0.18.34/1.1.4
+  },
+  --~ always_show_made_in = true,
+  --~ allow_decomposition = false,
+  allow_as_intermediate = false,      -- Added for 0.18.34/1.1.4
+  always_show_made_in = false,        -- Changed for 0.18.34/1.1.4
+  allow_decomposition = true,         -- Changed for 0.18.34/1.1.4
+  subgroup = "gun",
+  --~ order = "[bi-dart-rifle]"
+  order = "a[basic-clips]-b[bi-dart-rifle]",
+  -- This is a custom property for use by "Krastorio 2" (it will change
+  -- ingredients/results; used for wood/wood pulp)
+  mod = "Bio_Industries",
+}
+
+
+-- Wooden Fence
+BI.optional_recipes.BI_Darts.wooden_fence = {
+  type = "recipe",
+  name = "bi-wooden-fence",
+  localised_name = {"entity-name.bi-wooden-fence"},
+  --~ localised_description = {"entity-description.bi-wooden-fence"},
+  icon = ICONPATH .. "entity/wooden-fence.png",
+  icon_size = 64,
+  BI_add_icon = true,
+  normal = {
+    enabled = true,
+    ingredients = {
+      {"wood", 2},
+    },
+    result = "bi-wooden-fence",
+    allow_as_intermediate = false,    -- Added for 0.18.34/1.1.4
+    always_show_made_in = false,      -- Added for 0.18.34/1.1.4
+    allow_decomposition = true,       -- Added for 0.18.34/1.1.4
+  },
+  expensive = {
+    enabled = true,
+    ingredients = {
+      {"wood", 4},
+    },
+    result = "bi-wooden-fence",
+    allow_as_intermediate = false,    -- Added for 0.18.34/1.1.4
+    always_show_made_in = false,      -- Added for 0.18.34/1.1.4
+    allow_decomposition = true,       -- Added for 0.18.34/1.1.4
+  },
+  --~ -- always_show_made_in = true,
+  --~ -- allow_decomposition = false,
+  allow_as_intermediate = false,      -- Added for 0.18.34/1.1.4
+  always_show_made_in = false,        -- Changed for 0.18.34/1.1.4
+  allow_decomposition = true,         -- Changed for 0.18.34/1.1.4
+  subgroup = "defensive-structure",
+  -- This is a custom property for use by "Krastorio 2" (it will change
+  -- ingredients/results; used for wood/wood pulp)
+  mod = "Bio_Industries",
+}
+
+------------------------------------------------------------------------------------
+--                           Enable: Prototype artillery                          --
+--                            (BI.Settings.Bio_Cannon)                            --
+------------------------------------------------------------------------------------
+-- Bio cannon
+BI.optional_recipes.Bio_Cannon.bio_cannon = {
+  type = "recipe",
+  name = "bi-bio-cannon",
+  localised_name = {"entity-name.bi-bio-cannon"},
+  --~ localised_description = {"entity-description.bi-bio.cannon"},
+  normal = {
+    enabled = false,
+    energy_required = 50,
+    ingredients = {
+      {"concrete", 100},
+      {"radar", 1},
+      {"steel-plate", 80},
+      {"electric-engine-unit", 5},
+    },
+    result = "bi-bio-cannon-area",
+    result_count = 1,
+    allow_as_intermediate = false,  -- Added for 0.18.34/1.1.4
+    always_show_made_in = false,    -- Added for 0.18.34/1.1.4
+    allow_decomposition = true,     -- Added for 0.18.34/1.1.4
+  },
+  expensive = {
+    enabled = false,
+    energy_required = 100,
+    ingredients = {
+      {"concrete", 100},
+      {"radar", 1},
+      {"steel-plate", 120},
+      {"electric-engine-unit", 15},
+    },
+    result = "bi-bio-cannon-area",
+    result_count = 1,
+    allow_as_intermediate = false,  -- Added for 0.18.34/1.1.4
+    always_show_made_in = false,    -- Added for 0.18.34/1.1.4
+    allow_decomposition = true,     -- Added for 0.18.34/1.1.4
+  },
+  allow_as_intermediate = false,
+  always_show_made_in = false,      -- Changed for 0.18.34/1.1.4
+  allow_decomposition = true,       -- Changed for 0.18.34/1.1.4
+  subgroup = "defensive-structure",
+  order = "b[turret]-e[bi-prototype-artillery-turret]",
+  -- Custom property that allows to automatically add our recipes to tech unlocks.
+  BI_add_to_tech = {"bi-tech-bio-cannon"},
+}
+
+-- Prototype Ammo
+BI.optional_recipes.Bio_Cannon.bio_cannon_proto_ammo = {
+  type= "recipe",
+  name= "bi-bio-cannon-proto-ammo",
+  --localised_name = {"item-name.bi-bio-cannon-proto-ammo"},
+  --localised_description = {"item-description.bi-bio-cannon-proto-ammo"},
+  enabled = false,
+  energy_required = 2,
+  ingredients = {
+    {"iron-plate", 10},
+    {"explosives", 10}
+  },
+  result = "bi-bio-cannon-proto-ammo",
+  result_count = 1,
+  subgroup = "bi-ammo",
+  order = "z[Bio_Cannon_Ammo]-a[Proto]",
+  allow_as_intermediate = true,     -- Added for 0.18.34/1.1.4
+  always_show_made_in = false,      -- Added for 0.18.34/1.1.4
+  allow_decomposition = true,       -- Added for 0.18.34/1.1.4
+  -- Custom property that allows to automatically add our recipes to tech unlocks.
+  BI_add_to_tech = {"bi-tech-bio-cannon"},
+}
+
+-- Basic Ammo
+BI.optional_recipes.Bio_Cannon.bio_cannon_basic_ammo = {
+  type= "recipe",
+  name= "bi-bio-cannon-basic-ammo",
+  --localised_name = {"item-name.bi-bio-cannon-basic-ammo"},
+  --localised_description = {"item-description.bi-bio-cannon-basic-ammo"},
+  enabled = false,
+  energy_required = 4,
+  ingredients = {
+    {"bi-bio-cannon-proto-ammo", 1},
+    {"rocket", 10}
+  },
+  result = "bi-bio-cannon-basic-ammo",
+  result_count = 1,
+  subgroup = "bi-ammo",
+  order = "z[Bio_Cannon_Ammo]-b[Basic]",
+  allow_as_intermediate = true,    -- Added for 0.18.34/1.1.4
+  always_show_made_in = false,      -- Added for 0.18.34/1.1.4
+  allow_decomposition = true,       -- Added for 0.18.34/1.1.4
+  -- Custom property that allows to automatically add our recipes to tech unlocks.
+  BI_add_to_tech = {"bi-tech-bio-cannon"},
+}
+
+-- Poison Ammo
+BI.optional_recipes.Bio_Cannon.bio_cannon_poison_ammo = {
+  type= "recipe",
+  name= "bi-bio-cannon-poison-ammo",
+  --localised_name = {"item-name.bi-bio-cannon-poison-ammo"},
+  --localised_description = {"item-description.bi-bio-cannon-poison-ammo"},
+  enabled = false,
+  energy_required = 8,
+  ingredients = {
+    {"bi-bio-cannon-basic-ammo", 1},
+    {"poison-capsule", 5},
+    {"explosive-rocket", 5}
+  },
+  result = "bi-bio-cannon-poison-ammo",
+  result_count = 1,
+  subgroup = "bi-ammo",
+  order = "z[Bio_Cannon_Ammo]-c[Poison]",
+  allow_as_intermediate = true,    -- Added for 0.18.34/1.1.4
+  always_show_made_in = false,      -- Added for 0.18.34/1.1.4
+  allow_decomposition = true,       -- Added for 0.18.34/1.1.4
+  -- Custom property that allows to automatically add our recipes to tech unlocks.
+  BI_add_to_tech = {"bi-tech-bio-cannon"},
+}
+
+
+------------------------------------------------------------------------------------
+--                           Enable: Bio fuel production                          --
+--                            (BI.Settings.BI_Bio_Fuel)                           --
+------------------------------------------------------------------------------------
+-- Bio boiler
+BI.optional_recipes.BI_Bio_Fuel.bio_boiler = {
+  type = "recipe",
+  name = "bi-bio-boiler",
+  localised_name = {"entity-name.bi-bio-boiler"},
+  --~ localised_description = {"entity-description.bi-bio-boiler"},
+  --localised_description = {""},
+  icon = ICONPATH .. "entity/bio_boiler.png",
+  icon_size = 64,
+  BI_add_icon = true,
+  normal = {
+    enabled = false,
+    energy_required = 10,
+    ingredients = {
+      {"boiler", 1},
+      {"steel-plate", 5},
+      {"concrete", 5},
+    },
+    result = "bi-bio-boiler",
+    result_count = 1,
+    allow_as_intermediate = false,  -- Added for 0.18.34/1.1.4
+    always_show_made_in = false,    -- Added for 0.18.34/1.1.4
+    allow_decomposition = true,     -- Added for 0.18.34/1.1.4
+  },
+  expensive = {
+    enabled = false,
+    energy_required = 15,
+    ingredients = {
+      {"boiler", 2},
+      {"steel-plate", 5},
+      {"concrete", 5},
+    },
+    result = "bi-bio-boiler",
+    result_count = 1,
+    allow_as_intermediate = false,  -- Added for 0.18.34/1.1.4
+    always_show_made_in = false,    -- Added for 0.18.34/1.1.4
+    allow_decomposition = true,     -- Added for 0.18.34/1.1.4
+ },
+  allow_as_intermediate = false,    -- Changed for 0.18.34/1.1.4
+  always_show_made_in = false,      -- Changed for 0.18.34/1.1.4
+  allow_decomposition = true,       -- Changed for 0.18.34/1.1.4
+  --~ -- subgroup = "bio-energy-boiler",
+  subgroup = "energy",              -- Changed for 0.18.34/1.1.4
+  --~ -- order = "b-[steam-power]-a[boiler]-a[bi-bio-boiler]"      -- Changed for 0.18.34/1.1.4
+  order = "b[steam-power]-a[boiler-bio]",
+  -- Custom property that allows to automatically add our recipes to tech unlocks.
+  BI_add_to_tech = {"bi-tech-bio-boiler"},
+}
+
+-- Basic petroleum-gas processing                         --
+BI.optional_recipes.BI_Bio_Fuel.basic_gas_processing = {
+  type = "recipe",
+  name = "bi-basic-gas-processing",
+  icon = ICONPATH .. "basic_gas_processing.png",
+  icon_size = 64,
+  BI_add_icon = true,
+  category = "chemistry",
+  enabled = false,
+  energy_required = 5,
+  ingredients = {
+    {type = "item", name = "coal", amount = 20},
+    {type = "item", name = "resin", amount = 10},
+    {type = "fluid", name ="steam", amount = 50}
+  },
+  results = {
+    --~ -- {type = "fluid", name = "petroleum-gas", amount = 15, fluidbox_index = 3},
+    {type = "fluid", name = "petroleum-gas", amount = 15},
+    {type = "item", name = "bi-ash", amount = 15}
+  },
+  subgroup = "bio-bio-fuel-other",
+  order = "[bi_basic_gas_processing]",
+  main_product = "",
+  allow_as_intermediate = false,    -- Added for 0.18.34/1.1.4
+  always_show_made_in = true,       -- Added for 0.18.34/1.1.4
+  allow_decomposition = true,       -- Added for 0.18.34/1.1.4
+  allow_as_intermediate = false,
+  -- Custom property that allows to automatically add our recipes to tech unlocks.
+  BI_add_to_tech = {"bi-tech-coal-processing-2"},
+}
+
+-- Cellulose 1
+BI.optional_recipes.BI_Bio_Fuel.cellulose_1 = {
+  type = "recipe",
+  name = "bi-cellulose-1",
+  --localised_name = {"recipe-name.bi-cellulose-1"},
+  localised_description = {"recipe-description.bi-cellulose-1"},
+  icon = ICONPATH .. "cellulose.png",
+  icon_size = 64,
+  BI_add_icon = true,
+  category = "chemistry",
+  energy_required = 20,
+  ingredients = {
+    {type = "item", name = "bi-woodpulp", amount = 10},
+    {type = "fluid", name = "sulfuric-acid", amount = 10},
+  },
+  results= {
+    {type = "item", name = "bi-cellulose", amount = 10 }
+  },
+  enabled = false,
+  always_show_made_in = true,
+  allow_decomposition = false,
+  subgroup = "bio-bio-farm-raw",
+  order = "z[bi-cellulose-1]",
+  --~ -- subgroup = "intermediate-product",
+  --~ -- order = "b[cellulose-1]",
+  -- Custom property that allows to automatically add our recipes to tech unlocks.
+  BI_add_to_tech = {"bi-tech-cellulose-1"},
+}
+
+-- Cellulose 2
+BI.optional_recipes.BI_Bio_Fuel.cellulose_2 = {
+  type = "recipe",
+  name = "bi-cellulose-2",
+  --localised_name = {"recipe-name.bi-cellulose-2"},
+  localised_description = {"recipe-description.bi-cellulose-2"},
+  icon = ICONPATH .. "cellulose_steam.png",
+  icon_size = 64,
+  BI_add_icon = true,
+  category = "chemistry",
+  energy_required = 5,
+  ingredients = {
+    {type = "fluid", name = "steam", amount = 10},
+    {type = "item", name = "bi-woodpulp", amount = 10},
+    {type = "fluid", name = "sulfuric-acid", amount = 20},
+  },
+  results = {
+    {type = "item", name = "bi-cellulose", amount = 10 }
+  },
+  enabled = false,
+  always_show_made_in = true,
+  allow_decomposition = false,
+  subgroup = "bio-bio-farm-raw",
+  order = "z[bi-cellulose-2]",
+  --~ -- subgroup = "intermediate-product",
+  --~ -- order = "b[cellulose-2]",
+  -- This is a custom property for use by "Krastorio 2" (it will change
+  -- ingredients/results; used for wood/wood pulp)
+  mod = "Bio_Industries",
+  allow_as_intermediate = false,
+  -- Custom property that allows to automatically add our recipes to tech unlocks.
+  BI_add_to_tech = {"bi-tech-cellulose-2"},
+}
+
+-- Bio plastic 1
+BI.optional_recipes.BI_Bio_Fuel.bio_plastic_1 = {
+  type = "recipe",
+  name = "bi-plastic-1",
+  localised_name = {"recipe-name.bi-plastic-1"},
+  localised_description = {"recipe-description.bi-plastic-1"},
+  icon = ICONPATH .. "bio_plastic_bar_1.png",
+  icon_size = 64,
+  BI_add_icon = true,
+  category = "chemistry",
+  --subgroup = "raw-material",
+  energy_required = 1,
+  ingredients = {
+    {type = "fluid", name = "steam", amount = 10},
+    -- Let's use woodpulp instead of wood for the new version! Not changing this
+    -- for 0.18.34/1.1.4  to avoid an additional (potentially factory-breaking)
+    -- change shortly before the new release will change so many things anyway!
+    --~ -- {type = "item", name = "wood", amount = 10},
+    {type = "item", name = "bi-woodpulp", amount = 20},
+    {type = "fluid", name = "light-oil", amount = 20},
+  },
+  results = {
+    {type = "item", name = "plastic-bar", amount = 2}
+  },
+  show_amount_in_title = false,
+  enabled = false,
+  always_show_made_in = true,
+  allow_decomposition = false,
+  subgroup = "raw-material",
+  order = "f[plastic-bara]",
+  --~ -- subgroup = "intermediate-product",
+  --~ -- order = "b[bi-plastic-1]",
+  -- This is a custom property for use by "Krastorio 2" (it will change
+  -- ingredients/results; used for wood/wood pulp)
+  mod = "Bio_Industries",
+  allow_as_intermediate = false,
+  -- Custom property that allows to automatically add our recipes to tech unlocks.
+  BI_add_to_tech = {"bi-tech-bio-plastics"},
+}
+
+-- Bio plastic 2
+BI.optional_recipes.BI_Bio_Fuel.bio_plastic_2 = {
+  type = "recipe",
+  name = "bi-plastic-2",
+  localised_name = {"recipe-name.bi-plastic-2"},
+  localised_description = {"recipe-description.bi-plastic-2"},
+  icon = ICONPATH .. "bio_plastic_bar_2.png",
+  icon_size = 64,
+  BI_add_icon = true,
+  category = "chemistry",
+  energy_required = 1,
+  ingredients = {
+    {type = "item", name = "bi-cellulose", amount = 1},
+    {type = "fluid", name = "petroleum-gas", amount = 10},
+  },
+  results = {
+    {type = "item", name = "plastic-bar", amount = 2}
+  },
+  show_amount_in_title = false,
+  enabled = false,
+  always_show_made_in = true,
+  allow_decomposition = false,
+  subgroup = "raw-material",
+  order = "f[plastic-barb]",
+  --~ -- subgroup = "intermediate-product",
+  --~ -- order = "b[bi-plastic-2]",
+  allow_as_intermediate = false,
+  -- Custom property that allows to automatically add our recipes to tech unlocks.
+  BI_add_to_tech = {"bi-tech-cellulose-2"},
+}
+
+-- Biomass 2
+BI.optional_recipes.BI_Bio_Fuel.bio_mass_2 = {
+  type = "recipe",
+  name = "bi-biomass-2",
+  localised_name = {"recipe-name.bi-biomass-2"},
+  localised_description = {"recipe-description.bi-biomass-2"},
+  icon = ICONPATH .. "fluid_biomass_repro_1.png",
+  icon_size = 64,
+  BI_add_icon = true,
+  category = "biofarm-mod-bioreactor",
+  energy_required = 60,
+  ingredients = {
+    {type = "fluid", name = "water", amount = 90},
+    {type = "fluid", name = "liquid-air", amount = 10},
+    {type = "fluid", name = "bi-biomass", amount = 10},
+  },
+  results = {
+    {type = "fluid", name = "bi-biomass", amount = 35},
+  },
+  enabled = false,
+  always_show_made_in = true,
+  allow_decomposition = false,
+  --~ -- subgroup = "bio-bio-fuel-fluid",
+  --~ -- order = "x[oil-processing]-z3[bi-biomass]"
+  subgroup = "bio-bio-fuel-fluid",
+  order = "x[oil-processing]-z2[bi-biomass]",
+  allow_as_intermediate = false,
+  -- Custom property that allows to automatically add our recipes to tech unlocks.
+  BI_add_to_tech = {"bi-tech-biomass-reprocessing-1"},
+}
+
+-- Biomass 3
+BI.optional_recipes.BI_Bio_Fuel.bio_mass_3 = {
+  type = "recipe",
+  name = "bi-biomass-3",
+  localised_name = {"recipe-name.bi-biomass-3"},
+  localised_description = {"recipe-description.bi-biomass-3"},
+  icon = ICONPATH .. "fluid_biomass_repro_2.png",
+  icon_size = 64,
+  BI_add_icon = true,
+  category = "biofarm-mod-bioreactor",
+  energy_required = 10,
+  ingredients = {
+    {type = "fluid", name = "water", amount = 90},
+    {type = "fluid", name = "liquid-air", amount = 10},
+    {type = "fluid", name = "bi-biomass", amount = 10},
+    {type = "item", name = "bi-ash", amount = 10},
+  },
+  results = {
+    {type = "fluid", name = "bi-biomass", amount = 100},
+  },
+  enabled = false,
+  always_show_made_in = true,
+  allow_decomposition = false,
+  --~ -- subgroup = "bio-bio-fuel-fluid",
+  --~ -- order = "x[oil-processing]-z2[bi-biomass]"
+  subgroup = "bio-bio-fuel-fluid",
+  order = "x[oil-processing]-z3[bi-biomass]",
+  allow_as_intermediate = false,
+  -- Custom property that allows to automatically add our recipes to tech unlocks.
+  BI_add_to_tech = {"bi-tech-biomass-reprocessing-2"},
+}
+
+-- Biomass conversion 1 (Biomass to Light oil)
+BI.optional_recipes.BI_Bio_Fuel.bio_mass_conversion_1 = {
+  type = "recipe",
+  name = "bi-biomass-conversion-1",
+  localised_name = {"recipe-name.bi-biomass-conversion-1"},
+  localised_description = {"recipe-description.bi-biomass-conversion-1"},
+  icon = ICONPATH .. "bio_conversion_1.png",
+  icon_size = 64,
+  BI_add_icon = true,
+  category = "oil-processing",
+  enabled = false,
+  always_show_made_in = true,
+  allow_decomposition = false,
+  energy_required = 5,
+  ingredients = {
+    {type = "fluid", name = "bi-biomass", amount = 100},
+    {type = "fluid", name = "water", amount = 10},
+  },
+  results = {
+    {type = "item", name = "bi-cellulose", amount = 2},
+    {type = "fluid", name = "light-oil", amount = 80},
+  },
+  main_product = "",
+  subgroup = "bio-bio-fuel-other",
+  order = "a[oil-processing]-b[advanced-oil-processing]-y[bi-Fuel_Conversion-1]",
+  allow_as_intermediate = false,
+  -- Custom property that allows to automatically add our recipes to tech unlocks.
+  BI_add_to_tech = {"bi-tech-bio-plastics"},
+}
+
+
+-- Biomass conversion 2 (Biomass to Petroleum gas)
+BI.optional_recipes.BI_Bio_Fuel.bio_mass_conversion_2 = {
+  type = "recipe",
+  name = "bi-biomass-conversion-2",
+  --localised_name = {"recipe-name.bi-biomass-conversion-2"},
+  localised_description = {"recipe-description.bi-biomass-conversion-2"},
+  icon = ICONPATH .. "bio_conversion_2.png",
+  icon_size = 64,
+  BI_add_icon = true,
+  category = "oil-processing",
+  enabled = false,
+  always_show_made_in = true,
+  allow_decomposition = false,
+  energy_required = 5,
+  ingredients = {
+    {type = "fluid", name = "bi-biomass", amount = 10},
+    {type = "fluid", name = "water", amount = 10},
+  },
+  results = {
+    {type = "fluid", name = "petroleum-gas", amount = 20}
+  },
+  main_product = "",
+  subgroup = "bio-bio-fuel-other",
+  order = "a[oil-processing]-b[advanced-oil-processing]-y[bi-Fuel_Conversion-2]",
+  allow_as_intermediate = false,
+  -- Custom property that allows to automatically add our recipes to tech unlocks.
+  BI_add_to_tech = {"bi-tech-biomass-conversion"},
+}
+
+
+-- Biomass conversion 3 (Biomass to Lubricant)
+BI.optional_recipes.BI_Bio_Fuel.bio_mass_conversion_3 = {
+  type = "recipe",
+  name = "bi-biomass-conversion-3",
+  --localised_name = {"recipe-name.bi-biomass-conversion-3"},
+  localised_description = {"recipe-description.bi-biomass-conversion-3"},
+  icon = ICONPATH .. "bio_conversion_3.png",
+  icon_size = 64,
+  BI_add_icon = true,
+  category = "oil-processing",
+  enabled = false,
+  always_show_made_in = true,
+  allow_decomposition = false,
+  energy_required = 2.5,
+  ingredients = {
+    {type = "fluid", name = "bi-biomass", amount = 10},
+    {type = "fluid", name = "water", amount = 10},
+  },
+  results = {
+    {type = "fluid", name = "lubricant", amount = 10}
+  },
+  main_product = "",
+  crafting_machine_tint = {
+    primary = {r = 0.000, g = 0.260, b = 0.010, a = 0.000}, -- #00420200
+    secondary = {r = 0.071, g = 0.640, b = 0.000, a = 0.000}, -- #12a30000
+    tertiary = {r = 0.026, g = 0.520, b = 0.000, a = 0.000}, -- #06840000
+  },
+  subgroup = "bio-bio-fuel-other",
+  order = "a[oil-processing]-b[advanced-oil-processing]-y[bi-Fuel_Conversion-3]",
+  allow_as_intermediate = false,
+  -- Custom property that allows to automatically add our recipes to tech unlocks.
+  BI_add_to_tech = {"bi-tech-biomass-conversion"},
+}
+
+-- Biomass conversion 4 (Biomass to Crude oil)
+BI.optional_recipes.BI_Bio_Fuel.bio_mass_conversion_4 = {
+  type = "recipe",
+  name = "bi-biomass-conversion-4",
+  localised_name = {"recipe-name.bi-biomass-conversion-4"},
+  localised_description = {"recipe-description.bi-biomass-conversion-4"},
+  icon = ICONPATH .. "bio_conversion_4.png",
+  icon_size = 64,
+  BI_add_icon = true,
+  category = "oil-processing",
+  enabled = false,
+  always_show_made_in = true,
+  allow_decomposition = false,
+  energy_required = 10,
+  ingredients = {
+    {type = "item", name = "coal", amount = 20},
+    {type = "fluid", name = "bi-biomass", amount = 10},
+    {type = "fluid", name = "steam", amount = 50}
+  },
+  results = {
+    {type = "fluid", name = "crude-oil", amount = 50},
+    {type = "fluid", name = "water", amount = 50},
+  },
+  main_product = "",
+  crafting_machine_tint = {
+    primary = {r = 0.000, g = 0.260, b = 0.010, a = 0.000}, -- #00420200
+    secondary = {r = 0.071, g = 0.640, b = 0.000, a = 0.000}, -- #12a30000
+    tertiary = {r = 0.026, g = 0.520, b = 0.000, a = 0.000}, -- #06840000
+  },
+  subgroup = "bio-bio-fuel-other",
+  order = "a[oil-processing]-b[advanced-oil-processing]-y[bi-Fuel_Conversion-4]",
+  allow_as_intermediate = false,
+  -- Custom property that allows to automatically add our recipes to tech unlocks.
+  BI_add_to_tech = {"bi-tech-biomass-conversion"},
+}
+
+
+-- Bio Battery
+BI.optional_recipes.BI_Bio_Fuel.bio_battery = {
+  type = "recipe",
+  name = "bi-battery",
+  icon = ICONPATH .. "bio_battery.png",
+  icon_size = 64,
+  BI_add_icon = true,
+  category = "chemistry",
+  energy_required = 5,
+  ingredients = {
+    {type = "item", name = "plastic-bar", amount = 1},
+    {type = "fluid", name = "bi-biomass", amount = 10},
+    {type = "item", name = "bi-cellulose", amount = 1},
+  },
+  results = {
+    {type = "item", name = "battery", amount = 1},
+  },
+  enabled = false,
+  --~ -- always_show_made_in = true,
+  --~ -- allow_decomposition = false,
+  allow_as_intermediate = false,    -- Changed for 0.18.34/1.1.4
+  always_show_made_in = true,       -- Added for 0.18.34/1.1.4
+  allow_decomposition = true,       -- Added for 0.18.34/1.1.4
+  crafting_machine_tint = {
+    primary = {r = 0.970, g = 0.611, b = 0.000, a = 0.000}, -- #f79b0000
+    secondary = {r = 0.000, g = 0.680, b = 0.894, a = 0.357}, -- #00ade45b
+    tertiary = {r = 0.430, g = 0.805, b = 0.726, a = 0.000}, -- #6dcdb900
+  },
+  subgroup = "raw-material",
+  order = "h[batteryb]",
+  --~ -- subgroup = "raw-material",
+  --~ -- order = "h[bi-battery]",
+  allow_as_intermediate = false,
+  -- Custom property that allows to automatically add our recipes to tech unlocks.
+  BI_add_to_tech = {"bi-tech-cellulose-2"},
+}
+
+-- Sulfuric acid
+BI.optional_recipes.BI_Bio_Fuel.bio_acid = {
+  type = "recipe",
+  name = "bi-acid",
+  icon = ICONPATH .. "bio_sulfturic_acid.png",
+  icon_size = 64,
+  BI_add_icon = true,
+  category = "chemistry",
+  energy_required = 10,
+  ingredients = {
+    {type = "fluid", name = "water", amount = 90},
+    {type = "fluid", name = "bi-biomass", amount = 10},
+    {type = "item", name = "bi-cellulose", amount = 5},
+  },
+  results = {
+    {type = "fluid", name = "sulfuric-acid", amount = 50},
+  },
+  enabled = false,
+  always_show_made_in = true,
+  allow_decomposition = false,
+  crafting_machine_tint = {
+    primary = {r = 0.875, g = 0.735, b = 0.000, a = 0.000}, -- #dfbb0000
+    secondary = {r = 0.103, g = 0.940, b = 0.000, a = 0.000}, -- #1aef0000
+    tertiary = {r = 0.564, g = 0.795, b = 0.000, a = 0.000}, -- #8fca0000
+  },
+  subgroup = "bio-bio-fuel-other",
+  order = "a",
+  --~ -- subgroup = "fluid-recipes",
+  --~ -- order = "a",
+  allow_as_intermediate = false,
+  -- Custom property that allows to automatically add our recipes to tech unlocks.
+  BI_add_to_tech = {"bi-tech-cellulose-1"},
+}
+
+-- Sulfuric acid to Sulfur
+BI.optional_recipes.BI_Bio_Fuel.bio_sulfur = {
+  type = "recipe",
+  name = "bi-sulfur",
+  icon = ICONPATH .. "bio_sulfur.png",
+  icon_size = 64,
+  BI_add_icon = true,
+  category = "chemistry",
+  energy_required = 2,
+  ingredients = {
+    {type = "fluid", name = "sulfuric-acid", amount = 2},
+    {type = "item", name = "bi-ash", amount = 2},
+  },
+  results = {
+    {type = "item", name = "sulfur", amount = 2}
+  },
+  enabled = false,
+  always_show_made_in = true,
+  allow_decomposition = false,
+  subgroup = "raw-material",
+  order = "g[sulfur-1]",
+  --~ -- subgroup = "raw-material",
+  --~ -- order = "g[sulfur]-[bi-sulfur]",
+  allow_as_intermediate = false,
+  -- Custom property that allows to automatically add our recipes to tech unlocks.
+  BI_add_to_tech = {"bi-tech-cellulose-1"},
+}
+
+
+------------------------------------------------------------------------------------
+--                              Enable: Wood products                             --
+--                         (BI.Settings.BI_Wood_Products)                         --
+------------------------------------------------------------------------------------
+-- Large wooden chest
+BI.optional_recipes.BI_Wood_Products.wooden_chest_large = {
+  type = "recipe",
+  name = "bi-wooden-chest-large",
+  localised_name = {"entity-name.bi-wooden-chest-large"},
+  --~ -- localised_description = {"entity-description.bi-wooden-chest-large"},
+  icon = ICONPATH .. "entity/wood_chest_large.png",
+  icon_size = 64,
+  BI_add_icon = true,
+  normal = {
+    energy_required = 2,
+    enabled = false,
+    ingredients = {
+      {"copper-plate", 16},
+      {"resin", 24},
+      {"wooden-chest", 8}
+    },
+    result = "bi-wooden-chest-large",
+    result_count = 1,
+    requester_paste_multiplier = 4,
+    allow_as_intermediate = true,    -- Added for 0.18.34/1.1.4
+    always_show_made_in = false,      -- Added for 0.18.34/1.1.4
+    allow_decomposition = true,       -- Added for 0.18.34/1.1.4
+  },
+  expensive = {
+    energy_required = 4,
+    enabled = false,
+    ingredients = {
+      {"copper-plate", 24},
+      {"resin", 32},
+      {"wooden-chest", 8}
+    },
+    result = "bi-wooden-chest-large",
+    result_count = 1,
+    requester_paste_multiplier = 4,
+    allow_as_intermediate = true,    -- Added for 0.18.34/1.1.4
+    always_show_made_in = false,      -- Added for 0.18.34/1.1.4
+    allow_decomposition = true,       -- Added for 0.18.34/1.1.4
+  },
+  --~ -- always_show_made_in = true,
+  --~ -- allow_decomposition = false,
+  allow_as_intermediate = true,      -- Added for 0.18.34/1.1.4
+  always_show_made_in = false,        -- Changed for 0.18.34/1.1.4
+  allow_decomposition = true,         -- Changed for 0.18.34/1.1.4
+  -- Custom property that allows to automatically add our recipes to tech unlocks.
+  BI_add_to_tech = {"bi-tech-wooden-storage-1"},
+}
+
+
+-- Huge wooden chest
+BI.optional_recipes.BI_Wood_Products.wooden_chest_huge = {
+  type = "recipe",
+  name = "bi-wooden-chest-huge",
+  localised_name = {"entity-name.bi-wooden-chest-huge"},
+  --~ -- localised_description = {"entity-description.bi-wooden-chest-huge"},
+  icon = ICONPATH .. "entity/wood_chest_huge.png",
+  icon_size = 64,
+  BI_add_icon = true,
+  normal = {
+    energy_required = 2,
+    enabled = false,
+    ingredients = {
+      {"iron-stick", 32},
+      {"stone-brick", 32},
+      {"bi-wooden-chest-large", 16}
+    },
+    result = "bi-wooden-chest-huge",
+    result_count = 1,
+    requester_paste_multiplier = 4,
+    allow_as_intermediate = true,    -- Added for 0.18.34/1.1.4
+    always_show_made_in = false,      -- Added for 0.18.34/1.1.4
+    allow_decomposition = true,       -- Added for 0.18.34/1.1.4
+  },
+  expensive = {
+    energy_required = 4,
+    enabled = false,
+    ingredients = {
+      {"iron-stick", 48},
+      {"stone-brick", 48},
+      {"bi-wooden-chest-large", 16}
+    },
+    result = "bi-wooden-chest-huge",
+    result_count = 1,
+    requester_paste_multiplier = 4,
+    allow_as_intermediate = true,    -- Added for 0.18.34/1.1.4
+    always_show_made_in = false,      -- Added for 0.18.34/1.1.4
+    allow_decomposition = true,       -- Added for 0.18.34/1.1.4
+  },
+  --~ -- always_show_made_in = true,
+  --~ -- allow_decomposition = false,
+  allow_as_intermediate = true,      -- Added for 0.18.34/1.1.4
+  always_show_made_in = false,        -- Changed for 0.18.34/1.1.4
+  allow_decomposition = true,         -- Changed for 0.18.34/1.1.4
+  -- Custom property that allows to automatically add our recipes to tech unlocks.
+  BI_add_to_tech = {"bi-tech-wooden-storage-2"},
+}
+
+
+-- Gigantic wooden chest
+BI.optional_recipes.BI_Wood_Products.wooden_chest_giga = {
+  type = "recipe",
+  name = "bi-wooden-chest-giga",
+  localised_name = {"entity-name.bi-wooden-chest-giga"},
+  --~ -- localised_description = {"entity-description.bi-wooden-chest-giga"},
+  icon = ICONPATH .. "entity/wood_chest_giga.png",
+  icon_size = 64,
+  BI_add_icon = true,
+  normal = {
+    energy_required = 4,
+    enabled = false,
+    ingredients = {
+      {"steel-plate", 32},
+      {"concrete", 32},
+      {"bi-wooden-chest-huge", 16}
+    },
+    result = "bi-wooden-chest-giga",
+    result_count = 1,
+    requester_paste_multiplier = 4,
+    allow_as_intermediate = false,    -- Added for 0.18.34/1.1.4
+    always_show_made_in = false,      -- Added for 0.18.34/1.1.4
+    allow_decomposition = true,       -- Added for 0.18.34/1.1.4
+  },
+  expensive = {
+    energy_required = 6,
+    enabled = false,
+    ingredients = {
+      {"steel-plate", 48},
+      {"concrete", 48},
+      {"bi-wooden-chest-huge", 16}
+    },
+    result = "bi-wooden-chest-giga",
+    result_count = 1,
+    requester_paste_multiplier = 4,
+    allow_as_intermediate = false,    -- Added for 0.18.34/1.1.4
+    always_show_made_in = false,      -- Added for 0.18.34/1.1.4
+    allow_decomposition = true,       -- Added for 0.18.34/1.1.4
+  },
+  --~ -- always_show_made_in = true,
+  --~ -- allow_decomposition = false,
+  allow_as_intermediate = false,      -- Added for 0.18.34/1.1.4
+  always_show_made_in = false,        -- Changed for 0.18.34/1.1.4
+  allow_decomposition = true,         -- Changed for 0.18.34/1.1.4
+  -- Custom property that allows to automatically add our recipes to tech unlocks.
+  BI_add_to_tech = {"bi-tech-wooden-storage-3"},
+}
+
+
+-- Big Electric Pole
+BI.optional_recipes.BI_Wood_Products.big_pole = {
+  type = "recipe",
+  name = "bi-wooden-pole-big",
+  localised_name = {"entity-name.bi-wooden-pole-big"},
+  --~ localised_description = {"entity-description.bi-wooden-pole-big"},
+  icon = ICONPATH .. "entity/wood_pole_big.png",
+  icon_size = 64,
+  BI_add_icon = true,
+  normal = {
+    enabled = false,
+    ingredients = {
+      {"wood", 5},
+      {"small-electric-pole", 2},
+    },
+    result = "bi-wooden-pole-big",
+    allow_as_intermediate = false,    -- Added for 0.18.34/1.1.4
+    always_show_made_in = false,      -- Added for 0.18.34/1.1.4
+    allow_decomposition = true,       -- Added for 0.18.34/1.1.4
+  },
+  expensive = {
+    enabled = false,
+    ingredients = {
+      {"wood", 10},
+      {"small-electric-pole", 4},
+    },
+    result = "bi-wooden-pole-big",
+    allow_as_intermediate = false,    -- Added for 0.18.34/1.1.4
+    always_show_made_in = false,      -- Added for 0.18.34/1.1.4
+    allow_decomposition = true,       -- Added for 0.18.34/1.1.4
+  },
+  --~ always_show_made_in = true,
+  --~ allow_decomposition = false,
+  allow_as_intermediate = false,      -- Added for 0.18.34/1.1.4
+  always_show_made_in = false,        -- Changed for 0.18.34/1.1.4
+  allow_decomposition = true,         -- Changed for 0.18.34/1.1.4
+  subgroup = "energy-pipe-distribution",
+  order = "a[energy]-b[small-electric-pole]",
+  -- This is a custom property for use by "Krastorio 2" (it will change
+  -- ingredients/results; used for wood/wood pulp)
+  mod = "Bio_Industries",
+  -- Custom property that allows to automatically add our recipes to tech unlocks.
+  BI_add_to_tech = {"bi-tech-wooden-pole-1"},
+}
+
+--- Huge Wooden Pole
+BI.optional_recipes.BI_Wood_Products.huge_pole = {
+  type = "recipe",
+  name = "bi-wooden-pole-huge",
+  localised_name = {"entity-name.bi-wooden-pole-huge"},
+  --~ localised_description = {"entity-description.bi-wooden-pole-huge"},
+  icon = ICONPATH .. "entity/wood_pole_huge.png",
+  icon_size = 64,
+  BI_add_icon = true,
+  normal = {
+    enabled = false,
+    ingredients = {
+      {"wood", 5},
+      {"concrete", 100},
+      {"bi-wooden-pole-big", 6},
+    },
+    result = "bi-wooden-pole-huge",
+    allow_as_intermediate = false,    -- Added for 0.18.34/1.1.4
+    always_show_made_in = false,      -- Added for 0.18.34/1.1.4
+    allow_decomposition = true,       -- Added for 0.18.34/1.1.4
+  },
+  expensive = {
+    enabled = false,
+    ingredients = {
+      {"wood", 10},
+      {"concrete", 150},
+      {"bi-wooden-pole-big", 10},
+    },
+    result = "bi-wooden-pole-huge",
+    allow_as_intermediate = false,    -- Added for 0.18.34/1.1.4
+    always_show_made_in = false,      -- Added for 0.18.34/1.1.4
+    allow_decomposition = true,       -- Added for 0.18.34/1.1.4
+  },
+  --~ always_show_made_in = true,
+  --~ allow_decomposition = false,
+  allow_as_intermediate = false,      -- Added for 0.18.34/1.1.4
+  always_show_made_in = false,        -- Changed for 0.18.34/1.1.4
+  allow_decomposition = true,         -- Changed for 0.18.34/1.1.4
+  subgroup = "energy-pipe-distribution",
+  order = "a[energy]-d[big-electric-pole]",
+  -- This is a custom property for use by "Krastorio 2" (it will change
+  -- ingredients/results; used for wood/wood pulp)
+  mod = "Bio_Industries",
+  -- Custom property that allows to automatically add our recipes to tech unlocks.
+  BI_add_to_tech = {"bi-tech-wooden-pole-2"},
+}
+
+--- Wood Pipe
+BI.optional_recipes.BI_Wood_Products.wood_pipe = {
+  type = "recipe",
+  name = "bi-wood-pipe",
+  localised_name = {"entity-name.bi-wood-pipe"},
+  --~ localised_description = {"entity-description.bi-wood-pipe"},
+  icon = ICONPATH .. "entity/wood_pipe.png",
+  icon_size = 64,
+  BI_add_icon = true,
+  normal = {
+    energy_required = 1,
+    enabled = true,
+    ingredients = {
+      {"copper-plate", 1},
+      {"wood", 8}
+    },
+    result = "bi-wood-pipe",
+    result_count = 4,
+    requester_paste_multiplier = 15,
+    allow_as_intermediate = false,    -- Added for 0.18.34/1.1.4
+    always_show_made_in = false,      -- Added for 0.18.34/1.1.4
+    allow_decomposition = true,       -- Added for 0.18.34/1.1.4
+  },
+  expensive = {
+    energy_required = 2,
+    enabled = true,
+    ingredients = {
+      {"copper-plate", 1},
+      {"wood", 12}
+    },
+    result = "bi-wood-pipe",
+    result_count = 4,
+    requester_paste_multiplier = 15,
+    allow_as_intermediate = false,    -- Added for 0.18.34/1.1.4
+    always_show_made_in = false,      -- Added for 0.18.34/1.1.4
+    allow_decomposition = true,       -- Added for 0.18.34/1.1.4
+  },
+  --~ always_show_made_in = true,
+  --~ allow_decomposition = false,
+  allow_as_intermediate = false,      -- Added for 0.18.34/1.1.4
+  always_show_made_in = false,        -- Changed for 0.18.34/1.1.4
+  allow_decomposition = true,         -- Changed for 0.18.34/1.1.4
+  subgroup = "energy-pipe-distribution",
+  order = "a[pipe]-1a[pipe]",
+  -- This is a custom property for use by "Krastorio 2" (it will change
+  -- ingredients/results; used for wood/wood pulp)
+  mod = "Bio_Industries",
+}
+
+-- Wood Pipe to Ground
+BI.optional_recipes.BI_Wood_Products.wood_pipe_to_ground = {
+  type = "recipe",
+  name = "bi-wood-pipe-to-ground",
+  localised_name = {"entity-name.bi-wood-pipe-to-ground"},
+  --~ localised_description = {"entity-description.bi-wood-pipe-to-ground"},
+  icon = ICONPATH .. "entity/wood_pipe_to_ground.png",
+  icon_size = 64,
+  BI_add_icon = true,
+  normal = {
+    energy_required = 2,
+    enabled = true,
+    ingredients = {
+      {"copper-plate", 4},
+      {"bi-wood-pipe", 5}
+    },
+    result = "bi-wood-pipe-to-ground",
+    result_count = 2,
+    allow_as_intermediate = false,    -- Added for 0.18.34/1.1.4
+    always_show_made_in = false,      -- Added for 0.18.34/1.1.4
+    allow_decomposition = true,       -- Added for 0.18.34/1.1.4
+  },
+  expensive = {
+    energy_required = 4,
+    enabled = true,
+    ingredients = {
+      {"copper-plate", 5},
+      {"bi-wood-pipe", 6}
+    },
+    result = "bi-wood-pipe-to-ground",
+    result_count = 2,
+    allow_as_intermediate = false,    -- Added for 0.18.34/1.1.4
+    always_show_made_in = false,      -- Added for 0.18.34/1.1.4
+    allow_decomposition = true,       -- Added for 0.18.34/1.1.4
+  },
+  --~ always_show_made_in = true,
+  --~ allow_decomposition = false,
+  allow_as_intermediate = false,      -- Added for 0.18.34/1.1.4
+  always_show_made_in = false,        -- Changed for 0.18.34/1.1.4
+  allow_decomposition = true,         -- Changed for 0.18.34/1.1.4
+  subgroup = "energy-pipe-distribution",
+  order = "a[pipe]-1b[pipe-to-ground]",
+}
+
+
+------------------------------------------------------------------------------------
+--                           Enable: Bio solar additions                          --
+--                        (BI.Settings.BI_Solar_Additions)                        --
+------------------------------------------------------------------------------------
+-- Solar farm
+BI.optional_recipes.BI_Solar_Additions.solar_farm = {
+  type = "recipe",
+  name = "bi-bio-solar-farm",
+  localised_name = {"entity-name.bi-bio-solar-farm"},
+  --~ -- localised_description = {"entity-description.bi-bio-solar-farm"},
+  icon = ICONPATH .. "entity/solar-panel-large.png",
+  icon_size = 64,
+  BI_add_icon = true,
+  enabled = false,
+  energy_required = 60,
+  ingredients = {
+    {"solar-panel", 50},
+    {"medium-electric-pole", 25},
+    {"concrete", 400},
+  },
+  result = "bi-bio-solar-farm",
+  --~ -- subgroup = "bio-bio-solar-entity",
+  --~ -- order = "a[bi]",
+  subgroup = "energy",
+  order = "d[solar-panel]-a[solar-panel]-a[bi-bio-solar-farm]",
+  --~ -- always_show_made_in = true,
+  --~ -- allow_decomposition = false,
+  allow_as_intermediate = false,      -- Added for 0.18.34/1.1.4
+  always_show_made_in = false,        -- Changed for 0.18.34/1.1.4
+  allow_decomposition = true,         -- Changed for 0.18.34/1.1.4
+  -- Custom property that allows to automatically add our recipes to tech unlocks.
+  BI_add_to_tech = {"bi-tech-super-solar-panels"},
+}
+
+
+-- Solar plant and boiler
+BI.optional_recipes.BI_Solar_Additions.solar_boiler = {
+  type = "recipe",
+  --~ -- name = "bi-solar-boiler-hidden-panel",
+  name = "bi-solar-boiler",
+  localised_name = {"entity-name.bi-solar-boiler"},
+  --~ -- localised_description = {"entity-description.bi-solar-boiler"},
+  icon = ICONPATH .. "entity/solar-boiler.png",
+  icon_size = 64,
+  BI_add_icon = true,
+  enabled = false,
+  energy_required = 15,
+  ingredients = {
+    {"solar-panel", 30},
+    {"storage-tank", 4},
+    {"boiler", 1},
+  },
+  result = "bi-solar-boiler",
+  subgroup = "energy",
+  order = "b[steam-power]-c[steam-engine]",
+  --~ -- always_show_made_in = true,
+  --~ -- allow_decomposition = false,
+  allow_as_intermediate = false,    -- Added for 0.18.34/1.1.4
+  always_show_made_in = false,      -- Changed for 0.18.34/1.1.4
+  allow_decomposition = true,               -- Changed for 0.18.34/1.1.4
+  -- Custom property that allows to automatically add our recipes to tech unlocks.
+  BI_add_to_tech = {"bi-tech-steamsolar-combination"},
+}
+
+-- Musk floor/Solar mat
+BI.optional_recipes.BI_Solar_Additions.solar_mat = {
+  type = "recipe",
+  name = "bi-solar-mat",
+  localised_name = {"entity-name.bi-solar-mat"},
+  --~ -- localised_description = {"entity-description.bi-solar-mat"},
+  icon = ICONPATH .. "entity/solar-mat.png",
+  icon_size = 64,
+  BI_add_icon = true,
+  enabled = false,
+  energy_required = 5,
+  ingredients = {
+    {"steel-plate", 1},
+    {"advanced-circuit", 3},
+    {"copper-cable", 4}
+  },
+  result = "bi-solar-mat",
+  --~ -- subgroup = "bio-bio-solar-entity",
+  --~ -- order = "c[bi]",
+  subgroup = "energy",
+  order = "d[solar-panel]-aa[solar-panel-1-a]",
+  --~ -- always_show_made_in = true,
+  --~ -- allow_decomposition = false,
+  allow_as_intermediate = false,    -- Added for 0.18.34/1.1.4
+  always_show_made_in = false,      -- Changed for 0.18.34/1.1.4
+  allow_decomposition = true,               -- Changed for 0.18.34/1.1.4
+  -- Custom property that allows to automatically add our recipes to tech unlocks.
+  BI_add_to_tech = {"bi-tech-musk-floor"},
+}
+
+-- Huge accumulator
+BI.optional_recipes.BI_Solar_Additions.huge_accumulator = {
+  type = "recipe",
+  name = "bi-bio-accumulator",
+  localised_name = {"entity-name.bi-bio-accumulator"},
+  --~ -- localised_description = {"entity-description.bi-bio-accumulator"},
+  icon = ICONPATH .. "entity/accumulator_large.png",
+  icon_size = 64,
+  BI_add_icon = true,
+  energy_required = 60,
+  enabled = false,
+  ingredients = {
+    {"accumulator", 50},
+    {"copper-cable", 50},
+    {"concrete", 200},
+  },
+  result = "bi-bio-accumulator",
+  --~ -- subgroup = "bio-bio-solar-entity",
+  --~ -- order = "d[bi]",
+  subgroup = "energy",
+  order = "e[accumulator]-a[bi-accumulator]",
+  --~ -- always_show_made_in = true,
+  --~ -- allow_decomposition = false,
+  allow_as_intermediate = false,    -- Added for 0.18.34/1.1.4
+  always_show_made_in = false,      -- Changed for 0.18.34/1.1.4
+  allow_decomposition = true,       -- Changed for 0.18.34/1.1.4
+  -- Custom property that allows to automatically add our recipes to tech unlocks.
+  BI_add_to_tech = {"bi-tech-electric-energy-super-accumulators"},
+}
+
+-- Huge substation
+BI.optional_recipes.BI_Solar_Additions.huge_substation = {
+  type = "recipe",
+  name = "bi-huge-substation",
+  localised_name = {"entity-name.bi-huge-substation"},
+  --~ -- localised_description = {"entity-description.bi-huge-substation"},
+  icon = ICONPATH .. "entity/substation_large.png",
+  icon_size = 64,
+  BI_add_icon = true,
+  enabled = false,
+  ingredients = {
+    {"steel-plate", 10},
+    {"concrete", 200},
+    {"substation", 4}
+  },
+  result = "bi-huge-substation",
+  --~ -- subgroup = "bio-bio-solar-entity",
+  --~ -- order = "e[bi]",
+  subgroup = "energy-pipe-distribution",
+  order = "a[energy]-d[substation]-b[large-substation]",
+  --~ -- always_show_made_in = true,
+  --~ -- allow_decomposition = false,
+  allow_as_intermediate = false,    -- Added for 0.18.34/1.1.4
+  always_show_made_in = false,      -- Changed for 0.18.34/1.1.4
+  allow_decomposition = true,               -- Changed for 0.18.34/1.1.4
+  -- Custom property that allows to automatically add our recipes to tech unlocks.
+  BI_add_to_tech = {"bi-tech-huge-substation"},
+}
+
+
+------------------------------------------------------------------------------------
+--                             Enable: Stone crushing                             --
+--                         (BI.Settings.BI_Stone_Crushing)                        --
+------------------------------------------------------------------------------------
+-- STONE CRUSHER (ENTITY) --
+BI.optional_recipes.BI_Stone_Crushing.stone_crusher = {
+  type = "recipe",
+  name = "bi-stone-crusher",
+  localised_name = {"entity-name.bi-stone-crusher"},
+  --~ -- localised_description = {"entity-description.bi-stone-crusher"},
+  icon = ICONPATH .. "entity/stone_crusher.png",
+  icon_size = 64,
+  BI_add_icon = true,
+  normal = {
+    enabled = false,
+    energy_required = 3,
+    ingredients = {
+      {"iron-plate", 10},
+      {"steel-plate", 10},
+      {"iron-gear-wheel", 5},
+    },
+    result = "bi-stone-crusher",
+    result_count = 1,
+    allow_as_intermediate = false,      -- Added for 0.18.34/1.1.4
+    always_show_made_in = false,        -- Added for 0.18.34/1.1.4
+    allow_decomposition = true,         -- Added for 0.18.34/1.1.4
+  },
+  expensive = {
+    enabled = false,
+    energy_required = 5,
+    ingredients = {
+      {"iron-plate", 12},
+      {"steel-plate", 12},
+      {"iron-gear-wheel", 8},
+    },
+    result = "bi-stone-crusher",
+    result_count = 1,
+    allow_as_intermediate = false,      -- Added for 0.18.34/1.1.4
+    always_show_made_in = false,        -- Added for 0.18.34/1.1.4
+    allow_decomposition = true,         -- Added for 0.18.34/1.1.4
+  },
+  subgroup = "bio-stone-crusher",
+  order = "a[bi]",
+  --~ -- always_show_made_in = true,
+  --~ -- allow_decomposition = false,
+  allow_as_intermediate = false,        -- Added for 0.18.34/1.1.4
+  always_show_made_in = false,          -- Changed for 0.18.34/1.1.4
+  allow_decomposition = true,           -- Added for 0.18.34/1.1.4
+  -- Custom property that allows to automatically add our recipes to tech unlocks.
+  BI_add_to_tech = {"bi-tech-stone-crushing-1"},
+}
+
+-- Crushed stone from stone
+BI.optional_recipes.BI_Stone_Crushing.crushed_stone_1 = {
+  type = "recipe",
+  name = "bi-crushed-stone-1",
+  icon = ICONPATH .. "crushed-stone.png",
+  icon_size = 64,
+  BI_add_icon = true,
+  category = "biofarm-mod-crushing",
+  subgroup = "bio-stone-crusher",
+  order = "a[bi]-a-z[bi-9-stone-crushed-1]",
+  energy_required = 1.5,
+  ingredients = {{"stone", 1}},
+  result = "stone-crushed",
+  result_count = 2,
+  enabled = false,
+  --~ always_show_made_in = true,
+  --~ allow_decomposition = false,
+  --~ allow_as_intermediate = false,
+  allow_as_intermediate = true,      -- Added for 0.18.34/1.1.4
+  always_show_made_in = true,        -- Changed for 0.18.34/1.1.4
+  allow_decomposition = true,         -- Changed for 0.18.34/1.1.4
+  -- Custom property that allows to automatically add our recipes to tech unlocks.
+  BI_add_to_tech = {"bi-tech-stone-crushing-1"},
+}
+
+-- Crushed stone from concrete --
+BI.optional_recipes.BI_Stone_Crushing.crushed_stone_2 = {
+  type = "recipe",
+  name = "bi-crushed-stone-2",
+  --localised_description = {"recipe-description.bi-crushed-stone"},
+  icon = ICONPATH .. "crushed-stone-concrete.png",
+  icon_size = 64,
+  BI_add_icon = true,
+  category = "biofarm-mod-crushing",
+  subgroup = "bio-stone-crusher",
+  order = "a[bi]-a-z[bi-9-stone-crushed-2]",
+  energy_required = 2.5,  -- Increased crafting time
+  ingredients = {{"concrete", 1}},
+  result = "stone-crushed",
+  result_count = 2,
+  enabled = false,
+  --~ always_show_made_in = true,
+  --~ allow_decomposition = false,
+  --~ allow_as_intermediate = false,
+  always_show_made_in = true,        -- Changed for 0.18.34/1.1.4
+  allow_decomposition = true,         -- Changed for 0.18.34/1.1.4
+  allow_as_intermediate = false,
+  -- Custom property that allows to automatically add our recipes to tech unlocks.
+  BI_add_to_tech = {"bi-tech-stone-crushing-2"},
+}
+
+-- Crushed stone from hazard concrete --
+BI.optional_recipes.BI_Stone_Crushing.crushed_stone_3 = {
+  type = "recipe",
+  name = "bi-crushed-stone-3",
+  --localised_description = {"recipe-description.bi-crushed-stone"},
+  icon = ICONPATH .. "crushed-stone-hazard-concrete.png",
+  icon_size = 64,
+  BI_add_icon = true,
+  category = "biofarm-mod-crushing",
+  subgroup = "bio-stone-crusher",
+  order = "a[bi]-a-z[bi-9-stone-crushed-3]",
+  energy_required = 2.5,  -- Increased crafting time
+  ingredients = {{"hazard-concrete", 1}},
+  result = "stone-crushed",
+  result_count = 2,
+  enabled = false,
+  --~ always_show_made_in = true,
+  --~ allow_decomposition = false,
+  --~ allow_as_intermediate = false,
+  always_show_made_in = true,        -- Changed for 0.18.34/1.1.4
+  allow_decomposition = true,         -- Changed for 0.18.34/1.1.4
+  allow_as_intermediate = false,
+  -- Custom property that allows to automatically add our recipes to tech unlocks.
+  BI_add_to_tech = {"bi-tech-stone-crushing-2"},
+}
+
+-- Crushed stone from refined concrete --
+BI.optional_recipes.BI_Stone_Crushing.crushed_stone_4 = {
+  type = "recipe",
+  name = "bi-crushed-stone-4",
+  --localised_description = {"recipe-description.bi-crushed-stone"},
+  icon = ICONPATH .. "crushed-stone-refined-concrete.png",
+  icon_size = 64,
+  BI_add_icon = true,
+  category = "biofarm-mod-crushing",
+  subgroup = "bio-stone-crusher",
+  order = "a[bi]-a-z[bi-9-stone-crushed-4]",
+  energy_required = 5,    -- Increased crafting time
+  ingredients = {{"refined-concrete", 1}},
+  result = "stone-crushed",
+  result_count = 4,
+  enabled = false,
+  --~ always_show_made_in = true,
+  --~ allow_decomposition = false,
+  --~ allow_as_intermediate = false,
+  always_show_made_in = true,        -- Changed for 0.18.34/1.1.4
+  allow_decomposition = true,         -- Changed for 0.18.34/1.1.4
+  allow_as_intermediate = false,
+  -- Custom property that allows to automatically add our recipes to tech unlocks.
+  BI_add_to_tech = {"bi-tech-stone-crushing-2"},
+}
+
+-- Crushed stone from refined hazard concrete --
+BI.optional_recipes.BI_Stone_Crushing.crushed_stone_5 = {
+  type = "recipe",
+  name = "bi-crushed-stone-5",
+  --localised_description = {"recipe-description.bi-crushed-stone"},
+  icon = ICONPATH .. "crushed-stone-refined-hazard-concrete.png",
+  icon_size = 64,
+  BI_add_icon = true,
+  category = "biofarm-mod-crushing",
+  subgroup = "bio-stone-crusher",
+  order = "a[bi]-a-z[bi-9-stone-crushed-5]",
+  energy_required = 5,    -- Increased crafting time
+  ingredients = {{"refined-hazard-concrete", 1}},
+  result = "stone-crushed",
+  result_count = 4,
+  enabled = false,
+  --~ always_show_made_in = true,
+  --~ allow_decomposition = false,
+  --~ allow_as_intermediate = false,
+  always_show_made_in = true,        -- Changed for 0.18.34/1.1.4
+  allow_decomposition = true,         -- Changed for 0.18.34/1.1.4
+  allow_as_intermediate = false,
+  -- Custom property that allows to automatically add our recipes to tech unlocks.
+  BI_add_to_tech = {"bi-tech-stone-crushing-2"},
+}
+
+ -- Stone brick
+BI.optional_recipes.BI_Stone_Crushing.bi_stone_brick = {
+  type = "recipe",
+  name = "bi-stone-brick",
+  icon = ICONPATH .. "bi_stone_brick.png",
+  icon_size = 64,
+  BI_add_icon = true,
+  category = "chemistry",
+  subgroup = "terrain",
+  order = "a[stone-brick]-bi",
+  energy_required = 2.5,
+  ingredients = {
+    {type = "item", name = "stone-crushed", amount = 3},
+    {type = "item", name = "bi-ash", amount = 1},
+  },
+  results = {
+    {type = "item", name = "stone-brick", amount = 1},
+  },
+  enabled = false,
+  --~ always_show_made_in = true,
+  --~ allow_decomposition = false,
+  --~ allow_as_intermediate = false,
+  always_show_made_in = true,        -- Changed for 0.18.34/1.1.4
+  allow_decomposition = true,         -- Changed for 0.18.34/1.1.4
+  allow_as_intermediate = false,
+  -- Custom property that allows to automatically add our recipes to tech unlocks.
+  BI_add_to_tech = {"bi-tech-coal-processing-2"},
+}
+
+------------------------------------------------------------------------------------
+--                                    END OF FILE                                 --
+------------------------------------------------------------------------------------
+BI.entered_file("leave")

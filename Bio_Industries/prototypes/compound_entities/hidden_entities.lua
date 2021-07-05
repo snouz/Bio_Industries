@@ -1,9 +1,10 @@
+BI.entered_file()
+
 -- Add functions that are also used in other files (debugging output etc.)
 local BioInd = require('common')('Bio_Industries')
 --~ local ICONPATH = BioInd.modRoot .. "/graphics/icons/"
 local ICONPATH = "__core__/graphics/"
 local HIDDENPATH = BioInd.modRoot .. "/prototypes/compound_entities/"
-BioInd.writeDebug("Entered prototypes.hidden_entities.lua of \"%s\".", {BioInd.modName})
 
 ------------------------------------------------------------------------------------
 -- Keep a list of all hidden entities we create, so we can modify them easily in  --
@@ -238,3 +239,9 @@ require(HIDDENPATH .. "hidden_radars")
 
 --~ BioInd.show("BI.hidden_entities.types", BI.hidden_entities.types)
 --~ error("Break!")
+
+
+------------------------------------------------------------------------------------
+--                                    END OF FILE
+------------------------------------------------------------------------------------
+BI.entered_file("leave")

@@ -1,6 +1,5 @@
 local BioInd = require("__" .. script.mod_name .. "__.common")(script.mod_name)
-
-BioInd.writeDebug("Entered control_arboretum.lua")
+BioInd.entered_file()
 
 ---Arboretum Stuff
 

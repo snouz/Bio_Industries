@@ -1,6 +1,7 @@
+BI.entered_file()
+
 -- Add functions that are also used in other files (debugging output etc.)
 local BioInd = require('common')('Bio_Industries')
-BioInd.writeDebug("Entered prototypes.hidden_poles.lua of \"%s\".", {BioInd.modName})
 
 local ICONPATH = BioInd.iconpath
 
@@ -201,3 +202,9 @@ end
 --~ for k, v in pairs(data.raw[h_entity.type]) do
   --~ BioInd.writeDebug("%s: %s", {k, v})
 --~ end
+
+
+------------------------------------------------------------------------------------
+--                                    END OF FILE
+------------------------------------------------------------------------------------
+BI.entered_file("leave")

@@ -1,42 +1,50 @@
 local BioInd = require('common')('Bio_Industries')
+BioInd.entered_file()
 
-if not BI then BI = {} end
-if not BI.Settings then BI.Settings = {} end
+------------------------------------------------------------------------------------
+--                                      Init                                      --
+------------------------------------------------------------------------------------
+-- Initialize tables
+BI = BI or {}
+BI.Settings = BI.Settings or {}
 
---~ if not BI_Config then BI_Config = {} end
---~ if not BI_Config.mod then BI_Config.mod = {} end
-if not BI_Functions then BI_Functions = {} end
-if not BI_Functions.lib then BI_Functions.lib = {} end
+--~ BI_Config = BI_Config or {}
+--~ BI_Config.mod = BI_Config.mod or {}
+BI_Functions = BI_Functions or {}
+BI_Functions.lib = BI_Functions.lib or {}
 
-if not thxbob then thxbob = {} end
-if not thxbob.lib then thxbob.lib = {} end
+thxbob = thxbob or {}
+thxbob.lib = thxbob.lib or {}
 
-for var, name in pairs({
-  Bio_Cannon = "BI_Bio_Cannon",
-  BI_Bio_Fuel = "BI_Bio_Fuel",
-  BI_Easy_Bio_Gardens = "BI_Easy_Bio_Gardens",
-  BI_Bigger_Wooden_Chests = "BI_Bigger_Wooden_Chests",
-  BI_Game_Tweaks_Stack_Size = "BI_Game_Tweaks_Stack_Size",
-  BI_Game_Tweaks_Recipe = "BI_Game_Tweaks_Recipe",
-  BI_Game_Tweaks_Tree = "BI_Game_Tweaks_Tree",
-  BI_Game_Tweaks_Small_Tree_Collisionbox = "BI_Game_Tweaks_Small_Tree_Collisionbox",
-  BI_Game_Tweaks_Player = "BI_Game_Tweaks_Player",
-  BI_Game_Tweaks_Disassemble = "BI_Game_Tweaks_Disassemble",
-  BI_Game_Tweaks_Bot = "BI_Game_Tweaks_Bot",
-  BI_Solar_Additions = "BI_Solar_Additions"
-}) do
-  BI.Settings[var] = BioInd.get_startup_setting(name)
+-- We don't want to require common.lua unnecessarily. Let's copy the function
+-- that checks if required mods are active, so it's available in all other files!
+BI.check_mods = BioInd.check_mods
+
+-- Let's also copy some output functions!
+BI.writeDebug = BioInd.writeDebug
+BI.entered_function =  BioInd.entered_function
+BI.entered_file = BioInd.entered_file
+BI.nothing_to_do = BioInd.nothing_to_do
+
+-- Populate BI.Settings with the setting values
+BioInd.get_startup_settings()
+for k, v in pairs(BI.Settings) do
+BioInd.show("k", k)
+BioInd.show("v", v)
 end
 
---~ BioInd.show("BI.Settings.BI_Easy_Bio_Gardens", BI.Settings.BI_Easy_Bio_Gardens)
---~ BioInd.show("BI.Settings.BI_Game_Tweaks_Disassemble", BI.Settings.BI_Game_Tweaks_Disassemble)
---- Help Files
-require ("libs.item-functions") -- From Bob's Libary
-require ("libs.recipe-functions") -- From Bob's Libary
-require ("libs.technology-functions") -- From Bob's Libary
-require ("libs.functions") -- From Bob's Libary
-require ("libs.category-functions") -- From Bob's Libary
-require ("libs.bi_functions") -- Functions
+------------------------------------------------------------------------------------
+--                                 Auxiliary files                                --
+------------------------------------------------------------------------------------
+-- From Bob's libary
+require("libs.item-functions")
+require("libs.recipe-functions")
+require("libs.technology-functions")
+require("libs.functions")
+require("libs.category-functions")
+
+-- Some functions of our own
+require("libs.bi_functions")
 
 
 
@@ -47,79 +55,265 @@ require ("libs.bi_functions") -- Functions
 --~ error("Break!")
 
 
+------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
+--                         DEFAULT -- ALWAYS CREATE THESE!                        --
+------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
+
+
+------------------------------------------------------------------------------------
+--                                   Categories                                   --
+------------------------------------------------------------------------------------
+require("prototypes.default.categories_item")
+require("prototypes.default.categories_recipe")
+require("prototypes.default.damage-type")
+
+
+------------------------------------------------------------------------------------
+--                                     Fluids                                     --
+------------------------------------------------------------------------------------
+require("prototypes.default.fluids")
+
+
+------------------------------------------------------------------------------------
+--                                    Entities                                    --
+------------------------------------------------------------------------------------
+-- Default
+require("prototypes.default.entity.entity_remnants")
+require("prototypes.default.entity.entity")
+require("prototypes.default.entity.entity_garden")
+--~ require("prototypes.default.entity.entity_optionDarts")
+require("prototypes.default.entity.entity_trees")
+require("prototypes.default.entity.entity_woodproducts")
+
+
+------------------------------------------------------------------------------------
+--                                      Items                                     --
+------------------------------------------------------------------------------------
+-- Default
+require("prototypes.default.item.item")
+require("prototypes.default.item.item_garden")
+require("prototypes.default.item.item_woodproducts")
+--~ require("prototypes.default.item.item_optionDarts")
+
+
+------------------------------------------------------------------------------------
+--                                     Recipes                                    --
+------------------------------------------------------------------------------------
+-- Default
+require("prototypes.default.recipe.recipe")
+require("prototypes.default.recipe.recipe_forEntity")
+require("prototypes.default.recipe.recipe_garden")
+require("prototypes.default.recipe.recipe_woodproducts")
+--~ require("prototypes.default.recipe.recipe_optionDarts")
+
+
+------------------------------------------------------------------------------------
+--                                  Technologies                                  --
+------------------------------------------------------------------------------------
+-- Default
+require("prototypes.default.technology")
 
 
 
+------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
+--                    OPTIONAL -- THINGS DEPENDENT ON A SETTING                   --
+------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
 
-----------------CATEGORIES
-require ("prototypes.categories_item")
-require ("prototypes.categories_recipe")
-require ("prototypes.damage-type")
+
+------------------------------------------------------------------------------------
+--             Data of all additional things that depend on a setting             --
+------------------------------------------------------------------------------------
+require("prototypes.optional.additional_fluids")
+require("prototypes.optional.additional_items")
+require("prototypes.optional.additional_misc")
+require("prototypes.optional.additional_recipes")
+require("prototypes.optional.additional_remnants")
+require("prototypes.optional.additional_technologies")
 
 
-require ("prototypes.fluid")
+------------------------------------------------------------------------------------
+--                          Enable: Early wooden defenses                         --
+--                             (BI.Settings.BI_Darts)                             --
+------------------------------------------------------------------------------------
+require("prototypes.optional.darts.entity_optionDarts")
+require("prototypes.optional.darts.item_optionDarts")
+require("prototypes.optional.darts.recipe_optionDarts")
 
-----------------TECHNOLOGY
-require ("prototypes.technology")
-require ("prototypes.technology_optionBioFuel")
-require ("prototypes.technology_optionSolar")
-require ("prototypes.technology_optionChests")
 
-require ("prototypes.technology_optionCannon")
+------------------------------------------------------------------------------------
+--                           Enable: Prototype artillery                          --
+--                            (BI.Settings.Bio_Cannon)                            --
+------------------------------------------------------------------------------------
+require("prototypes.optional.bio_cannon.entity_optionCannon")
+require("prototypes.optional.bio_cannon.item_optionCannon")
+require("prototypes.optional.bio_cannon.recipe_optionCannon")
+require("prototypes.optional.bio_cannon.technology_optionCannon")
 
-----------------ENTITY
-require ("prototypes.entity_remnants")
-require ("prototypes.entity")
-require ("prototypes.entity_garden")
-require ("prototypes.entity_woodproducts")
-require ("prototypes.entity_trees")
 
-require ("prototypes.entity_optionBioFuel")
-require ("prototypes.entity_optionSolar")
-require ("prototypes.entity_optionChests")
-require ("prototypes.entity_optionCannon")
-require ("prototypes.entity_optionDarts")
+------------------------------------------------------------------------------------
+--                           Enable: Bio fuel production                          --
+--                            (BI.Settings.BI_Bio_Fuel)                           --
+------------------------------------------------------------------------------------
+require("prototypes.optional.bio_fuel.entity_optionBioFuel")
+require("prototypes.optional.bio_fuel.item_optionBioFuel")
+require("prototypes.optional.bio_fuel.recipe_optionBioFuel")
+require("prototypes.optional.bio_fuel.technology_optionBioFuel")
 
-require ("prototypes.compound_entities.hidden_entities") --after other entities
 
-----------------ITEM
-require ("prototypes.item")
-require ("prototypes.item_garden")
-require ("prototypes.item_woodproducts")
+--~ ------------------------------------------------------------------------------------
+--~ --                          Enable: Bigger wooden chests                          --
+--~ --                      (BI.Settings.BI_Bigger_Wooden_Chests)                     --
+--~ ------------------------------------------------------------------------------------
+--~ require("prototypes.optional.chests.entity_optionChests")
+--~ require("prototypes.optional.chests.item_optionChests")
+--~ require("prototypes.optional.chests.recipe_optionChests")
+--~ require("prototypes.optional.chests.technology_optionChests")
 
-require ("prototypes.item_optionBioFuel")
-require ("prototypes.item_optionSolar")
-require ("prototypes.item_optionChests")
-require ("prototypes.item_optionDarts")
-require ("prototypes.item_optionCannon")
 
-----------------RECIPE
-require ("prototypes.recipe")
-require ("prototypes.recipe_forEntity")
-require ("prototypes.recipe_garden")
-require ("prototypes.recipe_woodproducts")
+------------------------------------------------------------------------------------
+--                             Enable: Wooden products                            --
+--                         (BI.Settings.BI_Wood_Products)                         --
+------------------------------------------------------------------------------------
+require("prototypes.optional.wood_products.entity_optionWoodProducts")
+require("prototypes.optional.wood_products.item_optionWoodProducts")
+require("prototypes.optional.wood_products.recipe_optionWoodProducts")
+require("prototypes.optional.wood_products.technology_optionWoodProducts")
 
-require ("prototypes.recipe_optionBioFuel")
-require ("prototypes.recipe_optionSolar")
-require ("prototypes.recipe_optionChests")
-require ("prototypes.recipe_optionDarts")
-require ("prototypes.recipe_optionCannon")
+
+------------------------------------------------------------------------------------
+--                           Enable: Bio solar additions                          --
+--                        (BI.Settings.BI_Solar_Additions)                        --
+------------------------------------------------------------------------------------
+require("prototypes.optional.solar.entity_optionSolar")
+require("prototypes.optional.solar.item_optionSolar")
+require("prototypes.optional.solar.recipe_optionSolar")
+require("prototypes.optional.solar.technology_optionSolar")
+
+
+------------------------------------------------------------------------------------
+--                             Enable: Stone crushing                             --
+--                         (BI.Settings.BI_Stone_Crushing)                        --
+------------------------------------------------------------------------------------
+require("prototypes.optional.stone_crushing.entity_optionStoneCrushing")
+require("prototypes.optional.stone_crushing.item_optionStoneCrushing")
+require("prototypes.optional.stone_crushing.recipe_optionStoneCrushing")
+require("prototypes.optional.stone_crushing.technology_optionStoneCrushing")
+
+
+------------------------------------------------------------------------------------
+--                            Enable: Easy Bio gardens                            --
+--                  (BI.Settings.BI_Game_Tweaks_Easy_Bio_Gardens)                 --
+------------------------------------------------------------------------------------
+require("prototypes.optional.optionEasyBioGardens")
+
+
+
+------------------------------------------------------------------------------------
+--                        Game tweaks: Disassemble recipes                        --
+--                    (BI.Settings.BI_Game_Tweaks_Disassemble)                    --
+------------------------------------------------------------------------------------
+require("prototypes.optional.optionDisassemble")
+
+
+------------------------------------------------------------------------------------
+--           Game tweaks: Alternative recipe for Production Science Pack          --
+--                 (BI.Settings.BI_Game_Tweaks_Production_Science)                --
+------------------------------------------------------------------------------------
+require("prototypes.optional.optionSciencePack")
+
 
 
 
 
 ------------------------------------------------------------------------------------
--- Alien Biomes will degrade tiles to "landfill" if more than 255 tiles are defined
--- in the game. We can register the musk-floor tiles with Alien Biomes so it will
--- try to prioritize the tiles if they exist.
-alien_biomes_priority_tiles = alien_biomes_priority_tiles or {}
-table.insert(alien_biomes_priority_tiles, "bi-solar-mat")
-
---~ for i, item in pairs(data.raw.item) do
---~ BioInd.show("Item", i)
---~ end
+------------------------------------------------------------------------------------
+--               MOD COMPATIBILITY -- THINGS DEPENDENT ON OTHER MODS              --
+------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
 
 
 ------------------------------------------------------------------------------------
--- Add icons to our prototypes
+--            Data of all additional things that depend on another mod            --
+------------------------------------------------------------------------------------
+require("prototypes.mod_compatibility.additional_entities")
+require("prototypes.mod_compatibility.additional_recipes")
+
+
+------------------------------------------------------------------------------------
+--                                  Alien biomes                                  --
+------------------------------------------------------------------------------------
+require("prototypes.mod_compatibility.alien_biomes")
+
+------------------------------------------------------------------------------------
+--                                  Angel's mods                                  --
+------------------------------------------------------------------------------------
+require("prototypes.mod_compatibility.angels")
+
+------------------------------------------------------------------------------------
+--                           Assembler Pipe Passthrough                           --
+------------------------------------------------------------------------------------
+require("prototypes.mod_compatibility.assembler_pipe_passthrough")
+
+------------------------------------------------------------------------------------
+--                                     BioTech                                    --
+------------------------------------------------------------------------------------
+require("prototypes.mod_compatibility.biotech")
+
+------------------------------------------------------------------------------------
+--                                   Bob's mods                                   --
+------------------------------------------------------------------------------------
+require("prototypes.mod_compatibility.bobs")
+
+------------------------------------------------------------------------------------
+--                                    Dectorio                                    --
+------------------------------------------------------------------------------------
+require("prototypes.mod_compatibility.dectorio")
+
+------------------------------------------------------------------------------------
+--                                   Krastorio 2                                  --
+------------------------------------------------------------------------------------
+require("prototypes.mod_compatibility.krastorio_2")
+
+
+
+
+
+------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
+--  ALL BASE ENTITIES EXIST -- NOW CREATE THE HIDDEN PARTS OF COMPOUND ENTITIES!  --
+------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
+-- This will load all other files we need!
+require("prototypes.compound_entities.hidden_entities")
+
+
+
+
+
+------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
+--                        FINAL ADJUSTMENTS FOR THIS STAGE                        --
+------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
+
+
+------------------------------------------------------------------------------------
+--                           Add icons to our prototypes                          --
+------------------------------------------------------------------------------------
 BioInd.BI_add_icons()
+
+
+------------------------------------------------------------------------------------
+--                           Add unlocks to technologies                          --
+------------------------------------------------------------------------------------
+BioInd.BI_add_unlocks()
+
+
+------------------------------------------------------------------------------------
+--                                    END OF FILE                                 --
+------------------------------------------------------------------------------------
+BioInd.entered_file("leave")

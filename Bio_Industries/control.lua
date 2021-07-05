@@ -1,4 +1,6 @@
 local BioInd = require("__" .. script.mod_name .. "__.common")(script.mod_name)
+BioInd.entered_file()
+
 local settings_changed = require("settings_changed")
 
 if BioInd.get_startup_setting("BI_Enable_gvv_support") then
@@ -126,7 +128,7 @@ BioInd.writeDebug("Entered init!")
   --------------------------------------------------------------------
   -- Global table for storing the last state of certain mod settings
   global.mod_settings = global.mod_settings or {}
-  if BioInd.get_startup_setting("BI_Easy_Bio_Gardens") then
+  if BioInd.get_startup_setting("BI_Game_Tweaks_Easy_Bio_Gardens") then
     global.mod_settings.garden_pole_connectors = BioInd.get_garden_pole_connectors()
   else
     global.mod_settings.garden_pole_connectors = nil
@@ -319,17 +321,19 @@ Event.register(defines.events.on_player_joined_game, function(event)
    local force = player.force
    local techs = force.technologies
 
-  --~ if settings.startup["angels-use-angels-barreling"] and
-     --~ settings.startup["angels-use-angels-barreling"].value then
-  if BioInd.get_startup_setting("angels-use-angels-barreling") then
-      techs['fluid-handling'].researched = false
-      techs['bi-tech-fertilizer'].reload()
-      local _t = techs['angels-fluid-barreling'].researched
-      techs['angels-fluid-barreling'].researched = false
-      techs['angels-fluid-barreling'].researched = _t
-   end
-end)
-
+--------------------------------------------------------------------
+  -- This seems to be obsolete! I can't find Angel's setting and tech
+  -- anywhere, the tech name exists in the locale of Angel's Refining,
+  -- but apparently nowhere else.
+  --~ if BioInd.get_startup_setting("angels-use-angels-barreling") then
+      --~ techs['fluid-handling'].researched = false
+      --~ techs['bi-tech-fertilizer'].reload()
+      --~ local _t = techs['angels-fluid-barreling'].researched
+      --~ techs['angels-fluid-barreling'].researched = false
+      --~ techs['angels-fluid-barreling'].researched = _t
+   --~ end
+  end)
+--------------------------------------------------------------------
 
 ---------------------------------------------
 Event.register(defines.events.on_trigger_created_entity, function(event)

@@ -1,6 +1,6 @@
 ---------------------------------------------------------------------------------------------------
 Version: 1.2.0
-Date: 2021-02-09
+Date: 2021-03-?
   Uploaded by:
     - Pi-C & Snouz
 
@@ -12,7 +12,7 @@ Date: 2021-02-09
   Graphics:
     - New visuals, animations & lighting for almost all buildings (Bio nurseries, Bio farms, Cokeries, Stone crushers, Bio reactors, terraformers, Bio-gardens, Large chests, huge chests, Gigantic chests, Big poles, Huge poles, Wood pipes, Solar farms, Solar power plants & boilers, Huge accumulators, Wooden fences, Prototype artillery, bio boilers, Dart turrets, projectiles)
     - New visuals for tiles (Musk floor, Wood floor)
-	- New custom remnants for each building
+    - New custom remnants for each building
     - Unique visuals for each technology
     - Added an HD and SD version to all buildings
     - Added correct, engine-understood shadows to all buildings (no more shadows overlapping)
@@ -21,18 +21,18 @@ Date: 2021-02-09
     - Removed useless secondary selection boxes
     - New mod logo
 
-  Locale:
+  Localization:
     - Most text rewritten to be more streamlined, some descriptions removed
 
   Changes:
+    - Made the mod more modular (settings to toggle "Early wooden defenses" (darts, dart turret, dart rifle, wooden fences; will replace the pistol with the dart rifle), "Wood products" (bigger power poles, bigger chests, wood pipes), and "Stone crushing")
     - Re-organized mod recipes in a cleaner, more logical way
     - Removed the "made in" section of recipes that are done in assembling machine
     - Simplified recipe information (result in title, removed "made in" for handmade recipes, removed some descriptions)
     - Removed some recipes parasiting the "total raw" calculation of other recipes (no more resin everywhere, wood is considered basic material)
     - Divided some recipes into smaller chunks for readability (e.g.: 2 bricks = 2 ash + 6 pebbles => 1 brick = 1 ash + 3 pebbles in half the time)
-    - Seriously nerfed the small garden (20x slower, 2.25 less cost efficient)
-    - Some code and file structure cleanup
-    - Added dependency mod for visuals
+    - Some code and file structure cleanup, code factorisation
+    - Added separate mod for visuals
 
   Sound:
     - Added unique sounds for Huge gardens, Stone crushers and Bio farms
@@ -41,7 +41,9 @@ Date: 2021-02-09
   Bugfixes:
     - Added a tint on the Power rail connector when HD graphics are on (so it's different from the Medium electric pole)
     - Fixed visual zone for Huge wooden poles
-	
+    - Fixed that powered rails and the rail-to-power connectors could not be unlocked if IR2 was active.
+
+
 
 
   TODO:
@@ -54,9 +56,11 @@ Date: 2021-02-09
     - Bigger trees give more wood (https://forums.factorio.com/viewtopic.php?f=16&t=95205)
     - Don't plant lying trees
 
+    - Add setting to toggle rails!
+
 ---------------------------------------------------------------------------------------------------
 Version: 1.1.10
-Date: ?
+Date: 2021-02-15
   Uploaded by:
     - Pi-C
 
@@ -164,7 +168,7 @@ Date: 2021-01-21
     - All changes are also available for Factorio 0.18/1.0 (version 0.18.34 of this mod).
     - There's some serious work going on in the background: Our new graphics artist (snouz) is currently reworking the graphics and the tech tree. You'll see the results in one of the next releases (the next, unless some more bugs have sneaked into this one).
 
-  Locale:
+  Localization:
     - Fixed Russian translation for "crushed stone". (https://mods.factorio.com/mod/Bio_Industries/discussion/5ff36051a449805c1c979d22)
 
   Bugfixes:
@@ -303,7 +307,7 @@ Date: 2020-11-30
     - Gave all graphics the "optipng" treatment.
     - TheSAguy provided alternative icons for use with the recipes "Bio-mass conversion 2" and "Basic gas processing" if "Angel's Petro Chemical Processing" is active.
 
-  Locale:
+  Localization:
     - Completely reworked localization -- no need to translate everything, using crossreferences is way easier! Also, the new descriptions should explain some things that many players apparently didn't understand.
     - Removed some obsolete strings.
     - Added German locale. Thanks to Tobilike! (https://forums.factorio.com/viewtopic.php?p=508622#p508622)
@@ -445,7 +449,7 @@ Date: 2020-06-18
   Changes:
     - Reverted change from 0.17.49/0.18.17: If "Angel's Petro Chemical Processing" is active, Basic Petroleum gas processing will output Methane gas again because it doesn't make sense that our recipe is the only one that will produce Petroleum gas (suggested by TheSAguy).
 
-  Locale:
+  Localization:
     - Renamed "Basic Petroleum gas processing" to "Basic gas processing" so the recipe name will still fit even if another mods (e.g. "Angel's Petro Chemical Processing") changes the result.
 
   Modding:
@@ -509,7 +513,7 @@ Date: 2020-05-08
   Changes:
     - Removed pollution value from thorium-fuel-cell.
 
-  Locale:
+  Localization:
     - Added an update of the Russian translation. Thanks to Dragonling for providing it!
       (His translations mod is here: <https://mods.factorio.com/mod/MyRUS2>.)
 
@@ -638,7 +642,7 @@ Date: 2020-03-27
     - Fixed crash when setting "Enable: Bio fuel production" was turned off. (https://mods.factorio.com/mod/Bio_Industries/discussion/5e7e42e99be7f2000b5a2efc)
     - Fixed the localization for growing trees (a fixed English string was used before).
 
-  Locale:
+  Localization:
     - Added localization keys for growing trees.
 
 ---------------------------------------------------------------------------------------------------
@@ -761,7 +765,7 @@ Date: 2020-02-10
 
     - Unified format of datestrings and merged categories "Bugfix:"/"Bugfixes:" in the changelog.
 
-  Locale:
+  Localization:
     - Changed item-description of "Change terrain (advanced)" and "Change terrain & plant trees (advanced)" to explain the advantages over the basic recipe.
 
     - Changed a lot of prototype names. Check out migrations/Bio_Industries_0.18.01.json for a complete list of the new names!

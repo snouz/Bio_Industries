@@ -409,9 +409,10 @@ require("prototypes.mod_compatibility.modIndustrialRevolution")
 require("prototypes.mod_compatibility.modKrastorio2")
 
 
---~ ------------------------------------------------------------------------------------
---~ --                                 Pyanodon's mods                                --
---~ ------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
+--                                 Pyanodon's mods                                --
+--      (Replacing "bi-ash" with "ash" is now independent of specific mods!)      --
+------------------------------------------------------------------------------------
 --~ require("prototypes.mod_compatibility.modPyanodon")
 
 

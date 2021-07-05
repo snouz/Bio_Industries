@@ -63,7 +63,7 @@ Date: 2021-03-?
     - If the setting "Enable: Rubber products" is active, we shuffle around some of the vanilla techs. That doesn't work well with "Industrial Revolution 2" because of circular tech dependencies, so the setting (and our Resin/Rubber techs) won't be available if IR2 is active as well!
     - If IR2 is not active we'll allow for Bio-fuel conversion recipes to be made in the bio reactor as well as the vanilla oil-refinery.
     - Added setting "Game tweaks: Fuel values". This will add a fuel value to all items that contain wood or items made with wood etc. in their production chain (e.g. "wood" --> "woodpulp" --> "cellulose" --> "plastic bar" --> "advanced circuit" --> "stack inserter"), based on the fuel value of wood.
-    - Added additional dependency on "Pyanodons Petroleum Handling". (For now, the optional dependency on PyCoalProcessing has to be removed for this to work!)
+    - Added additional dependency on "Pyanodons Petroleum Handling". (For now, the optional dependency on "Pyanodons Coal Processing" has to be removed for this to work!)
 
 
   Modding:
@@ -74,6 +74,7 @@ Date: 2021-03-?
     - Added support for "Deadlock's Stacking Beltboxes & Compact Loaders" and "Deadlock's Crating Machine".
     - Added support for Brevven's "Silica & Silicon".
     - Updated compatibility icons.
+    - "Pyanodons Petroleum Handling" didn't reckon with changes to their recipes by other mods, so things done by BI would result in a crash for two recipes. Added patches for these recipes that should work once the dependency of "Pyanodons Coal Processing" on BI has been removed.
 
   Optimization:
     - Major code and file structure cleanup and factori(o)sation.

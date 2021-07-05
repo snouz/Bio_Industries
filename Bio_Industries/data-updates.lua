@@ -23,7 +23,6 @@ BioInd.show("recipes[BI.additional_recipes.mod_compatibility.sand.name]", recipe
 --                                     DEFAULT                                    --
 ------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------
-BioInd.show("RECIPE BEFORE DATA-UPDATES.LUA", data.raw.recipe["hotair-molybdenum-plate"])
 
 ------------------------------------------------------------------------------------
 --                        Data of things we may need to add                       --
@@ -217,7 +216,7 @@ require("prototypes.mod_compatibility.updates.updates_modOmniFluid")
 ------------------------------------------------------------------------------------
 --                      Pyanodon's mods: Coal processing, ash                     --
 ------------------------------------------------------------------------------------
---~ require("prototypes.mod_compatibility.updates.updates_modPyanodon")
+require("prototypes.mod_compatibility.updates.updates_modPyanodon")
 
 
 ------------------------------------------------------------------------------------
@@ -251,8 +250,6 @@ BioInd.BI_add_icons()
 ------------------------------------------------------------------------------------
 BioInd.BI_add_unlocks()
 
-
-BioInd.show("RECIPE AFTER DATA-UPDATES.LUA", data.raw.recipe.flask)
 
 ------------------------------------------------------------------------------------
 --                                    END OF FILE                                 --

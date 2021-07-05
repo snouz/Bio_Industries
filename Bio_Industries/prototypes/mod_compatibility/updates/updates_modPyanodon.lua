@@ -5,6 +5,7 @@ if not BioInd.check_mods({
 --~ if BioInd.check_mods({
   "pycoalprocessing",
   "pyrawores",
+  "pypetroleumhandling",
 }) then
   BioInd.nothing_to_do("*")
   return
@@ -128,6 +129,52 @@ if mods[mod_name] then
     end
   end
 end
+
+
+
+------------------------------------------------------------------------------------
+--                        Hotfix for "pypetroleumhandling"                        --
+------------------------------------------------------------------------------------
+mod_name = "pypetroleumhandling"
+if mods[mod_name] then
+  BioInd.writeDebug("Found mod \"%s\"", {mod_name})
+
+  local function normalize_result(result)
+    return result[1] and { name = result[1], type = "item",  amount = result[2] } or result
+  end
+
+  local function normalize_results(results)
+    for r, result in pairs(results) do
+      results[r] = normalize_result(result)
+    end
+  end
+
+  local fix_recipes = {
+    "flask",
+    "flask-2",
+    "flask-3",
+  }
+
+  for r, r_name in ipairs(fix_recipes) do
+    recipe = recipes[r_name]
+    if recipe then
+      thxbob.lib.result_check(recipe)
+      normalize_results(recipe.results)
+
+      if recipe.normal then
+        thxbob.lib.result_check(recipe.normal)
+        normalize_results(recipe.normal.results)
+      end
+
+      if recipe.expensive then
+        thxbob.lib.result_check(recipe.expensive)
+        normalize_results(recipe.expensive.results)
+      end
+      log(string.format("Changed format of results for recipe  \"%s\".", r_name))
+    end
+  end
+end
+
 
 
 ------------------------------------------------------------------------------------

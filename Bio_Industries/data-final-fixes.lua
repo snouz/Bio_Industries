@@ -400,6 +400,12 @@ require("prototypes.mod_compatibility.final_fixes.fixes_modIndustrialRevolution"
 
 
 ------------------------------------------------------------------------------------
+--                                 Pyanodon's mods                                --
+------------------------------------------------------------------------------------
+require("prototypes.mod_compatibility.final_fixes.fixes_modPyanodon")
+
+
+------------------------------------------------------------------------------------
 --   Deadlock's Stacking Beltboxes & Compact Loaders/Deadlock's Crating Machine   --
 ------------------------------------------------------------------------------------
 require("prototypes.mod_compatibility.final_fixes.fixes_modDeadlockStacking")

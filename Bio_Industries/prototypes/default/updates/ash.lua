@@ -18,7 +18,12 @@ local recipes = data.raw.recipe
 ------------------------------------------------------------------------------------
 --             If there is no item "ash", create our own ash instead!             --
 ------------------------------------------------------------------------------------
-if not items["ash"] then
+--~ if not items["ash"] then
+  --~ BioInd.create_stuff(BI.additional_items.ash)
+--~ end
+if items["ash"] then
+  BioInd.nothing_to_do()
+else
   BioInd.create_stuff(BI.additional_items.ash)
 end
 

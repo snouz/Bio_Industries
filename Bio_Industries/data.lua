@@ -5,8 +5,6 @@ BioInd.entered_file()
 ------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------
 
-BioInd.show("RECIPE BEFORE DATA.LUA", data.raw.recipe.flask)
-
 
 ------------------------------------------------------------------------------------
 --                                      Init                                      --
@@ -30,25 +28,36 @@ for k, v in pairs(BI.Settings) do
 end
 
 -- Set triggers depending on multiple settings/mods
-BI.Triggers = {
-  -- Create new tech "Refined concrete"?
-  BI_Trigger_Concrete           = BI.Settings.BI_Game_Tweaks_Recipe or
-                                  BI.Settings.BI_Rubber or
-                                  BI.Settings.BI_Stone_Crushing,
-  BI_Trigger_Easy_Bio_Gardens   = BI.Settings.BI_Bio_Garden and
-                                  BI.Settings.BI_Game_Tweaks_Easy_Bio_Gardens,
-  -- Move unlock of "Military 2" behind Rubber mats?
-  BI_Trigger_Rubber_Darts       = BI.Settings.BI_Rubber and
-                                  (BI.Settings.BI_Darts or mods["Natural_Evolution_Buildings"]),
-  -- Add prerequisite "Wood gasification" to "Rubber-coated concrete"?
-  BI_Trigger_Rubber_Woodgas     = BI.Settings.BI_Rubber and BI.Settings.BI_Wood_Gasification,
-  -- Create "bi-wood-floor" tiles? (Will be turned off if other mods create it!)
-  BI_Trigger_Woodfloor          = true,
-  -- Sort recipes into item-subgroups provided by other mods?
-  BI_Trigger_Subgroups          = BioInd.check_mods({"5dim_core"}),
-  -- Sort recipes into item-subgroups provided by other mods?
-  BI_Trigger_Subgroups_rail     = BioInd.check_mods({"5dim_core"}) and BI.Settings.BI_Rails,
-}
+require('set_triggers')
+--~ BI.Triggers = {
+  --~ -- Crafting of bioreactor recipes in the oil refinery?
+    --~ BI_Trigger_BiRefinery         = not BioInd.check_mods({"IndustrialRevolution"}) and
+                                    --~ data.raw["assembling-machine"]["oil-refinery"],
+  --~ -- Create new tech "Refined concrete"?
+    --~ BI_Trigger_Concrete           = BI.Settings.BI_Game_Tweaks_Recipe or
+                                    --~ BI.Settings.BI_Rubber or
+                                    --~ BI.Settings.BI_Stone_Crushing,
+  --~ -- Only create Crushed stone if no other mod provides an equivalent
+  --~ BI_Trigger_Crushed_Stone_Create = BI.Settings.BI_Stone_Crushing and
+                                    --~ not BioInd.check_mods({"IndustrialRevolution"}),
+  --~ -- Replace Crushed stone in recipes
+  --~ BI_Trigger_Crushed_Stone_Replace= not BI.Settings.BI_Stone_Crushing,
+  --~ -- Create fluid fertilizers
+  --~ BI_Trigger_Easy_Bio_Gardens     = BI.Settings.BI_Bio_Garden and
+                                    --~ BI.Settings.BI_Game_Tweaks_Easy_Bio_Gardens,
+  --~ -- Move unlock of "Military 2" behind Rubber mats?
+  --~ BI_Trigger_Rubber_Darts         = BI.Settings.BI_Rubber and
+                                    --~ (BI.Settings.BI_Darts or mods["Natural_Evolution_Buildings"]),
+  --~ -- Add prerequisite "Wood gasification" to "Rubber-coated concrete"?
+  --~ BI_Trigger_Rubber_Woodgas       = BI.Settings.BI_Rubber and BI.Settings.BI_Wood_Gasification,
+  --~ -- Sort recipes into item-subgroups provided by other mods?
+  --~ BI_Trigger_Subgroups            = BioInd.check_mods({"5dim_core"}),
+  --~ -- Sort recipes into item-subgroups provided by other mods?
+  --~ BI_Trigger_Subgroups_rail       = BioInd.check_mods({"5dim_core"}) and BI.Settings.BI_Rails,
+  --~ -- Create "bi-wood-floor" tiles unless "Dectorio" already does that
+  --~ BI_Trigger_Woodfloor            = not BioInd.get_startup_setting("dectorio-wood"),
+--~ }
+
 
 -- Allow mods to register names or patterns for black-/whitelisting items as
 -- fuel_items (see prototypes/fuel_values/read_patterns.lua!)
@@ -135,11 +144,6 @@ require("prototypes.default.fluids")
 ------------------------------------------------------------------------------------
 -- Default
 require("prototypes.default.entity")
--- Remnants must be loaded before the corresponding entities. These files will be
--- loaded by "prototypes.default.entity"!
-
---~ require("prototypes.default.entity_remnants")
---~ require("prototypes.default.entity_trees")
 
 
 ------------------------------------------------------------------------------------
@@ -176,7 +180,6 @@ require("prototypes.default.technology")
 ------------------------------------------------------------------------------------
 --             Data of all additional things that depend on a setting             --
 ------------------------------------------------------------------------------------
--- Setting
 require("prototypes.optional.additional_categories_ammo")
 require("prototypes.optional.additional_categories_item")
 require("prototypes.optional.additional_fluids")
@@ -282,11 +285,11 @@ require("prototypes.optional.optionRubber.technology_optionRubber")
 --                  Enable: Bio power production and distribution                 --
 --                        (BI.Settings.BI_Power_Production)                       --
 ------------------------------------------------------------------------------------
-require("prototypes.optional.optionSolarAdditions.categories_optionSolar")
-require("prototypes.optional.optionSolarAdditions.entity_optionSolar")
-require("prototypes.optional.optionSolarAdditions.item_optionSolar")
-require("prototypes.optional.optionSolarAdditions.recipe_optionSolar")
-require("prototypes.optional.optionSolarAdditions.technology_optionSolar")
+require("prototypes.optional.optionPowerProduction.categories_optionPower")
+require("prototypes.optional.optionPowerProduction.entity_optionPower")
+require("prototypes.optional.optionPowerProduction.item_optionPower")
+require("prototypes.optional.optionPowerProduction.recipe_optionPower")
+require("prototypes.optional.optionPowerProduction.technology_optionPower")
 
 
 ------------------------------------------------------------------------------------
@@ -341,22 +344,41 @@ require("prototypes.optional.tweaksSciencePack")
 ------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------
 --                                    TRIGGERS                                    --
+--                   (Running before mod-compatibility scripts)                   --
 ------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------
+require("prototypes.triggers.triggerBiRefinery")
+require("prototypes.triggers.triggerConcrete")
+require("prototypes.triggers.triggerCrushedStoneCreate")
+require("prototypes.triggers.triggerEasyBioGardens")
 
 
-------------------------------------------------------------------------------------
---                            Trigger: Easy Bio gardens                           --
---                    (BI.Triggers.BI_Trigger_Easy_Bio_Gardens)                   --
-------------------------------------------------------------------------------------
-require("prototypes.optional.triggerEasyBioGardens")
+--~ ------------------------------------------------------------------------------------
+--~ --           Trigger: Crafting of bioreactor recipes in the oil refinery          --
+--~ --                       (BI.Triggers.BI_Trigger_BiRefinery)                      --
+--~ ------------------------------------------------------------------------------------
+--~ require("prototypes.mod_compatibility.triggerBiRefinery")
 
 
-------------------------------------------------------------------------------------
---                     Trigger: Make tech for Refined concrete                    --
---                        (BI.Triggers.BI_Trigger_Concrete)                       --
-------------------------------------------------------------------------------------
-require("prototypes.optional.triggerConcrete")
+--~ ------------------------------------------------------------------------------------
+--~ --                     Trigger: Make tech for Refined concrete                    --
+--~ --                        (BI.Triggers.BI_Trigger_Concrete)                       --
+--~ ------------------------------------------------------------------------------------
+--~ require("prototypes.optional.triggerConcrete")
+
+
+--~ ------------------------------------------------------------------------------------
+--~ --                      Trigger: Create item "crushed stone"?                     --
+--~ --                  (BI.Triggers.BI_Trigger_Crushed_Stone_Create)                 --
+--~ ------------------------------------------------------------------------------------
+--~ require("prototypes.mod_compatibility.triggerCrushedStone")
+
+
+--~ ------------------------------------------------------------------------------------
+--~ --                            Trigger: Easy Bio gardens                           --
+--~ --                    (BI.Triggers.BI_Trigger_Easy_Bio_Gardens)                   --
+--~ ------------------------------------------------------------------------------------
+--~ require("prototypes.optional.triggerEasyBioGardens")
 
 
 
@@ -411,10 +433,10 @@ require("prototypes.mod_compatibility.modBobs")
 require("prototypes.mod_compatibility.modDectorio")
 
 
-------------------------------------------------------------------------------------
---                             Industrial Revolution 2                            --
-------------------------------------------------------------------------------------
-require("prototypes.mod_compatibility.modIndustrialRevolution")
+--~ ------------------------------------------------------------------------------------
+--~ --                             Industrial Revolution 2                            --
+--~ ------------------------------------------------------------------------------------
+--~ require("prototypes.mod_compatibility.modIndustrialRevolution")
 
 
 ------------------------------------------------------------------------------------
@@ -433,16 +455,17 @@ require("prototypes.mod_compatibility.modPyanodon")
 
 ------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------
---                                    TRIGGERS                                    --
+--                                 FINAL TRIGGERS                                 --
 ------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------
+--~ require("prototypes.triggers.posttriggerCrushedStoneCreate")
 
 
-------------------------------------------------------------------------------------
---                       Trigger: Create "wooden floor" tile                      --
---                       (BI.Triggers.BI_Trigger_Woodfloor)                       --
-------------------------------------------------------------------------------------
-require("prototypes.mod_compatibility.triggerWoodfloor")
+--~ ------------------------------------------------------------------------------------
+--~ --                       Trigger: Create "wooden floor" tile                      --
+--~ --                       (BI.Triggers.BI_Trigger_Woodfloor)                       --
+--~ ------------------------------------------------------------------------------------
+--~ require("prototypes.mod_compatibility.triggerWoodfloor")
 
 
 
@@ -469,11 +492,11 @@ require("prototypes.compound_entities.hidden_entities")
 ------------------------------------------------------------------------------------
 
 
-
-------------------------------------------------------------------------------------
---                           Add icons to our prototypes                          --
-------------------------------------------------------------------------------------
-BioInd.BI_add_icons()
+-- Moved to data-final-fixes!
+--~ ------------------------------------------------------------------------------------
+--~ --                           Add icons to our prototypes                          --
+--~ ------------------------------------------------------------------------------------
+--~ BioInd.BI_add_icons()
 
 
 ------------------------------------------------------------------------------------
@@ -487,76 +510,7 @@ BioInd.BI_add_unlocks()
 ------------------------------------------------------------------------------------
 BioInd.BI_add_difficulty()
 
---~ thxbob.lib.recipe.difficulty_split(recipe_in)
 
-
---~ BioInd.show("RECIPE AFTER DATA.LUA", data.raw.recipe.flask)
-
-
---~ data:extend({
-  --~ {
-    --~ category = "chemistry",
-    --~ enabled = false,
-    --~ energy_required = 3,
-    --~ ingredients = {
-      --~ {
-        --~ amount = 10,
-        --~ name = "iron-plate",
-        --~ type = "item"
-      --~ },
-      --~ {
-        --~ amount = 50,
-        --~ name = "hot-air",
-        --~ type = "fluid"
-      --~ }
-    --~ },
-    --~ results = {
-      --~ {
-        --~ amount = 4,
-        --~ name = "wood",
-        --~ type = "item"
-      --~ },
-      --~ {
-        --~ amount = 10,
-        --~ name = "water",
-        --~ type = "fluid"
-      --~ }
-    --~ },
-    --~ icons = {
-      --~ {
-        --~ icon = "__pyfusionenergygraphics__/graphics/icons/molybdenum-plate.png",
-        --~ icon_size = 32
-      --~ },
-      --~ {
-        --~ icon = "__pypetroleumhandlinggraphics__/graphics/icons/hot-air.png",
-        --~ icon_size = 32,
-        --~ shift = {
-          --~ -7.5,
-          --~ -7.5
-        --~ }
-      --~ }
-    --~ },
-    --~ main_product = "wood",
-    --~ name = "hotair-molybdenum-plate",
-    --~ type = "recipe"
-  --~ },
-
-  --~ {
-    --~ type = "fluid",
-    --~ name = "hot-air",
-    --~ icon = "__pypetroleumhandlinggraphics__/graphics/icons/hot-air.png",
-    --~ icon_size = 32,
-    --~ default_temperature = 15, -- less than 15 = liquid / equal a 15 = gas
-    --~ base_color = {r = 1, g = 0.250, b = 0.203},
-    --~ flow_color = {r = 1, g = 0.250, b = 0.203},
-    --~ max_temperature = 100,
-    --~ gas_temperature = 15,
-    --~ pressure_to_speed_ratio = 0.4,
-    --~ flow_to_energy_ratio = 0.59,
-    --~ order = "c"
-  --~ }
-
---~ })
 ------------------------------------------------------------------------------------
 --                                    END OF FILE                                 --
 ------------------------------------------------------------------------------------

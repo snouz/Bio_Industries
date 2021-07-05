@@ -176,6 +176,7 @@ BioInd.entered_function()
                   data.raw.recipe[recipe_in.name] or
                   data.raw.recipe[recipe_in]
 
+  local ret = true
   if recipe then
     recipe.normal = recipe.normal or {}
     recipe.expensive = recipe.expensive or {}
@@ -184,9 +185,11 @@ BioInd.entered_function()
       split_line(recipe, property)
     end
   else
-    BioInd.writeDebug("Recipe %s does not exist.", {recipe_in})
+    BioInd.writeDebug("Recipe %s does not exist.", {recipe_in and recipe_in.name or "nil"})
+    ret = false
   end
 BioInd.entered_function("leave")
+  return ret
 end
 
 

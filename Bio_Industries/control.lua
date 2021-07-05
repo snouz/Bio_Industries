@@ -1,12 +1,37 @@
 BioInd = require("__" .. script.mod_name .. "__.common")(script.mod_name)
 BioInd.entered_file()
 
-local settings_changed = require("settings_changed")
+------------------------------------------------------------------------------------
+--                            Require obligatory files!                           --
+------------------------------------------------------------------------------------
+-- External
+require ("util")
+require ("libs/util_ext")
+local Event = require('__stdlib__/stdlib/event/event').set_protected_mode(false)
+--~ local Event = require('__stdlib__/stdlib/event/event').set_protected_mode(true)
+
+-- Bio Industries
+local settings_changed = require("scripts/settings_changed")
+require ("scripts/control_tree")
+require ("scripts/control_arboretum")
+require ("scripts/control_sensor")
+
+
+------------------------------------------------------------------------------------
+--                             Require optional files!                            --
+------------------------------------------------------------------------------------
+if BioInd.get_startup_setting("BI_Bio_Cannon") then
+  require ("scripts/control_bio_cannon")
+end
 
 if BioInd.get_startup_setting("BI_Debug_gvv") then
   BioInd.writeDebug("Activating support for gvv!")
   require("__gvv__/gvv")()
 end
+
+---************** Used for Testing -----
+--require ("Test_Spawn")
+---*************
 
 
 -- We can't just check if Alien Biomes is active, because we need to know if
@@ -14,21 +39,6 @@ end
 -- game.get_tile_prototypes(), but this will crash in script.on_load(). So,
 -- let's just declare the variable here and fill it later.
 local AlienBiomes
-
---~ local Event = require('__stdlib__/stdlib/event/event').set_protected_mode(true)
-local Event = require('__stdlib__/stdlib/event/event').set_protected_mode(false)
-require ("util")
-require ("libs/util_ext")
-require ("control_tree")
-require ("control_arboretum")
-require ("control_sensor")
-
-if BioInd.get_startup_setting("BI_Bio_Cannon") then
-  require ("control_bio_cannon")
-end
----************** Used for Testing -----
---require ("Test_Spawn")
----*************
 
 
 local function Create_dummy_force()
@@ -436,10 +446,10 @@ end
 
 --------------------------------------------------------------------
 --- Used for some compatibility with Angels Mods
-Event.register(defines.events.on_player_joined_game, function(event)
-   local player = game.players[event.player_index]
-   local force = player.force
-   local techs = force.technologies
+--~ Event.register(defines.events.on_player_joined_game, function(event)
+   --~ local player = game.players[event.player_index]
+   --~ local force = player.force
+   --~ local techs = force.technologies
 
 --------------------------------------------------------------------
   -- This seems to be obsolete! I can't find Angel's setting and tech
@@ -452,8 +462,8 @@ Event.register(defines.events.on_player_joined_game, function(event)
       --~ techs['angels-fluid-barreling'].researched = false
       --~ techs['angels-fluid-barreling'].researched = _t
    --~ end
-  end)
 --------------------------------------------------------------------
+  --~ end)
 
 ---------------------------------------------
 Event.register(defines.events.on_trigger_created_entity, function(event)

@@ -793,8 +793,9 @@ log("compound entities: " .. serpent.block(common.compound_entities))
   ------------------------------------------------------------------------------------
   -- Function for removing invalid prototypes from list of compound entities
   common.rebuild_compound_entity_list = function()
-    local f_name = "rebuild_compound_entity_list"
-    common.writeDebug("Entered function %s()", {f_name})
+    --~ local f_name = "rebuild_compound_entity_list"
+    --~ common.writeDebug("Entered function %s()", {f_name})
+    common.entered_function()
 
     local ret = {}
     local h_type
@@ -859,14 +860,17 @@ common.show("related_tables", related_tables)
       end
     end
     common.show("ret", ret)
+    common.entered_function("leave")
     return ret
   end
 
   ------------------------------------------------------------------------------------
   -- Function to add all optional values for a compound entity to the table entry.
   common.add_optional_data = function(base)
-    local f_name = "add_optional_data"
-common.writeDebug("Entered function %s(%s)", {f_name, common.print_name_id(base)})
+    --~ local f_name = "add_optional_data"
+--~ common.writeDebug("Entered function %s(%s)", {f_name, common.print_name_id(base)})
+    common.entered_function()
+
     if not (base and base.valid and global.compound_entities[base.name]) then
       common.arg_err(base, "base of a compound entity")
     end
@@ -888,14 +892,16 @@ common.show("global[tab]", global[tab] or "nil")
         common.writeDebug("Added data to %s: %s = %s", {common.print_name_id(base), k, v})
       end
     end
+    common.entered_function("leave")
   end
 
 
   ------------------------------------------------------------------------------------
   -- Function for removing all parts of invalid compound entities
   common.clean_global_compounds_table = function(entity_name)
-    local f_name = "clean_table"
-common.writeDebug("Entered function %s(%s)", {f_name, entity_name or "nil"})
+    common.entered_function()
+    --~ local f_name = "clean_table"
+--~ common.writeDebug("Entered function %s(%s)", {f_name, entity_name or "nil"})
 common.writeDebug("Entries in common.compound_entities[%s]: %s", {entity_name, table_size(global.compound_entities[entity_name])})
 
     --~ local entity_table = global[common.compound_entities[entity_name].tab]
@@ -926,6 +932,7 @@ common.writeDebug("Removed %s %s", {entity_name, c})
 common.show("Removed entities", removed)
 common.show("Pruned list size", table_size(entity_table))
 --~ common.show("Pruned list", entity_table)
+    common.entered_function("leave")
     return removed
   end
 
@@ -933,8 +940,9 @@ common.show("Pruned list size", table_size(entity_table))
   ------------------------------------------------------------------------------------
   -- Function to resore missing parts of compound entities
   common.restore_missing_entities = function(entity_name)
-    local f_name = "restore_missing_entities"
-common.writeDebug("Entered function %s(%s)", {f_name, entity_name or "nil"})
+    common.entered_function()
+    --~ local f_name = "restore_missing_entities"
+--~ common.writeDebug("Entered function %s(%s)", {f_name, entity_name or "nil"})
 --~ common.writeDebug("global.compound_entities[%s]: %s", {entity_name, global.compound_entities[entity_name]})
 common.writeDebug("global.compound_entities[%s]: %s entries", {entity_name, table_size(global.compound_entities[entity_name])})
 
@@ -968,6 +976,7 @@ common.writeDebug("%s is valid -- checking hidden entities!", {common.print_name
 common.writeDebug("Checked %s compound entities", {checked})
 common.writeDebug("Restored %s entities", {restored})
 --~ common.show("Fixed list", entity_table)
+    common.entered_function("leave")
     return {checked = checked, restored = restored}
   end
 
@@ -975,8 +984,9 @@ common.writeDebug("Restored %s entities", {restored})
   ------------------------------------------------------------------------------------
   -- Function to find all unregistered compound entities of a particular type
   common.register_in_compound_entity_tab = function(compound_name)
-  local f_name = "register_in_compound_entity_tab"
-    common.writeDebug("Entered function %s(%s)", {f_name, compound_name})
+    common.entered_function()
+  --~ local f_name = "register_in_compound_entity_tab"
+    --~ common.writeDebug("Entered function %s(%s)", {f_name, compound_name})
 
     local cnt = 0
     local h_cnt = 0
@@ -1038,14 +1048,17 @@ common.writeDebug("Restored %s entities", {restored})
       end
     end
     common.writeDebug("Registered %s compound entities and created %s hidden entities", {cnt, h_cnt})
+
+    common.entered_function("leave")
     return cnt
   end
 
   ------------------------------------------------------------------------------------
   -- Function to find all unregistered compound entities
   common.find_unregistered_entities = function()
-    local f_name = "find_unregistered_entities"
-    common.writeDebug("Entered function %s()", {f_name})
+    common.entered_function()
+    --~ local f_name = "find_unregistered_entities"
+    --~ common.writeDebug("Entered function %s()", {f_name})
 
     local cnt = 0
     for compound_entity, c in pairs(global.compound_entities) do
@@ -1053,6 +1066,7 @@ common.writeDebug("Restored %s entities", {restored})
     end
 
     common.writeDebug("Registered %s compound entities.", {cnt})
+    common.entered_function("leave")
     return cnt
   end
 
@@ -1108,9 +1122,10 @@ common.writeDebug("Restored %s entities", {restored})
   -- Create and register hidden entities
   --~ common.create_entities = function(g_table, base_entity, hidden_entity_names, position, ...)
   common.create_entities = function(g_table, base_entity, hidden_entities)
-    local f_name = "create_entities"
-    common.writeDebug("Entered function %s(%s, %s, %s)",
-                      {f_name, "g_table", base_entity, hidden_entities})
+    common.entered_function()
+    --~ local f_name = "create_entities"
+    --~ common.writeDebug("Entered function %s(%s, %s, %s)",
+                      --~ {f_name, "g_table", base_entity, hidden_entities})
     common.show("#g_table", g_table and table_size(g_table))
     --~ common.show("hidden_entities", hidden_entities)
 
@@ -1165,13 +1180,16 @@ common.show("data", data)
     -- Add optional values to global table
     common.add_optional_data(base_entity)
     common.writeDebug("g_table[%s]: %s", {base_entity.unit_number, g_table[base_entity.unit_number]})
+
+    common.entered_function("leave")
   end
 
 
   --------------------------------------------------------------------
   -- Make a list of the pole types that Bio gardens may connect to
   common.get_garden_pole_connectors = function()
-    --~ local ret = {}
+    common.entered_function("leave")
+
     local ret
     if common.get_startup_setting("BI_Game_Tweaks_Easy_Bio_Gardens") then
 common.writeDebug("\"Easy gardens\": Compiling list of poles they can connect to!" )
@@ -1192,6 +1210,8 @@ common.writeDebug("\"Easy gardens\": Compiling list of poles they can connect to
     else
 common.writeDebug("\"Easy gardens\": Not active -- nothing to do!" )
     end
+
+    common.entered_function("leave")
     return ret
   end
 
@@ -1201,6 +1221,7 @@ common.writeDebug("\"Easy gardens\": Not active -- nothing to do!" )
   -- added to the table yet if the pole has just been built. In this
   -- case, we pass on the new pole explicitly!)
   common.connect_garden_pole = function(base, new_pole)
+    common.entered_function({common.argprint(base), common.argprint(new_pole)})
     local compound_entity = global.compound_entities["bi-bio-garden"]
     --~ local pole_type = "electric-pole"
     --~ local pole = global[compound_entity.tab][base.unit_number] and
@@ -1262,6 +1283,7 @@ common.writeDebug("Connected pole %g to neighbour %s (%g): %s",
                   {pole.unit_number, neighbour.name, neighbour.unit_number, connected})
       end
     end
+    common.entered_function("leave")
   end
 
   --------------------------------------------------------------------
@@ -1271,6 +1293,7 @@ common.writeDebug("Connected pole %g to neighbour %s (%g): %s",
   -- added to the table yet if the pole has just been built. In this
   -- case, we pass on the new pole explicitly!)
   common.connect_power_rail = function(base, new_pole)
+    common.entered_function({common.argprint(base), common.argprint(new_pole)})
     --~ local pole_type = "electric-pole"
 
     local pole = global.bi_power_rail_table[base.unit_number].pole or new_pole
@@ -1317,6 +1340,8 @@ common.writeDebug("Rail %s of %s (%s): %s (%s)", {direction, base.name, base.uni
       end
       common.writeDebug("Stored %s (%g) in global table", {base.name, base.unit_number})
     end
+
+    common.entered_function("leave")
   end
 
 
@@ -1419,11 +1444,15 @@ common.writeDebug("Rail %s of %s (%s): %s (%s)", {direction, base.name, base.uni
     end
     for l, recipe_list in pairs(BI.additional_recipes) do
       for r, recipe in pairs(recipe_list) do
-        thxbob.lib.recipe.difficulty_split(recipe)
-        common.modified_msg("difficulties", recipe, "Added")
+        --~ thxbob.lib.recipe.difficulty_split(recipe)
+        --~ common.modified_msg("difficulties", recipe, "Added")
+        if thxbob.lib.recipe.difficulty_split(recipe) then
+          common.modified_msg("difficulties", recipe, "Added")
+        end
       end
     end
 
+    common.entered_function("leave")
   end
 
   ------------------------------------------------------------------------------------

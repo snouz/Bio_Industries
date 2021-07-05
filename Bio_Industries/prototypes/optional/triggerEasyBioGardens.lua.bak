@@ -2,13 +2,7 @@
 --                            Trigger: Easy Bio gardens                           --
 --                    (BI.Triggers.BI_Trigger_Easy_Bio_Gardens)                   --
 ------------------------------------------------------------------------------------
---~ local setting = "BI_Game_Tweaks_Easy_Bio_Gardens"
---~ if not BI.Settings[setting] then
-  --~ BioInd.nothing_to_do("*")
-  --~ return
---~ else
-  --~ BioInd.entered_file()
---~ end
+-- Settings: BI.Settings.BI_Bio_Garden and BI.Settings.BI_Game_Tweaks_Easy_Bio_Gardens
 local trigger = "BI_Trigger_Easy_Bio_Gardens"
 if not BI.Triggers[trigger] then
   BioInd.nothing_to_do("*")

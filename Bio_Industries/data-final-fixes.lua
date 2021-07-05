@@ -108,8 +108,7 @@ require("prototypes.mod_compatibility.final_fixes.fixes_modNEBuildings")
 ------------------------------------------------------------------------------------
 --               Sort recipes/items into other mods' item-subgroups               --
 ------------------------------------------------------------------------------------
-require("prototypes.mod_compatibility.final_fixes.fixes_triggerSubgroups")
-require("prototypes._final_fixes.fixes_triggerSubgroupsVanillaRail")
+require("prototypes.triggers._final_fixes.fixes_triggerSubgroups")
 
 
 

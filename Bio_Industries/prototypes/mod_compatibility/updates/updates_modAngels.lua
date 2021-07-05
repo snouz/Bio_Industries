@@ -216,7 +216,7 @@ if mods["angelspetrochem"] and BI.Settings.BI_Bio_Fuel then
   -- Biomass conversion (Light oil --> Fuel oil)
   recipe = recipes[BI.additional_recipes.BI_Bio_Fuel.bio_mass_conversion_light_oil.name]
   if recipe then
-    recipe.  localised_name = {
+    recipe.localised_name = {
       "recipe-name.bi-biomass-conversion",
       {"fluid-name.bi-biomass"},
       5,

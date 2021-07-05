@@ -3,7 +3,6 @@
 ------------------------------------------------------------------------------------
 if not BioInd.check_mods({
   "angelspetrochem",
-  --~ "angelsbioprocessing",
   "angelsrefining"
 }) then
   BioInd.nothing_to_do("*")
@@ -32,8 +31,8 @@ if fluids["water-purified"] and
     fluids["water-mineralized"] and
     BI.additional_items.BI_Coal_Processing and
       items[BI.additional_items.BI_Coal_Processing.wood_charcoal.name] and
-     BI.additional_items.BI_Stone_Crushing and
-      items[BI.additional_items.BI_Stone_Crushing.crushed_stone.name] then
+     BI.additional_items.BI_Trigger_Crushed_Stone_Create and
+      items[BI.additional_items.BI_Trigger_Crushed_Stone_Create.crushed_stone.name] then
 
   BioInd.create_stuff(BI.additional_recipes.mod_compatibility.sulfuric_waste)
 end

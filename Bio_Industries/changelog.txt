@@ -80,6 +80,9 @@ Date: 2021-06-?
 
     - Fixed that there could still be hidden entities of Musk floor left although the main tile had been removed.
     - Fixed that electric poles placed on Musk floor would waste all available connections on hidden poles.
+    - Some more restructuring (new folders "scripts" and "triggers"), some more triggers.
+    - Added hidden optional dependencies for "Artisanal Reskin" mods
+
 
   Modding:
     - Migrated some recipes ("bi-sulfur-angels", "bi-crushed-stone-X", "bi-biomass-conversion-X", "bi-acid") and technologies ("bi-tech-bio-cannon", "bi-tech-advanced-fertilizers")
@@ -125,7 +128,6 @@ Date: 2021-06-?
     - Set pollution sensor to  entity.active/entity.operable = "false"!
     - Use bricks+wood instead of crushed stone for bio farms!
 
-    - Check why recipe can be use "item-name.alien-artifact" even if there is none in the game!
     -
 
 ---------------------------------------------------------------------------------------------------

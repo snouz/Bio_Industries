@@ -15,12 +15,14 @@ end
 ------------------------------------------------------------------------------------
 
 
+local recipe
+local recipes = data.raw.recipe
+local items = data.raw.item
+
+
 ------------------------------------------------------------------------------------
 --                       Change ingredients of some recipes                       --
 ------------------------------------------------------------------------------------
-local recipe
-local recipes = data.raw.recipe
-
 
 --- Concrete (Replace iron ore with iron sticks)
 recipe = recipes["concrete"]
@@ -48,28 +50,8 @@ end
 
 
 -- Rails (Replace stone with crushed stone)
-if data.raw.item["stone-crushed"] then
-  --~ recipe = recipes["rail"]
-  --~ if recipe then
-    --~ thxbob.lib.recipe.remove_ingredient(recipe.name, "stone")
-    --~ thxbob.lib.recipe.add_new_ingredient(recipe.name, {
-      --~ type = "item",
-      --~ name = "stone-crushed",
-      --~ amount = 6
-    --~ })
-    --~ BioInd.modified_msg("ingredients", recipe)
-  --~ end
-
-  --~ recipe = recipes["bi-rail-wood"]
-  --~ if recipe then
-    --~ thxbob.lib.recipe.remove_ingredient(recipe.name, "stone")
-    --~ thxbob.lib.recipe.add_new_ingredient(recipe.name, {
-      --~ type = "item",
-      --~ name = "stone-crushed",
-      --~ amount = 6
-    --~ })
-    --~ BioInd.modified_msg("ingredients", recipe)
-  --~ end
+--~ if data.raw.item["stone-crushed"] then
+if BI.Triggers.BI_Trigger_Crushed_Stone_Create then
   for _, r in ipairs({"rail", "bi-rail-wood"}) do
    recipe = recipes[r]
     if recipe then

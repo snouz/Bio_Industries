@@ -144,36 +144,44 @@ require("prototypes.optional._updates.updates_tweaksRecipeTweaks")
 ------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------
 --                                    TRIGGERS                                    --
+--                   (Running before mod-compatibility scripts)                   --
 ------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------
+require("prototypes.triggers._updates.updates_triggerConcrete")
+require("prototypes.triggers._updates.updates_triggerEasyBioGardens")
+require("prototypes.triggers._updates.updates_triggerRubberDarts")
+require("prototypes.triggers._updates.updates_triggerRubberWoodgas")
+require("prototypes.triggers._updates.updates_triggerStoneCrushingReplace")
+require("prototypes.triggers._updates.updates_triggerSubgroups")
+require("prototypes.triggers._updates.updates_triggerWoodfloor")
 
 
-------------------------------------------------------------------------------------
---                            Trigger: Easy Bio gardens                           --
---                    (BI.Triggers.BI_Trigger_Easy_Bio_Gardens)                   --
-------------------------------------------------------------------------------------
-require("prototypes.optional._updates.updates_triggerEasyBioGardens")
+--~ ------------------------------------------------------------------------------------
+--~ --                            Trigger: Easy Bio gardens                           --
+--~ --                    (BI.Triggers.BI_Trigger_Easy_Bio_Gardens)                   --
+--~ ------------------------------------------------------------------------------------
+--~ require("prototypes.optional._updates.updates_triggerEasyBioGardens")
 
 
-------------------------------------------------------------------------------------
---                     Trigger: Make tech for Refined concrete                    --
---                        (BI.Triggers.BI_Trigger_Concrete)                       --
-------------------------------------------------------------------------------------
-require("prototypes.optional._updates.updates_triggerConcrete")
+--~ ------------------------------------------------------------------------------------
+--~ --                     Trigger: Make tech for Refined concrete                    --
+--~ --                        (BI.Triggers.BI_Trigger_Concrete)                       --
+--~ ------------------------------------------------------------------------------------
+--~ require("prototypes.optional._updates.updates_triggerConcrete")
 
 
-------------------------------------------------------------------------------------
---  Trigger: Change prerequisites of "Military 2" (depends on "Rubber" + "Darts") --
---                      (BI.Triggers.BI_Trigger_Rubber_Darts)                     --
-------------------------------------------------------------------------------------
-require("prototypes.optional._updates.updates_triggerRubberDarts")
+--~ ------------------------------------------------------------------------------------
+--~ --  Trigger: Change prerequisites of "Military 2" (depends on "Rubber" + "Darts") --
+--~ --                      (BI.Triggers.BI_Trigger_Rubber_Darts)                     --
+--~ ------------------------------------------------------------------------------------
+--~ require("prototypes.optional._updates.updates_triggerRubberDarts")
 
 
-------------------------------------------------------------------------------------
--- Trigger: Change prerequisites of "Rubber mat" if "Wood gasification" is active --
---                      (BI.Triggers.BI_Trigger_Rubber_Woodgas)                   --
-------------------------------------------------------------------------------------
-require("prototypes.optional._updates.updates_triggerRubberWoodgas")
+--~ ------------------------------------------------------------------------------------
+--~ -- Trigger: Change prerequisites of "Rubber mat" if "Wood gasification" is active --
+--~ --                      (BI.Triggers.BI_Trigger_Rubber_Woodgas)                   --
+--~ ------------------------------------------------------------------------------------
+--~ require("prototypes.optional._updates.updates_triggerRubberWoodgas")
 
 
 ------------------------------------------------------------------------------------
@@ -267,10 +275,11 @@ require("prototypes.mod_compatibility.updates.updates_triggerSubgroups")
 ------------------------------------------------------------------------------------
 
 
-------------------------------------------------------------------------------------
---                           Add icons to our prototypes                          --
-------------------------------------------------------------------------------------
-BioInd.BI_add_icons()
+-- Moved to data-final-fixes!
+--~ ------------------------------------------------------------------------------------
+--~ --                           Add icons to our prototypes                          --
+--~ ------------------------------------------------------------------------------------
+--~ BioInd.BI_add_icons()
 
 
 ------------------------------------------------------------------------------------

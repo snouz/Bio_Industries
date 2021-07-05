@@ -24,6 +24,13 @@ for s, setting in pairs(settings) do
 end
 
 
+local triggers = {
+  "BI_Trigger_Crushed_Stone_Create",
+}
+for t, trigger in pairs(triggers) do
+  BI.additional_items[trigger] = BI.additional_items[trigger] or {}
+end
+
 ------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------
 
@@ -698,27 +705,28 @@ BI.additional_items.BI_Stone_Crushing.stone_crusher = {
   stack_size = 10
 }
 
--- Crushed Stone
-BI.additional_items.BI_Stone_Crushing.crushed_stone = {
-  type = "item",
-  name = "stone-crushed",
-  icon = ICONPATH .. "crushed-stone.png",
-  icon_size = 64, icon_mipmaps = 3,
-  BI_add_icon = true,
-  --~ icon_mipmaps = 4,
-  --~ pictures = {
-    --~ { size = 64, filename = ICONPATHMIPS.."crush_1.png", scale = 0.2 },
-    --~ { size = 64, filename = ICONPATHMIPS.."crush_2.png", scale = 0.2 },
-    --~ { size = 64, filename = ICONPATHMIPS.."crush_3.png", scale = 0.2 },
-    --~ { size = 64, filename = ICONPATHMIPS.."crush_4.png", scale = 0.2 }
-  --~ },
-  subgroup = "raw-material",
-  order = "a[bi]-a-z[stone-crushed]",
-  -- Changed for 0.18.34/1.1.4
-  --~ stack_size = 800
-  stack_size = 400
-}
-BI.additional_items.BI_Stone_Crushing.crushed_stone.pictures = BioInd.add_pix("crush", 4)
+-- Moved this to triggers!
+--~ -- Crushed Stone
+--~ BI.additional_items.BI_Stone_Crushing.crushed_stone = {
+  --~ type = "item",
+  --~ name = "stone-crushed",
+  --~ icon = ICONPATH .. "crushed-stone.png",
+  --~ icon_size = 64, icon_mipmaps = 3,
+  --~ BI_add_icon = true,
+  --icon_mipmaps = 4,
+  --pictures = {
+    --{ size = 64, filename = ICONPATHMIPS.."crush_1.png", scale = 0.2 },
+    --{ size = 64, filename = ICONPATHMIPS.."crush_2.png", scale = 0.2 },
+    --{ size = 64, filename = ICONPATHMIPS.."crush_3.png", scale = 0.2 },
+    --{ size = 64, filename = ICONPATHMIPS.."crush_4.png", scale = 0.2 }
+  --},
+  --~ subgroup = "raw-material",
+  --~ order = "a[bi]-a-z[stone-crushed]",
+  --~ -- Changed for 0.18.34/1.1.4
+  --stack_size = 800
+  --~ stack_size = 400
+--~ }
+--~ BI.additional_items.BI_Stone_Crushing.crushed_stone.pictures = BioInd.add_pix("crush", 4)
 
 
 ------------------------------------------------------------------------------------
@@ -1065,6 +1073,39 @@ BI.additional_items.BI_Rails.power_to_rail_pole = {
   --~ subgroup_order_5d = "n-a",
   order_5d = "[Bio_Industries]-[rails]-c[powered]-c[connector]",
 }
+
+
+
+------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
+--                                    Triggers                                    --
+------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
+
+
+------------------------------------------------------------------------------------
+--                      Trigger: Create item "crushed stone"?                     --
+--                  (BI.Triggers.BI_Trigger_Crushed_Stone_Create)                 --
+------------------------------------------------------------------------------------
+-- Crushed Stone
+BI.additional_items.BI_Trigger_Crushed_Stone_Create.crushed_stone = {
+  type = "item",
+  name = "stone-crushed",
+  icon = ICONPATH .. "crushed-stone.png",
+  icon_size = 64, icon_mipmaps = 3,
+  BI_add_icon = true,
+  --~ --icon_mipmaps = 4,
+  --~ --pictures = {
+    --~ --{ size = 64, filename = ICONPATHMIPS.."crush_1.png", scale = 0.2 },
+    --~ --{ size = 64, filename = ICONPATHMIPS.."crush_2.png", scale = 0.2 },
+    --~ --{ size = 64, filename = ICONPATHMIPS.."crush_3.png", scale = 0.2 },
+    --~ --{ size = 64, filename = ICONPATHMIPS.."crush_4.png", scale = 0.2 }
+  --~ --},
+  subgroup = "raw-material",
+  order = "a[bi]-a-z[stone-crushed]",
+  stack_size = 400
+}
+BI.additional_items.BI_Trigger_Crushed_Stone_Create.crushed_stone.pictures = BioInd.add_pix("crush", 4)
 
 
 -- Status report

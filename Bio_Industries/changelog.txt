@@ -1,13 +1,15 @@
 ---------------------------------------------------------------------------------------------------
 Version: 1.2.0
-Date: 2021-03-?
+Date: 2021-06-?
   Uploaded by:
     - Pi-C & Snouz
 
   Features:
-    - 47 new technologies (replacing existing ones)
-    - New building: the Large garden (9x9), like 9 Gardens but ~19% more cost efficient
-    - New building: the Huge garden (27x27), like 9 Large gardens but ~19% more cost efficient
+    - Made the mod very modular: "Coal processing", "Early wooden defenses", "Explosive planting", "Bio gardens", "Resin extraction", "Stone crushing", "Terraforming", "Wood products", and "Wooden rails" are now also optional.
+    - 59 new technologies (replacing existing ones)
+    - 2 new gardens: the Large garden (9x9), and the Huge garden (27x27), each 9x larger but 19% more efficient than the previous one.
+    - New building: the pollution sensor. Outputs a signal of the air pollution in the chunk.
+    - New items and recipes: Rubber, Rubber-Coated Concrete, Diluted Bitumen, Poison Artillery Shell.
 
   Graphics:
     - New visuals, animations & lighting for all buildings (Bio nurseries, Bio farms, Cokeries, Stone crushers, Bio reactors, terraformers, Bio-gardens, Large chests, huge chests, Gigantic chests, Big poles, Huge poles, Wood pipes, Solar farms, Solar power plants & boilers, Huge accumulators, Wooden fences, Prototype artillery, bio boilers, Dart turrets, projectiles)
@@ -21,6 +23,7 @@ Date: 2021-03-?
     - Advanced and normal fertilizers recipes make terraformers, gardens, farms and nurseries glow green or pink.
     - Removed useless secondary selection boxes.
     - New mod logo.
+    - 9 New signals (for blueprints, circuits, map points...)
 
   Localization:
     - Most descriptions and recipe titles rewritten to be more concise.
@@ -28,7 +31,6 @@ Date: 2021-03-?
     - Color-coded the settings list according to default value (green for "on", orange for "off").
 
   Changes:
-    - Made the mod more modular: "Coal processing", "Early wooden defenses", "Explosive planting", "Bio gardens", "Resin extraction", "Stone crushing", "Terraforming", "Wood products", and "Wooden rails" are now also optional.
     - Re-organized mod recipes in a cleaner, more logical way.
     - Re-ordered items in the logistic request window to put them in vanilla categories
     - "Bio fuel conversion" numbers inverted.

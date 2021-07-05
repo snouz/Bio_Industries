@@ -88,7 +88,7 @@ BI.additional_fluids.BI_Wood_Gasification.tar = {
   base_color = {r=0.05, g=0.05, b=0.05},
   flow_color = {r=0.1, g=0.1, b=0.1},
   max_temperature = 250,
-  icon = ICONPATH .. "fluid_fertilizer_advanced.png",
+  icon = ICONPATH .. "fluid_diluted_bitumen.png",
   icon_size = 64, icon_mipmaps = 3,
   pressure_to_speed_ratio = 0.2,
   flow_to_energy_ratio = 0.80,

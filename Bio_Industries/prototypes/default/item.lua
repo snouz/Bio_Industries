@@ -70,6 +70,19 @@ BI.default_items.cokery = {
   stack_size = 10
 }
 
+-- Cokery
+BI.default_items.pollution_sensor = {
+  type = "item",
+  name = "bi-pollution-sensor",
+  icon = ICONPATH .. "entity/pollution_sensor.png",
+  icon_size = 64, icon_mipmaps = 3,
+  BI_add_icon = true,
+  subgroup = "circuit-network",
+  order = "c[combinators]-cb[pollution-detector]",
+  place_result = "bi-pollution-sensor",
+  stack_size = 50,
+}
+
 
 ------------------------------------------------------------------------------------
 --                                   Seeds and seedlings                              --

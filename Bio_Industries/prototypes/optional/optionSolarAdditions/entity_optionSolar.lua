@@ -133,27 +133,24 @@ BI.additional_entities[setting].solar_farm = {
     layers = {
       {
         filename = ENTITYPATH .. "bio_solar_farm/Bio_Solar_Farm.png",
-        priority = "low",
-        width = 312,
-        height = 289,
+        width = 290,
+        height = 300,
         frame_count = 1,
         direction_count = 1,
         scale = 1,
-        shift = {0.3, 0},
+        shift = util.by_pixel(0, -10),
           hr_version = {
           filename = ENTITYPATH .. "bio_solar_farm/hr_Bio_Solar_Farm.png",
-          priority = "low",
-          width = 624,
-          height = 578,
+          width = 580,
+          height = 600,
           scale = 0.5,
           frame_count = 1,
           direction_count = 1,
-          shift = {0.3, 0},
+          shift = util.by_pixel(0, -10),
         }
       },
       {
         filename = ENTITYPATH .. "bio_solar_farm/Bio_Solar_Farm_shadow.png",
-        priority = "low",
         width = 312,
         height = 289,
         frame_count = 1,
@@ -163,7 +160,6 @@ BI.additional_entities[setting].solar_farm = {
         draw_as_shadow = true,
           hr_version = {
           filename = ENTITYPATH .. "bio_solar_farm/hr_Bio_Solar_Farm_shadow.png",
-          priority = "low",
           width = 624,
           height = 578,
           scale = 0.5,

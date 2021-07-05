@@ -336,3 +336,15 @@ Using in CONTROL.lua and in other code for reading:
       GET: set = settings.get_player_settings(LuaPlayer) - current values for per-player settings; then use set["setting-name"].value
       GET: settings.player - default values
 ]]
+
+--[[data:extend({
+  {  
+    type = "int-setting",
+    name = "pollution_detector_update_interval",
+    order = "aa",
+    setting_type = "runtime-global",
+    default_value = 120,
+    minimum_value = 1,
+    maximum_value = 216000, -- 1h
+  },  
+})]]--

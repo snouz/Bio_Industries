@@ -3166,8 +3166,8 @@ BI.additional_recipes.BI_Wood_Gasification.wood_gasification = {
   type = "recipe",
   name = "bi-wood-gasification",
   category = "chemistry",
-  subgroup = "bio-bio-fuel-other",
-  order = "[bi-wood-gasification]",
+  subgroup = "bio-bio-fuel-fluid",
+  order = "z[bi-wood-gasification]",
   enabled = false,
   energy_required = 5,
   ingredients = {
@@ -3177,8 +3177,8 @@ BI.additional_recipes.BI_Wood_Gasification.wood_gasification = {
     {type="fluid", name="petroleum-gas", amount=20},
     {type="fluid", name="tar", amount=8},
   },
-  icon = ICONPATH .. "fluid_fertilizer_advanced.png",
-  icon_size = 64, icon_mipmaps = 3,
+  icon = ICONPATH .. "diluted_bitumen_from_wood.png",
+  icon_size = 64, icon_mipmaps = 4,
   BI_add_icon = true,
   crafting_machine_tint = {
     primary = {r = 0.698, g = 0.698, b = 0.698, a = 0.000}, -- #7f7f7f00
@@ -3203,8 +3203,8 @@ BI.additional_recipes.BI_Wood_Gasification.solid_fuel = {
   category = "chemistry",
   enabled = false,
   energy_required = 5,
-  icon = ICONPATH .. "fluid_fertilizer_advanced.png",
-  icon_size = 64, icon_mipmaps = 3,
+  icon = ICONPATH .. "solid_fuel_from_bitumen.png",
+  icon_size = 64, icon_mipmaps = 4,
   BI_add_icon = true,
   ingredients = {
     {type="fluid", name="tar", amount=32},

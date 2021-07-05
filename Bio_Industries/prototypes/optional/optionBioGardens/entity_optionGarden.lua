@@ -117,7 +117,7 @@ BI.additional_entities[setting].bio_garden = {
       base_level = -1,
       pipe_connections = {{ type = "input", position = {0, -2} }}
     },
-    off_when_no_fluid_recipe = true
+    off_when_no_fluid_recipe = false
   },
   animation = {
     layers = {
@@ -186,7 +186,7 @@ BI.additional_entities[setting].bio_garden = {
             frame_count = 10,
             line_length = 5,
             repeat_count = 2,
-            animation_speed = 0.431,
+            animation_speed = 0.1,
             shift = {0, -0.75},
             hr_version = {
               filename = ENTITYPATH .. "biogarden/hr_bio_garden_anim_light.png",
@@ -196,7 +196,7 @@ BI.additional_entities[setting].bio_garden = {
               frame_count = 10,
               line_length = 5,
               repeat_count = 2,
-              animation_speed = 0.431,
+              animation_speed = 0.1,
               shift = {0, -0.75},
             },
           },

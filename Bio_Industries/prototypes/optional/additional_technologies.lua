@@ -1507,7 +1507,7 @@ BI.additional_techs.BI_Wood_Gasification.wood_gasification = {
     {"fluid-name.petroleum-gas"},
     {"fluid-name.tar"},
   },
-  icon = ICONPATH .. "bi-tech-refined-concrete.png",
+  icon = ICONPATH .. "bi-tech-wood-gasification.png",
   icon_size = 256, icon_mipmaps = 4,
   BI_add_icon = true,
   effects = {

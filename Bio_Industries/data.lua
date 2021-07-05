@@ -106,10 +106,11 @@ require("libs.bi_functions")
 
 
 ------------------------------------------------------------------------------------
---                          Categories, item groups etc.                          --
+--                          Categories, item groups, sigals etc.                          --
 ------------------------------------------------------------------------------------
 -- Default
 require("prototypes.default.categories")
+require("prototypes.default.signal")
 
 ------------------------------------------------------------------------------------
 --                                     Fluids                                     --

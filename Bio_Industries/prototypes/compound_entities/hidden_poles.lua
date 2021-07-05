@@ -195,6 +195,10 @@ for pole_name, locale_name in pairs(BI.hidden_entities.types[h_key] or {}) do
     pole.maximum_wire_distance = 19
     pole.draw_copper_wires = true
     pole.selection_box = {{-0.5, -0.5}, {0.5, 0.5}}
+    pole.connection_points = {{
+      shadow = { copper = util.by_pixel(60, 0), },
+      wire = { copper = util.by_pixel(0, -60), },
+    }}
     pole.selectable_in_game = true
     pole.selection_priority = 100
     shift_picture(pole)
@@ -223,3 +227,12 @@ end
 --                                    END OF FILE
 ------------------------------------------------------------------------------------
 BioInd.entered_file("leave")
+
+
+
+
+--snouz: I couldn't find the hidden pole for the solar boiler, but it should have this position:
+--connection_points = {{
+--      shadow = { copper = util.by_pixel(55, 0), },
+--      wire = { copper = util.by_pixel(-19, -69), },
+--    }}

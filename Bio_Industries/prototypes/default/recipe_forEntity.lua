@@ -216,6 +216,57 @@ BI.default_recipes.bio_reactor = {
   BI_add_to_tech = {"bi-tech-biomass"},
 }
 
+------------------------------------------------------------------------------------
+--                                Pollution entities                              --
+------------------------------------------------------------------------------------
+-- Pollution sensor
+BI.default_recipes.pollution_sensor = {
+  type = "recipe",
+  name = "bi-pollution-sensor",
+  localised_name = {"entity-name.bi-pollution-sensor"},
+  --~ localised_description = {"entity-description.bi-bio-reactor"},
+  icon = ICONPATH .. "entity/pollution_sensor.png",
+  icon_size = 64, icon_mipmaps = 4,
+  BI_add_icon = true,
+  normal = {
+    enabled = false,
+    energy_required = 1,
+    ingredients =
+    {
+      {"constant-combinator", 1},
+      {"advanced-circuit", 5}
+    },
+    result = "bi-pollution-sensor",
+    result_count = 1,
+    allow_as_intermediate = false,    -- Added for 0.18.34/1.1.4
+    always_show_made_in = false,      -- Added for 0.18.34/1.1.4
+    allow_decomposition = true,       -- Added for 0.18.34/1.1.4
+  },
+  expensive = {
+    enabled = false,
+    energy_required = 30,
+    ingredients =
+    {
+      {"constant-combinator", 2},
+      {"advanced-circuit", 6}
+    },
+    result = "bi-pollution-sensor",
+    result_count = 1,
+    allow_as_intermediate = false,    -- Added for 0.18.34/1.1.4
+    always_show_made_in = false,      -- Added for 0.18.34/1.1.4
+    allow_decomposition = true,       -- Added for 0.18.34/1.1.4
+  },
+  subgroup = "circuit-network",
+  order = "c[combinators]-c[constant-combinator2]",
+  --~ always_show_made_in = true,
+  --~ allow_decomposition = false,
+  allow_as_intermediate = false,      -- Changed for 0.18.34/1.1.4
+  always_show_made_in = false,        -- Changed for 0.18.34/1.1.4
+  allow_decomposition = true,         -- Changed for 0.18.34/1.1.4  },
+  -- Custom property that allows to automatically add our recipes to tech unlocks.
+  BI_add_to_tech = {"bi-tech-pollution-sensor"},
+}
+
 
 ------------------------------------------------------------------------------------
 --                                 Create recipes                                 --

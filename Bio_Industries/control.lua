@@ -21,6 +21,7 @@ require ("util")
 require ("libs/util_ext")
 require ("control_tree")
 require ("control_arboretum")
+require ("control_sensor")
 if BioInd.get_startup_setting("BI_Bio_Cannon") then
   require ("control_bio_cannon")
 end
@@ -1016,7 +1017,7 @@ end
 
 
 --------------------------------------------------------------------
--- A tille has been changed
+-- A tile has been changed
 local function Tile_Changed(event)
   local f_name = "Tile_Changed"
   BioInd.writeDebug("Entered function %s(%s)", {f_name, event})
@@ -1178,6 +1179,7 @@ Event.register(Event.tile_script_action, Tile_Changed)
 --                    FIND LOCAL VARIABLES THAT ARE USED GLOBALLY                 --
 --                              (Thanks to eradicator!)                           --
 ------------------------------------------------------------------------------------
+
 setmetatable(_ENV, {
   __newindex = function (self, key, value) --locked_global_write
     error('\n\n[ER Global Lock] Forbidden global *write*:\n'
@@ -1190,3 +1192,5 @@ setmetatable(_ENV, {
     end
   end
 })
+
+

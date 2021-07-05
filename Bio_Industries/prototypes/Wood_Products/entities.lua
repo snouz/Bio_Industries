@@ -8,7 +8,6 @@ local PIPEPATH = ENTITYPATH .. "pipe/"
 
 --~ local BIGICONS = BioInd.check_base_version("0.18.0")
 
-log("rail_pictures(): " .. serpent.block(rail_pictures()))
 
 require("prototypes.Wood_Products.demo-remnants-wood")
 
@@ -849,6 +848,14 @@ data:extend({
   },
 })
 
+
+local RAIL_FLAGS = {
+  "placeable-neutral",
+  "player-creation",
+  "building-direction-8-way",
+  "fast-replaceable-no-cross-type-while-moving"
+}
+
 ---- Rail straight (Wood)
 data:extend({
   {
@@ -864,14 +871,15 @@ data:extend({
         icon_size = 64,
       }
     },
-    flags = {
-      "placeable-neutral",
-      "player-creation",
-      "building-direction-8-way",
-      "fast-replaceable-no-cross-type-while-moving",
-    },
+    --~ flags = {
+      --~ "placeable-neutral",
+      --~ "player-creation",
+      --~ "building-direction-8-way",
+      --~ "fast-replaceable-no-cross-type-while-moving",
+    --~ },
+    flags = RAIL_FLAGS,
     --~ collision_mask = {"object-layer"},
-    collision_mask = BioInd.RAIL_MASK,
+    --~ collision_mask = BioInd.RAIL_MASK,
     minable = {mining_time = 0.25, result = "bi-rail-wood"},
     max_health = 60,
     corpse = "straight-rail-remnants-wood",
@@ -894,6 +902,7 @@ data:extend({
   },
 })
 
+
 ---- Rail curved (Wood)
 data:extend({
   {
@@ -909,14 +918,15 @@ data:extend({
         icon_size = 64,
       }
     },
-    flags = {
-      "placeable-neutral",
-      "player-creation",
-      "building-direction-8-way",
-      "fast-replaceable-no-cross-type-while-moving"
-    },
+    --~ flags = {
+      --~ "placeable-neutral",
+      --~ "player-creation",
+      --~ "building-direction-8-way",
+      --~ "fast-replaceable-no-cross-type-while-moving"
+    --~ },
+    flags = RAIL_FLAGS,
     --~ collision_mask = {"object-layer"},
-    collision_mask = BioInd.RAIL_MASK,
+    --~ collision_mask = BioInd.RAIL_MASK,
     minable = {mining_time = 0.25, result = "bi-rail-wood", count = 4},
     max_health = 120,
     corpse = "curved-rail-remnants-wood",
@@ -958,7 +968,7 @@ data:extend({
     --~ collision_mask = {"object-layer"},
 --~ collision_mask = { "item-layer", "object-layer"},
     --~ collision_mask = {"ground-tile", "floor-layer", "object-layer", "consider-tile-transitions"},
-    collision_mask = BioInd.RAIL_BRIDGE_MASK,
+    --~ collision_mask = BioInd.RAIL_BRIDGE_MASK,
     minable = {mining_time = 0.5, result = "bi-rail-wood-bridge"},
     max_health = 60,
     corpse = "straight-rail-remnants-wood-bridge",
@@ -992,7 +1002,7 @@ data:extend({
     --~ collision_mask = {"object-layer"},
 --~ collision_mask = { "floor-layer", "item-layer", "object-layer"},
     --~ collision_mask = {"ground-tile", "floor-layer", "object-layer", "consider-tile-transitions"},
-    collision_mask = BioInd.RAIL_BRIDGE_MASK,
+    --~ collision_mask = BioInd.RAIL_BRIDGE_MASK,
     minable = {mining_time = 0.5, result = "bi-rail-wood-bridge", count = 4},
     max_health = 120,
     corpse = "curved-rail-remnants-wood-bridge",
@@ -1026,7 +1036,7 @@ data:extend({
       "building-direction-8-way"
     },
     --~ collision_mask = {"object-layer"},
-    collision_mask = BioInd.RAIL_MASK,
+    --~ collision_mask = BioInd.RAIL_MASK,
     minable = {mining_time = 0.5, result = "bi-rail-power"},
     max_health = 60,
     corpse = "straight-rail-remnants",
@@ -1058,7 +1068,7 @@ data:extend({
       "building-direction-8-way",
     },
     --~ collision_mask = {"object-layer"},
-    collision_mask = BioInd.RAIL_MASK,
+    --~ collision_mask = BioInd.RAIL_MASK,
     minable = {mining_time = 0.5, result = "bi-rail-power", count = 4},
     max_health = 120,
     corpse = "curved-rail-remnants",

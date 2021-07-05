@@ -721,4 +721,4 @@ if BI.Settings.BI_Bio_Fuel then
 
   })
 end
-log("recipe.lua: data.raw.recipe[\"bi-sulfur\"]: " .. serpent.block(data.raw.recipe["bi-sulfur"]))
+--~ log("recipe.lua: data.raw.recipe[\"bi-sulfur\"]: " .. serpent.block(data.raw.recipe["bi-sulfur"]))

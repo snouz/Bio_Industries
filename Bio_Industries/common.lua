@@ -1,3 +1,4 @@
+require("util")
 return function (mod_name)
   local common = {}
 
@@ -6,10 +7,75 @@ return function (mod_name)
   common.modName = mod_name
   common.modRoot = "__" .. mod_name .. "__"
 
+
+  ------------------------------------------------------------------------------------
+  -- Greatly improved version check for mods (thanks to eradicator!)
+  common.Version = {}
+  do
+    local V = common.Version
+
+    local function parse_version(vstr) -- string "Major.Minor.Patch"
+      local err = function()
+        error('Invalid Version String: <' .. tostring(vstr) .. '>')
+      end
+      local r = {vstr:match('^(%d+)%.(%d+)%.(%d+)$')}
+
+      if #r ~= 3 then
+        err()
+      end
+
+      for i=1, 3 do
+        r[i] = tonumber(r[i])
+      end
+
+      return r
+    end
+
+    V.gtr = function(verA, verB)
+      local a, b, c = unpack(parse_version(verA))
+      local x, y, z = unpack(parse_version(verB))
+      return (a > x) or (a == x and b > y) or (a == x and b == y and c > z)
+    end
+    local map = {
+      ['=' ] = function(A, B) return not (V.gtr(A, B)   or V.gtr(B, A)) end,
+      ['>' ] = V.gtr,
+      ['!='] = function(A, B) return (V.gtr(A, B)       or V.gtr(B, A)) end,
+      ['<='] = function(A, B) return V.gtr(B, A)        or (not V.gtr(A, B)) end,
+      ['>='] = function(A, B) return V.gtr(A, B)        or (not V.gtr(B, A)) end,
+      ['~='] = function(A, B) return (V.gtr(A, B)       or V.gtr(B, A)) end,
+      ['<' ] = function(A, B) return V.gtr(B, A) end,
+    }
+
+    --~ common.Version.compare = function(mod_name, operator, need_version)
+    common.check_version = function(mod_name, operator, need_version)
+      local mod_version = (mods and mods[mod_name]) or (script and script.active_mods[mod_name])
+      return map[operator](mod_version, need_version)
+    end
+  end
+
   ------------------------------------------------------------------------------------
   -- Sane values for collision masks
-  common.RAIL_BRIDGE_MASK = {"floor-layer", "object-layer", "consider-tile-transitions"}
-  common.RAIL_MASK = {"item-layer", "floor-layer", "object-layer", "water-tile", "consider-tile-transitions"}
+  -- Default: {"item-layer", "object-layer", "rail-layer", "floor-layer", "water-tile"}
+  --~ common.RAIL_BRIDGE_MASK = {"floor-layer", "object-layer", "consider-tile-transitions"}
+  common.RAIL_BRIDGE_MASK = {"object-layer", "consider-tile-transitions"}
+
+  -- "Transport Drones" removes "object-layer" from rails, so if bridges have only
+  -- {"object-layer"}, there collision mask will be empty, and they can be built even
+  -- over cliffs. So we need to add another layer to bridges ("floor-layer").
+  -- As of Factorio 1.1.0, rails need to have "rail-layer" in their mask. This will work
+  -- alright, but isn't available in earlier versions of Factorio, so we will use
+  -- "floor-layer" there instead.
+  local need = common.check_version("base", ">=", "1.1.0") and "rail-layer" or "floor-layer"
+  table.insert(common.RAIL_BRIDGE_MASK, need)
+
+  -- Rails use basically the same mask as rail bridges, ...
+  common.RAIL_MASK = util.table.deepcopy(common.RAIL_BRIDGE_MASK)
+  -- ... we just need to add some layers so our rails have the same mask as vanilla rails.
+  table.insert(common.RAIL_MASK, "item-layer")
+  table.insert(common.RAIL_MASK, "water-tile")
+log("common.RAIL_BRIDGE_MASK: " .. serpent.block(common.RAIL_BRIDGE_MASK))
+log("common.RAIL_MASK: " .. serpent.block(common.RAIL_MASK))
+
 
 
   ------------------------------------------------------------------------------------
@@ -81,7 +147,12 @@ return function (mod_name)
                     true or default
 
 
-  --------------------------------------------------------------------
+  ------------------------------------------------------------------------------------
+  --                               DEBUGGING FUNCTIONS                              --
+  ------------------------------------------------------------------------------------
+
+
+  ------------------------------------------------------------------------------------
   -- Output debugging text
   common.writeDebug = function(msg, tab, print_line)
     local args = {}
@@ -123,13 +194,15 @@ return function (mod_name)
     end
   end
 
-  -- Simple helper to show values
+  ------------------------------------------------------------------------------------
+  -- Simple helper to show a single value with descriptive text
   common.show = function(desc, term)
     if common.is_debug then
       common.writeDebug(tostring(desc) .. ": %s", type(term) == "table" and { term } or term)
     end
   end
 
+  ------------------------------------------------------------------------------------
   -- Print "entityname (id)"
   common.print_name_id = function(entity)
     local id
@@ -147,10 +220,36 @@ return function (mod_name)
     return string.format("%s (%s)", name, id)
   end
 
+  ------------------------------------------------------------------------------------
   -- Print "entityname"
   common.print_name = function(entity)
     return entity and entity.valid and entity.name or ""
   end
+
+
+  ------------------------------------------------------------------------------------
+  -- Throw an error if a wrong argument has been passed to a function
+  common.arg_err = function(arg, arg_type)
+    error(string.format(
+        "Wrong argument! %s is not %s!",
+        (arg or "nil"), (arg_type and "a valid " .. arg_type or "valid")
+      )
+    )
+  end
+
+  ------------------------------------------------------------------------------------
+  -- Rudimentary check of the arguments passed to a function
+  common.check_args = function(arg, arg_type, desc)
+    if not (arg and type(arg) == arg_type) then
+      common.arg_err(arg or "nil", desc or arg_type or "nil")
+    end
+  end
+
+
+
+  ------------------------------------------------------------------------------------
+  --                                  MOD SPECIFIC                                  --
+  ------------------------------------------------------------------------------------
 
   ------------------------------------------------------------------------------------
   -- Are tiles from Alien Biomes available? (Returns true or false)
@@ -172,55 +271,7 @@ return function (mod_name)
     return ret
   end
 
-
   ------------------------------------------------------------------------------------
-  -- Greatly improved version check for mods (thanks to eradicator!)
-  common.Version = {}
-  do
-    local V = common.Version
-
-    local function parse_version(vstr) -- string "Major.Minor.Patch"
-      local err = function()
-        error('Invalid Version String: <' .. tostring(vstr) .. '>')
-      end
-      local r = {vstr:match('^(%d+)%.(%d+)%.(%d+)$')}
-
-      if #r ~= 3 then
-        err()
-      end
-
-      for i=1, 3 do
-        r[i] = tonumber(r[i])
-      end
-
-      return r
-    end
-
-    V.gtr = function(verA, verB)
-      local a, b, c = unpack(parse_version(verA))
-      local x, y, z = unpack(parse_version(verB))
-      return (a > x) or (a == x and b > y) or (a == x and b == y and c > z)
-    end
-    local map = {
-      ['=' ] = function(A, B) return not (V.gtr(A, B)   or V.gtr(B, A)) end,
-      ['>' ] = V.gtr,
-      ['!='] = function(A, B) return (V.gtr(A, B)       or V.gtr(B, A)) end,
-      ['<='] = function(A, B) return V.gtr(B, A)        or (not V.gtr(A, B)) end,
-      ['>='] = function(A, B) return V.gtr(A, B)        or (not V.gtr(B, A)) end,
-      ['~='] = function(A, B) return (V.gtr(A, B)       or V.gtr(B, A)) end,
-      ['<' ] = function(A, B) return V.gtr(B, A) end,
-    }
-
-    --~ common.Version.compare = function(mod_name, operator, need_version)
-    common.check_version = function(mod_name, operator, need_version)
-common.writeDebug("modname: %s\toperator: %s\tneeded version: %s", {mod_name, operator, need_version})
-      --~ local mod_version = script and script.active_mods[mod_name] or
-                             --~ game and game.active_mods[mod_name]
-      local mod_version = (mods and mods[mod_name]) or (script and script.active_mods[mod_name])
-      return map[operator](mod_version, need_version)
-    end
-  end
-
   -- Function for removing all parts of compound entities
   common.remove_entity = function(entity)
     if entity and entity.valid then
@@ -229,6 +280,7 @@ common.writeDebug("modname: %s\toperator: %s\tneeded version: %s", {mod_name, op
   end
 
 
+  ------------------------------------------------------------------------------------
   -- Function to normalize positions
   common.normalize_position = function(pos)
     if pos and type(pos) == "table" and table_size(pos) == 2 then
@@ -241,6 +293,7 @@ common.writeDebug("modname: %s\toperator: %s\tneeded version: %s", {mod_name, op
   end
 
 
+  ------------------------------------------------------------------------------------
   -- Check if argument is a valid surface
   common.is_surface = function(surface)
     local t = type(surface)
@@ -251,24 +304,7 @@ common.writeDebug("modname: %s\toperator: %s\tneeded version: %s", {mod_name, op
   end
 
 
-  -- Throw an error if a wrong argument has been passed to a function
-  common.arg_err = function(arg, arg_type)
-    error(string.format(
-        "Wrong argument! %s is not %s!",
-        (arg or "nil"), (arg_type and "a valid " .. arg_type or "valid")
-      )
-    )
-  end
-
-  -- Rudimentary check of the arguments passed to a function
-  common.check_args = function(arg, arg_type, desc)
-    if not (arg and type(arg) == arg_type) then
-      common.arg_err(arg or "nil", desc or arg_type or "nil")
-    end
-  end
-
-
-
+  ------------------------------------------------------------------------------------
   -- Make hidden entities unminable and indestructible
   local function make_unminable(entities)
     for e, entity in ipairs(entities or {}) do

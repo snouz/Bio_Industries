@@ -35,11 +35,11 @@ local ICONPATH = "__Bio_Industries__/graphics/icons/"
 ----Update the Wood Pipe Images
 require("prototypes.Wood_Products.pipes")
 
---- Update the Rail Images
+--- Update the images of Wooden rail bridges and their remnants
 require("prototypes.Wood_Products.wooden_rail_bridge_update")
 
---- Bridge Rail Remnants
-require("prototypes.Wood_Products.update_bridge_rails_remnants")
+--~ --- Bridge Rail Remnants
+--~ require("prototypes.Wood_Products.update_bridge_rails_remnants")
 require("prototypes.Wood_Products.tint_rails_remnants_function")
 
 -- Concrete Rail
@@ -101,7 +101,7 @@ data.raw["rail-planner"]["rail"].icon_mipmaps = 4
 thxbob.lib.tech.add_recipe_unlock("railway", "bi-rail-wood")
 
 
---- If Bob, move Vanilla Rail to Rail 2 also add Power Rail.
+--- If Bob, move Vanilla Rail to Rail 2, also add Power Rail.
 if data.raw.technology["bob-railway-2"] then
   thxbob.lib.tech.remove_recipe_unlock ("railway", "rail")
   thxbob.lib.tech.add_recipe_unlock("bob-railway-2", "rail")
@@ -166,12 +166,7 @@ end
 
 --- Make it so that the Base game tile "grass" can't be placed in blueprints
 --- New as of 0.16
-for _, tile in pairs{
-  "grass-1",
-  "grass-2",
-  "grass-3",
-  "grass-4",
-} do
+for _, tile in ipairs{"grass-1", "grass-2", "grass-3", "grass-4"} do
   BI_Functions.lib.remove_from_blueprint(tile)
 end
 
@@ -218,9 +213,9 @@ if mods["alien-biomes"] then
     "volcanic%-orange%-heat%-%d",
     "volcanic%-purple%-heat%-%d",
   }
-  for t, tile in pairs(data.raw.tile) do
+  for tile_name, tile in pairs(data.raw.tile) do
     for p, pattern in ipairs(patterns) do
-      if t:match(pattern) then
+      if tile_name:match(pattern) then
         BI_Functions.lib.remove_from_blueprint(tile)
         break
       end
@@ -431,19 +426,6 @@ if data.raw["item"]["bob-greenhouse"] then
   data.raw["item"]["fertilizer"].icon = ICONPATH .. "fertilizer.png"
   data.raw["item"]["fertilizer"].icon_size = 64
 
-  --~ if BioInd.AB_tiles() then
-    --~ data.raw["item"]["fertilizer"].place_as_tile = {
-      --~ result = "vegetation-green-grass-3",
-      --~ condition_size = 1,
-      --~ condition = { "water-tile" }
-    --~ }
-  --~ else
-    --~ data.raw["item"]["fertilizer"].place_as_tile = {
-      --~ result = "grass-3",
-      --~ condition_size = 1,
-      --~ condition = { "water-tile" }
-    --~ }
-  --~ end
   data.raw["item"]["fertilizer"].place_as_tile = {
     result = BioInd.AB_tiles() and "vegetation-green-grass-3" or "grass-3",
     condition_size = 1,
@@ -587,7 +569,7 @@ end
         order = "a[fluid]-b[nitrogen]"
       },
     })
-    BI_Functions.lib.allow_productivity("bi-nitrogen")
+    --~ BI_Functions.lib.allow_productivity("bi-nitrogen")
     BioInd.writeDebug("Made recipe for \"nitrogen\".")
 
     if not data.raw.fluid["liquid-air"] then
@@ -615,7 +597,7 @@ end
           order = "a[fluid]-b[liquid-air]"
         },
       })
-      BI_Functions.lib.allow_productivity("bi-liquid-air")
+      --~ BI_Functions.lib.allow_productivity("bi-liquid-air")
       BioInd.writeDebug("Made recipe for \"liquid-air\".")
     end
 
@@ -645,58 +627,86 @@ end
   end
 
 --- Enable Productivity in Recipes
-BI_Functions.lib.allow_productivity("bi-seed-1")
-BI_Functions.lib.allow_productivity("bi-seed-2")
-BI_Functions.lib.allow_productivity("bi-seed-3")
-BI_Functions.lib.allow_productivity("bi-seed-4")
+--~ BI_Functions.lib.allow_productivity("bi-seed-1")
+--~ BI_Functions.lib.allow_productivity("bi-seed-2")
+--~ BI_Functions.lib.allow_productivity("bi-seed-3")
+--~ BI_Functions.lib.allow_productivity("bi-seed-4")
 
-BI_Functions.lib.allow_productivity("bi-seedling-1")
-BI_Functions.lib.allow_productivity("bi-seedling-2")
-BI_Functions.lib.allow_productivity("bi-seedling-3")
-BI_Functions.lib.allow_productivity("bi-seedling-4")
+--~ BI_Functions.lib.allow_productivity("bi-seedling-1")
+--~ BI_Functions.lib.allow_productivity("bi-seedling-2")
+--~ BI_Functions.lib.allow_productivity("bi-seedling-3")
+--~ BI_Functions.lib.allow_productivity("bi-seedling-4")
 
-BI_Functions.lib.allow_productivity("bi-logs-1")
-BI_Functions.lib.allow_productivity("bi-logs-2")
-BI_Functions.lib.allow_productivity("bi-logs-3")
-BI_Functions.lib.allow_productivity("bi-logs-4")
+--~ BI_Functions.lib.allow_productivity("bi-logs-1")
+--~ BI_Functions.lib.allow_productivity("bi-logs-2")
+--~ BI_Functions.lib.allow_productivity("bi-logs-3")
+--~ BI_Functions.lib.allow_productivity("bi-logs-4")
 
-BI_Functions.lib.allow_productivity("bi-stone-brick")
-BI_Functions.lib.allow_productivity("bi-crushed-stone-1")
-BI_Functions.lib.allow_productivity("bi-crushed-stone-2")
-BI_Functions.lib.allow_productivity("bi-crushed-stone-3")
-BI_Functions.lib.allow_productivity("bi-crushed-stone-4")
-BI_Functions.lib.allow_productivity("bi-crushed-stone-5")
+--~ BI_Functions.lib.allow_productivity("bi-stone-brick")
+--~ BI_Functions.lib.allow_productivity("bi-crushed-stone-1")
+--~ BI_Functions.lib.allow_productivity("bi-crushed-stone-2")
+--~ BI_Functions.lib.allow_productivity("bi-crushed-stone-3")
+--~ BI_Functions.lib.allow_productivity("bi-crushed-stone-4")
+--~ BI_Functions.lib.allow_productivity("bi-crushed-stone-5")
 
-BI_Functions.lib.allow_productivity("bi-resin-pulp")
-BI_Functions.lib.allow_productivity("bi-press-wood")
-BI_Functions.lib.allow_productivity("bi-resin-wood")
-BI_Functions.lib.allow_productivity("bi-woodpulp")
-BI_Functions.lib.allow_productivity("bi-wood-from-pulp")
+--~ BI_Functions.lib.allow_productivity("bi-resin-pulp")
+--~ BI_Functions.lib.allow_productivity("bi-press-wood")
+--~ BI_Functions.lib.allow_productivity("bi-resin-wood")
+--~ BI_Functions.lib.allow_productivity("bi-woodpulp")
+--~ BI_Functions.lib.allow_productivity("bi-wood-from-pulp")
 
---~ BI_Functions.lib.allow_productivity("bi-liquid-air")
---~ BI_Functions.lib.allow_productivity("bi-nitrogen")
+--BI_Functions.lib.allow_productivity("bi-liquid-air")
+--BI_Functions.lib.allow_productivity("bi-nitrogen")
 
-BI_Functions.lib.allow_productivity("bi-biomass-1")
-BI_Functions.lib.allow_productivity("bi-biomass-2")
-BI_Functions.lib.allow_productivity("bi-biomass-3")
+--~ BI_Functions.lib.allow_productivity("bi-biomass-1")
+--~ BI_Functions.lib.allow_productivity("bi-biomass-2")
+--~ BI_Functions.lib.allow_productivity("bi-biomass-3")
 
-BI_Functions.lib.allow_productivity("bi-biomass-conversion-1")
-BI_Functions.lib.allow_productivity("bi-biomass-conversion-2")
-BI_Functions.lib.allow_productivity("bi-biomass-conversion-3")
-BI_Functions.lib.allow_productivity("bi-biomass-conversion-4")
+--~ BI_Functions.lib.allow_productivity("bi-biomass-conversion-1")
+--~ BI_Functions.lib.allow_productivity("bi-biomass-conversion-2")
+--~ BI_Functions.lib.allow_productivity("bi-biomass-conversion-3")
+--~ BI_Functions.lib.allow_productivity("bi-biomass-conversion-4")
 
-BI_Functions.lib.allow_productivity("bi-battery")
-BI_Functions.lib.allow_productivity("bi-acid")
-BI_Functions.lib.allow_productivity("bi-sulfur")
-BI_Functions.lib.allow_productivity("bi-sulfur-angels")
-BI_Functions.lib.allow_productivity("bi-plastic-1")
-BI_Functions.lib.allow_productivity("bi-plastic-2")
-BI_Functions.lib.allow_productivity("bi-cellulose-1")
-BI_Functions.lib.allow_productivity("bi-cellulose-2")
+--~ BI_Functions.lib.allow_productivity("bi-battery")
+--~ BI_Functions.lib.allow_productivity("bi-acid")
+--~ BI_Functions.lib.allow_productivity("bi-sulfur")
+--~ BI_Functions.lib.allow_productivity("bi-sulfur-angels")
+--~ BI_Functions.lib.allow_productivity("bi-plastic-1")
+--~ BI_Functions.lib.allow_productivity("bi-plastic-2")
+--~ BI_Functions.lib.allow_productivity("bi-cellulose-1")
+--~ BI_Functions.lib.allow_productivity("bi-cellulose-2")
 
-  -- Added for 0.17.49/0.18.17
-BI_Functions.lib.allow_productivity("bi-basic-gas-processing")
-
+for recipe, r in pairs(data.raw.recipe) do
+  for p, pattern in ipairs({
+  "bi%-acid",
+  "bi%-battery",
+  "bi%-biomass%-%d",
+  "bi%-biomass%-conversion%-%d",
+  "bi%-cellulose%-%d",
+  "bi%-crushed%-stone%-%d",
+  "bi%-liquid%-air",
+  "bi%-logs%-%d",
+  "bi%-nitrogen",
+  "bi%-plastic%-%d",
+  "bi%-press%-wood",
+  "bi%-resin%-pulp",
+  "bi%-resin%-wood",
+  "bi%-seed%-%d",
+  "bi%-seedling%-%d",
+  "bi%-stone%-brick",
+  "bi%-sulfur",
+  "bi%-sulfur%-angels",
+  "bi%-wood%-from%-pulp",
+  "bi%-woodpulp",
+   -- Added for 0.17.49/0.18.17
+  "bi%-basic%-gas%-processing",
+  }) do
+    if recipe:match(pattern) then
+      BI_Functions.lib.allow_productivity(recipe)
+      break
+    end
+  end
+end
 
 ------------------------------------------------------------------------------------
 -- Omnifluid will be confused by our bi-solar-boiler (the compound boiler + solar

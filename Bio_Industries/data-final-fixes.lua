@@ -266,21 +266,23 @@ if BI.Settings.BI_Bio_Fuel then
   data.raw["boiler"]["bi-bio-boiler"].fast_replaceable_group = boiler_group
 end
 
--- Make vanilla and wooden rails exchangeable
-local straight = data.raw["straight-rail"]["straight-rail"].fast_replaceable_group or "rail"
-local curved = data.raw["curved-rail"]["curved-rail"].fast_replaceable_group or "rail"
-local vanilla, group
+--~ -- Make vanilla and wooden rails exchangeable
+--~ -- local straight = data.raw["straight-rail"]["straight-rail"].fast_replaceable_group or "rail"
+--~ -- local curved = data.raw["curved-rail"]["curved-rail"].fast_replaceable_group or "rail"
+--~ local vanilla, group
 
-for f, form in ipairs({"straight", "curved"}) do
-  vanilla = data.raw[form .. "-rail"][form .. "-rail"]
-  group =vanilla and vanilla.fast_replaceable_group or "rail"
-
-  if vanilla then
-    vanilla.fast_replaceable_group = group
-  end
-  data.raw[form .. "-rail"]["bi-" .. form .. "-rail-wood"].fast_replaceable_group = group
-  data.raw[form .. "-rail"]["bi-" .. form .. "-rail-power"].fast_replaceable_group = group
-end
+--~ for f, form in ipairs({"straight", "curved"}) do
+  --~ vanilla = data.raw[form .. "-rail"][form .. "-rail"]
+  --~ group =vanilla and vanilla.fast_replaceable_group or "rail"
+--~ BioInd.show("vanilla.name", vanilla and vanilla.name or "nil")
+--~ BioInd.show("vanilla.fast_replaceable_group", vanilla and vanilla.fast_replaceable_group or "nil")
+  --~ if vanilla then
+    --~ vanilla.fast_replaceable_group = group
+  --~ end
+  --~ data.raw[form .. "-rail"]["bi-" .. form .. "-rail-power"].fast_replaceable_group = group
+  --~ data.raw[form .. "-rail"]["bi-" .. form .. "-rail-wood"].fast_replaceable_group = group
+  --~ data.raw[form .. "-rail"]["bi-" .. form .. "-rail-wood-bridge"].fast_replaceable_group = group
+--~ end
 
 
 if mods["Krastorio2"] then
@@ -404,15 +406,15 @@ if mods["pycoalprocessing"] and BI.Settings.BI_Bio_Fuel then
 end
 
 
--- "Transport drones" ruins rails by removing object-layer from the collision mask. That
--- causes problems for our "Wooden rail bridges" as they will also pass through cliffs.
--- Fix the collision masks for rail bridges if "Transport drones" is active!
-if mods["Transport_Drones"] then
-  for _, type in pairs({"straight-rail", "curved-rail"}) do
-        data.raw[type]["bi-" .. type .. "-wood-bridge"].collision_mask = BioInd.RAIL_BRIDGE_MASK
-  end
-end
-
+--~ -- "Transport drones" ruins rails by removing object-layer from the collision mask. That
+--~ -- causes problems for our "Wooden rail bridges" as they will also pass through cliffs.
+--~ -- Fix the collision masks for rail bridges if "Transport drones" is active!
+--~ if mods["Transport_Drones"] then
+  --~ for _, type in pairs({"straight-rail", "curved-rail"}) do
+        --~ data.raw[type]["bi-" .. type .. "-wood-bridge"].collision_mask = BioInd.RAIL_BRIDGE_MASK
+  --~ end
+--~ end
+require("prototypes.Wood_Products.rail_updates")
 
 
 ---TESTING!
@@ -427,3 +429,11 @@ end
 --~ end
 
 --~ BioInd.writeDebug("Testing at end of data-final-fixes.lua!")
+--~ for rail_name, rail in pairs(data.raw["straight-rail"]) do
+  --~ BioInd.show("rail_name", rail_name)
+  --~ BioInd.show("flags", rail.flags)
+  --~ BioInd.show("fast_replaceable_group", rail.fast_replaceable_group)
+  --~ BioInd.show("next_upgrade", rail.next_upgrade)
+  --~ BioInd.show("bounding_box", rail.bounding_box)
+  --~ BioInd.show("collision_mask", rail.collision_mask)
+--~ end

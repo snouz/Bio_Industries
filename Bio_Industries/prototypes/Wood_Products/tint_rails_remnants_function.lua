@@ -34,7 +34,7 @@ function set_tint_to_rails (rails_entities, tint)
   -- second is a tint
   --local wood_tint = {r = 183/255, g = 125/255, b = 62/255, a = 1}
   --local concrete_tint = {r = 183/255, g = 183/255, b = 183/255, a = 1}
-  local tint = tint
+  --~ local tint = tint
   local sheet_path_ties = "__Bio_Industries__/graphics/entities/wood_products/rails/ties/"
   local rails_entities = rails_entities or  -- or vanilla
     {
@@ -55,7 +55,7 @@ function set_tint_to_rails (rails_entities, tint)
     handler.table.hr_version.filename = sheet_path_ties .. "hr-" .. handler.name .. "-ties.png"
     BioInd.writeDebug('Replaced: %s ===>>> %s', {was_filename, handler.table.filename})
     handler.table.tint = tint
-    handler.table.hr_version.tint = tint -- oops, i'mm forgot it, added in 0.0.3
+    handler.table.hr_version.tint = tint -- oops, i've forgot it, added in 0.0.3
   end
   --BioInd.writeDebug("End rails")        ---------------------
 end
@@ -65,8 +65,8 @@ end
 ------------------------------------ remnants
 ------------------------------------
 
-function set_tint_to_remnants (remnants_entities, tint)  -- tha same function, actually
-local tint = tint
+function set_tint_to_remnants(remnants_entities, tint)  -- tha same function, actually
+--~ local tint = tint
 local sheet_path_ties = "__Bio_Industries__/graphics/entities/wood_products/rails/ties/"
 local remnants_entities = remnants_entities or {  -- or vanilla  {
   data.raw["rail-remnants"]["straight-rail-remnants"],

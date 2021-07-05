@@ -59,7 +59,7 @@ h_entity.radius_visualisation_picture = BioInd.is_debug and
 BI.make_hidden_entity_list(h_key)
 -- Musk floor is not an entity, but a tile, so we don't have a compound-entity table
 -- for it and must add it manually!
-local Musk_name = "bi-musk-mat-hidden-pole"
+local Musk_name = BioInd.musk_floor_pole_name
 BI.hidden_entities.types[h_key][Musk_name] = "bi-solar-mat"
 
 -- We only have one "connector" at the moment. No need to add another file just for that,
@@ -210,7 +210,7 @@ for pole_name, locale_name in pairs(BI.hidden_entities.types[h_key] or {}) do
           c_entities["bi-bio-solar-farm"].hidden[h_key] and
           pole_name == c_entities["bi-bio-solar-farm"].hidden[h_key].name then
 
-    local base_entity = BI.additional_entities.BI_Solar_Additions.solar_farm
+    local base_entity = BI.additional_entities.BI_Power_Production.solar_farm
     local vanilla = table.deepcopy(data.raw[h_type]["small-electric-pole"])
     local cp = vanilla.connection_points[1]
 

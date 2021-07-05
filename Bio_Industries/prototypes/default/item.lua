@@ -81,6 +81,11 @@ BI.default_items.pollution_sensor = {
   order = "c[combinators]-cb[pollution-detector]",
   place_result = "bi-pollution-sensor",
   stack_size = 50,
+  -- Group/subgroup if "5Dim's mod - New Core" is used
+  group_5d = "logistic",
+  subgroup_5d = "logistic-comb",
+  --~ subgroup_order_5d = "n-a",
+  order_5d = "d-[Bio_Industries]-[combinators]-[bi-pollution-sensor]",
 }
 
 

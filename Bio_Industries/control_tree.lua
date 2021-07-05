@@ -1,4 +1,4 @@
-local BioInd = require("__" .. script.mod_name .. "__.common")(script.mod_name)
+--~ local BioInd = require("__" .. script.mod_name .. "__.common")(script.mod_name)
 BioInd.entered_file()
 
 

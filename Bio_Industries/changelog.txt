@@ -20,7 +20,7 @@ Date: 2021-06-?
     - Added correct, engine-understood shadows to all buildings (no more shadows overlapping).
     - Revamped all 150+ icons visuals (recipes, items, variations).
     - Made the Terraformer's small radar part of the entity.
-    - Advanced and normal fertilizers recipes make buildings glow green or pink.
+    - Advanced and normal fertilizer recipes make buildings glow green or pink.
     - Removed some useless secondary selection boxes.
     - The color of the bio-reactor's liquid now changes with the recipe.
     - Adjusted fluid colors and chemical plant recipe colors.
@@ -78,6 +78,9 @@ Date: 2021-06-?
     - Fixed order of some items, fluids and recipes
     - More changes to localization
 
+    - Fixed that there could still be hidden entities of Musk floor left although the main tile had been removed.
+    - Fixed that electric poles placed on Musk floor would waste all available connections on hidden poles.
+
   Modding:
     - Migrated some recipes ("bi-sulfur-angels", "bi-crushed-stone-X", "bi-biomass-conversion-X", "bi-acid") and technologies ("bi-tech-bio-cannon", "bi-tech-advanced-fertilizers")
     - If your mod has items that should/shouldn't get a fuel value, you can pass on filters to BI. Please check BI's data.lua for an explanation! (There are already filters for some mods included in BI. If you're not happy with the presets for your mod, either provide a complete list with the filters you want, or overwrite the presets yourselves at runtime following the explanation in BI's data.lua!)
@@ -121,6 +124,9 @@ Date: 2021-06-?
 
     - Set pollution sensor to  entity.active/entity.operable = "false"!
     - Use bricks+wood instead of crushed stone for bio farms!
+
+    - Check why recipe can be use "item-name.alien-artifact" even if there is none in the game!
+    -
 
 ---------------------------------------------------------------------------------------------------
 Version: 1.1.10
@@ -237,7 +243,7 @@ Date: 2021-01-21
 
   Bugfixes:
     - We really shouldn't create recipes in data-final-fixes.lua! Moved disassemble recipes over to data-updates.lua.
-    - Moved the recipe changes (setting "Game tweaks: Recipe") to from data-final-fixes.lua to data-updates.lua. This gives the "Schall Recipe Scaling" a chance to create a scaled version of the stone-wall, concrete, and rail recipes where our changes to the original recipes have been applied. (https://mods.factorio.com/mod/Bio_Industries/discussion/5ff570bd916993002371332a/edit_title)
+    - Moved the recipe changes (setting "Game tweaks: Recipe") from data-final-fixes.lua to data-updates.lua. This gives the "Schall Recipe Scaling" a chance to create a scaled version of the stone-wall, concrete, and rail recipes where our changes to the original recipes have been applied. (https://mods.factorio.com/mod/Bio_Industries/discussion/5ff570bd916993002371332a/edit_title)
     - Moved the fix for rail collision masks from data-final-fixes.lua to data-updates.lua. This way, Klonan's "Construction Drones" will be able to move over rails again. (https://mods.factorio.com/mod/Bio_Industries/discussion/5ff517c391699300236170a2)
     - Fixed that "Coal 2" wasn't shown in list of finished researches even when it was researched.
     - Fixed crash when trees planted while "Alien Biomes" was used were still growing, but "Alien Biomes" had been removed from the game. (This will also work if any other mod providing new tree prototypes that could be planted with BI has been removed.)

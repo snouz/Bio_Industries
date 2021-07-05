@@ -1,4 +1,4 @@
-local BioInd = require("__" .. script.mod_name .. "__.common")(script.mod_name)
+BioInd = require("__" .. script.mod_name .. "__.common")(script.mod_name)
 BioInd.entered_file()
 
 local settings_changed = require("settings_changed")
@@ -393,8 +393,9 @@ BioInd.writeDebug("On Configuration changed: %s", {ConfigurationChangedData})
   -- Re-initialize global tables etc.
   init()
 
-  -- Has setting BI_Game_Tweaks_Show_musk_floor_in_mapview changed?
   if ConfigurationChangedData.mod_startup_settings_changed then
+    -- Musk floor: Remove tiles if BI_Power_Production has been turned off
+    --             Change force if BI_Game_Tweaks_Show_musk_floor_in_mapview has changed
     settings_changed.musk_floor()
     -- Has this been obsoleted by the new init process? Turn it off for now!
     --~ settings_changed.bio_garden()
@@ -609,15 +610,27 @@ BioInd.writeDebug("Powered rail!")
       elseif pole.name == "bi-power-to-rail-pole" then
         BioInd.writeDebug("Nothing to do for %s", {BioInd.print_name_id(pole)})
 
-      -- Disconnect other poles from hidden poles on powered rails
+      -- Some other pole has been placed -- check if we need to break connections!
       else
-BioInd.writeDebug("Must disconnect!")
+BioInd.writeDebug("Must disconnect?")
+        local musk_floor_neighbours = {}
         for n, neighbour in ipairs(pole.neighbours["copper"] or {}) do
+          -- Disconnect other poles from hidden poles on powered rails
           if neighbour.name == entities["bi-straight-rail-power"].hidden[h_key].name then
             pole.disconnect_neighbour(neighbour)
             BioInd.writeDebug("Disconnected %s from %s",
                               {BioInd.print_name_id(pole), BioInd.print_name_id(neighbour)})
+          -- Find neighbours that are hidden poles from Musk floor
+          elseif neighbour.name == BioInd.musk_floor_pole_name then
+            musk_floor_neighbours[#musk_floor_neighbours + 1] = neighbour
           end
+        end
+        -- If there is more than one Musk-floor neighbour, cut excess connections
+BioInd.show("Musk floor neighbours", musk_floor_neighbours)
+        if #musk_floor_neighbours > 1 then
+          for n = 2, #musk_floor_neighbours do
+            pole.disconnect_neighbour(musk_floor_neighbours[n])
+BioInd.writeDebug("Broke connection with %s", {BioInd.argprint(musk_floor_neighbours[n])})          end
         end
       end
 
@@ -886,7 +899,7 @@ local function place_musk_floor(force, position, surface)
 
   local x, y = position.x, position.y
   local created
-  for n, name in ipairs({"bi-musk-mat-hidden-pole", "bi-musk-mat-hidden-panel"}) do
+  for n, name in ipairs({BioInd.musk_floor_pole_name, BioInd.musk_floor_panel_name}) do
     created = surface.create_entity({name = name, position = {x + 0.5, y + 0.5}, force = force})
     created.minable = false
     created.destructible = false
@@ -1194,5 +1207,3 @@ setmetatable(_ENV, {
     end
   end
 })
-
-

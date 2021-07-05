@@ -63,7 +63,7 @@ local stacked_items={
     BI.additional_items.BI_Rubber.rubber,
     BI.additional_items.BI_Rubber.rubber_mat,
 
-    BI.additional_items.BI_Solar_Additions.solar_mat,
+    BI.additional_items.BI_Power_Production.solar_mat,
 
     BI.additional_items.BI_Stone_Crushing.crushed_stone,
 

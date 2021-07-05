@@ -10,7 +10,7 @@ local settings = {
   "BI_Bio_Garden",
   "BI_Darts",
   "BI_Rails",
-  "BI_Solar_Additions",
+  "BI_Power_Production",
   "BI_Stone_Crushing",
   "BI_Terraforming",
   "BI_Wood_Products",
@@ -354,11 +354,11 @@ BI.additional_remnants.BI_Rails.curved_rail_wood_bridge = {
 
 
 ------------------------------------------------------------------------------------
---                           Enable: Bio solar additions                          --
---                        (BI.Settings.BI_Solar_Additions)                        --
+--                  Enable: Bio power production and distribution                 --
+--                        (BI.Settings.BI_Power_Production)                       --
 ------------------------------------------------------------------------------------
 -- Solar farm
-BI.additional_remnants.BI_Solar_Additions.solar_farm = {
+BI.additional_remnants.BI_Power_Production.solar_farm = {
   type = "corpse",
   name = "bi-bio-solar-farm-remnant",
   localised_name = {"entity-name.bi-bio-solar-farm-remnant"},
@@ -400,7 +400,7 @@ BI.additional_remnants.BI_Solar_Additions.solar_farm = {
 }
 
 -- Huge accumulator
-BI.additional_remnants.BI_Solar_Additions.huge_accumulator = {
+BI.additional_remnants.BI_Power_Production.huge_accumulator = {
   type = "corpse",
   name = "bi-bio-accumulator-remnant",
   localised_name = {"entity-name.bi-bio-accumulator-remnant"},
@@ -442,7 +442,7 @@ BI.additional_remnants.BI_Solar_Additions.huge_accumulator = {
 }
 
 -- Huge substation
-BI.additional_remnants.BI_Solar_Additions.huge_substation = {
+BI.additional_remnants.BI_Power_Production.huge_substation = {
   type = "corpse",
   name = "bi-huge-substation-remnant",
   localised_name = {"entity-name.bi-huge-substation-remnant"},
@@ -484,7 +484,7 @@ BI.additional_remnants.BI_Solar_Additions.huge_substation = {
 }
 
 -- Solar plant and boiler
-BI.additional_remnants.BI_Solar_Additions.solar_boiler = {
+BI.additional_remnants.BI_Power_Production.solar_boiler = {
   type = "corpse",
   name = "bi-solar-boiler-remnant",
   localised_name = {"entity-name.bi-solar-boiler-remnant"},

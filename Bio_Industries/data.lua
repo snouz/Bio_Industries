@@ -44,6 +44,10 @@ BI.Triggers = {
   BI_Trigger_Rubber_Woodgas     = BI.Settings.BI_Rubber and BI.Settings.BI_Wood_Gasification,
   -- Create "bi-wood-floor" tiles? (Will be turned off if other mods create it!)
   BI_Trigger_Woodfloor          = true,
+  -- Sort recipes into item-subgroups provided by other mods?
+  BI_Trigger_Subgroups          = BioInd.check_mods({"5dim_core"}),
+  -- Sort recipes into item-subgroups provided by other mods?
+  BI_Trigger_Subgroups_rail     = BioInd.check_mods({"5dim_core"}) and BI.Settings.BI_Rails,
 }
 
 -- Allow mods to register names or patterns for black-/whitelisting items as
@@ -275,8 +279,8 @@ require("prototypes.optional.optionRubber.technology_optionRubber")
 
 
 ------------------------------------------------------------------------------------
---                           Enable: Bio solar additions                          --
---                        (BI.Settings.BI_Solar_Additions)                        --
+--                  Enable: Bio power production and distribution                 --
+--                        (BI.Settings.BI_Power_Production)                       --
 ------------------------------------------------------------------------------------
 require("prototypes.optional.optionSolarAdditions.categories_optionSolar")
 require("prototypes.optional.optionSolarAdditions.entity_optionSolar")

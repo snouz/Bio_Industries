@@ -269,7 +269,8 @@ BI.default_techs.fertilizer = {
   },
   order = "[bi-fertilizer]-a-[fertilizer]",
   --~ prerequisites = {"fluid-handling","bi-tech-bio-farming-1"},
-  prerequisites = {"fluid-handling", "bi-tech-ash"},
+  --~ prerequisites = {"fluid-handling", "bi-tech-ash"},
+  prerequisites = {"sulfur-processing", "bi-tech-ash"},
   unit = {
     count = 250,
     ingredients = {

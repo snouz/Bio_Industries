@@ -1,19 +1,68 @@
-------------------------------------------------------------------------------------
+BioInd.entered_file()
+------------------------------------    ------------------------------------------------
 --    If startup settings have been changed, we need to check some stuff. Keep    --
 --    that in a separate file so the main control.lua is easier to read!          --
 ------------------------------------------------------------------------------------
-local BioInd = require("__" .. script.mod_name .. "__.common")(script.mod_name)
-BioInd.entered_file()
+--~ local BioInd = require("__" .. script.mod_name .. "__.common")(script.mod_name)
+
+-- Remove all Musk-floor tiles if BI_Power_Production has been turned off since the
+-- last time the game was saved!
+local function check_musk_floor()
+  local last = global.mod_settings.BI_Power_Production
+  local now = BioInd.get_startup_setting("BI_Power_Production")
+
+  local ret
+
+  -- Musk floor is not in use
+  if not now then
+
+    -- Clean tables
+    global.mod_settings.BI_Power_Production = nil
+    global.bi_musk_floor_table = nil
+
+    -- If Musk floor was used last time the game was saved, remove hidden entities!
+    if last then
+      local hidden = {
+        BioInd.musk_floor_pole_name,
+        BioInd.musk_floor_panel_name,
+      }
+
+      for name, surface in pairs(game.surfaces) do
+        BioInd.writeDebug("Looking for hidden entities from Musk floor on surface %s", {name})
+        for e, entity in pairs(surface.find_entities_filtered({name = hidden})) do
+          BioInd.writeDebug("Removing %s", {BioInd.argprint(entity)})
+          entity.destroy()
+        end
+      end
+
+    end
+    ret = false
+
+  -- Musk floor is in the game. Store it in the mod_settings table!
+  else
+    global.mod_settings.BI_Power_Production = true
+    ret = true
+  end
+
+  return ret
+end
+
 
 
 local settings_changed = {}
 
 -- Adjust the force of hidden poles on Musk floor!
 settings_changed.musk_floor = function()
+  -- We only need to run this if Musk floor is used in the game!
+  if not check_musk_floor() then
+    BioInd.writeDebug("No musk floor in the game -- leaving early!")
+    return
+  end
+
   -- Look for solar panels on every surface. They determine the force poles will use
   -- if the electric grid overlay will be shown in mapview.
-  local sm_panel_name = "bi-musk-mat-hidden-panel"
-  local sm_pole_name = "bi-musk-mat-hidden-pole"
+  local sm_panel_name = BioInd.musk_floor_panel_name
+  local sm_pole_name = BioInd.musk_floor_pole_name
 
   -- If dummy force is not used, force of a hidden pole should be that of the hidden solar panel.
   -- That force will be "enemy" for poles/solar panels created with versions of Bio Industries
@@ -115,7 +164,7 @@ BioInd.writeDebug("Removing hidden entity %s %s", {
 
 
     -- For whatever reason, there may be hidden poles that aren't associated
-    -- with any garden. We want to remove these, so lets' compile a list of all
+    -- with any garden. We want to remove these, so let's compile a list of all
     -- hidden poles first.
     local remove_poles = {}
     local found_poles

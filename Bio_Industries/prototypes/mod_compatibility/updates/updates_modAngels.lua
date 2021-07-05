@@ -30,9 +30,9 @@ local recipes = data.raw.recipe
 --                               Solar boiler/plant                               --
 ------------------------------------------------------------------------------------
 -- Angel's Petrochemical Processing ("angelspetrochem")
-if items["angels-electric-boiler"] and BI.Settings.BI_Solar_Additions then
+if items["angels-electric-boiler"] and BI.Settings.BI_Power_Production then
   --~ recipe = recipes["bi-solar-boiler"]
-  recipe = recipes[BI.additional_recipes.BI_Solar_Additions.solar_boiler.name]
+  recipe = recipes[BI.additional_recipes.BI_Power_Production.solar_boiler.name]
   if recipe then
     thxbob.lib.recipe.remove_ingredient(recipe.name, "boiler")
     thxbob.lib.recipe.add_new_ingredient(recipe.name, {
@@ -181,12 +181,12 @@ end
 
 
 ------------------------------------------------------------------------------------
---       Replace icons for biomass-conversion-2 and bi_basic_gas_processing       --
+--                    Change icons and localization for Angel's                   --
+--    biomass-conversion-petroleum, bi_basic_gas_processing, wood_gasification    --
 ------------------------------------------------------------------------------------
 -- Angel's Petrochemical Processing ("angelspetrochem")
 if mods["angelspetrochem"] and BI.Settings.BI_Bio_Fuel then
-  -- Biomass conversion
-  --~ recipe = recipes["bi-biomass-conversion-2"]
+  -- Biomass conversion (Petroleum --> changed to Methane)
   recipe = recipes[BI.additional_recipes.BI_Bio_Fuel.bio_mass_conversion_petroleum.name]
   if recipe then
     -- Change icon
@@ -213,12 +213,34 @@ if mods["angelspetrochem"] and BI.Settings.BI_Bio_Fuel then
     BioInd.modified_msg("localization", recipe)
   end
 
+  -- Biomass conversion (Light oil --> Fuel oil)
+  recipe = recipes[BI.additional_recipes.BI_Bio_Fuel.bio_mass_conversion_light_oil.name]
+  if recipe then
+    recipe.  localised_name = {
+      "recipe-name.bi-biomass-conversion",
+      {"fluid-name.bi-biomass"},
+      5,
+      {
+        "",
+        {"fluid-name.liquid-fuel-oil"},
+        ", ",
+        {"item-name.bi-cellulose"},
+      }
+    }
+    BioInd.modified_msg("localization", recipe)
+  end
 
   -- Basic gas processing
   --~ recipe = recipes["bi-basic-gas-processing"]
   recipe = recipes[BI.additional_recipes.BI_Bio_Fuel.basic_gas_processing.name]
   if recipe then
     BioInd.BI_change_icon(recipe, ICONPATH .. "bi_basic_gas_processing_angels.png")
+  end
+
+  -- Wood gasification (Petroleum --> Methane)
+  recipe = recipes[BI.additional_recipes.BI_Wood_Gasification.wood_gasification.name]
+  if recipe then
+    BioInd.BI_change_icon(recipe, ICONPATH .. "wood-gasification-angels.png")
   end
 end
 
@@ -240,6 +262,8 @@ if fluids["water-yellow-waste"] and BI.Settings.BI_Bio_Fuel then
       amount = 40
     })
     BioInd.modified_msg("results", recipe)
+
+    BioInd.BI_change_icon(recipe, ICONPATH .. "bio-conversion-1-angels.png")
 
     --~ -- Change recipe localizations
     --~ recipe.localised_description = {
@@ -299,7 +323,6 @@ if mods["angelspetrochem"] and BI.Settings.BI_Coal_Processing then
     item.fuel_top_speed_multiplier = 1.2
     BioInd.modified_msg("fuel_top_speed_multiplier", item)
 
-    --~ recipe = recipes["pellet-coke"]
     recipe = recipes[BI.additional_recipes.BI_Coal_Processing.pellet_coke.name]
     if recipe then
       -- Change category

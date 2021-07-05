@@ -41,7 +41,7 @@ return function(mod_name)
       BI_Explosive_Planting                     = "BI_Explosive_Planting",
       BI_Rails                                  = "BI_Rails",
       BI_Rubber                                 = "BI_Rubber",
-      BI_Solar_Additions                        = "BI_Solar_Additions",
+      BI_Power_Production                       = "BI_Power_Production",
       BI_Stone_Crushing                         = "BI_Stone_Crushing",
       BI_Terraforming                           = "BI_Terraforming",
       BI_Wood_Gasification                      = "BI_Wood_Gasification",
@@ -160,6 +160,12 @@ log("compound entities: " .. serpent.block(common.compound_entities))
   -- Reverse lookup
   common.HE_map_reverse = compound_entities.HE_map_reverse
 
+  -- We can't store Musk floor with the compound_entities because it has no unit_number
+  -- but must be identified by its position. So let's store the names of its hidden
+  -- entities so we can use them later on!
+  common.musk_floor_pole_name = "bi-musk-mat-hidden-pole"
+  common.musk_floor_panel_name = "bi-musk-mat-hidden-panel"
+
   ------------------------------------------------------------------------------------
   -- There may be trees for which we don't want to create variations. These patterns
   -- are used to build a list of trees we want to ignore.
@@ -246,6 +252,37 @@ log("compound entities: " .. serpent.block(common.compound_entities))
   ------------------------------------------------------------------------------------
   --                               DEBUGGING FUNCTIONS                              --
   ------------------------------------------------------------------------------------
+
+
+
+  ------------------------------------------------------------------------------------
+  -- Output arguments a function was called with
+  common.argprint = function(arg)
+    -- Debugging is off
+    --~ if not (common.debug_in_log or common.debug_in_game) then
+    if not common.is_debug then
+      return "nil"
+    -- No argument
+    elseif not arg then
+      return "nil"
+    -- Argument was player.index or vehicle.unit_number
+    elseif type(arg) == "number" then
+      return tostring(arg)
+    -- Argument was player entity (Check for a function before calling it!)
+    elseif type(arg) == "table" and arg.valid and arg.object_name == "LuaPlayer" then
+      return "player " .. tostring(arg.index) .. " (\"" .. arg.name .. "\")"
+    -- Argument was an entity
+    elseif type(arg) == "table" and arg.object_name == "LuaEntity" and arg.valid then
+      return arg.type .. " \"" .. arg.name .. "\" (" .. tostring(arg.unit_number) .. ")"
+    -- Argument was a recipe
+    elseif type(arg) == "table" and arg.object_name == "LuaRecipe" and arg.valid then
+      return arg.type .. " \"" .. arg.name .. "\""
+    -- Argument was something else
+    else
+      return serpent.line(arg)
+    end
+  end
+
 
 
   ------------------------------------------------------------------------------------
@@ -401,39 +438,187 @@ log("compound entities: " .. serpent.block(common.compound_entities))
 
 
   ------------------------------------------------------------------------------------
-  -- Print message when a file or function has been entered
-  local function print_on_entered(msg, sep)
-    common.writeDebug("\n%s\n%s\n%s\n", {sep, msg, sep})
+  --   Function to print info when a file/function/event script is entered or left  --
+  ------------------------------------------------------------------------------------
+  local function print_on_entered(data)
+    if data then
+      local args = data.args
+      local leave = data.leave
+      local bail_out = data.bail_out
+      local file = data.file or {}
+      local f_name = data.f_name or "NIL"
+      local description = data.description
+      local sep = data.sep
+      local is_event = data.is_event
+      local is_file = data.is_file
+
+      local msg, format_string
+
+      -- Function could have been called with short form function(leave, bail_out),
+      -- so we must adjust the values of "args" and "leave"
+      if args and type(args) ~= "table" and not leave then
+        args = {}
+        leave = true
+      elseif not args then
+        args = {}
+      end
+
+      -- Preserve nil/false (normal exit) and strings (reason for leaving early)
+      if bail_out and type(bail_out) ~= "string" then
+        bail_out = ""
+      end
+
+      -- Pretty-format the arguments
+      local arg_list = ""
+      for k, v in pairs(args) do
+        arg_list = type(k) == "number" and
+                    arg_list .. common.argprint(v) or
+                    arg_list .. k .. " = " .. common.argprint(v)
+        arg_list = next(args, k) and arg_list .. ", " or arg_list
+      end
+
+      -- Unlike function arguments, event data will be listed on their own line!
+      if is_event and arg_list ~= "" then
+        arg_list = "\nEvent data: " .. arg_list
+      -- Files won't have any arguments!
+      elseif is_file then
+         arg_list = ""
+      end
+
+      local format_string =
+        is_event and    "%s %s %s%s%s\n(%s: %s)" or
+        is_file and     "%s %s %s%s%s" or
+                        "%s %s %s(%s)%s\n(%s: %s)"
+
+      msg = string.format(format_string,
+              leave and "Leaving" or "Entered", description, f_name, arg_list,
+              (bail_out and (bail_out ~= "" and " early: " .. bail_out or " early!") or ""),
+              file.source, file.currentline
+            )
+
+      -- Output the formatted text
+      common.writeDebug("\n%s\n%s\n%s\n", {sep, msg, sep})
+
+    end
   end
 
-  ------------------------------------------------------------------------------------
+
+  --~ ------------------------------------------------------------------------------------
+  --~ -- File has been entered
+  --~ common.entered_file = function(leave)
+    -- local sep = string.rep("*", 100) .. "\n" .. string.rep("*", 100)
+    --~ local sep = string.rep("*", 100)
+    --~ local prefix = leave and "Leaving" or "Entered"
+    --~ print_on_entered(prefix .. " file " .. debug.getinfo(2).source .. "!", sep)
+  --~ end
+
+
+  --~ ------------------------------------------------------------------------------------
+  --~ -- Function has been entered
+  --~ common.entered_function = function(leave)
+    --~ local file = debug.getinfo(2)
+    --~ local function_name = debug.getinfo(2, "n").name or "NIL"
+    -- local sep = string.rep("-", 100) .. "\n" .. string.rep("-", 100)
+    --~ local sep = string.rep("-", 100)
+    --~ local prefix = leave and "Leaving" or "Entered"
+
+    --~ print_on_entered(prefix .. " function " .. function_name .. "\n" ..
+                    --~ "(" .. file.source .. ": " .. file.currentline ..")", sep)
+  --~ end
+
+
+ ------------------------------------------------------------------------------------
   -- File has been entered
-  common.entered_file = function(leave)
-    --~ local sep = string.rep("*", 100) .. "\n" .. string.rep("*", 100)
-    local sep = string.rep("*", 100)
-    local prefix = leave and "Leaving" or "Entered"
-    print_on_entered(prefix .. " file " .. debug.getinfo(2).source .. "!", sep)
+  common.entered_file = function(leave, bail_out)
+    -- Skip all the string casting unless we really want to log something!
+    if common.is_debug then
+      local sep = string.rep("*", 100)
+
+      local f_name = debug.getinfo(2)
+      f_name = f_name and f_name.source or "NIL"
+
+      print_on_entered({
+        leave = leave, bail_out = bail_out,
+        f_name = f_name, description = "file", sep = sep,
+        is_file = true
+      })
+    end
   end
 
 
   ------------------------------------------------------------------------------------
   -- Function has been entered
-  common.entered_function = function(leave)
-    local file = debug.getinfo(2)
-    local function_name = debug.getinfo(2, "n").name or "NIL"
-    --~ local sep = string.rep("-", 100) .. "\n" .. string.rep("-", 100)
-    local sep = string.rep("-", 100)
-    local prefix = leave and "Leaving" or "Entered"
+  common.entered_function = function(args, leave, bail_out)
+    -- Skip all the string casting unless we really want to log something!
+    if common.is_debug then
 
-    print_on_entered(prefix .. " function " .. function_name .. "\n" ..
-                    "(" .. file.source .. ": " .. file.currentline ..")", sep)
+      local file = debug.getinfo(2)
+      file = file and {source = file.source, currentline = file.currentline} or {}
+      local f_name = debug.getinfo(2, "n").name or "NIL"
+      local sep = string.rep("-", 100)
+
+      print_on_entered({
+        args = args, leave = leave, bail_out = bail_out,
+        file = file, f_name = f_name, description = "function", sep = sep
+      })
+    end
   end
 
 
   ------------------------------------------------------------------------------------
-  -- File or function has been entered, but there's nothing to do
+  -- Function for a /command has been entered
+  common.entered_command = function(args, leave, bail_out)
+    -- Skip all the string casting unless we really want to log something!
+    if common.is_debug then
+
+      local file = debug.getinfo(2)
+      local f_name = args and (args.name or args[1]) and util.table.deepcopy(args.name or args[1])
+      local sep = string.rep(":", 100)
+
+      file = file and {source = file.source, currentline = file.currentline} or {}
+
+      -- If we have only args[1], that will be the command name. We don't want that!
+      args = (args and args[1] and not next(args, 1)) and {} or util.table.deepcopy(args)
+      args.name = nil
+
+      print_on_entered({
+          args = args, leave = leave, bail_out = bail_out,
+          file = file, f_name = f_name, description = "function for command", sep = sep
+      })
+    end
+  end
+
+
+  ------------------------------------------------------------------------------------
+  -- Event script has been entered
+  common.entered_event = function(event, leave, bail_out)
+    -- Skip all the string casting unless we really want to log something!
+    if common.is_debug then
+
+      local file = debug.getinfo(2)
+      file = file and {source = file.source, currentline = file.currentline} or {}
+      local sep = string.rep("=", 100)
+      local args, f_name, event_data
+
+      if event then
+        f_name = event.name and common.event_names[event.name]
+        args = util.table.deepcopy(event)
+        args.name = nil
+      end
+      args = (args and next(args)) and args or {}
+
+      print_on_entered({
+        args = args, leave = leave, bail_out = bail_out,
+        file = file, f_name = f_name or "unnamed event", description = "event script for", sep = sep,
+        is_event = true
+      })
+    end
+  end
+
+
+  --~ ------------------------------------------------------------------------------------
+  --~ -- File or function has been entered, but there's nothing to do
   common.nothing_to_do = function(sep)
-    --~ sep = string.rep(sep or "-", 100) .. "\n" .. string.rep(sep or "-", 100)
     sep = string.rep(sep or "-", 100)
 
     local file = debug.getinfo(2)
@@ -441,7 +626,8 @@ log("compound entities: " .. serpent.block(common.compound_entities))
     local msg = function_name and
                   function_name .. "\n(" .. file.source .. ": " .. file.currentline .. ")" or
                   file.source
-    print_on_entered("Nothing to do in " .. msg, sep)
+    --~ print_on_entered("Nothing to do in " .. msg, sep)
+    common.writeDebug("\n%s\nNothing to do in %s\n%s\n", {sep, msg, sep})
   end
 
 
@@ -994,10 +1180,10 @@ common.writeDebug("\"Easy gardens\": Compiling list of poles they can connect to
         {filter = "type", type = "electric-pole"},
         {filter = "name", name = {
             -- Poles named here will be ignored!
+            "bi-bio-garden-hidden-pole",
             "bi-rail-power-hidden-pole",
-            "bi-musk-mat-hidden-pole",
-            "bi-bio-garden-hidden-pole"
-            }, invert = "true", mode = "and"
+            BioInd.musk_floor_pole_name,
+          }, invert = "true", mode = "and"
         }
       })
       for p, pole in pairs(poles) do

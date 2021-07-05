@@ -22,16 +22,19 @@ local recipe
 if BI.Settings.BI_Stone_Crushing and data.raw.item["biotech-sand"] then
 
   -- Make sure our sand recipe exists
-  if not data.raw.recipe[BI.additional_recipes.mod_compatibility.sand.name] then
-    --~ data:extend({BI.additional_recipes.sand})
-    --~ BioInd.created_msg(BI.additional_recipes.sand)
-    BioInd.create_stuff(BI.additional_recipes.mod_compatibility.sand)
-  end
-  recipe = data.raw.recipe[BI.additional_recipes.mod_compatibility.sand.name]
+  recipe = data.raw.recipe[BI.additional_recipes.mod_compatibility.sand.name] or
+            BioInd.create_stuff(BI.additional_recipes.mod_compatibility.sand)[1]
 
-  -- Adjust result
-  recipe.result = "biotech-sand"
-  BioInd.modified_msg("result", recipe)
+  if recipe then
+    -- Adjust result
+    recipe.result = "biotech-sand"
+    recipe.result_count = 5
+    BioInd.modified_msg("result", recipe)
+
+    -- Adjust localization
+    recipe.localised_name = {"recipe-name.bi-sand", {"item-name.biotech-sand"}}
+    BioInd.modified_msg("localization", recipe)
+  end
 
 end
 

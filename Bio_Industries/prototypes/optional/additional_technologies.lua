@@ -12,7 +12,7 @@ local settings = {
   "BI_Explosive_Planting",
   "BI_Rails",
   "BI_Rubber",
-  "BI_Solar_Additions",
+  "BI_Power_Production",
   "BI_Stone_Crushing",
   "BI_Terraforming",
   "BI_Wood_Gasification",
@@ -865,11 +865,11 @@ BI.additional_techs.BI_Rubber.rubber_mat = {
 
 
 ------------------------------------------------------------------------------------
---                           Enable: Bio solar additions                          --
---                        (BI.Settings.BI_Solar_Additions)                        --
+--                  Enable: Bio power production and distribution                 --
+--                        (BI.Settings.BI_Power_Production)                       --
 ------------------------------------------------------------------------------------
 -- Super accumulators
-BI.additional_techs.BI_Solar_Additions.super_accumulators = {
+BI.additional_techs.BI_Power_Production.super_accumulators = {
   type = "technology",
   name = "bi-tech-electric-energy-super-accumulators",
   localised_name = {"technology-name.bi-tech-electric-energy-super-accumulators"},
@@ -899,7 +899,7 @@ BI.additional_techs.BI_Solar_Additions.super_accumulators = {
 }
 
 -- Steam-solar combination
-BI.additional_techs.BI_Solar_Additions.steamsolar_combination = {
+BI.additional_techs.BI_Power_Production.steamsolar_combination = {
   type = "technology",
   name = "bi-tech-steamsolar-combination",
   localised_name = {"technology-name.bi-tech-steamsolar-combination"},
@@ -929,7 +929,7 @@ BI.additional_techs.BI_Solar_Additions.steamsolar_combination = {
 }
 
 -- Musk floor
-BI.additional_techs.BI_Solar_Additions.musk_floor = {
+BI.additional_techs.BI_Power_Production.musk_floor = {
   type = "technology",
   name = "bi-tech-musk-floor",
   localised_name = {"technology-name.bi-tech-musk-floor"},
@@ -960,7 +960,7 @@ BI.additional_techs.BI_Solar_Additions.musk_floor = {
 }
 
 -- Super solar panels
-BI.additional_techs.BI_Solar_Additions.super_solar_panels = {
+BI.additional_techs.BI_Power_Production.super_solar_panels = {
   type = "technology",
   name = "bi-tech-super-solar-panels",
   localised_name = {"technology-name.bi-tech-super-solar-panels"},
@@ -991,7 +991,7 @@ BI.additional_techs.BI_Solar_Additions.super_solar_panels = {
 
 
 -- Huge substation
-BI.additional_techs.BI_Solar_Additions.huge_substation = {
+BI.additional_techs.BI_Power_Production.huge_substation = {
   type = "technology",
   name = "bi-tech-huge-substation",
   localised_name = {"technology-name.bi-tech-huge-substation"},
@@ -1660,10 +1660,8 @@ BI.additional_techs.BI_Trigger_Concrete.refined_concrete = {
 
 
 -- Status report
-BioInd.readdata_msg(BI.additional_techs, settings,
-                    "optional technologies", "setting")
-BioInd.readdata_msg(BI.additional_techs, triggers,
-                    "optional technologies", "trigger")
+BioInd.readdata_msg(BI.additional_techs, settings, "optional technologies", "setting")
+BioInd.readdata_msg(BI.additional_techs, triggers, "optional technologies", "trigger")
 
 
 ------------------------------------------------------------------------------------

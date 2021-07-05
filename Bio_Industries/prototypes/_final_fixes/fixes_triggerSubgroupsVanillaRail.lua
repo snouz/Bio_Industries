@@ -1,37 +1,42 @@
 ------------------------------------------------------------------------------------
---                                   5Dim's mods                                  --
---  (The core mod is required by all others, so we just need to check for that!)  --
+--                  Trigger: Change order of vanilla rail recipe                  --
+--                     (BI.Triggers.BI_Trigger_Subgroups_rail)                    --
 ------------------------------------------------------------------------------------
-local mod_name = "5dim_core"
-if not BioInd.check_mods(mod_name) then
-  BioInd.nothing_to_do("*")
-  return
-else
+-- Mods:        "5dim_core",
+-- Setting:     BI.Settings.BI_Rails
+local trigger = "BI_Trigger_Subgroups_rail"
+--~ if not BI.Triggers[trigger] then
+  --~ BioInd.nothing_to_do("*")
+  --~ return
+--~ else
   BioInd.entered_file()
-end
+--~ end
 
 
 ------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------
 
 
-local items = data.raw.item
 local recipes = data.raw.recipe
-local item, recipe, group, subgroup, check
-local opt_item, opt_recipe, opt_groups, opt_group
+local items = data.raw["rail-planner"]
+local order
 
 
 ------------------------------------------------------------------------------------
---                            Change stack size of wood                           --
+--                     Change order of the vanilla rail recipe                    --
 ------------------------------------------------------------------------------------
-if BioInd.get_startup_setting("5d-change-stack") then
-  item = items["wood"]
-  if item then
-    item.stack_size = math.max(200, item.stack_size)
-    BioInd.modified_msg("stacksize", item)
-  end
+
+-- Adjust order for item-subgroup from other mods
+if BI.Triggers[trigger] then
+  order = "[Bio_Industries]-[rails]-b[concrete]-a[rail]"
+
+-- Adjust order for vanilla item-subgroup
+else
+  order = "a[train-system]-[Bio_Industries]-b[concrete]-a[rail]"
 end
 
+items["rail"].order = order
+recipes["rail"].order = order
 
 
 ------------------------------------------------------------------------------------

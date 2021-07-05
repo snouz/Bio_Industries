@@ -34,7 +34,12 @@ BI.additional_recipes.liquid_air = {
   order = "aa",
   -- Custom property that allows to automatically add our recipes to tech unlocks.
   BI_add_to_tech = {"bi-tech-fertilizer"},
-  crafting_machine_tint = { primary = util.color("72c2e0"), secondary = util.color("60b1d0"), tertiary = util.color("a0d8ee"), quaternary = util.color("a6cad8") },
+  crafting_machine_tint = {
+    primary = util.color("72c2e0"),
+    secondary = util.color("60b1d0"),
+    tertiary = util.color("a0d8ee"),
+    quaternary = util.color("a6cad8")
+  },
 }
 
 
@@ -62,7 +67,12 @@ BI.additional_recipes.nitrogen = {
   order = "ab",
   -- Custom property that allows to automatically add our recipes to tech unlocks.
   BI_add_to_tech = {"bi-tech-fertilizer"},
-  crafting_machine_tint = { primary = util.color("4764e1"), secondary = util.color("468acf"), tertiary = util.color("5e89b5"), quaternary = util.color("2f77c1") },
+  crafting_machine_tint = {
+    primary = util.color("4764e1"),
+    secondary = util.color("468acf"),
+    tertiary = util.color("5e89b5"),
+    quaternary = util.color("2f77c1")
+  },
 }
 
 

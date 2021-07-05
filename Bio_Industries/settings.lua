@@ -81,12 +81,12 @@ setting_list.BI_Rails = {
 }
 
 
-setting_list.BI_Solar_Additions = {
+setting_list.BI_Power_Production = {
   type = "bool-setting",
-  name = "BI_Solar_Additions",
+  name = "BI_Power_Production",
   setting_type = "startup",
   default_value = true,
-  order = "a[enable]-d-[production]-[BI_Solar_Additions]",
+  order = "a[enable]-d-[production]-[BI_Power_Production]",
 }
 
 
@@ -159,13 +159,13 @@ setting_list.BI_Game_Tweaks_Recipe = {
   order = "b[tweaks]-b-[production]-[BI_Game_Tweaks_Recipe]",
 }
 
-setting_list.BI_Game_Tweaks_Production_Science = {
-  type = "bool-setting",
-  name = "BI_Game_Tweaks_Production_Science",
-  setting_type = "startup",
-  default_value = true,
-  order = "b[tweaks]-b-[production]-[BI_Game_Tweaks_Production_Science]",
-}
+--~ setting_list.BI_Game_Tweaks_Production_Science = {
+  --~ type = "bool-setting",
+  --~ name = "BI_Game_Tweaks_Production_Science",
+  --~ setting_type = "startup",
+  --~ default_value = true,
+  --~ order = "b[tweaks]-b-[production]-[BI_Game_Tweaks_Production_Science]",
+--~ }
 
 setting_list.BI_Game_Tweaks_Show_musk_floor_in_mapview = {
   type = "bool-setting",
@@ -230,7 +230,19 @@ if not (mods["IndustrialRevolution"] or mods["aai-industry"]) then
   }
 end
 
--- Wood Gasification
+-- Krastorio 2 (Our alternative recipe for Production science packs will break the balance
+-- if Krastorio is active)
+if not mods["Krastorio2"] then
+  setting_list.BI_Game_Tweaks_Production_Science = {
+    type = "bool-setting",
+    name = "BI_Game_Tweaks_Production_Science",
+    setting_type = "startup",
+    default_value = true,
+    order = "b[tweaks]-b-[production]-[BI_Game_Tweaks_Production_Science]",
+  }
+end
+
+-- Wood Gasification (Don't duplicate what's already there!)
 if not mods["Wood_Gasification"] then
   setting_list.BI_Wood_Gasification = {
     type = "bool-setting",
@@ -271,20 +283,20 @@ end
 
 --[[
 Types of settings:
-      • startup - game must be restarted if changed (such a setting may affect prototypes' changes)
-      • runtime-global - per-world setting
-      • runtime-per-user - per-user setting
+      - startup - game must be restarted if changed (such a setting may affect prototypes' changes)
+      - runtime-global - per-world setting
+      - runtime-per-user - per-user setting
 
 Types of values:
-      • bool-setting
-      • double-setting
-      • int-setting
-      • string-setting
+      - bool-setting
+      - double-setting
+      - int-setting
+      - string-setting
 
 Files being processed by the game:
-      • settings.lua
-      • settings-updates.lua
-      • settings-final-fixes.lua
+      - settings.lua
+      - settings-updates.lua
+      - settings-final-fixes.lua
 
 Using in DATA.lua:
 data:extend({
@@ -338,7 +350,7 @@ Using in CONTROL.lua and in other code for reading:
 ]]
 
 --[[data:extend({
-  {  
+  {
     type = "int-setting",
     name = "pollution_detector_update_interval",
     order = "aa",
@@ -346,5 +358,5 @@ Using in CONTROL.lua and in other code for reading:
     default_value = 120,
     minimum_value = 1,
     maximum_value = 216000, -- 1h
-  },  
+  },
 })]]--

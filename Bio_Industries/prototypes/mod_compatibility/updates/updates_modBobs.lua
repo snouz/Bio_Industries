@@ -35,7 +35,7 @@ local techs = data.raw.technology
 -- DO WE STILL WANT TO DO THIS, OR DO WE KEEP OUR TECHS?
 ------------------------------------------------------------------------------------
 --~ --- Adds Solar Farm, Solar Plant, Musk Floor, Bio Accumulator and Substation to Tech tree
---~ if BI.Settings.BI_Solar_Additions then
+--~ if BI.Settings.BI_Power_Production then
   --~ if data.raw.technology["bob-solar-energy-2"] then
     --~ thxbob.lib.tech.add_recipe_unlock("bob-electric-energy-accumulators-3", "bi-bio-accumulator")
     --~ thxbob.lib.tech.add_recipe_unlock("electric-energy-distribution-2", "bi-huge-substation")
@@ -91,9 +91,9 @@ end
 ------------------------------------------------------------------------------------
 -- Bob's Power mod ("bobpower")
 item = "solar-panel-large"
-if items[item] and BI.additional_recipes.BI_Solar_Additions then
+if items[item] and BI.additional_recipes.BI_Power_Production then
   --~ recipe = recipes["bi-bio-solar-farm"]
-  recipe =  recipes[BI.additional_recipes.BI_Solar_Additions.solar_farm.name]
+  recipe =  recipes[BI.additional_recipes.BI_Power_Production.solar_farm.name]
   if recipe then
     -- Change ingredients
     --~ thxbob.lib.recipe.remove_ingredient(recipe.name, "solar-panel")
@@ -116,9 +116,9 @@ end
 ------------------------------------------------------------------------------------
 -- Bob's Power mod ("bobpower")
 item = "substation-3"
-if items[item] and BI.additional_recipes.BI_Solar_Additions then
+if items[item] and BI.additional_recipes.BI_Power_Production then
   --~ recipe = recipes["bi-huge-substation"]
-  recipe = recipes[BI.additional_recipes.BI_Solar_Additions.huge_substation.name]
+  recipe = recipes[BI.additional_recipes.BI_Power_Production.huge_substation.name]
   if recipe then
     -- Change ingredients
     --~ thxbob.lib.recipe.remove_ingredient(recipe.name, "substation")
@@ -142,8 +142,8 @@ end
 ------------------------------------------------------------------------------------
 -- Bob's Power mod ("bobpower")
 --~ item =
-if items["large-accumulator-2"] and BI.additional_recipes.BI_Solar_Additions then
-  recipe = recipes[BI.additional_recipes.BI_Solar_Additions.huge_accumulator.name]
+if items["large-accumulator-2"] and BI.additional_recipes.BI_Power_Production then
+  recipe = recipes[BI.additional_recipes.BI_Power_Production.huge_accumulator.name]
   if recipe then
     -- Change ingredients
     thxbob.lib.recipe.remove_ingredient(recipe.name, "accumulator")
@@ -158,8 +158,8 @@ end
 
 -- Bob's Metals, Chemicals and Intermediates mod ("bobplates")
 item = "aluminium-plate"
-if items[item] and BI.additional_recipes.BI_Solar_Additions then
-  recipe = recipes[BI.additional_recipes.BI_Solar_Additions.huge_accumulator.name]
+if items[item] and BI.additional_recipes.BI_Power_Production then
+  recipe = recipes[BI.additional_recipes.BI_Power_Production.huge_accumulator.name]
   if recipe then
     -- Change ingredients
     --~ thxbob.lib.recipe.remove_ingredient(recipe.name, "copper-cable")
@@ -183,9 +183,9 @@ end
 ------------------------------------------------------------------------------------
 -- Bob's Metals, Chemicals and Intermediates mod ("bobplates")
 item = "aluminium-plate"
-if items[item] and BI.additional_recipes.BI_Solar_Additions then
+if items[item] and BI.additional_recipes.BI_Power_Production then
   --~ recipe = recipes["bi-solar-mat"]
-  recipe = recipes[BI.additional_recipes.BI_Solar_Additions.solar_mat.name]
+  recipe = recipes[BI.additional_recipes.BI_Power_Production.solar_mat.name]
   if recipe then
     -- Change ingredients
     --~ thxbob.lib.recipe.remove_ingredient(recipe.name, "steel-plate")
@@ -205,9 +205,9 @@ end
 
 -- Bob's Metals, Chemicals and Intermediates mod ("bobplates")
 item = "silicon-wafer"
-if items[item] and BI.additional_recipes.BI_Solar_Additions then
+if items[item] and BI.additional_recipes.BI_Power_Production then
   --~ recipe = recipes["bi-solar-mat"]
-  recipe = recipes[BI.additional_recipes.BI_Solar_Additions.solar_mat.name]
+  recipe = recipes[BI.additional_recipes.BI_Power_Production.solar_mat.name]
   if recipe then
     -- Change ingredients
     --~ thxbob.lib.recipe.remove_ingredient(recipe.name, "copper-cable")

@@ -9,7 +9,7 @@ local settings = {
   "BI_Bio_Fuel",
   "BI_Bio_Garden",
   "BI_Disassemble",
-  "BI_Solar_Additions",
+  "BI_Power_Production",
   "BI_Stone_Crushing",
   "BI_Terraforming",
 }
@@ -81,11 +81,11 @@ BI.additional_categories.BI_Disassemble.disassemble = {
 
 
 ------------------------------------------------------------------------------------
---                           Enable: Bio solar additions                          --
---                        (BI.Settings.BI_Solar_Additions)                        --
+--                  Enable: Bio power production and distribution                 --
+--                        (BI.Settings.BI_Power_Production)                       --
 ------------------------------------------------------------------------------------
 --~ -- Item subgroup for solar entities
---~ BI.additional_categories.BI_Solar_Additions.solar_entity = {
+--~ BI.additional_categories.BI_Power_Production.solar_entity = {
   --~ type = "item-subgroup",
   --~ name = "bio-bio-solar-entity",
   --~ group = "bio-industries",
@@ -93,7 +93,7 @@ BI.additional_categories.BI_Disassemble.disassemble = {
 --~ }
 
 -- Item subgroup for Solar panel
-BI.additional_categories.BI_Solar_Additions.energy_solar_panel = {
+BI.additional_categories.BI_Power_Production.energy_solar_panel = {
   type = "item-subgroup",
   name = "bio-energy-solar-panel",
   group = "production",
@@ -101,7 +101,7 @@ BI.additional_categories.BI_Solar_Additions.energy_solar_panel = {
 }
 
 -- Item subgroup for Accumulator
-BI.additional_categories.BI_Solar_Additions.energy_accumulator = {
+BI.additional_categories.BI_Power_Production.energy_accumulator = {
   type = "item-subgroup",
   name = "bio-energy-accumulator",
   group = "production",

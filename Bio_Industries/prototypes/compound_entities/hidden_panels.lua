@@ -44,7 +44,7 @@ BI.make_hidden_entity_list(h_key)
 
 -- Musk floor is not an entity, but a tile, so we don't have a compound-entity table
 -- for it and must add it manually!
-local Musk_name = "bi-musk-mat-hidden-panel"
+local Musk_name = BioInd.musk_floor_panel_name
 BI.hidden_entities.types[h_key][Musk_name] = "bi-solar-mat"
 
 

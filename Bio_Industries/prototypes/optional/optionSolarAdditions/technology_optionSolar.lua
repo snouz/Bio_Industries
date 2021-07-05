@@ -1,16 +1,8 @@
 ------------------------------------------------------------------------------------
---                           Enable: Bio solar additions                          --
---                        (BI.Settings.BI_Solar_Additions)                        --
+--                  Enable: Bio power production and distribution                 --
+--                        (BI.Settings.BI_Power_Production)                       --
 ------------------------------------------------------------------------------------
-local setting = "BI_Solar_Additions"
-if not BI.Settings[setting] then
-  BioInd.nothing_to_do("*")
-  return
-else
-  BioInd.entered_file()
-end
-
---~ if not BI.Settings.BI_Solar_Additions then
+local setting = "BI_Power_Production"
 if not BI.Settings[setting] or
     (data.raw.technology["bob-solar-energy-2"] and data.raw.technology["bob-solar-energy-3"]) then
   BioInd.nothing_to_do("*")

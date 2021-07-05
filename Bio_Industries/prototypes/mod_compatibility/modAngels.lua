@@ -52,14 +52,19 @@ end
 -- Angel's Refining ("angelsrefining")
 if BI.Settings.BI_Stone_Crushing and items["solid-sand"] then
   -- Make sure our sand recipe exists
-  if not recipes[BI.additional_recipes.mod_compatibility.sand.name] then
-    recipe = BioInd.create_stuff(BI.additional_recipes.mod_compatibility.sand)[1]
-  end
 
-  -- Adjust result
+  recipe = recipes[BI.additional_recipes.mod_compatibility.sand.name] or
+            BioInd.create_stuff(BI.additional_recipes.mod_compatibility.sand)[1]
+
   if recipe then
+    -- Adjust result
     recipe.result = "solid-sand"
-    BioInd.modified_msg("result", BI.additional_recipes.mod_compatibility.sand)
+    recipe.result_count = 5
+    BioInd.modified_msg("result", recipe)
+
+    -- Adjust localization
+    recipe.localised_name = {"recipe-name.bi-sand", {"item-name.solid-sand"}}
+    BioInd.modified_msg("localization", recipe)
   end
 end
 

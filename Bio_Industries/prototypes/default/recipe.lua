@@ -600,8 +600,8 @@ BI.default_recipes.biomass_1 = {
   allow_decomposition = true,
   subgroup = "bio-bio-fuel-fluid",
   order = "a-[biomass]-a-[bi-biomass-1]",
-  -- Custom property that allows to automatically add our recipes to tech unlocks.
   crafting_machine_tint = { primary = util.color("43f436") },
+  -- Custom property that allows to automatically add our recipes to tech unlocks.
   BI_add_to_tech = {"bi-tech-biomass"},
 }
 
@@ -641,7 +641,12 @@ BI.default_recipes.fertilizer_1 = {
   order = "b[bi-fertilizer]",
   -- Custom property that allows to automatically add our recipes to tech unlocks.
   BI_add_to_tech = {"bi-tech-fertilizer"},
-  crafting_machine_tint = { primary = util.color("5e9347"), secondary = util.color("72be51"), tertiary = util.color("63ae42"), quaternary = util.color("bfba21") },
+  crafting_machine_tint = {
+    primary = util.color("5e9347"),
+    secondary = util.color("72be51"),
+    tertiary = util.color("63ae42"),
+    quaternary = util.color("bfba21")
+  },
 }
 
 
@@ -680,7 +685,12 @@ BI.default_recipes.adv_fertilizer_1 = {
   mod = "Bio_Industries",
   -- Custom property that allows to automatically add our recipes to tech unlocks.
   BI_add_to_tech = {"bi-tech-advanced-fertilizer"},
-  crafting_machine_tint = { primary = util.color("FF528E"), secondary = util.color("EB75BF"), tertiary = util.color("EB737C"), quaternary = util.color("FF7CF1") },
+  crafting_machine_tint = {
+    primary = util.color("FF528E"),
+    secondary = util.color("EB75BF"),
+    tertiary = util.color("EB737C"),
+    quaternary = util.color("FF7CF1")
+  },
 }
 
 

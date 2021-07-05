@@ -2,7 +2,6 @@
 --                                   Bob's mods                                   --
 ------------------------------------------------------------------------------------
 if not BioInd.check_mods({
-  "bobpower",
   "bobelectronics",
   "bobplates",
 }) then
@@ -22,6 +21,7 @@ local ICONPATH = BioInd.iconpath .. "mod_bobangels/"
 local recipe
 local items = data.raw.item
 local recipes = data.raw.recipe
+
 
 ------------------------------------------------------------------------------------
 --                      Alternative recipe for Wooden boards                      --

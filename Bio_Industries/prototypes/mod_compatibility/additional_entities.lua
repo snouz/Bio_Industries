@@ -42,7 +42,6 @@ sounds.mined_sound = {
 --                                  Wooden floor                                  --
 ------------------------------------------------------------------------------------
 -- Dectorio ("Dectorio")
---~ BI.additional_entities.mod_compatibility.wood_floor = {
 BI.additional_entities.BI_Trigger_Woodfloor.wood_floor = {
   type = "tile",
   name = "bi-wood-floor",
@@ -204,7 +203,7 @@ BI.additional_entities.BI_Trigger_Woodfloor.wood_floor = {
   walking_sound = sounds.walking_sound,
   map_color = {r = 139, g = 115, b = 85},
   pollution_absorption_per_second = 0,
-  vehicle_friction_modifier = dirt_vehicle_speed_modifer
+  vehicle_friction_modifier = 0.9,
 }
 
 

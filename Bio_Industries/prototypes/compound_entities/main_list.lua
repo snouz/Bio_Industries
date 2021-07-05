@@ -257,8 +257,8 @@ ret.get_HE_list = function(get_complete_list)
     --~ end
 
     --~ -- Solar additions
-    --  if not BI.Settings.BI_Solar_Additions then
-    --~ if not get_settings("BI_Solar_Additions") then
+    --  if not BI.Settings.BI_Power_Production then
+    --~ if not get_settings("BI_Power_Production") then
       --  log("Solar additions have been disabled!")
       --~ for e, entry in ipairs({"bi-bio-solar-farm", "bi-solar-boiler"}) do
         --~ ret.compound_entities[entry] = nil

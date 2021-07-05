@@ -13,7 +13,7 @@ local settings = {
   "BI_Explosive_Planting",
   "BI_Rails",
   "BI_Rubber",
-  "BI_Solar_Additions",
+  "BI_Power_Production",
   "BI_Stone_Crushing",
   "BI_Terraforming",
   "BI_Wood_Products",
@@ -49,6 +49,11 @@ BI.additional_items.Bio_Cannon.bio_cannon = {
   order = "x[turret]-x[gun-turret]",
   place_result = "bi-bio-cannon-area",
   stack_size = 1,
+  -- Group/subgroup if "5Dim's mod - New Core" is used
+  group_5d = "defense",
+  subgroup_5d = "defense-proto-artillery",
+  subgroup_order_5d = "n-a",
+  order_5d = "[Bio_Industries]-[proto-artillery]",
 }
 
 
@@ -81,6 +86,11 @@ BI.additional_items.Bio_Cannon.bio_cannon_ammo_proto = {
   subgroup = "ammo",
   order = "z[Bio_Cannon_Ammo]-a[Proto]",
   stack_size = 50,
+  -- Group/subgroup if "5Dim's mod - New Core" is used
+  group_5d = "defense",
+  subgroup_5d = "defense-proto-artillery",
+  subgroup_order_5d = "n-a",
+  order_5d = "[Bio_Industries]-[proto-artillery]-[ammo-1]",
 }
 
 
@@ -115,6 +125,11 @@ BI.additional_items.Bio_Cannon.bio_cannon_ammo_basic = {
   subgroup = "ammo",
   order = "z[Bio_Cannon_Ammo]-b[Basic]",
   stack_size = 50,
+  -- Group/subgroup if "5Dim's mod - New Core" is used
+  group_5d = "defense",
+  subgroup_5d = "defense-proto-artillery",
+  subgroup_order_5d = "n-a",
+  order_5d = "[Bio_Industries]-[proto-artillery]-[ammo-2]",
 }
 
 
@@ -149,6 +164,11 @@ BI.additional_items.Bio_Cannon.bio_cannon_ammo_poison = {
   subgroup = "ammo",
   order = "z[Bio_Cannon_Ammo]-c[Poison]",
   stack_size = 50,
+  -- Group/subgroup if "5Dim's mod - New Core" is used
+  group_5d = "defense",
+  subgroup_5d = "defense-proto-artillery",
+  subgroup_order_5d = "n-a",
+  order_5d = "[Bio_Industries]-[proto-artillery]-[ammo-3]",
 }
 
 
@@ -205,6 +225,10 @@ BI.additional_items.Bio_Cannon.poison_artillery_shell = {
   subgroup = "ammo",
   order = "d[explosive-cannon-shell]-d[artillery]-[bi-poison]",
   stack_size = 1,
+  -- Group/subgroup if "5Dim's mod - New Core" is used
+  group_5d = "defense",
+  subgroup_5d = "defense-artillery",
+  order_5d = "b-[Bio_Industries]-[artillery-poison]",
 }
 
 
@@ -223,7 +247,7 @@ BI.additional_items.BI_Coal_Processing.wood_charcoal = {
   fuel_category = "chemical",
   subgroup = "raw-material",
   order = "a[bi]-a-c[charcoal]",
-  stack_size = 400
+  stack_size = 400,
 }
 BI.additional_items.BI_Coal_Processing.wood_charcoal.pictures = BioInd.add_pix("charcoal", 4)
 
@@ -240,7 +264,7 @@ BI.additional_items.BI_Coal_Processing.pellet_coke = {
   fuel_top_speed_multiplier = 1.1,
   subgroup = "raw-material",
   order = "a[bi]-a-g[bi-coke-coal]",
-  stack_size = 400
+  stack_size = 400,
 }
 
 
@@ -258,7 +282,12 @@ BI.additional_items.BI_Darts.dart_turret = {
   subgroup = "defensive-structure",
   order = "aa[turret]-a[gun-turret]",
   place_result = "bi-dart-turret",
-  stack_size = 50
+  stack_size = 50,
+  -- Group/subgroup if "5Dim's mod - New Core" is used
+  group_5d = "defense",
+  subgroup_5d = "defense-gun-turret",
+  --~ subgroup_order_5d = "n-a",
+  order_5d = "[Bio_Industries]-a",
 }
 
 
@@ -276,7 +305,12 @@ BI.additional_items.BI_Darts.wooden_fence = {
   place_result = "bi-wooden-fence",
   --fuel_value = "4MJ",
   --fuel_category = "chemical",
-  stack_size = 50
+  stack_size = 50,
+  -- Group/subgroup if "5Dim's mod - New Core" is used
+  group_5d = "defense",
+  subgroup_5d = "defense-wall",
+  --~ subgroup_order_5d = "n-a",
+  order_5d = "[Bio_Industries]-[defense-buildings-a]",
 }
 
 ------------------------------------------------------------------------------------
@@ -293,7 +327,12 @@ BI.additional_items.BI_Bio_Fuel.bio_boiler = {
   subgroup = "energy",
   order = "b[steam-power]-b[boiler]",
   place_result = "bi-bio-boiler",
-  stack_size = 50
+  stack_size = 50,
+  -- Group/subgroup if "5Dim's mod - New Core" is used
+  group_5d = "energy",
+  subgroup_5d = "energy-boiler",
+  --~ subgroup_order_5d = "n-a",
+  order_5d = "a-[Bio_Industries]-a",
 }
 
 -- Cellulose
@@ -394,7 +433,12 @@ BI.additional_items.BI_Explosive_Planting.seed_bomb_basic = {
   },
   subgroup = "ammo",
   order = "a[rocket-launcher]-x[seed-bomb]-a",
-  stack_size = 10
+  stack_size = 10,
+  -- Group/subgroup if "5Dim's mod - New Core" is used
+  group_5d = "equipment",
+  subgroup_5d = "equipment-rocket",
+  --~ subgroup_order_5d = "n-a",
+  order_5d = "e-[Bio_Industries]-[seed-bomb-1]",
 }
 
 -- Standard seed bomb
@@ -421,7 +465,12 @@ BI.additional_items.BI_Explosive_Planting.seed_bomb_standard = {
   },
   subgroup = "ammo",
   order = "a[rocket-launcher]-x[seed-bomb]-b",
-  stack_size = 10
+  stack_size = 10,
+  -- Group/subgroup if "5Dim's mod - New Core" is used
+  group_5d = "equipment",
+  subgroup_5d = "equipment-rocket",
+  --~ subgroup_order_5d = "n-a",
+  order_5d = "e-[Bio_Industries]-[seed-bomb-2]",
 }
 
 -- Advanced seeb bomb
@@ -448,7 +497,12 @@ BI.additional_items.BI_Explosive_Planting.seed_bomb_advanced = {
   },
   subgroup = "ammo",
   order = "a[rocket-launcher]-x[seed-bomb]-c",
-  stack_size = 10
+  stack_size = 10,
+  -- Group/subgroup if "5Dim's mod - New Core" is used
+  group_5d = "equipment",
+  subgroup_5d = "equipment-rocket",
+  --~ subgroup_order_5d = "n-a",
+  order_5d = "e-[Bio_Industries]-[seed-bomb-3]",
 }
 
 
@@ -502,16 +556,21 @@ BI.additional_items.BI_Rubber.rubber_mat = {
     result = "bi-rubber-mat",
     condition_size = 4,
     condition = { "water-tile" }
-  }
+  },
+  -- Group/subgroup if "5Dim's mod - New Core" is used
+  group_5d = "defense",
+  subgroup_5d = "defense-wall",
+  --~ subgroup_order_5d = "n-a",
+  order_5d = "[Bio_Industries]-[defense-buildings-b]",
 }
 
 
 ------------------------------------------------------------------------------------
---                           Enable: Bio solar additions                          --
---                        (BI.Settings.BI_Solar_Additions)                        --
+--                  Enable: Bio power production and distribution                 --
+--                        (BI.Settings.BI_Power_Production)                       --
 ------------------------------------------------------------------------------------
 -- Solar Farm
-BI.additional_items.BI_Solar_Additions.solar_farm = {
+BI.additional_items.BI_Power_Production.solar_farm = {
   type = "item",
   name = "bi-bio-solar-farm",
   localised_name = {"entity-name.bi-bio-solar-farm"},
@@ -520,14 +579,19 @@ BI.additional_items.BI_Solar_Additions.solar_farm = {
   icon_size = 64, icon_mipmaps = 3,
   BI_add_icon = true,
   subgroup = "energy",
-  --~ subgroup = BI.additional_categories.BI_Solar_Additions.energy_solar_panel.name,
+  --~ subgroup = BI.additional_categories.BI_Power_Production.energy_solar_panel.name,
   order = "d[solar-panel]-a[solar-panel]-a[bi-bio-solar-farm]",
   place_result = "bi-bio-solar-farm",
   stack_size = 10,
+  -- Group/subgroup if "5Dim's mod - New Core" is used
+  group_5d = "energy",
+  subgroup_5d = "energy-solar-panel",
+  --~ subgroup_order_5d = "n-a",
+  order_5d = "a-[Bio_Industries]-[solar-panel]-a[bi-bio-solar-farm]",
 }
 
 -- Musk floor/Solar mat
-BI.additional_items.BI_Solar_Additions.solar_mat = {
+BI.additional_items.BI_Power_Production.solar_mat = {
   type = "item",
   name = "bi-solar-mat",
   localised_name = {"entity-name.bi-solar-mat"},
@@ -536,18 +600,23 @@ BI.additional_items.BI_Solar_Additions.solar_mat = {
   icon_size = 64, icon_mipmaps = 3,
   BI_add_icon = true,
   subgroup = "energy",
-  --~ subgroup = BI.additional_categories.BI_Solar_Additions.energy_solar_panel.name,
+  --~ subgroup = BI.additional_categories.BI_Power_Production.energy_solar_panel.name,
   order = "d[solar-panel]-aa[solar-panel-1-a]",
   stack_size = 400,
   place_as_tile = {
     result = "bi-solar-mat",
     condition_size = 4,
     condition = { "water-tile" }
-  }
+  },
+  -- Group/subgroup if "5Dim's mod - New Core" is used
+  group_5d = "energy",
+  subgroup_5d = "energy-solar-panel",
+  --~ subgroup_order_5d = "n-a",
+  order_5d = "a-[Bio_Industries]-[solar-panel]-b[bi-solar-mat]",
 }
 
 -- Huge accumulator
-BI.additional_items.BI_Solar_Additions.huge_accumulator = {
+BI.additional_items.BI_Power_Production.huge_accumulator = {
   type = "item",
   name = "bi-bio-accumulator",
   localised_name = {"entity-name.bi-bio-accumulator"},
@@ -556,14 +625,19 @@ BI.additional_items.BI_Solar_Additions.huge_accumulator = {
   icon_size = 64, icon_mipmaps = 3,
   BI_add_icon = true,
   subgroup = "energy",
-  --~ subgroup = BI.additional_categories.BI_Solar_Additions.energy_solar_panel.name,
+  --~ subgroup = BI.additional_categories.BI_Power_Production.energy_solar_panel.name,
   order = "e[accumulator]-a[bi-accumulator]",
   place_result = "bi-bio-accumulator",
-  stack_size = 5
+  stack_size = 5,
+  -- Group/subgroup if "5Dim's mod - New Core" is used
+  group_5d = "energy",
+  subgroup_5d = "energy-accumulator",
+  --~ subgroup_order_5d = "n-a",
+  order_5d = "a-[Bio_Industries]-[accumulator]-a[bi-accumulator]",
 }
 
 -- Huge Substation
-BI.additional_items.BI_Solar_Additions.huge_substation = {
+BI.additional_items.BI_Power_Production.huge_substation = {
   type = "item",
   name = "bi-huge-substation",
   localised_name = {"entity-name.bi-huge-substation"},
@@ -572,14 +646,19 @@ BI.additional_items.BI_Solar_Additions.huge_substation = {
   icon_size = 64, icon_mipmaps = 3,
   BI_add_icon = true,
   subgroup = "energy-pipe-distribution",
-  --~ subgroup = BI.additional_categories.BI_Solar_Additions.energy_accumulator.name,
+  --~ subgroup = BI.additional_categories.BI_Power_Production.energy_accumulator.name,
   order = "a[energy]-d[substation]-b[large-substation]",
   place_result = "bi-huge-substation",
-  stack_size = 10
+  stack_size = 10,
+  -- Group/subgroup if "5Dim's mod - New Core" is used
+  group_5d = "energy",
+  subgroup_5d = "energy-substation",
+  --~ subgroup_order_5d = "n-a",
+  order_5d = "a-[Bio_Industries]-[substation]-a[bi-huge-substation]",
 }
 
 -- Solar boiler and plant
-BI.additional_items.BI_Solar_Additions.solar_boiler = {
+BI.additional_items.BI_Power_Production.solar_boiler = {
   type = "item",
   name = "bi-solar-boiler",
   localised_name = {"entity-name.bi-solar-boiler"},
@@ -588,10 +667,15 @@ BI.additional_items.BI_Solar_Additions.solar_boiler = {
   icon_size = 64, icon_mipmaps = 3,
   BI_add_icon = true,
   subgroup = "energy",
-  --~ subgroup = BI.additional_categories.BI_Solar_Additions.energy_solar_panel.name,
+  --~ subgroup = BI.additional_categories.BI_Power_Production.energy_solar_panel.name,
   order = "b[steam-power]-c[steam-engine]",
   place_result = "bi-solar-boiler",
   stack_size = 20,
+  -- Group/subgroup if "5Dim's mod - New Core" is used
+  group_5d = "energy",
+  subgroup_5d = "energy-solar-panel",
+  --~ subgroup_order_5d = "n-a",
+  order_5d = "a.[Bio_Industries]-[solar-panel]-c[bi-solar-boiler]",
 }
 
 
@@ -751,6 +835,11 @@ BI.additional_items.BI_Wood_Products.large_wooden_chest = {
   order = "a[items]-d[bigchest]",
   place_result = "bi-wooden-chest-large",
   stack_size = 48,
+  -- Group/subgroup if "5Dim's mod - New Core" is used
+  group_5d = "mining",
+  subgroup_5d = "store-solid",
+  --~ subgroup_order_5d = "n-a",
+  order_5d = "[Bio_Industries]-[items]-d[bigchest]",
 }
 
 -- Huge wooden chest 3 x 3
@@ -768,6 +857,11 @@ BI.additional_items.BI_Wood_Products.huge_wooden_chest = {
   order = "a[items]-e[hugechest]",
   place_result = "bi-wooden-chest-huge",
   stack_size = 32,
+  -- Group/subgroup if "5Dim's mod - New Core" is used
+  group_5d = "mining",
+  subgroup_5d = "store-solid",
+  --~ subgroup_order_5d = "n-a",
+  order_5d = "[Bio_Industries]-[items]-e[hugechest]",
 }
 
 -- Gigantic wooden chest 6 x 6
@@ -784,7 +878,12 @@ BI.additional_items.BI_Wood_Products.giga_wooden_chest = {
   subgroup = "storage",
   order = "a[items]-f[gigachest]",
   place_result = "bi-wooden-chest-giga",
-  stack_size = 16
+  stack_size = 16,
+  -- Group/subgroup if "5Dim's mod - New Core" is used
+  group_5d = "mining",
+  subgroup_5d = "store-solid",
+  --~ subgroup_order_5d = "n-a",
+  order_5d = "[Bio_Industries]-[items]-f[gigachest]",
 }
 
 -- Big Wooden Electric Pole
@@ -801,7 +900,12 @@ BI.additional_items.BI_Wood_Products.big_pole = {
   place_result = "bi-wooden-pole-big",
   --fuel_value = "14MJ",
   --fuel_category = "chemical",
-  stack_size = 50
+  stack_size = 50,
+  -- Group/subgroup if "5Dim's mod - New Core" is used
+  group_5d = "energy",
+  subgroup_5d = "energy-pole",
+  --~ subgroup_order_5d = "n-a",
+  order_5d = "a-[Bio_Industries]-[energy-pole]-a[big-electric-pole]",
 }
 
 -- Huge Wooden Pole
@@ -814,11 +918,16 @@ BI.additional_items.BI_Wood_Products.huge_pole = {
   icon_size = 64, icon_mipmaps = 3,
   BI_add_icon = true,
   subgroup = "energy-pipe-distribution",
-  order = "a[energy]-d[big-electric-pole]",
+  order = "a[energy]-d[huge-electric-pole]",
   place_result = "bi-wooden-pole-huge",
   --fuel_value = "90MJ",
   --fuel_category = "chemical",
-  stack_size = 50
+  stack_size = 50,
+  -- Group/subgroup if "5Dim's mod - New Core" is used
+  group_5d = "energy",
+  subgroup_5d = "energy-pole",
+  --~ subgroup_order_5d = "n-a",
+  order_5d = "a-[Bio_Industries]-[energy-pole]-b[huge-electric-pole]",
 }
 
 --- Wood Pipe
@@ -835,7 +944,12 @@ BI.additional_items.BI_Wood_Products.wood_pipe = {
   place_result = "bi-wood-pipe",
   --fuel_value = "4MJ",
   --fuel_category = "chemical",
-  stack_size = 100
+  stack_size = 100,
+  -- Group/subgroup if "5Dim's mod - New Core" is used
+  group_5d = "liquid",
+  subgroup_5d = "transport-pipe",
+  --~ subgroup_order_5d = "n-a",
+  order_5d = "[Bio_Industries]-[pipe]-[wood-pipe]",
 }
 
 --- Wood Pipe to Ground
@@ -852,7 +966,12 @@ BI.additional_items.BI_Wood_Products.wood_pipe_to_ground = {
   place_result = "bi-wood-pipe-to-ground",
   --fuel_value = "20MJ",
   --fuel_category = "chemical",
-  stack_size = 50
+  stack_size = 50,
+  -- Group/subgroup if "5Dim's mod - New Core" is used
+  group_5d = "liquid",
+  subgroup_5d = "transport-pipe-ground",
+  --~ subgroup_order_5d = "n-a",
+  order_5d = "[Bio_Industries]-[pipe]-[wood-pipe-to-ground]",
 }
 
 
@@ -870,11 +989,16 @@ BI.additional_items.BI_Rails.rail_wood = {
   icon_size = 64, icon_mipmaps = 3,
   BI_add_icon = true,
   subgroup = "train-transport",
-  order = "a[train-system]-a[rail]",
+  order = "a[train-system]-[Bio_Industries]-a[wood]-a[rail]",
   place_result = "bi-straight-rail-wood",
   stack_size = 100,
   straight_rail = "bi-straight-rail-wood",
-  curved_rail = "bi-curved-rail-wood"
+  curved_rail = "bi-curved-rail-wood",
+  -- Group/subgroup if "5Dim's mod - New Core" is used
+  group_5d = "trains",
+  subgroup_5d = "trains-rails",
+  --~ subgroup_order_5d = "n-a",
+  order_5d = "[Bio_Industries]-[rails]-a[wood]-a[rail]",
 }
 
 -- Wooden-rail-bridge planner
@@ -887,11 +1011,16 @@ BI.additional_items.BI_Rails.rail_wood_bridge = {
   icon_size = 64, icon_mipmaps = 3,
   BI_add_icon = true,
   subgroup = "train-transport",
-  order = "a[train-system]-b[rail]",
+  order = "a[train-system]-[Bio_Industries]-a[wood]-b[bridge]",
   place_result = "bi-straight-rail-wood-bridge",
   stack_size = 100,
   straight_rail = "bi-straight-rail-wood-bridge",
-  curved_rail = "bi-curved-rail-wood-bridge"
+  curved_rail = "bi-curved-rail-wood-bridge",
+  -- Group/subgroup if "5Dim's mod - New Core" is used
+  group_5d = "trains",
+  subgroup_5d = "trains-rails",
+  --~ subgroup_order_5d = "n-a",
+  order_5d = "[Bio_Industries]-[rails]-a[wood]-b[bridge]",
 }
 
 -- Powered-rail planner
@@ -904,11 +1033,17 @@ BI.additional_items.BI_Rails.rail_power = {
   icon_size = 64, icon_mipmaps = 3,
   BI_add_icon = true,
   subgroup = "train-transport",
-  order = "a[train-system]-d[rail-1]",
+  order = "a[train-system]-[Bio_Industries]-c[powered]-a[rail]",
+
   place_result = "bi-straight-rail-power",
   stack_size = 100,
   straight_rail = "bi-straight-rail-power",
-  curved_rail = "bi-curved-rail-power"
+  curved_rail = "bi-curved-rail-power",
+  -- Group/subgroup if "5Dim's mod - New Core" is used
+  group_5d = "trains",
+  subgroup_5d = "trains-rails",
+  --~ subgroup_order_5d = "n-a",
+  order_5d = "[Bio_Industries]-[rails]-c[powered]-a[rail]",
 }
 
 --- Power pole to connect Rail to power grid
@@ -921,9 +1056,14 @@ BI.additional_items.BI_Rails.power_to_rail_pole = {
   icon_size = 64, icon_mipmaps = 3,
   BI_add_icon = true,
   subgroup = "train-transport",
-  order = "a[train-system]-d[rail-2]",
+  order = "a[train-system]-[Bio_Industries]-c[powered]-c[connector]",
   place_result = "bi-power-to-rail-pole",
-  stack_size = 50
+  stack_size = 50,
+  -- Group/subgroup if "5Dim's mod - New Core" is used
+  group_5d = "trains",
+  subgroup_5d = "trains-rails",
+  --~ subgroup_order_5d = "n-a",
+  order_5d = "[Bio_Industries]-[rails]-c[powered]-c[connector]",
 }
 
 

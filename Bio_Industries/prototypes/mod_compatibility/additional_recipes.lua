@@ -17,7 +17,7 @@ BI.additional_recipes.mod_compatibility = BI.additional_recipes.mod_compatibilit
 
 
 ------------------------------------------------------------------------------------
---          General recipe for sand (will be adjusted later if necessary)         --
+--                General recipe for sand (will be adjusted later)                --
 ------------------------------------------------------------------------------------
 -- Angel's Refining ("angelsrefining"),
 -- BioTech ("BioTech"),
@@ -36,8 +36,8 @@ BI.additional_recipes.mod_compatibility.sand = {
   order = "a[bi]-a-z[bi-9-stone-crushed-sand-1]",
   energy_required = 1,
   ingredients = {{"stone-crushed", 2}},
-  result = "sand",
-  result_count = 5,
+  --~ result = "sand",
+  --~ result_count = 5,
   main_product = "",
   enabled = false,
   --~ always_show_made_in = true,

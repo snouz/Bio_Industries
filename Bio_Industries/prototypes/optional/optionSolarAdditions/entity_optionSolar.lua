@@ -1,8 +1,8 @@
 ------------------------------------------------------------------------------------
---                           Enable: Bio solar additions                          --
---                        (BI.Settings.BI_Solar_Additions)                        --
+--                  Enable: Bio power production and distribution                 --
+--                        (BI.Settings.BI_Power_Production)                       --
 ------------------------------------------------------------------------------------
-local setting = "BI_Solar_Additions"
+local setting = "BI_Power_Production"
 if not BI.Settings[setting] then
   BioInd.nothing_to_do("*")
   return

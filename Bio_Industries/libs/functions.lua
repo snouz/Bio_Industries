@@ -19,7 +19,6 @@ end
 
 -- Converts recipe.result to recipe.results!
 function thxbob.lib.result_check(object)
---~ BioInd.show("Entered function result_check", object)
 BioInd.entered_function()
   if object then
     object.results = object.results or {}

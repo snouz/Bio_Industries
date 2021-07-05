@@ -2,10 +2,8 @@
 --                                 Pyanodon's mods                                --
 ------------------------------------------------------------------------------------
 if not BioInd.check_mods({
-  --~ "pycoalprocessing",
   "pyrawores",
   "pyindustry",
-
 }) then
   BioInd.nothing_to_do("*")
   return
@@ -29,14 +27,12 @@ local py_name = "wood-fence"
 ------------------------------------------------------------------------------------
 --    Our wooden fence has more health, so it should require more ingredients!    --
 ------------------------------------------------------------------------------------
+-- Pyanodons Industry ("pyindustry")
 fence_bi = BI.additional_entities.BI_Darts and walls[BI.additional_entities.BI_Darts.wooden_fence.name]
 fence_py = walls[py_name]
 
 if fence_bi and fence_py and recipes[py_name] then
---~ log(string.format("fence_bi: %s\tfence_py: %s", serpent.block(fence_bi), serpent.block(fence_py)))
   factor = fence_bi.max_health / (fence_py.max_health or 1)
---~ log(string.format("factor: %s", factor))
---~ log("Wooden fence: " .. serpent.block(recipes[BI.additional_recipes.BI_Darts.wooden_fence.name]))
   recipe = recipes[BI.additional_recipes.BI_Darts.wooden_fence.name]
 
   for d, diff in ipairs({"", "normal", "expensive"}) do
@@ -61,6 +57,7 @@ end
 ------------------------------------------------------------------------------------
 --     If there are wooden rails, replace wood with concrete in normal rails!     --
 ------------------------------------------------------------------------------------
+-- Pyanodons Raw Ores ("pyrawores")
 recipe = recipes["rail-2"]
 if recipe and recipes[BI.additional_recipes.BI_Rails.rail_wood.name] then
   thxbob.lib.recipe.replace_ingredient(recipe, "wood", "concrete")

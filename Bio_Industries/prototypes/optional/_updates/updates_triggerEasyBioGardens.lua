@@ -2,13 +2,6 @@
 --                            Trigger: Easy Bio gardens                           --
 --                    (BI.Triggers.BI_Trigger_Easy_Bio_Gardens)                   --
 ------------------------------------------------------------------------------------
---~ local setting = "BI_Game_Tweaks_Easy_Bio_Gardens"
---~ if not BI.Settings[setting] then
-  --~ BioInd.nothing_to_do("*")
-  --~ return
---~ else
-  --~ BioInd.entered_file()
---~ end
 local trigger = "BI_Trigger_Easy_Bio_Gardens"
 if not BI.Triggers[trigger] then
   BioInd.nothing_to_do("*")
@@ -34,13 +27,10 @@ local recipe, fluid, tech, name
 for i, ingredient in pairs({"fertilizer", "bi-adv-fertilizer"}) do
   --~ recipe = recipes["bi-purified-air-" .. i]
   recipe = recipes[BI.additional_recipes.BI_Bio_Garden["purified_air_" .. i].name]
-  --~ local f_item = tostring(r == 1 and "" or "bi-adv-") .. "fertilizer"
-  --~ fluid = fluids[f_item .. "-fluid"]
   fluid = fluids[(i == 1 and "bi-" or "") .. ingredient .. "-fluid"]
 
   if recipe and fluid then
     -- Change recipe ingredients
-    --~ thxbob.lib.recipe.remove_ingredient(recipe.name, f_item)
     thxbob.lib.recipe.remove_ingredient(recipe.name, ingredient)
     thxbob.lib.recipe.remove_ingredient(recipe.name, "water")
     thxbob.lib.recipe.add_new_ingredient(recipe.name, {type = "fluid", name = fluid.name, amount = 50})
@@ -49,7 +39,6 @@ for i, ingredient in pairs({"fertilizer", "bi-adv-fertilizer"}) do
     -- Change recipe localization
     recipe.localised_description = {
       "recipe-description." .. recipe.name .. "-fluid",
-      --~ {"fluid-name." .. fluid.name},
       {"fluid-name.bi-fertilizer-fluid", {"item-name." .. ingredient}},
     }
 BioInd.show("Fluid recipe description", recipe.localised_description)

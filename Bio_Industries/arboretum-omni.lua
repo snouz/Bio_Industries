@@ -1,9 +1,6 @@
-local xxx, yyy, new_position, currentTilename, can_be_placed
-local pos, surface, Inventory, stack
-
 function Get_Arboretum_Recipe_omnimatter_fluid(ArboretumTable, event)
-  if not ArboretumTable then
-    BioInd.writeDebug("%s is not a valid ArboretumTable. Leaving immediately!")
+  if ArboretumTable == nil then
+    global.Arboretum_Table = {}
     return
   else
 
@@ -278,7 +275,7 @@ function Get_Arboretum_Recipe_omnimatter_fluid(ArboretumTable, event)
               --- After sucessfully planting a tree or changing the terrain, break out of the loop.
               break
             else
-              BioInd.writeDebug("Can't plant or change terrain here!")
+              BioInd.writeDebug("can't plant or change terrain here")
               BioInd.writeDebug(tostring(k))
             end
           end

@@ -1,4 +1,13 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.1.0
+Date: 2020-12-14
+  Uploaded by:
+    - Pi-C
+
+  Info:
+    - Updated for Factorio 1.1. This release contains all changes from version 0.18.30. Because we use the same code, most of the things that will be implemented in the future will also be released for the currently stable 0.18/1.0 branch.
+
+---------------------------------------------------------------------------------------------------
 Version: 0.18.30
 Date: 2020-12-14
   Uploaded by:

@@ -4,12 +4,6 @@
     name = "bi-musk-mat-solar-panel",
     icon = ICONPATH .. "entity/solar-mat.png",
     icon_size = 64,
-    icons = {
-        {
-            icon = ICONPATH .. "entity/solar-mat.png",
-            icon_size = 64,
-        }
-    },
     flags = {"not-blueprintable", "not-deconstructable", "placeable-off-grid", "not-on-map", "not-repairable"},
     selectable_in_game = false,
     max_health = 1,

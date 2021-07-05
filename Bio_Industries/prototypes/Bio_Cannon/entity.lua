@@ -131,12 +131,6 @@ if BI.Settings.Bio_Cannon then
       localised_description = {"entity-description.bi-bio-cannon"},
       icon = ICONPATH .. "entity/biocannon_icon.png",
       icon_size = 64,
-      icons = {
-        {
-          icon = ICONPATH .. "entity/biocannon_icon.png",
-          icon_size = 64,
-        }
-      },
       flags = {"placeable-neutral", "placeable-player", "player-creation"},
       open_sound = { filename = "__base__/sound/machine-open.ogg", volume = 0.85 },
       close_sound = { filename = "__base__/sound/machine-close.ogg", volume = 0.75 },
@@ -174,12 +168,6 @@ if BI.Settings.Bio_Cannon then
       name = "bi-bio-cannon",
       icon = ICONPATH .. "entity/biocannon_icon.png",
       icon_size = 64,
-      icons = {
-        {
-          icon = ICONPATH .. "entity/biocannon_icon.png",
-          icon_size = 64,
-        }
-      },
       flags = {"placeable-neutral", "placeable-player", "player-creation"},
       -- makes cannon blueprintable
       placeable_by = {item = "bi-bio-cannon-area", count = 1},
@@ -237,12 +225,6 @@ if BI.Settings.Bio_Cannon then
       localised_description = {"entity-description.bi-bio-cannon"},
       icon = ICONPATH .. "entity/biocannon_icon.png",
       icon_size = 64,
-      icons = {
-        {
-          icon = ICONPATH .. "entity/biocannon_icon.png",
-          icon_size = 64,
-        }
-      },
       flags = {"not-deconstructable", "not-on-map", "placeable-off-grid", "not-repairable", "not-blueprintable"},
       selectable_in_game = false,
       --minable = {mining_time = 5, result = "bi-bio-cannon-area"},

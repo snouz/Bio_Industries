@@ -13,12 +13,6 @@ if BI.Settings.BI_Solar_Additions then
       localised_description = {"entity-description.bi-bio-solar-farm"},
       icon = ICONPATH .. "entity/Bio_Solar_Farm_Icon.png",
       icon_size = 64,
-      icons = {
-        {
-          icon = ICONPATH .. "entity/Bio_Solar_Farm_Icon.png",
-          icon_size = 64,
-        }
-      },
       subgroup = "energy",
       order = "d[solar-panel]-a[solar-panel]-a[bi-bio-solar-farm]",
       place_result = "bi-bio-solar-farm",
@@ -33,12 +27,6 @@ if BI.Settings.BI_Solar_Additions then
       localised_description = {"entity-description.bi-solar-mat"},
       icon = ICONPATH .. "entity/solar-mat.png",
       icon_size = 64,
-      icons = {
-        {
-          icon = ICONPATH .. "entity/solar-mat.png",
-          icon_size = 64,
-        }
-      },
       subgroup = "energy",
       order = "d[solar-panel]-aa[solar-panel-1-a]",
       stack_size = 400,
@@ -58,12 +46,6 @@ if BI.Settings.BI_Solar_Additions then
       localised_description = {"entity-description.bi-bio-accumulator"},
       icon = ICONPATH .. "entity/bi_LargeAccumulator.png",
       icon_size = 64,
-      icons = {
-        {
-          icon = ICONPATH .. "entity/bi_LargeAccumulator.png",
-          icon_size = 64,
-        }
-      },
       subgroup = "energy",
       order = "e[accumulator]-a[bi-accumulator]",
       place_result = "bi-bio-accumulator",
@@ -79,12 +61,6 @@ if BI.Settings.BI_Solar_Additions then
       localised_description = {"entity-description.bi-large-substation"},
       icon = ICONPATH .. "entity/bi_LargeSubstation_icon.png",
       icon_size = 64,
-      icons = {
-        {
-          icon = ICONPATH .. "entity/bi_LargeSubstation_icon.png",
-          icon_size = 64,
-        }
-      },
       subgroup = "energy-pipe-distribution",
       order = "a[energy]-d[substation]-b[large-substation]",
       place_result = "bi-large-substation",
@@ -99,12 +75,6 @@ if BI.Settings.BI_Solar_Additions then
       localised_description = {"entity-description.bi-solar-boiler"},
       icon = ICONPATH .. "entity/Bio_Solar_Boiler_Icon.png",
       icon_size = 64,
-      icons = {
-        {
-          icon = ICONPATH .. "entity/Bio_Solar_Boiler_Icon.png",
-          icon_size = 64,
-        }
-      },
       subgroup = "energy",
       order = "b[steam-power]-c[steam-engine]",
       place_result = "bi-solar-boiler",

@@ -22,12 +22,6 @@ data:extend(
     localised_description = {"entity_description.rail-remnants-wood"},
     icon = ICONPATH .. "straight-rail-remnants.png",
     icon_size = 64,
-    icons = {
-      {
-        icon = ICONPATH .. "straight-rail-remnants.png",
-        icon_size = 64,
-      }
-    },
     flags = {"placeable-neutral", "building-direction-8-way", "not-on-map"},
     subgroup = "remnants",
     order = "d[remnants]-b[rail]-a[straight]",
@@ -49,12 +43,6 @@ data:extend(
     localised_description = {"entity_description.rail-remnants-wood"},
     icon = ICONPATH .. "curved-rail-remnants.png",
     icon_size = 64,
-    icons = {
-      {
-        icon = ICONPATH .. "curved-rail-remnants.png",
-        icon_size = 64,
-      }
-    },
     flags = {"placeable-neutral", "building-direction-8-way", "not-on-map"},
     subgroup = "remnants",
     order = "d[remnants]-b[rail]-b[curved]",
@@ -78,12 +66,6 @@ data:extend(
     localised_description = {"entity_description.rail-remnants-wood-bridge"},
     icon = ICONPATH .. "straight-rail-remnants.png",
     icon_size = 64,
-    icons = {
-      {
-        icon = ICONPATH .. "straight-rail-remnants.png",
-        icon_size = 64,
-      }
-    },
     flags = {"placeable-neutral", "building-direction-8-way", "not-on-map"},
     subgroup = "remnants",
     order = "d[remnants]-b[rail]-a[straight]",
@@ -105,12 +87,6 @@ data:extend(
     localised_description = {"entity_description.rail-remnants-wood-bridge"},
     icon = ICONPATH .. "curved-rail-remnants.png",
     icon_size = 64,
-    icons = {
-      {
-        icon = ICONPATH .. "curved-rail-remnants.png",
-        icon_size = 64,
-      }
-    },
     flags = {"placeable-neutral", "building-direction-8-way", "not-on-map"},
     subgroup = "remnants",
     order = "d[remnants]-b[rail]-b[curved]",

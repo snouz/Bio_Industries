@@ -12,15 +12,9 @@ data:extend({
     type = "recipe",
     name = "bi-bio-reactor",
     localised_name = {"entity-name.bi-bio-reactor"},
-    localised_description = {"entity-description.bi-bio-reactor"},
+    --localised_description = {"entity-description.bi-bio-reactor"},
     icon = ICONPATH .. "entity/bioreactor.png",
     icon_size = 64,
-    icons = {
-      {
-        icon = ICONPATH .. "entity/bioreactor.png",
-        icon_size = 64,
-      }
-    },
     normal = {
       enabled = false,
       energy_required = 20,
@@ -47,7 +41,7 @@ data:extend({
     },
     subgroup = "bio-bio-fuel-fluid",
     order = "a",
-    always_show_made_in = true,
+    always_show_made_in = false,
     allow_decomposition = false,
   },
 
@@ -59,12 +53,6 @@ data:extend({
     localised_description = {"recipe-description.bi-biomass-1"},
     icon = ICONPATH .. "biomass_1.png",
     icon_size = 64,
-    icons = {
-      {
-        icon = ICONPATH .. "biomass_1.png",
-        icon_size = 64,
-      }
-    },
     category = "biofarm-mod-bioreactor",
     energy_required = 10,
     ingredients = {
@@ -76,7 +64,7 @@ data:extend({
     },
     main_product = "",
     enabled = false,
-    always_show_made_in = true,
+    always_show_made_in = false,
     allow_decomposition = false,
     subgroup = "bio-bio-fuel-fluid",
     order = "x[oil-processing]-z1[bi-biomass]"
@@ -93,12 +81,6 @@ if BI.Settings.BI_Bio_Fuel then
       name = "bi-basic-gas-processing",
       icon = ICONPATH .. "bi_basic_gas_processing.png",
       icon_size = 64,
-      icons = {
-        {
-          icon = ICONPATH .. "bi_basic_gas_processing.png",
-          icon_size = 64,
-        }
-      },
       category = "chemistry",
       enabled = false,
       energy_required = 5,
@@ -115,7 +97,7 @@ if BI.Settings.BI_Bio_Fuel then
       subgroup = "bio-bio-fuel-other",
       order = "[bi_basic_gas_processing]",
       main_product = "",
-      always_show_made_in = true,
+      always_show_made_in = false,
     },
 
     --- Bio Boiler (ENTITY) ---
@@ -123,15 +105,9 @@ if BI.Settings.BI_Bio_Fuel then
       type = "recipe",
       name = "bi-bio-boiler",
       localised_name = {"entity-name.bi-bio-boiler"},
-      localised_description = {"entity-description.bi-bio-boiler"},
+      --localised_description = {"entity-description.bi-bio-boiler"},
       icon = ICONPATH .. "entity/bio_boiler.png",
       icon_size = 64,
-      icons = {
-        {
-          icon = ICONPATH .. "entity/bio_boiler.png",
-          icon_size = 64,
-        }
-      },
       normal = {
         enabled = false,
         energy_required = 10,
@@ -156,55 +132,12 @@ if BI.Settings.BI_Bio_Fuel then
         result_count = 1,
         main_product = "",
       },
-      always_show_made_in = true,
+      always_show_made_in = false,
       allow_decomposition = false,
       subgroup = "energy",
       order = "b[steam-power]-a[boiler-bio]",
     },
 
-    --~ -- BIO Reactor (ENTITY)--
-    --~ {
-      --~ type = "recipe",
-      --~ name = "bi-bio-reactor",
-      --~ localised_name = {"entity-name.bi-bio-reactor"},
-      --~ localised_description = {"entity-description.bi-bio-reactor"},
-      --~ icon = ICONPATH .. "bioreactor.png",
-      --~ icon_size = 64,
-      --~ icons = {
-        --~ {
-          --~ icon = ICONPATH .. "bioreactor.png",
-          --~ icon_size = 64,
-        --~ }
-      --~ },
-      --~ normal = {
-        --~ enabled = false,
-        --~ energy_required = 20,
-        --~ ingredients = {
-          --~ {"assembling-machine-1", 1},
-          --~ {"steel-plate", 5},
-          --~ {"electronic-circuit", 5},
-        --~ },
-        --~ result = "bi-bio-reactor",
-        --~ result_count = 1,
-        --~ main_product = "",
-      --~ },
-      --~ expensive = {
-        --~ enabled = false,
-        --~ energy_required = 30,
-        --~ ingredients = {
-          --~ {"assembling-machine-1", 2},
-          --~ {"steel-plate", 5},
-          --~ {"electronic-circuit", 5},
-        --~ },
-        --~ result = "bi-bio-reactor",
-        --~ result_count = 1,
-        --~ main_product = "",
-      --~ },
-      --~ subgroup = "bio-bio-fuel-fluid",
-      --~ order = "a",
-      --~ always_show_made_in = true,
-      --~ allow_decomposition = false,
-    --~ },
 
     -- CELLULOSE 1 --
     {
@@ -214,12 +147,6 @@ if BI.Settings.BI_Bio_Fuel then
       localised_description = {"recipe-description.bi-cellulose-1"},
       icon = ICONPATH .. "cellulose.png",
       icon_size = 64,
-      icons = {
-        {
-          icon = ICONPATH .. "cellulose.png",
-          icon_size = 64,
-        }
-      },
       category = "chemistry",
       energy_required = 20,
       ingredients = {
@@ -231,7 +158,7 @@ if BI.Settings.BI_Bio_Fuel then
       },
       main_product = "",
       enabled = false,
-      always_show_made_in = true,
+      always_show_made_in = false,
       allow_decomposition = false,
       subgroup = "bio-bio-farm-raw",
       order = "z[bi-cellulose-1]",
@@ -247,12 +174,6 @@ if BI.Settings.BI_Bio_Fuel then
       localised_description = {"recipe-description.bi-cellulose-2"},
       icon = ICONPATH .. "cellulose_2.png",
       icon_size = 64,
-      icons = {
-        {
-          icon = ICONPATH .. "cellulose_2.png",
-          icon_size = 64,
-        }
-      },
       category = "chemistry",
       energy_required = 5,
       ingredients = {
@@ -265,7 +186,7 @@ if BI.Settings.BI_Bio_Fuel then
       },
       main_product = "",
       enabled = false,
-      always_show_made_in = true,
+      always_show_made_in = false,
       allow_decomposition = false,
       subgroup = "bio-bio-farm-raw",
       order = "z[bi-cellulose-2]",
@@ -284,12 +205,6 @@ if BI.Settings.BI_Bio_Fuel then
       localised_description = {"recipe-description.bi-plastic-1"},
       icon = ICONPATH .. "plastic_bar_1.png",
       icon_size = 64,
-      icons = {
-        {
-          icon = ICONPATH .. "plastic_bar_1.png",
-          icon_size = 64,
-        }
-      },
       category = "chemistry",
       --subgroup = "raw-material",
       energy_required = 1,
@@ -303,10 +218,11 @@ if BI.Settings.BI_Bio_Fuel then
       },
       main_product = "",
       enabled = false,
-      always_show_made_in = true,
+      always_show_made_in = false,
       allow_decomposition = false,
       subgroup = "raw-material",
-      order = "f[plastic-bar-1]",
+      order = "f[plastic-bara]",
+
       --~ subgroup = "intermediate-product",
       --~ order = "b[bi-plastic-1]",
       -- This is a custom property for use by "Krastorio 2" (it will change
@@ -322,12 +238,6 @@ if BI.Settings.BI_Bio_Fuel then
       localised_description = {"recipe-description.bi-plastic-2"},
       icon = ICONPATH .. "plastic_bar_2.png",
       icon_size = 64,
-      icons = {
-        {
-          icon = ICONPATH .. "plastic_bar_2.png",
-          icon_size = 64,
-        }
-      },
       category = "chemistry",
       energy_required = 1,
       ingredients = {
@@ -339,44 +249,14 @@ if BI.Settings.BI_Bio_Fuel then
       },
       main_product = "",
       enabled = false,
-      always_show_made_in = true,
+      always_show_made_in = false,
       allow_decomposition = false,
       subgroup = "raw-material",
-      order = "f[plastic-bar-2]",
+      order = "f[plastic-bar-b]",
       --~ subgroup = "intermediate-product",
       --~ order = "b[bi-plastic-2]",
     },
 
-    --~ -- BIOMASS 1 --
-    --~ {
-      --~ type = "recipe",
-      --~ name = "bi-biomass-1",
-      --~ localised_name = {"recipe-name.bi-biomass-1"},
-      --~ localised_description = {"recipe-description.bi-biomass-1"},
-      --~ icon = ICONPATH .. "biomass_1.png",
-      --~ icon_size = 64,
-      --~ icons = {
-        --~ {
-          --~ icon = ICONPATH .. "biomass_1.png",
-          --~ icon_size = 64,
-        --~ }
-      --~ },
-      --~ category = "biofarm-mod-bioreactor",
-      --~ energy_required = 10,
-      --~ ingredients = {
-        --~ {type = "fluid", name = "water", amount = 100},
-        --~ {type = "item", name = "fertilizer", amount = 10},
-      --~ },
-      --~ results = {
-        --~ {type = "fluid", name = "bi-biomass", amount = 50},
-      --~ },
-      --~ main_product = "",
-      --~ enabled = false,
-      --~ always_show_made_in = true,
-      --~ allow_decomposition = false,
-      --~ subgroup = "bio-bio-fuel-fluid",
-      --~ order = "x[oil-processing]-z1[bi-biomass]"
-    --~ },
 
     -- BIOMASS 2 --
     {
@@ -386,12 +266,6 @@ if BI.Settings.BI_Bio_Fuel then
       localised_description = {"recipe-description.bi-biomass-2"},
       icon = ICONPATH .. "biomass_2.png",
       icon_size = 64,
-      icons = {
-        {
-          icon = ICONPATH .. "biomass_2.png",
-          icon_size = 64,
-        }
-      },
       category = "biofarm-mod-bioreactor",
       energy_required = 60,
       ingredients = {
@@ -404,7 +278,7 @@ if BI.Settings.BI_Bio_Fuel then
       },
       main_product = "",
       enabled = false,
-      always_show_made_in = true,
+      always_show_made_in = false,
       allow_decomposition = false,
       --~ subgroup = "bio-bio-fuel-fluid",
       --~ order = "x[oil-processing]-z3[bi-biomass]"
@@ -420,12 +294,6 @@ if BI.Settings.BI_Bio_Fuel then
       localised_description = {"recipe-description.bi-biomass-3"},
       icon = ICONPATH .. "biomass_3.png",
       icon_size = 64,
-      icons = {
-        {
-          icon = ICONPATH .. "biomass_3.png",
-          icon_size = 64,
-        }
-      },
       category = "biofarm-mod-bioreactor",
       energy_required = 10,
       ingredients = {
@@ -439,7 +307,7 @@ if BI.Settings.BI_Bio_Fuel then
       },
       main_product = "",
       enabled = false,
-      always_show_made_in = true,
+      always_show_made_in = false,
       allow_decomposition = false,
       --~ subgroup = "bio-bio-fuel-fluid",
       --~ order = "x[oil-processing]-z2[bi-biomass]"
@@ -455,15 +323,9 @@ if BI.Settings.BI_Bio_Fuel then
     localised_description = {"recipe-description.bi-biomass-conversion-1"},
     icon = ICONPATH .. "bio_conversion_1.png",
     icon_size = 64,
-    icons = {
-      {
-        icon = ICONPATH .. "bio_conversion_1.png",
-        icon_size = 64,
-      }
-    },
     category = "oil-processing",
     enabled = false,
-    always_show_made_in = true,
+    always_show_made_in = false,
     allow_decomposition = false,
     energy_required = 5,
     ingredients = {
@@ -487,15 +349,9 @@ if BI.Settings.BI_Bio_Fuel then
     localised_description = {"recipe-description.bi-biomass-conversion-2"},
     icon = ICONPATH .. "bio_conversion_2.png",
     icon_size = 64,
-    icons = {
-      {
-        icon = ICONPATH .. "bio_conversion_2.png",
-        icon_size = 64,
-      }
-    },
     category = "oil-processing",
     enabled = false,
-    always_show_made_in = true,
+    always_show_made_in = false,
     allow_decomposition = false,
     energy_required = 5,
     ingredients = {
@@ -518,15 +374,9 @@ if BI.Settings.BI_Bio_Fuel then
     localised_description = {"recipe-description.bi-biomass-conversion-3"},
     icon = ICONPATH .. "bio_conversion_3.png",
     icon_size = 64,
-    icons = {
-      {
-        icon = ICONPATH .. "bio_conversion_3.png",
-        icon_size = 64,
-      }
-    },
     category = "oil-processing",
     enabled = false,
-    always_show_made_in = true,
+    always_show_made_in = false,
     allow_decomposition = false,
     energy_required = 2.5,
     ingredients = {
@@ -554,15 +404,9 @@ if BI.Settings.BI_Bio_Fuel then
     localised_description = {"recipe-description.bi-biomass-conversion-4"},
     icon = ICONPATH .. "bio_conversion_4.png",
     icon_size = 64,
-    icons = {
-      {
-        icon = ICONPATH .. "bio_conversion_4.png",
-        icon_size = 64,
-      }
-    },
     category = "oil-processing",
     enabled = false,
-    always_show_made_in = true,
+    always_show_made_in = false,
     allow_decomposition = false,
     energy_required = 10,
     ingredients = {
@@ -590,14 +434,6 @@ if BI.Settings.BI_Bio_Fuel then
       name = "bi-battery",
       icon = ICONPATH .. "bio_battery.png",
       icon_size = 64,
-      icon_mipmaps = 4,
-      icons = {
-        {
-          icon = ICONPATH .. "bio_battery.png",
-          icon_size = 64,
-          icon_mipmaps = 4,
-        }
-      },
       category = "chemistry",
       energy_required = 5,
       ingredients = {
@@ -610,7 +446,7 @@ if BI.Settings.BI_Bio_Fuel then
       },
       main_product = "",
       enabled = false,
-      always_show_made_in = true,
+      always_show_made_in = false,
       allow_decomposition = false,
       crafting_machine_tint = {
         primary = {r = 0.970, g = 0.611, b = 0.000, a = 0.000}, -- #f79b0000
@@ -629,12 +465,6 @@ if BI.Settings.BI_Bio_Fuel then
       name = "bi-acid",
       icon = ICONPATH .. "bio_acid.png",
       icon_size = 64,
-      icons = {
-        {
-          icon = ICONPATH .. "bio_acid.png",
-          icon_size = 64,
-        }
-      },
       category = "chemistry",
       energy_required = 10,
       ingredients = {
@@ -647,7 +477,7 @@ if BI.Settings.BI_Bio_Fuel then
       },
       main_product = "",
       enabled = false,
-      always_show_made_in = true,
+      always_show_made_in = false,
       allow_decomposition = false,
       crafting_machine_tint = {
         primary = {r = 0.875, g = 0.735, b = 0.000, a = 0.000}, -- #dfbb0000
@@ -666,12 +496,6 @@ if BI.Settings.BI_Bio_Fuel then
       name = "bi-sulfur",
       icon = ICONPATH .. "bio_sulfur.png",
       icon_size = 64,
-      icons = {
-        {
-          icon = ICONPATH .. "bio_sulfur.png",
-          icon_size = 64,
-        }
-      },
       category = "chemistry",
       energy_required = 10,
       ingredients = {
@@ -683,7 +507,7 @@ if BI.Settings.BI_Bio_Fuel then
       },
       main_product = "",
       enabled = false,
-      always_show_made_in = true,
+      always_show_made_in = false,
       allow_decomposition = false,
       subgroup = "raw-material",
       order = "g[sulfur-1]",
@@ -691,18 +515,12 @@ if BI.Settings.BI_Bio_Fuel then
       --~ order = "g[sulfur]-[bi-sulfur]",
     },
 
-    -- Sulfuric acid to Sulfur --IF ANGELS INSTALLED (More Expensice)
+    -- Sulfuric acid to Sulfur --IF ANGELS INSTALLED (More Expensive)
     {
       type = "recipe",
       name = "bi-sulfur-angels",
       icon = ICONPATH .. "bio_sulfur.png",
       icon_size = 64,
-      icons = {
-        {
-          icon = ICONPATH .. "bio_sulfur.png",
-          icon_size = 64,
-        }
-      },
       category = "chemistry",
       energy_required = 10,
       ingredients = {
@@ -714,7 +532,7 @@ if BI.Settings.BI_Bio_Fuel then
       },
       main_product = "",
       enabled = false,
-      always_show_made_in = true,
+      always_show_made_in = false,
       allow_decomposition = false,
       subgroup = "raw-material",
       order = "g[sulfur-2]",

@@ -8,12 +8,6 @@ data:extend({
     name = "bi-Bio_Fuel",
     icon = ICONPATH .. "entity/bio_boiler.png",
     icon_size = 64,
-    icons = {
-      {
-        icon = ICONPATH .. "entity/bio_boiler.png",
-        icon_size = 64,
-      }
-    },
     default_temperature = 25,
     max_temperature = 100,
     heat_capacity = "1KJ",

@@ -379,12 +379,6 @@ if not fertilizer.place_as_tile then
   }
   fertilizer.icon = ICONPATH .. "fertilizer.png"
   fertilizer.icon_size = 64
-  fertilizer.icons = {
-    {
-      icon = ICONPATH .. "fertilizer.png",
-      icon_size = 64,
-    }
-  }
   fertilizer.localised_name = {"BI-item-name.fertilizer"}
   fertilizer.localised_description = {"BI-item-description.fertilizer"}
 end

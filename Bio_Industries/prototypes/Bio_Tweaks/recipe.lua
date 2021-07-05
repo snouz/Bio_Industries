@@ -23,18 +23,12 @@ log("Enabling disassemble recipes!")
       localised_description = {"recipe-description.bi-disassemble-recipes"},
       icon = ICONPATH .. "disassemble_burner-mining-drill.png",
       icon_size = 64,
-      icons = {
-        {
-          icon = ICONPATH .. "disassemble_burner-mining-drill.png",
-          icon_size = 64,
-        }
-      },
       category = "advanced-crafting",
       subgroup = "bio-disassemble",
       order = "a[Disassemble]-a[bi-burner-mining-drill-disassemble]",
       enabled = false,
       allow_as_intermediate = false,
-      always_show_made_in = true,
+      always_show_made_in = false,
       allow_decomposition = false,
       energy_required = 2,
       ingredients = {
@@ -53,18 +47,12 @@ log("Enabling disassemble recipes!")
       localised_description = {"recipe-description.bi-disassemble-recipes"},
       icon = ICONPATH .. "disassemble_burner_inserter.png",
       icon_size = 64,
-      icons = {
-        {
-          icon = ICONPATH .. "disassemble_burner_inserter.png",
-          icon_size = 64,
-        }
-      },
       category = "advanced-crafting",
       subgroup = "bio-disassemble",
       order = "a[Disassemble]-b[bi-burner-inserter-disassemble]",
       enabled = false,
       allow_as_intermediate = false,
-      always_show_made_in = true,
+      always_show_made_in = false,
       allow_decomposition = false,
       energy_required = 2,
       ingredients = {
@@ -82,18 +70,12 @@ log("Enabling disassemble recipes!")
       localised_description = {"recipe-description.bi-disassemble-recipes"},
       icon = ICONPATH .. "disassemble_long_handed_inserter.png",
       icon_size = 64,
-      icons = {
-        {
-          icon = ICONPATH .. "disassemble_long_handed_inserter.png",
-          icon_size = 64,
-        }
-      },
       category = "advanced-crafting",
       subgroup = "bio-disassemble",
       order = "a[Disassemble]-c[bi-long-handed-inserter-disassemble]",
       enabled = false,
       allow_as_intermediate = false,
-      always_show_made_in = true,
+      always_show_made_in = false,
       allow_decomposition = false,
       energy_required = 2,
       ingredients = {
@@ -113,18 +95,12 @@ log("Enabling disassemble recipes!")
       localised_description = {"recipe-description.bi-disassemble-recipes"},
       icon = ICONPATH .. "disassemble_stone_furnace.png",
       icon_size = 64,
-      icons = {
-        {
-          icon = ICONPATH .. "disassemble_stone_furnace.png",
-          icon_size = 64,
-        }
-      },
       category = "advanced-crafting",
       subgroup = "bio-disassemble",
       order = "a[Disassemble]-d[bi-stone-furnace-disassemble]",
       enabled = false,
       allow_as_intermediate = false,
-      always_show_made_in = true,
+      always_show_made_in = false,
       allow_decomposition = false,
       energy_required = 2,
       ingredients = {
@@ -142,18 +118,12 @@ log("Enabling disassemble recipes!")
       localised_description = {"recipe-description.bi-disassemble-recipes"},
       icon = ICONPATH .. "disassemble_steel-furnace.png",
       icon_size = 64,
-      icons = {
-        {
-          icon = ICONPATH .. "disassemble_steel-furnace.png",
-          icon_size = 64,
-        }
-      },
       category = "advanced-crafting",
       subgroup = "bio-disassemble",
       order = "a[Disassemble]-e[bi-steel-furnace-disassemble]",
       enabled = false,
       allow_as_intermediate = false,
-      always_show_made_in = true,
+      always_show_made_in = false,
       allow_decomposition = false,
       energy_required = 2,
       ingredients = {

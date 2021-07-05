@@ -40,14 +40,6 @@ data:extend({
     name = "bi-fertilizer-fluid",
     icon = ICONPATH .. "fluid_fertilizer_64.png",
     icon_size = 64,
-    icon_mipmaps = 1,
-    icons = {
-      {
-        icon = ICONPATH .. "fluid_fertilizer_64.png",
-        icon_size = 64,
-        icon_mipmaps = 1,
-      }
-    },
     default_temperature = 25,
     max_temperature = 100,
     heat_capacity = "1KJ",
@@ -68,14 +60,6 @@ data:extend({
     name = "bi-adv-fertilizer-fluid",
     icon = ICONPATH .. "fertilizer_advanced.png",
     icon_size = 64,
-    icon_mipmaps = 1,
-    icons = {
-      {
-        icon = ICONPATH .. "fertilizer_advanced.png",
-        icon_size = 64,
-        icon_mipmaps = 1,
-      }
-    },
     default_temperature = 25,
     max_temperature = 100,
     heat_capacity = "1KJ",
@@ -101,12 +85,6 @@ data:extend({
     name = "bi-fertilizer-fluid",
     icon = ICONPATH .. "fluid_fertilizer_64.png",
     icon_size = 64,
-    icons = {
-      {
-        icon = ICONPATH .. "fluid_fertilizer_64.png",
-        icon_size = 64,
-      }
-    },
     category = "chemistry",
     energy_required = 5,
     ingredients = {
@@ -118,7 +96,7 @@ data:extend({
     },
     main_product = "",
     enabled = false,
-    always_show_made_in = true,
+    always_show_made_in = false,
     allow_decomposition = false,
     allow_as_intermediate = false,
     subgroup = "bio-bio-farm-intermediate-product",
@@ -139,12 +117,6 @@ data:extend({
     name = "bi-adv-fertilizer-fluid",
     icon = ICONPATH .. "fluid_advanced_fertilizer_recipe_64.png",
     icon_size = 64,
-    icons = {
-      {
-        icon = ICONPATH .. "fluid_advanced_fertilizer_recipe_64.png",
-        icon_size = 64,
-      }
-    },
     category = "chemistry",
     energy_required = 5,
     ingredients = {
@@ -156,7 +128,7 @@ data:extend({
     },
     main_product = "",
     enabled = false,
-    always_show_made_in = true,
+    always_show_made_in = false,
     allow_decomposition = false,
     allow_as_intermediate = false,
     subgroup = "bio-bio-farm-intermediate-product",

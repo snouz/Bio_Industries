@@ -12,12 +12,6 @@ if BI.Settings.Bio_Cannon then
       name = "bi-bio-cannon-proto-ammo",
       icon = ICONPATH .. "Bio_Cannon_Proto_Ammo_Icon.png",
       icon_size = 64,
-      icons = {
-        {
-          icon = ICONPATH .. "Bio_Cannon_Proto_Ammo_Icon.png",
-          icon_size = 64,
-        }
-      },
       ammo_type = {
         --~ category = "artillery-shell",
         category = "Bio_Cannon_Ammo",
@@ -48,12 +42,6 @@ if BI.Settings.Bio_Cannon then
       name = "bi-bio-cannon-basic-ammo",
       icon = ICONPATH .. "Bio_Cannon_Basic_Ammo_Icon.png",
       icon_size = 64,
-      icons = {
-        {
-          icon = ICONPATH .. "Bio_Cannon_Basic_Ammo_Icon.png",
-          icon_size = 64,
-        }
-      },
       ammo_type = {
         --~ category = "artillery-shell",
         category = "Bio_Cannon_Ammo",
@@ -83,12 +71,6 @@ if BI.Settings.Bio_Cannon then
       name = "bi-bio-cannon-poison-ammo",
       icon = ICONPATH .. "Bio_Cannon_Poison_Ammo_Icon.png",
       icon_size = 64,
-      icons = {
-        {
-          icon = ICONPATH .. "Bio_Cannon_Poison_Ammo_Icon.png",
-          icon_size = 64,
-        }
-      },
       ammo_type = {
         --~ category = "artillery-shell",
         category = "Bio_Cannon_Ammo",

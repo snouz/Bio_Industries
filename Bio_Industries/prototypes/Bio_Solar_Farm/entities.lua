@@ -36,12 +36,6 @@ data:extend({
     name = "bi-bio-solar-farm",
     icon = ICONPATH .. "entity/Bio_Solar_Farm_Icon.png",
     icon_size = 64,
-    icons = {
-      {
-        icon = ICONPATH .. "entity/Bio_Solar_Farm_Icon.png",
-        icon_size = 64,
-      }
-    },
     flags = {"placeable-neutral", "player-creation"},
     minable = {hardness = 0.25, mining_time = 0.5, result = "bi-bio-solar-farm"},
     max_health = 600,
@@ -103,12 +97,6 @@ data:extend({
     name = "bi-bio-accumulator",
     icon = ICONPATH .. "entity/bi_LargeAccumulator.png",
     icon_size = 64,
-    icons = {
-      {
-        icon = ICONPATH .. "entity/bi_LargeAccumulator.png",
-        icon_size = 64,
-      }
-    },
     flags = {"placeable-neutral", "player-creation"},
     minable = {hardness = 0.2, mining_time = 0.5, result = "bi-bio-accumulator"},
     max_health = 500,
@@ -395,12 +383,6 @@ data:extend({
     localised_description = {"entity-description.bi-large-substation"},
     icon = ICONPATH .. "entity/bi_LargeSubstation_icon.png",
     icon_size = 64,
-    icons = {
-      {
-        icon = ICONPATH .. "entity/bi_LargeSubstation_icon.png",
-        icon_size = 64,
-      }
-    },
     flags = {"placeable-neutral", "player-creation"},
     minable = {hardness = 0.2, mining_time = 0.5, result = "bi-large-substation"},
     max_health = 600,
@@ -419,13 +401,25 @@ data:extend({
     maximum_wire_distance = 25,
     supply_area_distance = 50,
     pictures = {
-      filename = ENTITYPATH .. "bi_LargeSubstation.png",
-      priority = "high",
-      width = 450,
-      height = 380,
-      shift = {1, -0.5},
-      direction_count = 1,
-      scale = 0.5,
+      layers = {
+        {
+          filename = ENTITYPATH .. "hr_huge_substation.png",
+          priority = "high",
+          width = 384,
+          height = 384,
+          direction_count = 1,
+          scale = 0.5,
+        },
+        {
+          filename = ENTITYPATH .. "hr_huge_substation_shadow.png",
+          priority = "high",
+          width = 384,
+          height = 384,
+          direction_count = 1,
+          scale = 0.5,
+          draw_as_shadow = true,
+        },
+      }
     },
     vehicle_impact_sound = sounds.generic_impact,
     working_sound = {
@@ -437,14 +431,14 @@ data:extend({
     connection_points = {
       {
         shadow = {
-          copper = {1.9, -0.6},
-          green = {1.3, -0.6},
-          red = {2.65, -0.6}
+          copper = {0, 0},
+          green = {0, 0},
+          red = {0, 0}
         },
         wire = {
-          copper = {-0.25, -2.71875},
-          green = {-0.84375, -2.71875},
-          red = {0.34375, -2.71875}
+          copper = {-0.08, -1.5},
+          green = {-0.2, -1.4},
+          red = {0, -1.6}
         }
       },
     },
@@ -467,12 +461,6 @@ data:extend({
     localised_description = {"entity-description.bi-solar-mat"},
     icon = ICONPATH .. "entity/solar-mat.png",
     icon_size = 64,
-    icons = {
-      {
-        icon = ICONPATH .. "entity/solar-mat.png",
-        icon_size = 64,
-      }
-    },
     needs_correction = false,
     minable = {hardness = 0.1, mining_time = 0.25, result = "bi-solar-mat"},
     mined_sound = { filename = "__base__/sound/deconstruct-bricks.ogg" },
@@ -769,12 +757,6 @@ data:extend({
     name = "bi-musk-mat-solar-panel",
     icon = ICONPATH .. "entity/solar-mat.png",
     icon_size = 64,
-    icons = {
-      {
-        icon = ICONPATH .. "entity/solar-mat.png",
-        icon_size = 64,
-      }
-    },
     flags = {"not-blueprintable", "not-deconstructable", "placeable-off-grid", "not-on-map", "not-repairable"},
     selectable_in_game = false,
     max_health = 1,
@@ -805,12 +787,6 @@ data:extend({
     localised_description = {"entity-description.bi-solar-boiler"},
     icon = ICONPATH .. "entity/Bio_Solar_Boiler_Icon.png",
     icon_size = 64,
-    icons = {
-      {
-        icon = ICONPATH .. "entity/Bio_Solar_Boiler_Icon.png",
-        icon_size = 64,
-      }
-    },
     flags = {"not-blueprintable", "not-deconstructable", "placeable-off-grid", "not-on-map", "not-repairable"},
     max_health = 400,
     render_no_power_icon = true,
@@ -896,12 +872,6 @@ data:extend({
     name = "bi-solar-boiler",
     icon = ICONPATH .. "entity/Bio_Solar_Boiler_Icon.png",
     icon_size = 64,
-    icons = {
-      {
-        icon = ICONPATH .. "entity/Bio_Solar_Boiler_Icon.png",
-        icon_size = 64,
-      }
-    },
     flags = {"placeable-neutral", "player-creation"},
     minable = {hardness = 0.2, mining_time = 1, result = "bi-solar-boiler"},
     max_health = 400,
@@ -932,7 +902,7 @@ data:extend({
       pipe_covers = pipecoverspictures(),
       pipe_connections = {
         {type = "input-output", position = {5, 0}},
-                {type = "input-output", position = {-5, 0}},
+        {type = "input-output", position = {-5, 0}},
       },
       production_type = "input-output",
       filter = "water"

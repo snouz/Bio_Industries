@@ -22,7 +22,7 @@ data:extend({
     name = "bi-tech-coal-processing-1",
     localised_name = {"technology-name.bi-tech-coal-processing-1"},
     localised_description = {"technology-description.bi-tech-coal-processing-1"},
-    icon = ICONPATH .. "bi-tech-coal-processing.png",
+    icon = ICONPATH .. "bi-tech-coal-processing-1.png",
     icon_size = 256,
     effects = coal_processing[1],
     prerequisites = {"advanced-material-processing", "bi-tech-ash"},
@@ -42,7 +42,7 @@ data:extend({
     name = "bi-tech-coal-processing-2",
     localised_name = {"technology-name.bi-tech-coal-processing-2"},
     localised_description = {"technology-description.bi-tech-coal-processing-2"},
-    icon = ICONPATH .. "bi-tech-coal-processing.png",
+    icon = ICONPATH .. "bi-tech-coal-processing-2.png",
     icon_size = 256,
     --~ effects = {
       --~ {
@@ -83,7 +83,7 @@ data:extend({
     name = "bi-tech-coal-processing-3",
     localised_name = {"technology-name.bi-tech-coal-processing-3"},
     localised_description = {"technology-description.bi-tech-coal-processing-3"},
-    icon = ICONPATH .. "bi-tech-coal-processing.png",
+    icon = ICONPATH .. "bi-tech-coal-processing-3.png",
     icon_size = 256,
    --~ effects = {
       --~ {
@@ -119,47 +119,12 @@ data:extend({
 
 
 
-
-
-
-
-
-
-
-
---~ SNOUZ BEGIN
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-
-
-    
-
-
-
-
-
-
-
-
     {
       type = "technology",
       name = "bi-tech-explosive-planting-1",
       localised_name = {"technology-name.bi-tech-explosive-planting-1"},
       localised_description = {"technology-description.bi-tech-explosive-planting-1"},
-      icon = ICONPATH .. "bi-tech-explosive-planting.png",
+      icon = ICONPATH .. "bi-tech-explosive-planting-1.png",
       icon_size = 256,
       effects = {
         {
@@ -185,7 +150,7 @@ data:extend({
       name = "bi-tech-explosive-planting-2",
       localised_name = {"technology-name.bi-tech-explosive-planting-2"},
       localised_description = {"technology-description.bi-tech-explosive-planting-2"},
-      icon = ICONPATH .. "bi-tech-explosive-planting.png",
+      icon = ICONPATH .. "bi-tech-explosive-planting-2.png",
       icon_size = 256,
       effects = {
         {
@@ -209,7 +174,7 @@ data:extend({
       name = "bi-tech-explosive-planting-3",
       localised_name = {"technology-name.bi-tech-explosive-planting-3"},
       localised_description = {"technology-description.bi-tech-explosive-planting-3"},
-      icon = ICONPATH .. "bi-tech-explosive-planting.png",
+      icon = ICONPATH .. "bi-tech-explosive-planting-3.png",
       icon_size = 256,
       effects = {
         {
@@ -251,13 +216,7 @@ data:extend({
       localised_name = {"technology-name.bi-tech-bio-farming-1"},
       localised_description = {"technology-description.bi-tech-bio-farming-1"},
     icon_size = 256,
-    icon = ICONPATH .. "bi-tech-bio-farming.png",
-    icons = {
-      {
-        icon = ICONPATH .. "bi-tech-bio-farming.png",
-        icon_size = 256,
-      }
-    },
+    icon = ICONPATH .. "bi-tech-bio-farming-1.png",
     effects = {
       {
         type = "unlock-recipe",
@@ -287,7 +246,7 @@ data:extend({
       name = "bi-tech-bio-farming-2",
       localised_name = {"technology-name.bi-tech-bio-farming-2"},
       localised_description = {"technology-description.bi-tech-bio-farming-2"},
-      icon = ICONPATH .. "bi-tech-bio-farming.png",
+      icon = ICONPATH .. "bi-tech-bio-farming-2.png",
       icon_size = 256,
       effects = {
         {
@@ -319,7 +278,7 @@ data:extend({
       name = "bi-tech-bio-farming-3",
       localised_name = {"technology-name.bi-tech-bio-farming-"},
       localised_description = {"technology-description.bi-tech-bio-farming-"},
-      icon = ICONPATH .. "bi-tech-bio-farming.png",
+      icon = ICONPATH .. "bi-tech-bio-farming-3.png",
       icon_size = 256,
       effects = {
         {
@@ -351,7 +310,7 @@ data:extend({
       name = "bi-tech-bio-farming-4",
       localised_name = {"technology-name.bi-tech-bio-farming-4"},
       localised_description = {"technology-description.bi-tech-bio-farming-4"},
-      icon = ICONPATH .. "bi-tech-bio-farming.png",
+      icon = ICONPATH .. "bi-tech-bio-farming-4.png",
       icon_size = 256,
       effects = {
         {
@@ -490,7 +449,7 @@ data:extend({
       name = "bi-terraforming-1",
       localised_name = {"technology-name.bi-terraforming-1"},
       localised_description = {"technology-description.bi-terraforming-1"},
-      icon = ICONPATH .. "bi-terraforming.png",
+      icon = ICONPATH .. "bi-terraforming-1.png",
       icon_size = 256,
       effects = {
         {
@@ -517,7 +476,7 @@ data:extend({
       name = "bi-terraforming-2",
       localised_name = {"technology-name.bi-terraforming-2"},
       localised_description = {"technology-description.bi-terraforming-2"},
-      icon = ICONPATH .. "bi-terraforming.png",
+      icon = ICONPATH .. "bi-terraforming-2.png",
       icon_size = 256,
       effects = {
         {
@@ -545,7 +504,7 @@ data:extend({
       name = "bi-terraforming-3",
       localised_name = {"technology-name.bi-terraforming-3"},
       localised_description = {"technology-description.bi-terraforming-3"},
-      icon = ICONPATH .. "bi-terraforming.png",
+      icon = ICONPATH .. "bi-terraforming-3.png",
       icon_size = 256,
       effects = {
         {
@@ -579,12 +538,6 @@ data:extend({
       localised_description = {"technology-description.bi-tech-fertilizer"},
       icon_size = 256,
       icon = ICONPATH .. "bi-tech-fertilizer.png",
-      icons = {
-        {
-          icon = ICONPATH .. "bi-tech-fertilizer.png",
-          icon_size = 256,
-        }
-      },
       effects = {
         {
           type = "unlock-recipe",
@@ -614,24 +567,101 @@ data:extend({
 
 
 
+    
+
     {
       type = "technology",
-      name = "bi-tech-depollution-1",
-      localised_name = {"technology-name.bi-tech-depollution-1"},
-      localised_description = {"technology-description.bi-tech-depollution-1"},
-      icon = ICONPATH .. "bi-tech-depollution.png",
+      name = "bi-tech-garden-1",
+      localised_name = {"technology-name.bi-tech-garden-1"},
+      localised_description = {"technology-description.bi-tech-garden-1"},
+      icon = ICONPATH .. "bi-tech-garden-1.png",
       icon_size = 256,
       effects = {
         {
           type = "unlock-recipe",
           recipe = "bi-bio-garden"
         },
+      },
+      prerequisites = {"bi-tech-fertilizer", "bi-tech-stone-crushing-1"},
+      unit = {
+        count = 170,
+        ingredients = {
+          {"automation-science-pack", 1},
+          {"logistic-science-pack", 1},
+        },
+        time = 30,
+      },
+      upgrade = false,
+    },
+    {
+      type = "technology",
+      name = "bi-tech-garden-2",
+      localised_name = {"technology-name.bi-tech-garden-2"},
+      localised_description = {"technology-description.bi-tech-garden-2"},
+      icon = ICONPATH .. "bi-tech-garden-2.png",
+      icon_size = 256,
+      effects = {
+        {
+          type = "unlock-recipe",
+          recipe = "bi-bio-garden-large"
+        },
+      },
+      prerequisites = {"bi-tech-garden-1"},
+      unit = {
+        count = 200,
+        ingredients = {
+          {"automation-science-pack", 1},
+          {"logistic-science-pack", 1},
+          {"chemical-science-pack", 1},
+        },
+        time = 30,
+      },
+      upgrade = false,
+    },
+    {
+      type = "technology",
+      name = "bi-tech-garden-3",
+      localised_name = {"technology-name.bi-tech-garden-3"},
+      localised_description = {"technology-description.bi-tech-garden-3"},
+      icon = ICONPATH .. "bi-tech-garden-3.png",
+      icon_size = 256,
+      effects = {
+        {
+          type = "unlock-recipe",
+          recipe = "bi-bio-garden-huge"
+        },
+      },
+      prerequisites = {"bi-tech-garden-2"},
+      unit = {
+        count = 270,
+        ingredients = {
+          {"automation-science-pack", 1},
+          {"logistic-science-pack", 1},
+          {"chemical-science-pack", 1},
+          {"production-science-pack", 1},
+        },
+        time = 30,
+      },
+      upgrade = false,
+    },
+
+
+
+
+{
+      type = "technology",
+      name = "bi-tech-depollution-1",
+      localised_name = {"technology-name.bi-tech-depollution-1"},
+      localised_description = {"technology-description.bi-tech-depollution-1"},
+      icon = ICONPATH .. "bi-tech-depollution-1.png",
+      icon_size = 256,
+      effects = {
         {
           type = "unlock-recipe",
           recipe = "bi-purified-air-1"
         },
       },
-      prerequisites = {"bi-tech-fertilizer", "bi-tech-stone-crushing-1"},
+      prerequisites = {"bi-tech-garden-1"},
       unit = {
         count = 200,
         ingredients = {
@@ -648,7 +678,7 @@ data:extend({
       name = "bi-tech-depollution-2",
       localised_name = {"technology-name.bi-tech-depollution-2"},
       localised_description = {"technology-description.bi-tech-depollution-2"},
-      icon = ICONPATH .. "bi-tech-depollution.png",
+      icon = ICONPATH .. "bi-tech-depollution-2.png",
       icon_size = 256,
       effects = {
         {
@@ -668,13 +698,6 @@ data:extend({
       },
       upgrade = false,
     },
-
-
-
-
-
-
-
 
 
 
@@ -753,14 +776,13 @@ data:extend({
 
 
 
-
-
+    
     {
       type = "technology",
       name = "bi-tech-stone-crushing-1",
       localised_name = {"technology-name.bi-tech-stone-crushing-1"},
       localised_description = {"technology-description.bi-tech-stone-crushing-1"},
-      icon = ICONPATH .. "bi-tech-stone-crushing.png",
+      icon = ICONPATH .. "bi-tech-stone-crushing-1.png",
       icon_size = 256,
       effects = {
         {
@@ -789,7 +811,7 @@ data:extend({
       name = "bi-tech-stone-crushing-2",
       localised_name = {"technology-name.bi-tech-stone-crushing-2"},
       localised_description = {"technology-description.bi-tech-stone-crushing-2"},
-      icon = ICONPATH .. "bi-tech-stone-crushing.png",
+      icon = ICONPATH .. "bi-tech-stone-crushing-2.png",
       icon_size = 256,
       effects = {
         {
@@ -909,8 +931,6 @@ data:extend({
       },
       upgrade = false,
     },
-
-
 })
 
 
@@ -924,7 +944,7 @@ data:extend({
       name = "bi-tech-biomass-reprocessing-1",
       localised_name = {"technology-name.bi-tech-biomass-reprocessing-1"},
       localised_description = {"technology-description.bi-tech-biomass-reprocessing-1"},
-      icon = ICONPATH .. "bi-tech-biomass-reprocessing.png",
+      icon = ICONPATH .. "bi-tech-biomass-reprocessing-1.png",
       icon_size = 256,
       effects = {
         {
@@ -950,7 +970,7 @@ data:extend({
       name = "bi-tech-biomass-reprocessing-2",
       localised_name = {"technology-name.bi-tech-biomass-reprocessing-2"},
       localised_description = {"technology-description.bi-tech-biomass-reprocessing-2"},
-      icon = ICONPATH .. "bi-tech-biomass-reprocessing.png",
+      icon = ICONPATH .. "bi-tech-biomass-reprocessing-2.png",
       icon_size = 256,
       effects = {
         {
@@ -1012,7 +1032,7 @@ data:extend({
       name = "bi-tech-cellulose-1",
       localised_name = {"technology-name.bi-tech-cellulose-1"},
       localised_description = {"technology-description.bi-tech-cellulose-1"},
-      icon = ICONPATH .. "bi-tech-cellulose.png",
+      icon = ICONPATH .. "bi-tech-cellulose-1.png",
       icon_size = 256,
       effects = {
         {
@@ -1042,7 +1062,7 @@ data:extend({
       name = "bi-tech-cellulose-2",
       localised_name = {"technology-name.bi-tech-cellulose-2"},
       localised_description = {"technology-description.bi-tech-cellulose-2"},
-      icon = ICONPATH .. "bi-tech-cellulose.png",
+      icon = ICONPATH .. "bi-tech-cellulose-2.png",
       icon_size = 256,
       effects = {
         {
@@ -1131,25 +1151,8 @@ data:extend({
       upgrade = false,
     },
 
-
-
-
 })
-
-
 end 
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -1289,27 +1292,5 @@ data:extend({
       upgrade = false,
     },
 
-
-
-
 })
-
-
 end 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

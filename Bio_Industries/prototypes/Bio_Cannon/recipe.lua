@@ -9,7 +9,7 @@ if BI.Settings.Bio_Cannon then
     type = "recipe",
     name = "bi-bio-cannon",
     localised_name = {"entity-name.bi-bio-cannon"},
-    localised_description = {"entity-description.bi-bio.cannon"},
+    --localised_description = {"entity-description.bi-bio.cannon"},
     normal = {
         enabled = false,
         energy_required = 50,
@@ -35,7 +35,7 @@ if BI.Settings.Bio_Cannon then
         result_count = 1,
       },
       allow_as_intermediate = false,
-      always_show_made_in = true,
+      always_show_made_in = false,
       allow_decomposition = false,
       subgroup = "defensive-structure",
       order = "b[turret]-e[bi-prototype-artillery-turret]"

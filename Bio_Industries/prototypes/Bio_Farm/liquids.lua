@@ -44,12 +44,6 @@ data:extend({
     name = "bi-biomass",
     icon = ICONPATH .. "biomass.png",
     icon_size = 64,
-    icons = {
-      {
-        icon = ICONPATH .. "biomass.png",
-        icon_size = 64,
-      }
-    },
     default_temperature = 25,
     max_temperature = 100,
     heat_capacity = "1KJ",

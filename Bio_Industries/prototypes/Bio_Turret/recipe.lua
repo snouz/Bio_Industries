@@ -11,12 +11,6 @@ data:extend({
     localised_description = {"item-description.bi-dart-magazine-basic"},
     icon = ICONPATH .. "weapon/basic_dart_icon.png",
     icon_size = 64,
-    icons = {
-      {
-        icon = ICONPATH .. "weapon/basic_dart_icon.png",
-        icon_size = 64,
-      }
-    },
     normal = {
       enabled = true,
       energy_required = 4,
@@ -37,7 +31,7 @@ data:extend({
       result_count = 8,
       main_product = "",
     },
-    always_show_made_in = true,
+    always_show_made_in = false,
     allow_decomposition = false,
     subgroup = "bi-ammo",
     order = "[bio-ammo]-a-[darts]-1",
@@ -54,12 +48,6 @@ data:extend({
     localised_description = {"item-description.bi-dart-magazine-standard"},
     icon = ICONPATH .. "weapon/standard_dart_icon.png",
     icon_size = 64,
-    icons = {
-      {
-        icon = ICONPATH .. "weapon/standard_dart_icon.png",
-        icon_size = 64,
-      }
-    },
     normal = {
       enabled = false,
       energy_required = 5,
@@ -82,7 +70,7 @@ data:extend({
       result_count = 8,
       main_product = "",
     },
-    always_show_made_in = true,
+    always_show_made_in = false,
     allow_decomposition = false,
     subgroup = "bi-ammo",
     order = "[bio-ammo]-a-[darts]-2",
@@ -96,12 +84,6 @@ data:extend({
     localised_description = {"item-description.bi-dart-magazine-enhanced"},
     icon = ICONPATH .. "weapon/enhanced_dart_icon.png",
     icon_size = 64,
-    icons = {
-      {
-        icon = ICONPATH .. "weapon/enhanced_dart_icon.png",
-        icon_size = 64,
-      }
-    },
     normal = {
       enabled = false,
       energy_required = 6,
@@ -124,7 +106,7 @@ data:extend({
       result_count = 8,
       main_product = "",
     },
-    always_show_made_in = true,
+    always_show_made_in = false,
     allow_decomposition = false,
     subgroup = "bi-ammo",
     order = "[bio-ammo]-a-[darts]-3",
@@ -138,12 +120,6 @@ data:extend({
     localised_description = {"item-description.bi-dart-magazine-poison"},
     icon = ICONPATH .. "weapon/poison_dart_icon.png",
     icon_size = 64,
-    icons = {
-      {
-        icon = ICONPATH .. "weapon/poison_dart_icon.png",
-        icon_size = 64,
-      }
-    },
     normal = {
       enabled = false,
       energy_required = 8,
@@ -166,7 +142,7 @@ data:extend({
       result_count = 8,
       main_product = "",
     },
-    always_show_made_in = true,
+    always_show_made_in = false,
     allow_decomposition = false,
     subgroup = "bi-ammo",
     order = "[bio-ammo]-a-[darts]-4",
@@ -177,15 +153,9 @@ data:extend({
     type = "recipe",
     name = "bi-dart-turret",
     localised_name = {"entity-name.bi-dart-turret"},
-    localised_description = {"entity-description.bi-dart-turret"},
+    --localised_description = {"entity-description.bi-dart-turret"},
     icon = ICONPATH .. "entity/bio_turret_icon.png",
     icon_size = 64,
-    icons = {
-      {
-        icon = ICONPATH .. "entity/bio_turret_icon.png",
-        icon_size = 64,
-      }
-    },
     normal = {
       enabled = true,
       energy_required = 8,
@@ -208,7 +178,7 @@ data:extend({
       result_count = 1,
       main_product = "",
     },
-    always_show_made_in = true,
+    always_show_made_in = false,
     allow_decomposition = false,
     subgroup = "defensive-structure",
     order = "b[turret]-e[bi-dart-turret]",
@@ -222,15 +192,9 @@ data:extend({
     type = "recipe",
     name = "bi-dart-rifle",
     localised_name = {"item-name.bi-dart-rifle"},
-    localised_description = {"item-description.bi-dart-rifle"},
+    --localised_description = {"item-description.bi-dart-rifle"},
     icon = ICONPATH .. "weapon/bi_dart_rifle_icon.png",
     icon_size = 64,
-    icons = {
-      {
-        icon = ICONPATH .. "weapon/bi_dart_rifle_icon.png",
-        icon_size = 64,
-      }
-    },
     normal = {
         enabled = true,
         energy_required = 8,
@@ -253,7 +217,7 @@ data:extend({
         result_count = 1,
         main_product = "",
     },
-    always_show_made_in = true,
+    always_show_made_in = false,
     allow_decomposition = false,
     subgroup = "gun",
     --~ order = "[bi-dart-rifle]"

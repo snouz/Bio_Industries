@@ -10,12 +10,6 @@ data:extend(
       inventory_order = "v-a",
       icon = "__Bio_Industries__/graphics/technology/BioIndustries_itemgroup.png",
       icon_size = 128,
-      icons = {
-        {
-          icon = "__Bio_Industries__/graphics/technology/BioIndustries_itemgroup.png",
-          icon_size = 128,
-        }
-      },
     },
 
      {

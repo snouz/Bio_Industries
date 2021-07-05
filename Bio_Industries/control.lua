@@ -406,7 +406,7 @@ local boiler_name, lamp_name, pole_name, radar_name, panel_name, overlay_name
     pole_name = "bi-bio-farm-electric-pole"
     panel_name = "bi-bio-farm-solar-panel"
     lamp_name = "bi-bio-farm-light"
-    hidden_entities = {pole = pole_name, panel = panel_name, lamp = lamp_name}
+    hidden_entities = {pole = pole_name, panel = panel_name}
 
     BioInd.create_entities(global.bi_bio_farm_table, base, hidden_entities, base.position)
     BioInd.writeDebug("Stored Biofarm %g in table: %s", {base.unit_number,    global.bi_bio_farm_table[base.unit_number]})
@@ -480,7 +480,7 @@ local boiler_name, lamp_name, pole_name, radar_name, panel_name, overlay_name
     radar_name = "bi-arboretum-radar"
     pole_name = "bi-hidden-power-pole"
     lamp_name = "bi-bio-farm-light"
-    hidden_entities = {lamp = lamp_name, pole = pole_name}
+    hidden_entities = {pole = pole_name}
 
     -- New Arboretum, the first was just used for Radius overlay
     base = surface.create_entity({

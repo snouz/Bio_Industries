@@ -9,15 +9,9 @@ data:extend({
     type = "recipe",
     name = "bi-wooden-pole-big",
     localised_name = {"entity-name.bi-wooden-pole-big"},
-    localised_description = {"entity-description.bi-wooden-pole-big"},
+    --localised_description = {"entity-description.bi-wooden-pole-big"},
     icon = ICONPATH .. "entity/big-wooden-pole.png",
     icon_size = 64,
-    icons = {
-      {
-        icon = ICONPATH .. "entity/big-wooden-pole.png",
-        icon_size = 64,
-      }
-    },
     normal = {
       enabled = false,
       ingredients = {
@@ -36,7 +30,7 @@ data:extend({
       result = "bi-wooden-pole-big",
       main_product = "",
     },
-    always_show_made_in = true,
+    always_show_made_in = false,
     allow_decomposition = false,
     subgroup = "energy-pipe-distribution",
     order = "a[energy]-b[small-electric-pole]",
@@ -50,15 +44,9 @@ data:extend({
     type = "recipe",
     name = "bi-wooden-pole-huge",
     localised_name = {"entity-name.bi-wooden-pole-huge"},
-    localised_description = {"entity-description.bi-wooden-pole-huge"},
+    --localised_description = {"entity-description.bi-wooden-pole-huge"},
     icon = ICONPATH .. "entity/huge-wooden-pole.png",
     icon_size = 64,
-    icons = {
-      {
-        icon = ICONPATH .. "entity/huge-wooden-pole.png",
-        icon_size = 64,
-      }
-    },
     normal = {
       enabled = false,
       ingredients = {
@@ -79,7 +67,7 @@ data:extend({
       result = "bi-wooden-pole-huge",
       main_product = "",
     },
-    always_show_made_in = true,
+    always_show_made_in = false,
     allow_decomposition = false,
     subgroup = "energy-pipe-distribution",
     order = "a[energy]-d[big-electric-pole]",
@@ -93,15 +81,9 @@ data:extend({
     type = "recipe",
     name = "bi-wooden-fence",
     localised_name = {"entity-name.bi-wooden-fence"},
-    localised_description = {"entity-description.bi-wooden-fence"},
+    --localised_description = {"entity-description.bi-wooden-fence"},
     icon = ICONPATH .. "entity/wooden-fence.png",
     icon_size = 64,
-    icons = {
-      {
-        icon = ICONPATH .. "entity/wooden-fence.png",
-        icon_size = 64,
-      }
-    },
     normal = {
       enabled = true,
       ingredients = {
@@ -118,7 +100,7 @@ data:extend({
       result = "bi-wooden-fence",
       main_product = "",
     },
-    always_show_made_in = true,
+    always_show_made_in = false,
     allow_decomposition = false,
     subgroup = "defensive-structure",
     -- This is a custom property for use by "Krastorio 2" (it will change
@@ -131,15 +113,9 @@ data:extend({
     type = "recipe",
     name = "bi-rail-wood",
     localised_name = {"entity-name.bi-rail-wood"},
-    localised_description = {"entity-description.bi-rail-wood"},
+    --localised_description = {"entity-description.bi-rail-wood"},
     icon = ICONPATH .. "entity/rail-wood.png",
     icon_size = 64,
-    icons = {
-      {
-        icon = ICONPATH .. "entity/rail-wood.png",
-        icon_size = 64,
-      }
-    },
     normal = {
       enabled = false,
       ingredients = {
@@ -166,7 +142,7 @@ data:extend({
       main_product = "",
       requester_paste_multiplier = 4,
     },
-    always_show_made_in = true,
+    always_show_made_in = false,
     allow_decomposition = false,
     subgroup = "train-transport",
     order = "a[train-system]-a[rail0]",
@@ -181,12 +157,6 @@ data:extend({
     name = "bi-rail-wood-to-concrete",
     icon = ICONPATH .. "entity/rail-wood-to-concrete.png",
     icon_size = 64,
-    icons = {
-      {
-        icon = ICONPATH .. "entity/rail-wood-to-concrete.png",
-        icon_size = 64,
-      }
-    },
     normal = {
       enabled = false,
       ingredients = {
@@ -211,7 +181,7 @@ data:extend({
     },
     subgroup = "train-transport",
     order = "a[train-system]-a[rail2]",
-    always_show_made_in = true,
+    always_show_made_in = false,
     allow_decomposition = false,
   },
 
@@ -220,16 +190,10 @@ data:extend({
     type = "recipe",
     name = "bi-rail-wood-bridge",
     localised_name = {"entity-name.bi-rail-wood-bridge"},
-    localised_description = {"entity-description.bi-rail-wood-bridge"},
+    --localised_description = {"entity-description.bi-rail-wood-bridge"},
     name = "bi-rail-wood-bridge",
     icon = ICONPATH .. "entity/rail-wood-bridge.png",
     icon_size = 64,
-    icons = {
-      {
-        icon = ICONPATH .. "entity/rail-wood-bridge.png",
-        icon_size = 64,
-      }
-    },
     normal = {
       enabled = false,
       ingredients = {
@@ -254,7 +218,7 @@ data:extend({
       main_product = "",
       requester_paste_multiplier = 4
     },
-    always_show_made_in = true,
+    always_show_made_in = false,
     allow_decomposition = false,
     subgroup = "train-transport",
     order = "a[train-system]-a[rail5]",
@@ -268,15 +232,9 @@ data:extend({
     type = "recipe",
     name = "bi-rail-power",
     localised_name = {"entity-name.bi-rail-power"},
-    localised_description = {"entity-description.bi-rail-power"},
+    --localised_description = {"entity-description.bi-rail-power"},
     icon = ICONPATH .. "entity/rail-concrete-power.png",
     icon_size = 64,
-    icons = {
-      {
-        icon = ICONPATH .. "entity/rail-concrete-power.png",
-        icon_size = 64,
-      }
-    },
     normal = {
       enabled = false,
       ingredients = {
@@ -299,7 +257,7 @@ data:extend({
       main_product = "",
       requester_paste_multiplier = 4
     },
-    always_show_made_in = true,
+    always_show_made_in = false,
     allow_decomposition = false,
     subgroup = "train-transport",
     order = "a[train-system]-a[rail3]",
@@ -310,15 +268,9 @@ data:extend({
     type = "recipe",
     name = "bi-wood-pipe",
     localised_name = {"entity-name.bi-wood-pipe"},
-    localised_description = {"entity-description.bi-wood-pipe"},
+    --localised_description = {"entity-description.bi-wood-pipe"},
     icon = ICONPATH .. "entity/wood_pipe.png",
     icon_size = 64,
-    icons = {
-      {
-        icon = ICONPATH .. "entity/wood_pipe.png",
-        icon_size = 64,
-      }
-    },
     normal = {
       energy_required = 1,
       enabled = true,
@@ -343,7 +295,7 @@ data:extend({
       main_product = "",
       requester_paste_multiplier = 15
     },
-    always_show_made_in = true,
+    always_show_made_in = false,
     allow_decomposition = false,
     subgroup = "energy-pipe-distribution",
     order = "a[pipe]-1a[pipe]",
@@ -357,15 +309,9 @@ data:extend({
     type = "recipe",
     name = "bi-wood-pipe-to-ground",
     localised_name = {"entity-name.bi-wood-pipe-to-ground"},
-    localised_description = {"entity-description.bi-wood-pipe-to-ground"},
+    --localised_description = {"entity-description.bi-wood-pipe-to-ground"},
     icon = ICONPATH .. "entity/pipe-to-ground-wood.png",
     icon_size = 64,
-    icons = {
-      {
-        icon = ICONPATH .. "entity/pipe-to-ground-wood.png",
-        icon_size = 64,
-      }
-    },
     normal = {
       energy_required = 2,
       enabled = true,
@@ -388,7 +334,7 @@ data:extend({
       result_count = 2,
       main_product = "",
     },
-    always_show_made_in = true,
+    always_show_made_in = false,
     allow_decomposition = false,
     subgroup = "energy-pipe-distribution",
     order = "a[pipe]-1b[pipe-to-ground]",
@@ -399,16 +345,9 @@ data:extend({
     type = "recipe",
     name = "bi-power-to-rail-pole",
     localised_name = {"entity-name.bi-power-to-rail-pole"},
-    localised_description = {"entity-description.bi-power-to-rail-pole"},
+    --localised_description = {"entity-description.bi-power-to-rail-pole"},
     icon = ICONPATH .. "entity/electric-to-rail.png",
     icon_size = 64,
-    icon_mipmaps = 1,
-    icons = {
-      {
-        icon = ICONPATH .. "entity/electric-to-rail.png",
-        icon_size = 64,
-      }
-    },
     normal = {
       enabled = false,
       ingredients = {
@@ -427,7 +366,7 @@ data:extend({
       result = "bi-power-to-rail-pole",
       main_product = "",
     },
-    always_show_made_in = true,
+    always_show_made_in = false,
     allow_decomposition = false,
     subgroup = "train-transport",
     order = "a[train-system]-a[rail4]",
@@ -438,15 +377,9 @@ data:extend({
     type = "recipe",
     name = "bi-wooden-chest-large",
     localised_name = {"entity-name.bi-wooden-chest-large"},
-    localised_description = {"entity-description.bi-wooden-chest-large"},
+    --localised_description = {"entity-description.bi-wooden-chest-large"},
     icon = ICONPATH .. "entity/large_wooden_chest_icon.png",
     icon_size = 64,
-    icons = {
-      {
-        icon = ICONPATH .. "entity/large_wooden_chest_icon.png",
-        icon_size = 64,
-      }
-    },
     normal = {
       energy_required = 2,
       enabled = false,
@@ -473,7 +406,7 @@ data:extend({
       main_product = "",
       requester_paste_multiplier = 4,
     },
-    always_show_made_in = true,
+    always_show_made_in = false,
     allow_decomposition = false,
     subgroup = "storage",
     order = "a[items]-aa[wooden-chest]",
@@ -484,15 +417,9 @@ data:extend({
     type = "recipe",
     name = "bi-wooden-chest-huge",
     localised_name = {"entity-name.bi-wooden-chest-huge"},
-    localised_description = {"entity-description.bi-wooden-chest-huge"},
+    --localised_description = {"entity-description.bi-wooden-chest-huge"},
     icon = ICONPATH .. "entity/huge_wooden_chest_icon.png",
     icon_size = 64,
-    icons = {
-      {
-        icon = ICONPATH .. "entity/huge_wooden_chest_icon.png",
-        icon_size = 64,
-      }
-    },
     normal = {
       energy_required = 2,
       enabled = false,
@@ -519,7 +446,7 @@ data:extend({
       main_product = "",
       requester_paste_multiplier = 4,
     },
-    always_show_made_in = true,
+    always_show_made_in = false,
     allow_decomposition = false,
     subgroup = "storage",
     order = "a[items]-ab[wooden-chest]",
@@ -530,15 +457,9 @@ data:extend({
     type = "recipe",
     name = "bi-wooden-chest-giga",
     localised_name = {"entity-name.bi-wooden-chest-giga"},
-    localised_description = {"entity-description.bi-wooden-chest-giga"},
+    --localised_description = {"entity-description.bi-wooden-chest-giga"},
     icon = ICONPATH .. "entity/giga_wooden_chest_icon.png",
     icon_size = 64,
-    icons = {
-      {
-        icon = ICONPATH .. "entity/giga_wooden_chest_icon.png",
-        icon_size = 64,
-      }
-    },
     normal = {
       energy_required = 4,
       enabled = false,
@@ -566,7 +487,7 @@ data:extend({
       main_product = "",
       requester_paste_multiplier = 4,
     },
-    always_show_made_in = true,
+    always_show_made_in = false,
     allow_decomposition = false,
     subgroup = "storage",
     order = "a[items]-ac[wooden-chest]",

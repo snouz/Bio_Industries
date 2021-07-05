@@ -9,12 +9,6 @@ data:extend({
     name = "bi-pellet-coke-2",
     icon = ICONPATH .. "mod_bobangels/pellet_coke_b.png",
     icon_size = 64,
-    icons = {
-      {
-        icon = ICONPATH .. "mod_bobangels/pellet_coke_b.png",
-        icon_size = 64,
-      }
-    },
     category = "biofarm-mod-smelting",
     subgroup = "bio-bio-farm-raw",
     order = "a[bi]-a-g[bi-coke-coal]-2",
@@ -22,7 +16,7 @@ data:extend({
     ingredients = {},
     result = "pellet-coke",
     result_count = 1,
-    always_show_made_in = true,
+    always_show_made_in = false,
     allow_decomposition = false,
     allow_as_intermediate = false,
     enabled = false,
@@ -34,12 +28,6 @@ data:extend({
     name = "bi-fertilizer-2",
     icon = ICONPATH .. "mod_bobangels/fertilizer_sodium_hydroxide.png",
     icon_size = 64,
-    icons = {
-      {
-        icon = ICONPATH .. "mod_bobangels/fertilizer_sodium_hydroxide.png",
-        icon_size = 64,
-      }
-    },
     category = "chemistry",
     energy_required = 5,
     ingredients = {
@@ -50,7 +38,7 @@ data:extend({
       {type = "item", name = "fertilizer", amount = 5}
     },
     enabled = false,
-    always_show_made_in = true,
+    always_show_made_in = false,
     allow_decomposition = false,
     allow_as_intermediate = false,
     subgroup = "bio-bio-farm-intermediate-product",
@@ -68,23 +56,6 @@ if not data.raw.item["resin"] then
       name = "resin",
       icon = ICONPATH .. "bi_resin.png",
       icon_size = 64,
-      icons = {
-        {
-          icon = ICONPATH .. "bi_resin.png",
-          icon_size = 64,
-        }
-      },
-      icon_mipmaps = 0,
-      --pictures = {
-        --~ { size = 64, filename = ICONPATHMIPS.."Resin_1.png", scale = 0.2, mipmap_count = 1 },
-        --~ { size = 64, filename = ICONPATHMIPS.."Resin_2.png", scale = 0.2, mipmap_count = 1 },
-        --~ { size = 64, filename = ICONPATHMIPS.."Resin_3.png", scale = 0.2, mipmap_count = 1 },
-        --~ { size = 64, filename = ICONPATHMIPS.."Resin_4.png", scale = 0.2, mipmap_count = 1 }
-        --{ size = 64, filename = ICONPATHMIPS.."Resin_1.png", scale = 0.2 },
-        --{ size = 64, filename = ICONPATHMIPS.."Resin_2.png", scale = 0.2 },
-        --{ size = 64, filename = ICONPATHMIPS.."Resin_3.png", scale = 0.2 },
-        --{ size = 64, filename = ICONPATHMIPS.."Resin_4.png", scale = 0.2 }
-      --},
       subgroup = "bio-bio-farm-raw",
       --~ order = "a[bi]-a-b[bi-resin]",
       order = "a[bi]-a-bb[bi-resin]",
@@ -99,12 +70,6 @@ if not data.raw.item["resin"] then
       localised_description = {"recipe-description.bi-resin-wood"},
       icon = ICONPATH .. "bi_resin_wood.png",
       icon_size = 64,
-      icons = {
-        {
-          icon = ICONPATH .. "bi_resin_wood.png",
-          icon_size = 64,
-        }
-      },
       --~ subgroup = "bio-bio-farm-raw",
       --~ order = "a[bi]-a-ab[bi-resin2]",
       subgroup = "bio-bio-farm-raw",
@@ -112,7 +77,7 @@ if not data.raw.item["resin"] then
       order = "a[bi]-a-bb[bi-2-resin-2-wood]",
       enabled = false,
       allow_as_intermediate = false,
-      always_show_made_in = true,
+      always_show_made_in = false,
       allow_decomposition = false,
       energy_required = 1,
       ingredients = {
@@ -171,12 +136,6 @@ end
 if data.raw.item["wood-bricks"] and mods["angelsbioprocessing"] then
   data.raw.recipe["bi-wood-fuel-brick"].icon = "__angelsbioprocessing__/graphics/icons/wood-bricks.png"
   data.raw.recipe["bi-wood-fuel-brick"].icon_size = 32
-  data.raw.recipe["bi-wood-fuel-brick"].icons = {
-      {
-        icon = "__angelsbioprocessing__/graphics/icons/wood-bricks.png",
-        icon_size = 32,
-      }
-    }
   data.raw.item["wood-bricks"].icon = "__angelsbioprocessing__/graphics/icons/wood-bricks.png"
   data.raw.item["wood-bricks"].icon_size = 32
 end
@@ -271,12 +230,6 @@ if mods["angelsrefining"] then
       name = "bi-mineralized-sulfuric-waste",
       icon = ICONPATH .. "mod_bobangels/bi_mineralized_sulfuric.png",
       icon_size = 64,
-      icons = {
-        {
-          icon = ICONPATH .. "mod_bobangels/bi_mineralized_sulfuric.png",
-          icon_size = 64,
-        }
-      },
       category = "liquifying",
       subgroup = "water-treatment",
       energy_required = 2,
@@ -291,7 +244,7 @@ if mods["angelsrefining"] then
       },
       enabled = false,
       allow_as_intermediate = false,
-      always_show_made_in = true,
+      always_show_made_in = false,
       allow_decomposition = false,
       order = "a[water-water-mineralized]-2",
     },
@@ -302,12 +255,6 @@ if mods["angelsrefining"] then
       name = "bi-slag-slurry",
       icon = ICONPATH .. "mod_bobangels/bi_slurry.png",
       icon_size = 64,
-      icons = {
-        {
-          icon = ICONPATH .. "mod_bobangels/bi_slurry.png",
-          icon_size = 64,
-        }
-      },
       category = "liquifying",
       subgroup = "liquifying",
       energy_required = 4,
@@ -321,7 +268,7 @@ if mods["angelsrefining"] then
       },
       enabled = false,
       allow_as_intermediate = false,
-      always_show_made_in = true,
+      always_show_made_in = false,
       allow_decomposition = false,
       order = "i [slag-processing-dissolution]-2",
     },
@@ -341,18 +288,12 @@ if data.raw.item["wooden-board"] and mods["bobelectronics"] then
       localised_name = {"recipe-name.bi-press-wood"},
       icon = ICONPATH .. "mod_bobangels/bi_wooden_board.png",
       icon_size = 64,
-      icons = {
-        {
-          icon = ICONPATH .. "mod_bobangels/bi_wooden_board.png",
-          icon_size = 64,
-        }
-      },
       subgroup = "bob-boards",
       order = "c-a1[wooden-board]",
       category = "electronics",
       energy_required = 1,
       enabled = false,
-      always_show_made_in = true,
+      always_show_made_in = false,
       allow_decomposition = false,
       allow_as_intermediate = false,
       ingredients = {
@@ -400,13 +341,8 @@ BioInd.writeDebug("Generating recipe for sand from crushed stone!")
     {
       type = "recipe",
       name = "bi-sand",
-      icons = {
-        {
-          icon = ICONPATH .. "mod_aai/sand-aai.png",
-          icon_size = 64,
-          mip_maps = 1,
-        }
-      },
+      icon = ICONPATH .. "mod_aai/sand-aai.png",
+      icon_size = 64,
       category = "biofarm-mod-crushing",
       subgroup = "bio-bio-farm-raw",
       order = "a[bi]-a-z[bi-9-sand]",
@@ -416,7 +352,7 @@ BioInd.writeDebug("Generating recipe for sand from crushed stone!")
       result_count = 5,
       main_product = "",
       enabled = false,
-      always_show_made_in = true,
+      always_show_made_in = false,
       allow_decomposition = false,
       allow_as_intermediate = false,
     },

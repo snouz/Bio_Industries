@@ -89,13 +89,10 @@ set_tint_to_rails(
 -- vanilla rail icon & images update
 data.raw["straight-rail"]["straight-rail"].icon = ICONPATH .. "entity/straight-rail-concrete.png"
 data.raw["straight-rail"]["straight-rail"].icon_size = 64
-data.raw["straight-rail"]["straight-rail"].icon_mipmaps = 4
 data.raw["curved-rail"]["curved-rail"].icon = ICONPATH .. "entity/curved-rail-concrete.png"
 data.raw["curved-rail"]["curved-rail"].icon_size = 64
-data.raw["curved-rail"]["curved-rail"].icon_mipmaps = 4
 data.raw["rail-planner"]["rail"].icon = ICONPATH .. "entity/rail-concrete.png"
 data.raw["rail-planner"]["rail"].icon_size = 64
-data.raw["rail-planner"]["rail"].icon_mipmaps = 4
 data.raw["rail-planner"]["rail"].order = "a[train-system]-a[rail1]",
 
 --- Wood Rail added to Tech
@@ -543,13 +540,6 @@ end
         name = "nitrogen",
         icon = ICONPATH .. "nitrogen.png",
         icon_size = 64,
-        icons = {
-          {
-            icon = ICONPATH .. "nitrogen.png",
-            icon_size = 64,
-            icon_mipmaps = 1,
-          }
-        },
         default_temperature = 25,
         gas_temperature = -210,
         max_temperature = 100,
@@ -571,13 +561,6 @@ end
           name = "liquid-air",
           icon = ICONPATH .. "liquid-air.png",
           icon_size = 64,
-          icons = {
-            {
-              icon = ICONPATH .. "liquid-air.png",
-              icon_size = 64,
-              icon_mipmaps = 1,
-            }
-          },
           default_temperature = 25,
           gas_temperature = -100,
           max_temperature = 100,

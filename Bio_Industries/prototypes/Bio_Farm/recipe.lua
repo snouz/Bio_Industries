@@ -12,12 +12,6 @@ data:extend({
     name = "bi-seed-1",
     icon = ICONPATH .. "bio_seed1.png",
     icon_size = 64,
-    icons = {
-      {
-        icon = ICONPATH .. "bio_seed1.png",
-        icon_size = 64,
-      }
-    },
     category = "biofarm-mod-greenhouse",
     energy_required = 200,
     ingredients = {
@@ -29,7 +23,7 @@ data:extend({
     },
     main_product = "",
     enabled = false,
-    always_show_made_in = true,
+    always_show_made_in = false,
     allow_decomposition = false,
     subgroup = "bio-bio-farm-fluid-1",
     order = "a[bi]-ssw-a1[bi-seed-1]",
@@ -45,12 +39,6 @@ data:extend({
     name = "bi-seed-2",
     icon = ICONPATH .. "bio_seed2.png",
     icon_size = 64,
-    icons = {
-      {
-        icon = ICONPATH .. "bio_seed2.png",
-        icon_size = 64,
-      }
-    },
     category = "biofarm-mod-greenhouse",
     energy_required = 150,
     ingredients = {
@@ -63,7 +51,7 @@ data:extend({
     },
     main_product = "",
     enabled = false,
-    always_show_made_in = true,
+    always_show_made_in = false,
     allow_decomposition = false,
     subgroup = "bio-bio-farm-fluid-1",
     order = "a[bi]-ssw-a1[bi-seed-2]",
@@ -79,12 +67,6 @@ data:extend({
     name = "bi-seed-3",
     icon = ICONPATH .. "bio_seed3.png",
     icon_size = 64,
-    icons = {
-      {
-        icon = ICONPATH .. "bio_seed3.png",
-        icon_size = 64,
-      }
-    },
     category = "biofarm-mod-greenhouse",
     energy_required = 100,
     ingredients = {
@@ -97,7 +79,7 @@ data:extend({
     },
     main_product = "",
     enabled = false,
-    always_show_made_in = true,
+    always_show_made_in = false,
     allow_decomposition = false,
     subgroup = "bio-bio-farm-fluid-1",
     order = "a[bi]-ssw-a1[bi-seed-3]",
@@ -113,12 +95,6 @@ data:extend({
     name = "bi-seed-4",
     icon = ICONPATH .. "bio_seed4.png",
     icon_size = 64,
-    icons = {
-      {
-        icon = ICONPATH .. "bio_seed4.png",
-        icon_size = 64,
-      }
-    },
     category = "biofarm-mod-greenhouse",
     energy_required = 50,
     ingredients = {
@@ -131,7 +107,7 @@ data:extend({
     },
     main_product = "",
     enabled = false,
-    always_show_made_in = true,
+    always_show_made_in = false,
     allow_decomposition = false,
     subgroup = "bio-bio-farm-fluid-1",
     order = "a[bi]-ssw-a1[bi-seed-4]",
@@ -147,12 +123,6 @@ data:extend({
     name = "bi-seedling-1",
     icon = ICONPATH .. "Seedling1.png",
     icon_size = 64,
-    icons = {
-      {
-        icon = ICONPATH .. "Seedling1.png",
-        icon_size = 64,
-      }
-    },
     category = "biofarm-mod-greenhouse",
     energy_required = 400,
     ingredients = {
@@ -164,7 +134,7 @@ data:extend({
     },
     main_product = "",
     enabled = false,
-    always_show_made_in = true,
+    always_show_made_in = false,
     allow_decomposition = false,
     subgroup = "bio-bio-farm-fluid-1",
     order = "b[bi]-ssw-b1[bi-Seedling_Mk1]",
@@ -180,12 +150,6 @@ data:extend({
     name = "bi-seedling-2",
     icon = ICONPATH .. "Seedling2.png",
     icon_size = 64,
-    icons = {
-      {
-        icon = ICONPATH .. "Seedling2.png",
-        icon_size = 64,
-      }
-    },
     category = "biofarm-mod-greenhouse",
     energy_required = 300,
     ingredients = {
@@ -198,7 +162,7 @@ data:extend({
     },
     main_product = "",
     enabled = false,
-    always_show_made_in = true,
+    always_show_made_in = false,
     allow_decomposition = false,
     subgroup = "bio-bio-farm-fluid-1",
     order = "b[bi]-ssw-b1[bi-Seedling_Mk2]",
@@ -214,12 +178,6 @@ data:extend({
     name = "bi-seedling-3",
     icon = ICONPATH .. "Seedling3.png",
     icon_size = 64,
-    icons = {
-      {
-        icon = ICONPATH .. "Seedling3.png",
-        icon_size = 64,
-      }
-    },
     category = "biofarm-mod-greenhouse",
     energy_required = 200,
     ingredients = {
@@ -232,7 +190,7 @@ data:extend({
     },
     main_product = "",
     enabled = false,
-    always_show_made_in = true,
+    always_show_made_in = false,
     subgroup = "bio-bio-farm-fluid-1",
     order = "b[bi]-ssw-b1[bi-Seedling_Mk3]",
     -- This is a custom property for use by "Krastorio 2" (it will change
@@ -247,12 +205,6 @@ data:extend({
     name = "bi-seedling-4",
     icon = ICONPATH .. "Seedling4.png",
     icon_size = 64,
-    icons = {
-      {
-        icon = ICONPATH .. "Seedling4.png",
-        icon_size = 64,
-      }
-    },
     category = "biofarm-mod-greenhouse",
     energy_required = 100,
     ingredients = {
@@ -265,7 +217,7 @@ data:extend({
     },
     main_product = "",
     enabled = false,
-    always_show_made_in = true,
+    always_show_made_in = false,
     allow_decomposition = false,
     subgroup = "bio-bio-farm-fluid-1",
     order = "b[bi]-ssw-b1[bi-Seedling_Mk4]",
@@ -281,15 +233,9 @@ data:extend({
     name = "bi-logs-1",
     icon = ICONPATH .. "raw-wood-mk1.png",
     icon_size = 64,
-    icons = {
-      {
-        icon = ICONPATH .. "raw-wood-mk1.png",
-        icon_size = 64,
-      }
-    },
     category = "biofarm-mod-farm",
     enabled = false,
-    always_show_made_in = true,
+    always_show_made_in = false,
     allow_decomposition = false,
     energy_required = 400,
     ingredients = {
@@ -315,15 +261,9 @@ data:extend({
     name = "bi-logs-2",
     icon = ICONPATH .. "raw-wood-mk2.png",
     icon_size = 64,
-    icons = {
-      {
-        icon = ICONPATH .. "raw-wood-mk2.png",
-        icon_size = 64,
-      }
-    },
     category = "biofarm-mod-farm",
     enabled = false,
-    always_show_made_in = true,
+    always_show_made_in = false,
     allow_decomposition = false,
     energy_required = 360,
     ingredients = {
@@ -350,15 +290,9 @@ data:extend({
     name = "bi-logs-3",
     icon = ICONPATH .. "raw-wood-mk3.png",
     icon_size = 64,
-    icons = {
-      {
-        icon = ICONPATH .. "raw-wood-mk3.png",
-        icon_size = 64,
-      }
-    },
     category = "biofarm-mod-farm",
     enabled = false,
-    always_show_made_in = true,
+    always_show_made_in = false,
     allow_decomposition = false,
     energy_required = 300,
     ingredients = {
@@ -385,15 +319,9 @@ data:extend({
     name = "bi-logs-4",
     icon = ICONPATH .. "raw-wood-mk4.png",
     icon_size = 64,
-    icons = {
-      {
-        icon = ICONPATH .. "raw-wood-mk4.png",
-        icon_size = 64,
-      }
-    },
     category = "biofarm-mod-farm",
     enabled = false,
-    always_show_made_in = true,
+    always_show_made_in = false,
     allow_decomposition = false,
     energy_required = 100,
     ingredients = {
@@ -419,15 +347,9 @@ data:extend({
     type = "recipe",
     name = "bi-bio-greenhouse",
     localised_name = {"entity-name.bi-bio-greenhouse"},
-    localised_description = {"entity-description.bi-bio-greenhouse"},
+    --localised_description = {"entity-description.bi-bio-greenhouse"},
     icon = ICONPATH .. "entity/bio_greenhouse.png",
     icon_size = 64,
-    icons = {
-      {
-        icon = ICONPATH .. "entity/bio_greenhouse.png",
-        icon_size = 64,
-      }
-    },
     normal = {
       enabled = false,
       --~ energy_required = 5,
@@ -456,7 +378,7 @@ data:extend({
     },
     subgroup = "bio-bio-farm-fluid-1",
     order = "a[bi]",
-    always_show_made_in = true,
+    always_show_made_in = false,
     allow_decomposition = false,
   },
 
@@ -466,15 +388,9 @@ data:extend({
     type = "recipe",
     name = "bi-bio-farm",
     localised_name = {"entity-name.bi-bio-farm"},
-    localised_description = {"entity-description.bi-bio-farm"},
+    --localised_description = {"entity-description.bi-bio-farm"},
     icon = ICONPATH .. "entity/Bio_Farm_Icon.png",
     icon_size = 64,
-    icons = {
-      {
-        icon = ICONPATH .. "entity/Bio_Farm_Icon.png",
-        icon_size = 64,
-      }
-    },
     normal = {
       enabled = false,
       --~ energy_required = 10,
@@ -503,7 +419,7 @@ data:extend({
     },
     subgroup = "bio-bio-farm-fluid-3",
     order = "b[bi]",
-    always_show_made_in = true,
+    always_show_made_in = false,
     allow_decomposition = false,
   },
 
@@ -514,16 +430,10 @@ data:extend({
     name = "bi-woodpulp",
     icon = ICONPATH .. "Woodpulp_raw-wood.png",
     icon_size = 64,
-    icons = {
-      {
-        icon = ICONPATH .. "Woodpulp_raw-wood.png",
-        icon_size = 64,
-      }
-    },
     subgroup = "bio-bio-farm-raw",
     order = "a[bi]-a-a[bi-1-woodpulp]",
     enabled = false,
-    always_show_made_in = true,
+    always_show_made_in = false,
     allow_decomposition = false,
     allow_as_intermediate = false,
     energy_required = 2,
@@ -543,16 +453,10 @@ data:extend({
     name = "bi-resin-pulp",
     icon = ICONPATH .. "bi_resin_pulp.png",
     icon_size = 64,
-    icons = {
-      {
-        icon = ICONPATH .. "bi_resin_pulp.png",
-        icon_size = 64,
-      }
-    },
     subgroup = "bio-bio-farm-raw",
     order = "a[bi]-a-ba[bi-2-resin-2-pulp]",
     enabled = false,
-    always_show_made_in = true,
+    always_show_made_in = false,
     allow_decomposition = false,
     allow_as_intermediate = false,
     energy_required = 1,
@@ -575,16 +479,10 @@ data:extend({
     name = "bi-wood-from-pulp",
     icon = ICONPATH .. "wood_from_pulp.png",
     icon_size = 64,
-    icons = {
-      {
-        icon = ICONPATH .. "wood_from_pulp.png",
-        icon_size = 64,
-      }
-    },
     subgroup = "bio-bio-farm-raw",
     order = "a[bi]-a-c[bi-3-wood_from_pulp]",
     enabled = false,
-    always_show_made_in = true,
+    always_show_made_in = false,
     allow_decomposition = false,
     allow_as_intermediate = false,
     energy_required = 2.5,
@@ -610,12 +508,6 @@ data:extend({
     --~ localised_description = {"item-description.wood-bricks"},
     icon = ICONPATH .. "Fuel_Brick.png",
     icon_size = 64,
-    icons = {
-      {
-        icon = ICONPATH .. "Fuel_Brick.png",
-        icon_size = 64,
-      }
-    },
     subgroup = "bio-bio-farm-raw",
     order = "a[bi]-a-bx[bi-4-woodbrick]",
     energy_required = 2,
@@ -624,7 +516,7 @@ data:extend({
     result_count = 1,
     main_product = "",
     enabled = false,
-    always_show_made_in = true,
+    always_show_made_in = false,
     allow_decomposition = false,
     allow_as_intermediate = false,
     -- This is a custom property for use by "Krastorio 2" (it will change
@@ -639,17 +531,11 @@ data:extend({
     name = "bi-ash-1",
     icon = ICONPATH .. "ash_raw-wood.png",
     icon_size = 64,
-    icons = {
-      {
-        icon = ICONPATH .. "ash_raw-wood.png",
-        icon_size = 64,
-      }
-    },
     category = "biofarm-mod-smelting",
     subgroup = "bio-cockery",
     order = "a[bi]-a-cb[bi-5-ash-1]",
     enabled = false,
-    always_show_made_in = true,
+    always_show_made_in = false,
     allow_decomposition = false,
     allow_as_intermediate = false,
     energy_required = 3,
@@ -669,17 +555,11 @@ data:extend({
     name = "bi-ash-2",
     icon = ICONPATH .. "ash_woodpulp.png",
     icon_size = 64,
-    icons = {
-      {
-        icon = ICONPATH .. "ash_woodpulp.png",
-        icon_size = 64,
-      }
-    },
     category = "biofarm-mod-smelting",
     subgroup = "bio-cockery",
     order = "a[bi]-a-ca[bi-5-ash-2]",
     enabled = false,
-    always_show_made_in = true,
+    always_show_made_in = false,
     allow_decomposition = false,
     allow_as_intermediate = false,
     energy_required = 2.5,
@@ -699,12 +579,6 @@ data:extend({
     name = "bi-charcoal-1",
     icon = ICONPATH .. "charcoal_woodpulp.png",
     icon_size = 64,
-    icons = {
-      {
-        icon = ICONPATH .. "charcoal_woodpulp.png",
-        icon_size = 64,
-      }
-    },
     category = "biofarm-mod-smelting",
     subgroup = "bio-cockery",
     order = "a[bi]-a-d[bi-6-charcoal-1]",
@@ -714,7 +588,7 @@ data:extend({
     result_count = 5,
     main_product = "",
     enabled = false,
-    always_show_made_in = true,
+    always_show_made_in = false,
     allow_decomposition = false,
     allow_as_intermediate = false,
     -- This is a custom property for use by "Krastorio 2" (it will change
@@ -729,12 +603,6 @@ data:extend({
     name = "bi-charcoal-2",
     icon = ICONPATH .. "charcoal_raw-wood.png",
     icon_size = 64,
-    icons = {
-      {
-        icon = ICONPATH .. "charcoal_raw-wood.png",
-        icon_size = 64,
-      }
-    },
     subgroup = "bio-cockery",
     order = "a[bi]-a-d[bi-6-charcoal-2]",
     category = "biofarm-mod-smelting",
@@ -744,7 +612,7 @@ data:extend({
     result_count = 8,
     main_product = "",
     enabled = false,
-    always_show_made_in = true,
+    always_show_made_in = false,
     allow_decomposition = false,
     allow_as_intermediate = false,
     -- This is a custom property for use by "Krastorio 2" (it will change
@@ -759,12 +627,6 @@ data:extend({
     name = "bi-coal-1",
     icon = ICONPATH .. "coal.png",
     icon_size = 64,
-    icons = {
-      {
-        icon = ICONPATH .. "coal.png",
-        icon_size = 64,
-      }
-    },
     category = "biofarm-mod-smelting",
     subgroup = "bio-cockery",
     order = "a[bi]-a-ea[bi-6-coal-1]",
@@ -774,7 +636,7 @@ data:extend({
     result_count = 12,
     main_product = "",
     enabled = false,
-    always_show_made_in = true,
+    always_show_made_in = false,
     allow_decomposition = false,
     allow_as_intermediate = false,
   },
@@ -786,12 +648,6 @@ data:extend({
     name = "bi-coal-2",
     icon = ICONPATH .. "coal_mk2.png",
     icon_size = 64,
-    icons = {
-      {
-        icon = ICONPATH .. "coal_mk2.png",
-        icon_size = 64,
-      }
-    },
     category = "biofarm-mod-smelting",
     subgroup = "bio-cockery",
     order = "a[bi]-a-eb[bi-6-coal-2]",
@@ -801,7 +657,7 @@ data:extend({
     result_count = 16,
     main_product = "",
     enabled = false,
-    always_show_made_in = true,
+    always_show_made_in = false,
     allow_decomposition = false,
     allow_as_intermediate = false,
   },
@@ -813,12 +669,6 @@ data:extend({
     name = "bi-solid-fuel",
     icon = ICONPATH .. "bi_solid_fuel_wood_brick.png",
     icon_size = 64,
-    icons = {
-      {
-        icon = ICONPATH .. "bi_solid_fuel_wood_brick.png",
-        icon_size = 64,
-      }
-    },
     subgroup = "bio-bio-farm-raw",
     order = "a[bi]-a-fa[bi-7-solid_fuel]",
     category = "chemistry",
@@ -828,7 +678,7 @@ data:extend({
     result_count = 2,
     main_product = "",
     enabled = false,
-    always_show_made_in = true,
+    always_show_made_in = false,
     allow_decomposition = false,
     allow_as_intermediate = false,
   },
@@ -842,12 +692,6 @@ data:extend({
     --~ localised_description = {"item-description.pellet-coke"},
     icon = ICONPATH .. "pellet_coke_coal.png",
     icon_size = 64,
-    icons = {
-      {
-        icon = ICONPATH .. "pellet_coke_coal.png",
-        icon_size = 64,
-      }
-    },
     category = "biofarm-mod-smelting",
     subgroup = "bio-cockery",
     order = "a[bi]-a-g[bi-8-coke-coal]-1",
@@ -857,7 +701,7 @@ data:extend({
     result_count = 2,
     main_product = "",
     enabled = false,
-    always_show_made_in = true,
+    always_show_made_in = false,
     allow_as_intermediate = false,
   },
 
@@ -871,12 +715,6 @@ data:extend({
     icon = ICONPATH .. "pellet_coke_solid.png",
     --icon = "__Bio_Industries__/graphics/icons/pellet_coke_c.png",
     icon_size = 64,
-    icons = {
-      {
-        icon = ICONPATH .. "pellet_coke_solid.png",
-        icon_size = 64,
-      }
-    },
     category = "biofarm-mod-smelting",
     subgroup = "bio-cockery",
     order = "a[bi]-a-g[bi-8-coke-coal]-3",
@@ -886,7 +724,7 @@ data:extend({
     result_count = 3,
     main_product = "",
     enabled = false,
-    always_show_made_in = true,
+    always_show_made_in = false,
     allow_as_intermediate = false,
   },
 
@@ -896,12 +734,6 @@ data:extend({
     name = "bi-crushed-stone-1",
     icon = ICONPATH .. "crushed-stone-stone.png",
     icon_size = 64,
-    icons = {
-      {
-        icon = ICONPATH .. "crushed-stone-stone.png",
-        icon_size = 64,
-      }
-    },
     category = "biofarm-mod-crushing",
     subgroup = "bio-stone-crusher",
     order = "a[bi]-a-z[bi-9-stone-crushed-1]",
@@ -911,7 +743,7 @@ data:extend({
     result_count = 2,
     main_product = "",
     enabled = false,
-    always_show_made_in = true,
+    always_show_made_in = false,
     allow_decomposition = false,
     allow_as_intermediate = false,
   },
@@ -923,12 +755,6 @@ data:extend({
     localised_description = {"recipe-description.bi-crushed-stone"},
     icon = ICONPATH .. "crushed-stone-concrete.png",
     icon_size = 64,
-    icons = {
-      {
-        icon = ICONPATH .. "crushed-stone-concrete.png",
-        icon_size = 64,
-      }
-    },
     category = "biofarm-mod-crushing",
     subgroup = "bio-stone-crusher",
     order = "a[bi]-a-z[bi-9-stone-crushed-2]",
@@ -938,7 +764,7 @@ data:extend({
     result_count = 2,
     main_product = "",
     enabled = false,
-    always_show_made_in = true,
+    always_show_made_in = false,
     allow_decomposition = false,
     allow_as_intermediate = false,
   },
@@ -950,12 +776,6 @@ data:extend({
     localised_description = {"recipe-description.bi-crushed-stone"},
     icon = ICONPATH .. "crushed-stone-hazard-concrete.png",
     icon_size = 64,
-    icons = {
-      {
-        icon = ICONPATH .. "crushed-stone-hazard-concrete.png",
-        icon_size = 64,
-      }
-    },
     category = "biofarm-mod-crushing",
     subgroup = "bio-stone-crusher",
     order = "a[bi]-a-z[bi-9-stone-crushed-3]",
@@ -965,7 +785,7 @@ data:extend({
     result_count = 2,
     main_product = "",
     enabled = false,
-    always_show_made_in = true,
+    always_show_made_in = false,
     allow_decomposition = false,
     allow_as_intermediate = false,
   },
@@ -977,12 +797,6 @@ data:extend({
     localised_description = {"recipe-description.bi-crushed-stone"},
     icon = ICONPATH .. "crushed-stone-refined-concrete.png",
     icon_size = 64,
-    icons = {
-      {
-        icon = ICONPATH .. "crushed-stone-refined-concrete.png",
-        icon_size = 64,
-      }
-    },
     category = "biofarm-mod-crushing",
     subgroup = "bio-stone-crusher",
     order = "a[bi]-a-z[bi-9-stone-crushed-4]",
@@ -992,7 +806,7 @@ data:extend({
     result_count = 4,
     main_product = "",
     enabled = false,
-    always_show_made_in = true,
+    always_show_made_in = false,
     allow_decomposition = false,
     allow_as_intermediate = false,
   },
@@ -1004,12 +818,6 @@ data:extend({
     localised_description = {"recipe-description.bi-crushed-stone"},
     icon = ICONPATH .. "crushed-stone-refined-hazard-concrete.png",
     icon_size = 64,
-    icons = {
-      {
-        icon = ICONPATH .. "crushed-stone-refined-hazard-concrete.png",
-        icon_size = 64,
-      }
-    },
     category = "biofarm-mod-crushing",
     subgroup = "bio-stone-crusher",
     order = "a[bi]-a-z[bi-9-stone-crushed-5]",
@@ -1019,7 +827,7 @@ data:extend({
     result_count = 4,
     main_product = "",
     enabled = false,
-    always_show_made_in = true,
+    always_show_made_in = false,
     allow_decomposition = false,
     allow_as_intermediate = false,
   },
@@ -1030,12 +838,6 @@ data:extend({
     name = "bi-stone-brick",
     icon = ICONPATH .. "bi_stone_brick.png",
     icon_size = 64,
-    icons = {
-      {
-        icon = ICONPATH .. "bi_stone_brick.png",
-        icon_size = 64,
-      }
-    },
     --category = "smelting",
     category = "chemistry",
     subgroup = "terrain",
@@ -1050,7 +852,7 @@ data:extend({
     },
     enabled = false,
     main_product = "",
-    always_show_made_in = true,
+    always_show_made_in = false,
     allow_decomposition = false,
     allow_as_intermediate = false,
   },
@@ -1060,15 +862,9 @@ data:extend({
     type = "recipe",
     name = "bi-cokery",
     localised_name = {"entity-name.bi-cokery"},
-    localised_description = {"entity-description.bi-cokery"},
+    --localised_description = {"entity-description.bi-cokery"},
     icon = ICONPATH .. "entity/cokery.png",
     icon_size = 64,
-    icons = {
-      {
-        icon = ICONPATH .. "entity/cokery.png",
-        icon_size = 64,
-      }
-    },
     normal = {
       enabled = false,
       energy_required = 8,
@@ -1093,7 +889,7 @@ data:extend({
     },
     subgroup = "bio-cockery",
     order = "a[bi]",
-    always_show_made_in = true,
+    always_show_made_in = false,
     allow_decomposition = false,
   },
 
@@ -1103,15 +899,9 @@ data:extend({
     type = "recipe",
     name = "bi-stone-crusher",
     localised_name = {"entity-name.bi-stone-crusher"},
-    localised_description = {"entity-description.bi-stone-crusher"},
+    --localised_description = {"entity-description.bi-stone-crusher"},
     icon = ICONPATH .. "entity/stone_crusher.png",
     icon_size = 64,
-    icons = {
-      {
-        icon = ICONPATH .. "entity/stone_crusher.png",
-        icon_size = 64,
-      }
-    },
     normal = {
       enabled = false,
       energy_required = 3,
@@ -1138,7 +928,7 @@ data:extend({
     },
     subgroup = "bio-stone-crusher",
     order = "a[bi]",
-    always_show_made_in = true,
+    always_show_made_in = false,
     allow_decomposition = false,
   },
 
@@ -1149,12 +939,6 @@ data:extend({
     name = "bi-liquid-air",
     icon = ICONPATH .. "liquid-air.png",
     icon_size = 64,
-    icons = {
-      {
-        icon = ICONPATH .. "liquid-air.png",
-        icon_size = 64,
-      }
-    },
     category = "chemistry",
     energy_required = 1,
     ingredients = {},
@@ -1163,7 +947,7 @@ data:extend({
     },
     main_product = "",
     enabled = false,
-    always_show_made_in = true,
+    always_show_made_in = false,
     allow_decomposition = false,
     allow_as_intermediate = false,
     subgroup = "bio-bio-farm-intermediate-product",
@@ -1176,12 +960,6 @@ data:extend({
     name = "bi-nitrogen",
     icon = ICONPATH .. "nitrogen.png",
     icon_size = 64,
-    icons = {
-      {
-        icon = ICONPATH .. "nitrogen.png",
-        icon_size = 64,
-      }
-    },
     category = "chemistry",
     energy_required = 10,
     ingredients = {
@@ -1192,7 +970,7 @@ data:extend({
     },
     main_product = "",
     enabled = false,
-    always_show_made_in = true,
+    always_show_made_in = false,
     allow_decomposition = false,
     allow_as_intermediate = false,
     --main_product= "nitrogen",
@@ -1207,12 +985,6 @@ data:extend({
     name = "bi-fertilizer-1",
     icon = ICONPATH .. "fertilizer.png",
     icon_size = 64,
-    icons = {
-      {
-        icon = ICONPATH .. "fertilizer.png",
-        icon_size = 64,
-      }
-    },
     category = "chemistry",
     energy_required = 5,
     ingredients = {
@@ -1225,7 +997,7 @@ data:extend({
     },
     main_product = "",
     enabled = false,
-    always_show_made_in = true,
+    always_show_made_in = false,
     allow_decomposition = false,
     allow_as_intermediate = false,
     subgroup = "bio-bio-farm-intermediate-product",
@@ -1239,12 +1011,6 @@ data:extend({
     name = "bi-adv-fertilizer-1",
     icon = ICONPATH .. "fertilizer_advanced.png",
     icon_size = 64,
-    icons = {
-      {
-        icon = ICONPATH .. "fertilizer_advanced.png",
-        icon_size = 64,
-      }
-    },
     category = "chemistry",
     energy_required = 50,
     ingredients = {
@@ -1257,7 +1023,7 @@ data:extend({
     },
     main_product = "",
     enabled = false,
-    always_show_made_in = true,
+    always_show_made_in = false,
     allow_decomposition = false,
     allow_as_intermediate = false,
     subgroup = "bio-bio-farm-intermediate-product",
@@ -1271,12 +1037,6 @@ data:extend({
     name = "bi-adv-fertilizer-2",
     icon = ICONPATH .. "fertilizer_advanced.png",
     icon_size = 64,
-    icons = {
-      {
-        icon = ICONPATH .. "fertilizer_advanced.png",
-        icon_size = 64,
-      }
-    },
     category = "chemistry",
     energy_required = 50,
     ingredients = {
@@ -1289,7 +1049,7 @@ data:extend({
     },
     main_product = "",
     enabled = false,
-    always_show_made_in = true,
+    always_show_made_in = false,
     allow_decomposition = false,
     allow_as_intermediate = false,
     subgroup = "bio-bio-farm-intermediate-product",
@@ -1308,12 +1068,6 @@ data:extend({
     --~ localised_description = {"item-description.bi-seed-bomb-basic"},
     icon = ICONPATH .. "weapon/Seed_bomb_icon_b.png",
     icon_size = 64,
-    icons = {
-      {
-        icon = ICONPATH .. "weapon/Seed_bomb_icon_b.png",
-        icon_size = 64,
-      }
-    },
     normal = {
       enabled = false,
       energy_required = 8,
@@ -1334,7 +1088,7 @@ data:extend({
       result = "bi-seed-bomb-basic",
       main_product = "",
     },
-    always_show_made_in = true,
+    always_show_made_in = false,
     allow_decomposition = false,
     subgroup = "bi-ammo",
     order = "a[rocket-launcher]-x[seed-bomb]-a",
@@ -1349,12 +1103,6 @@ data:extend({
     --~ localised_description = {"item-description.bi-seed-bomb-standard"},
     icon = ICONPATH .. "weapon/Seed_bomb_icon_s.png",
     icon_size = 64,
-    icons = {
-      {
-        icon = ICONPATH .. "weapon/Seed_bomb_icon_s.png",
-        icon_size = 64,
-      }
-    },
     normal = {
       enabled = false,
       energy_required = 8,
@@ -1377,7 +1125,7 @@ data:extend({
       result = "bi-seed-bomb-standard",
       main_product = "",
     },
-    always_show_made_in = true,
+    always_show_made_in = false,
     allow_decomposition = false,
     subgroup = "bi-ammo",
     order = "a[rocket-launcher]-x[seed-bomb]-b",
@@ -1392,12 +1140,6 @@ data:extend({
     --~ localised_description = {"item-description.bi-seed-bomb-advanced"},
     icon = ICONPATH .. "weapon/Seed_bomb_icon_a.png",
     icon_size = 64,
-    icons = {
-      {
-        icon = ICONPATH .. "weapon/Seed_bomb_icon_a.png",
-        icon_size = 64,
-      }
-    },
     normal = {
       enabled = false,
       energy_required = 8,
@@ -1420,7 +1162,7 @@ data:extend({
       result = "bi-seed-bomb-advanced",
       main_product = "",
     },
-    always_show_made_in = true,
+    always_show_made_in = false,
     allow_decomposition = false,
     subgroup = "bi-ammo",
     order = "a[rocket-launcher]-x[seed-bomb]-c",
@@ -1432,15 +1174,9 @@ data:extend({
     type = "recipe",
     name = "bi-arboretum",
     localised_name = {"entity-name.bi-arboretum"},
-    localised_description = {"entity-description.bi-arboretum"},
+    --localised_description = {"entity-description.bi-arboretum"},
     icon = ICONPATH .. "entity/Arboretum_Icon.png",
     icon_size = 64,
-    icons = {
-      {
-        icon = ICONPATH .. "entity/Arboretum_Icon.png",
-        icon_size = 64,
-      }
-    },
     normal = {
       enabled = false,
       energy_required = 10,
@@ -1467,7 +1203,7 @@ data:extend({
     },
     subgroup = "bio-arboretum-fluid",
     order = "1-a[bi]",
-    always_show_made_in = true,
+    always_show_made_in = false,
     allow_decomposition = false,
   },
 
@@ -1478,12 +1214,6 @@ data:extend({
     name = "bi-arboretum-r1",
     icon = ICONPATH .. "bi_change_0.png",
     icon_size = 64,
-    icons = {
-      {
-        icon = ICONPATH .. "bi_change_0.png",
-        icon_size = 64,
-      }
-    },
     category = "bi-arboretum",
     energy_required = 10000,
     ingredients = {
@@ -1495,7 +1225,7 @@ data:extend({
     },
     main_product = "",
     enabled = false,
-    always_show_made_in = true,
+    always_show_made_in = false,
     allow_decomposition = false,
     allow_as_intermediate = false,
     subgroup = "bio-arboretum-fluid",
@@ -1509,12 +1239,6 @@ data:extend({
     name = "bi-arboretum-r2",
     icon = ICONPATH .. "bi_change_1.png",
     icon_size = 64,
-    icons = {
-      {
-        icon = ICONPATH .. "bi_change_1.png",
-        icon_size = 64,
-      }
-    },
     category = "bi-arboretum",
     energy_required = 10000,
     ingredients = {
@@ -1526,7 +1250,7 @@ data:extend({
     },
     main_product = "",
     enabled = false,
-    always_show_made_in = true,
+    always_show_made_in = false,
     allow_decomposition = false,
     allow_as_intermediate = false,
     subgroup = "bio-arboretum-fluid",
@@ -1540,12 +1264,6 @@ data:extend({
     name = "bi-arboretum-r3",
     icon = ICONPATH .. "bi_change_2.png",
     icon_size = 64,
-    icons = {
-      {
-        icon = ICONPATH .. "bi_change_2.png",
-        icon_size = 64,
-      }
-    },
     category = "bi-arboretum",
     energy_required = 10000,
     ingredients = {
@@ -1557,11 +1275,11 @@ data:extend({
     },
     main_product = "",
     enabled = false,
-    always_show_made_in = true,
+    always_show_made_in = false,
     allow_decomposition = false,
     allow_as_intermediate = false,
     subgroup = "bio-arboretum-fluid",
-    order = "a[bi]-ssw-a1[bi-arboretum-r3]",
+    order = "a[bi]-ssw-a1[bi-arboretum-r4]",
   },
 
 
@@ -1571,12 +1289,6 @@ data:extend({
     name = "bi-arboretum-r4",
     icon = ICONPATH .. "bi_change_plant_1.png",
     icon_size = 64,
-    icons = {
-      {
-        icon = ICONPATH .. "bi_change_plant_1.png",
-        icon_size = 64,
-      }
-    },
     category = "bi-arboretum",
     energy_required = 10000,
     ingredients = {
@@ -1589,11 +1301,11 @@ data:extend({
     },
     main_product = "",
     enabled = false,
-    always_show_made_in = true,
+    always_show_made_in = false,
     allow_decomposition = false,
     allow_as_intermediate = false,
     subgroup = "bio-arboretum-fluid",
-    order = "a[bi]-ssw-a1[bi-arboretum-r4]",
+    order = "a[bi]-ssw-a1[bi-arboretum-r3]",
   },
 
 
@@ -1603,12 +1315,6 @@ data:extend({
     name = "bi-arboretum-r5",
     icon = ICONPATH .. "bi_change_plant_2.png",
     icon_size = 64,
-    icons = {
-      {
-        icon = ICONPATH .. "bi_change_plant_2.png",
-        icon_size = 64,
-      }
-    },
     category = "bi-arboretum",
     energy_required = 10000,
     ingredients = {
@@ -1621,7 +1327,7 @@ data:extend({
     },
     main_product = "",
     enabled = false,
-    always_show_made_in = true,
+    always_show_made_in = false,
     allow_decomposition = false,
     allow_as_intermediate = false,
     subgroup = "bio-arboretum-fluid",

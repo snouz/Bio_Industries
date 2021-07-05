@@ -12,12 +12,6 @@ data:extend({
     localised_description = {"entity-description.bi-wooden-pole-big"},
     icon = ICONPATH .. "entity/big-wooden-pole.png",
     icon_size = 64,
-    icons = {
-      {
-        icon = ICONPATH .. "entity/big-wooden-pole.png",
-        icon_size = 64,
-      }
-    },
     subgroup = "energy-pipe-distribution",
     order = "a[energy]-b[small-electric-pole]",
     place_result = "bi-wooden-pole-big",
@@ -34,12 +28,6 @@ data:extend({
     localised_description = {"entity-description.bi-wooden-pole-huge"},
     icon = ICONPATH .. "entity/huge-wooden-pole.png",
     icon_size = 64,
-    icons = {
-      {
-        icon = ICONPATH .. "entity/huge-wooden-pole.png",
-        icon_size = 64,
-      }
-    },
     subgroup = "energy-pipe-distribution",
     order = "a[energy]-d[big-electric-pole]",
     place_result = "bi-wooden-pole-huge",
@@ -56,12 +44,6 @@ data:extend({
     localised_description = {"entity-description.bi-wooden-fence"},
     icon = ICONPATH .. "entity/wooden-fence.png",
     icon_size = 64,
-    icons = {
-      {
-        icon = ICONPATH .. "entity/wooden-fence.png",
-        icon_size = 64,
-      }
-    },
     subgroup = "defensive-structure",
     order = "a-a[stone-wall]-a[wooden-fence]",
     place_result = "bi-wooden-fence",
@@ -78,12 +60,6 @@ data:extend({
     localised_description = {"entity-description.bi-rail-wood"},
     icon = ICONPATH .. "entity/rail-wood.png",
     icon_size = 64,
-    icons = {
-      {
-        icon = ICONPATH .. "entity/rail-wood.png",
-        icon_size = 64,
-      }
-    },
     subgroup = "transport",
     order = "a[train-system]-a[rail]",
     place_result = "bi-straight-rail-wood",
@@ -100,12 +76,6 @@ data:extend({
     localised_description = {"entity-description.bi-rail-wood-bridge"},
     icon = ICONPATH .. "entity/rail-wood-bridge.png",
     icon_size = 64,
-    icons = {
-      {
-        icon = ICONPATH .. "entity/rail-wood-bridge.png",
-        icon_size = 64,
-      }
-    },
     subgroup = "transport",
     order = "a[train-system]-aa[rail]",
     place_result = "bi-straight-rail-wood-bridge",
@@ -122,12 +92,6 @@ data:extend({
     localised_description = {"entity-description.bi-rail-power"},
     icon = ICONPATH .. "entity/rail-concrete-power.png",
     icon_size = 64,
-    icons = {
-      {
-        icon = ICONPATH .. "entity/rail-concrete-power.png",
-        icon_size = 64,
-      }
-    },
     subgroup = "transport",
     order = "a[train-system]-ab[rail]",
     place_result = "bi-straight-rail-power",
@@ -144,12 +108,6 @@ data:extend({
     localised_description = {"entity-description.bi-wood-pipe"},
     icon = ICONPATH .. "entity/wood_pipe.png",
     icon_size = 64,
-    icons = {
-      {
-        icon = ICONPATH .. "entity/wood_pipe.png",
-        icon_size = 64,
-      }
-    },
     subgroup = "energy-pipe-distribution",
     order = "a[pipe]-1a[pipe]",
     place_result = "bi-wood-pipe",
@@ -166,12 +124,6 @@ data:extend({
     localised_description = {"entity-description.bi-wood-pipe-to-ground"},
     icon = ICONPATH .. "entity/pipe-to-ground-wood.png",
     icon_size = 64,
-    icons = {
-      {
-        icon = ICONPATH .. "entity/pipe-to-ground-wood.png",
-        icon_size = 64,
-      }
-    },
     subgroup = "energy-pipe-distribution",
     order = "a[pipe]-1b[pipe-to-ground]",
     place_result = "bi-wood-pipe-to-ground",
@@ -188,12 +140,6 @@ data:extend({
     localised_description = {"entity-description.bi-wooden-chest-large"},
     icon = ICONPATH .. "entity/large_wooden_chest_icon.png",
     icon_size = 64,
-    icons = {
-      {
-        icon = ICONPATH .. "entity/large_wooden_chest_icon.png",
-        icon_size = 64,
-      }
-    },
     fuel_category = "chemical",
     fuel_value = "32MJ",
     subgroup = "storage",
@@ -210,12 +156,6 @@ data:extend({
     localised_description = {"entity-description.bi-wooden-chest-huge"},
     icon = ICONPATH .. "entity/huge_wooden_chest_icon.png",
     icon_size = 64,
-    icons = {
-      {
-        icon = ICONPATH .. "entity/huge_wooden_chest_icon.png",
-        icon_size = 64,
-      }
-    },
     fuel_category = "chemical",
     fuel_value = "200MJ",
     subgroup = "storage",
@@ -232,12 +172,6 @@ data:extend({
     localised_description = {"entity-description.bi-wooden-chest-giga"},
     icon = ICONPATH .. "entity/giga_wooden_chest_icon.png",
     icon_size = 64,
-    icons = {
-      {
-        icon = ICONPATH .. "entity/giga_wooden_chest_icon.png",
-        icon_size = 64,
-      }
-    },
     fuel_category = "chemical",
     fuel_value = "400MJ",
     subgroup = "storage",
@@ -254,13 +188,6 @@ data:extend({
     localised_description = {"entity-description.bi-power-to-rail-pole"},
     icon = ICONPATH .. "entity/electric-to-rail.png",
     icon_size = 64,
-    icon_mipmaps = 1,
-    icons = {
-      {
-        icon = ICONPATH .. "entity/electric-to-rail.png",
-        icon_size = 64,
-      }
-    },
     subgroup = "transport",
     order = "a[train-system]-ac[rail]",
     place_result = "bi-power-to-rail-pole",

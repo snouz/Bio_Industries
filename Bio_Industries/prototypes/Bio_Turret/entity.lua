@@ -20,12 +20,6 @@ data:extend({
     name = "bi-dart-magazine-basic",
     icon = ICONPATH .. "weapon/basic_dart_icon.png",
     icon_size = 64,
-    icons = {
-      {
-        icon = ICONPATH .. "weapon/basic_dart_icon.png",
-        icon_size = 64,
-      }
-    },
     ammo_type = {
       category = "Bio_Turret_Ammo",
       action = {
@@ -61,12 +55,6 @@ data:extend({
     name = "bi-dart-magazine-standard",
     icon = ICONPATH .. "weapon/standard_dart_icon.png",
     icon_size = 64,
-    icons = {
-      {
-        icon = ICONPATH .. "weapon/standard_dart_icon.png",
-        icon_size = 64,
-      }
-    },
     ammo_type = {
       category = "Bio_Turret_Ammo",
       action = {
@@ -107,12 +95,6 @@ data:extend({
     name = "bi-dart-magazine-enhanced",
     icon = ICONPATH .. "weapon/enhanced_dart_icon.png",
     icon_size = 64,
-    icons = {
-      {
-        icon = ICONPATH .. "weapon/enhanced_dart_icon.png",
-        icon_size = 64,
-      }
-    },
     ammo_type = {
       category = "Bio_Turret_Ammo",
       action = {
@@ -157,12 +139,6 @@ data:extend({
     name = "bi-dart-magazine-poison",
     icon = ICONPATH .. "weapon/poison_dart_icon.png",
     icon_size = 64,
-    icons = {
-      {
-        icon = ICONPATH .. "weapon/poison_dart_icon.png",
-        icon_size = 64,
-      }
-    },
     ammo_type = {
       category = "Bio_Turret_Ammo",
       action = {
@@ -251,12 +227,6 @@ data:extend({
     name = "bi-dart-turret",
     icon = ICONPATH .. "entity/bio_turret_icon.png",
     icon_size = 64,
-    icons = {
-      {
-        icon = ICONPATH .. "entity/bio_turret_icon.png",
-        icon_size = 64,
-      }
-    },
     flags = {"placeable-player", "player-creation"},
     minable = {mining_time = 0.25, result = "bi-dart-turret"},
     max_health = 300,
@@ -316,12 +286,6 @@ data:extend({
     name = "bi-dart-rifle",
     icon = ICONPATH .. "weapon/bi_dart_rifle_icon.png",
     icon_size = 64,
-    icons = {
-      {
-        icon = ICONPATH .. "weapon/bi_dart_rifle_icon.png",
-        icon_size = 64,
-      }
-    },
     subgroup = "gun",
     order = "a[basic-clips]-ab[submachine-gun]",
     attack_parameters = {

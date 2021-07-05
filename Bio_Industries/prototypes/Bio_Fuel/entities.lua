@@ -33,12 +33,6 @@ data:extend({
     name = "bi-bio-reactor",
     icon = ICONPATH .. "entity/bioreactor.png",
     icon_size = 64,
-    icons = {
-      {
-        icon = ICONPATH .. "entity/bioreactor.png",
-        icon_size = 64,
-      }
-    },
     flags = {"placeable-neutral", "player-creation"},
     minable = {hardness = 0.2, mining_time = 0.5, result = "bi-bio-reactor"},
     max_health = 100,
@@ -224,12 +218,6 @@ if BI.Settings.BI_Bio_Fuel then
       localised_description = {"entity-description.bi-bio-boiler"},
       icon = ICONPATH .. "entity/bio_boiler.png",
       icon_size = 64,
-      icons = {
-        {
-          icon = ICONPATH .. "entity/bio_boiler.png",
-          icon_size = 64,
-        }
-      },
       flags = {"placeable-neutral", "player-creation"},
       minable = {hardness = 0.2, mining_time = 0.5, result = "bi-bio-boiler"},
       max_health = 300,

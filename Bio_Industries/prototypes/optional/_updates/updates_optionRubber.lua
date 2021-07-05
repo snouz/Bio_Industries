@@ -35,8 +35,10 @@ for i, item_data in ipairs({
   -- Otherwise adjust icon and localization
   else
     item = items[item_data.name]
-    BioInd.BI_change_icon(item, item_data.icon)
-    BioInd.modified_msg("icon", item)
+    if not mods["reskins-bobs"] then
+      BioInd.BI_change_icon(item, item_data.icon)
+      BioInd.modified_msg("icon", item)
+    end
 
     item.localised_name = item_data.localised_name
     item.localised_description = item_data.localised_description

@@ -141,7 +141,9 @@ if item then
   BioInd.modified_msg("localization", recipe)
 
   -- Change icons
-  BioInd.BI_change_icon(recipe, ICONPATH .. "fertilizer_solid_sodium_hydroxide.png")
+  --BioInd.BI_change_icon(recipe, ICONPATH .. "fertilizer_solid_sodium_hydroxide.png")
+  recipe.icons = BioInd.make_icons({it1 = "fertilizer", it2 = "solid-sodium-hydroxide", it3 = "", shift1_1 = 0 , shift1_2 = 0, shift2_1 = 0, shift2_2 = 0}),
+
   BioInd.modified_msg("icon", recipe)
 
   -- Add unlock
@@ -288,6 +290,7 @@ if mods["angelsbioprocessing"] and BI.Settings.BI_Coal_Processing then
   if recipe then
     -- Change icon
     BioInd.BI_change_icon(recipe, ICONPATH .. "charcoal_pellets.png")
+    --recipe.icons = BioInd.make_icons({it1 = "charcoal", it2 = "pellets", it3 = "", shift1_1 = 0 , shift1_2 = 0, shift2_1 = 0, shift2_2 = 0})
 
     -- Change category
     recipe.category = "biofarm-mod-smelting"

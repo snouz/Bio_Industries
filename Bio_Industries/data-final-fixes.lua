@@ -209,6 +209,11 @@ BioInd.writeDebug("Looking for missing prerequisites of technologies depending o
 end
 
 
+
+if data.raw.recipe["bi-press-wood"] then data.raw.recipe["bi-press-wood"].icons = BioInd.make_icons({it1 = "wooden-board", it2 = "woodpulp", it3 = "resin", shift1_1 = 0 , shift1_2 = 0, shift2_1 = 0, shift2_2 = 0}) end
+if data.raw.recipe["bi-fertilizer-2"] then data.raw.recipe["bi-fertilizer-2"].icons = BioInd.make_icons({it1 = "fertilizer", it2 = "sodium-hydroxide", it3 = "", shift1_1 = 0 , shift1_2 = 0, shift2_1 = 0, shift2_2 = 0}) end
+
+
 ------------------------------------------------------------------------------------
 --                                    END OF FILE                                 --
 ------------------------------------------------------------------------------------

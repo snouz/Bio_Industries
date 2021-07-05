@@ -25,9 +25,10 @@ BI.additional_recipes.mod_compatibility = BI.additional_recipes.mod_compatibilit
 BI.additional_recipes.mod_compatibility.sand = {
   type = "recipe",
   name = "bi-sand",
-  icon = ICONPATH .. "mod_aai/sand-aai.png",
-  icon_size = 64, icon_mipmaps = 3,
-  BI_add_icon = true,
+  --icon = ICONPATH .. "mod_aai/sand-aai.png",
+  --icon_size = 64, icon_mipmaps = 3,
+  --BI_add_icon = true,
+  icons = BioInd.make_icons({it1 = "sand", it2 = "crushed-stone", shift1_1=0 , shift1_2=0}),
   BI_add_to_tech = {"bi-tech-stone-crushing-1"},
   category = "biofarm-mod-crushing",
   --~ subgroup = "bio-bio-farm-raw",
@@ -59,9 +60,10 @@ BI.additional_recipes.mod_compatibility.fertilizer_2 = {
   name = "bi-fertilizer-2",
   localised_name = {"recipe-name.bi-fertilizer"},
   localised_description = {"recipe-description.bi-fertilizer"},
-  icon = ICONPATH .. "mod_bobangels/fertilizer_sodium_hydroxide.png",
-  icon_size = 64, icon_mipmaps = 3,
-  BI_add_icon = true,
+  --icon = ICONPATH .. "mod_bobangels/fertilizer_sodium_hydroxide.png",
+  --icon_size = 64, icon_mipmaps = 3,
+  --BI_add_icon = true,
+  icons = BioInd.make_icons({it1 = "fertilizer", it2 = "sodium-hydroxide", it3 = "", shift1_1 = 0 , shift1_2 = 0, shift2_1 = 0, shift2_2 = 0}),
   -- Custom property that allows to automatically add our recipes to tech unlocks.
   BI_add_to_tech = {"bi-tech-fertilizer"},
   category = "chemistry",
@@ -182,13 +184,17 @@ BI.additional_recipes.mod_compatibility.slag_slurry = {
 --                      Alternative recipe for Wooden boards                      --
 ------------------------------------------------------------------------------------
 -- Bob's Metals, Chemicals and Intermediates mod ("bobplates")
+
+
 BI.additional_recipes.mod_compatibility.press_wood = {
   type = "recipe",
   name = "bi-press-wood",
   localised_name = {"recipe-name.bi-press-wood"},
-  icon = ICONPATH .. "mod_bobangels/bi_wooden_board.png",
-  icon_size = 64, icon_mipmaps = 3,
-  BI_add_icon = true,
+  --icon = ICONPATH .. "mod_bobangels/bi_wooden_board.png",
+  --icon_size = 64, icon_mipmaps = 3,
+  --BI_add_icon = true,
+  --icons = BioInd.make_icons("wooden-board", "bi-woodpulp", 0,0, "resin", 0,0),
+  icons = BioInd.make_icons({it1 = "wooden-board", it2 = "woodpulp", it3 = "resin", shift1_1 = 0 , shift1_2 = 0, shift2_1 = 0, shift2_2 = 0}),
   BI_add_to_tech = {"electronics"},
   subgroup = "bob-boards",
   order = "c-a1bi[wooden-board]",

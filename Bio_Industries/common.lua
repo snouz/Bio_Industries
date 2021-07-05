@@ -1375,6 +1375,80 @@ common.writeDebug("Rail %s of %s (%s): %s (%s)", {direction, base.name, base.uni
     common.entered_function("leave")
   end
 
+
+
+  -- snouz -- declare at least 2 item names as arg 1 & 2. Icon will be item1, item2 top right and (optional) item3 top left. Shifts will fine tune the position of items2&3
+  common.make_icons = function(args)
+    common.entered_function()
+
+    local main_item = args.it1 or nil
+    local ingredient1 = args.it2 or nil
+    local ingredient2 = args.it3 or nil
+    local shift1_1 = args.shift1_1 or 0
+    local shift1_2 = args.shift1_2 or 0
+    local shift2_1 = args.shift2_1 or 0
+    local shift2_2 = args.shift2_2 or 0
+
+    local function make_layer(item, scale, shift)
+      if item then
+        -- The value of item1 from common.make_icons can be used in make_layer!
+        scale = scale or 1
+        scale = scale * (main_item.icon_size / item.icon_size)
+
+        -- item1, shift1_1 and shift1_2 from common.make_icons are used here!
+        shift = shift or { (main_item.icon_size + shift1_1)/4, (-main_item.icon_size + shift1_2)/4 }
+        return { icon = item.icon, icon_size = item.icon_size, icon_mipmaps = item.icon_mipmaps, scale = scale, shift = shift }
+      end
+    end
+
+    if main_item then
+      local _type
+      -- main_item must exist, and either main_item or "bi-" .. main_item is of a valid item type
+      _type = main_item and thxbob.lib.item.get_type(main_item) or  thxbob.lib.item.get_type("bi-" .. main_item)
+
+      -- If _type is not nil, we know that either main_item or "bi-" .. main_item is a valid name
+      if _type then
+        main_item = _type and data.raw[_type][main_item] or data.raw[_type]["bi-" .. main_item]
+      else
+        main_item = nil
+      end
+    end
+    
+    if ingredient1 then
+      _type = ingredient1 and thxbob.lib.item.get_type(ingredient1) or thxbob.lib.item.get_type("bi-" .. ingredient1)
+      if _type then
+        ingredient1 = _type and data.raw[_type][ingredient1] or data.raw[_type]["bi-" .. ingredient1]
+      else
+        ingredient1 = nil
+      end
+    end
+
+    if ingredient2 then
+      _type = ingredient2 and thxbob.lib.item.get_type(ingredient2) or thxbob.lib.item.get_type("bi-" .. ingredient2)
+      if _type then
+        ingredient2 = _type and data.raw[_type][ingredient2] or data.raw[_type]["bi-" .. ingredient2]
+      else
+        ingredient2 = nil
+      end
+    end
+
+    if main_item then
+      if ingredient1 then
+        if ingredient2 then
+          return { make_layer(main_item, 1, {0,0}), make_layer(ingredient1, 0.5), make_layer(ingredient2, 0.5, { (-main_item.icon_size + shift1_1)/4, (-main_item.icon_size + shift1_2)/4 } ) }
+        else
+          return { make_layer(main_item, 1, {0,0}), make_layer(ingredient1, 0.5) }
+        end
+      else
+        return { make_layer(main_item, 1, {0,0}) }
+      end
+    else
+      return {{icon = "__core__/graphics/empty.png", icon_size = 1, icon_mipmaps = 0}}
+    end
+
+    common.entered_function("leave")
+  end
+
   ------------------------------------------------------------------------------------
   -- Combine icon mips to pictures
   ------------------------------------------------------------------------------------

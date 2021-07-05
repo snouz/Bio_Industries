@@ -1,11 +1,20 @@
 ---------------------------------------------------------------------------------------------------
-Version: 1.1.9
-Date: 2021-02-06
+Version: 1.1.10
+Date: 2021-02-14
   Uploaded by:
     - Pi-C
 
   Bugfixes:
-    - Revert the change that bigger wooden chests will be disabled if any mod providing its own bigger chests or ware houses is active. (I'll keep the setting, so you can disable the chests yourself if you don't need them.) The general idea (less items cluttering up the menus) was good, but removing the chests altogether without giving players a choice breaks existing games. Sorry for the inconvenience! (https://mods.factorio.com/mod/Bio_Industries/discussion/601e8ee321aae5bce96ccd6b)
+    - Fixed that the Bio Cannon didn't show a "No network" icon. As it will only shoot if the hidden radar is hooked up to power, visual feedback is important!
+    - Changed the collision_box of the Bio Cannon's hidden radar from zero to the base entity's size to make sure that it will get power if a pole is placed next to it.
+    - Fixed crash when invalid trees were removed from the table in on_configuration_changed. (https://mods.factorio.com/mod/Bio_Industries/discussion/6023229314e09f1463cc4950)
+    - Fixed that the tree.mining.results would be overwritten if both tree.mining.result and tree.mining.results exist, so trees would yield a variable amount of wood instead of, for example, "rubber-wood".
+    - Hopefully fixed that Solar boiler, Solar Farm, and Musk floor were not available when IR2 was active. (https://mods.factorio.com/mod/Bio_Industries/discussion/600a5cca5f9fe9c9952b0b8a)
+
+  Changes:
+    - If IR2 is active, put the "stone-brick" into the same subgroup as concrete again.
+    - If IR2 is active, ignore any trees it creates (for now, there's just the rubber trees). These trees won't grow if you plant trees manually, with seedbombs, or with terraformers, and their mining results won't be changed. This fixes that rubber trees would yield "wood" instead of "rubber-wood" when mined. (https://mods.factorio.com/mod/Bio_Industries/discussion/600a5cca5f9fe9c9952b0b8a)
+
 
 
   TODO:
@@ -19,6 +28,14 @@ Date: 2021-02-06
     - Bigger trees give more wood (https://forums.factorio.com/viewtopic.php?f=16&t=95205)
     - Don't plant lying trees
 
+---------------------------------------------------------------------------------------------------
+Version: 1.1.9
+Date: 2021-02-06
+  Uploaded by:
+    - Pi-C
+
+  Bugfixes:
+    - Revert the change that bigger wooden chests will be disabled if any mod providing its own bigger chests or ware houses is active. (I'll keep the setting, so you can disable the chests yourself if you don't need them.) The general idea (less items cluttering up the menus) was good, but removing the chests altogether without giving players a choice breaks existing games. Sorry for the inconvenience! (https://mods.factorio.com/mod/Bio_Industries/discussion/601e8ee321aae5bce96ccd6b)
 
 ---------------------------------------------------------------------------------------------------
 Version: 1.1.8

@@ -1,7 +1,7 @@
 require("util")
 local compound_entities = require("prototypes.compound_entities.main_list")
 
-return function (mod_name)
+return function(mod_name)
   local common = {}
 
   ------------------------------------------------------------------------------------
@@ -109,6 +109,8 @@ return function (mod_name)
     "bio%-tree%-.+%-%d",
     -- Tree prototypes created by "Robot Tree Farm" or "Tral's Robot Tree Farm"
     "rtf%-.+%-%d+",
+    -- Tree prototypes created by "Industrial Revolution 2"
+    ".*%-*ir2%-.+",
   }
 
 

@@ -19,6 +19,18 @@ BioInd.show("Changing localization for", v)
     data.raw[v][big_pole].localised_description = {"entity-description.bi-wooden-pole-bigger"}
   end
 
+  ------------------------------------------------------------------------------------
+  -- IR2 disables the "solar-energy" technology, so our Solar boiler, Solar farm, and
+  -- Musk floor will never be unlocked. Move the unlocks to IR2's technologies!
+  ------------------------------------------------------------------------------------
+  thxbob.lib.tech.add_recipe_unlock ("ir2-solar-energy-1", "bi-solar-boiler-hidden-panel")
+  thxbob.lib.tech.add_recipe_unlock ("ir2-solar-energy-2", "bi-bio-solar-farm")
+  thxbob.lib.tech.add_recipe_unlock ("ir2-solar-energy-2", "bi-solar-mat")
+
+  ------------------------------------------------------------------------------------
+  -- Put recipe for Bio stone bricks in the same subgroup as concrete!
+  ------------------------------------------------------------------------------------
+  data.raw.recipe["bi-stone-brick"].subgroup = "ir2-tiles"
 
   ------------------------------------------------------------------------------------
   -- Replace "crushed stone" with "gravel"!

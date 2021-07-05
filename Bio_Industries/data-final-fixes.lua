@@ -53,29 +53,45 @@ end
 
 ---- Game Tweaks ---- Tree
 if BI.Settings.BI_Game_Tweaks_Tree then
+
+  local new_results = {
+    {
+      type = "item",
+      name = "wood",
+      amount_min = 1,
+      amount_max = 6
+    }
+  }
+
   for tree_name, tree in pairs(data.raw["tree"] or {}) do
     if tree.minable and not ignore_trees[tree_name] then
-BioInd.writeDebug("Tree name: %s\tminable.result: %s", {tree.name, (tree.minable and tree.minable.result or "nil")}, "line")
+BioInd.writeDebug("Tree name: %s\tminable.result: %s\tminable.count: %s", {tree.name, (tree.minable and tree.minable.result or "nil"), (tree.minable and tree.minable.count or "nil")}, "line")
+BioInd.writeDebug("Tree name: %s\tminable.results: %s", {tree.name, (tree.minable and tree.minable.results or "nil")}, "line")
     --CHECK FOR SINGLE RESULTS
-      if tree.minable.result then
+          -- mining.result may be set although mining.results exists (mining.result
+          -- will be ignored in that case; happens, for example with IR2's rubber
+          -- trees). In this case, overwriting mining.results with the data from
+          -- mining.result could break other mods (e.g. IR2's rubber trees should
+          -- yield "rubber-wood" instead of "wood").
+      if tree.minable.result and not tree.minable.results then
+        BioInd.writeDebug("Tree has minable.result")
         --CHECK FOR VANILLA TREES WOOD x 4
         if tree.minable.result == "wood" and tree.minable.count == 4 then
-  BioInd.writeDebug("Changing wood yield of %s to random value.", {tree.name})
+          BioInd.writeDebug("Changing wood yield of %s to random value.", {tree.name})
           tree.minable.mining_particle = "wooden-particle"
           tree.minable.mining_time = 1.5
-          tree.minable.results = {
-            {
-              type = "item",
-              name = "wood",
-              amount_min = 1,
-              amount_max = 6
-            }
-          }
+          --~ tree.minable.results = {
+            --~ {
+              --~ type = "item",
+              --~ name = "wood",
+              --~ amount_min = 1,
+              --~ amount_max = 6
+            --~ }
+          --~ }
+          tree.minable.results = new_results
         -- CONVERT RESULT TO RESULTS
         else
-  BioInd.writeDebug("Converting tree.minable.result to tree.minable.results!")
-  --~ BioInd.show("tree.minable", tree.minable)
-
+          BioInd.writeDebug("Converting tree.minable.result to tree.minable.results!")
           tree.minable.mining_particle = "wooden-particle"
           tree.minable.results = {
             {
@@ -84,14 +100,14 @@ BioInd.writeDebug("Tree name: %s\tminable.result: %s", {tree.name, (tree.minable
               amount = tree.minable.count,
             }
           }
-  --~ BioInd.show("tree.minable.results", tree.minable.results)
         end
       --CHECK FOR RESULTS TABLE
       elseif tree.minable.results then
-BioInd.writeDebug("Changing results!")
+          BioInd.writeDebug("Checking minable.results!")
         for r, result in pairs(tree.minable.results) do
           --CHECK FOR RESULT WOOD x 4
           if result.name == "wood" and result.amount == 4 then
+            BioInd.writeDebug("Changing result %s: %s", {r, result}, "line")
             result.amount = nil
             result.amount_min = 1
             result.amount_max = 6
@@ -99,9 +115,15 @@ BioInd.writeDebug("Changing results!")
         end
         tree.minable.result = nil
         tree.minable.count = nil
+      -- NEITHER RESULT NOR RESULTS EXIST -- CREATE RESULTS!
+      else
+        BioInd.writeDebug("Creating minable.results!")
+        tree.minable.results = new_results
       end
+      BioInd.writeDebug("New minable.results: %s",
+                        {tree.minable and tree.minable.results or "nil"}, "line")
     else
-BioInd.writeDebug("Ignoring  %s!", {tree.name})
+      BioInd.writeDebug("Won't change results of %s!", {tree.name})
     end
 --~ BioInd.show("tree.minable", tree.minable)
   end

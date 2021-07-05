@@ -46,9 +46,7 @@ BI.hidden_entities.selection_box = BioInd.is_debug and
 BI.hidden_entities.selectable_in_game = BioInd.is_debug
 BI.hidden_entities.max_health = 1
 
---~ BI.hidden_entities.icon = ICONPATH .. "blank.png"
 BI.hidden_entities.icon = ICONPATH .. "empty.png"
---~ BI.hidden_entities.icon_size = 32
 BI.hidden_entities.icon_size = 1
 BI.hidden_entities.icon_mipmaps = 0
 

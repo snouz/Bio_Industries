@@ -40,8 +40,8 @@ require ("libs.bi_functions") -- Functions
 
 require ("prototypes.category")
 
--- Create the hidden entities
-require("prototypes.compound_entities.hidden_entities")
+--~ -- Create the hidden entities
+--~ require("prototypes.compound_entities.hidden_entities")
 
 --~ BioInd.show("BioInd.compound_entities", BioInd.compound_entities)
 --~ error("Break!")
@@ -108,6 +108,12 @@ require("prototypes.Bio_Fuel.item")
 require("prototypes.Bio_Fuel.recipe")
 require("prototypes.Bio_Fuel.entities")
 require("prototypes.Bio_Fuel.technology")
+
+
+
+-- Create the hidden entities (Moved here so we can be sure the base
+-- entities already exist and their properties can be read.)
+require("prototypes.compound_entities.hidden_entities")
 
 
 ------------------------------------------------------------------------------------

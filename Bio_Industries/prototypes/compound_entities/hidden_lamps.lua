@@ -51,7 +51,7 @@ BI.make_hidden_entity_list(h_key)
 ------------------------------------------------------------------------------------
 -- Make the copies!
 local lamp
---~ local c_entities = BioInd.compound_entities
+local c_entities = BioInd.compound_entities
 
 for lamp_name, locale_name in pairs(BI.hidden_entities.types[h_key]) do
   lamp = table.deepcopy(h_entity)
@@ -59,10 +59,15 @@ for lamp_name, locale_name in pairs(BI.hidden_entities.types[h_key]) do
   lamp.localised_name = {"entity-name." .. locale_name}
   lamp.localised_description = {"entity-description." .. locale_name}
 
-  --~ -- Adjust properties for hidden lamp of XXX
-  --~ if c_entities[XXX] and lamp_name == c_entities[XXX].hidden[h_type].name then
-    --~ BioInd.show("Adjusted properties of", lamp_name)
-  --~ end
+  -- Adjust properties for hidden lamp of Bio farm
+  if c_entities["bi-bio-farm"] and
+      lamp_name == c_entities["bi-bio-farm"].hidden[h_type].name then
+
+    lamp.icon = ICONPATH .. "Bio_Farm_Lamp.png"
+    lamp.icon_size = 64
+    lamp.BI_add_icon = true
+    BioInd.show("Adjusted properties of", lamp_name)
+  end
   data:extend({lamp})
 
   BioInd.show("Created", lamp_name)

@@ -182,6 +182,8 @@ BioInd.show("Disconnected pole", garden.pole.unit_number)
     -- Update setting!
     global.mod_settings.BI_Easy_Bio_Gardens = current
 BioInd.show("Updated setting to", global.mod_settings.BI_Easy_Bio_Gardens)
+  else
+BioInd.writeDebug("Nothing to do!")
   end
 end
 

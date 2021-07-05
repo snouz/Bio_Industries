@@ -26,6 +26,9 @@ data:extend({
       },
       result = "bi-wooden-pole-big",
       main_product = "",
+      allow_as_intermediate = false,    -- Added for 0.18.34/1.1.4
+      always_show_made_in = false,      -- Added for 0.18.34/1.1.4
+      allow_decomposition = true,       -- Added for 0.18.34/1.1.4
     },
     expensive = {
       enabled = false,
@@ -35,9 +38,15 @@ data:extend({
       },
       result = "bi-wooden-pole-big",
       main_product = "",
+      allow_as_intermediate = false,    -- Added for 0.18.34/1.1.4
+      always_show_made_in = false,      -- Added for 0.18.34/1.1.4
+      allow_decomposition = true,       -- Added for 0.18.34/1.1.4
     },
-    always_show_made_in = true,
-    allow_decomposition = false,
+    --~ always_show_made_in = true,
+    --~ allow_decomposition = false,
+    allow_as_intermediate = false,      -- Added for 0.18.34/1.1.4
+    always_show_made_in = false,        -- Changed for 0.18.34/1.1.4
+    allow_decomposition = true,         -- Changed for 0.18.34/1.1.4
     subgroup = "energy-pipe-distribution",
     order = "a[energy]-b[small-electric-pole]",
     -- This is a custom property for use by "Krastorio 2" (it will change
@@ -68,6 +77,9 @@ data:extend({
       },
       result = "bi-wooden-pole-huge",
       main_product = "",
+      allow_as_intermediate = false,    -- Added for 0.18.34/1.1.4
+      always_show_made_in = false,      -- Added for 0.18.34/1.1.4
+      allow_decomposition = true,       -- Added for 0.18.34/1.1.4
     },
     expensive = {
       enabled = false,
@@ -78,9 +90,15 @@ data:extend({
       },
       result = "bi-wooden-pole-huge",
       main_product = "",
+      allow_as_intermediate = false,    -- Added for 0.18.34/1.1.4
+      always_show_made_in = false,      -- Added for 0.18.34/1.1.4
+      allow_decomposition = true,       -- Added for 0.18.34/1.1.4
     },
-    always_show_made_in = true,
-    allow_decomposition = false,
+    --~ always_show_made_in = true,
+    --~ allow_decomposition = false,
+    allow_as_intermediate = false,      -- Added for 0.18.34/1.1.4
+    always_show_made_in = false,        -- Changed for 0.18.34/1.1.4
+    allow_decomposition = true,         -- Changed for 0.18.34/1.1.4
     subgroup = "energy-pipe-distribution",
     order = "a[energy]-d[big-electric-pole]",
     -- This is a custom property for use by "Krastorio 2" (it will change
@@ -109,6 +127,9 @@ data:extend({
       },
       result = "bi-wooden-fence",
       main_product = "",
+      allow_as_intermediate = false,    -- Added for 0.18.34/1.1.4
+      always_show_made_in = false,      -- Added for 0.18.34/1.1.4
+      allow_decomposition = true,       -- Added for 0.18.34/1.1.4
     },
     expensive = {
       enabled = true,
@@ -117,9 +138,15 @@ data:extend({
       },
       result = "bi-wooden-fence",
       main_product = "",
+      allow_as_intermediate = false,    -- Added for 0.18.34/1.1.4
+      always_show_made_in = false,      -- Added for 0.18.34/1.1.4
+      allow_decomposition = true,       -- Added for 0.18.34/1.1.4
     },
-    always_show_made_in = true,
-    allow_decomposition = false,
+    --~ always_show_made_in = true,
+    --~ allow_decomposition = false,
+    allow_as_intermediate = false,      -- Added for 0.18.34/1.1.4
+    always_show_made_in = false,        -- Changed for 0.18.34/1.1.4
+    allow_decomposition = true,         -- Changed for 0.18.34/1.1.4
     subgroup = "defensive-structure",
     -- This is a custom property for use by "Krastorio 2" (it will change
     -- ingredients/results; used for wood/wood pulp)
@@ -151,7 +178,10 @@ data:extend({
       result = "bi-rail-wood",
       result_count = 2,
       main_product = "",
-      requester_paste_multiplier = 4
+      requester_paste_multiplier = 4,
+      allow_as_intermediate = false,    -- Added for 0.18.34/1.1.4
+      always_show_made_in = false,      -- Added for 0.18.34/1.1.4
+      allow_decomposition = true,       -- Added for 0.18.34/1.1.4
     },
     expensive = {
       enabled = false,
@@ -165,9 +195,15 @@ data:extend({
       result_count = 1,
       main_product = "",
       requester_paste_multiplier = 4,
+      allow_as_intermediate = false,    -- Added for 0.18.34/1.1.4
+      always_show_made_in = false,      -- Added for 0.18.34/1.1.4
+      allow_decomposition = true,       -- Added for 0.18.34/1.1.4
     },
-    always_show_made_in = true,
-    allow_decomposition = false,
+    --~ always_show_made_in = true,
+    --~ allow_decomposition = false,
+    allow_as_intermediate = false,      -- Added for 0.18.34/1.1.4
+    always_show_made_in = false,        -- Changed for 0.18.34/1.1.4
+    allow_decomposition = true,         -- Changed for 0.18.34/1.1.4
     subgroup = "transport",
     order = "a[train-system]-a[rail]",
     -- This is a custom property for use by "Krastorio 2" (it will change
@@ -196,7 +232,10 @@ data:extend({
       result = "rail",
       result_count = 2,
       main_product = "",
-      requester_paste_multiplier = 4
+      requester_paste_multiplier = 4,
+      allow_as_intermediate = false,    -- Added for 0.18.34/1.1.4
+      always_show_made_in = false,      -- Added for 0.18.34/1.1.4
+      allow_decomposition = true,       -- Added for 0.18.34/1.1.4
     },
     expensive = {
       enabled = false,
@@ -207,12 +246,18 @@ data:extend({
       result = "rail",
       result_count = 1,
       main_product = "",
-      requester_paste_multiplier = 4
+      requester_paste_multiplier = 4,
+      allow_as_intermediate = false,    -- Added for 0.18.34/1.1.4
+      always_show_made_in = false,      -- Added for 0.18.34/1.1.4
+      allow_decomposition = true,       -- Added for 0.18.34/1.1.4
     },
     subgroup = "transport",
     order = "a[train-system]-aa1[rail-upgrade]",
-    always_show_made_in = true,
-    allow_decomposition = false,
+    --~ always_show_made_in = true,
+    --~ allow_decomposition = false,
+    allow_as_intermediate = false,      -- Added for 0.18.34/1.1.4
+    always_show_made_in = false,        -- Changed for 0.18.34/1.1.4
+    allow_decomposition = true,         -- Changed for 0.18.34/1.1.4
   },
 
   --- Wooden Bridge Rail
@@ -240,7 +285,10 @@ data:extend({
       result = "bi-rail-wood-bridge",
       result_count = 2,
       main_product = "",
-      requester_paste_multiplier = 4
+      requester_paste_multiplier = 4,
+      allow_as_intermediate = false,    -- Added for 0.18.34/1.1.4
+      always_show_made_in = false,      -- Added for 0.18.34/1.1.4
+      allow_decomposition = true,       -- Added for 0.18.34/1.1.4
     },
     expensive = {
       enabled = false,
@@ -252,10 +300,16 @@ data:extend({
       result = "bi-rail-wood-bridge",
       result_count = 1,
       main_product = "",
-      requester_paste_multiplier = 4
+      requester_paste_multiplier = 4,
+      allow_as_intermediate = false,    -- Added for 0.18.34/1.1.4
+      always_show_made_in = false,      -- Added for 0.18.34/1.1.4
+      allow_decomposition = true,       -- Added for 0.18.34/1.1.4
     },
-    always_show_made_in = true,
-    allow_decomposition = false,
+    --~ always_show_made_in = true,
+    --~ allow_decomposition = false,
+    allow_as_intermediate = false,      -- Added for 0.18.34/1.1.4
+    always_show_made_in = false,        -- Changed for 0.18.34/1.1.4
+    allow_decomposition = true,         -- Changed for 0.18.34/1.1.4
     subgroup = "transport",
     order = "a[train-system]-aa[rail]",
     -- This is a custom property for use by "Krastorio 2" (it will change
@@ -286,7 +340,10 @@ data:extend({
       result = "bi-rail-power",
       result_count = 2,
       main_product = "",
-      requester_paste_multiplier = 4
+      requester_paste_multiplier = 4,
+      allow_as_intermediate = false,    -- Added for 0.18.34/1.1.4
+      always_show_made_in = false,      -- Added for 0.18.34/1.1.4
+      allow_decomposition = true,       -- Added for 0.18.34/1.1.4
     },
     expensive = {
       enabled = false,
@@ -297,10 +354,16 @@ data:extend({
       result = "bi-rail-power",
       result_count = 1,
       main_product = "",
-      requester_paste_multiplier = 4
+      requester_paste_multiplier = 4,
+      allow_as_intermediate = false,    -- Added for 0.18.34/1.1.4
+      always_show_made_in = false,      -- Added for 0.18.34/1.1.4
+      allow_decomposition = true,       -- Added for 0.18.34/1.1.4
     },
-    always_show_made_in = true,
-    allow_decomposition = false,
+    --~ always_show_made_in = true,
+    --~ allow_decomposition = false,
+    allow_as_intermediate = false,      -- Added for 0.18.34/1.1.4
+    always_show_made_in = false,        -- Changed for 0.18.34/1.1.4
+    allow_decomposition = true,         -- Changed for 0.18.34/1.1.4
     subgroup = "transport",
     order = "a[train-system]-ab[rail]",
   },
@@ -329,7 +392,10 @@ data:extend({
       result = "bi-wood-pipe",
       result_count = 4,
       main_product = "",
-      requester_paste_multiplier = 15
+      requester_paste_multiplier = 15,
+      allow_as_intermediate = false,    -- Added for 0.18.34/1.1.4
+      always_show_made_in = false,      -- Added for 0.18.34/1.1.4
+      allow_decomposition = true,       -- Added for 0.18.34/1.1.4
     },
     expensive = {
       energy_required = 2,
@@ -341,10 +407,16 @@ data:extend({
       result = "bi-wood-pipe",
       result_count = 4,
       main_product = "",
-      requester_paste_multiplier = 15
+      requester_paste_multiplier = 15,
+      allow_as_intermediate = false,    -- Added for 0.18.34/1.1.4
+      always_show_made_in = false,      -- Added for 0.18.34/1.1.4
+      allow_decomposition = true,       -- Added for 0.18.34/1.1.4
     },
-    always_show_made_in = true,
-    allow_decomposition = false,
+    --~ always_show_made_in = true,
+    --~ allow_decomposition = false,
+    allow_as_intermediate = false,      -- Added for 0.18.34/1.1.4
+    always_show_made_in = false,        -- Changed for 0.18.34/1.1.4
+    allow_decomposition = true,         -- Changed for 0.18.34/1.1.4
     subgroup = "energy-pipe-distribution",
     order = "a[pipe]-1a[pipe]",
     -- This is a custom property for use by "Krastorio 2" (it will change
@@ -376,6 +448,9 @@ data:extend({
       result = "bi-wood-pipe-to-ground",
       result_count = 2,
       main_product = "",
+      allow_as_intermediate = false,    -- Added for 0.18.34/1.1.4
+      always_show_made_in = false,      -- Added for 0.18.34/1.1.4
+      allow_decomposition = true,       -- Added for 0.18.34/1.1.4
     },
     expensive = {
       energy_required = 4,
@@ -387,9 +462,15 @@ data:extend({
       result = "bi-wood-pipe-to-ground",
       result_count = 2,
       main_product = "",
+      allow_as_intermediate = false,    -- Added for 0.18.34/1.1.4
+      always_show_made_in = false,      -- Added for 0.18.34/1.1.4
+      allow_decomposition = true,       -- Added for 0.18.34/1.1.4
     },
-    always_show_made_in = true,
-    allow_decomposition = false,
+    --~ always_show_made_in = true,
+    --~ allow_decomposition = false,
+    allow_as_intermediate = false,      -- Added for 0.18.34/1.1.4
+    always_show_made_in = false,        -- Changed for 0.18.34/1.1.4
+    allow_decomposition = true,         -- Changed for 0.18.34/1.1.4
     subgroup = "energy-pipe-distribution",
     order = "a[pipe]-1b[pipe-to-ground]",
   },
@@ -417,6 +498,9 @@ data:extend({
       },
       result = "bi-power-to-rail-pole",
       main_product = "",
+      allow_as_intermediate = false,    -- Added for 0.18.34/1.1.4
+      always_show_made_in = false,      -- Added for 0.18.34/1.1.4
+      allow_decomposition = true,       -- Added for 0.18.34/1.1.4
     },
     expensive = {
       enabled = false,
@@ -426,9 +510,15 @@ data:extend({
       },
       result = "bi-power-to-rail-pole",
       main_product = "",
+      allow_as_intermediate = false,    -- Added for 0.18.34/1.1.4
+      always_show_made_in = false,      -- Added for 0.18.34/1.1.4
+      allow_decomposition = true,       -- Added for 0.18.34/1.1.4
     },
-    always_show_made_in = true,
-    allow_decomposition = false,
+    --~ always_show_made_in = true,
+    --~ allow_decomposition = false,
+    --~ allow_as_intermediate = false,  -- Added for 0.18.34/1.1.4
+    always_show_made_in = false,        -- Changed for 0.18.34/1.1.4
+    allow_decomposition = true,         -- Changed for 0.18.34/1.1.4
     subgroup = "transport",
     order = "a[train-system]-ac[rail]",
   },
@@ -458,7 +548,10 @@ data:extend({
       result = "bi-wooden-chest-large",
       result_count = 1,
       main_product = "",
-      requester_paste_multiplier = 4
+      requester_paste_multiplier = 4,
+      allow_as_intermediate = false,    -- Added for 0.18.34/1.1.4
+      always_show_made_in = false,      -- Added for 0.18.34/1.1.4
+      allow_decomposition = true,       -- Added for 0.18.34/1.1.4
     },
     expensive = {
       energy_required = 4,
@@ -472,9 +565,15 @@ data:extend({
       result_count = 1,
       main_product = "",
       requester_paste_multiplier = 4,
+      allow_as_intermediate = false,    -- Added for 0.18.34/1.1.4
+      always_show_made_in = false,      -- Added for 0.18.34/1.1.4
+      allow_decomposition = true,       -- Added for 0.18.34/1.1.4
     },
-    always_show_made_in = true,
-    allow_decomposition = false,
+    --~ always_show_made_in = true,
+    --~ allow_decomposition = false,
+    allow_as_intermediate = false,      -- Added for 0.18.34/1.1.4
+    always_show_made_in = false,        -- Changed for 0.18.34/1.1.4
+    allow_decomposition = true,         -- Changed for 0.18.34/1.1.4
     subgroup = "storage",
     order = "a[items]-aa[wooden-chest]",
   },
@@ -504,7 +603,10 @@ data:extend({
       result = "bi-wooden-chest-huge",
       result_count = 1,
       main_product = "",
-      requester_paste_multiplier = 4
+      requester_paste_multiplier = 4,
+      allow_as_intermediate = false,    -- Added for 0.18.34/1.1.4
+      always_show_made_in = false,      -- Added for 0.18.34/1.1.4
+      allow_decomposition = true,       -- Added for 0.18.34/1.1.4
     },
     expensive = {
       energy_required = 4,
@@ -518,9 +620,15 @@ data:extend({
       result_count = 1,
       main_product = "",
       requester_paste_multiplier = 4,
+      allow_as_intermediate = false,    -- Added for 0.18.34/1.1.4
+      always_show_made_in = false,      -- Added for 0.18.34/1.1.4
+      allow_decomposition = true,       -- Added for 0.18.34/1.1.4
     },
-    always_show_made_in = true,
-    allow_decomposition = false,
+    --~ always_show_made_in = true,
+    --~ allow_decomposition = false,
+    allow_as_intermediate = false,      -- Added for 0.18.34/1.1.4
+    always_show_made_in = false,        -- Changed for 0.18.34/1.1.4
+    allow_decomposition = true,         -- Changed for 0.18.34/1.1.4
     subgroup = "storage",
     order = "a[items]-ab[wooden-chest]",
   },
@@ -550,7 +658,10 @@ data:extend({
       result = "bi-wooden-chest-giga",
       result_count = 1,
       main_product = "",
-      requester_paste_multiplier = 4
+      requester_paste_multiplier = 4,
+      allow_as_intermediate = false,    -- Added for 0.18.34/1.1.4
+      always_show_made_in = false,      -- Added for 0.18.34/1.1.4
+      allow_decomposition = true,       -- Added for 0.18.34/1.1.4
     },
     expensive = {
       energy_required = 6,
@@ -565,9 +676,15 @@ data:extend({
       result_count = 1,
       main_product = "",
       requester_paste_multiplier = 4,
+      allow_as_intermediate = false,    -- Added for 0.18.34/1.1.4
+      always_show_made_in = false,      -- Added for 0.18.34/1.1.4
+      allow_decomposition = true,       -- Added for 0.18.34/1.1.4
     },
-    always_show_made_in = true,
-    allow_decomposition = false,
+    --~ always_show_made_in = true,
+    --~ allow_decomposition = false,
+    allow_as_intermediate = false,      -- Added for 0.18.34/1.1.4
+    always_show_made_in = false,        -- Changed for 0.18.34/1.1.4
+    allow_decomposition = true,         -- Changed for 0.18.34/1.1.4
     subgroup = "storage",
     order = "a[items]-ac[wooden-chest]",
   },

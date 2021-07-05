@@ -39,7 +39,7 @@ if BI.Settings.Bio_Cannon then
       }}}
   end
 
-  --[[
+  --~ [[
   function attacking_animation()
     return {layers = {{
       priority = "medium",
@@ -55,7 +55,7 @@ if BI.Settings.Bio_Cannon then
       filename = ENTITYPATH .. "bio_cannon_attack.png",
       }}}
   end
-  ]]
+ --~ ]]
 
   function folding_animation()
     return {layers = {{
@@ -191,7 +191,7 @@ if BI.Settings.Bio_Cannon then
 
       preparing_animation = preparing_animation(),
       prepared_animation = prepared_animation(),
-      --attacking_animation = attacking_animation(),
+      attacking_animation = attacking_animation(),
       folding_animation = folding_animation(),
       folded_animation = folded_animation(),
       call_for_help_radius = 90

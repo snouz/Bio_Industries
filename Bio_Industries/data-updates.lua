@@ -626,6 +626,46 @@ end
     BioInd.writeDebug("Removed recipes for \"nitrogen\" and \"liquid air\".")
   end
 
+-- Moved here from data-final-fixes.lua for 0.18.34/1.1.4! (Fixes https://mods.factorio.com/mod/Bio_Industries/discussion/5ff570bd916993002371332a)
+---- Game Tweaks ---- Recipes
+if BI.Settings.BI_Game_Tweaks_Recipe then
+  --- Concrete Recipe Tweak
+  thxbob.lib.recipe.remove_ingredient("concrete", "iron-ore")
+  thxbob.lib.recipe.add_new_ingredient("concrete", {type = "item", name = "iron-stick", amount = 2})
+
+  --- Stone Wall
+  thxbob.lib.recipe.add_new_ingredient("stone-wall", {type = "item", name = "iron-stick", amount = 1})
+
+  --- Rail (Remove Stone and Add Crushed Stone)
+  if data.raw.item["stone-crushed"] then
+    thxbob.lib.recipe.remove_ingredient("rail", "stone")
+    thxbob.lib.recipe.add_new_ingredient("rail", {type = "item", name = "stone-crushed", amount = 6})
+    thxbob.lib.recipe.remove_ingredient("bi-rail-wood", "stone")
+    thxbob.lib.recipe.add_new_ingredient("bi-rail-wood", {type = "item", name = "stone-crushed", amount = 6})
+  end
+
+  -- vanilla rail recipe update
+  thxbob.lib.recipe.add_new_ingredient("rail", {type = "item", name = "concrete", amount = 6})
+end
+
+
+
+-- Moved here from data-final-fixes.lua for 0.18.34/1.1.4!
+---- Game Tweaks ---- Disassemble Recipes
+require("prototypes.Bio_Tweaks.recipe")
+if BI.Settings.BI_Game_Tweaks_Disassemble then
+  for recipe, tech in pairs({
+    ["bi-burner-mining-drill-disassemble"] = "automation-2",
+    ["bi-burner-inserter-disassemble"] = "automation-2",
+    ["bi-long-handed-inserter-disassemble"] = "automation-2",
+    ["bi-stone-furnace-disassemble"] = "automation-2",
+    ["bi-steel-furnace-disassemble"] = "advanced-material-processing",
+  }) do
+    thxbob.lib.tech.add_recipe_unlock(tech, recipe)
+  end
+
+end
+
 --- Enable Productivity in Recipes
 --~ BI_Functions.lib.allow_productivity("bi-seed-1")
 --~ BI_Functions.lib.allow_productivity("bi-seed-2")
@@ -772,3 +812,8 @@ if set then
 BioInd.writeDebug("Removed technology " .. "bi-tech-coal-processing-" .. i)
   end
 end
+
+-- Moved here from data-final-fixes.lua for 0.18.34/1.1.4! (Fixes https://mods.factorio.com/mod/Bio_Industries/discussion/5ff517c391699300236170a2)
+-- "Transport drones" ruins rails by removing object-layer from the collision mask. That
+-- causes problems for our "Wooden rail bridges" as they will also pass through cliffs.
+require("prototypes.Wood_Products.rail_updates")

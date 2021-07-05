@@ -87,7 +87,7 @@ BioInd.writeDebug("Looking for rails in %s direction", {direction})
         rail_direction = defines.rail_direction[side],
         rail_connection_direction = defines.rail_connection_direction[direction]
       }
-BioInd.writeDebug("Rail %s of %s (%g): (%g)", {direction, rail_track.name, rail_track.unit_number,neighbour and neighbour.name or "nil", neighbour and neighbour.unit_number or "nil"})
+BioInd.writeDebug("Rail %s of %s (%s): (%s)", {direction, rail_track.name, rail_track.unit_number,neighbour and neighbour.name or "nil", neighbour and neighbour.unit_number or "nil"})
 --log("Rail " .. direction .. " of " ..
                   --~ rail_track.name .. " (" .. rail_track.unit_number .. "): " ..
                   --~ serpent.line(neighbour and neighbour.name) ..

@@ -1,4 +1,45 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.1.4
+Date: 2021-01-21
+  Uploaded by:
+    - Pi-C
+
+  Info:
+    - All changes are also available for Factorio 0.18/1.0 (version 0.18.34 of this mod).
+    - There's some serious work going on in the background: Our new graphics artist (snouz) is currently reworking the graphics and the tech tree. You'll see the results in one of the next releases (the next, unless some more bugs have sneaked into this one).
+
+  Locale:
+    - Fixed Russian translation for "crushed stone". (https://mods.factorio.com/mod/Bio_Industries/discussion/5ff36051a449805c1c979d22)
+
+  Bugfixes:
+    - We really shouldn't create recipes in data-final-fixes.lua! Moved disassemble recipes over to data-updates.lua.
+    - Moved the recipe changes (setting "Game tweaks: Recipe") to from data-final-fixes.lua to data-updates.lua. This gives the "Schall Recipe Scaling" a chance to create a scaled version of the stone-wall, concrete, and rail recipes where our changes to the original recipes have been applied. (https://mods.factorio.com/mod/Bio_Industries/discussion/5ff570bd916993002371332a/edit_title)
+    - Moved the fix for rail collision masks from data-final-fixes.lua to data-updates.lua. This way, Klonan's "Construction Drones" will be able to move over rails again. (https://mods.factorio.com/mod/Bio_Industries/discussion/5ff517c391699300236170a2)
+    - Fixed that "Coal 2" wasn't shown in list of finished researches even when it was researched.
+    - Fixed crash when trees planted while "Alien Biomes" was used were still growing, but "Alien Biomes" had been removed from the game. (This will also work if any other mod providing new tree prototypes that could be planted with BI has been removed.)
+    - Did something stupid in on_configuration_changed. Fixed that the notifications for new recipes would be displayed again each time something changed.     (https://mods.factorio.com/mod/Bio_Industries/discussion/6005b910a417d7448960ef64)
+
+  Changes:
+    - "Bob's Character classes" makes several copies of the default character, and if character selector mods are active, there may also be several characters in the game. All of these characters would show up in the "Made in" list of hand-craftable recipes. Changed it so that hand-craftable recipes won't show "Made in" anymore.
+    - The Bio boiler now is in the same subgroup as the vanilla boiler, so it won't be on a line of its own in the crafting menu any longer. (Thanks to snouz for pointing this out!)
+    - Changed the range overlay of the huge substation so that it will cover whole tiles on the edges. (Again, thanks to snouz for finding this!)
+    - Previous versions of "Automatic Train Layer" didn't raise an event when rails were placed, so our powered rails did not transmit power. Also, there was a bug report related to crashes because of missing hidden entities. -- Added a migration that will add unregistered compound entities to the tables (creating hidden entities) and make sure that all required hidden entities exist for registered compound entities. (https://mods.factorio.com/mod/Bio_Industries/discussion/5ffb8424e005229d819cfc3f)
+    - Added an optional dependency on "Automatic Train Layer" to ensure only the latest version (1.0.6, fully compatible with BI) is used. If you are using BI 0.18.x, download the latest 1.1 version of ATL and change "factorio_version" in info.json from "1.1" to "1.0" or "0.18". (https://mods.factorio.com/mod/auto-track-laying/downloads)
+    - There may be multiple characters in the game. Apply character tweaks to the character prototypes that are recognized by "Minime". (Known dummy characters from other mods and characters created by "Bob's Character Classes" will be ignored. If there are any other characters that should/shouldn't be ignored by BI, please tell me!)
+    - Reduced default stack size of crushed stone to 400. (It still will be set to 800 if the startup setting "Game tweaks: Stack size" is enabled.)
+    - Modules can't be used with Bio gardens any longer. Using productivity or speed modules didn't make much sense anyway, and using efficiency modules will punish you by removing less instead of more than the base pollution value. (https://mods.factorio.com/mod/Bio_Industries/discussion/6004b7584a731a2870c4c0d5)
+
+
+  TODO:
+    - Add an alternative way to produce plastic without fluids. (https://mods.factorio.com/mod/Bio_Industries/discussion/5e3f5fadc359e6000d54cfb2)
+    - Add Big gardens for absorbing more pollution. (https://mods.factorio.com/mod/Bio_Industries/discussion/5f318f69f3644760ee6d001e)
+    - Make algae grow on water to contain pollution there. (https://mods.factorio.com/mod/Bio_Industries/discussion/5f07bed0b6dcd7af988b9fb0)
+    - Just an idea: Wood harvesters like they used to be in <https://mods.factorio.com/mod/WoodHarvester>. Could harvest (only) fully grown trees planted by terraformers, and output "trees" that would have to be processed by a sawmill to make wood and wood pulp. Bio farms would also output "trees". The current bio farms already look a bit like a sawmill, so use the current pix for it and get new ones for the bio farm! This would also solve a problem with the German translation: A "Baumschule" is a tree nursery -- it's just for growing trees, not for processing them!
+    - Add tar recipe if tar is available in the game.
+    - Activate new Bio-Cannon (0.18.33 version) once "NE Enemies" is updated -- we don't want different versions of the cannon in the game!
+    - Make a version of the wooden rail bridge with powered rails. Make version of bridges from other mods (so far "Beautiful Bridge Railway") with powered rails.
+
+---------------------------------------------------------------------------------------------------
 Version: 1.1.3
 Date: 2021-01-02
   Uploaded by:
@@ -12,15 +53,6 @@ Date: 2021-01-02
 
   Changes:
     - If "Beautiful Bridge Railway" is active, the upgrade planner can now be used to change our wooden bridges.
-
-
-  TODO:
-    - Add an alternative way to produce plastic without fluids. (https://mods.factorio.com/mod/Bio_Industries/discussion/5e3f5fadc359e6000d54cfb2)
-    - Add Big gardens for absorbing more pollution. (https://mods.factorio.com/mod/Bio_Industries/discussion/5f318f69f3644760ee6d001e)
-    - Make algae grow on water to contain pollution there. (https://mods.factorio.com/mod/Bio_Industries/discussion/5f07bed0b6dcd7af988b9fb0)
-    - Just an idea: Wood harvesters like they used to be in <https://mods.factorio.com/mod/WoodHarvester>. Could harvest (only) fully grown trees planted by terraformers, and output "trees" that would have to be processed by a sawmill to make wood and wood pulp. Bio farms would also output "trees". The current bio farms already look a bit like a sawmill, so use the current pix for it and get new ones for the bio farm! This would also solve a problem with the German translation: A "Baumschule" is a tree nursery -- it's just for growing trees, not for processing them!
-    - Add tar recipe if tar is available in the game.
-    - Activate new Bio-Cannon (0.18.33 version) once "NE Enemies" is updated -- we don't want different versions of the cannon in the game!
 
 
 ---------------------------------------------------------------------------------------------------

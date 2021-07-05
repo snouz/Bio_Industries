@@ -440,6 +440,9 @@ data:extend({
       result = "bi-bio-greenhouse",
       result_count = 1,
       main_product = "",
+      allow_as_intermediate = true,     -- Added for 0.18.34/1.1.4
+      always_show_made_in = false,      -- Added for 0.18.34/1.1.4
+      allow_decomposition = false,      -- Added for 0.18.34/1.1.4
     },
     expensive = {
       enabled = false,
@@ -453,11 +456,15 @@ data:extend({
       result = "bi-bio-greenhouse",
       result_count = 1,
       main_product = "",
+      allow_as_intermediate = true,     -- Added for 0.18.34/1.1.4
+      always_show_made_in = false,      -- Added for 0.18.34/1.1.4
+      allow_decomposition = false,      -- Added for 0.18.34/1.1.4
     },
     subgroup = "bio-bio-farm-fluid-entity",
     order = "a[bi]",
-    always_show_made_in = true,
-    allow_decomposition = false,
+    allow_as_intermediate = true,       -- Added for 0.18.34/1.1.4
+    always_show_made_in = false,        -- Changed for 0.18.34/1.1.4
+    allow_decomposition = true,         -- Changed for 0.18.34/1.1.4
   },
 
 
@@ -487,6 +494,9 @@ data:extend({
       result = "bi-bio-farm",
       result_count = 1,
       main_product = "",
+      allow_as_intermediate = false,    -- Added for 0.18.34/1.1.4
+      always_show_made_in = false,      -- Added for 0.18.34/1.1.4
+      allow_decomposition = true,       -- Added for 0.18.34/1.1.4
     },
     expensive = {
       enabled = false,
@@ -500,11 +510,15 @@ data:extend({
       result = "bi-bio-farm",
       result_count = 1,
       main_product = "",
+      allow_as_intermediate = false,    -- Added for 0.18.34/1.1.4
+      always_show_made_in = false,      -- Added for 0.18.34/1.1.4
+      allow_decomposition = true,       -- Added for 0.18.34/1.1.4
     },
     subgroup = "bio-bio-farm-fluid-entity",
     order = "b[bi]",
-    always_show_made_in = true,
-    allow_decomposition = false,
+    allow_as_intermediate = false,      -- Added for 0.18.34/1.1.4
+    always_show_made_in = false,        -- Changed for 0.18.34/1.1.4
+    allow_decomposition = true,         -- Changed for 0.18.34/1.1.4
   },
 
 
@@ -523,14 +537,17 @@ data:extend({
     subgroup = "bio-bio-farm-raw",
     order = "a[bi]-a-a[bi-1-woodpulp]",
     enabled = false,
-    always_show_made_in = true,
-    allow_decomposition = false,
-    allow_as_intermediate = false,
+    --~ always_show_made_in = true,
+    --~ allow_decomposition = false,
+    --~ allow_as_intermediate = false,
     energy_required = 2,
     ingredients = {{"wood", 2}},
     result = "bi-woodpulp",
     result_count = 4,
     main_product = "",
+    allow_as_intermediate = true,       -- Added for 0.18.34/1.1.4
+    always_show_made_in = false,        -- Added for 0.18.34/1.1.4
+    allow_decomposition = false,        -- Added for 0.18.34/1.1.4
     -- This is a custom property for use by "Krastorio 2" (it will change
     -- ingredients/results; used for wood/wood pulp)
     mod = "Bio_Industries",
@@ -552,9 +569,9 @@ data:extend({
     subgroup = "bio-bio-farm-raw",
     order = "a[bi]-a-ba[bi-2-resin-2-pulp]",
     enabled = false,
-    always_show_made_in = true,
-    allow_decomposition = false,
-    allow_as_intermediate = false,
+    --~ always_show_made_in = true,
+    --~ allow_decomposition = false,
+    --~ allow_as_intermediate = false,
     energy_required = 1,
     ingredients = {
        {type = "item", name = "bi-woodpulp", amount = 3},
@@ -562,6 +579,9 @@ data:extend({
     result = "resin",
     result_count = 1,
     main_product = "",
+    allow_as_intermediate = true,       -- Added for 0.18.34/1.1.4
+    always_show_made_in = false,        -- Added for 0.18.34/1.1.4
+    allow_decomposition = false,        -- Added for 0.18.34/1.1.4
     -- This is a custom property for use by "Krastorio 2" (it will change
     -- ingredients/results; used for wood/wood pulp)
     mod = "Bio_Industries",
@@ -584,9 +604,9 @@ data:extend({
     subgroup = "bio-bio-farm-raw",
     order = "a[bi]-a-c[bi-3-wood_from_pulp]",
     enabled = false,
-    always_show_made_in = true,
-    allow_decomposition = false,
-    allow_as_intermediate = false,
+    --~ always_show_made_in = true,
+    --~ allow_decomposition = false,
+    --~ allow_as_intermediate = false,
     energy_required = 2.5,
     ingredients = {
        {type = "item", name = "bi-woodpulp", amount = 8},
@@ -595,6 +615,9 @@ data:extend({
     result = "wood",
     result_count = 4,
     main_product = "",
+    allow_as_intermediate = true,       -- Added for 0.18.34/1.1.4
+    always_show_made_in = false,        -- Added for 0.18.34/1.1.4
+    allow_decomposition = false,        -- Added for 0.18.34/1.1.4
     -- This is a custom property for use by "Krastorio 2" (it will change
     -- ingredients/results; used for wood/wood pulp)
     mod = "Bio_Industries",
@@ -624,9 +647,12 @@ data:extend({
     result_count = 1,
     main_product = "",
     enabled = false,
-    always_show_made_in = true,
-    allow_decomposition = false,
-    allow_as_intermediate = false,
+    --~ always_show_made_in = true,
+    --~ allow_decomposition = false,
+    --~ allow_as_intermediate = false,
+    allow_as_intermediate = true,       -- Changed for 0.18.34/1.1.4
+    always_show_made_in = false,        -- Changed for 0.18.34/1.1.4
+    allow_decomposition = true,         -- Changed for 0.18.34/1.1.4
     -- This is a custom property for use by "Krastorio 2" (it will change
     -- ingredients/results; used for wood/wood pulp)
     mod = "Bio_Industries",
@@ -649,14 +675,18 @@ data:extend({
     subgroup = "bio-bio-farm-raw",
     order = "a[bi]-a-cb[bi-5-ash-1]",
     enabled = false,
-    always_show_made_in = true,
-    allow_decomposition = false,
-    allow_as_intermediate = false,
+    --~ always_show_made_in = true,
+    --~ allow_decomposition = false,
+    --~ allow_as_intermediate = false,
     energy_required = 3,
     ingredients = {{"wood", 5}},
     result = "bi-ash",
     result_count = 5,
     main_product = "",
+    allow_as_intermediate = true,       -- Changed for 0.18.34/1.1.4
+    always_show_made_in = false,        -- Changed for 0.18.34/1.1.4
+    allow_decomposition = true,         -- Changed for 0.18.34/1.1.4
+
     -- This is a custom property for use by "Krastorio 2" (it will change
     -- ingredients/results; used for wood/wood pulp)
     mod = "Bio_Industries",
@@ -679,9 +709,13 @@ data:extend({
     subgroup = "bio-bio-farm-raw",
     order = "a[bi]-a-ca[bi-5-ash-2]",
     enabled = false,
-    always_show_made_in = true,
-    allow_decomposition = false,
-    allow_as_intermediate = false,
+    --~ always_show_made_in = true,
+    --~ allow_decomposition = false,
+    --~ allow_as_intermediate = false,
+    allow_as_intermediate = true,       -- Added for 0.18.34/1.1.4
+    always_show_made_in = false,        -- Changed for 0.18.34/1.1.4
+    allow_decomposition = true,         -- Changed for 0.18.34/1.1.4
+
     energy_required = 2.5,
     ingredients = {{"bi-woodpulp", 12}},
     result = "bi-ash",
@@ -774,9 +808,13 @@ data:extend({
     result_count = 12,
     main_product = "",
     enabled = false,
-    always_show_made_in = true,
-    allow_decomposition = false,
-    allow_as_intermediate = false,
+    --~ always_show_made_in = true,
+    --~ allow_decomposition = false,
+    --~ allow_as_intermediate = false,
+    allow_as_intermediate = false,      -- Added for 0.18.34/1.1.4
+    always_show_made_in = true,        -- Changed for 0.18.34/1.1.4
+    allow_decomposition = true,         -- Changed for 0.18.34/1.1.4
+
   },
 
 
@@ -801,9 +839,13 @@ data:extend({
     result_count = 16,
     main_product = "",
     enabled = false,
-    always_show_made_in = true,
-    allow_decomposition = false,
-    allow_as_intermediate = false,
+    --~ always_show_made_in = true,
+    --~ allow_decomposition = false,
+    --~ allow_as_intermediate = false,
+    allow_as_intermediate = false,      -- Added for 0.18.34/1.1.4
+    always_show_made_in = true,        -- Changed for 0.18.34/1.1.4
+    allow_decomposition = true,         -- Changed for 0.18.34/1.1.4
+
   },
 
 
@@ -828,9 +870,13 @@ data:extend({
     result_count = 2,
     main_product = "",
     enabled = false,
-    always_show_made_in = true,
-    allow_decomposition = false,
-    allow_as_intermediate = false,
+    --~ always_show_made_in = true,
+    --~ allow_decomposition = false,
+    --~ allow_as_intermediate = false,
+    allow_as_intermediate = true,       -- Changed for 0.18.34/1.1.4
+    always_show_made_in = true, -- Changed for 0.18.34/1.1.4
+    allow_decomposition = true,         -- Changed for 0.18.34/1.1.4
+
   },
 
 
@@ -857,8 +903,12 @@ data:extend({
     result_count = 2,
     main_product = "",
     enabled = false,
-    always_show_made_in = true,
-    allow_as_intermediate = false,
+    --~ always_show_made_in = true,
+    --~ allow_as_intermediate = false,
+    allow_as_intermediate = false,      -- Added for 0.18.34/1.1.4
+    always_show_made_in = true,        -- Changed for 0.18.34/1.1.4
+    allow_decomposition = true,         -- Changed for 0.18.34/1.1.4
+
   },
 
 
@@ -886,8 +936,11 @@ data:extend({
     result_count = 3,
     main_product = "",
     enabled = false,
-    always_show_made_in = true,
-    allow_as_intermediate = false,
+    --~ always_show_made_in = true,
+    --~ allow_as_intermediate = false,
+    allow_as_intermediate = false,      -- Added for 0.18.34/1.1.4
+    always_show_made_in = true,        -- Changed for 0.18.34/1.1.4
+    allow_decomposition = true,         -- Changed for 0.18.34/1.1.4
   },
 
  -- CRUSHED STONE from stone --
@@ -911,9 +964,13 @@ data:extend({
     result_count = 2,
     main_product = "",
     enabled = false,
-    always_show_made_in = true,
-    allow_decomposition = false,
-    allow_as_intermediate = false,
+    --~ always_show_made_in = true,
+    --~ allow_decomposition = false,
+    --~ allow_as_intermediate = false,
+    allow_as_intermediate = true,      -- Added for 0.18.34/1.1.4
+    always_show_made_in = true,        -- Changed for 0.18.34/1.1.4
+    allow_decomposition = true,         -- Changed for 0.18.34/1.1.4
+
   },
 
  -- CRUSHED STONE from concrete --
@@ -938,9 +995,12 @@ data:extend({
     result_count = 2,
     main_product = "",
     enabled = false,
-    always_show_made_in = true,
-    allow_decomposition = false,
-    allow_as_intermediate = false,
+    --~ always_show_made_in = true,
+    --~ allow_decomposition = false,
+    --~ allow_as_intermediate = false,
+    allow_as_intermediate = true,      -- Added for 0.18.34/1.1.4
+    always_show_made_in = true,        -- Changed for 0.18.34/1.1.4
+    allow_decomposition = true,         -- Changed for 0.18.34/1.1.4
   },
 
  -- CRUSHED STONE from hazard concrete --
@@ -965,9 +1025,13 @@ data:extend({
     result_count = 2,
     main_product = "",
     enabled = false,
-    always_show_made_in = true,
-    allow_decomposition = false,
-    allow_as_intermediate = false,
+    --~ always_show_made_in = true,
+    --~ allow_decomposition = false,
+    --~ allow_as_intermediate = false,
+    allow_as_intermediate = true,      -- Added for 0.18.34/1.1.4
+    always_show_made_in = true,        -- Changed for 0.18.34/1.1.4
+    allow_decomposition = true,         -- Changed for 0.18.34/1.1.4
+
   },
 
  -- CRUSHED STONE from refined concrete --
@@ -992,9 +1056,12 @@ data:extend({
     result_count = 4,
     main_product = "",
     enabled = false,
-    always_show_made_in = true,
-    allow_decomposition = false,
-    allow_as_intermediate = false,
+    --~ always_show_made_in = true,
+    --~ allow_decomposition = false,
+    --~ allow_as_intermediate = false,
+    allow_as_intermediate = true,      -- Added for 0.18.34/1.1.4
+    always_show_made_in = true,        -- Changed for 0.18.34/1.1.4
+    allow_decomposition = true,         -- Changed for 0.18.34/1.1.4
   },
 
  -- CRUSHED STONE from refined hazard concrete --
@@ -1019,9 +1086,12 @@ data:extend({
     result_count = 4,
     main_product = "",
     enabled = false,
-    always_show_made_in = true,
-    allow_decomposition = false,
-    allow_as_intermediate = false,
+    --~ always_show_made_in = true,
+    --~ allow_decomposition = false,
+    --~ allow_as_intermediate = false,
+    allow_as_intermediate = true,      -- Added for 0.18.34/1.1.4
+    always_show_made_in = true,        -- Changed for 0.18.34/1.1.4
+    allow_decomposition = true,         -- Changed for 0.18.34/1.1.4
   },
 
  -- STONE Brick--
@@ -1050,9 +1120,12 @@ data:extend({
     },
     enabled = false,
     main_product = "",
-    always_show_made_in = true,
-    allow_decomposition = false,
-    allow_as_intermediate = false,
+    --~ always_show_made_in = true,
+    --~ allow_decomposition = false,
+    --~ allow_as_intermediate = false,
+    allow_as_intermediate = true,      -- Added for 0.18.34/1.1.4
+    always_show_made_in = true,        -- Changed for 0.18.34/1.1.4
+    allow_decomposition = true,         -- Changed for 0.18.34/1.1.4
   },
 
   -- COKERY (ENTITY)--
@@ -1079,6 +1152,9 @@ data:extend({
       result = "bi-cokery",
       result_count = 1,
       main_product = "",
+      allow_as_intermediate = false,      -- Added for 0.18.34/1.1.4
+      always_show_made_in = false,        -- Added for 0.18.34/1.1.4
+      allow_decomposition = true,         -- Added for 0.18.34/1.1.4
     },
     expensive = {
       enabled = false,
@@ -1090,11 +1166,17 @@ data:extend({
       result = "bi-cokery",
       result_count = 1,
       main_product = "",
+      allow_as_intermediate = false,      -- Added for 0.18.34/1.1.4
+      always_show_made_in = false,        -- Added for 0.18.34/1.1.4
+      allow_decomposition = true,         -- Added for 0.18.34/1.1.4
     },
     subgroup = "bio-bio-farm-raw-entity",
     order = "a[bi]",
-    always_show_made_in = true,
-    allow_decomposition = false,
+    --~ always_show_made_in = true,
+    --~ allow_decomposition = false,
+    allow_as_intermediate = false,      -- Added for 0.18.34/1.1.4
+    always_show_made_in = false,        -- Changed for 0.18.34/1.1.4
+    allow_decomposition = true,         -- Changed for 0.18.34/1.1.4
   },
 
 
@@ -1123,6 +1205,9 @@ data:extend({
       result = "bi-stone-crusher",
       result_count = 1,
       main_product = "",
+      allow_as_intermediate = false,      -- Added for 0.18.34/1.1.4
+      always_show_made_in = false,        -- Added for 0.18.34/1.1.4
+      allow_decomposition = true,         -- Added for 0.18.34/1.1.4
     },
     expensive = {
       enabled = false,
@@ -1135,11 +1220,17 @@ data:extend({
       result = "bi-stone-crusher",
       result_count = 1,
       main_product = "",
+      allow_as_intermediate = false,      -- Added for 0.18.34/1.1.4
+      always_show_made_in = false,        -- Added for 0.18.34/1.1.4
+      allow_decomposition = true,         -- Added for 0.18.34/1.1.4
     },
     subgroup = "bio-bio-farm-raw-entity",
     order = "b[bi]",
-    always_show_made_in = true,
-    allow_decomposition = false,
+    --~ always_show_made_in = true,
+    --~ allow_decomposition = false,
+    allow_as_intermediate = false,        -- Added for 0.18.34/1.1.4
+    always_show_made_in = false,          -- Changed for 0.18.34/1.1.4
+    allow_decomposition = true,           -- Added for 0.18.34/1.1.4
   },
 
 
@@ -1225,9 +1316,12 @@ data:extend({
     },
     main_product = "",
     enabled = false,
-    always_show_made_in = true,
-    allow_decomposition = false,
-    allow_as_intermediate = false,
+    --~ always_show_made_in = true,
+    --~ allow_decomposition = false,
+    --~ allow_as_intermediate = false,
+    allow_as_intermediate = true,       -- Changed for 0.18.34/1.1.4
+    always_show_made_in = true,         -- Changed for 0.18.34/1.1.4
+    allow_decomposition = true,         -- Changed for 0.18.34/1.1.4
     subgroup = "bio-bio-farm-intermediate-product",
     order = "b[bi-fertilizer]",
   },
@@ -1257,9 +1351,12 @@ data:extend({
     },
     main_product = "",
     enabled = false,
-    always_show_made_in = true,
-    allow_decomposition = false,
-    allow_as_intermediate = false,
+    --~ always_show_made_in = true,
+    --~ allow_decomposition = false,
+    --~ allow_as_intermediate = false,
+    allow_as_intermediate = true,       -- Changed for 0.18.34/1.1.4
+    always_show_made_in = true,         -- Changed for 0.18.34/1.1.4
+    allow_decomposition = true,         -- Changed for 0.18.34/1.1.4
     subgroup = "bio-bio-farm-intermediate-product",
     order = "b[bi-fertilizer]-b[bi-adv-fertilizer-1]",
   },
@@ -1289,9 +1386,12 @@ data:extend({
     },
     main_product = "",
     enabled = false,
-    always_show_made_in = true,
-    allow_decomposition = false,
-    allow_as_intermediate = false,
+    --~ always_show_made_in = true,
+    --~ allow_decomposition = false,
+    --~ allow_as_intermediate = false,
+    allow_as_intermediate = true,       -- Changed for 0.18.34/1.1.4
+    always_show_made_in = true,         -- Changed for 0.18.34/1.1.4
+    allow_decomposition = true,         -- Changed for 0.18.34/1.1.4
     subgroup = "bio-bio-farm-intermediate-product",
     order = "b[bi-fertilizer]-b[bi-adv-fertilizer-2]",
     -- This is a custom property for use by "Krastorio 2" (it will change
@@ -1323,6 +1423,9 @@ data:extend({
       },
       result = "bi-seed-bomb-basic",
       main_product = "",
+      allow_as_intermediate = false,    -- Added for 0.18.34/1.1.4
+      always_show_made_in = false,      -- Added for 0.18.34/1.1.4
+      allow_decomposition = true,       -- Added for 0.18.34/1.1.4
     },
     expensive = {
       enabled = false,
@@ -1333,9 +1436,15 @@ data:extend({
       },
       result = "bi-seed-bomb-basic",
       main_product = "",
+      allow_as_intermediate = false,    -- Added for 0.18.34/1.1.4
+      always_show_made_in = false,      -- Added for 0.18.34/1.1.4
+      allow_decomposition = true,       -- Added for 0.18.34/1.1.4
     },
-    always_show_made_in = true,
-    allow_decomposition = false,
+    --~ always_show_made_in = true,
+    --~ allow_decomposition = false,
+    allow_as_intermediate = false,      -- Changed for 0.18.34/1.1.4
+    always_show_made_in = false,        -- Added for 0.18.34/1.1.4
+    allow_decomposition = true,         -- Added for 0.18.34/1.1.4
     subgroup = "bi-ammo",
     order = "a[rocket-launcher]-x[seed-bomb]-a",
   },
@@ -1365,6 +1474,9 @@ data:extend({
       },
       result = "bi-seed-bomb-standard",
       main_product = "",
+      allow_as_intermediate = false,    -- Added for 0.18.34/1.1.4
+      always_show_made_in = false,      -- Added for 0.18.34/1.1.4
+      allow_decomposition = true,       -- Added for 0.18.34/1.1.4
     },
     expensive = {
       enabled = false,
@@ -1376,9 +1488,15 @@ data:extend({
       },
       result = "bi-seed-bomb-standard",
       main_product = "",
+      allow_as_intermediate = false,    -- Added for 0.18.34/1.1.4
+      always_show_made_in = false,      -- Added for 0.18.34/1.1.4
+      allow_decomposition = true,       -- Added for 0.18.34/1.1.4
     },
-    always_show_made_in = true,
-    allow_decomposition = false,
+    --~ always_show_made_in = true,
+    --~ allow_decomposition = false,
+    allow_as_intermediate = false,      -- Changed for 0.18.34/1.1.4
+    always_show_made_in = false,        -- Added for 0.18.34/1.1.4
+    allow_decomposition = true,         -- Added for 0.18.34/1.1.4
     subgroup = "bi-ammo",
     order = "a[rocket-launcher]-x[seed-bomb]-b",
   },
@@ -1408,6 +1526,9 @@ data:extend({
       },
       result = "bi-seed-bomb-advanced",
       main_product = "",
+      allow_as_intermediate = false,    -- Added for 0.18.34/1.1.4
+      always_show_made_in = false,      -- Added for 0.18.34/1.1.4
+      allow_decomposition = true,       -- Added for 0.18.34/1.1.4
     },
     expensive = {
       enabled = false,
@@ -1419,9 +1540,15 @@ data:extend({
       },
       result = "bi-seed-bomb-advanced",
       main_product = "",
+      allow_as_intermediate = false,    -- Added for 0.18.34/1.1.4
+      always_show_made_in = false,      -- Added for 0.18.34/1.1.4
+      allow_decomposition = true,       -- Added for 0.18.34/1.1.4
     },
-    always_show_made_in = true,
-    allow_decomposition = false,
+    --~ always_show_made_in = true,
+    --~ allow_decomposition = false,
+    allow_as_intermediate = false,      -- Changed for 0.18.34/1.1.4
+    always_show_made_in = false,        -- Added for 0.18.34/1.1.4
+    allow_decomposition = true,         -- Added for 0.18.34/1.1.4
     subgroup = "bi-ammo",
     order = "a[rocket-launcher]-x[seed-bomb]-c",
     },
@@ -1452,6 +1579,9 @@ data:extend({
       result = "bi-arboretum-area",
       result_count = 1,
       main_product = "",
+      allow_as_intermediate = false,    -- Added for 0.18.34/1.1.4
+      always_show_made_in = false,      -- Added for 0.18.34/1.1.4
+      allow_decomposition = true,       -- Added for 0.18.34/1.1.4
     },
     expensive = {
       enabled = false,
@@ -1464,11 +1594,17 @@ data:extend({
       result = "bi-arboretum-area",
       result_count = 1,
       main_product = "",
+      allow_as_intermediate = false,    -- Added for 0.18.34/1.1.4
+      always_show_made_in = false,      -- Added for 0.18.34/1.1.4
+      allow_decomposition = true,       -- Added for 0.18.34/1.1.4
     },
     subgroup = "bio-arboretum-fluid",
     order = "1-a[bi]",
-    always_show_made_in = true,
-    allow_decomposition = false,
+    --~ always_show_made_in = true,
+    --~ allow_decomposition = false,
+    allow_as_intermediate = false,      -- Added for 0.18.34/1.1.4
+    always_show_made_in = false,        -- Changed for 0.18.34/1.1.4
+    allow_decomposition = true,         -- Changed for 0.18.34/1.1.4
   },
 
 

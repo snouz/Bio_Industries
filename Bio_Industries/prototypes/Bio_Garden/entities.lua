@@ -62,14 +62,23 @@ data:extend({
     energy_source = {
       type = "electric",
       usage_priority = "secondary-input",
-      emissions_per_minute = -45, -- the "-" means it Absorbs pollution.
+      emissions_per_minute = -45, -- Negative value: pollution is absorbed!
     },
     energy_usage = "200kW",
     ingredient_count = 1,
+    -- Changed for 0.18.34/1.1.4 -- Modules don't make sense for the gardens!
+    -- (Efficiency modules are also meant to reduce pollution, but as the base value
+    -- is negative, the resulting value is greater than the base value! )
+    --~ module_specification = {
+      --~ module_slots = 1
+    --~ },
     module_specification = {
-      module_slots = 1
+      module_slots = 0
     },
-    allowed_effects = {"consumption", "speed"},
+    -- Changed for 0.18.34/1.1.4 -- We need to use an empty table here, so the gardens
+    -- won't be affected by beacons!
+    --~ allowed_effects = {"consumption", "speed"},
+    allowed_effects = {},
   },
 })
 

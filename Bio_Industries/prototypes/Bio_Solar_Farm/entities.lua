@@ -55,13 +55,21 @@ data:extend({
       usage_priority = "solar"
     },
     picture = {
-      filename = ENTITYPATH .. "Bio_Solar_Farm_On.png",
+      --~ filename = ENTITYPATH .. "Bio_Solar_Farm_On.png",
+      --~ priority = "low",
+      --~ width = 312,
+      --~ height = 289,
+      --~ frame_count = 1,
+      --~ direction_count = 1,
+      --~ --scale = 3/2,
+      --~ shift = {0.30, 0}
+      filename = ENTITYPATH .. "Bio_Solar_Farm_On_souz.png",
       priority = "low",
-      width = 312,
-      height = 289,
+      width = 624,
+      height = 578,
       frame_count = 1,
       direction_count = 1,
-      --scale = 3/2,
+      scale = .5,
       shift = {0.30, 0}
     },
     production = "3600kW"
@@ -96,12 +104,18 @@ data:extend({
       output_flow_limit = "20MW"
     },
     picture = {
-      filename = ENTITYPATH .. "bi_LargeAccumulator.png",
+      --~ filename = ENTITYPATH .. "bi_LargeAccumulator.png",
+      --~ priority = "extra-high",
+      --~ width = 245,
+      --~ height = 245,
+      --~ shift = {0.75, -0.5},
+      --~ scale = 0.75,
+      filename = ENTITYPATH .. "bi_LargeAccumulator_souz.png",
       priority = "extra-high",
-      width = 245,
-      height = 245,
-      shift = {0.75, -0.5},
-      scale = 0.75,
+      width = 282,
+      height = 325,
+      shift = {-0.25, -0.5},
+      --~ scale = 4 / 9,
     },
     charge_animation = {
       filename = ENTITYPATH .. "bi_LargeAccumulatorAnimated.png",
@@ -185,7 +199,9 @@ data:extend({
     selection_box = {{-2.5, -2.5}, {2.5, 2.5}},
     drawing_box = {{-2.5, -5}, {2.5, 2.5}},
     maximum_wire_distance = 25,
-    supply_area_distance = 50,
+    -- Changed for 0.18.34/1.1.4
+    --~ supply_area_distance = 50,
+    supply_area_distance = 50.5,
     pictures = {
       filename = ENTITYPATH .. "bi_LargeSubstation.png",
       priority = "high",

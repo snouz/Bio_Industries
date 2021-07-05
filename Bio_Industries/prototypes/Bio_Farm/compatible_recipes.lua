@@ -50,9 +50,12 @@ data:extend({
       {type = "item", name = "fertilizer", amount = 5}
     },
     enabled = false,
-    always_show_made_in = true,
-    allow_decomposition = false,
-    allow_as_intermediate = false,
+    --~ always_show_made_in = true,
+    --~ allow_decomposition = false,
+    --~ allow_as_intermediate = false,
+    allow_as_intermediate = true,       -- Changed for 0.18.34/1.1.4
+    always_show_made_in = true,         -- Changed for 0.18.34/1.1.4
+    allow_decomposition = true,         -- Changed for 0.18.34/1.1.4
     subgroup = "bio-bio-farm-intermediate-product",
     order = "b[bi-fertilizer]",
   },
@@ -111,9 +114,13 @@ if not data.raw.item["resin"] then
       --~ order = "a[bi]-a-aa[bi-2-resin-1-wood]",
       order = "a[bi]-a-bb[bi-2-resin-2-wood]",
       enabled = false,
-      allow_as_intermediate = false,
-      always_show_made_in = true,
-      allow_decomposition = false,
+      --~ allow_as_intermediate = false,
+      --~ always_show_made_in = true,
+      --~ allow_decomposition = false,
+      allow_as_intermediate = true,     -- Changed for 0.18.34/1.1.4
+      always_show_made_in = false,      -- Changed for 0.18.34/1.1.4
+      allow_decomposition = true,       -- Changed for 0.18.34/1.1.4
+
       energy_required = 1,
       ingredients = {
          {type = "item", name = "wood", amount = 1}
@@ -416,9 +423,12 @@ BioInd.writeDebug("Generating recipe for sand from crushed stone!")
       result_count = 5,
       main_product = "",
       enabled = false,
-      always_show_made_in = true,
-      allow_decomposition = false,
-      allow_as_intermediate = false,
+      --~ always_show_made_in = true,
+      --~ allow_decomposition = false,
+      --~ allow_as_intermediate = false,
+      allow_as_intermediate = true,     -- Changed for 0.18.34/1.1.4
+      always_show_made_in = true,       -- Changed for 0.18.34/1.1.4
+      allow_decomposition = true,               -- Changed for 0.18.34/1.1.4
     },
   })
 

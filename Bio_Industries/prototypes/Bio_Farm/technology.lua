@@ -175,7 +175,8 @@ data:extend({
       },
       time = 35
     },
-    upgrade = true,
+    -- Changed for 0.18.34/1.1.4 (Fixes that tech is not listed among researched techs.)
+    --~ upgrade = true,
   },
 
   {
@@ -214,7 +215,8 @@ data:extend({
       },
       time = 40
     },
-    upgrade = true,
+    -- Changed for 0.18.34/1.1.4 (Fixes that tech is not listed among researched techs.)
+    --~ upgrade = true,
   },
 
   {

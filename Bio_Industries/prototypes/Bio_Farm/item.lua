@@ -314,7 +314,9 @@ data:extend(
     },
     subgroup = "raw-material",
     order = "a[bi]-a-z[stone-crushed]",
-    stack_size = 800
+    -- Changed for 0.18.34/1.1.4
+    --~ stack_size = 800
+    stack_size = 400
   },
 
 

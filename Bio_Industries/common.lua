@@ -5,7 +5,7 @@ return function (mod_name)
   ------------------------------------------------------------------------------------
   -- Get mod name and path to mod
   common.modName = mod_name
-  common.modRoot = "__" .. mod_name .. "__"
+  common.modRoot = "__" .. (script and script.mod_name or mod_name) .. "__"
 
 
   ------------------------------------------------------------------------------------
@@ -81,6 +81,91 @@ log("common.RAIL_MASK: " .. serpent.block(common.RAIL_MASK))
   ------------------------------------------------------------------------------------
   -- Set maximum_wire_distance of Power-to-rail connectors
   common.POWER_TO_RAIL_WIRE_DISTANCE = 4
+
+
+
+  ------------------------------------------------------------------------------------
+  -- List of compound entities
+  -- Key:       name of the base entity
+  -- tab:       name of the global table where data of these entity are stored
+  -- hidden:    table containing the hidden entities needed by this entity
+  --            (Key:   name under which the hidden entity will be stored in the table;
+  --             Value: name of the entity that should be placed)
+  common.compound_entities = {
+    ["bi-bio-farm"] = {
+      tab = "bi_bio_farm_table",
+      hidden = {
+        pole = "bi-bio-farm-electric-pole",
+        panel = "bi-bio-farm-solar-panel",
+        lamp = "bi-bio-farm-light",
+      }
+    },
+    ["bi-bio-garden"] = {
+      tab = "bi_bio_garden_table",
+      hidden = {
+        pole = "bi-bio-garden-hidden-pole",
+      }
+    },
+    ["bi-bio-solar-farm"] = {
+      tab = "bi_solar_farm_table",
+      hidden = {
+        pole = "bi-hidden-power-pole",
+      }
+    },
+    ["bi-solar-boiler"] = {
+      tab = "bi_solar_boiler_table",
+      hidden = {
+        boiler = "bi-solar-boiler-panel",
+        pole = "bi-hidden-power-pole",
+      }
+    },
+    ["bi-straight-rail-power"] = {
+      tab = "bi_power_rail_table",
+      hidden = {
+        pole = "bi-rail-hidden-power-pole"
+      }
+    },
+    ["bi-curved-rail-power"] = {
+      tab = "bi_power_rail_table",
+      hidden = {
+        pole = "bi-rail-hidden-power-pole"
+      }
+    },
+      -- Built normally
+    ["bi-arboretum-area"] = {
+      tab = "Arboretum_Table",
+      hidden = {
+        radar = "bi-arboretum-radar",
+        pole = "bi-hidden-power-pole",
+        lamp = "bi-bio-farm-light",
+      }
+    },
+      -- Built from blueprint
+    ["bi-arboretum"] = {
+      tab = "Arboretum_Table",
+      hidden = {
+        radar = "bi-arboretum-radar",
+        pole = "bi-hidden-power-pole",
+        lamp = "bi-bio-farm-light",
+      }
+    },
+      -- Built normally
+    ["bi-bio-cannon-area"] = {
+      tab = "Bio_Cannon_Table",
+      hidden = {
+        radar = "Bio-Cannon-r"
+      }
+    },
+      -- Built from blueprint
+    ["bi-bio-cannon"] = {
+      tab = "Bio_Cannon_Table",
+      hidden = {
+        radar = "Bio-Cannon-r"
+      }
+    },
+  }
+
+
 
   ------------------------------------------------------------------------------------
   -- There may be trees for which we don't want to create variations. These patterns
@@ -336,7 +421,7 @@ log("common.RAIL_MASK: " .. serpent.block(common.RAIL_MASK))
     local entity
 
     -- Initialize entry in global table
-    g_table[base_entity.unit_number] = {}
+    g_table[base_entity.unit_number] = g_table[base_entity.unit_number] or {}
     g_table[base_entity.unit_number].base = base_entity
 
     -- Create hidden entities
@@ -345,7 +430,12 @@ log("common.RAIL_MASK: " .. serpent.block(common.RAIL_MASK))
         name = name,
         position = pos,
         force = base_entity.force,
-        raise_built = true
+        --~ raise_built = true
+      })
+      -- Raise the event manually, so we can pass on extra data!
+      script.raise_event(defines.events.script_raised_built, {
+        entity = entity,
+        base_entity = base_entity
       })
 
       -- Make hidden entity unminable/undestructible
@@ -359,10 +449,66 @@ log("common.RAIL_MASK: " .. serpent.block(common.RAIL_MASK))
     for k, v in pairs(... or {}) do
       g_table[base_entity.unit_number][k] = v
     end
-    common.writeDebug("g_table[base.unit_number]", g_table[base_entity.unit_number])
+    common.writeDebug("g_table[%s]: %s", {base_entity.unit_number, g_table[base_entity.unit_number]})
   end
 
 
+  --------------------------------------------------------------------
+  -- Connect hidden poles of powered rails -- this is also used in
+  -- migration scripts, so make it a function in common.lua!
+  -- (This function may be called for hidden poles that have not been
+  -- added to the table yet if the pole has just been built. In this
+  -- case, we pass on the new pole explicitly!)
+  common.connect_power_rail = function(base, new_pole)
+    local pole = global.bi_power_rail_table[base.unit_number].pole or new_pole
+    if pole.valid then
+      -- Remove all copper wires from new pole
+      pole.disconnect_neighbour()
+common.writeDebug("Removed all wires from %s %g", {pole.name, pole.unit_number})
+
+      -- Look for connecting rails at front and back of the new rail
+      for s, side in ipairs( {"front", "back"} ) do
+common.writeDebug("Looking for rails at %s", {side})
+        local neighbour
+        -- Look in all three directions
+        for d, direction in ipairs( {"left", "straight", "right"} ) do
+common.writeDebug("Looking for rails in %s direction", {direction})
+          neighbour = base.get_connected_rail{
+            rail_direction = defines.rail_direction[side],
+            rail_connection_direction = defines.rail_connection_direction[direction]
+          }
+common.writeDebug("Rail %s of %s (%s): %s (%s)", {direction, base.name, base.unit_number, (neighbour and neighbour.name or "nil"), (neighbour and neighbour.unit_number or "nil")})
+
+          -- Only make a connection if found rail is a powered rail
+          -- (We'll know it's the right type if we find it in our table!)
+          neighbour = neighbour and neighbour.valid and global.bi_power_rail_table[neighbour.unit_number]
+          if neighbour then
+            pole.connect_neighbour(neighbour.pole)
+            common.writeDebug("Connected poles!")
+          end
+        end
+      end
+
+      -- Look for Power-rail connectors
+      local connector = base.surface.find_entities_filtered{
+        position = base.position,
+        radius = common.POWER_TO_RAIL_WIRE_DISTANCE,    -- maximum_wire_distance of Power-to-rail-connectors
+        name = "bi-power-to-rail-pole"
+      }
+      -- Connect to first Power-rail connector we've found
+      if connector and next(connector) then
+        pole.connect_neighbour(connector[1])
+        common.writeDebug("Connected " .. pole.name .. " (" .. pole.unit_number ..
+                          ") to " .. connector[1].name .. " (" .. connector[1].unit_number .. ")")
+        common.writeDebug("Connected %s (%g) to %s (%g)", {pole.name, pole.unit_number, connector[1].name, connector[1].unit_number})
+      end
+      common.writeDebug("Stored %s (%g) in global table", {base.name, base.unit_number})
+    end
+  end
+
+
+  --------------------------------------------------------------------
+  -- Get the value of a startup setting
   common.get_startup_setting = function(setting_name)
     return settings.startup[setting_name] and settings.startup[setting_name].value
   end

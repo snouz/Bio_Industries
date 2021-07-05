@@ -1,4 +1,4 @@
-local BioInd = require('common')('Bio_Industries')
+local BioInd = require("__" .. script.mod_name .. "__.common")(script.mod_name)
 
 BioInd.writeDebug("Entered control_arboretum.lua")
 

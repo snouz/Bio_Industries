@@ -28,15 +28,15 @@ data:extend({
     enabled = false,
   },
 
-  -- fertiliser from sodium-hydroxide--
+  -- fertilizer from sodium-hydroxide--
   {
     type = "recipe",
-    name = "bi-fertiliser-2",
-    icon = ICONPATH .. "fertiliser_sodium_hydroxide.png",
+    name = "bi-fertilizer-2",
+    icon = ICONPATH .. "fertilizer_sodium_hydroxide.png",
     icon_size = 64,
     icons = {
       {
-        icon = ICONPATH .. "fertiliser_sodium_hydroxide.png",
+        icon = ICONPATH .. "fertilizer_sodium_hydroxide.png",
         icon_size = 64,
       }
     },
@@ -47,14 +47,14 @@ data:extend({
       {type = "item", name = "bi-ash", amount = 10}
     },
     results = {
-      {type = "item", name = "fertiliser", amount = 5}
+      {type = "item", name = "fertilizer", amount = 5}
     },
     enabled = false,
     always_show_made_in = true,
     allow_decomposition = false,
     allow_as_intermediate = false,
     subgroup = "bio-bio-farm-intermediate-product",
-    order = "b[fertiliser]",
+    order = "b[fertilizer]",
   },
 })
 
@@ -182,27 +182,27 @@ if data.raw.item["wood-bricks"] and mods["angelsbioprocessing"] then
 end
 
 
---- Add fertiliser recipes if bob's or Angels
+--- Add fertilizer recipes if bob's or Angels
 if data.raw.item["solid-sodium-hydroxide"] and mods["angelspetrochem"] then
-  thxbob.lib.recipe.add_new_ingredient("bi-fertiliser-2", {type = "item", name = "solid-sodium-hydroxide", amount = 10})
-  thxbob.lib.recipe.replace_ingredient("bi-fertiliser-2", "nitrogen", "gas-nitrogen")
-  data.raw.recipe["bi-fertiliser-2"].icon = ICONPATH .. "fertiliser_solid_sodium_hydroxide.png"
-  data.raw.recipe["bi-fertiliser-2"].icon_size = 64
-  thxbob.lib.tech.add_recipe_unlock("bi-tech-fertiliser", "bi-fertiliser-2")
+  thxbob.lib.recipe.add_new_ingredient("bi-fertilizer-2", {type = "item", name = "solid-sodium-hydroxide", amount = 10})
+  thxbob.lib.recipe.replace_ingredient("bi-fertilizer-2", "nitrogen", "gas-nitrogen")
+  data.raw.recipe["bi-fertilizer-2"].icon = ICONPATH .. "fertilizer_solid_sodium_hydroxide.png"
+  data.raw.recipe["bi-fertilizer-2"].icon_size = 64
+  thxbob.lib.tech.add_recipe_unlock("bi-tech-fertilizer", "bi-fertilizer-2")
 elseif data.raw.item["sodium-hydroxide"] and mods["bobplates"] then
-  thxbob.lib.recipe.add_new_ingredient("bi-fertiliser-2", {
+  thxbob.lib.recipe.add_new_ingredient("bi-fertilizer-2", {
     type = "item",
     name = "sodium-hydroxide",
     amount = 10
   })
-  thxbob.lib.tech.add_recipe_unlock("bi-tech-fertiliser", "bi-fertiliser-2")
+  thxbob.lib.tech.add_recipe_unlock("bi-tech-fertilizer", "bi-fertilizer-2")
 end
 
 
 -- If Angels, replace liquid air + nitrogen and with Angel's ingredients in recipes
 if data.raw.fluid["gas-nitrogen"] and data.raw.fluid["gas-compressed-air"] and mods["angelspetrochem"] then
-  thxbob.lib.recipe.replace_ingredient("bi-fertiliser-1", "nitrogen", "gas-nitrogen")
-  thxbob.lib.recipe.replace_ingredient("bi-fertiliser-2", "nitrogen", "gas-nitrogen")
+  thxbob.lib.recipe.replace_ingredient("bi-fertilizer-1", "nitrogen", "gas-nitrogen")
+  thxbob.lib.recipe.replace_ingredient("bi-fertilizer-2", "nitrogen", "gas-nitrogen")
   thxbob.lib.recipe.replace_ingredient("bi-biomass-2", "liquid-air", "gas-compressed-air")
   thxbob.lib.recipe.replace_ingredient("bi-biomass-3", "liquid-air", "gas-compressed-air")
 end
@@ -240,8 +240,8 @@ end
 -- Krastorio
 if mods["Krastorio"] then
   -- Replace liquid air with oxygen in Algae Biomass conversion 2 and 3
-  thxbob.lib.recipe.replace_ingredient("bi-fertiliser-1", "nitrogen", "k-nitrogen")
-  thxbob.lib.recipe.replace_ingredient("bi-fertiliser-2", "nitrogen", "k-nitrogen")
+  thxbob.lib.recipe.replace_ingredient("bi-fertilizer-1", "nitrogen", "k-nitrogen")
+  thxbob.lib.recipe.replace_ingredient("bi-fertilizer-2", "nitrogen", "k-nitrogen")
 
   thxbob.lib.recipe.replace_ingredient("bi-biomass-2", "liquid-air", "k-oxygen")
   thxbob.lib.recipe.replace_ingredient("bi-biomass-3", "liquid-air", "k-oxygen")

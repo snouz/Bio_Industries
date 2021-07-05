@@ -64,7 +64,7 @@ data:extend({
     energy_required = 40,
     ingredients = {
       {type = "fluid", name = "water", amount = 50},
-      {type = "item", name = "fertiliser", amount = 1}
+      {type = "item", name = "fertilizer", amount = 1}
     },
     results = {
       {type = "item", name = "bi-purified-air", amount = 1, probability = 0},
@@ -97,7 +97,7 @@ data:extend({
     energy_required = 100,
     ingredients = {
       {type = "fluid", name = "water", amount = 50},
-      {type = "item", name = "bi-adv-fertiliser", amount = 1},
+      {type = "item", name = "bi-adv-fertilizer", amount = 1},
     },
     results = {
       {type = "item", name = "bi-purified-air", amount = 1, probability = 0},

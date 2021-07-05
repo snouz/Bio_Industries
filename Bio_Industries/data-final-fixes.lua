@@ -1,4 +1,5 @@
 local BioInd = require('common')('Bio_Industries')
+local ICONPATH = "__Bio_Industries__/graphics/icons/"
 
 BI.Settings.BI_Game_Tweaks_Emissions_Multiplier = settings.startup["BI_Game_Tweaks_Emissions_Multiplier"].value
 
@@ -37,39 +38,65 @@ if BI.Settings.BI_Game_Tweaks_Tree then
   local BI_tree
 
   --- Trees Give Random 1 - 6 Wood.
-  for _, tree in pairs(data.raw["tree"]) do
+  for _, tree in pairs(data.raw["tree"]or {}) do
     --CHECK FOR SINGLE RESULTS
-BioInd.writeDebug("Tree name: %s\tminable.result: %s", {tree.name, tree.minable.result or "nil"}, "line")
+BioInd.writeDebug("Tree name: %s\tminable.result: %s", {tree.name, (tree.minable and tree.minable.result or "nil")}, "line")
     if tree.minable and tree.minable.result then
-BioInd.writeDebug("Changing wood yield of %s to random value.", tree.name)
       --CHECK FOR VANILLA TREES WOOD x 4
       if tree.minable.result == "wood" and tree.minable.count == 4 then
-       tree.minable = {
-         mining_particle = "wooden-particle",
-         mining_time = 1.5,
-         results = {{
-           type = "item",
-           name = "wood",
-           amount_min = 1,
-           amount_max = 6}}
-      }
+BioInd.writeDebug("Changing wood yield of %s to random value.", {tree.name})
+        tree.minable = {
+          mining_particle = "wooden-particle",
+          mining_time = 1.5,
+          results = {
+            {
+              type = "item",
+              name = "wood",
+              amount_min = 1,
+              amount_max = 6
+            }
+          }
+        }
+      -- CONVERT RESULT TO RESULTS
+      else
+BioInd.writeDebug("Converting tree.minable.result to tree.minable.results!")
+        tree.minable = {
+          mining_particle = "wooden-particle",
+          --~ mining_time = 1.5,
+          mining_time = tree.minable.mining_time,
+          results = {
+            {
+              type = "item",
+              --~ name = "wood",
+              --~ amount_min = 1,
+              --~ amount_max = 6}}
+              name = tree.minable.result,
+              amount = tree.minable.count,
+            }
+          }
+        }
       end
     else
       --CHECK FOR RESULTS TABLE
-      BI_tree = string.match(tree.name, "bio%-tree%-.+%-%d")
-BioInd.writeDebug("Tree name: %s\tMatch: %s", {tree.name, BI_tree})
-      if tree.minable and tree.minable.results and not BI_tree then
+      BI_tree = tree.name:match("bio%-tree%-.+%-%d")
+BioInd.writeDebug("Tree name: %s\tMatch: %s", {tree.name, BI_tree or "nil"})
+      if tree.minable and tree.minable.results then
+        if not BI_tree then
 BioInd.writeDebug("Changing results!")
-       for k, results in pairs(tree.minable.results) do
-        --CHECK FOR RESULT WOOD x 4
-        if results.name == "wood" and results.amount == 4 then
-           results.amount = nil
-           results.amount_min = 1
-           results.amount_max = 6
+          for k, results in pairs(tree.minable.results) do
+            --CHECK FOR RESULT WOOD x 4
+            if results.name == "wood" and results.amount == 4 then
+               results.amount = nil
+               results.amount_min = 1
+               results.amount_max = 6
+            end
+          end
         end
-       end
+        tree.minable.result = nil
+        tree.minable.count = nil
       end
     end
+--~ BioInd.show("tree.minable", tree.minable)
   end
 end
 
@@ -259,8 +286,8 @@ if mods["Krastorio2"] then
 
 
   --~ -- Remove recipes for liquid air and nitrogen
-  --~ thxbob.lib.tech.remove_recipe_unlock("bi-tech-fertiliser", "bi-liquid-air")
-  --~ thxbob.lib.tech.remove_recipe_unlock("bi-tech-fertiliser", "bi-nitrogen")
+  --~ thxbob.lib.tech.remove_recipe_unlock("bi-tech-fertilizer", "bi-liquid-air")
+  --~ thxbob.lib.tech.remove_recipe_unlock("bi-tech-fertilizer", "bi-nitrogen")
   --~ data.raw.recipe["bi-liquid-air"].hidden = true
   --~ data.raw.recipe["bi-nitrogen"].hidden = true
 
@@ -271,20 +298,20 @@ end
 
 
 
-if mods["Krastorio"] then
+--~ if mods["Krastorio"] then
   --~ -- Remove recipes for liquid air and nitrogen
-  --~ thxbob.lib.tech.remove_recipe_unlock("bi-tech-fertiliser", "bi-liquid-air")
-  --~ thxbob.lib.tech.remove_recipe_unlock("bi-tech-fertiliser", "bi-nitrogen")
+  --~ thxbob.lib.tech.remove_recipe_unlock("bi-tech-fertilizer", "bi-liquid-air")
+  --~ thxbob.lib.tech.remove_recipe_unlock("bi-tech-fertilizer", "bi-nitrogen")
   --~ data.raw.recipe["bi-liquid-air"].hidden = true
   --~ data.raw.recipe["bi-nitrogen"].hidden = true
 
   -- Replace liquid air with oxygen in Algae Biomass 2 and 3
   --~ thxbob.lib.recipe.replace_ingredient("bi-biomass-2", "liquid-air", "oxygen")
   --~ thxbob.lib.recipe.replace_ingredient("bi-biomass-3", "liquid-air", "oxygen")
-end
+--~ end
 
 
-if mods["angelspetrochem"] then
+--~ if mods["angelspetrochem"] then
   --~ -- "Angel's Petro Chemical Processing" replaces petroleum-gas with gas-methane.
   --~ -- That doesn't make sense for our recipe, so we revert this change -- the
   --~ -- petroleum gas can still be converted to methane-gas with the converter-valve.
@@ -296,23 +323,55 @@ if mods["angelspetrochem"] then
   --~ })
 
   -- Liquid air and nitrogen aren't needed -- remove unlock recipes!
-  --~ thxbob.lib.tech.remove_recipe_unlock("bi-tech-fertiliser", "bi-liquid-air")
-  --~ thxbob.lib.tech.remove_recipe_unlock("bi-tech-fertiliser", "bi-nitrogen")
+  --~ thxbob.lib.tech.remove_recipe_unlock("bi-tech-fertilizer", "bi-liquid-air")
+  --~ thxbob.lib.tech.remove_recipe_unlock("bi-tech-fertilizer", "bi-nitrogen")
   --~ data.raw.recipe["bi-liquid-air"] = nil
   --~ data.raw.recipe["bi-nitrogen"] = nil
-end
+--~ end
 
--- "Alien Biomes" overwrites tiles in item definitions even if these tiles have been
--- disabled via start-up settings. (This has been fixed in "Alien Biomes" 0.5.2 for
--- Factorio 0.18, but let's keep it the code for easier maintainability as long as
---  Factorio 0.17.79 is stable!)
+--~ -- "Alien Biomes" overwrites tiles in item definitions even if these tiles have been
+--~ -- disabled via start-up settings. (This has been fixed in "Alien Biomes" 0.5.2 for
+--~ -- Factorio 0.18, but let's keep it the code for easier maintainability as long as
+--~ --  Factorio 0.17.79 is stable!)
+--~ local AlienBiomes = data.raw.tile["vegetation-green-grass-3"] and
+                    --~ data.raw.tile["vegetation-green-grass-1"] and true or false
+
+--~ if not AlienBiomes then
+  --~ data.raw.item["fertilizer"].place_as_tile.result = "grass-3"
+  --~ data.raw.item["bi-adv-fertilizer"].place_as_tile.result = "grass-1"
+--~ end
+
+-- Make sure fertilizers have the "place_as_tile" property!
 local AlienBiomes = data.raw.tile["vegetation-green-grass-3"] and
                     data.raw.tile["vegetation-green-grass-1"] and true or false
 
-if not AlienBiomes then
-  data.raw.item["fertiliser"].place_as_tile.result = "grass-3"
-  data.raw.item["bi-adv-fertiliser"].place_as_tile.result = "grass-1"
+-- We've already set place_as_tile. If it doesn't exist, our fertilizer definition has
+-- been overwritten by some other mod, so we restore icons and localization and add
+-- place_as_tile again!
+local fertilizer = data.raw.item["fertilizer"]
+if not fertilizer.place_as_tile then
+  fertilizer.place_as_tile = {
+    result = AlienBiomes and "vegetation-green-grass-3" or "grass-3",
+    condition_size = 1,
+    condition = { "water-tile" }
+  }
+  fertilizer.icon = ICONPATH .. "fertilizer_64.png"
+  fertilizer.icon_size = 64
+  fertilizer.icons = {
+    {
+      icon = ICONPATH .. "fertilizer_64.png",
+      icon_size = 64,
+    }
+  }
+  fertilizer.localised_name = {"BI-item-name.fertilizer"}
+  fertilizer.localised_name = {"item-description.fertilizer"}
 end
+
+data.raw.item["bi-adv-fertilizer"].place_as_tile = {
+  result = AlienBiomes and "vegetation-green-grass-1" or "grass-1",
+  condition_size = 1,
+  condition = { "water-tile" }
+}
 
 if mods["pycoalprocessing"] and BI.Settings.BI_Bio_Fuel then
     -- Bio_Fuel/recipe.lua:30:      {type = "item", name = "bi-ash", amount = 15}
@@ -345,4 +404,9 @@ end
 --~ end
 --~ for k,v in pairs(data.raw["straight-rail"]) do
 --~ log(v.name .. " collision_mask: " .. serpent.line(v.collision_mask))
+--~ end
+
+--~ BioInd.writeDebug("Testing at end of data-final-fixes.lua!")
+--~ for t, tile in pairs(data.raw.tile) do
+  --~ BioInd.writeDebug("Tile name: %s", {t})
 --~ end

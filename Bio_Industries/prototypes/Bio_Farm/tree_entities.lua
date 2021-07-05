@@ -56,7 +56,6 @@ for i = 1, TREE_LEVELS do
   data:extend({wooden, branch, leaf})
 end
 
---global.bi.trees = {}
 
 local tree, stump
 for id, prototype in pairs(data.raw.tree) do
@@ -206,7 +205,7 @@ for id, prototype in pairs(data.raw.tree) do
 
       if stump then
         stump.name = "bio-tree-" .. stump.name .. "-" .. i
-        stump.time_before_removed = 60*5
+        stump.time_before_removed = 60 * 5      -- 5 secs
 
         tree.remains_when_mined = stump.name
         tree.corpse = stump.name
@@ -228,8 +227,9 @@ for id, prototype in pairs(data.raw.tree) do
 end
 
 data:extend(extend)
-BioInd.writeDebug("Trees known to the game:")
+--~ BioInd.writeDebug("Trees known to the game:")
 
-for t, tree in pairs(data.raw.tree) do
-BioInd.show("Treename", t)
-end
+--~ for t, tree in pairs(data.raw.tree) do
+--~ BioInd.show("Treename", t)
+--~ BioInd.writeDebug("Treename: %s\tAutoplace: %s", {t, t.autoplace or "nil"})
+--~ end

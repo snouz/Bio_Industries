@@ -8,7 +8,7 @@ for index, force in pairs(game.forces) do
 
   for _, tech in ipairs({"bi-tech-coal-processing-2", "bi-tech-coal-processing-3"}) do
         -- Technology exists and has already been researched
-BioInd.writeDebug("Checking tech: %s for force %s (Researched: %s)", {tech, force.name, technologies[tech].researched})
+BioInd.writeDebug("Checking tech: %s for force %s (Researched: %s)", {tech, force and force.name or "nil", technologies[tech] and technologies[tech].researched or "nil"})
 
     if game.technology_prototypes[tech] and technologies[tech].researched then
       -- Check if all prerequisite technologies have been researched

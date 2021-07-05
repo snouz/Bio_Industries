@@ -1,4 +1,5 @@
 local BioInd = require('common')('Bio_Industries')
+local coal_processing = require("prototypes.Bio_Farm.coal_processing")
 
 local ICONPATH = BioInd.modRoot .. "/graphics/technology/"
 
@@ -80,52 +81,45 @@ data:extend({
         icon_size = 128,
       }
     },
-    effects = {
-      {
-        type = "unlock-recipe",
-        recipe = "bi-charcoal-1"
-      },
-      {
-        type = "unlock-recipe",
-        recipe = "bi-charcoal-2"
-      },
-      {
-        type = "unlock-recipe",
-        recipe = "bi-ash-2"
-      },
-      {
-        type = "unlock-recipe",
-        recipe = "bi-ash-1"
-      },
-      {
-        type = "unlock-recipe",
-        recipe = "bi-wood-fuel-brick"
-      },
+    --~ effects = {
       --~ {
         --~ type = "unlock-recipe",
-        --~ recipe = "bi-solid-fuel"
+        --~ recipe = "bi-charcoal-1"
       --~ },
-      {
-        type = "unlock-recipe",
-        recipe = "bi-seed-2"
-      },
-      {
-        type = "unlock-recipe",
-        recipe = "bi-seedling-2"
-      },
-      {
-        type = "unlock-recipe",
-        recipe = "bi-logs-2"
-      },
       --~ {
         --~ type = "unlock-recipe",
-        --~ recipe = "bi-stone-brick"
+        --~ recipe = "bi-charcoal-2"
       --~ },
-      {
-        type = "unlock-recipe",
-        recipe = "bi-cokery"
-      },
-    },
+      --~ {
+        --~ type = "unlock-recipe",
+        --~ recipe = "bi-ash-2"
+      --~ },
+      --~ {
+        --~ type = "unlock-recipe",
+        --~ recipe = "bi-ash-1"
+      --~ },
+      --~ {
+        --~ type = "unlock-recipe",
+        --~ recipe = "bi-wood-fuel-brick"
+      --~ },
+      --~ {
+        --~ type = "unlock-recipe",
+        --~ recipe = "bi-seed-2"
+      --~ },
+      --~ {
+        --~ type = "unlock-recipe",
+        --~ recipe = "bi-seedling-2"
+      --~ },
+      --~ {
+        --~ type = "unlock-recipe",
+        --~ recipe = "bi-logs-2"
+      --~ },
+      --~ {
+        --~ type = "unlock-recipe",
+        --~ recipe = "bi-cokery"
+      --~ },
+    --~ },
+    effects = coal_processing[1],
     prerequisites = {"advanced-material-processing"},
     unit = {
       count = 150,
@@ -150,25 +144,26 @@ data:extend({
         icon_size = 128,
       }
     },
-    effects = {
-      {
-        type = "unlock-recipe",
-        recipe = "bi-coal-1"
-      },
-      {
-        type = "unlock-recipe",
-        recipe = "bi-pellet-coke"
-      },
-      -- Moved here from "bi-tech-coal-processing-1" (0.18.29):
-      {
-        type = "unlock-recipe",
-        recipe = "bi-solid-fuel"
-      },
-      {
-        type = "unlock-recipe",
-        recipe = "bi-stone-brick"
-      },
-    },
+    --~ effects = {
+      --~ {
+        --~ type = "unlock-recipe",
+        --~ recipe = "bi-coal-1"
+      --~ },
+      --~ {
+        --~ type = "unlock-recipe",
+        --~ recipe = "bi-pellet-coke"
+      --~ },
+      --~ -- Moved here from "bi-tech-coal-processing-1" (0.18.29):
+      --~ {
+        --~ type = "unlock-recipe",
+        --~ recipe = "bi-solid-fuel"
+      --~ },
+      --~ {
+        --~ type = "unlock-recipe",
+        --~ recipe = "bi-stone-brick"
+      --~ },
+    --~ },
+    effects = coal_processing[2],
     --~ prerequisites = {"bi-tech-coal-processing-1"},
     prerequisites = {"bi-tech-coal-processing-1", "chemical-science-pack"},
     unit = {
@@ -190,22 +185,23 @@ data:extend({
     localised_description = {"technology-description.bi-tech-coal-processing-3"},
     icon_size = 128,
     icon = ICONPATH .. "Coal_128.png",
-     icons = {
+    icons = {
       {
         icon = ICONPATH .. "Coal_128.png",
         icon_size = 128,
       }
     },
-   effects = {
-      {
-        type = "unlock-recipe",
-        recipe = "bi-coal-2"
-      },
-      {
-        type = "unlock-recipe",
-        recipe = "bi-coke-coal"
-      },
-    },
+   --~ effects = {
+      --~ {
+        --~ type = "unlock-recipe",
+        --~ recipe = "bi-coal-2"
+      --~ },
+      --~ {
+        --~ type = "unlock-recipe",
+        --~ recipe = "bi-coke-coal"
+      --~ },
+    --~ },
+    effects = coal_processing[3],
     --~ prerequisites = {"bi-tech-coal-processing-2"},
     prerequisites = {"bi-tech-coal-processing-2", "production-science-pack"},
     unit = {
@@ -223,12 +219,12 @@ data:extend({
 
   {
     type = "technology",
-    name = "bi-tech-fertiliser",
+    name = "bi-tech-fertilizer",
     icon_size = 128,
-    icon = ICONPATH .. "Fertiliser_128.png",
+    icon = ICONPATH .. "Fertilizer_128.png",
     icons = {
       {
-        icon = ICONPATH .. "Fertiliser_128.png",
+        icon = ICONPATH .. "Fertilizer_128.png",
         icon_size = 128,
       }
     },
@@ -243,7 +239,7 @@ data:extend({
       },
       {
         type = "unlock-recipe",
-        recipe = "bi-fertiliser-1"
+        recipe = "bi-fertilizer-1"
       },
       {
         type = "unlock-recipe",
@@ -294,5 +290,5 @@ data:extend({
       },
       time = 30
     }
-  },
+  }
 })

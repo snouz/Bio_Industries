@@ -100,15 +100,3 @@ require("prototypes.Bio_Fuel.technology")
 -- try to prioritize the tiles if they exist.
 alien_biomes_priority_tiles = alien_biomes_priority_tiles or {}
 table.insert(alien_biomes_priority_tiles, "bi-solar-mat")
-
-
-------------------------------------------------------------------------------------
--- Omnifluid will be confused by our bi-solar-boiler (the compound boiler + solar
--- plant entity). Let's blacklist it if the mod is active!
-BioInd.show("Omnifluid is active", mods["omnimatter_fluid"])
-BioInd.show("forbidden_boilers", forbidden_boilers)
-
-if mods["omnimatter_fluid"] and forbidden_boilers then
-  forbidden_boilers["bi-solar-boiler"] = true
-  --~ forbidden_boilers["bi-solar-boiler-panel"] = true
-end

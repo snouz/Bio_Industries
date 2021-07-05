@@ -133,15 +133,6 @@ Event.register(defines.events.on_tick, function(event)
           if bio_cannon.delay <= 0 then
             Bio_Cannon_Check(bio_cannon.base)
           end
-        else
-          if bio_cannon.base and bio_cannon.base.valid then
-            bio_cannon.base.destroy()
-          end
-          if bio_cannon.radar and bio_cannon.radar.valid then
-            bio_cannon.radar.destroy()
-          end
-          -- Remove entries of invalid entities from table
-          global.Bio_Cannon_Table[b] = nil
         end
       end
     else

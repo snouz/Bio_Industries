@@ -205,7 +205,7 @@ function Get_Arboretum_Recipe(ArboretumTable, event)
                 local stack = Inventory[i]
                 BioInd.writeDebug(tostring(i) .. " contains: " .. tostring(stack.name))
                 if stack.count > 0 then
-                  if stack.name == 'fertiliser' and Terrain_Check_1[currentTilename] then
+                  if stack.name == 'fertilizer' and Terrain_Check_1[currentTilename] then
                     BioInd.writeDebug("Don't deduct Fertilizer")
                   else
                     stack.count  = stack.count - 1
@@ -270,7 +270,7 @@ function Get_Arboretum_Recipe(ArboretumTable, event)
               for i = 1, #Inventory do
                 local stack = Inventory[i]
                 if stack.count > 0 then
-                  if stack.name == 'bi-adv-fertiliser' and Terrain_Check_2[currentTilename] then
+                  if stack.name == 'bi-adv-fertilizer' and Terrain_Check_2[currentTilename] then
                     BioInd.writeDebug("Don't deduct Adv Fertilizer")
                   else
                     stack.count  = stack.count - 1

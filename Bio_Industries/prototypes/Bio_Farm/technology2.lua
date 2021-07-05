@@ -32,7 +32,7 @@ local ICONPATH = BioInd.modRoot .. "/graphics/technology/"
         },
         {
           type = "unlock-recipe",
-          recipe = "bi-adv-fertiliser-2"
+          recipe = "bi-adv-fertilizer-2"
         },
         {
           type = "unlock-recipe",
@@ -72,7 +72,7 @@ local ICONPATH = BioInd.modRoot .. "/graphics/technology/"
 
       },
       prerequisites = {
-        "bi-tech-fertiliser"
+        "bi-tech-fertilizer"
       },
       unit = {
         count = 200,

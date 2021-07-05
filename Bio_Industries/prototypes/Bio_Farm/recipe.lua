@@ -73,7 +73,7 @@ data:extend({
   },
 
 
-  --- Seeds from Water & Fertiliser
+  --- Seeds from Water & fertilizer
   {
     type = "recipe",
     name = "bi-seed-3",
@@ -90,7 +90,7 @@ data:extend({
     ingredients = {
       {type = "fluid", name = "water", amount = 40},
       {type = "item", name = "wood", amount = 20},
-      {type = "item", name = "fertiliser", amount = 10},
+      {type = "item", name = "fertilizer", amount = 10},
     },
     results = {
       {type = "item", name = "bi-seed", amount = 60},
@@ -107,7 +107,7 @@ data:extend({
   },
 
 
-  --- Seeds from Water & Adv-fertiliser
+  --- Seeds from Water & Adv-fertilizer
   {
     type = "recipe",
     name = "bi-seed-4",
@@ -123,7 +123,7 @@ data:extend({
     energy_required = 50,
     ingredients = {
       {type = "item", name = "wood", amount = 20},
-      {type = "item", name = "bi-adv-fertiliser", amount = 10},
+      {type = "item", name = "bi-adv-fertilizer", amount = 10},
       {type = "fluid", name = "water", amount = 40},
     },
     results = {
@@ -208,7 +208,7 @@ data:extend({
   },
 
 
-  --- Seedlings from Water & Fertiliser
+  --- Seedlings from Water & fertilizer
   {
     type = "recipe",
     name = "bi-seedling-3",
@@ -224,7 +224,7 @@ data:extend({
     energy_required = 200,
     ingredients = {
       {type = "item", name = "bi-seed", amount = 30},
-      {type = "item", name = "fertiliser", amount = 10},
+      {type = "item", name = "fertilizer", amount = 10},
       {type = "fluid", name = "water", amount = 100},
     },
     results = {
@@ -241,7 +241,7 @@ data:extend({
   },
 
 
-  --- Seedlings from Water & Adv-fertiliser
+  --- Seedlings from Water & Adv-fertilizer
   {
     type = "recipe",
     name = "bi-seedling-4",
@@ -258,7 +258,7 @@ data:extend({
     ingredients = {
       {type = "item", name = "bi-seed", amount = 40},
       {type = "fluid", name = "water", amount = 100},
-      {type = "item", name = "bi-adv-fertiliser", amount = 10},
+      {type = "item", name = "bi-adv-fertilizer", amount = 10},
     },
     results = {
       {type = "item", name = "seedling", amount = 160},
@@ -344,7 +344,7 @@ data:extend({
   },
 
 
-  --- Raw Wood from Water & fertiliser
+  --- Raw Wood from Water & fertilizer
   {
     type = "recipe",
     name = "bi-logs-3",
@@ -363,7 +363,7 @@ data:extend({
     energy_required = 300,
     ingredients = {
       {type = "item", name = "seedling", amount = 45},
-      {type = "item", name = "fertiliser", amount = 10},
+      {type = "item", name = "fertilizer", amount = 10},
       {type = "fluid", name = "water", amount = 100},
     },
     results = {
@@ -379,7 +379,7 @@ data:extend({
   },
 
 
-  --- Raw Wood from adv-fertiliser
+  --- Raw Wood from adv-fertilizer
   {
     type = "recipe",
     name = "bi-logs-4",
@@ -399,7 +399,7 @@ data:extend({
     ingredients = {
       {type = "item", name = "seedling", amount = 40},
       {type = "fluid", name = "water", amount = 100},
-      {type = "item", name = "bi-adv-fertiliser", amount = 5},
+      {type = "item", name = "bi-adv-fertilizer", amount = 5},
     },
     results = {
       {type = "item", name = "wood", amount = 160},
@@ -1201,15 +1201,15 @@ data:extend({
   },
 
 
-  -- fertiliser- Sulfur-
+  -- fertilizer- Sulfur-
   {
     type = "recipe",
-    name = "bi-fertiliser-1",
-    icon = ICONPATH .. "fertiliser_sulfur.png",
+    name = "bi-fertilizer-1",
+    icon = ICONPATH .. "fertilizer_sulfur.png",
     icon_size = 64,
     icons = {
       {
-        icon = ICONPATH .. "fertiliser_sulfur.png",
+        icon = ICONPATH .. "fertilizer_sulfur.png",
         icon_size = 64,
       }
     },
@@ -1221,7 +1221,7 @@ data:extend({
       {type = "item", name = "bi-ash", amount = 10}
     },
     results = {
-      {type = "item", name = "fertiliser", amount = 5}
+      {type = "item", name = "fertilizer", amount = 5}
     },
     main_product = "",
     enabled = false,
@@ -1229,31 +1229,31 @@ data:extend({
     allow_decomposition = false,
     allow_as_intermediate = false,
     subgroup = "bio-bio-farm-intermediate-product",
-    order = "b[bi-fertiliser]",
+    order = "b[bi-fertilizer]",
   },
 
 
-  -- Advanced fertiliser 1 --
+  -- Advanced fertilizer 1 --
   {
     type = "recipe",
-    name = "bi-adv-fertiliser-1",
-    icon = ICONPATH .. "advanced_fertiliser_64.png",
+    name = "bi-adv-fertilizer-1",
+    icon = ICONPATH .. "advanced_fertilizer_64.png",
     icon_size = 64,
     icons = {
       {
-        icon = ICONPATH .. "advanced_fertiliser_64.png",
+        icon = ICONPATH .. "advanced_fertilizer_64.png",
         icon_size = 64,
       }
     },
     category = "chemistry",
     energy_required = 50,
     ingredients = {
-      {type = "item", name = "fertiliser", amount = 25},
+      {type = "item", name = "fertilizer", amount = 25},
       {type = "fluid", name = "bi-biomass", amount = 10}, -- <== Need to add during Data Updates
       --{type = "fluid", name = "NE_enhanced-nutrient-solution", amount = 5}, -- Will be added if you have Natural Evolution Buildings Mod installed.
     },
     results = {
-      {type = "item", name = "bi-adv-fertiliser", amount = 50}
+      {type = "item", name = "bi-adv-fertilizer", amount = 50}
     },
     main_product = "",
     enabled = false,
@@ -1261,31 +1261,31 @@ data:extend({
     allow_decomposition = false,
     allow_as_intermediate = false,
     subgroup = "bio-bio-farm-intermediate-product",
-    order = "b[fertiliser]-b[bi-adv-fertiliser-1]",
+    order = "b[fertilizer]-b[bi-adv-fertilizer-1]",
   },
 
 
-  -- Advanced fertiliser 2--
+  -- Advanced fertilizer 2--
   {
     type = "recipe",
-    name = "bi-adv-fertiliser-2",
-    icon = ICONPATH .. "advanced_fertiliser_64.png",
+    name = "bi-adv-fertilizer-2",
+    icon = ICONPATH .. "advanced_fertilizer_64.png",
     icon_size = 64,
     icons = {
       {
-        icon = ICONPATH .. "advanced_fertiliser_64.png",
+        icon = ICONPATH .. "advanced_fertilizer_64.png",
         icon_size = 64,
       }
     },
     category = "chemistry",
     energy_required = 50,
     ingredients = {
-      {type = "item", name = "fertiliser", amount = 20},
+      {type = "item", name = "fertilizer", amount = 20},
       {type = "fluid", name = "bi-biomass", amount = 10},
       {type = "item", name = "bi-woodpulp", amount = 10},
     },
     results = {
-      {type = "item", name = "bi-adv-fertiliser", amount = 20}
+      {type = "item", name = "bi-adv-fertilizer", amount = 20}
     },
     main_product = "",
     enabled = false,
@@ -1293,7 +1293,7 @@ data:extend({
     allow_decomposition = false,
     allow_as_intermediate = false,
     subgroup = "bio-bio-farm-intermediate-product",
-    order = "b[fertiliser]-b[bi-adv-fertiliser-2]",
+    order = "b[fertilizer]-b[bi-adv-fertilizer-2]",
     -- This is a custom property for use by "Krastorio 2" (it will change
     -- ingredients/results; used for wood/wood pulp)
     mod = "Bio_Industries",
@@ -1361,7 +1361,7 @@ data:extend({
       energy_required = 8,
       ingredients = {
       {"bi-seed", 400},
-      {"fertiliser", 200},
+      {"fertilizer", 200},
       {"rocket", 1},
       },
       result = "bi-seed-bomb-standard",
@@ -1372,7 +1372,7 @@ data:extend({
       energy_required = 8,
       ingredients = {
       {"bi-seed", 400},
-      {"fertiliser", 200},
+      {"fertilizer", 200},
       {"rocket", 2},
       },
       result = "bi-seed-bomb-standard",
@@ -1404,7 +1404,7 @@ data:extend({
       energy_required = 8,
       ingredients = {
       {"bi-seed", 400},
-      {"bi-adv-fertiliser", 200},
+      {"bi-adv-fertilizer", 200},
       {"rocket", 1},
       },
       result = "bi-seed-bomb-advanced",
@@ -1415,7 +1415,7 @@ data:extend({
       energy_required = 8,
       ingredients = {
       {"bi-seed", 400},
-      {"bi-adv-fertiliser", 200},
+      {"bi-adv-fertilizer", 200},
       {"rocket", 2},
       },
       result = "bi-seed-bomb-advanced",
@@ -1519,7 +1519,7 @@ data:extend({
     category = "bi-arboretum",
     energy_required = 10000,
     ingredients = {
-      {type = "item", name = "fertiliser", amount = 1},
+      {type = "item", name = "fertilizer", amount = 1},
       {type = "fluid", name = "water", amount = 100},
     },
     results = {
@@ -1550,7 +1550,7 @@ data:extend({
     category = "bi-arboretum",
     energy_required = 10000,
     ingredients = {
-      {type = "item", name = "bi-adv-fertiliser", amount = 1},
+      {type = "item", name = "bi-adv-fertilizer", amount = 1},
       {type = "fluid", name = "water", amount = 100},
     },
     results = {
@@ -1582,7 +1582,7 @@ data:extend({
     energy_required = 10000,
     ingredients = {
       {type = "item", name = "seedling", amount = 1},
-      {type = "item", name = "fertiliser", amount = 1},
+      {type = "item", name = "fertilizer", amount = 1},
       {type = "fluid", name = "water", amount = 100},
     },
     results = {
@@ -1614,7 +1614,7 @@ data:extend({
     energy_required = 10000,
     ingredients = {
       {type = "item", name = "seedling", amount = 1},
-      {type = "item", name = "bi-adv-fertiliser", amount = 1},
+      {type = "item", name = "bi-adv-fertilizer", amount = 1},
       {type = "fluid", name = "water", amount = 100},
     },
     results = {

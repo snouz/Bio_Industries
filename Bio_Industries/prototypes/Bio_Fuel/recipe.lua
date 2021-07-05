@@ -69,7 +69,7 @@ data:extend({
     energy_required = 10,
     ingredients = {
       {type = "fluid", name = "water", amount = 100},
-      {type = "item", name = "fertiliser", amount = 10},
+      {type = "item", name = "fertilizer", amount = 10},
     },
     results = {
       {type = "fluid", name = "bi-biomass", amount = 50},
@@ -363,7 +363,7 @@ if BI.Settings.BI_Bio_Fuel then
       --~ energy_required = 10,
       --~ ingredients = {
         --~ {type = "fluid", name = "water", amount = 100},
-        --~ {type = "item", name = "fertiliser", amount = 10},
+        --~ {type = "item", name = "fertilizer", amount = 10},
       --~ },
       --~ results = {
         --~ {type = "fluid", name = "bi-biomass", amount = 50},
@@ -721,3 +721,4 @@ if BI.Settings.BI_Bio_Fuel then
 
   })
 end
+log("recipe.lua: data.raw.recipe[\"bi-sulfur\"]: " .. serpent.block(data.raw.recipe["bi-sulfur"]))

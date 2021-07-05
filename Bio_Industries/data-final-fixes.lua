@@ -20,7 +20,8 @@ BI.Settings.BI_Game_Tweaks_Emissions_Multiplier = settings.startup["BI_Game_Twea
 
 
 -- 5dim Stack changes
-if settings.startup["5d-change-stack"] and settings.startup["5d-change-stack"].value then
+--~ if settings.startup["5d-change-stack"] and settings.startup["5d-change-stack"].value then
+if BioInd.get_startup_setting("5d-change-stack") then
   local item = data.raw.item["wood"]
    if item then
       item.stack_size = math.max(210, item.stack_size)
@@ -489,6 +490,10 @@ end
 --~ end
 --~ require("prototypes.Wood_Products.rail_updates")
 
+------------------------------------------------------------------------------------
+-- Add icons to our prototypes
+BioInd.BI_add_icons()
+
 
 ---TESTING!
 --~ for k,v in pairs(data.raw["curved-rail"]) do
@@ -515,3 +520,11 @@ end
     --~ BioInd.writeDebug("recipe: %s\torder: %s\tsubgroup: %s", {r, recipe.order or "", recipe.subgroup or "" })
   --~ end
 --~ end
+
+for k, v in pairs(data.raw) do
+  for t, p in pairs(v) do
+    if p.se_allow_in_space then
+      BioInd.writeDebug("%s (%s) can be built in space!", {p.name, t})
+    end
+  end
+end

@@ -1,13 +1,21 @@
 ---------------------------------------------------------------------------------------------------
-Version: 1.1.7
-Date: 2021-01-31
+Version: 1.1.8
+Date: 2021-02-06
   Uploaded by:
     - Pi-C
 
   Bugfixes:
-    - Disabled disassemble recipes (and the associated setting) if IR2 is active. This takes care of a crash when both IR2 and "Resource Spawner Overhaul" are active. (https://mods.factorio.com/mod/Bio_Industries/discussion/600a5cca5f9fe9c9952b0b8a)
-    - If IR2 is active, it's not sufficient to replace "crushed stone" with "gravel" in the recipe ingredients and results only -- we must also replace it in main_product! This fixes a crash when BI was used together with IR2 and "Angel's Refining", and potentially with other mods as well.
-    - Wrongly assumed that a recipe will have either "icon" or "icons" as soon as it has been created (actually, they may be added later on), and created invalid "icons" entries by copying "icon" when it was nil. Added another check to fix a crash related to a missing icon when IR2 is active. (https://mods.factorio.com/mod/Bio_Industries/discussion/600a5cca5f9fe9c9952b0b8a)
+    - Fixed crash when upgrading from an old version of the mod because some tables had not been initialized. (https://mods.factorio.com/mod/Bio_Industries/discussion/601a66a1067e93916960c12c)
+    - Fixed that some of our compound entities were missing icons in the "Electric network info" screen. (https://mods.factorio.com/mod/Bio_Industries/discussion/6017c3bba66ddaa92125380b)
+    - Fixed that Musk floor wood turn to black when one hovered the cursor over it with an inserter in the hand. (https://mods.factorio.com/mod/Bio_Industries/discussion/600a5cca5f9fe9c9952b0b8a)
+
+  Changes:
+    - Some more changes to the init process: If a compound entitiy needs additional tables or variables in the global table, their names will be stored with its data. On init, these tables/variables will be created if they didn't exist yet, or will be removed if the compound entity has been disabled.
+    - Added a setting to turn off BI's bigger wooden chests. The setting will be not available (and the chests won't be created) if any of these mods is active: "AAI Containers & Warehouses", "Advanced storage +", "Angel's Addons - Storage Options", "Bob's Logistics mod", "Crux Chests", "Warehousing Mod".
+    - Don't create the disassembly recipes if "AAI Industry" is active.
+    - If "Space Exploration" is active, a recipe for making sand from crushed stone will be added to the "Pulveriser" once that tech has been researched. Also, allow our "x to crushed stone" recipes to be crafted in the pulveriser.
+    - If "Space Exploration" is active, several of our entities (e.g. bio reactor, cokery, stone crusher,entities that produce/store electricity, poles, and chests) can now be built in space.
+
 
   TODO:
     - Add an alternative way to produce plastic without fluids. (https://mods.factorio.com/mod/Bio_Industries/discussion/5e3f5fadc359e6000d54cfb2)
@@ -19,6 +27,18 @@ Date: 2021-01-31
     - Make a version of the wooden rail bridge with powered rails. Make version of bridges from other mods (so far "Beautiful Bridge Railway") with powered rails.
     - Bigger trees give more wood (https://forums.factorio.com/viewtopic.php?f=16&t=95205)
     - Don't plant lying trees
+
+
+---------------------------------------------------------------------------------------------------
+Version: 1.1.7
+Date: 2021-01-31
+  Uploaded by:
+    - Pi-C
+
+  Bugfixes:
+    - Disabled disassemble recipes (and the associated setting) if IR2 is active. This takes care of a crash when both IR2 and "Resource Spawner Overhaul" are active. (https://mods.factorio.com/mod/Bio_Industries/discussion/600a5cca5f9fe9c9952b0b8a)
+    - If IR2 is active, it's not sufficient to replace "crushed stone" with "gravel" in the recipe ingredients and results only -- we must also replace it in main_product! This fixes a crash when BI was used together with IR2 and "Angel's Refining", and potentially with other mods as well.
+    - Wrongly assumed that a recipe will have either "icon" or "icons" as soon as it has been created (actually, they may be added later on), and created invalid "icons" entries by copying "icon" when it was nil. Added another check to fix a crash related to a missing icon when IR2 is active. (https://mods.factorio.com/mod/Bio_Industries/discussion/600a5cca5f9fe9c9952b0b8a)
 
 
 ---------------------------------------------------------------------------------------------------
@@ -208,7 +228,7 @@ Date: 2020-11-30
     - Gave all graphics the "optipng" treatment.
     - TheSAguy provided alternative icons for use with the recipes "Bio-mass conversion 2" and "Basic gas processing" if "Angel's Petro Chemical Processing" is active.
 
-  Localization:
+  Locale:
     - Completely reworked localization -- no need to translate everything, using crossreferences is way easier! Also, the new descriptions should explain some things that many players apparently didn't understand.
     - Removed some obsolete strings.
     - Added German locale. Thanks to Tobilike! (https://forums.factorio.com/viewtopic.php?p=508622#p508622)

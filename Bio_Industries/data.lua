@@ -15,6 +15,7 @@ for var, name in pairs({
   Bio_Cannon = "BI_Bio_Cannon",
   BI_Bio_Fuel = "BI_Bio_Fuel",
   BI_Easy_Bio_Gardens = "BI_Easy_Bio_Gardens",
+  BI_Bigger_Wooden_Chests = "BI_Bigger_Wooden_Chests",
   BI_Game_Tweaks_Stack_Size = "BI_Game_Tweaks_Stack_Size",
   BI_Game_Tweaks_Recipe = "BI_Game_Tweaks_Recipe",
   BI_Game_Tweaks_Tree = "BI_Game_Tweaks_Tree",
@@ -73,6 +74,9 @@ require ("prototypes.Bio_Solar_Farm.recipe")
 require ("prototypes.Wood_Products.entities")
 require ("prototypes.Wood_Products.item")
 require ("prototypes.Wood_Products.recipe")
+require ("prototypes.Wood_Products.containers-entities")
+require ("prototypes.Wood_Products.containers-item")
+require ("prototypes.Wood_Products.containers-recipe")
 
 
 --- Dart Turret (Bio turret)
@@ -116,3 +120,8 @@ table.insert(alien_biomes_priority_tiles, "bi-solar-mat")
 --~ for i, item in pairs(data.raw.item) do
 --~ BioInd.show("Item", i)
 --~ end
+
+
+------------------------------------------------------------------------------------
+-- Add icons to our prototypes
+BioInd.BI_add_icons()

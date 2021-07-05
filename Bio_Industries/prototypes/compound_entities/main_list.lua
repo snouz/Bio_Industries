@@ -27,6 +27,7 @@ ret.HE_map = {
   boiler = "boiler",
   lamp = "lamp",
   panel = "solar-panel",
+  connector = "electric-pole",
   pole = "electric-pole",
   radar = "radar"
 }
@@ -43,8 +44,18 @@ end
 -- hidden:              table containing the hidden entities needed by this entity
 --                      Key:    handle of the hidden entity
 --                      Value:  data needed when placing the hidden entity
--- new_base_name:       If the placed entity is used as overlay, it will be replaced  --                      with this entity.
--- optional:            Any optional data affecting the compound entity that must be  --                      stored in the global table.
+-- localize_entity:     Pointer to an entity name -- e.g. {"entity-name.NAME"} -- that
+--                      will be used to localize this entity. This is needed when the
+--                      same string is used for differently named entity names, such
+--                      as "straight-rail"/"curved-rail"/"rail-planner".
+-- new_base_name:       If the placed entity is used as overlay, it will be replaced
+--                      with this entity.
+-- add_global_tables    table of names of other tables in global that are needed by
+--                      this entity
+-- add_global_values    table of names and values of variables that should be added to
+--                      the global table if this compound entity is used
+-- optional:            Any optional data affecting the compound entity that must be
+  --                      stored in the global table.
 ------------------------------------------------------------------------------------
 -- Data of hidden entities
 -- name:                name of the entity prototype
@@ -64,17 +75,27 @@ ret.compound_entities = {
       type = ret.HE_map.assembler,
     },
     hidden = {
+      connector = {
+        name = "bi-bio-farm-hidden-connector_pole",
+        type = ret.HE_map.pole,
+        -- base_offset = {x = 1.0, y = 1.0},
+        -- base_offset = (script and script.active_mods["_debug"] or mods and mods["_debug"]) and
+                      --~ {x = 1.0, y = 1.0} or {x = 0, y = 0},
+      },
       pole = {
-        --~ name = "bi-bio-farm-hidden-pole",
-        --~ type = ret.HE_map.pole,
+        -- name = "bi-bio-farm-hidden-pole",
+        -- type = ret.HE_map.pole,
+        -- base_offset = {x = 1.0, y = 1.0},
+        base_offset = (script and script.active_mods["_debug"] or mods and mods["_debug"]) and
+                      {x = 1.0, y = 1.0} or {x = 0, y = 0},
       },
       panel = {
-        --~ name = "bi-bio-farm-hidden-panel",
-        --~ type = ret.HE_map.panel,
+        -- name = "bi-bio-farm-hidden-panel",
+        -- type = ret.HE_map.panel,
       },
       lamp = {
-        --~ name = "bi-bio-farm-hidden-lamp",
-        --~ type = ret.HE_map.lamp
+        -- name = "bi-bio-farm-hidden-lamp",
+        -- type = ret.HE_map.lamp
       },
     }
   },
@@ -86,8 +107,8 @@ ret.compound_entities = {
     },
     hidden = {
       pole = {
-        --~ name = "bi-bio-garden-hidden-pole",
-        --~ type = ret.HE_map.pole,
+        -- name = "bi-bio-garden-hidden-pole",
+        -- type = ret.HE_map.pole,
       },
     }
   },
@@ -99,8 +120,8 @@ ret.compound_entities = {
     },
     hidden = {
       pole = {
-        --~ name = "bi-solar-farm-hidden-pole",
-        --~ type = ret.HE_map.pole,
+        -- name = "bi-solar-farm-hidden-pole",
+        -- type = ret.HE_map.pole,
       },
     }
   },
@@ -112,12 +133,12 @@ ret.compound_entities = {
     },
     hidden = {
       panel = {
-        --~ name = "bi-solar-boiler-hidden-panel",
-        --~ type = ret.HE_map.panel,
+        -- name = "bi-solar-boiler-hidden-panel",
+        -- type = ret.HE_map.panel,
       },
       pole = {
-        --~ name = "bi-solar-boiler-hidden-pole",
-        --~ type = ret.HE_map.pole,
+        -- name = "bi-solar-boiler-hidden-pole",
+        -- type = ret.HE_map.pole,
       },
     }
   },
@@ -129,8 +150,9 @@ ret.compound_entities = {
     },
     hidden = {
       pole = {
-        name = "bi-power-rail-hidden-pole",
-        --~ type = ret.HE_map.pole,
+        name = "bi-rail-power-hidden-pole",
+        localize_entity = "bi-rail-power"
+        -- type = ret.HE_map.pole,
       },
     }
   },
@@ -143,19 +165,20 @@ ret.compound_entities = {
     },
     hidden = {
       radar = {
-        --~ name = "bi-arboretum-hidden-radar",
-        --~ type = ret.HE_map.radar,
+        -- name = "bi-arboretum-hidden-radar",
+        -- type = ret.HE_map.radar,
         base_offset = {x = -3.5, y = 3.5},
       },
       pole = {
-        --~ name = "bi-arboretum-hidden-pole",
-        --~ type = ret.HE_map.pole,
+        -- name = "bi-arboretum-hidden-pole",
+        -- type = ret.HE_map.pole,
       },
       lamp = {
-        --~ name = "bi-arboretum-hidden-lamp",
-        --~ type = ret.HE_map.lamp,
+        -- name = "bi-arboretum-hidden-lamp",
+        -- type = ret.HE_map.lamp,
       },
     },
+    add_global_tables = {"bi_arboretum_radar_table", "bi_arboretum_recipe_table"},
     new_base_name = "bi-arboretum",
   },
   -- Built from blueprint
@@ -167,10 +190,11 @@ ret.compound_entities = {
     },
     hidden = {
       radar = {
-        --~ name = "bi-bio-cannon-hidden-radar",
-        --~ type = ret.HE_map.radar,
+        -- name = "bi-bio-cannon-hidden-radar",
+        -- type = ret.HE_map.radar,
       },
     },
+    add_global_values = { Bio_Cannon_Counter = 0 },
     optional = {delay = 0},
     new_base_name = "bi-bio-cannon",
   },

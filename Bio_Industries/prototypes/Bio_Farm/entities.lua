@@ -513,6 +513,9 @@ data:extend({
         icon_size = 64,
       }
     },
+    -- This is necessary for "Space Exploration" (if not true, the entity can only be
+    -- placed on Nauvis)!
+    se_allow_in_space = true,
     flags = {"placeable-neutral", "placeable-player", "player-creation"},
     order = "a[cokery]",
     minable = {hardness = 0.2, mining_time = 0.5, result = "bi-cokery"},
@@ -553,6 +556,9 @@ data:extend({
     name = "bi-stone-crusher",
     icon = ICONPATH .. "stone_crusher.png",
     icon_size = 64,
+    -- This is necessary for "Space Exploration" (if not true, the entity can only be
+    -- placed on Nauvis)!
+    se_allow_in_space = true,
     flags = {"placeable-neutral", "player-creation"},
     minable = {hardness = 0.2, mining_time = 0.5, result = "bi-stone-crusher"},
     max_health = 100,

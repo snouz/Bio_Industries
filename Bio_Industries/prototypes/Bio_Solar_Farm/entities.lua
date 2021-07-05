@@ -42,6 +42,9 @@ data:extend({
         icon_size = 64,
       }
     },
+    -- This is necessary for "Space Exploration" (if not true, the entity can only be
+    -- placed on Nauvis)!
+    se_allow_in_space = true,
     flags = {"placeable-neutral", "player-creation"},
     minable = {hardness = 0.25, mining_time = 0.5, result = "bi-bio-solar-farm"},
     max_health = 600,
@@ -80,6 +83,9 @@ data:extend({
         icon_size = 64,
       }
     },
+    -- This is necessary for "Space Exploration" (if not true, the entity can only be
+    -- placed on Nauvis)!
+    se_allow_in_space = true,
     flags = {"placeable-neutral", "player-creation"},
     minable = {hardness = 0.2, mining_time = 0.5, result = "bi-bio-accumulator"},
     max_health = 500,
@@ -169,6 +175,9 @@ data:extend({
         icon_size = 64,
       }
     },
+    -- This is necessary for "Space Exploration" (if not true, the entity can only be
+    -- placed on Nauvis)!
+    se_allow_in_space = true,
     flags = {"placeable-neutral", "player-creation"},
     minable = {hardness = 0.2, mining_time = 0.5, result = "bi-large-substation"},
     max_health = 600,
@@ -531,6 +540,9 @@ data:extend({
         icon_size = 64,
       }
     },
+    -- This is necessary for "Space Exploration" (if not true, the entity can only be
+    -- placed on Nauvis)!
+    se_allow_in_space = true,
     flags = {"placeable-neutral", "player-creation"},
     minable = {hardness = 0.2, mining_time = 1, result = "bi-solar-boiler"},
     max_health = 400,

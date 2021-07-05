@@ -2,7 +2,7 @@
   "entity":
   [
     ["bi-bio-farm-electric-pole",       "bi-bio-farm-hidden-pole"],
-    ["bi-rail-hidden-power-pole",       "bi-power-rail-hidden-pole"],
+    ["bi-rail-hidden-power-pole",       "bi-rail-power-hidden-pole"],
     ["bi-musk-mat-pole",                "bi-musk-mat-hidden-pole"],
 
     ["bi-bio-farm-solar-panel",         "bi-bio-farm-hidden-panel"],

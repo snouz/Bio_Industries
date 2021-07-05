@@ -54,6 +54,10 @@ BioInd.show("radar.name", c_entities["bi-arboretum"].hidden[h_key].name)
   -- Adjust properties for hidden radar of Bio cannon
   if c_entities["bi-bio-cannon"] and
       radar_name == c_entities["bi-bio-cannon"].hidden[h_key].name then
+    radar.icon = ICONPATH .. "biocannon_icon.png"
+    radar.icon_size = 64
+    radar.BI_add_icon = true
+
     radar.energy_per_sector = "22MJ"
     radar.energy_per_nearby_scan = "400kW"
     radar.energy_usage = "6kW"
@@ -63,7 +67,13 @@ BioInd.show("radar.name", c_entities["bi-arboretum"].hidden[h_key].name)
 
   -- Adjust properties for hidden radar of Terraformer
   elseif c_entities["bi-arboretum"] and
-      radar_name == c_entities["bi-arboretum"].hidden[h_key].name then
+            radar_name == c_entities["bi-arboretum"].hidden[h_key].name then
+
+    radar.localised_name = {"entity-name." .. radar.name}
+
+    radar.icon = ICONPATH .. "Arboretum_Icon.png"
+    radar.icon_size = 64
+    radar.BI_add_icon = true
 
     -- We want to be able to see the scanning progress of this radar!
     for f, flag in pairs(radar.flags) do

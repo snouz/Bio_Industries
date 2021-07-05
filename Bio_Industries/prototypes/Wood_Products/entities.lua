@@ -6,6 +6,7 @@ local WOODPATH = BioInd.modRoot .. "/graphics/entities/wood_products/"
 local ENTITYPATH = "__base__/graphics/entity/"
 local PIPEPATH = ENTITYPATH .. "pipe/"
 
+local SNDPATH = "__base__/sound/"
 --~ local BIGICONS = BioInd.check_base_version("0.18.0")
 
 
@@ -21,11 +22,13 @@ sounds.generic_impact = sound_def.generic_impact
 for _, sound in ipairs(sounds.generic_impact) do
   sound.volume = 0.65
 end
+--~ sounds.open_sound = { filename = "__base__/sound/wooden-chest-open.ogg" }
+--~ sounds.close_sound = { filename = SNDPATH .. "wooden-chest-close.ogg" }
 
 sounds.walking_sound = {}
 for i = 1, 11 do
   sounds.walking_sound[i] = {
-    filename = "__base__/sound/walking/concrete-" .. (i < 10 and "0" or "")  .. i ..".ogg",
+    filename = SNDPATH .. "walking/concrete-" .. (i < 10 and "0" or "")  .. i ..".ogg",
     volume = 1.2
   }
 end
@@ -395,6 +398,9 @@ data:extend({
         icon_size = 64,
       }
     },
+    -- This is necessary for "Space Exploration" (if not true, the entity can only be
+    -- placed on Nauvis)!
+    se_allow_in_space = true,
     flags = {"placeable-neutral", "player-creation"},
     minable = {hardness = 0.2, mining_time = 0.5, result = "bi-wooden-pole-big"},
     max_health = 150,
@@ -483,6 +489,9 @@ data:extend({
         icon_size = 64,
       }
     },
+    -- This is necessary for "Space Exploration" (if not true, the entity can only be
+    -- placed on Nauvis)!
+    se_allow_in_space = true,
     flags = {"placeable-neutral", "player-creation"},
     minable = {hardness = 0.2, mining_time = 0.5, result = "bi-wooden-pole-huge"},
     max_health = 250,

@@ -38,6 +38,9 @@ data:extend({
         icon_size = 64,
       }
     },
+    -- This is necessary for "Space Exploration" (if not true, the entity can only be
+    -- placed on Nauvis)!
+    se_allow_in_space = true,
     flags = {"placeable-neutral", "player-creation"},
     minable = {hardness = 0.2, mining_time = 0.5, result = "bi-bio-reactor"},
     max_health = 100,
@@ -128,6 +131,9 @@ if BI.Settings.BI_Bio_Fuel then
           icon_size = 64,
         }
       },
+      -- This is necessary for "Space Exploration" (if not true, the entity can only be
+      -- placed on Nauvis)!
+      se_allow_in_space = true,
       flags = {"placeable-neutral", "player-creation"},
       minable = {hardness = 0.2, mining_time = 0.5, result = "bi-bio-boiler"},
       max_health = 300,

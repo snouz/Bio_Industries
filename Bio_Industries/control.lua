@@ -168,15 +168,33 @@ BioInd.writeDebug("Entered init!")
   end
 BioInd.show("Need to check these tables in global", compound_entity_tables)
 
-  -- Scan all global tables storing data of compound entities
+  -- Prepare global tables storing data of compound entities
   local result
   for compound_tab, compound_name in pairs(compound_entity_tables) do
     -- Init table
     global[compound_tab] = global[compound_tab] or {}
     BioInd.writeDebug("Initialized global[%s] (%s entities stored)",
                       {compound_name, table_size(global[compound_tab])})
+    -- If this compound entity requires additional tables in global, initialize
+    -- them now!
+    local related_tables = global.compound_entities[compound_name].add_global_tables
+    if related_tables then
+      for t, tab in ipairs(related_tables or {}) do
+        global[tab] = global[tab] or {}
+        BioInd.writeDebug("Initialized global[%s] (%s values)", {tab, table_size(global[tab])})
+      end
+    end
+    -- If this compound entity requires additional values in global, initialize
+    -- them now!
+    local related_vars = global.compound_entities[compound_name].add_global_values
+    if related_vars then
+      for var_name, value in pairs(related_vars or {}) do
+        global[var_name] = global[var_name] or value
+        BioInd.writeDebug("Set global[%s] to %s", {var_name, global[var_name]})
+      end
+    end
 
-    -- We can skip this for empty tables!
+    -- Clean up global tables (We can skip this for empty tables!)
     if next(global[compound_tab]) then
       -- Remove invalid entities
       result = BioInd.clean_global_compounds_table(compound_name)
@@ -294,8 +312,9 @@ Event.register(defines.events.on_player_joined_game, function(event)
    local force = player.force
    local techs = force.technologies
 
-  if settings.startup["angels-use-angels-barreling"] and
-     settings.startup["angels-use-angels-barreling"].value then
+  --~ if settings.startup["angels-use-angels-barreling"] and
+     --~ settings.startup["angels-use-angels-barreling"].value then
+  if BioInd.get_startup_setting("angels-use-angels-barreling") then
       techs['fluid-handling'].researched = false
       techs['bi-tech-fertilizer'].reload()
       local _t = techs['angels-fluid-barreling'].researched

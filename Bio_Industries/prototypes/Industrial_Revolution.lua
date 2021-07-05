@@ -69,7 +69,7 @@ BioInd.writeDebug("Exchanged %s in main_product%s of %s with %s:\t%s",
     end
   end
 
-  -- Add unlocks
+  -- Add recipe unlocks
   local crushing = {
     ["bi-crushed-stone-1"] = "grinding-1",
     ["bi-crushed-stone-2"] = "grinding-2",
@@ -88,5 +88,15 @@ BioInd.writeDebug("Exchanged %s in main_product%s of %s with %s:\t%s",
       r.localised_description = {"recipe-description.bi-crushed-stone_IR"}
     end
     thxbob.lib.tech.add_recipe_unlock("ir2-" .. category, recipe)
+  end
+
+  -- Our stone crusher should be able to craft the recipes that can be made by
+  -- IR2's Copper crusher ("grinding-1") and Electric crusher ("grinding-2")!
+  local crusher = data.raw.furnace["bi-stone-crusher"]
+  if crusher then
+    table.insert(crusher.crafting_categories, "grinding-1")
+    table.insert(crusher.crafting_categories, "grinding-2")
+    table.insert(crusher.crafting_categories, "powdering-1")
+    table.insert(crusher.crafting_categories, "powdering-2")
   end
 end

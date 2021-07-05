@@ -334,15 +334,34 @@ common.writeDebug("h_key: %s\th_data: %s", {h_key, h_data})
       else
         local tab = c_data.tab
         if tab then
+          -- Remove main table from global
           common.writeDebug("Removing %s (%s obsolete entries)", {tab, #tab})
           global[tab] = nil
+        end
+
+        -- If this compound entity requires additional tables in global, initialize
+        -- them now!
+        local related_tables = c_data.add_global_tables
+        if related_tables then
+          for t, tab in ipairs(related_tables or {}) do
+            common.writeDebug("Removing global[%s] (%s values)", {tab, table_size(global[tab])})
+            global[tab] = nil
+          end
+        end
+
+        -- If this compound entity requires additional values in global, remove them!
+        local related_vars = c_data.add_global_values
+        if related_vars then
+          for var_name, value in pairs(related_vars or {}) do
+            common.writeDebug("Removing global[%s] (was: %s)", {var_name, global[var_name]})
+            global[var_name] = nil
+          end
         end
       end
     end
     common.show("ret", ret)
     return ret
   end
-
   ------------------------------------------------------------------------------------
   -- Function to add all optional values for a compound entity to the table entry.
   common.add_optional_data = function(base)
@@ -670,7 +689,7 @@ common.writeDebug("\"Easy gardens\": Compiling list of poles they can connect to
         {filter = "type", type = "electric-pole"},
         {filter = "name", name = {
             -- Poles named here will be ignored!
-            "bi-power-rail-hidden-pole",
+            "bi-rail-power-hidden-pole",
             "bi-musk-mat-hidden-pole",
             "bi-bio-garden-hidden-pole"
             }, invert = "true", mode = "and"
@@ -810,10 +829,36 @@ common.writeDebug("Rail %s of %s (%s): %s (%s)", {direction, base.name, base.uni
   end
 
 
-  --------------------------------------------------------------------
+  ------------------------------------------------------------------------------------
   -- Get the value of a startup setting
   common.get_startup_setting = function(setting_name)
     return settings.startup[setting_name] and settings.startup[setting_name].value
+  end
+
+
+  ------------------------------------------------------------------------------------
+  -- Add the "icons" property based on the value of "icon"
+  ------------------------------------------------------------------------------------
+  common.BI_add_icons = function()
+    for tab_name, tab in pairs(data.raw) do
+      --~ common.writeDebug("Checking data.raw[%s]", {tab_name})
+      for proto_type_name, proto_type in pairs(data.raw[tab_name] or {}) do
+--~ common.show("proto_type.BI_add_icon", proto_type.BI_add_icon or "nil" )
+
+        if proto_type.BI_add_icon then
+          proto_type.icons = {
+            {
+              icon = proto_type.icon,
+              icon_size = proto_type.icon_size,
+              icon_mipmaps = proto_type.icon_mipmaps
+            }
+          }
+          proto_type.BI_add_icon = nil
+          common.writeDebug("Added \"icons\" property to data.raw[\"%s\"][\"%s\"]: %s",
+                            {tab_name, proto_type_name, proto_type.icons}, "line")
+        end
+      end
+    end
   end
 
 ------------------------------------------------------------------------------------

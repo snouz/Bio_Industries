@@ -53,16 +53,42 @@ for panel_name, locale_name in pairs(BI.hidden_entities.types[h_key]) do
 
 
   -- Adjust properties for hidden panel of Solar boiler
-  if panel_name == "bi-solar-boiler" then
+  if c_entities["bi-solar-boiler"] and
+      panel_name == c_entities["bi-solar-boiler"].hidden[h_key].name then
+
+    panel.icon = ICONPATH .. "Bio_Solar_Boiler_Icon.png"
+    panel.icon_size = 64
+    panel.BI_add_icon = true
+
+    panel.picture = {}
+    panel.picture.layers = BI.add_layer(panel.picture.layers, {
+      name = BioInd.modRoot .. "/graphics/entities/bio_solar_farm/Bio_Solar_Boiler.png",
+      size = 288
+    })
+    panel.overlay = {}
+    panel.overlay.layers = table.deepcopy(panel.picture.layers)
+
+    panel.max_health = 400
+    panel.render_no_power_icon = true
+    panel.collision_box = {{-4.2, -4.2}, {4.2, 4.2}}
     panel.production = "1.8MW"
     BioInd.show("Adjusted properties of", panel_name)
+
   -- Adjust properties for hidden panel of bio farms
   elseif c_entities["bi-bio-farm"] and
-      panel_name == c_entities["bi-bio-farm"].hidden[h_key].name then
+            c_entities["bi-bio-farm"].hidden[h_key] and
+            panel_name == c_entities["bi-bio-farm"].hidden[h_key].name then
+    panel.icon = ICONPATH .. "Bio_Farm_Solar.png"
+    panel.icon_size = 64
+    panel.BI_add_icon = true
     panel.production = "100kW"
     BioInd.show("Adjusted properties of", panel_name)
+
   -- Adjust properties for hidden panel of Musk floor
   elseif panel_name == Musk_name then
+    panel.icon = ICONPATH .. "solar-mat.png"
+    panel.icon_size = 64
+    panel.BI_add_icon = true
     panel.production = "10kW"
     BioInd.show("Adjusted properties of", panel_name)
   end

@@ -376,7 +376,7 @@ if data.raw.item["wooden-board"] and mods["bobelectronics"] then
   })
   thxbob.lib.tech.add_recipe_unlock("electronics", "bi-press-wood")
 
-  if mods["ShinyBobGFX"] then
+  if mods["ShinyBobGFX"] or mods["ShinyBobGFX_Continued"] then
     data.raw["recipe"]["bi-press-wood"].icon = ICONPATH .. "bi_wooden_board_shiny.png"
     data.raw["recipe"]["bi-press-wood"].icon_size = 64
   end

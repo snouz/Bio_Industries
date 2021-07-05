@@ -1,6 +1,8 @@
 -- Add functions that are also used in other files (debugging output etc.)
 local BioInd = require('common')('Bio_Industries')
-local ICONPATH = BioInd.modRoot .. "/graphics/icons/"
+--~ local ICONPATH = BioInd.modRoot .. "/graphics/icons/"
+local ICONPATH = "__core__/graphics/"
+
 local HIDDENPATH = BioInd.modRoot .. "/prototypes/compound_entities/"
 BioInd.writeDebug("Entered prototypes.hidden_entities.lua of \"%s\".", {BioInd.modName})
 
@@ -44,8 +46,10 @@ BI.hidden_entities.selection_box = BioInd.is_debug and
 BI.hidden_entities.selectable_in_game = BioInd.is_debug
 BI.hidden_entities.max_health = 1
 
-BI.hidden_entities.icon = ICONPATH .. "blank.png"
-BI.hidden_entities.icon_size = 32
+--~ BI.hidden_entities.icon = ICONPATH .. "blank.png"
+BI.hidden_entities.icon = ICONPATH .. "empty.png"
+--~ BI.hidden_entities.icon_size = 32
+BI.hidden_entities.icon_size = 1
 BI.hidden_entities.icon_mipmaps = 0
 
 BI.hidden_entities.icons = {
@@ -56,7 +60,8 @@ BI.hidden_entities.icons = {
   }
 }
 BI.hidden_entities.picture = {
-  filename = ICONPATH .. "blank.png",
+  --~ filename = ICONPATH .. "blank.png",
+  filename = ICONPATH .. "empty.png",
   priority = "low",
   size = 1,
   frame_count = 1,
@@ -131,7 +136,8 @@ BI.set_common_properties = function(h_entity)
       {
         icon = h_entity.icon,
         icon_size = h_entity.icon_size or 1,
-        icon_mipmaps = h_entity.icon_mipmaps or 1
+        --~ icon_mipmaps = h_entity.icon_mipmaps or 1
+        icon_mipmaps = h_entity.icon_mipmaps
       }
     }
   else
@@ -162,11 +168,11 @@ end
 BI.make_hidden_entity_list = function(hidden_type)
   BioInd.check_args(hidden_type, "string", "valid handle for hidden entities")
 
-  local name
+  local name, entity_locale
   for c_name, c_data in pairs(BioInd.compound_entities) do
     BioInd.writeDebug("Checking %s for hidden %ss", {c_name, hidden_type})
-BioInd.show("c_name", c_name)
-BioInd.show("c_data", c_data)
+--~ BioInd.show("c_name", c_name)
+--~ BioInd.show("c_data", c_data)
     local h_type = c_data.hidden[hidden_type]
     if h_type then
       --~ name = c_data.tab:gsub("_table$", ""):gsub("_", "-") .. "-hidden-" .. hidden_type
@@ -177,10 +183,53 @@ BioInd.show("c_data", c_data)
       -- but use the same localizations as the final entity. So, we'll check for the
       -- "new_base_name" property first and use the base entity's name if it hasn't been
       -- set.
-      BI.hidden_entities.types[hidden_type][name] = c_data.new_base_name or c_name
+      BI.hidden_entities.types[hidden_type][name] = h_type.localize_entity or
+                                                    c_data.new_base_name or
+                                                    c_name
       BioInd.writeDebug("Must create %s!", {name})
     end
   end
+end
+
+
+------------------------------------------------------------------------------------
+--                            Add a layer to a picture                            --
+------------------------------------------------------------------------------------
+-- The hidden entities DO need to have images, so that they can be identified in the
+-- production tab!
+BI.add_layer = function(layers, data)
+  --~ BioInd.check_args(layers, "table", "layer")
+  BioInd.check_args(data, "table", "layer data")
+  layers = layers or {}
+
+  local name = data.name
+  local hr_name = data.hr_name
+  local priority = data.priority
+  local height = data.height
+  local width = data.width
+  local size = data.size
+  local shadow = data.shadow
+
+  --~ size = size or
+          --~ (height and width and height == width) and height
+  layers[#layers + 1] = {
+    filename = name,
+    priority = priority or "low",
+    width = width,
+    height = height,
+    size = size,
+    draw_as_shadow = shadow,
+    hr_version = hr_name and {
+      filename = hr_name,
+      priority = priority or "low",
+      width = width and width * 2,
+      height = height and height * 2,
+      size = size and size * 2,
+      draw_as_shadow = shadow,
+      scale = 0.5,
+    }
+  }
+  return layers
 end
 
 require(HIDDENPATH .. "hidden_lamps")

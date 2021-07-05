@@ -829,3 +829,9 @@ require("prototypes.Wood_Products.rail_updates")
 
 -- Compatibility with Industrial Revolution
 require("prototypes.Industrial_Revolution")
+
+
+
+------------------------------------------------------------------------------------
+-- Add icons to our prototypes
+BioInd.BI_add_icons()

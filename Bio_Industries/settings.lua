@@ -112,14 +112,32 @@ setting_list.BI_Game_Tweaks_Bot = {
 
 
 -- Compatibility with other mods (optional)
-  -- Industrial Revolution
-if not mods["IndustrialRevolution"] then
+  -- Industrial Revolution + AAI Industry
+if not (mods["IndustrialRevolution"] or mods["aai-industry"]) then
   setting_list.BI_Game_Tweaks_Disassemble = {
       type = "bool-setting",
       name = "BI_Game_Tweaks_Disassemble",
       setting_type = "startup",
       default_value = true,
       order = "b[tweaks]-c2[Disassemble]",
+  }
+end
+
+if not (
+          --~ mods["ArchdruidsChests"] or           -- "Archdruid's Chest Mod"
+          mods["Juicy_mods"] or                 -- "Advanced storage +"
+          mods["Warehousing"] or                -- "Warehousing Mod"
+          mods["aai-containers"] or             -- "AAI Containers & Warehouses"
+          mods["angelsaddons-storage"] or       -- "Angel's Addons - Storage Options"
+          mods["boblogistics"] or               -- "Bob's Logistics mod"
+          mods["cruxchests"]                    -- "Crux Chests"
+        ) then
+  setting_list.BI_Bigger_Wooden_Chests = {
+      type = "bool-setting",
+      name = "BI_Bigger_Wooden_Chests",
+      setting_type = "startup",
+      default_value = true,
+      order = "a[modifier]-b[Bigger_Wooden_Chests]",
   }
 end
 

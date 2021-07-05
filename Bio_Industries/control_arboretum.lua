@@ -49,7 +49,7 @@ end
 -- Check that all ingredients are available!
 local function check_ingredients(arboretum)
   local recipe = arboretum.get_recipe()
-  local need = recipe and global.Arboretum_Recipes[recipe.name]
+  local need = recipe and global.bi_arboretum_recipe_table[recipe.name]
 
   local function check(need, have)
     for name, amount in pairs(need or {}) do

@@ -105,14 +105,14 @@ do
   local entities
   for s, surface in pairs(game.surfaces) do
     entities = surface.find_entities_filtered({
-      name = {"bi-hidden-power-pole", "bi-rail-hidden-power-pole"}
+      name = {"bi-hidden-power-pole", "bi-power-rail-hidden-pole"}
     })
     for e, entity in pairs(entities) do
       entity.destroy()
       cnt = cnt + 1
     end
   end
-  BioInd.writeDebug("Removed %s hidden poles (bi-hidden-power-pole, bi-rail-hidden-power-pole)", cnt)
+  BioInd.writeDebug("Removed %s hidden poles (bi-hidden-power-pole, bi-power-rail-hidden-pole)", cnt)
 end
 
 local base, boiler, lamp, pole, panel, radar, connectors
@@ -143,8 +143,8 @@ BioInd.writeDebug("Removed hidden entities from %s Bio-farms.", {cnt})
 -- Generate new list
 --~ local bio_farms, pole, panel, lamp
 local bio_farms
-pole_name = "bi-bio-farm-electric-pole"
-panel_name = "bi-bio-farm-solar-panel"
+pole_name = "bi-bio-farm-hidden-pole"
+panel_name = "bi-bio-farm-hidden-panel"
 lamp_name = "bi-bio-farm-light"
 
 cnt = 0
@@ -189,7 +189,7 @@ BioInd.writeDebug("Removed hidden entities from %s Solar boilers/power plants.",
 --~ local solar_boilers, pole, boiler
 local solar_boilers
 pole_name = "bi-hidden-power-pole"
-boiler_name = "bi-solar-boiler-panel"
+boiler_name = "bi-solar-boiler-hidden-panel"
 
 cnt = 0
 
@@ -258,14 +258,14 @@ BioInd.writeDebug("Recreated hidden entities for %s Solar farms.", {cnt})
 cnt = 0
 
 -- Empty old list
-for b, bio_cannon in pairs(global.Bio_Cannon_Table or {}) do
+for b, bio_cannon in pairs(global.bi_bio_cannon_table or {}) do
   -- Remove hidden entities from Bio cannons in our table
 
   if bio_cannon[2] and bio_cannon[2].valid then
     bio_cannon[2].destroy()
   end
   -- Remove entry from table
-  global.Bio_Cannon_Table[b] = nil
+  global.bi_bio_cannon_table[b] = nil
 
   cnt = cnt + 1
 end
@@ -277,7 +277,7 @@ BioInd.writeDebug("Removed hidden entities from %s Bio-Cannons.", {cnt})
 local bio_cannons
 base_name = "bi-bio-cannon"
 overlay_name = "bi-bio-cannon-area"
-radar_name = "Bio-Cannon-r"
+radar_name = "bi-bio-cannon-hidden-radar"
 
 cnt = 0
 
@@ -311,7 +311,7 @@ for s, surface in pairs(game.surfaces or {}) do
       base = bio_cannon
     end
     -- Add to table
-    global.Bio_Cannon_Table[base.unit_number] = {
+    global.bi_bio_cannon_table[base.unit_number] = {
       base = base,
       radar = radar,
       -- Bio-cannons will be checked once per second. Delay is based on the ammo the
@@ -331,7 +331,7 @@ BioInd.writeDebug("Recreated hidden entities for %s Bio-cannons.", {cnt})
 cnt = 0
 
 -- Empty old list
-for a, arboretum in pairs(global.Arboretum_Table or {}) do
+for a, arboretum in pairs(global.bi_arboretum_table or {}) do
   -- Remove hidden entities from solar_boilers in our table (Don't call removal
   -- function because radar position has been shifted, so the radar won't be found!)
   for e, entity in ipairs({"radar", "pole", "lamp"}) do
@@ -341,7 +341,7 @@ for a, arboretum in pairs(global.Arboretum_Table or {}) do
   end
   --~ remove_stored_entities(arboretum, {"radar", "pole", "lamp"})
   -- Remove entry from table
-  global.Arboretum_Table[a] = nil
+  global.bi_arboretum_table[a] = nil
 
   cnt = cnt + 1
 end
@@ -354,13 +354,13 @@ local arboretums
 base_name = "bi-arboretum"
 overlay_name = "bi-arboretum-area"
 pole_name = "bi-hidden-power-pole"
-radar_name = "bi-arboretum-radar"
+radar_name = "bi-arboretum-hidden-radar"
 lamp_name = "bi-bio-farm-light"
 
 cnt = 0
 
 -- We need to keep track of radars separately!
-global.Arboretum_Radar_Table = {}
+global.bi_arboretum_radar_table = {}
 
 for s, surface in pairs(game.surfaces or {}) do
   -- Find all arboretums on surface!
@@ -404,16 +404,16 @@ for s, surface in pairs(game.surfaces or {}) do
     end
 BioInd.writeDebug("Arboretum base: %g", {base.unit_number})
     -- Add to table
-    global.Arboretum_Table[base.unit_number] = {
+    global.bi_arboretum_table[base.unit_number] = {
       base = base,
       pole = pole,
       radar = radar,
       lamp = lamp
     }
     -- Link radar to arboretum
-    global.Arboretum_Radar_Table[radar.unit_number] = base.unit_number
+    global.bi_arboretum_radar_table[radar.unit_number] = base.unit_number
 
---~ BioInd.writeDebug("Added new arboretum: %s", {global.Arboretum_Table})
+--~ BioInd.writeDebug("Added new arboretum: %s", {global.bi_arboretum_table})
 
     cnt = cnt + 1
   end
@@ -441,7 +441,7 @@ BioInd.show("global.bi_power_rail_table", serpent.block(global.bi_power_rail_tab
 
 -- Generate new list
 local power_rails, neighbour
-pole_name = "bi-rail-hidden-power-pole"
+pole_name = "bi-power-rail-hidden-pole"
 cnt = 0
 
 for s, surface in pairs(game.surfaces or {}) do
@@ -539,60 +539,52 @@ BioInd.writeDebug("Recreated hidden entities for %s Powered rails.", {cnt})
 
 
 
-------------------------------------------------------------------------------------
---                                       Solar Farm                                   --
-------------------------------------------------------------------------------------
-cnt = 0
+--~ ------------------------------------------------------------------------------------
+--~ --                                       Solar Farm                                   --
+--~ ------------------------------------------------------------------------------------
+--~ cnt = 0
 
--- Empty old list
-for s, solar_farm in pairs(global.bi_solar_farm_table or {}) do
-  -- Remove hidden entities from solar_boilers in our table
-  --~ for e, entity in ipairs({"pole"}) do
-    --~ if solar_farm[entity] and solar_farm[entity].valid then
-      --~ solar_farm[entity].destroy()
-    --~ end
+--~ -- Empty old list
+--~ for s, solar_farm in pairs(global.bi_solar_farm_table or {}) do
+  --~ -- Remove hidden entities from solar_boilers in our table
+
+  --~ -- Remove entry from table
+  --~ global.bi_solar_farm_table[s] = nil
+
+  --~ cnt = cnt + 1
+--~ end
+--~ BioInd.writeDebug("Removed hidden entities from %s Solar farms.", {cnt})
+
+
+--~ -- Generate new list
+--~ pole_name = "bi-hidden-power-pole"
+
+--~ cnt = 0
+
+--~ for s, surface in pairs(game.surfaces or {}) do
+  --~ -- Find all solar farms on surface!
+  --~ solar_farms = surface.find_entities_filtered({name = "bi-bio-solar-farm"})
+  --~ for sf, solar_farm in ipairs(solar_farms or {}) do
+    -- Make a clean slate!
+    --~ -- Recreate hidden entities
+    --~ pole = surface.create_entity({
+      --~ name = pole_name,
+      --~ position = solar_farm.position,
+      --~ force = solar_farm.force
+    --~ })
+    --~ make_unminable({pole})
+    --~ -- Add to table
+    --~ global.bi_solar_farm_table[solar_farm.unit_number] = {
+      --~ base = solar_farm,
+      --~ pole = pole
+    --~ }
+    --~ -- Recreate hidden entities
+    --~ recreate_entities(global.bi_solar_farm_table, solar_farm, {pole = pole_name})
+
+    --~ cnt = cnt + 1
   --~ end
-  --~ remove_stored_entities(solar_farm, {"pole"})
-  -- Remove entry from table
-  global.bi_solar_farm_table[s] = nil
-
-  cnt = cnt + 1
-end
-BioInd.writeDebug("Removed hidden entities from %s Solar farms.", {cnt})
-
-
--- Generate new list
---~ local solar_farms, pole
-local solar_farms
-pole_name = "bi-hidden-power-pole"
-
-cnt = 0
-
-for s, surface in pairs(game.surfaces or {}) do
-  -- Find all solar farms on surface!
-  solar_farms = surface.find_entities_filtered({name = "bi-bio-solar-farm"})
-  for sf, solar_farm in ipairs(solar_farms or {}) do
-    --~ -- Make a clean slate!
-    --~ remove_entities(solar_farm, {pole_name})
-    -- Recreate hidden entities
-    pole = surface.create_entity({
-      name = pole_name,
-      position = solar_farm.position,
-      force = solar_farm.force
-    })
-    make_unminable({pole})
-    -- Add to table
-    global.bi_solar_farm_table[solar_farm.unit_number] = {
-      base = solar_farm,
-      pole = pole
-    }
-    -- Recreate hidden entities
-    recreate_entities(global.bi_solar_farm_table, solar_farm, {pole = pole_name})
-
-    cnt = cnt + 1
-  end
-end
-BioInd.writeDebug("Recreated hidden entities for %s Solar farms.", {cnt})
+--~ end
+--~ BioInd.writeDebug("Recreated hidden entities for %s Solar farms.", {cnt})
 
 
 ------------------------------------------------------------------------------------
@@ -610,8 +602,8 @@ global.bi_musk_floor_table.forces = global.bi_musk_floor_table.forces or {}
 
 local musk_floor_tiles
 local tile_name = "bi-solar-mat"
-pole_name = "bi-musk-mat-pole"
-panel_name = "bi-musk-mat-solar-panel"
+pole_name = "bi-musk-mat-hidden-pole"
+panel_name = "bi-musk-mat-hidden-panel"
 local pole_type = "electric-pole"
 local panel_type = "solar-panel"
 

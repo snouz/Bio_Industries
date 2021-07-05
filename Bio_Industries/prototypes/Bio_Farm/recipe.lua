@@ -546,6 +546,7 @@ data:extend({
     result_count = 4,
     main_product = "",
     allow_as_intermediate = true,       -- Added for 0.18.34/1.1.4
+    allow_intermediates = true,         -- Added for 0.18.35/1.1.5
     always_show_made_in = false,        -- Added for 0.18.34/1.1.4
     allow_decomposition = false,        -- Added for 0.18.34/1.1.4
     -- This is a custom property for use by "Krastorio 2" (it will change
@@ -615,7 +616,8 @@ data:extend({
     result = "wood",
     result_count = 4,
     main_product = "",
-    allow_as_intermediate = true,       -- Added for 0.18.34/1.1.4
+    --~ allow_as_intermediate = true,       -- Added for 0.18.34/1.1.4
+    allow_as_intermediate = false,       -- Added for 0.18.34/1.1.4
     always_show_made_in = false,        -- Added for 0.18.34/1.1.4
     allow_decomposition = false,        -- Added for 0.18.34/1.1.4
     -- This is a custom property for use by "Krastorio 2" (it will change
@@ -1554,7 +1556,7 @@ data:extend({
     },
 
 
-  ---    Arboretum (ENTITY)
+  --- Arboretum (ENTITY)
   {
     type = "recipe",
     name = "bi-arboretum",

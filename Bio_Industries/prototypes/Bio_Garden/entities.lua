@@ -5,9 +5,6 @@ local ICONPATH = BioInd.modRoot .. "/graphics/icons/"
 require ("util")
 
 
--- Bio Gardens need to have a hidden pole. This will only be connectable if
--- fluid fertilizer is used in the game.
-
 --- Bio Garden
 data:extend({
   {
@@ -16,10 +13,10 @@ data:extend({
     icon = ICONPATH .. "bio_garden_icon.png",
     icon_size = 64,
     icons = {
-        {
-            icon = ICONPATH .. "bio_garden_icon.png",
-            icon_size = 64,
-        }
+      {
+        icon = ICONPATH .. "bio_garden_icon.png",
+        icon_size = 64,
+      }
     },
     flags = {"placeable-neutral", "placeable-player", "player-creation"},
     minable = {hardness = 0.2, mining_time = 0.5, result = "bi-bio-garden"},
@@ -43,9 +40,9 @@ data:extend({
       filename = "__Bio_Industries__/graphics/entities/biogarden/bio_garden_x.png",
       width = 160,
       height = 160,
-          frame_count = 12,
-          line_length = 4,
-          animation_speed = 0.025,
+      frame_count = 12,
+      line_length = 4,
+      animation_speed = 0.025,
       shift = {0.45, 0}
     },
     open_sound = { filename = "__base__/sound/machine-open.ogg", volume = 0.85 },
@@ -69,120 +66,70 @@ data:extend({
     -- Changed for 0.18.34/1.1.4 -- Modules don't make sense for the gardens!
     -- (Efficiency modules are also meant to reduce pollution, but as the base value
     -- is negative, the resulting value is greater than the base value! )
-    --~ module_specification = {
-      --~ module_slots = 1
-    --~ },
     module_specification = {
-      module_slots = 0
+      module_slots = 1
     },
+    --~ module_specification = {
+      --~ module_slots = 0
+    --~ },
     -- Changed for 0.18.34/1.1.4 -- We need to use an empty table here, so the gardens
     -- won't be affected by beacons!
-    --~ allowed_effects = {"consumption", "speed"},
-    allowed_effects = {},
+    allowed_effects = {"consumption", "speed"},
+    --~ allowed_effects = {},
   },
 })
 
-  ------- Bio Garden Hidden Electric Pole (has only wire reach if Fluid fertilizer is used)
---~ data:extend({
-  --~ {
-    --~ type = "electric-pole",
-    --~ name = "bi-bio-garden-hidden-pole",
-    --~ icon = "__base__/graphics/icons/small-electric-pole.png",
-    --~ icon_size = 64,
-    --~ icons = {
-      --~ {
-        --~ icon = "__base__/graphics/icons/small-electric-pole.png",
-        --~ icon_size = 64,
-      --~ }
-    --~ },
-    --~ flags = {
-      --~ "not-deconstructable",
-      --~ "not-on-map",
-      --~ "placeable-off-grid",
-      --~ "not-repairable",
-      --~ "not-blueprintable",
-    --~ },
-    --~ selectable_in_game = false,
-    --~ draw_copper_wires = BioInd.is_debug,
-    --~ max_health = 1,
-    --~ minable = nil,
-    --~ collision_mask = {},
-    --~ collision_box = {{-0, -0}, {0, 0}},
-    --~ selection_box = {{0, 0}, {0, 0}},
-    --~ maximum_wire_distance = BI.Settings.BI_Easy_Bio_Gardens and 4 or 0,
-    --~ supply_area_distance = 1,
-    --~ pictures = {
-      --~ filename = ICONPATH .. "empty.png",
-      --~ priority = "low",
-      --~ width = 1,
-      --~ height = 1,
-      --~ frame_count = 1,
-      --~ axially_symmetrical = false,
-      --~ direction_count = 32,
-      --~ direction_count = 1,
-    --~ },
-    --~ connection_points = {
-      --~ {
-        --~ shadow = {},
-        --~ wire = { copper_wire_tweak = {-0, -0} }
-      --~ }
-    --~ },
-    --~ radius_visualisation_picture = {
-      --~ filename = ICONPATH .. "empty.png",
-      --~ width = 1,
-      --~ height = 1,
-      --~ priority = "low"
-    --~ },
-  --~ },
---~ })
 
-local hidden_pole = table.deepcopy(data.raw["electric-pole"]["small-electric-pole"])
-hidden_pole.name = "bi-bio-garden-hidden-pole"
-hidden_pole.icon = "__base__/graphics/icons/small-electric-pole.png"
-hidden_pole.icon_size = 64
-hidden_pole.icons = {
-      {
-        icon = "__base__/graphics/icons/small-electric-pole.png",
-        icon_size = 64,
-      }
-    }
-hidden_pole.flags = {
-      "not-deconstructable",
-      "not-on-map",
-      "placeable-off-grid",
-      "not-repairable",
-      "not-blueprintable",
-    }
-hidden_pole.selectable_in_game = false
-hidden_pole.draw_copper_wires = BioInd.is_debug
-hidden_pole.max_health = 1
-hidden_pole.minable = nil
-hidden_pole.collision_mask = {}
-hidden_pole.collision_box = {{-0, -0}, {0, 0}}
-hidden_pole.selection_box = {{0, 0}, {0, 0}}
-hidden_pole.maximum_wire_distance = BI.Settings.BI_Easy_Bio_Gardens and 4 or 0
-hidden_pole.supply_area_distance = 1
-hidden_pole.pictures = BioInd.is_debug and hidden_pole.pictures or {
-  filename = ICONPATH .. "empty.png",
-  priority = "low",
-  width = 1,
-  height = 1,
-  frame_count = 1,
-  axially_symmetrical = false,
-  direction_count = 1,
-}
-hidden_pole.connection_points = BioInd.is_debug and hidden_pole.connection_points or {
-  {
-    shadow = {},
-    wire = { copper_wire_tweak = {-0, -0} }
-  }
-}
-hidden_pole.radius_visualisation_picture = BioInd.is_debug and
-                                            hidden_pole.radius_visualisation_picture or {
-                                                filename = ICONPATH .. "empty.png",
-                                                width = 1,
-                                                height = 1,
-                                                priority = "low"
-                                              }
+--~ -- We only need the hidden pole if the "Easy Gardens" setting is active!
+--~ if BI.Settings.BI_Easy_Bio_Gardens then
+  --~ local hidden_pole = table.deepcopy(data.raw["electric-pole"]["small-electric-pole"])
+  --~ hidden_pole.name = "bi-bio-garden-hidden-pole"
+  --~ hidden_pole.icon = "__base__/graphics/icons/small-electric-pole.png"
+  --~ hidden_pole.icon_size = 64
+  --~ hidden_pole.icons = {
+    --~ {
+      --~ icon = "__base__/graphics/icons/small-electric-pole.png",
+      --~ icon_size = 64,
+    --~ }
+  --~ }
+  --~ hidden_pole.flags = {
+    --~ "not-deconstructable",
+    --~ "not-on-map",
+    --~ "placeable-off-grid",
+    --~ "not-repairable",
+    --~ "not-blueprintable",
+  --~ }
+  --~ hidden_pole.selectable_in_game = false
+  --~ hidden_pole.draw_copper_wires = BioInd.is_debug
+  --~ hidden_pole.max_health = 1
+  --~ hidden_pole.minable = nil
+  --~ hidden_pole.collision_mask = {}
+  --~ hidden_pole.collision_box = {{-0, -0}, {0, 0}}
+  --~ hidden_pole.selection_box = {{0, 0}, {0, 0}}
+  --~ hidden_pole.maximum_wire_distance = 4
+  --~ hidden_pole.supply_area_distance = 1
+  --~ hidden_pole.pictures = BioInd.is_debug and hidden_pole.pictures or {
+    --~ filename = ICONPATH .. "empty.png",
+    --~ priority = "low",
+    --~ width = 1,
+    --~ height = 1,
+    --~ frame_count = 1,
+    --~ axially_symmetrical = false,
+    --~ direction_count = 1,
+  --~ }
+  --~ hidden_pole.connection_points = BioInd.is_debug and hidden_pole.connection_points or {
+    --~ {
+      --~ shadow = {},
+      --~ wire = { copper_wire_tweak = {-0, -0} }
+    --~ }
+  --~ }
+  --~ hidden_pole.radius_visualisation_picture = BioInd.is_debug and
+                                              --~ hidden_pole.radius_visualisation_picture or {
+                                                  --~ filename = ICONPATH .. "empty.png",
+                                                  --~ width = 1,
+                                                  --~ height = 1,
+                                                  --~ priority = "low"
+                                                --~ }
 
-data:extend({hidden_pole})
+  --~ data:extend({hidden_pole})
+--~ end

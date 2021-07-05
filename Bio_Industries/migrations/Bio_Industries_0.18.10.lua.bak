@@ -25,7 +25,7 @@ local function remove_entity(surface, data)
     BioInd.writeDebug("%g: Looking for %s: %s.", {index, desc, entity.unit_number})
 
     local match = false
-    for _a, arboretum in pairs(global.Arboretum_Table) do
+    for _a, arboretum in pairs(global.bi_arboretum_table or {}) do
     --~ BioInd.writeDebug("arboretum: %s", {arboretum})
       if entity == arboretum[name_in_table] then
         BioInd.writeDebug("The %s (%g) belongs to arboretum/terraformer %g!", {desc, entity.unit_number, _a})
@@ -46,16 +46,16 @@ local function remove_entity(surface, data)
 end
 
 -- Clean up global list of arboretums
-if global.Arboretum_Table then
+if global.bi_arboretum_table then
 
   BioInd.writeDebug("Remove invalid arboretums/terraformers from list:")
   local count = 0
-  for index, arboretum in pairs(global.Arboretum_Table) do
+  for index, arboretum in pairs(global.bi_arboretum_table) do
       local entity = arboretum.inventory
 
       BioInd.writeDebug("Arboretum %g is valid: %s", {index, entity and entity.valid})
       if not entity.valid then
-        global.Arboretum_Table[index] = nil
+        global.bi_arboretum_table[index] = nil
         count = count + 1
         log("Removed arboretum/terraformer " .. tostring(index) .. " from global list.")
       end
@@ -69,7 +69,7 @@ if global.Arboretum_Table then
     BioInd.writeDebug("Looking for left-over hidden entities from moved/removed terraformers on %s.", {surface.name})
 
     for _, entity in pairs({
-      {"bi-arboretum-radar", "radar", "radar"},
+      {"bi-arboretum-hidden-radar", "radar", "radar"},
       {"bi-hidden-power-pole", "electric-pole", "hidden power pole", "pole"},
       {"bi-bio-farm-light", "lamp", "hidden lamp"}
     }) do

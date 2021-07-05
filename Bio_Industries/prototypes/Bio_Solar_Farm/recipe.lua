@@ -43,7 +43,7 @@ if BI.Settings.BI_Solar_Additions then
     -- solar boiler
     {
       type = "recipe",
-      name = "bi-solar-boiler-panel",
+      name = "bi-solar-boiler-hidden-panel",
       --~ name = "bi-solar-boiler",
       localised_name = {"entity-name.bi-solar-boiler"},
       localised_description = {"entity-description.bi-solar-boiler"},

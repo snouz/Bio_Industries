@@ -27,11 +27,11 @@ local function add_hidden_entity(tab, base, hidden_entity)
   pos = BioInd.normalize_position(base.position)
 
   -- Bio cannon
-  if tab == "Bio_Cannon_Table" then
+  if tab == "bi_bio_cannon_table" then
     optional = {delay = 0}
 
   -- Arboretum
-  elseif tab == "Arboretum_Table" and hidden_entity == "radar" then
+  elseif tab == "bi_arboretum_table" and hidden_entity == "radar" then
     -- Radar position is off!
     pos = {pos.x - 3.5, pos.y + 3.5}
   end
@@ -42,15 +42,16 @@ BioInd.show("size of global[tab]", table_size(global[tab]))
   ------------------------------------------------------------------------------------
   -- Create hidden entity
   ------------------------------------------------------------------------------------
-  BioInd.create_entities(global[tab], base, {[hidden_entity] = entity_name}, pos, optional)
+  --~ BioInd.create_entities(global[tab], base, {[hidden_entity] = entity_name}, pos, optional)
+  BioInd.create_entities(global[tab], base, {[hidden_entity] = entity_name},  optional)
 
   ------------------------------------------------------------------------------------
   -- Post-processing
   ------------------------------------------------------------------------------------
   -- Arboretum
-  if tab == "Arboretum_Table" and hidden_entity == "radar" then
+  if tab == "bi_arboretum_table" and hidden_entity == "radar" then
     local radar = global[tab][base.unit_number].radar
-    global.Arboretum_Radar_Table[radar.unit_number] = base.unit_number
+    global.bi_arboretum_radar_table[radar.unit_number] = base.unit_number
 
   -- Power Rail
   elseif tab == "bi_power_rail_table" then
@@ -114,9 +115,8 @@ end
 -- Reset effects of researched technologies!
 ------------------------------------------------------------------------------------
 for force_name, force in pairs(game.forces) do
-BioInd.show("force.players", force.players)
-BioInd.writeDebug("Force: %s\tNumber of players: %s\tPlayers: %s", {force_name, table_size(force.players), force.players}, "line")
   force.reset_technology_effects()
-BioInd.show("Reset technology effects for force", force_name)
+  BioInd.show("Reset technology effects for force", force_name)
 end
+
 log("End of migration script 1_00_04.lua of \"" .. script.mod_name .. "\".")

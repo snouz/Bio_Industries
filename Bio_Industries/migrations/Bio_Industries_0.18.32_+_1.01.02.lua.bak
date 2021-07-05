@@ -17,7 +17,8 @@ for s, surface in pairs(game.surfaces) do
   }
 
   for g, garden in ipairs(bio_gardens or {}) do
-    BioInd.create_entities(global.bi_bio_garden_table, garden, hidden_entities, garden.position)
+    --~ BioInd.create_entities(global.bi_bio_garden_table, garden, hidden_entities, garden.position)
+    BioInd.create_entities(global.bi_bio_garden_table, garden, hidden_entities)
     BioInd.writeDebug("Stored Bio garden %g in table: %s", {garden.unit_number,    global.bi_bio_garden_table[garden.unit_number]})
   end
 end

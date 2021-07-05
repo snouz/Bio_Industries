@@ -55,21 +55,13 @@ data:extend({
       usage_priority = "solar"
     },
     picture = {
-      --~ filename = ENTITYPATH .. "Bio_Solar_Farm_On.png",
-      --~ priority = "low",
-      --~ width = 312,
-      --~ height = 289,
-      --~ frame_count = 1,
-      --~ direction_count = 1,
-      --~ --scale = 3/2,
-      --~ shift = {0.30, 0}
-      filename = ENTITYPATH .. "Bio_Solar_Farm_On_souz.png",
+      filename = ENTITYPATH .. "Bio_Solar_Farm_On.png",
       priority = "low",
-      width = 624,
-      height = 578,
+      width = 312,
+      height = 289,
       frame_count = 1,
       direction_count = 1,
-      scale = .5,
+      --scale = 3/2,
       shift = {0.30, 0}
     },
     production = "3600kW"
@@ -104,18 +96,12 @@ data:extend({
       output_flow_limit = "20MW"
     },
     picture = {
-      --~ filename = ENTITYPATH .. "bi_LargeAccumulator.png",
-      --~ priority = "extra-high",
-      --~ width = 245,
-      --~ height = 245,
-      --~ shift = {0.75, -0.5},
-      --~ scale = 0.75,
-      filename = ENTITYPATH .. "bi_LargeAccumulator_souz.png",
+      filename = ENTITYPATH .. "bi_LargeAccumulator.png",
       priority = "extra-high",
-      width = 282,
-      height = 325,
-      shift = {-0.25, -0.5},
-      --~ scale = 4 / 9,
+      width = 245,
+      height = 245,
+      shift = {0.75, -0.5},
+      scale = 0.75,
     },
     charge_animation = {
       filename = ENTITYPATH .. "bi_LargeAccumulatorAnimated.png",
@@ -311,11 +297,133 @@ data:extend({
   },
 })
 
-   ------- Hidden Electric pole for Solar Mat
-local hidden_pole = table.deepcopy(data.raw["electric-pole"]["small-electric-pole"])
+   --~ ------- Hidden Electric pole for Solar Mat
+--~ local hidden_pole = table.deepcopy(data.raw["electric-pole"]["small-electric-pole"])
 --~ {
-    --~ type = "electric-pole",
-    --~ name = "bi-musk-mat-pole",
+--     type = "electric-pole",
+--     name = "bi-musk-mat-hidden-pole",
+--     icon = ICONPATH .. "solar-mat.png",
+--     icon_size = 64,
+--     icons = {
+--       {
+--         icon = ICONPATH .. "solar-mat.png",
+--         icon_size = 64,
+--       }
+--     },
+--     flags = {"not-blueprintable", "not-deconstructable", "placeable-off-grid", "not-on-map", "not-repairable"},
+--     selectable_in_game = false,
+--     draw_copper_wires = false,
+--     max_health = 10,
+--     resistances = {{type = "fire", percent = 100}},
+--     collision_mask = {"ground-tile"},
+--     collision_box = {{-0.0, -0.0}, {0.0, 0.0}},
+--     selection_box = {{0, 0}, {0, 0}},
+--     maximum_wire_distance = 1,
+--     supply_area_distance = 3,
+--     pictures = {
+--       filename = ICONPATH .. "empty.png",
+--       filename = "__base__/graphics/icons/small-electric-pole.png",
+--       filename = BioInd.is_debug and
+--         "__base__/graphics/icons/small-electric-pole.png" or
+--         ICONPATH .. "empty.png",
+--       priority = "low",
+--       width = 1,
+--       height = 1,
+--       frame_count = 1,
+--       axially_symmetrical = false,
+--       direction_count = 4,
+--       shift = {0.75, 0},
+--     },
+--     connection_points = {
+--       {
+--         shadow = {
+--
+--         },
+--         wire = {
+--           copper_wire = {-0, -0},
+--         }
+--       },
+--       {
+--         shadow = {
+--
+--         },
+--         wire = {
+--           copper_wire = {-0, -0},
+--         }
+--       },
+--       {
+--         shadow = {
+--
+--         },
+--         wire = {
+--           copper_wire = {-0, -0},
+--         }
+--       },
+--       {
+--         shadow = {
+--
+--         },
+--         wire = {
+--           copper_wire = {-0, -0},
+--         }
+--       }
+--     },
+--
+--     radius_visualisation_picture = {
+--       filename = ICONPATH .. "empty.png",
+--       width = 1,
+--       height = 1,
+--       priority = "low"
+--     },
+--   },
+--~ hidden_pole.name = "bi-musk-mat-hidden-pole"
+--~ hidden_pole.icon = ICONPATH .. "solar-mat.png"
+--~ hidden_pole.icon_size = 64
+--~ hidden_pole.icons = {
+  --~ {
+    --~ icon = ICONPATH .. "solar-mat.png",
+    --~ icon_size = 64,
+  --~ }
+--~ }
+--~ hidden_pole.flags = {"not-blueprintable", "not-deconstructable", "placeable-off-grid", "not-on-map", "not-repairable"}
+--~ hidden_pole.selectable_in_game = false
+--~ hidden_pole.draw_copper_wires = BioInd.is_debug
+--~ hidden_pole.max_health = 10
+--~ hidden_pole.resistances = {{type = "fire", percent = 100}}
+--~ hidden_pole.collision_mask = {"ground-tile"}
+--~ hidden_pole.collision_box = {{-0.0, -0.0}, {0.0, 0.0}}
+--~ hidden_pole.selection_box = {{0, 0}, {0, 0}}
+--~ hidden_pole.maximum_wire_distance = 1
+--~ hidden_pole.supply_area_distance = 3
+--~ hidden_pole.pictures = BioInd.is_debug and hidden_pole.pictures or {
+  --~ filename = ICONPATH .. "empty.png",
+  --~ priority = "low",
+  --~ width = 1,
+  --~ height = 1,
+  --~ frame_count = 1,
+  --~ axially_symmetrical = false,
+  --~ direction_count = 1,
+  --~ shift = {0.75, 0},
+--~ }
+--~ hidden_pole.connection_points = BioInd.is_debug and hidden_pole.connection_points or {
+  --~ {
+    --~ shadow = {},
+    --~ wire = { copper_wire = {-0, -0} }
+  --~ },
+--~ }
+--~ hidden_pole.radius_visualisation_picture = {
+  --~ filename = ICONPATH .. "empty.png",
+  --~ width = 1,
+  --~ height = 1,
+  --~ priority = "low"
+--~ }
+--~ data:extend({hidden_pole})
+
+data:extend({
+  --~ ------- Hidden Solar Panel for Solar Mat
+  --~ {
+    --~ type = "solar-panel",
+    --~ name = "bi-musk-mat-hidden-panel",
     --~ icon = ICONPATH .. "solar-mat.png",
     --~ icon_size = 64,
     --~ icons = {
@@ -326,207 +434,89 @@ local hidden_pole = table.deepcopy(data.raw["electric-pole"]["small-electric-pol
     --~ },
     --~ flags = {"not-blueprintable", "not-deconstructable", "placeable-off-grid", "not-on-map", "not-repairable"},
     --~ selectable_in_game = false,
-    --~ draw_copper_wires = false,
-    --~ max_health = 10,
+    --~ max_health = 1,
     --~ resistances = {{type = "fire", percent = 100}},
     --~ collision_mask = {"ground-tile"},
     --~ collision_box = {{-0.0, -0.0}, {0.0, 0.0}},
     --~ selection_box = {{0, 0}, {0, 0}},
-    --~ maximum_wire_distance = 1,
-    --~ supply_area_distance = 3,
-    --~ pictures = {
-      --~ filename = ICONPATH .. "empty.png",
-      --~ filename = "__base__/graphics/icons/small-electric-pole.png",
-      --~ filename = BioInd.is_debug and
-        --~ "__base__/graphics/icons/small-electric-pole.png" or
-        --~ ICONPATH .. "empty.png",
+    --~ energy_source = {
+      --~ type = "electric",
+      --~ usage_priority = "solar"
+    --~ },
+    --~ picture = {
+      --~ -- filename = ICONPATH .. "empty.png",
+      --~ filename = "__base__/graphics/icons/solar-panel.png",
       --~ priority = "low",
       --~ width = 1,
       --~ height = 1,
-      --~ frame_count = 1,
-      --~ axially_symmetrical = false,
-      --~ direction_count = 4,
-      --~ shift = {0.75, 0},
     --~ },
-    --~ connection_points = {
-      --~ {
-        --~ shadow = {
+    --~ production = "10kW"
+  --~ },
 
-        --~ },
-        --~ wire = {
-          --~ copper_wire = {-0, -0},
-        --~ }
-      --~ },
-      --~ {
-        --~ shadow = {
 
-        --~ },
-        --~ wire = {
-          --~ copper_wire = {-0, -0},
-        --~ }
-      --~ },
+ --~ ------- Solar Panel for Solar Plant / Boiler
+  --~ {
+    --~ type = "solar-panel",
+    --~ name = "bi-solar-boiler-hidden-panel",
+    --~ localised_name = {"entity-name.bi-solar-boiler"},
+    --~ localised_description = {"entity-description.bi-solar-boiler"},
+    --~ icon = ICONPATH .. "Bio_Solar_Boiler_Panel_Icon.png",
+    --~ icon_size = 64,
+    --~ icons = {
       --~ {
-        --~ shadow = {
-
-        --~ },
-        --~ wire = {
-          --~ copper_wire = {-0, -0},
-        --~ }
-      --~ },
-      --~ {
-        --~ shadow = {
-
-        --~ },
-        --~ wire = {
-          --~ copper_wire = {-0, -0},
-        --~ }
+        --~ icon = ICONPATH .. "Bio_Solar_Boiler_Panel_Icon.png",
+        --~ icon_size = 64,
       --~ }
     --~ },
-
-    --~ radius_visualisation_picture = {
-      --~ filename = ICONPATH .. "empty.png",
-      --~ width = 1,
-      --~ height = 1,
-      --~ priority = "low"
+    --~ flags = {"not-blueprintable", "not-deconstructable", "placeable-off-grid", "not-on-map", "not-repairable"},
+    --~ max_health = 400,
+    --~ render_no_power_icon = true,
+    --~ resistances = {{type = "fire", percent = 100}},
+    --~ -- collision_box = {{-4.2, -4.2}, {4.2, 4.2}},
+    --~ -- selection_box = {{-1.2, -1.2}, {1.2, 1.2}},
+    --~ collision_box = {{0, 0}, {0, 0}},
+    --~ selection_box = {{0, 0}, {0, 0}},
+--~ collision_mask = {},
+    --~ energy_source = {
+      --~ type = "electric",
+      --~ usage_priority = "solar"
     --~ },
-  --~ },
-hidden_pole.name = "bi-musk-mat-pole"
-hidden_pole.icon = ICONPATH .. "solar-mat.png"
-hidden_pole.icon_size = 64
-hidden_pole.icons = {
-  {
-    icon = ICONPATH .. "solar-mat.png",
-    icon_size = 64,
-  }
-}
-hidden_pole.flags = {"not-blueprintable", "not-deconstructable", "placeable-off-grid", "not-on-map", "not-repairable"}
-hidden_pole.selectable_in_game = false
-hidden_pole.draw_copper_wires = BioInd.is_debug
-hidden_pole.max_health = 10
-hidden_pole.resistances = {{type = "fire", percent = 100}}
-hidden_pole.collision_mask = {"ground-tile"}
-hidden_pole.collision_box = {{-0.0, -0.0}, {0.0, 0.0}}
-hidden_pole.selection_box = {{0, 0}, {0, 0}}
-hidden_pole.maximum_wire_distance = 1
-hidden_pole.supply_area_distance = 3
-hidden_pole.pictures = BioInd.is_debug and hidden_pole.pictures or {
-  filename = ICONPATH .. "empty.png",
-  --~ filename = "__base__/graphics/icons/small-electric-pole.png",
-  --~ filename = BioInd.is_debug and
-    --~ "__base__/graphics/icons/small-electric-pole.png" or
-    --~ ICONPATH .. "empty.png",
-  priority = "low",
-  width = 1,
-  height = 1,
-  frame_count = 1,
-  axially_symmetrical = false,
-  direction_count = 1,
-  shift = {0.75, 0},
-}
-hidden_pole.connection_points = BioInd.is_debug and hidden_pole.connection_points or {
-  {
-    shadow = {},
-    wire = { copper_wire = {-0, -0} }
-  },
-}
-hidden_pole.radius_visualisation_picture = {
-  filename = ICONPATH .. "empty.png",
-  width = 1,
-  height = 1,
-  priority = "low"
-}
-data:extend({hidden_pole})
-
-data:extend({
-  ------- Hidden Solar Panel for Solar Mat
-  {
-    type = "solar-panel",
-    name = "bi-musk-mat-solar-panel",
-    icon = ICONPATH .. "solar-mat.png",
-    icon_size = 64,
-    icons = {
-      {
-        icon = ICONPATH .. "solar-mat.png",
-        icon_size = 64,
-      }
-    },
-    flags = {"not-blueprintable", "not-deconstructable", "placeable-off-grid", "not-on-map", "not-repairable"},
-    selectable_in_game = false,
-    max_health = 1,
-    resistances = {{type = "fire", percent = 100}},
-    collision_mask = {"ground-tile"},
-    collision_box = {{-0.0, -0.0}, {0.0, 0.0}},
-    selection_box = {{0, 0}, {0, 0}},
-    energy_source = {
-      type = "electric",
-      usage_priority = "solar"
-    },
-    picture = {
+    --~ -- picture = {
+      --~ -- filename = ENTITYPATH .. "Bio_Solar_Boiler.png",
+      --~ -- priority = "low",
+      --~ -- width = 288,
+      --~ -- height = 288,
+      --~ -- hr_version = {
+        --~ -- filename = ENTITYPATH .. "Bio_Solar_Boiler.png",
+        --~ -- priority = "low",
+        --~ -- width = 288,
+        --~ -- height = 288,
+      --~ -- }
+    --~ -- },
+    --~ picture = {
       --~ filename = ICONPATH .. "empty.png",
-      filename = "__base__/graphics/icons/solar-panel.png",
-      priority = "low",
-      width = 1,
-      height = 1,
-    },
-    production = "10kW"
-  },
+      --~ priority = "low",
+      --~ size = 1,
+    --~ },
 
-
- ------- Solar Panel for Solar Plant / Boiler
-  {
-    type = "solar-panel",
-    name = "bi-solar-boiler-panel",
-    localised_name = {"entity-name.bi-solar-boiler"},
-    localised_description = {"entity-description.bi-solar-boiler"},
-    icon = ICONPATH .. "Bio_Solar_Boiler_Panel_Icon.png",
-    icon_size = 64,
-    icons = {
-      {
-        icon = ICONPATH .. "Bio_Solar_Boiler_Panel_Icon.png",
-        icon_size = 64,
-      }
-    },
-    flags = {"not-blueprintable", "not-deconstructable", "placeable-off-grid", "not-on-map", "not-repairable"},
-    max_health = 400,
-    render_no_power_icon = true,
-    resistances = {{type = "fire", percent = 100}},
-    collision_box = {{-4.2, -4.2}, {4.2, 4.2}},
-    selection_box = {{-1.2, -1.2}, {1.2, 1.2}},
-    energy_source = {
-      type = "electric",
-      usage_priority = "solar"
-    },
-    picture = {
-      filename = ENTITYPATH .. "Bio_Solar_Boiler.png",
-      priority = "low",
-      width = 288,
-      height = 288,
-      hr_version = {
-        filename = ENTITYPATH .. "Bio_Solar_Boiler.png",
-        priority = "low",
-        width = 288,
-        height = 288,
-      }
-    },
-
-    overlay = {
-        layers = {
-          {
-            filename = ENTITYPATH .. "Bio_Solar_Boiler.png",
-            priority = "high",
-            width = 288,
-            height = 288,
-            hr_version = {
-            filename = ENTITYPATH .. "Bio_Solar_Boiler.png",
-            priority = "high",
-            width = 288,
-            height = 288,
-          }
-        },
-      }
-    },
-    production = "1.8MW"
-  },
+    --~ overlay = {
+        --~ layers = {
+          --~ {
+            --~ filename = ENTITYPATH .. "Bio_Solar_Boiler.png",
+            --~ priority = "high",
+            --~ width = 288,
+            --~ height = 288,
+            --~ hr_version = {
+            --~ filename = ENTITYPATH .. "Bio_Solar_Boiler.png",
+            --~ priority = "high",
+            --~ width = 288,
+            --~ height = 288,
+          --~ }
+        --~ },
+      --~ }
+    --~ },
+    --~ production = "1.8MW"
+  --~ },
 
 
   ------- Boiler for Solar Plant / Boiler

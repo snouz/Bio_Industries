@@ -1082,48 +1082,48 @@ data:extend({
 })
 
 
-------- Power Rail Pole - Hidden
-local hidden_pole = table.deepcopy(data.raw["electric-pole"]["small-electric-pole"])
-hidden_pole.name = "bi-rail-hidden-power-pole"
-hidden_pole.flags = {
-  "not-deconstructable",
-  "not-on-map",
-  "placeable-off-grid",
-  "not-repairable",
-  "not-blueprintable",
-}
-hidden_pole.selectable_in_game = false
-hidden_pole.draw_copper_wires = BioInd.is_debug
-hidden_pole.max_health = 1
-hidden_pole.resistances = {{type = "fire", percent = 100}}
-hidden_pole.collision_mask = {}
-hidden_pole.collision_box = {{-0, -0}, {0, 0}}
-hidden_pole.selection_box = {{0, 0}, {0, 0}}
-hidden_pole.maximum_wire_distance = 9
-hidden_pole.supply_area_distance = 2
-hidden_pole.pictures = BioInd.is_debug and hidden_pole.pictures or {
-  filename = ICONPATH .. "empty.png",
-  priority = "low",
-  width = 1,
-  height = 1,
-  frame_count = 1,
-  axially_symmetrical = false,
-  direction_count = 1,
-}
-hidden_pole.connection_points = BioInd.is_debug and hidden_pole.connection_points or {
-  {
-    shadow = {},
-    wire = { copper_wire_tweak = {-0, -0} }
-  }
-}
-hidden_pole.radius_visualisation_picture = BioInd.is_debug and
-                                            hidden_pole.radius_visualisation_picture or {
-                                              filename = ICONPATH .. "empty.png",
-                                              width = 1,
-                                              height = 1,
-                                              priority = "low"
-                                            }
-data:extend({hidden_pole})
+--~ ------- Power Rail Pole - Hidden
+--~ local hidden_pole = table.deepcopy(data.raw["electric-pole"]["small-electric-pole"])
+--~ hidden_pole.name = "bi-power-rail-hidden-pole"
+--~ hidden_pole.flags = {
+  --~ "not-deconstructable",
+  --~ "not-on-map",
+  --~ "placeable-off-grid",
+  --~ "not-repairable",
+  --~ "not-blueprintable",
+--~ }
+--~ hidden_pole.selectable_in_game = false
+--~ hidden_pole.draw_copper_wires = BioInd.is_debug
+--~ hidden_pole.max_health = 1
+--~ hidden_pole.resistances = {{type = "fire", percent = 100}}
+--~ hidden_pole.collision_mask = {}
+--~ hidden_pole.collision_box = {{-0, -0}, {0, 0}}
+--~ hidden_pole.selection_box = {{0, 0}, {0, 0}}
+--~ hidden_pole.maximum_wire_distance = 9
+--~ hidden_pole.supply_area_distance = 2
+--~ hidden_pole.pictures = BioInd.is_debug and hidden_pole.pictures or {
+  --~ filename = ICONPATH .. "empty.png",
+  --~ priority = "low",
+  --~ width = 1,
+  --~ height = 1,
+  --~ frame_count = 1,
+  --~ axially_symmetrical = false,
+  --~ direction_count = 1,
+--~ }
+--~ hidden_pole.connection_points = BioInd.is_debug and hidden_pole.connection_points or {
+  --~ {
+    --~ shadow = {},
+    --~ wire = { copper_wire_tweak = {-0, -0} }
+  --~ }
+--~ }
+--~ hidden_pole.radius_visualisation_picture = BioInd.is_debug and
+                                            --~ hidden_pole.radius_visualisation_picture or {
+                                              --~ filename = ICONPATH .. "empty.png",
+                                              --~ width = 1,
+                                              --~ height = 1,
+                                              --~ priority = "low"
+                                            --~ }
+--~ data:extend({hidden_pole})
 
 
 ---- Wood Pipe
@@ -1403,21 +1403,21 @@ data:extend({
 
 ------ Power to Rail Pole
 -- Changed to medium-electric pole so the built entity resembles the icon (0.18.1)
---~ local my_pole_2 = util.table.deepcopy(data.raw["electric-pole"]["small-electric-pole"])
-local my_pole_2 = util.table.deepcopy(data.raw["electric-pole"]["medium-electric-pole"])
-my_pole_2.name = "bi-power-to-rail-pole"
-my_pole_2.icon = ICONPATH .. "electric-to-rail.png"
-my_pole_2.icon_size = 64
-my_pole_2.icons = {
+--~ local my_pole = util.table.deepcopy(data.raw["electric-pole"]["small-electric-pole"])
+local my_pole = util.table.deepcopy(data.raw["electric-pole"]["medium-electric-pole"])
+my_pole.name = "bi-power-to-rail-pole"
+my_pole.icon = ICONPATH .. "electric-to-rail.png"
+my_pole.icon_size = 64
+my_pole.icons = {
   {
     icon = ICONPATH .. "electric-to-rail.png",
     icon_size = 64,
   }
 }
-my_pole_2.icon_mipmaps = 1
-my_pole_2.minable = {mining_time = 1, result = "bi-power-to-rail-pole"}
---~ my_pole_2.maximum_wire_distance = 4
-my_pole_2.maximum_wire_distance = BioInd.POWER_TO_RAIL_WIRE_DISTANCE
-my_pole_2.supply_area_distance = 3.5 -- 3 doesn't look right, 2.5 is too small
-my_pole_2.pictures.tint = {r = 183/255, g = 125/255, b = 62/255, a = 1}
-data:extend({my_pole_2})
+my_pole.icon_mipmaps = 1
+my_pole.minable = {mining_time = 1, result = "bi-power-to-rail-pole"}
+--~ my_pole.maximum_wire_distance = 4
+my_pole.maximum_wire_distance = BioInd.POWER_TO_RAIL_WIRE_DISTANCE
+my_pole.supply_area_distance = 3.5 -- 3 doesn't look right, 2.5 is too small
+my_pole.pictures.tint = {r = 183/255, g = 125/255, b = 62/255, a = 1}
+data:extend({my_pole})

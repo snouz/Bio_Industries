@@ -13,9 +13,11 @@ local h_key = "panel"
 local h_type = BioInd.HE_map[h_key]
 local h_entity = table.deepcopy(data.raw[h_type]["solar-panel"])
 
+BioInd.show("Panel data", h_entity)
+
 BI.set_common_properties(h_entity)
 
-
+BioInd.show("Panel data after set_common_properties", h_entity)
 ------------------------------------------------------------------------------------
 -- Panel specific attributes!
 h_entity.energy_source = {

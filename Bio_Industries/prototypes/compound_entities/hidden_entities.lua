@@ -82,6 +82,7 @@ BI.hidden_entities.sounds = {
 
 BI.hidden_entities.misc = {
   active_picture = BI.hidden_entities.picture,
+  circuit_wire_max_distance = 0,
   corpse = "",
   created_effect = nil,
   created_smoke = nil,
@@ -96,16 +97,16 @@ BI.hidden_entities.misc = {
   --~ },
   damaged_trigger_effect = nil,
   --~ dying_explosion = nil,
-  fast_replaceable_group = "",
-  light = nil,
-  --~ minable = nil,
-  remove_decoratives = "false",
-  water_reflection = {pictures = BI.hidden_entities.picture},
-  circuit_wire_max_distance = 0,
   energy_source = {
     render_no_network_icon = false,
     render_no_power_icon = false,
   },
+  fast_replaceable_group = "",
+  light = nil,
+  --~ minable = nil,
+  next_upgrade = "",
+  remove_decoratives = "false",
+  water_reflection = {pictures = BI.hidden_entities.picture},
 }
 
 

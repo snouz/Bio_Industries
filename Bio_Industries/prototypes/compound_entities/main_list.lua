@@ -1,4 +1,4 @@
-log("Entered file prototypes/compound_entities.lua")
+--~ log("Entered file prototypes/compound_entities.lua")
 ------------------------------------------------------------------------------------
 --  This file contains the data of all compound entities. It will be used in the  --
 --  data stage to create the prototypes for the hidden enitities, and during the  --
@@ -35,7 +35,7 @@ ret.HE_map_reverse = {}
 for k, v in pairs(ret.HE_map) do
   ret.HE_map_reverse[v] = k
 end
-log("ret.HE_map_reverse: " .. serpent.block(ret.HE_map_reverse))
+--~ log("ret.HE_map_reverse: " .. serpent.block(ret.HE_map_reverse))
 ------------------------------------------------------------------------------------
 -- List of compound entities
 -- Key:                 name of the base entity
@@ -180,24 +180,24 @@ ret.compound_entities = {
 --     Fill in the missing names and types of the hidden entities' prototypes!    --
 ------------------------------------------------------------------------------------
 for c_name, c_data in pairs(ret.compound_entities) do
-log("c_name: " .. serpent.block(c_name))
+--~ log("c_name: " .. serpent.block(c_name))
   for h_key, h_data in pairs(c_data.hidden) do
-log(string.format("h_key: %s\th_data: %s", h_key, serpent.block(h_data)))
+--~ log(string.format("h_key: %s\th_data: %s", h_key, serpent.block(h_data)))
     h_data.name = h_data.name or c_name .. "-hidden-" .. h_key
     h_data.type = h_data.type or ret.HE_map[h_key]
   end
 end
-log("ret.compound_entities: " .. serpent.block(ret.compound_entities))
+--~ log("ret.compound_entities: " .. serpent.block(ret.compound_entities))
 
 ------------------------------------------------------------------------------------
 --  Remove entries for disabled compound entities. Do this before making copies!  --
 ------------------------------------------------------------------------------------
 ret.get_HE_list = function(get_complete_list)
   if get_complete_list or script then
-    log("Preserving complete list!")
+    --~ log("Preserving complete list!")
 
   else
-    log("Removing obsolete entities from the list!")
+    --~ log("Removing obsolete entities from the list!")
 
     local settings = settings.startup
     local function get_settings(name)
@@ -207,18 +207,18 @@ ret.get_HE_list = function(get_complete_list)
     -- Bio Cannon
     --~ if not BI.Settings.Bio_Cannon then
     if not get_settings("BI_Bio_Cannon") then
-      log("Bio cannon has been disabled!")
+      --~ log("Bio cannon has been disabled!")
       ret.compound_entities["bi-bio-cannon"] = nil
-      log("Removed \"bi-bio-cannon\" from compound_entity list!")
+      --~ log("Removed \"bi-bio-cannon\" from compound_entity list!")
     end
 
     -- Solar additions
     --~ if not BI.Settings.BI_Solar_Additions then
     if not get_settings("BI_Solar_Additions") then
-      log("Solar additions have been disabled!")
+      --~ log("Solar additions have been disabled!")
       for e, entry in ipairs({"bi-bio-solar-farm", "bi-solar-boiler"}) do
         ret.compound_entities[entry] = nil
-        log("Removed " .. entry .. " from compound_entity list!")
+        --~ log("Removed " .. entry .. " from compound_entity list!")
       end
     end
 
@@ -226,9 +226,9 @@ ret.get_HE_list = function(get_complete_list)
     -- want to keep the rest of the table even if the setting is disabled.)
     --~ if not BI.Settings.BI_Easy_Bio_Gardens then
     if not get_settings("BI_Easy_Bio_Gardens") then
-      log("\"Easy Bio gardens\" are disabled!")
+      --~ log("\"Easy Bio gardens\" are disabled!")
       ret.compound_entities["bi-bio-garden"].hidden.pole = nil
-      log("Removed hidden pole from list of hidden entities!")
+      --~ log("Removed hidden pole from list of hidden entities!")
     end
   end
 
@@ -246,7 +246,7 @@ ret.get_HE_list = function(get_complete_list)
       ret.compound_entities[new.name] = util.table.deepcopy(ret.compound_entities[old])
       ret.compound_entities[new.name].base.type = new.type
       ret.compound_entities[new.name].base.name = new.name
-      log("Added " .. new.name .. " to list of compound entities!")
+      --~ log("Added " .. new.name .. " to list of compound entities!")
     end
   end
 

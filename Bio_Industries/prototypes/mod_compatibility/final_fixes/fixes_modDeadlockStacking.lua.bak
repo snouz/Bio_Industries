@@ -215,20 +215,6 @@ BioInd.writeDebug("\n%s\nComplete recipe list: %s\n%s", {sep, recipe_list, sep})
 ------------------------------------------------------------------------------------
 if deadlock_stacking then
 
-    -- hit the subgroups again to cover any added since data.lua load
-  for _, group in pairs(data.raw["item-group"]) do
-    if not data.raw["item-subgroup"][string.format("stacks-%s", group.name)] then
-      data:extend({
-        {
-          type = "item-subgroup",
-          name = string.format("stacks-%s", group.name),
-          group = group.name,
-          order = "zzzzz",
-        },
-      })
-    end
-  end
-  
   for level, i_data in pairs(stacked_items) do
     for i, item in ipairs(i_data) do
       -- Some things (rail-planner, ammo etc.) are considered items although they are
@@ -249,7 +235,6 @@ if deadlock_stacking then
             4
           )
           new_item = items[stack_name]
-          items[stack_name].item_subgroup = {string.format("stacks-%s", data.raw[item.type][item.name].item_subgroup)}
           BioInd.created_msg(new_item)
         end
 
@@ -272,10 +257,7 @@ if deadlock_stacking then
           BioInd.modified_msg("localization", new_recipe)
 
           -- Subgroup
-          --new_recipe.subgroup = src_recipe.subgroup
-          --new_recipe.subgroup = {"stacks-" .. src_recipe.subgroup}
-          --if not data.raw["item-subgroup"][string.format("stacks-%s", group.name)] then
-          new_recipe.category = "unstacking"
+          new_recipe.subgroup = src_recipe.subgroup
           BioInd.modified_msg("subgroup", new_recipe)
 
           -- Order

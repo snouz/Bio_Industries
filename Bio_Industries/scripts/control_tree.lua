@@ -7,228 +7,231 @@ local Event = require('__stdlib__/stdlib/event/event').set_protected_mode(true)
 
 local terrains = require("libs/trees-and-terrains")
 
-Bi_Industries = {}
+--~ Bi_Industries = {}
+--~ Bi_Industries.fertility = {
 
-Bi_Industries.fertility = {
-    ["vegetation-green-grass-1"] = 100,
-    ["grass-1"] =  100,
-    ["grass-3"] =  85,
-    ["grass-2"] =  70,
-    ["grass-4"] =  60,
-    ["red-desert-0"] =  50,
-    ["dirt-3"] =  40,
-    ["dirt-5"] =  37,
-    ["dirt-6"] =  34,
-    ["dirt-7"] =  31,
-    ["dirt-4"] =  28,
-    ["dry-dirt"] =  25,
-    ["dirt-2"] =  22,
-    ["dirt-1"] =  19,
-    ["red-desert-2"] =  16,
-    ["red-desert-3"] =  13,
-    ["sand-3"] =  10,
-    ["sand-2"] =  7,
-    ["sand-1"] =  4,
-    ["red-desert-1"] =  1,
-    ["frozen-snow-0"] = 1,
-    ["frozen-snow-1"] = 1,
-    ["frozen-snow-2"] = 1,
-    ["frozen-snow-3"] = 1,
-    ["frozen-snow-4"] = 1,
-    ["frozen-snow-5"] = 1,
-    ["frozen-snow-6"] = 1,
-    ["frozen-snow-7"] = 1,
-    ["frozen-snow-8"] = 1,
-    ["frozen-snow-9"] = 1,
-    ["mineral-aubergine-dirt-1"] = 45,
-    ["mineral-aubergine-dirt-2"] = 45,
-    ["mineral-aubergine-dirt-3"] = 25,
-    ["mineral-aubergine-dirt-4"] = 25,
-    ["mineral-aubergine-dirt-5"] = 25,
-    ["mineral-aubergine-dirt-6"] = 25,
-    ["mineral-aubergine-dirt-7"] = 25,
-    ["mineral-aubergine-dirt-8"] = 25,
-    ["mineral-aubergine-dirt-9"] = 25,
-    ["mineral-aubergine-sand-1"] = 15,
-    ["mineral-aubergine-sand-2"] = 15,
-    ["mineral-aubergine-sand-3"] = 10,
-    ["mineral-beige-dirt-1"] = 45,
-    ["mineral-beige-dirt-2"] = 45,
-    ["mineral-beige-dirt-3"] = 25,
-    ["mineral-beige-dirt-4"] = 25,
-    ["mineral-beige-dirt-5"] = 25,
-    ["mineral-beige-dirt-6"] = 25,
-    ["mineral-beige-dirt-7"] = 25,
-    ["mineral-beige-dirt-8"] = 25,
-    ["mineral-beige-dirt-9"] = 25,
-    ["mineral-beige-sand-1"] = 10,
-    ["mineral-beige-sand-2"] = 10,
-    ["mineral-beige-sand-3"] = 10,
-    ["mineral-black-dirt-1"] = 45,
-    ["mineral-black-dirt-2"] = 45,
-    ["mineral-black-dirt-3"] = 25,
-    ["mineral-black-dirt-4"] = 25,
-    ["mineral-black-dirt-5"] = 25,
-    ["mineral-black-dirt-6"] = 25,
-    ["mineral-black-dirt-7"] = 25,
-    ["mineral-black-dirt-8"] = 25,
-    ["mineral-black-dirt-9"] = 25,
-    ["mineral-black-sand-1"] = 10,
-    ["mineral-black-sand-2"] = 10,
-    ["mineral-black-sand-3"] = 10,
-    ["mineral-brown-dirt-1"] = 25,
-    ["mineral-brown-dirt-2"] = 25,
-    ["mineral-brown-dirt-3"] = 25,
-    ["mineral-brown-dirt-4"] = 25,
-    ["mineral-brown-dirt-5"] = 25,
-    ["mineral-brown-dirt-6"] = 25,
-    ["mineral-brown-dirt-7"] = 25,
-    ["mineral-brown-dirt-8"] = 25,
-    ["mineral-brown-dirt-9"] = 25,
-    ["mineral-brown-sand-1"] = 10,
-    ["mineral-brown-sand-2"] = 10,
-    ["mineral-brown-sand-3"] = 10,
-    ["mineral-cream-dirt-1"] = 25,
-    ["mineral-cream-dirt-2"] = 25,
-    ["mineral-cream-dirt-3"] = 25,
-    ["mineral-cream-dirt-4"] = 25,
-    ["mineral-cream-dirt-5"] = 25,
-    ["mineral-cream-dirt-6"] = 25,
-    ["mineral-cream-dirt-7"] = 25,
-    ["mineral-cream-dirt-8"] = 25,
-    ["mineral-cream-dirt-9"] = 25,
-    ["mineral-cream-sand-1"] = 10,
-    ["mineral-cream-sand-2"] = 10,
-    ["mineral-cream-sand-3"] = 10,
-    ["mineral-dustyrose-dirt-1"] = 25,
-    ["mineral-dustyrose-dirt-2"] = 25,
-    ["mineral-dustyrose-dirt-3"] = 25,
-    ["mineral-dustyrose-dirt-4"] = 25,
-    ["mineral-dustyrose-dirt-5"] = 25,
-    ["mineral-dustyrose-dirt-6"] = 25,
-    ["mineral-dustyrose-dirt-7"] = 25,
-    ["mineral-dustyrose-dirt-8"] = 25,
-    ["mineral-dustyrose-dirt-9"] = 25,
-    ["mineral-dustyrose-sand-1"] = 10,
-    ["mineral-dustyrose-sand-2"] = 10,
-    ["mineral-dustyrose-sand-3"] = 10,
-    ["mineral-grey-dirt-1"] = 25,
-    ["mineral-grey-dirt-2"] = 25,
-    ["mineral-grey-dirt-3"] = 25,
-    ["mineral-grey-dirt-4"] = 25,
-    ["mineral-grey-dirt-5"] = 25,
-    ["mineral-grey-dirt-6"] = 25,
-    ["mineral-grey-dirt-7"] = 25,
-    ["mineral-grey-dirt-8"] = 25,
-    ["mineral-grey-dirt-9"] = 25,
-    ["mineral-grey-sand-1"] = 10,
-    ["mineral-grey-sand-2"] = 10,
-    ["mineral-grey-sand-3"] = 10,
-    ["mineral-purple-dirt-1"] = 25,
-    ["mineral-purple-dirt-2"] = 25,
-    ["mineral-purple-dirt-3"] = 25,
-    ["mineral-purple-dirt-4"] = 25,
-    ["mineral-purple-dirt-5"] = 25,
-    ["mineral-purple-dirt-6"] = 25,
-    ["mineral-purple-dirt-7"] = 25,
-    ["mineral-purple-dirt-8"] = 25,
-    ["mineral-purple-dirt-9"] = 25,
-    ["mineral-purple-sand-1"] = 10,
-    ["mineral-purple-sand-2"] = 10,
-    ["mineral-purple-sand-3"] = 10,
-    ["mineral-red-dirt-1"] = 25,
-    ["mineral-red-dirt-2"] = 25,
-    ["mineral-red-dirt-3"] = 25,
-    ["mineral-red-dirt-4"] = 25,
-    ["mineral-red-dirt-5"] = 25,
-    ["mineral-red-dirt-6"] = 25,
-    ["mineral-red-dirt-7"] = 25,
-    ["mineral-red-dirt-8"] = 25,
-    ["mineral-red-dirt-9"] = 25,
-    ["mineral-red-sand-1"] = 10,
-    ["mineral-red-sand-2"] = 10,
-    ["mineral-red-sand-3"] = 10,
-    ["mineral-tan-dirt-1"] = 25,
-    ["mineral-tan-dirt-2"] = 25,
-    ["mineral-tan-dirt-3"] = 25,
-    ["mineral-tan-dirt-4"] = 25,
-    ["mineral-tan-dirt-5"] = 25,
-    ["mineral-tan-dirt-6"] = 25,
-    ["mineral-tan-dirt-7"] = 25,
-    ["mineral-tan-dirt-8"] = 25,
-    ["mineral-tan-dirt-9"] = 25,
-    ["mineral-tan-sand-1"] = 10,
-    ["mineral-tan-sand-2"] = 10,
-    ["mineral-tan-sand-3"] = 10,
-    ["mineral-violet-dirt-1"] = 25,
-    ["mineral-violet-dirt-2"] = 25,
-    ["mineral-violet-dirt-3"] = 25,
-    ["mineral-violet-dirt-4"] = 25,
-    ["mineral-violet-dirt-5"] = 25,
-    ["mineral-violet-dirt-6"] = 25,
-    ["mineral-violet-dirt-7"] = 25,
-    ["mineral-violet-dirt-8"] = 25,
-    ["mineral-violet-dirt-9"] = 25,
-    ["mineral-violet-sand-1"] = 10,
-    ["mineral-violet-sand-2"] = 10,
-    ["mineral-violet-sand-3"] = 10,
-    ["mineral-white-dirt-1"] = 25,
-    ["mineral-white-dirt-2"] = 25,
-    ["mineral-white-dirt-3"] = 25,
-    ["mineral-white-dirt-4"] = 25,
-    ["mineral-white-dirt-5"] = 25,
-    ["mineral-white-dirt-6"] = 25,
-    ["mineral-white-dirt-7"] = 25,
-    ["mineral-white-dirt-8"] = 25,
-    ["mineral-white-dirt-9"] = 25,
-    ["mineral-white-sand-1"] = 10,
-    ["mineral-white-sand-2"] = 10,
-    ["mineral-white-sand-3"] = 10,
-    ["vegetation-blue-grass-1"] = 70,
-    ["vegetation-blue-grass-2"] = 70,
-    ["vegetation-green-grass-2"] = 75,
-    ["vegetation-green-grass-3"] = 85,
-    ["vegetation-green-grass-4"] = 70,
-    ["vegetation-mauve-grass-1"] = 70,
-    ["vegetation-mauve-grass-2"] = 70,
-    ["vegetation-olive-grass-1"] = 70,
-    ["vegetation-olive-grass-2"] = 70,
-    ["vegetation-orange-grass-1"] = 70,
-    ["vegetation-orange-grass-2"] = 70,
-    ["vegetation-purple-grass-1"] = 70,
-    ["vegetation-purple-grass-2"] = 70,
-    ["vegetation-red-grass-1"] = 70,
-    ["vegetation-red-grass-2"] = 70,
-    ["vegetation-turquoise-grass-1"] = 70,
-    ["vegetation-turquoise-grass-2"] = 70,
-    ["vegetation-violet-grass-1"] = 70,
-    ["vegetation-violet-grass-2"] = 70,
-    ["vegetation-yellow-grass-1"] = 70,
-    ["vegetation-yellow-grass-2"] = 70,
-    ["volcanic-blue-heat-1"] = 1,
-    ["volcanic-blue-heat-2"] = 1,
-    ["volcanic-blue-heat-3"] = 1,
-    ["volcanic-blue-heat-4"] = 1,
-    ["volcanic-green-heat-1"] = 1,
-    ["volcanic-green-heat-2"] = 1,
-    ["volcanic-green-heat-3"] = 1,
-    ["volcanic-green-heat-4"] = 1,
-    ["volcanic-orange-heat-1"] = 1,
-    ["volcanic-orange-heat-2"] = 1,
-    ["volcanic-orange-heat-3"] = 1,
-    ["volcanic-orange-heat-4"] = 1,
-    ["volcanic-purple-heat-1"] = 1,
-    ["volcanic-purple-heat-2"] = 1,
-    ["volcanic-purple-heat-3"] = 1,
-    ["volcanic-purple-heat-4"] = 1,
-    ["landfill"] = 1,
+local BI_trees = {}
+
+BI_trees.fertility = {
+  ["vegetation-green-grass-1"] = 100,
+  ["grass-1"] =  100,
+  ["grass-3"] =  85,
+  ["grass-2"] =  70,
+  ["grass-4"] =  60,
+  ["red-desert-0"] =  50,
+  ["dirt-3"] =  40,
+  ["dirt-5"] =  37,
+  ["dirt-6"] =  34,
+  ["dirt-7"] =  31,
+  ["dirt-4"] =  28,
+  ["dry-dirt"] =  25,
+  ["dirt-2"] =  22,
+  ["dirt-1"] =  19,
+  ["red-desert-2"] =  16,
+  ["red-desert-3"] =  13,
+  ["sand-3"] =  10,
+  ["sand-2"] =  7,
+  ["sand-1"] =  4,
+  ["red-desert-1"] =  1,
+  ["frozen-snow-0"] = 1,
+  ["frozen-snow-1"] = 1,
+  ["frozen-snow-2"] = 1,
+  ["frozen-snow-3"] = 1,
+  ["frozen-snow-4"] = 1,
+  ["frozen-snow-5"] = 1,
+  ["frozen-snow-6"] = 1,
+  ["frozen-snow-7"] = 1,
+  ["frozen-snow-8"] = 1,
+  ["frozen-snow-9"] = 1,
+  ["mineral-aubergine-dirt-1"] = 45,
+  ["mineral-aubergine-dirt-2"] = 45,
+  ["mineral-aubergine-dirt-3"] = 25,
+  ["mineral-aubergine-dirt-4"] = 25,
+  ["mineral-aubergine-dirt-5"] = 25,
+  ["mineral-aubergine-dirt-6"] = 25,
+  ["mineral-aubergine-dirt-7"] = 25,
+  ["mineral-aubergine-dirt-8"] = 25,
+  ["mineral-aubergine-dirt-9"] = 25,
+  ["mineral-aubergine-sand-1"] = 15,
+  ["mineral-aubergine-sand-2"] = 15,
+  ["mineral-aubergine-sand-3"] = 10,
+  ["mineral-beige-dirt-1"] = 45,
+  ["mineral-beige-dirt-2"] = 45,
+  ["mineral-beige-dirt-3"] = 25,
+  ["mineral-beige-dirt-4"] = 25,
+  ["mineral-beige-dirt-5"] = 25,
+  ["mineral-beige-dirt-6"] = 25,
+  ["mineral-beige-dirt-7"] = 25,
+  ["mineral-beige-dirt-8"] = 25,
+  ["mineral-beige-dirt-9"] = 25,
+  ["mineral-beige-sand-1"] = 10,
+  ["mineral-beige-sand-2"] = 10,
+  ["mineral-beige-sand-3"] = 10,
+  ["mineral-black-dirt-1"] = 45,
+  ["mineral-black-dirt-2"] = 45,
+  ["mineral-black-dirt-3"] = 25,
+  ["mineral-black-dirt-4"] = 25,
+  ["mineral-black-dirt-5"] = 25,
+  ["mineral-black-dirt-6"] = 25,
+  ["mineral-black-dirt-7"] = 25,
+  ["mineral-black-dirt-8"] = 25,
+  ["mineral-black-dirt-9"] = 25,
+  ["mineral-black-sand-1"] = 10,
+  ["mineral-black-sand-2"] = 10,
+  ["mineral-black-sand-3"] = 10,
+  ["mineral-brown-dirt-1"] = 25,
+  ["mineral-brown-dirt-2"] = 25,
+  ["mineral-brown-dirt-3"] = 25,
+  ["mineral-brown-dirt-4"] = 25,
+  ["mineral-brown-dirt-5"] = 25,
+  ["mineral-brown-dirt-6"] = 25,
+  ["mineral-brown-dirt-7"] = 25,
+  ["mineral-brown-dirt-8"] = 25,
+  ["mineral-brown-dirt-9"] = 25,
+  ["mineral-brown-sand-1"] = 10,
+  ["mineral-brown-sand-2"] = 10,
+  ["mineral-brown-sand-3"] = 10,
+  ["mineral-cream-dirt-1"] = 25,
+  ["mineral-cream-dirt-2"] = 25,
+  ["mineral-cream-dirt-3"] = 25,
+  ["mineral-cream-dirt-4"] = 25,
+  ["mineral-cream-dirt-5"] = 25,
+  ["mineral-cream-dirt-6"] = 25,
+  ["mineral-cream-dirt-7"] = 25,
+  ["mineral-cream-dirt-8"] = 25,
+  ["mineral-cream-dirt-9"] = 25,
+  ["mineral-cream-sand-1"] = 10,
+  ["mineral-cream-sand-2"] = 10,
+  ["mineral-cream-sand-3"] = 10,
+  ["mineral-dustyrose-dirt-1"] = 25,
+  ["mineral-dustyrose-dirt-2"] = 25,
+  ["mineral-dustyrose-dirt-3"] = 25,
+  ["mineral-dustyrose-dirt-4"] = 25,
+  ["mineral-dustyrose-dirt-5"] = 25,
+  ["mineral-dustyrose-dirt-6"] = 25,
+  ["mineral-dustyrose-dirt-7"] = 25,
+  ["mineral-dustyrose-dirt-8"] = 25,
+  ["mineral-dustyrose-dirt-9"] = 25,
+  ["mineral-dustyrose-sand-1"] = 10,
+  ["mineral-dustyrose-sand-2"] = 10,
+  ["mineral-dustyrose-sand-3"] = 10,
+  ["mineral-grey-dirt-1"] = 25,
+  ["mineral-grey-dirt-2"] = 25,
+  ["mineral-grey-dirt-3"] = 25,
+  ["mineral-grey-dirt-4"] = 25,
+  ["mineral-grey-dirt-5"] = 25,
+  ["mineral-grey-dirt-6"] = 25,
+  ["mineral-grey-dirt-7"] = 25,
+  ["mineral-grey-dirt-8"] = 25,
+  ["mineral-grey-dirt-9"] = 25,
+  ["mineral-grey-sand-1"] = 10,
+  ["mineral-grey-sand-2"] = 10,
+  ["mineral-grey-sand-3"] = 10,
+  ["mineral-purple-dirt-1"] = 25,
+  ["mineral-purple-dirt-2"] = 25,
+  ["mineral-purple-dirt-3"] = 25,
+  ["mineral-purple-dirt-4"] = 25,
+  ["mineral-purple-dirt-5"] = 25,
+  ["mineral-purple-dirt-6"] = 25,
+  ["mineral-purple-dirt-7"] = 25,
+  ["mineral-purple-dirt-8"] = 25,
+  ["mineral-purple-dirt-9"] = 25,
+  ["mineral-purple-sand-1"] = 10,
+  ["mineral-purple-sand-2"] = 10,
+  ["mineral-purple-sand-3"] = 10,
+  ["mineral-red-dirt-1"] = 25,
+  ["mineral-red-dirt-2"] = 25,
+  ["mineral-red-dirt-3"] = 25,
+  ["mineral-red-dirt-4"] = 25,
+  ["mineral-red-dirt-5"] = 25,
+  ["mineral-red-dirt-6"] = 25,
+  ["mineral-red-dirt-7"] = 25,
+  ["mineral-red-dirt-8"] = 25,
+  ["mineral-red-dirt-9"] = 25,
+  ["mineral-red-sand-1"] = 10,
+  ["mineral-red-sand-2"] = 10,
+  ["mineral-red-sand-3"] = 10,
+  ["mineral-tan-dirt-1"] = 25,
+  ["mineral-tan-dirt-2"] = 25,
+  ["mineral-tan-dirt-3"] = 25,
+  ["mineral-tan-dirt-4"] = 25,
+  ["mineral-tan-dirt-5"] = 25,
+  ["mineral-tan-dirt-6"] = 25,
+  ["mineral-tan-dirt-7"] = 25,
+  ["mineral-tan-dirt-8"] = 25,
+  ["mineral-tan-dirt-9"] = 25,
+  ["mineral-tan-sand-1"] = 10,
+  ["mineral-tan-sand-2"] = 10,
+  ["mineral-tan-sand-3"] = 10,
+  ["mineral-violet-dirt-1"] = 25,
+  ["mineral-violet-dirt-2"] = 25,
+  ["mineral-violet-dirt-3"] = 25,
+  ["mineral-violet-dirt-4"] = 25,
+  ["mineral-violet-dirt-5"] = 25,
+  ["mineral-violet-dirt-6"] = 25,
+  ["mineral-violet-dirt-7"] = 25,
+  ["mineral-violet-dirt-8"] = 25,
+  ["mineral-violet-dirt-9"] = 25,
+  ["mineral-violet-sand-1"] = 10,
+  ["mineral-violet-sand-2"] = 10,
+  ["mineral-violet-sand-3"] = 10,
+  ["mineral-white-dirt-1"] = 25,
+  ["mineral-white-dirt-2"] = 25,
+  ["mineral-white-dirt-3"] = 25,
+  ["mineral-white-dirt-4"] = 25,
+  ["mineral-white-dirt-5"] = 25,
+  ["mineral-white-dirt-6"] = 25,
+  ["mineral-white-dirt-7"] = 25,
+  ["mineral-white-dirt-8"] = 25,
+  ["mineral-white-dirt-9"] = 25,
+  ["mineral-white-sand-1"] = 10,
+  ["mineral-white-sand-2"] = 10,
+  ["mineral-white-sand-3"] = 10,
+  ["vegetation-blue-grass-1"] = 70,
+  ["vegetation-blue-grass-2"] = 70,
+  ["vegetation-green-grass-2"] = 75,
+  ["vegetation-green-grass-3"] = 85,
+  ["vegetation-green-grass-4"] = 70,
+  ["vegetation-mauve-grass-1"] = 70,
+  ["vegetation-mauve-grass-2"] = 70,
+  ["vegetation-olive-grass-1"] = 70,
+  ["vegetation-olive-grass-2"] = 70,
+  ["vegetation-orange-grass-1"] = 70,
+  ["vegetation-orange-grass-2"] = 70,
+  ["vegetation-purple-grass-1"] = 70,
+  ["vegetation-purple-grass-2"] = 70,
+  ["vegetation-red-grass-1"] = 70,
+  ["vegetation-red-grass-2"] = 70,
+  ["vegetation-turquoise-grass-1"] = 70,
+  ["vegetation-turquoise-grass-2"] = 70,
+  ["vegetation-violet-grass-1"] = 70,
+  ["vegetation-violet-grass-2"] = 70,
+  ["vegetation-yellow-grass-1"] = 70,
+  ["vegetation-yellow-grass-2"] = 70,
+  ["volcanic-blue-heat-1"] = 1,
+  ["volcanic-blue-heat-2"] = 1,
+  ["volcanic-blue-heat-3"] = 1,
+  ["volcanic-blue-heat-4"] = 1,
+  ["volcanic-green-heat-1"] = 1,
+  ["volcanic-green-heat-2"] = 1,
+  ["volcanic-green-heat-3"] = 1,
+  ["volcanic-green-heat-4"] = 1,
+  ["volcanic-orange-heat-1"] = 1,
+  ["volcanic-orange-heat-2"] = 1,
+  ["volcanic-orange-heat-3"] = 1,
+  ["volcanic-orange-heat-4"] = 1,
+  ["volcanic-purple-heat-1"] = 1,
+  ["volcanic-purple-heat-2"] = 1,
+  ["volcanic-purple-heat-3"] = 1,
+  ["volcanic-purple-heat-4"] = 1,
+  ["landfill"] = 1,
 }
 
 local function get_tile_fertility(surface, position)
   surface = BioInd.is_surface(surface) or BioInd.arg_err(surface or "nil", "surface")
   position = BioInd.normalize_position(position) or BioInd.arg_err(position or "nil", "position")
 
-  local fertility = Bi_Industries.fertility[surface.get_tile(position.x, position.y).name]
+  local fertility = BI_trees.fertility[surface.get_tile(position.x, position.y).name]
 
   return fertility and {fertility = fertility, key = "fertilizer"} or
                         {fertility = 1, key = "default"}
@@ -236,6 +239,7 @@ end
 
 
 local function plant_tree(tabl, tree, create_entity)
+  BioInd.entered_function({tabl, tree, create_entity})
   BioInd.check_args(tabl, "table")
   BioInd.check_args(tree, "table")
   BioInd.check_args(tree.time, "number", "time")
@@ -263,10 +267,12 @@ local function plant_tree(tabl, tree, create_entity)
       force = "neutral"
     })
   end
+  BioInd.entered_function("leave")
 end
 
 -- t_base, t_penalty: numbers; seedbomb: Boolean
 local function plant_seed(event, t_base, t_penalty, seedbomb)
+  BioInd.entered_function({event, t_base, t_penalty, seedbomb})
   for a, arg in pairs({
     {arg = event, type = "table"},
     {arg = t_base, type = "number"},
@@ -300,61 +306,63 @@ BioInd.show("seedbomb", seedbomb)
     seed_bomb = seedbomb
   }
   plant_tree(global.bi.tree_growing, tree_data, false)
+  BioInd.entered_function("leave")
 end
 
-function seed_planted(event)
-  plant_seed(event, 1000, 4000, false)
-end
+local function sum_weight(tabl)
+  BioInd.entered_function()
 
-function seed_planted_trigger(event)
-  plant_seed(event, 2000, 6000, true)
-end
-
-function seed_planted_arboretum(event, entity)
-  event.created_entity = entity
-  plant_seed(event, 2000, 6000, false)
-end
-
-
-function summ_weight(tabl)
-  local summ = 0
+  local sum = 0
   for i, tree_weights in pairs(tabl or {}) do
     if (type(tree_weights) == "table") and tree_weights.weight then
-      summ = summ + tree_weights.weight
+      sum = sum + tree_weights.weight
     end
   end
-  return summ
+
+  BioInd.entered_function("leave")
+  return sum
 end
 
-function tree_from_max_index_tabl(max_index, tabl)
+local function tree_from_max_index_tabl(max_index, tabl)
+  BioInd.entered_function({max_index})
   BioInd.check_args(max_index, "number")
 
+  local ret
   local rnd_index = math.random(max_index)
   for tree_name, tree_weights in pairs(tabl or {}) do
     if (type(tree_weights) == "table") and tree_weights.weight then
       rnd_index = rnd_index - tree_weights.weight
       if rnd_index <= 0 then
-        return tree_name
+        ret = tree_name
+        break
       end
     end
   end
-  return nil
+
+  BioInd.entered_function("leave")
+  return ret
 end
 
-function random_tree(surface, position)
+local function random_tree(surface, position)
+  BioInd.entered_function({surface, position})
+
   surface = BioInd.is_surface(surface) or BioInd.arg_err(surface or "nil", "surface")
   position = position and BioInd.normalize_position(position) or
                     BioInd.arg_err(position or "nil", "position")
   local tile_name = surface.get_tile(position.x, position.y).name
+  local ret
 
 BioInd.show("random_tree: tile_name", tile_name)
 BioInd.show("terrains[tile_name]", terrains[tile_name])
   if terrains[tile_name] then
     local trees_table = terrains[tile_name]
-    local max_index = summ_weight(trees_table)
+    local max_index = sum_weight(trees_table)
 BioInd.writeDebug("Found %s in table terrains. trees_table: %s\tmax_index: %s", {tile_name,trees_table, max_index})
-    return tree_from_max_index_tabl(max_index, trees_table)
+    ret = tree_from_max_index_tabl(max_index, trees_table)
   end
+
+  BioInd.entered_function({surface, position}, "leave")
+  return ret
 end
 
 
@@ -375,6 +383,7 @@ local stage_settings = {
 }
 
 local function Grow_tree_first_stage(first_stage_table, event)
+  BioInd.entered_function({event})
   BioInd.check_args(first_stage_table, "table")
   BioInd.check_args(event, "table")
   local surface = BioInd.is_surface(first_stage_table.surface) or
@@ -469,7 +478,7 @@ BioInd.writeDebug("stage_1_tree_name: %s", {stage_1_tree_name})
       tree.destroy()
     end
 
-    --- Depending on Terrain, choose tree type & Convert seedling into a tree
+    --- Depending on Terrain, choose tree type & convert seedling into a tree
     if key == "fertilizer" then
       BioInd.writeDebug("Got Tile")
       if tree_name then
@@ -487,9 +496,12 @@ BioInd.writeDebug("stage_1_tree_name: %s", {stage_1_tree_name})
       BioInd.writeDebug("Tile not Found")
     end
   end
+
+  BioInd.entered_function("leave")
 end
 
 local function Grow_tree_last_stage(last_stage_table)
+  BioInd.entered_function()
   BioInd.check_args(last_stage_table, "table")
   BioInd.check_args(last_stage_table.tree_name, "string", "tree_name")
   BioInd.check_args(last_stage_table.final_tree, "string", "final_tree")
@@ -527,11 +539,12 @@ local function Grow_tree_last_stage(last_stage_table)
         })
     end
   end
+  BioInd.entered_function("leave")
 end
 
 
 local function Grow_tree_stage(stage_table, stage)
-BioInd.writeDebug("Entered function Grow_tree_stage(%s, %s)", {stage_table, stage})
+  BioInd.entered_function({stage_table, stage})
   BioInd.check_args(stage_table, "table")
   BioInd.check_args(stage, "number")
 
@@ -611,6 +624,7 @@ BioInd.writeDebug("Entered function Grow_tree_stage(%s, %s)", {stage_table, stag
       BioInd.writeDebug("Did not find that tree I was looking for...")
     end
   end
+  BioInd.entered_function("leave")
 end
 
 
@@ -647,3 +661,32 @@ Event.register(defines.events.on_tick, function(event)
     end
   end
 end)
+
+
+
+BI_trees.seed_planted = function(event)
+  BioInd.entered_function({event})
+  plant_seed(event, 1000, 4000, false)
+  BioInd.entered_function({event}, "leave")
+end
+
+BI_trees.seed_planted_trigger = function(event)
+  BioInd.entered_function({event})
+  plant_seed(event, 2000, 6000, true)
+  BioInd.entered_function({event}, "leave")
+end
+
+BI_trees.seed_planted_arboretum = function(event, entity)
+  BioInd.entered_function({event, entity})
+  event.created_entity = entity
+  plant_seed(event, 2000, 6000, false)
+  BioInd.entered_function({event}, "leave")
+end
+
+
+------------------------------------------------------------------------------------
+--                                    END OF FILE                                 --
+------------------------------------------------------------------------------------
+BioInd.entered_file("leave")
+
+return BI_trees

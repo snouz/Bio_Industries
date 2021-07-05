@@ -2,7 +2,7 @@ BioInd.entered_file()
 
 ------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------
-
+BioInd.show("Rail recipe at start of data-final-fixes", data.raw.recipe.rail)
 
 --~ local BioInd = require(['"]common['"])(["']Bio_Industries['"])
 local ICONPATH = BioInd.iconpath
@@ -27,46 +27,64 @@ for name, _ in pairs(ignore_trees or {}) do
 end
 BioInd.writeDebug("Removed %g tree prototypes. Number of trees to ignore now: %g", {removed, table_size(ignore_trees)})
 
-------------------------------------------------------------------------------------
---                              Enable: Wooden rails                              --
---                             (BI.Settings.BI_Rails)                             --
-------------------------------------------------------------------------------------
-require("prototypes.mod_compatibility.final_fixes.fixes_optionRails")
+--~ ------------------------------------------------------------------------------------
+--~ --                              Enable: Wooden rails                              --
+--~ --                             (BI.Settings.BI_Rails)                             --
+--~ ------------------------------------------------------------------------------------
+--~ require("prototypes.optional._final_fixes.fixes_optionRails")
+
+--~ ---- Game Tweaks ---- Tree
+--~ require("prototypes.optional._final_fixes.fixes_tweaksTreeYield")
 
 
----- Game Tweaks ---- Tree
+--~ ---- Game Tweaks ---- Player (Changed for 0.18.34/1.1.4!)
+--~ require("prototypes.optional._final_fixes.fixes_tweaksPlayer")
+
+--~ ---- Game Tweaks ---- Bots
+--~ require("prototypes.optional._final_fixes.fixes_tweaksBots")
+
+--~ ---- Game Tweaks ----
+--~ require("prototypes.optional._final_fixes.fixes_tweaksStackSize")
+
+--~ --- Update fuel_emissions_multiplier values
+--~ require("prototypes.optional._final_fixes.fixes_tweaksEmissionsMultiplier")
+
+--~ -- Assign fuel values to items
+--~ require("prototypes.optional._final_fixes.fixes_tweaksFuelValue")
+
+
+--~ -- Make vanilla and Bio boilers exchangeable
+--~ require("prototypes.optional._final_fixes.fixes_optionBioFuel")
+
+
+--~ ------------------------------------------------------------------------------------
+--~ --                          Enable: Early wooden defenses                         --
+--~ --                             (BI.Settings.BI_Darts)                             --
+--~ ------------------------------------------------------------------------------------
+--~ require("prototypes.optional._final_fixes.fixes_optionDarts")
+
+
+
+------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
+--                    OPTIONAL -- THINGS DEPENDENT ON A SETTING                   --
+------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
+require("prototypes.optional._final_fixes.fixes_optionBioFuel")
+require("prototypes.optional._final_fixes.fixes_optionDarts")
+require("prototypes.optional._final_fixes.fixes_optionRails")
+require("prototypes.optional._final_fixes.fixes_tweaksBots")
+require("prototypes.optional._final_fixes.fixes_tweaksEmissionsMultiplier")
+require("prototypes.optional._final_fixes.fixes_tweaksFuelValue")
+require("prototypes.optional._final_fixes.fixes_tweaksPlayer")
+require("prototypes.optional._final_fixes.fixes_tweaksStackSize")
 require("prototypes.optional._final_fixes.fixes_tweaksTreeYield")
 
 
----- Game Tweaks ---- Player (Changed for 0.18.34/1.1.4!)
-require("prototypes.optional._final_fixes.fixes_tweaksPlayer")
-
----- Game Tweaks ---- Bots
-require("prototypes.optional._final_fixes.fixes_tweaksBots")
-
----- Game Tweaks ----
-require("prototypes.optional._final_fixes.fixes_tweaksStackSize")
-
---- Update fuel_emissions_multiplier values
-require("prototypes.optional._final_fixes.fixes_tweaksEmissionsMultiplier")
-
--- Assign fuel values to items
-require("prototypes.optional._final_fixes.fixes_tweaksFuelValue")
-
-
--- Make vanilla and Bio boilers exchangeable
-require("prototypes.optional._final_fixes.fixes_optionBioFuel")
-
-
 ------------------------------------------------------------------------------------
---                          Enable: Early wooden defenses                         --
---                             (BI.Settings.BI_Darts)                             --
-------------------------------------------------------------------------------------
-require("prototypes.optional._final_fixes.fixes_optionDarts")
-
-
 ------------------------------------------------------------------------------------
 --                          Compatibility with other mods                         --
+------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------
 
 -- 5dim Stack changes
@@ -131,6 +149,30 @@ BioInd.BI_add_icons()
 ------------------------------------------------------------------------------------
 BioInd.BI_add_unlocks()
 
+
+------------------------------------------------------------------------------------
+--              Update stacksize of BI-items to that of generic items             --
+------------------------------------------------------------------------------------
+local function update_stacksize(items)
+  local BI_item, generic_item
+  for l, list in pairs(items or {}) do
+    if list.type and list.name then
+      list = {list}
+    end
+    for i, item in pairs(list) do
+      if item.BI_stack_size_from then
+        BI_item = data.raw[item.type] and data.raw[item.type][item.name]
+        generic_item = data.raw[item.type] and data.raw[item.type][item.BI_stack_size_from]
+
+        if BI_item and generic_item then
+          BI_item.stack_size = generic_item.stack_size
+          BioInd.modified_msg("stack_size", BI_item)
+        end
+      end
+    end
+  end
+end
+update_stacksize(BI.additional_items)
 
 ------------------------------------------------------------------------------------
 --                 Remove obsolete prerequisites from technologies                --
@@ -210,8 +252,22 @@ end
 
 
 
+------------- SNOUZ ICON UPDATES
 if data.raw.recipe["bi-press-wood"] then data.raw.recipe["bi-press-wood"].icons = BioInd.make_icons({it1 = "wooden-board", it2 = "woodpulp", it3 = "resin", shift1_1 = 0 , shift1_2 = 0, shift2_1 = 0, shift2_2 = 0}) end
 if data.raw.recipe["bi-fertilizer-2"] then data.raw.recipe["bi-fertilizer-2"].icons = BioInd.make_icons({it1 = "fertilizer", it2 = "sodium-hydroxide", it3 = "", shift1_1 = 0 , shift1_2 = 0, shift2_1 = 0, shift2_2 = 0}) end
+
+
+
+------------------------------------------------------------------------------------
+--                                  TESTING AREA                                  --
+------------------------------------------------------------------------------------
+for res, r in pairs(data.raw.resource) do
+BioInd.show("Resource", res)
+end
+
+for k, v in pairs(data.raw.recipe.rail.normal.ingredients) do
+BioInd.show("Rail ingredient", v)
+end
 
 
 ------------------------------------------------------------------------------------

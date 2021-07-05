@@ -1129,6 +1129,11 @@ BI.additional_recipes.BI_Coal_Processing.solid_fuel = {
   allow_decomposition = true,         -- Changed for 0.18.34/1.1.4
   -- Custom property that allows to automatically add our recipes to tech unlocks.
   BI_add_to_tech = {"bi-tech-coal-processing-2"},
+  -- Group/subgroup if "5Dim's mod - New Core" is used
+  group_5d = "liquid",
+  subgroup_5d = "liquid-recipe",
+  --~ subgroup_order_5d = "n-a",
+  order_5d = "b[fluid-chemistry]-f[solid-fuel-from-wood-brick]",
 }
 
 
@@ -1863,6 +1868,11 @@ BI.additional_recipes.BI_Rails.rail_wood = {
   mod = "Bio_Industries",
   -- Custom property that allows to automatically add our recipes to tech unlocks.
   BI_add_to_tech = {"railway"},
+  -- Group/subgroup if "5Dim's mod - New Core" is used
+  group_5d = "trains",
+  subgroup_5d = "trains-rails",
+  --~ subgroup_order_5d = "n-a",
+  order_5d = "[Bio_Industries]-[rails]-a[wood]-a[rail]",
 }
 
 --- Wooden Rail to Concrete Rail
@@ -1973,6 +1983,11 @@ BI.additional_recipes.BI_Rails.rail_wood_bridge = {
   mod = "Bio_Industries",
   -- Custom property that allows to automatically add our recipes to tech unlocks.
   BI_add_to_tech = {"bi-tech-rail-bridge"},
+  -- Group/subgroup if "5Dim's mod - New Core" is used
+  group_5d = "trains",
+  subgroup_5d = "trains-rails",
+  --~ subgroup_order_5d = "n-a",
+  order_5d = "[Bio_Industries]-[rails]-a[wood]-b[bridge]",
 }
 
 --- Power Rail
@@ -2019,6 +2034,11 @@ BI.additional_recipes.BI_Rails.rail_power = {
   order = "a[train-system]-[Bio_Industries]-c[powered]-a[rail]",
   -- Custom property that allows to automatically add our recipes to tech unlocks.
   BI_add_to_tech = {"bi-tech-power-conducting-rails"},
+  -- Group/subgroup if "5Dim's mod - New Core" is used
+  group_5d = "trains",
+  subgroup_5d = "trains-rails",
+  --~ subgroup_order_5d = "n-a",
+  order_5d = "[Bio_Industries]-[rails]-c[powered]-a[rail]",
 }
 
 --- Rail to Power Pole
@@ -2061,7 +2081,23 @@ BI.additional_recipes.BI_Rails.power_to_rail_pole = {
   order = "a[train-system]-[Bio_Industries]-c[powered]-c[connector]",
   -- Custom property that allows to automatically add our recipes to tech unlocks.
   BI_add_to_tech = {"bi-tech-power-conducting-rails"},
+  -- Group/subgroup if "5Dim's mod - New Core" is used
+  group_5d = "trains",
+  subgroup_5d = "trains-rails",
+  --~ subgroup_order_5d = "n-a",
+  order_5d = "[Bio_Industries]-[rails]-c[powered]-c[connector]",
 }
+
+-- Concrete rails are just the vanilla rails. Change localization and order
+BI.additional_recipes.BI_Rails.rail_concrete = table.deepcopy(data.raw.recipe.rail)
+BI.additional_recipes.BI_Rails.rail_concrete.localised_name = {"entity-name.bi-rail-concrete"}
+BI.additional_recipes.BI_Rails.rail_concrete.order =
+                    "a[train-system]-[Bio_Industries]-b[concrete]-a[rail]"
+-- Group/subgroup if "5Dim's mod - New Core" is used
+BI.additional_recipes.BI_Rails.rail_concrete.group_5d = "trains"
+BI.additional_recipes.BI_Rails.rail_concrete.subgroup_5d = "trains-rails"
+-- BI.additional_items.BI_Rails.rail_concrete.subgroup_order_5d = "n-a"
+BI.additional_recipes.BI_Rails.rail_concrete.order_5d = "[Bio_Industries]-[rails]-b[concrete]-a[rail]"
 
 
 ------------------------------------------------------------------------------------
@@ -3495,19 +3531,25 @@ BI.additional_recipes.BI_Wood_Gasification.solid_fuel = {
   results = {
     {type="item", name="solid-fuel", amount=1},
   },
-  subgroup = "fluid-recipes",
-  order = "b[fluid-chemistry]-g[solid-fuel-from-tar]",
+
   crafting_machine_tint = {
     primary     = util.color("2a3035"),
     secondary   = util.color("242f37"),
     tertiary    = util.color("7e98b0"),
     quaternary  = util.color("6c859c")
   },
+  subgroup = "fluid-recipes",
+  order = "b[fluid-chemistry]-g[solid-fuel-from-tar]",
   always_show_products = true,
   always_show_made_in = true,
   allow_decomposition = false,
   -- Custom property that allows to automatically add our recipes to tech unlocks.
   BI_add_to_tech = {"bi-tech-wood-gasification"},
+  -- Group/subgroup if "5Dim's mod - New Core" is used
+  group_5d = "liquid",
+  subgroup_5d = "liquid-recipe",
+  --~ subgroup_order_5d = "n-a",
+  order_5d = "b[fluid-chemistry]-g[solid-fuel-from-tar]",
 }
 
 

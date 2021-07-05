@@ -3,7 +3,7 @@
 --                         (BI.Settings.BI_Stone_Crushing)                        --
 ------------------------------------------------------------------------------------
 local setting = "BI_Stone_Crushing"
-if BI.Settings[setting] then
+if not BI.Settings[setting] then
   BioInd.nothing_to_do("*")
   return
 else

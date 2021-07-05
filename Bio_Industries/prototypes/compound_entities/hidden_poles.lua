@@ -57,10 +57,14 @@ h_entity.radius_visualisation_picture = BioInd.is_debug and
 ------------------------------------------------------------------------------------
 -- Compile a list of the hidden entities we'll need
 BI.make_hidden_entity_list(h_key)
--- Musk floor is not an entity, but a tile, so we don't have a compound-entity table
--- for it and must add it manually!
-local Musk_name = BioInd.musk_floor_pole_name
-BI.hidden_entities.types[h_key][Musk_name] = "bi-solar-mat"
+
+-- Add entities for Musk floor?
+if BI.Settings.BI_Power_Production then
+  -- Musk floor is not an entity, but a tile, so we don't have a compound-entity table
+  -- for it and must add it manually!
+  local Musk_name = BioInd.musk_floor_pole_name
+  BI.hidden_entities.types[h_key][Musk_name] = "bi-solar-mat"
+end
 
 -- We only have one "connector" at the moment. No need to add another file just for that,
 -- so let's add this connector manually to the list!

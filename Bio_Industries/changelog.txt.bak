@@ -1,6 +1,6 @@
 ---------------------------------------------------------------------------------------------------
 Version: 1.2.0
-Date: 2021-07-?
+Date: 2021-06-?
   Uploaded by:
     - Pi-C & Snouz
 
@@ -10,16 +10,15 @@ Date: 2021-07-?
     - 2 new gardens: the Large garden (9x9), and the Huge garden (27x27), each 9x larger but 19% more efficient than the previous one.
     - New building: the pollution sensor. Outputs a signal of the air pollution in the chunk.
     - New items and recipes: Rubber, Rubber-Coated Concrete, Diluted Bitumen, Poison Artillery Shell.
-    - Major graphics, localization, optimization and compatibility overhaul
 
   Graphics:
     - New visuals, animations & lighting for all buildings (Bio nurseries, Bio farms, Cokeries, Stone crushers, Bio reactors, terraformers, Bio-gardens, Large chests, huge chests, Gigantic chests, Big poles, Huge poles, Wood pipes, Solar farms, Solar power plants & boilers, Huge accumulators, Wooden fences, Prototype artillery, bio boilers, Dart turrets, projectiles)
     - New textures and shapes for tiles (Musk floor, Wood floor).
     - New custom remnants for each building.
-    - Unique visuals for all 59 technologies.
+    - Unique visuals for each technology.
     - Added an HD and SD version to all buildings.
     - Added correct, engine-understood shadows to all buildings (no more shadows overlapping).
-    - Revamped all icons visuals (recipes, items, variations).
+    - Revamped all 150+ icons visuals (recipes, items, variations).
     - Made the Terraformer's small radar part of the entity.
     - Advanced and normal fertilizer recipes make buildings glow green or pink.
     - Removed some useless secondary selection boxes.
@@ -95,9 +94,9 @@ Date: 2021-07-?
     - If your mod has items that should/shouldn't get a fuel value, you can pass on filters to BI. Please check BI's data.lua for an explanation! (There are already filters for some mods included in BI. If you're not happy with the presets for your mod, either provide a complete list with the filters you want, or overwrite the presets yourselves at runtime following the explanation in BI's data.lua!)
 
   Compatibility:
-    - Recipe icons are now dynamic based on other mods icons, no need for custom icons.
-    - Added support / icons for "Deadlock's Stacking Beltboxes & Compact Loaders" and "Deadlock's Crating Machine".
+    - Added support for "Deadlock's Stacking Beltboxes & Compact Loaders" and "Deadlock's Crating Machine".
     - Added support for Brevven's "Silica & Silicon".
+    - Updated compatibility icons.
     - "Pyanodons Petroleum Handling" didn't reckon with changes to their recipes by other mods, so things done by BI would result in a crash for two recipes. Added patches for these recipes that should work once the dependency of "Pyanodons Coal Processing" on BI has been removed.
 
   Optimization:
@@ -112,6 +111,7 @@ Date: 2021-07-?
     - Removed the jungle sound from working gardens.
 
   Bugfixes:
+    - Added a tint on the Power rail connector when HD graphics are on (so it's different from the Medium electric pole)
     - Fixed visual zone for Huge wooden poles
     - Fixed that powered rails and the rail-to-power connectors could not be unlocked if IR2 was active.
 

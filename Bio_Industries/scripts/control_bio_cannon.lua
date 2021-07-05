@@ -1,5 +1,9 @@
---~ local BioInd = require("__" .. script.mod_name .. "__.common")(script.mod_name)
-BioInd.entered_file()
+if BioInd.get_startup_setting("BI_Bio_Cannon") then
+  BioInd.entered_file()
+else
+  BioInd.nothing_to_do("*")
+  return
+end
 
 
 ---Bio Cannon Stuff
@@ -8,7 +12,7 @@ local Event = require('__stdlib__/stdlib/event/event').set_protected_mode(true)
 
 ----- Bio Cannon Stuff
 local function Bio_Cannon_Check(Bio_Cannon)
---~ BioInd.writeDebug("Entered function Bio_Cannon_List")
+  BioInd.entered_function({Bio_Cannon})
 
   local Radar = Bio_Cannon and Bio_Cannon.valid and
                   global.bi_bio_cannon_table[Bio_Cannon.unit_number].radar
@@ -115,7 +119,7 @@ local function Bio_Cannon_Check(Bio_Cannon)
       global.bi_bio_cannon_table[Bio_Cannon.unit_number].delay = delays[AmmoType] or 20
     end
   end
-  --~ BioInd.writeDebug("End of function Bio_Cannon_List")
+  BioInd.entered_function("leave")
 end
 
 
@@ -144,5 +148,7 @@ Event.register(defines.events.on_tick, function(event)
 end)
 
 
-
---------------------------------------------------------------------
+------------------------------------------------------------------------------------
+--                                    END OF FILE                                 --
+------------------------------------------------------------------------------------
+BioInd.entered_file("leave")

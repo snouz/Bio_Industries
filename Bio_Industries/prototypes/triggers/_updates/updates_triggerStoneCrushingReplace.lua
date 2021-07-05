@@ -4,7 +4,7 @@
 ------------------------------------------------------------------------------------
 -- Setting: not BI.Settings.BI_Stone_Crushing
 local trigger = "BI_Trigger_Crushed_Stone_Replace"
-if BI.Triggers[trigger] then
+if not BI.Triggers[trigger] then
   BioInd.nothing_to_do("*")
   return
 else

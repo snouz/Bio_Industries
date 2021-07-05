@@ -46,9 +46,16 @@ BI.Triggers = {
 
   -- Create "bi-wood-floor" tiles?
   BI_Trigger_Woodfloor            = not BioInd.get_startup_setting("dectorio-wood"),
+
+  -- Do we have early access to glass?
+  BI_Trigger_Glass_bobs           = BioInd.check_mods({"bobplates", "bobores", "and"}) and
+                                    BioInd.get_startup_setting("bobmods-ores-enablequartz"),
 }
 
-
+-- Convert triggers to Boolean values!
+for k, v in pairs(BI.Triggers) do
+  BI.Triggers[k] = v and true or false
+end
 
 ------------------------------------------------------------------------------------
 --                                    END OF FILE                                 --

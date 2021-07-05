@@ -1,13 +1,19 @@
 BioInd.entered_file()
-------------------------------------    ------------------------------------------------
---    If startup settings have been changed, we need to check some stuff. Keep    --
---    that in a separate file so the main control.lua is easier to read!          --
+------------------------------------------------------------------------------------
+--       If startup settings have been changed, we need to check some stuff.      --
 ------------------------------------------------------------------------------------
 --~ local BioInd = require("__" .. script.mod_name .. "__.common")(script.mod_name)
+
+
+
+
+local settings_changed = {}
+
 
 -- Remove all Musk-floor tiles if BI_Power_Production has been turned off since the
 -- last time the game was saved!
 local function check_musk_floor()
+  BioInd.entered_function()
   local last = global.mod_settings.BI_Power_Production
   local now = BioInd.get_startup_setting("BI_Power_Production")
 
@@ -44,18 +50,19 @@ local function check_musk_floor()
     ret = true
   end
 
+  BioInd.entered_function("leave")
   return ret
 end
 
 
-
-local settings_changed = {}
-
 -- Adjust the force of hidden poles on Musk floor!
 settings_changed.musk_floor = function()
   -- We only need to run this if Musk floor is used in the game!
-  if not check_musk_floor() then
-    BioInd.writeDebug("No musk floor in the game -- leaving early!")
+  if check_musk_floor() then
+    BioInd.entered_function()
+  else
+    --~ BioInd.writeDebug("No musk floor in the game -- leaving early!")
+    BioInd.nothing_to_do()
     return
   end
 
@@ -127,11 +134,13 @@ BioInd.writeDebug("Destroying pole number %g", {i})
   end
   BioInd.writeDebug("Electric grid overlay of musk floor will be %s in map view.",
                     {BioInd.UseMuskForce and "hidden" or "displayed"})
+
+  BioInd.entered_function("leave")
 end
 
 
 settings_changed.bio_garden = function()
-  BioInd.writeDebug("Entered function settings_changed.bio_garden!")
+  BioInd.entered_function()
 
   -- Has this setting been changed since the last time the game was run?
   local current = BioInd.get_startup_setting("BI_Game_Tweaks_Easy_Bio_Gardens")
@@ -265,6 +274,8 @@ BioInd.show("global.compound_entities", global.compound_entities)
   else
     BioInd.writeDebug("Nothing to do!")
   end
+
+  BioInd.entered_function("leave")
 end
 
 

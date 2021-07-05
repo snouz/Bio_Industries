@@ -49,16 +49,28 @@ if recipe then
   BioInd.modified_msg("ingredient \"concrete\"", recipe, "Added")
 
   -- Change localization
-  recipe.localised_name = {"entity-name.bi-rail-concrete"}
+  --~ recipe.localised_name = {"entity-name.bi-rail-concrete"}
+  recipe.localised_name = BI.additional_recipes.BI_Rails.rail_concrete.localised_name
   BioInd.modified_msg("localization", recipe)
+
+  -- Change order
+  --~ recipe.order = "a[train-system]-[Bio_Industries]-b[concrete]-a[rail]",
+  recipe.order = BI.additional_recipes.BI_Rails.rail_concrete.order
+  BioInd.modified_msg("order", recipe)
 end
 
 
 -- Item
 item = data.raw["rail-planner"]["rail"]
 if item then
-  item.localised_name = {"entity-name.bi-rail-concrete"}
+  --~ item.localised_name = {"entity-name.bi-rail-concrete"}
+  item.localised_name = BI.additional_items.BI_Rails.rail_concrete.localised_name
   BioInd.modified_msg("localization", item)
+
+  -- Change order
+  --~ recipe.order = "a[train-system]-[Bio_Industries]-b[concrete]-a[rail]",
+  item.order = BI.additional_items.BI_Rails.rail_concrete.order
+  BioInd.modified_msg("order", recipe)
 end
 
 

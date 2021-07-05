@@ -29,9 +29,7 @@ data.raw.recipe.rail.BI_add_to_tech = {"bi-tech-concrete-rails"}
 ------------------------------------------------------------------------------------
 --       Add more steel plates to recipe of vanilla rails (concrete rails)!       --
 ------------------------------------------------------------------------------------
-thxbob.lib.recipe.add_ingredient("rail", {type = item, name = "steel-plate", amount = 1.5})
-
-
+thxbob.lib.recipe.add_ingredient("rail", {type = "item", name = "steel-plate", amount = 1.5})
 
 ------------------------------------------------------------------------------------
 -- "Transport drones" ruins rails by removing object-layer from their collision   --
@@ -99,6 +97,7 @@ for f, form in ipairs({"straight", "curved"}) do
 
       -- Add fast_replaceable_group to our rails
       rail.fast_replaceable_group = rail_group
+      BioInd.modified_msg("fast_replaceable_group", rail)
     end
 
     -- Look for all known bridges
@@ -127,6 +126,7 @@ BioInd.show("Bridge found", rail_name)
 BioInd.show("Collision mask", rail.collision_mask)
       -- Add fast_replaceable_group to the bridges
       rail.fast_replaceable_group = rail_group
+      BioInd.modified_msg("fast_replaceable_group", rail)
     end
   end
 end

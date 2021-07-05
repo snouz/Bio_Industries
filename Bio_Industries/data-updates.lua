@@ -97,11 +97,11 @@ require("prototypes.optional._updates.updates_optionBioFuel")
 require("prototypes.optional._updates.updates_optionDarts")
 
 
-------------------------------------------------------------------------------------
---                              Enable: Wooden rails                              --
---                             (BI.Settings.BI_Rails)                             --
-------------------------------------------------------------------------------------
-require("prototypes.optional._updates.updates_optionRails")
+--~ ------------------------------------------------------------------------------------
+--~ --                              Enable: Wooden rails                              --
+--~ --                             (BI.Settings.BI_Rails)                             --
+--~ ------------------------------------------------------------------------------------
+--~ require("prototypes.optional._updates.updates_optionRails")
 
 
 ------------------------------------------------------------------------------------

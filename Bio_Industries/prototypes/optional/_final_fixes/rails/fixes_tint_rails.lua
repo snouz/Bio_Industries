@@ -173,15 +173,15 @@ for r_type, r_data in pairs(icon_map) do
 end
 
 
-------------------------------------------------------------------------------------
---                          Change order of vanilla rails                         --
-------------------------------------------------------------------------------------
-entity = data.raw["rail-planner"]["rail"]
-entity.order = "a[train-system]-a[rail1]"
-BioInd.modified_msg("order", entity)
-recipe = data.raw.recipe["rail"]
-recipe.order = "a[train-system]-a[rail1]"
-BioInd.modified_msg("order", recipe)
+--~ ------------------------------------------------------------------------------------
+--~ --                          Change order of vanilla rails                         --
+--~ ------------------------------------------------------------------------------------
+--~ entity = data.raw["rail-planner"]["rail"]
+--~ entity.order = "a[train-system]-a[rail1]"
+--~ BioInd.modified_msg("order", entity)
+--~ recipe = data.raw.recipe["rail"]
+--~ recipe.order = "a[train-system]-a[rail1]"
+--~ BioInd.modified_msg("order", recipe)
 
 
 ------------------------------------------------------------------------------------

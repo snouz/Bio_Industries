@@ -244,6 +244,7 @@ end
 -- Modified by Pi-C
 function thxbob.lib.recipe.add_ingredient(recipe, item)
 BioInd.entered_function()
+
   if recipe and item  then
     thxbob.lib.recipe.add_difficulty_ingredient(recipe, "", item)
     thxbob.lib.recipe.add_difficulty_ingredient(recipe, "normal", item)

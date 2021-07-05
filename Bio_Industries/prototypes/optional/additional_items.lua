@@ -181,31 +181,6 @@ BI.additional_items.Bio_Cannon.bio_cannon_ammo_poison = {
 
 -- Poison artillery shell
 BI.additional_items.Bio_Cannon.poison_artillery_shell = {
-  --~ type = "ammo",
-  --~ name = "bi-poison-artillery-shell",
-  --~ icon = ICONPATH .. "weapon/artillery-shell-poison.png",
-  --~ icon_size = 64, icon_mipmaps = 3,
-  --~ BI_add_icon = true,
-  --~ ammo_type = {
-    --~ category = "artillery-shell",
-    --~ target_type = "direction",
-    --~ action = {
-      --~ {
-        --~ type = "direct",
-        --~ action_delivery = {
-          --~ type = "artillery",
-          --~ projectile = "bi-poison-artillery-projectile",
-          --~ starting_speed = 1,
-          --~ direction_deviation = 0.8,
-          --~ range_deviation = 0.8,
-          --~ max_range = 90
-        --~ }
-      --~ }
-    --~ }
-  --~ },
-  --~ subgroup = "ammo",
-  --~ order = "d[explosive-cannon-shell]-d[artillery]-[bi-poison]",
-  --~ stack_size = 1,
   type = "ammo",
   name = "bi-poison-artillery-shell",
   icon = ICONPATH .. "weapon/artillery-shell-poison.png",
@@ -232,6 +207,8 @@ BI.additional_items.Bio_Cannon.poison_artillery_shell = {
   subgroup = "ammo",
   order = "d[explosive-cannon-shell]-d[artillery]-[bi-poison]",
   stack_size = 1,
+  -- Adjust to stack_size of generic item in data-final-fixes!
+  BI_stack_size_from = "artillery-shell",
   -- Group/subgroup if "5Dim's mod - New Core" is used
   group_5d = "defense",
   subgroup_5d = "defense-artillery",
@@ -254,7 +231,8 @@ BI.additional_items.BI_Coal_Processing.wood_charcoal = {
   fuel_category = "chemical",
   subgroup = "raw-material",
   order = "a[bi]-a-c[charcoal]",
-  stack_size = 400,
+  --~ stack_size = 400,
+  stack_size = 200,
 }
 BI.additional_items.BI_Coal_Processing.wood_charcoal.pictures = BioInd.add_pix("charcoal", 4)
 
@@ -271,7 +249,8 @@ BI.additional_items.BI_Coal_Processing.pellet_coke = {
   fuel_top_speed_multiplier = 1.1,
   subgroup = "raw-material",
   order = "a[bi]-a-g[bi-coke-coal]",
-  stack_size = 400,
+  --~ stack_size = 400,
+  stack_size = 200,
 }
 
 
@@ -909,6 +888,8 @@ BI.additional_items.BI_Wood_Products.big_pole = {
   --fuel_value = "14MJ",
   --fuel_category = "chemical",
   stack_size = 50,
+  -- Adjust to stack_size of generic item in data-final-fixes!
+  BI_stack_size_from = "big-electric-pole",
   -- Group/subgroup if "5Dim's mod - New Core" is used
   group_5d = "energy",
   subgroup_5d = "energy-pole",
@@ -931,6 +912,8 @@ BI.additional_items.BI_Wood_Products.huge_pole = {
   --fuel_value = "90MJ",
   --fuel_category = "chemical",
   stack_size = 50,
+  -- Adjust to stack_size of generic item in data-final-fixes!
+  BI_stack_size_from = "big-electric-pole",
   -- Group/subgroup if "5Dim's mod - New Core" is used
   group_5d = "energy",
   subgroup_5d = "energy-pole",
@@ -953,6 +936,8 @@ BI.additional_items.BI_Wood_Products.wood_pipe = {
   --fuel_value = "4MJ",
   --fuel_category = "chemical",
   stack_size = 100,
+  -- Adjust to stack_size of generic item in data-final-fixes!
+  BI_stack_size_from = "pipe",
   -- Group/subgroup if "5Dim's mod - New Core" is used
   group_5d = "liquid",
   subgroup_5d = "transport-pipe",
@@ -975,6 +960,8 @@ BI.additional_items.BI_Wood_Products.wood_pipe_to_ground = {
   --fuel_value = "20MJ",
   --fuel_category = "chemical",
   stack_size = 50,
+  -- Adjust to stack_size of generic item in data-final-fixes!
+  BI_stack_size_from = "pipe-to-ground",
   -- Group/subgroup if "5Dim's mod - New Core" is used
   group_5d = "liquid",
   subgroup_5d = "transport-pipe-ground",
@@ -1000,6 +987,8 @@ BI.additional_items.BI_Rails.rail_wood = {
   order = "a[train-system]-[Bio_Industries]-a[wood]-a[rail]",
   place_result = "bi-straight-rail-wood",
   stack_size = 100,
+  -- Adjust to stack_size of generic item in data-final-fixes!
+  BI_stack_size_from = "rail",
   straight_rail = "bi-straight-rail-wood",
   curved_rail = "bi-curved-rail-wood",
   -- Group/subgroup if "5Dim's mod - New Core" is used
@@ -1022,6 +1011,8 @@ BI.additional_items.BI_Rails.rail_wood_bridge = {
   order = "a[train-system]-[Bio_Industries]-a[wood]-b[bridge]",
   place_result = "bi-straight-rail-wood-bridge",
   stack_size = 100,
+  -- Adjust to stack_size of generic item in data-final-fixes!
+  BI_stack_size_from = "rail",
   straight_rail = "bi-straight-rail-wood-bridge",
   curved_rail = "bi-curved-rail-wood-bridge",
   -- Group/subgroup if "5Dim's mod - New Core" is used
@@ -1045,6 +1036,8 @@ BI.additional_items.BI_Rails.rail_power = {
 
   place_result = "bi-straight-rail-power",
   stack_size = 100,
+  -- Adjust to stack_size of generic item in data-final-fixes!
+  BI_stack_size_from = "rail",
   straight_rail = "bi-straight-rail-power",
   curved_rail = "bi-curved-rail-power",
   -- Group/subgroup if "5Dim's mod - New Core" is used
@@ -1067,6 +1060,8 @@ BI.additional_items.BI_Rails.power_to_rail_pole = {
   order = "a[train-system]-[Bio_Industries]-c[powered]-c[connector]",
   place_result = "bi-power-to-rail-pole",
   stack_size = 50,
+  -- Adjust to stack_size of generic item in data-final-fixes!
+  BI_stack_size_from = "small-electric-pole",
   -- Group/subgroup if "5Dim's mod - New Core" is used
   group_5d = "trains",
   subgroup_5d = "trains-rails",
@@ -1074,6 +1069,16 @@ BI.additional_items.BI_Rails.power_to_rail_pole = {
   order_5d = "[Bio_Industries]-[rails]-c[powered]-c[connector]",
 }
 
+-- Concrete rails are just the vanilla rails. Change localization and order
+BI.additional_items.BI_Rails.rail_concrete = table.deepcopy(data.raw["rail-planner"].rail)
+BI.additional_items.BI_Rails.rail_concrete.localised_name = {"entity-name.bi-rail-concrete"}
+BI.additional_items.BI_Rails.rail_concrete.order =
+                    "a[train-system]-[Bio_Industries]-b[concrete]-a[rail]"
+-- Group/subgroup if "5Dim's mod - New Core" is used
+BI.additional_items.BI_Rails.rail_concrete.group_5d = "trains"
+BI.additional_items.BI_Rails.rail_concrete.subgroup_5d = "trains-rails"
+-- BI.additional_items.BI_Rails.rail_concrete.subgroup_order_5d = "n-a"
+BI.additional_items.BI_Rails.rail_concrete.order_5d = "[Bio_Industries]-[rails]-b[concrete]-a[rail]"
 
 
 ------------------------------------------------------------------------------------

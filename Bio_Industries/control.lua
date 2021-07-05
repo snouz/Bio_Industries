@@ -2,32 +2,37 @@ BioInd = require("__" .. script.mod_name .. "__.common")(script.mod_name)
 BioInd.entered_file()
 
 ------------------------------------------------------------------------------------
---                            Require obligatory files!                           --
+--                          Require files from other mods                         --
 ------------------------------------------------------------------------------------
 -- External
 require ("util")
-require ("libs/util_ext")
-local Event = require('__stdlib__/stdlib/event/event').set_protected_mode(false)
---~ local Event = require('__stdlib__/stdlib/event/event').set_protected_mode(true)
-
--- Bio Industries
-local settings_changed = require("scripts/settings_changed")
-require ("scripts/control_tree")
-require ("scripts/control_arboretum")
-require ("scripts/control_sensor")
-
-
-------------------------------------------------------------------------------------
---                             Require optional files!                            --
-------------------------------------------------------------------------------------
-if BioInd.get_startup_setting("BI_Bio_Cannon") then
-  require ("scripts/control_bio_cannon")
-end
+--~ require ("libs/util_ext")
 
 if BioInd.get_startup_setting("BI_Debug_gvv") then
   BioInd.writeDebug("Activating support for gvv!")
   require("__gvv__/gvv")()
 end
+
+local Event = require('__stdlib__/stdlib/event/event').set_protected_mode(false)
+--~ local Event = require('__stdlib__/stdlib/event/event').set_protected_mode(true)
+
+
+------------------------------------------------------------------------------------
+--                           Require additional scripts                           --
+------------------------------------------------------------------------------------
+BI_scripts = {}
+BI_scripts.tree                 = require("scripts.control_tree")
+BI_scripts.arboretum            = require("scripts.control_arboretum")
+BI_scripts.pollution_sensor     = require("scripts.control_sensor")
+
+local settings_changed          = require("scripts.settings_changed")
+local BI_startup                = require("scripts.startup_items")
+--~ if BioInd.get_startup_setting("BI_Bio_Cannon") then
+  --~ BI_scripts.bio_cannon     = require ("scripts/control_bio_cannon")
+--~ end
+-- This will only be run if the Cannon is active. We may want to remove this later!
+require("scripts/control_bio_cannon")
+
 
 ---************** Used for Testing -----
 --require ("Test_Spawn")
@@ -42,6 +47,7 @@ local AlienBiomes
 
 
 local function Create_dummy_force()
+  BioInd.entered_function()
   -- Create dummy force for musk floor if electric grid overlay should NOT be shown in map view
     local f = game.create_force(BioInd.MuskForceName)
     -- Set new force as neutral to every other force
@@ -55,11 +61,14 @@ local function Create_dummy_force()
     f.share_chart = false
 
     BioInd.writeDebug("Created force: %s", {game.forces[BioInd.MuskForceName].name})
+  BioInd.entered_function("leave")
 end
 
 
 -- Generate a look-up table with the names of our trees
 local function get_bi_trees()
+  BioInd.entered_function()
+
   local list = {}
 
   local trees = game.get_filtered_entity_prototypes({{filter = "type", type = "tree"}})
@@ -70,6 +79,7 @@ BioInd.show("Found matching tree", tree_name)
     end
   end
 
+  BioInd.entered_function("leave")
   return list
 end
 
@@ -82,6 +92,8 @@ local tile_patterns = {
   "^bi%-wood%-floor$",
 }
 local function get_fixed_tiles()
+  BioInd.entered_function()
+
   local list = {}
 
   for tile_name, tile in pairs(game.tile_prototypes) do
@@ -95,6 +107,8 @@ BioInd.show("Found matching tile", tile_name)
     end
   end
 BioInd.show("Forbidden tiles", list)
+
+  BioInd.entered_function("leave")
   return list
 end
 
@@ -129,26 +143,40 @@ local function get_arboretum_recipes()
   end
 
   BioInd.show("Terraformer recipes", list)
+  BioInd.entered_function("leave")
   return list
 end
 
 
 --------------------------------------------------------------------
 local function init()
-BioInd.writeDebug("Entered init!")
+  BioInd.entered_function()
+
+  ----------------------------------------------------------------------------------
+  -- If "Early wooden defenses" (setting BI_Darts) is active, set the items players
+  -- get on starting a new game or on respawning!
+  ----------------------------------------------------------------------------------
+  BioInd.writeDebug("Checking whether we need to change startup items.")
+  if BioInd.get_startup_setting("BI_Darts") then
+    BI_startup()
+  end
+
   -- Moved to control.lua of _debug!
   --~ if BioInd.is_debug then
     --~ game.check_prototype_translations()
   --~ end
 
-  global = global or {}
+  --~ global = global or {}
 
   --------------------------------------------------------------------
   -- Settings
   --------------------------------------------------------------------
   -- Global table for storing the last state of certain mod settings
+  BioInd.writeDebug("Setting up table for storing mod settings.")
   global.mod_settings = global.mod_settings or {}
   if BioInd.get_startup_setting("BI_Game_Tweaks_Easy_Bio_Gardens") then
+    BioInd.writeDebug("Making list for setting \"%s\".",
+                      {"mod-setting-name.BI_Game_Tweaks_Easy_Bio_Gardens"})
     global.mod_settings.garden_pole_connectors = BioInd.get_garden_pole_connectors()
   else
     global.mod_settings.garden_pole_connectors = nil
@@ -158,12 +186,14 @@ BioInd.writeDebug("Entered init!")
   -- saves (e.g. Bio gardens only need hidden poles when the "Easy gardens" setting
   -- is active).
   --~ global.compound_entities = global.compound_entities or BioInd.compound_entities
+  BioInd.writeDebug("Compile list of required compound entities.")
   global.compound_entities = BioInd.rebuild_compound_entity_list()
 
 
   --------------------------------------------------------------------
   -- Tree stuff!
   --------------------------------------------------------------------
+  BioInd.writeDebug("Creating/restoring tables for tree growing.")
   global.bi = global.bi or {}
   global.bi.tree_growing = global.bi.tree_growing or {}
   for i = 1, 4 do
@@ -176,21 +206,23 @@ BioInd.writeDebug("Entered init!")
   -- List of tile prototypes that can't be fertilized
   global.bi.barren_tiles = get_fixed_tiles()
 
+
   --------------------------------------------------------------------
   -- Compound entities
   --------------------------------------------------------------------
   -- Check what global tables we need for compound entities
+  BioInd.writeDebug("Get list of tables for compound entities we need to check.")
   local compound_entity_tables = {}
-  --~ for compound, compound_data in pairs(BioInd.compound_entities) do
   for compound, compound_data in pairs(global.compound_entities) do
     -- BioInd.compound_entities contains entries that point to the same table
     -- (e.g. straight/curved rails, or overlay entities), so we just overwrite
     -- them to remove duplicates
     compound_entity_tables[compound_data.tab] = compound
   end
-BioInd.show("Need to check these tables in global", compound_entity_tables)
+  BioInd.show("Must check these tables in global", compound_entity_tables)
 
   -- Prepare global tables storing data of compound entities
+  BioInd.writeDebug("Setting up tables for compound entities.")
   local result
   for compound_tab, compound_name in pairs(compound_entity_tables) do
     -- Init table
@@ -224,11 +256,12 @@ BioInd.show("Need to check these tables in global", compound_entity_tables)
                         {result, compound_tab})
       -- Restore missing hidden entities
       result = BioInd.restore_missing_entities(compound_name)
-      BioInd.writeDebug("Checked %s compound entities and restored %s missing hidden entries for global[\"%s\"]!",
-                        {result.checked, result.restored, compound_tab})
+      BioInd.writeDebug("Checked %s compound entities and restored %s missing hidden entries for global[\"%s\"]!", {result.checked, result.restored, compound_tab})
     end
   end
+
   -- Search all surfaces for unregistered compound entities
+  BioInd.writeDebug("Looking for unregistered entities.")
   result = BioInd.find_unregistered_entities()
   BioInd.writeDebug("Registered %s forgotten entities!", {result})
 
@@ -237,150 +270,152 @@ BioInd.show("Need to check these tables in global", compound_entity_tables)
   --------------------------------------------------------------------
   -- Musk floor
   --------------------------------------------------------------------
-  global.bi_musk_floor_table = global.bi_musk_floor_table or {}
-  global.bi_musk_floor_table.tiles = global.bi_musk_floor_table.tiles or {}
-  global.bi_musk_floor_table.forces = global.bi_musk_floor_table.forces or {}
-
+  if BioInd.get_startup_setting("BI_Power_Production") then
+    BioInd.writeDebug("Setting up tables for musk floor.")
+    global.bi_musk_floor_table = global.bi_musk_floor_table or {}
+    global.bi_musk_floor_table.tiles = global.bi_musk_floor_table.tiles or {}
+    global.bi_musk_floor_table.forces = global.bi_musk_floor_table.forces or {}
+  end
 
 
   --------------------------------------------------------------------
   -- Arboretum
   --------------------------------------------------------------------
-  -- Global table for arboretum radars
-  global.bi_arboretum_radar_table = global.bi_arboretum_radar_table or {}
+  if BioInd.get_startup_setting("BI_Terraforming") then
+    BioInd.writeDebug("Setting up tables for terraformers/arboretums.")
+    -- Global table for arboretum radars
+    global.bi_arboretum_radar_table = global.bi_arboretum_radar_table or {}
 
-  -- Global table of ingredients for terraformer recipes
-  global.bi_arboretum_recipe_table = get_arboretum_recipes()
-
+    -- Global table of ingredients for terraformer recipes
+    global.bi_arboretum_recipe_table = get_arboretum_recipes()
+  end
 
   --------------------------------------------------------------------
   -- Compatibility with other mods
   --------------------------------------------------------------------
+  BioInd.writeDebug("Creating table for storing compatibility data.")
   global.compatible = global.compatible or {}
+  BioInd.writeDebug("Check for tiles from \"Alien Biomes\".")
   global.compatible.AlienBiomes = BioInd.AB_tiles()
 
 
-  -- enable researched recipes
+  -- Enable researched recipes
   for i, force in pairs(game.forces) do
     BioInd.writeDebug("Reset technology effects for force %s.", {force.name})
     force.reset_technology_effects()
   end
 
-  -- Create dummy force for musk floor if electric grid overlay should NOT be shown in map view
+  -- Create dummy force for Musk floor if electric grid overlay should NOT be shown in map view
   if BioInd.UseMuskForce and not game.forces[BioInd.MuskForceName] then
-    --~ BioInd.writeDebug("Force for musk floor is required but doesn't exist.")
+    BioInd.writeDebug("Must create force for Musk floor!")
     Create_dummy_force()
   end
 
 
-  ----------------------------------------------------------------------------------
-  -- If "Early wooden defenses" (setting BI_Darts) is active, set the items players
-  -- get on starting a new game or on respawning!
-  ----------------------------------------------------------------------------------
-  if BioInd.get_startup_setting("BI_Darts") and remote.interfaces["freeplay"] then
-    --~ local created = remote.call("freeplay", "get_created_items")
-    --~ local respawn = remote.call("freeplay", "get_respawn_items")
-    --~ local ship =
-    local weapons = game.get_filtered_item_prototypes({ {filter = "type", type = "gun"} })
-    local ammo = game.get_filtered_item_prototypes({ {filter = "type", type = "ammo"} })
+  --~ ----------------------------------------------------------------------------------
+  --~ -- If "Early wooden defenses" (setting BI_Darts) is active, set the items players
+  --~ -- get on starting a new game or on respawning!
+  --~ ----------------------------------------------------------------------------------
+  --~ if BioInd.get_startup_setting("BI_Darts") then
+    --~ BioInd.change_startup_items()
+  --~ end
+  --~ if BioInd.get_startup_setting("BI_Darts") and remote.interfaces["freeplay"] then
 
-    local new_gun = {"bi-dart-rifle", 1}
-    local new_ammo = {"bi-dart-magazine-basic", 10}
+    --~ local weapons = game.get_filtered_item_prototypes({ {filter = "type", type = "gun"} })
+    --~ local ammo = game.get_filtered_item_prototypes({ {filter = "type", type = "ammo"} })
 
-    local list
+    --~ local new_gun = {"bi-dart-rifle", 1}
+    --~ local new_ammo = {"bi-dart-magazine-basic", 10}
 
-    local function replace_item(list_handle, replace_list, new_item)
-      BioInd.entered_function()
-BioInd.show("list_handle", list_handle)
-BioInd.show("new_item", new_item)
+    --~ local list
 
-      local new_list = {}
-      local list = remote.call("freeplay", "get_" .. list_handle .. "_items")
+    --~ local function replace_item(list_handle, replace_list, new_item)
+      --~ BioInd.entered_function()
+--~ BioInd.show("list_handle", list_handle)
+--~ BioInd.show("new_item", new_item)
 
-      for item, amount in pairs(list or {}) do
---~ BioInd.writeDebug("Item: %s\tAmount: %s", {item, amount})
-        if (replace_list[item] and item ~= new_item[1]) then
-          new_list[new_item[1]] = new_item[2]
-  BioInd.writeDebug("Replaced %s", {item})
-        else
-  BioInd.writeDebug("Keep: %s", {item})
-          new_list[item] = amount
-        end
-      end
-  BioInd.writeDebug("New list for %s items: %s", {list_handle, new_list})
-      remote.call("freeplay", "set_" .. list_handle .. "_items", new_list)
-      BioInd.entered_function("leave")
-    end
+      --~ local new_list = {}
+      --~ local list = remote.call("freeplay", "get_" .. list_handle .. "_items")
 
-    local function remove_item(list_handle, remove_list, keep_list)
-      BioInd.entered_function()
-BioInd.show("list_handle", list_handle)
-BioInd.show("remove_list", remove_list)
-BioInd.show("keep_list", keep_list)
-      local new_list = {}
-      local list = remote.call("freeplay", "get_" .. list_handle .. "_items")
+      --~ for item, amount in pairs(list or {}) do
+        --~ if (replace_list[item] and item ~= new_item[1]) then
+          --~ new_list[new_item[1]] = new_item[2]
+--~ BioInd.writeDebug("Replaced %s", {item})
+        --~ else
+--~ BioInd.writeDebug("Keep: %s", {item})
+          --~ new_list[item] = amount
+        --~ end
+      --~ end
+--~ BioInd.writeDebug("New list for %s items: %s", {list_handle, new_list})
+      --~ remote.call("freeplay", "set_" .. list_handle .. "_items", new_list)
+      --~ BioInd.entered_function("leave")
+    --~ end
 
-      for item, amount in pairs(list or {}) do
-BioInd.show("item", item)
-        if not remove_list[item] or keep_list[item] then
-          new_list[item] = amount
-  BioInd.writeDebug("Keep %s", {item})
-        else
-  BioInd.writeDebug("Remove %s", {item})
-        end
-      end
-  BioInd.writeDebug("New list: %s", {new_list})
-      remote.call("freeplay", "set_" .. list_handle .. "_items", new_list)
-      BioInd.entered_function("leave")
-    end
+    --~ local function remove_item(list_handle, remove_list, keep_list)
+      --~ BioInd.entered_function()
+--~ BioInd.show("list_handle", list_handle)
+--~ BioInd.show("remove_list", remove_list)
+--~ BioInd.show("keep_list", keep_list)
+      --~ local new_list = {}
+      --~ local list = remote.call("freeplay", "get_" .. list_handle .. "_items")
 
-    local function add_item(list_handle, new_item)
-      BioInd.entered_function()
-BioInd.show("list_handle", list_handle)
-BioInd.show("new_item", new_item)
-      local new_list = {}
-      local found = false
-      local list = remote.call("freeplay", "get_" .. list_handle .. "_items")
+      --~ for item, amount in pairs(list or {}) do
+--~ BioInd.show("item", item)
+        --~ if not remove_list[item] or keep_list[item] then
+          --~ new_list[item] = amount
+  --~ BioInd.writeDebug("Keep %s", {item})
+        --~ else
+  --~ BioInd.writeDebug("Remove %s", {item})
+        --~ end
+      --~ end
+  --~ BioInd.writeDebug("New list: %s", {new_list})
+      --~ remote.call("freeplay", "set_" .. list_handle .. "_items", new_list)
+      --~ BioInd.entered_function("leave")
+    --~ end
 
-      for item, amount in pairs(list or {}) do
-        if item == new_item[1] then
-          new_list[item] = (new_list[item] or amount) + new_item[2]
-          found = true
-  BioInd.writeDebug("Add %s to %s: %s", {new_item[2], new_item[1], new_list[item]})
-        else
-  BioInd.writeDebug("Keep %s", {item})
-          new_list[item] = amount
-        end
-      end
+    --~ local function add_item(list_handle, new_item)
+      --~ BioInd.entered_function()
+--~ BioInd.show("list_handle", list_handle)
+--~ BioInd.show("new_item", new_item)
+      --~ local new_list = {}
+      --~ local found = false
+      --~ local list = remote.call("freeplay", "get_" .. list_handle .. "_items")
 
-      if not found then
-  BioInd.writeDebug("Add %s to list of %s items", {new_item[1], list_handle})
-        new_list[new_item[1]] = new_item[2]
-      end
-  BioInd.writeDebug("New list: %s", {new_list})
-      remote.call("freeplay", "set_" .. list_handle .. "_items", new_list)
-      BioInd.entered_function("leave")
-    end
+      --~ for item, amount in pairs(list or {}) do
+        --~ if item == new_item[1] then
+          --~ new_list[item] = (new_list[item] or amount) + new_item[2]
+          --~ found = true
+--~ BioInd.writeDebug("Add %s to %s: %s", {new_item[2], new_item[1], new_list[item]})
+        --~ else
+--~ BioInd.writeDebug("Keep %s", {item})
+          --~ new_list[item] = amount
+        --~ end
+      --~ end
 
-    for w, what in ipairs({"created", "respawn"}) do
-      replace_item(what, weapons, new_gun)
-      replace_item(what, ammo, new_ammo)
-    end
+      --~ if not found then
+--~ BioInd.writeDebug("Add %s to list of %s items", {new_item[1], list_handle})
+        --~ new_list[new_item[1]] = new_item[2]
+      --~ end
+--~ BioInd.writeDebug("New list: %s", {new_list})
+      --~ remote.call("freeplay", "set_" .. list_handle .. "_items", new_list)
+      --~ BioInd.entered_function("leave")
+    --~ end
 
-    for w, what in ipairs({"ship", "debris"}) do
-      --~ remove_item(remote.call("freeplay", "get_" .. what .. "_items"), weapons)
-      --~ remove_item(remote.call("freeplay", "get_" .. what .. "_items"), ammo)
-      remove_item(what, weapons, {[new_gun[1]]= true})
-      remove_item(what, ammo, {[new_ammo[1]] = true})
-    end
+    --~ for w, what in ipairs({"created", "respawn"}) do
+      --~ replace_item(what, weapons, new_gun)
+      --~ replace_item(what, ammo, new_ammo)
+    --~ end
 
-    add_item("debris", {"bi-dart-magazine-standard", 5})
-    add_item("debris", {"bi-dart-magazine-enhanced", 2})
-    add_item("ship", {"bi-dart-magazine-poison", 1})
+    --~ for w, what in ipairs({"ship", "debris"}) do
+      --~ remove_item(what, weapons, {[new_gun[1]]= true})
+      --~ remove_item(what, ammo, {[new_ammo[1]] = true})
+    --~ end
 
-    --~ -- Disable the pistol
-    --~ local recipes =
-  end
+    --~ add_item("debris", {"bi-dart-magazine-standard", 5})
+    --~ add_item("debris", {"bi-dart-magazine-enhanced", 2})
+    --~ add_item("ship", {"bi-dart-magazine-poison", 1})
+  --~ end
+  BioInd.entered_function("leave")
 end
 
 
@@ -395,7 +430,8 @@ end
 
 --------------------------------------------------------------------
 local function On_Config_Change(ConfigurationChangedData)
-BioInd.writeDebug("On Configuration changed: %s", {ConfigurationChangedData})
+  BioInd.entered_function({ConfigurationChangedData})
+--~ BioInd.writeDebug("On Configuration changed: %s", {ConfigurationChangedData})
   --~ if global.bi_bio_cannon_table ~= nil then
     --~ Event.register(defines.events.on_tick, function(event) end)
   --~ end
@@ -441,6 +477,8 @@ BioInd.writeDebug("Number of trees in growing stage %s: %s", {i, table_size(tab)
 --~ BioInd.show("Final tree list", tab)
 BioInd.show("Number of trees in final list", #tab)
   end
+
+  BioInd.entered_function("leave")
 end
 
 
@@ -467,6 +505,7 @@ end
 
 ---------------------------------------------
 Event.register(defines.events.on_trigger_created_entity, function(event)
+  BioInd.entered_function({event})
   --- Used for Seed-bomb
   local ent = event.entity
   local surface = ent.surface
@@ -474,31 +513,34 @@ Event.register(defines.events.on_trigger_created_entity, function(event)
 
   -- 'AlienBiomes' is a bool value -- we don't want to read it again if it's false,
   -- but only if it hasn't been set yet!
-  AlienBiomes = AlienBiomes ~= nil and AlienBiomes or BioInd.AB_tiles()
+  AlienBiomes = (AlienBiomes ~= nil) and AlienBiomes or BioInd.AB_tiles()
 
   -- Basic
   if ent.name == "seedling" then
     BioInd.writeDebug("Seed Bomb Activated - Basic")
-    seed_planted_trigger(event)
+    BI_scripts.trees.seed_planted_trigger(event)
 
   -- Standard
   elseif ent.name == "seedling-2" then
     BioInd.writeDebug("Seed Bomb Activated - Standard")
     local terrain_name_s = AlienBiomes and "vegetation-green-grass-3" or "grass-3"
     surface.set_tiles{{name = terrain_name_s, position = position}}
-    seed_planted_trigger(event)
+    BI_scripts.trees.seed_planted_trigger(event)
 
   -- Advanced
   elseif ent.name == "seedling-3" then
     BioInd.writeDebug("Seed Bomb Activated - Advanced")
     local terrain_name_a = AlienBiomes and "vegetation-green-grass-1" or "grass-1"
     surface.set_tiles{{name = terrain_name_a, position = position}}
-    seed_planted_trigger(event)
+    BI_scripts.trees.seed_planted_trigger(event)
   end
+
+  BioInd.entered_function("leave")
 end)
 
 --------------------------------------------------------------------
 local function On_Built(event)
+  BioInd.entered_function({event})
   local entity = event.created_entity or event.entity
   if not (entity and entity.valid) then
     BioInd.arg_err(entity or "nil", "entity")
@@ -646,7 +688,7 @@ BioInd.writeDebug("Broke connection with %s", {BioInd.argprint(musk_floor_neighb
 
     -- A seedling has been planted
     elseif entity.name == "seedling" then
-      seed_planted(event)
+      BI_scripts.trees.seed_planted(event)
       BioInd.writeDebug("Planted seedling!")
 
     -- Something else has been built
@@ -654,12 +696,14 @@ BioInd.writeDebug("Broke connection with %s", {BioInd.argprint(musk_floor_neighb
       BioInd.writeDebug("Nothing to do for %s!", {entity.name})
     end
   end
-  BioInd.writeDebug("End of function On_Built")
+
+  BioInd.entered_function("leave")
 end
 
 
 local function remove_plants(entity_position, tabl)
-BioInd.writeDebug("Entered function remove_plants(%s, %s)", {entity_position or "nil", tabl or "nil"})
+  BioInd.entered_function({entity_position, tabl})
+--~ BioInd.writeDebug("Entered function remove_plants(%s, %s)", {entity_position or "nil", tabl or "nil"})
     local e = BioInd.normalize_position(entity_position)
     if not e then
       BioInd.arg_err(entity_position or "nil", "position")
@@ -676,12 +720,14 @@ BioInd.writeDebug("Removing entry %s from table: %s", {k, v})
         break
       end
     end
+  BioInd.entered_function("leave")
 end
 
 
 --------------------------------------------------------------------
 local function On_Pre_Remove(event)
-BioInd.writeDebug("Entered function On_Pre_Remove(%s)", {event})
+  BioInd.entered_function({event})
+--~ BioInd.writeDebug("Entered function On_Pre_Remove(%s)", {event})
   local entity = event.entity
 
   if not (entity and entity.valid) then
@@ -761,11 +807,14 @@ BioInd.writeDebug("Removed tree %s (grow stage: %s)", {entity.name, tree_stage o
   else
     BioInd.writeDebug("%s has been removed -- nothing to do!", {entity.name})
   end
+
+  BioInd.entered_function("leave")
 end
 
 
 --------------------------------------------------------------------
 local function On_Damage(event)
+  BioInd.entered_function({event})
   local f_name = "On_Damage"
   BioInd.writeDebug("Entered function %s(%s)", {f_name, event})
   local entity = event.entity
@@ -792,12 +841,15 @@ local function On_Damage(event)
                       associated.health
                     })
   end
+
+  BioInd.entered_function("leave")
 end
 
 --------------------------------------------------------------------
 local function On_Death(event)
-  local f_name = "On_Death"
-BioInd.writeDebug("Entered function %s(%s)", {f_name, event})
+  BioInd.entered_function({event})
+  --~ local f_name = "On_Death"
+--~ BioInd.writeDebug("Entered function %s(%s)", {f_name, event})
 
   local entity = event.entity
   if not entity then
@@ -825,6 +877,7 @@ BioInd.writeDebug("Entered function %s(%s)", {f_name, event})
   else
     BioInd.writeDebug("Nothing to do!")
   end
+  BioInd.entered_function("leave")
 end
 
 
@@ -834,14 +887,17 @@ end
 
 -- Radar completed a sector scan
 local function On_Sector_Scanned(event)
-  local f_name = "On_Sector_Scanned"
+  BioInd.entered_function({event})
+  --~ local f_name = "On_Sector_Scanned"
   BioInd.writeDebug("Entered function %s(%s)", {f_name, event})
 
   ---- Each time a Arboretum-Radar scans a sector  ----
   local arboretum = global.bi_arboretum_radar_table[event.radar.unit_number]
   if arboretum then
-    Get_Arboretum_Recipe(global.bi_arboretum_table[arboretum], event)
+    BI_scripts.arboretumget_arboretum_recipe(global.bi_arboretum_table[arboretum], event)
   end
+
+  BioInd.entered_function("leave")
 end
 
 
@@ -852,7 +908,8 @@ end
 --------------------------------------------------------------------
 -- Solar mat was removed
 local function solar_mat_removed(event)
-  BioInd.writeDebug("Entered solar_mat_removed (\"%s\")", {event})
+  BioInd.entered_function({event})
+  --~ BioInd.writeDebug("Entered solar_mat_removed (\"%s\")", {event})
 
   local surface = game.surfaces[event.surface_index]
   local tiles = event.tiles
@@ -896,13 +953,16 @@ BioInd.writeDebug("Removing Musk floor tile from tables!")
     end
   end
 
-   BioInd.writeDebug("bi-solar-mat: removed %g tiles", {table_size(tiles)})
+  BioInd.writeDebug("bi-solar-mat: removed %g tiles", {table_size(tiles)})
+  BioInd.entered_function("leave")
 end
 
 
 --------------------------------------------------------------------
 -- A solar mat must be placed
 local function place_musk_floor(force, position, surface)
+  BioInd.entered_function({force, position, surface})
+
   BioInd.check_args(force, "string")
   position = BioInd.normalize_position(position) or BioInd.arg_err(position, "position")
   surface = BioInd.is_surface(surface) or BioInd.arg_err(surface, "surface")
@@ -923,12 +983,15 @@ local function place_musk_floor(force, position, surface)
   global.bi_musk_floor_table.forces[force] = global.bi_musk_floor_table.forces[force] or {}
   global.bi_musk_floor_table.forces[force][x] = global.bi_musk_floor_table.forces[force][x] or {}
   global.bi_musk_floor_table.forces[force][x][y] = true
+
+  BioInd.entered_function("leave")
 end
 
 --------------------------------------------------------------------
 -- Solar mat was built
 local function solar_mat_built(event)
-BioInd.show("Entered function \"solar_mat_built\"", event)
+  BioInd.entered_function({event})
+--~ BioInd.show("Entered function \"solar_mat_built\"", event)
   -- Called from player, bot and script-raised events, so event may
   -- contain "robot" or "player_index"
 
@@ -1038,14 +1101,16 @@ BioInd.show("restore_tiles", restore_tiles)
     end
   end
 
+  BioInd.entered_function("leave")
 end
 
 
 --------------------------------------------------------------------
 -- A tile has been changed
 local function Tile_Changed(event)
-  local f_name = "Tile_Changed"
-  BioInd.writeDebug("Entered function %s(%s)", {f_name, event})
+  BioInd.entered_function({event})
+  --~ local f_name = "Tile_Changed"
+  --~ BioInd.writeDebug("Entered function %s(%s)", {f_name, event})
 
   -- The event gives us only a list of the new tiles that have been placed.
   -- So let's check if any Musk floor has been built!
@@ -1122,7 +1187,9 @@ BioInd.show("remove_musk_floor_tiles", remove_musk_floor_tiles)
   if next(remove_musk_floor_tiles) then
     solar_mat_removed({surface_index = event.surface_index, tiles = remove_musk_floor_tiles})
   end
+
   BioInd.show("End of function", f_name)
+  BioInd.entered_function("leave")
 end
 
 
@@ -1217,3 +1284,9 @@ setmetatable(_ENV, {
     end
   end
 })
+
+
+------------------------------------------------------------------------------------
+--                                    END OF FILE                                 --
+------------------------------------------------------------------------------------
+BioInd.entered_file("leave")

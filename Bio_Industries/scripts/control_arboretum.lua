@@ -3,6 +3,8 @@ BioInd.entered_file()
 
 ---Arboretum Stuff
 
+local BI_arboretum = {}
+
 --~ local Event = require('__stdlib__/stdlib/event/event').set_protected_mode(true)
 local Event = require('__stdlib__/stdlib/event/event').set_protected_mode(false)
 
@@ -17,9 +19,9 @@ local Terrain_Check_1 = {
   ["vegetation-green-grass-3"] = true,  -- Fertility: 85%
 }
 
--- If a recipe with ADVANCED FERTILIZER is used, don't fertilize tiles set have "true" set!
+-- If a recipe with ADVANCED FERTILIZER is used, don't fertilize tiles that have "true" set!
 -- (Fertile tiles in this table can't be made more fertile, and nothing should grow on the
---  the others tiles!)
+--  the other tiles!)
 local Terrain_Check_2 = {
   --~ ["landfill"] = true,
   ["grass-1"] = true,                   -- Fertility: 100%
@@ -47,6 +49,7 @@ end
 
 -- Check that all ingredients are available!
 local function check_ingredients(arboretum)
+  BioInd.entered_function({arboretum})
   local recipe = arboretum.get_recipe()
   local need = recipe and global.bi_arboretum_recipe_table[recipe.name]
 
@@ -69,6 +72,7 @@ end
 
 
 local function consume_ingredients(arboretum, need)
+  BioInd.entered_function({arboretum, need})
   local inventory = arboretum.get_inventory(defines.inventory.assembling_machine_input)
   for item, i in pairs(need.items or {}) do
     inventory.remove({name = item, count = i})
@@ -81,10 +85,13 @@ BioInd.show("Inventory", inventory.get_contents() or "nil")
 BioInd.writeDebug("Removed %s (%s)", {fluid, f})
   end
 BioInd.show("Fluid contents", arboretum.get_fluid_contents() or "nil")
+
+  BioInd.entered_function("leave")
 end
 
 
 local function set_tile(current, target, surface, position)
+  BioInd.entered_function({current, target, surface, position})
   if current ~= target then
     surface.set_tiles(
       {{name = target, position = position}},
@@ -94,10 +101,11 @@ local function set_tile(current, target, surface, position)
       true          -- raise_event
     )
   end
+  BioInd.entered_function("leave")
 end
 
-function Get_Arboretum_Recipe(ArboretumTable, event)
-  BioInd.writeDebug("Entered function Get_Arboretum_Recipe(%s, %s)", {ArboretumTable, event})
+BI_arboretum.get_arboretum_recipe = function(ArboretumTable, event)
+  BioInd.entered_function({ArboretumTable, event})
   if not ArboretumTable then
     BioInd.writeDebug("%s is not a valid ArboretumTable. Leaving immediately!")
     return
@@ -143,7 +151,7 @@ function Get_Arboretum_Recipe(ArboretumTable, event)
         if surface.can_place_entity(new_plant) then
           consume_ingredients(arboretum, ingredients)
           create_seedling = surface.create_entity(new_plant)
-          seed_planted_arboretum(event, create_seedling)
+          BI_scripts.trees.seed_planted_arboretum(event, create_seedling)
           --- After sucessfully planting a tree, break out of the loop.
           break
         else
@@ -159,7 +167,7 @@ function Get_Arboretum_Recipe(ArboretumTable, event)
         currentTilename = surface.get_tile(new_position.x, new_position.y).name
 
         -- We need to fertilize the ground!
-        if Bi_Industries.fertility[currentTilename] and not Terrain_Check_1[currentTilename] then
+        if BI_scripts.trees.fertility[currentTilename] and not Terrain_Check_1[currentTilename] then
           consume_ingredients(arboretum, ingredients)
           set_tile(currentTilename, terrain_name_g3, surface, new_position)
           --- After sucessfully changing the terrain, break out of the loop.
@@ -177,7 +185,7 @@ function Get_Arboretum_Recipe(ArboretumTable, event)
         new_position = get_new_position(pos)
         currentTilename = surface.get_tile(new_position.x, new_position.y).name
 
-        if Bi_Industries.fertility[currentTilename] and currentTilename ~= terrain_name_g1 then
+        if BI_scripts.trees.fertility[currentTilename] and currentTilename ~= terrain_name_g1 then
           consume_ingredients(arboretum, ingredients)
           set_tile(currentTilename, terrain_name_g1, surface, new_position)
           --- After sucessfully changing the terrain, break out of the loop.
@@ -202,7 +210,7 @@ function Get_Arboretum_Recipe(ArboretumTable, event)
         }
 
         -- Test to see if we can plant
-        if surface.can_place_entity(new_plant) and Bi_Industries.fertility[currentTilename] then
+        if surface.can_place_entity(new_plant) and BI_scripts.trees.fertility[currentTilename] then
           consume_ingredients(arboretum, ingredients)
           -- Refund fertilizer -- no need to waste it on fertile ground!
           if Terrain_Check_1[currentTilename] then
@@ -212,7 +220,7 @@ function Get_Arboretum_Recipe(ArboretumTable, event)
 
           set_tile(currentTilename, terrain_name_g3, surface, new_position)
           create_seedling = surface.create_entity(new_plant)
-          seed_planted_arboretum(event, create_seedling)
+          BI_scripts.trees.seed_planted_arboretum(event, create_seedling)
           --- After sucessfully planting a tree or changing the terrain, break out of the loop.
           break
         else
@@ -234,7 +242,7 @@ function Get_Arboretum_Recipe(ArboretumTable, event)
           force = "neutral"
         }
 
-        if surface.can_place_entity(new_plant) and Bi_Industries.fertility[currentTilename] then
+        if surface.can_place_entity(new_plant) and BI_scripts.trees.fertility[currentTilename] then
           consume_ingredients(arboretum, ingredients)
           -- Refund fertilizer -- no need to waste it on fertile ground!
           if Terrain_Check_2[currentTilename] then
@@ -246,7 +254,7 @@ function Get_Arboretum_Recipe(ArboretumTable, event)
 
           set_tile(currentTilename, terrain_name_g1, surface, new_position)
           create_seedling = surface.create_entity(new_plant)
-          seed_planted_arboretum (event, create_seedling)
+          BI_scripts.trees.seed_planted_arboretum (event, create_seedling)
           --- After sucessfully planting a tree or changing the terrain, break out of the loop.
           break
         else
@@ -258,4 +266,13 @@ function Get_Arboretum_Recipe(ArboretumTable, event)
       BioInd.writeDebug("Terraformer has no recipe!")
     end
   end
+  BioInd.entered_function("leave")
 end
+
+
+------------------------------------------------------------------------------------
+--                                    END OF FILE                                 --
+------------------------------------------------------------------------------------
+BioInd.entered_file("leave")
+
+return BI_arboretum

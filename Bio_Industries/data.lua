@@ -57,6 +57,9 @@ require('set_triggers')
   --~ -- Create "bi-wood-floor" tiles unless "Dectorio" already does that
   --~ BI_Trigger_Woodfloor            = not BioInd.get_startup_setting("dectorio-wood"),
 --~ }
+for k, v in pairs(BI.Triggers) do
+  BioInd.writeDebug("Trigger %s: %s", {k, v})
+end
 
 
 -- Allow mods to register names or patterns for black-/whitelisting items as

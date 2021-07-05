@@ -15,7 +15,8 @@ end
 ------------------------------------------------------------------------------------
 
 
-local forbidden = {
+-- Perhaps some other mod will create these. We'll see in data-updates!
+local create_later = {
   [BI.additional_items.BI_Rubber.resin.name] = true,
   [BI.additional_items.BI_Rubber.rubber.name] = true,
 }
@@ -25,7 +26,7 @@ local forbidden = {
 --                                  Create items                                  --
 ------------------------------------------------------------------------------------
 for i, i_data in pairs(BI.additional_items[setting]) do
-  if not forbidden[i_data.name] then
+  if not create_later[i_data.name] then
     BioInd.create_stuff(i_data)
   end
 end

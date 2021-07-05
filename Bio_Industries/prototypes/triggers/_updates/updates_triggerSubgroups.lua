@@ -66,11 +66,15 @@ local function add_subgroups(things, mod_handle)
 
   for l, list in pairs(things) do
     searchlist = (list.type or list.name) and {list} or list
-    for t, thing in pairs(searchlist) do
-      real_thing = data.raw[thing.type][thing.name]
 
-      if real_thing and real_thing[subgroup] and not item_subgroups[real_thing[subgroup]] then
-        make_subgroup(real_thing[subgroup], real_thing[group], real_thing[subgroup_order])
+    -- Things for which we have stored data in our table
+    for t, thing in pairs(searchlist) do
+      -- No need to proceed if something from our table hasn't been created!
+      if data.raw[thing.type][thing.name] then
+        -- Check if the groups we need (have stored in our table) exist or create them
+        if thing[subgroup] and not item_subgroups[thing[subgroup]] then
+          make_subgroup(thing[subgroup], thing[group], thing[subgroup_order])
+        end
       end
     end
   end

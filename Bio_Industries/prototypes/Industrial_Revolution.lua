@@ -34,13 +34,13 @@ BioInd.writeDebug("Replaced ingredient %s with %s in recipe %s: %s", {i_old, i_n
 
     -- Results
     for t, tab in ipairs({"", "normal", "expensive"}) do
-BioInd.show("tab", tab)
+--~ BioInd.show("tab", tab)
       check = (tab == "") and recipe or recipe[tab]
       thxbob.lib.result_check(check) -- Make sure we have results!
-
+BioInd.writeDebug("Recipe%s: %s", {tab == "" and "" or " for difficulty " .. tab, check or "nil"})
 --~ BioInd.show("check", check)
       for r, result in ipairs(check and check.results or {}) do
-BioInd.show("result", result)
+--~ BioInd.show("result", result)
         if result.name == i_old then
 --~ BioInd.show("Must replace", result.name)
           -- Store the properties of the original result
@@ -53,11 +53,18 @@ BioInd.show("result", result)
           thxbob.lib.recipe.remove_result(recipe_name, i_old)
 --~ BioInd.show("Removed results", recipe)
           thxbob.lib.item.add(check.results, add)
-BioInd.writeDebug("Exchanged %s in %s results of %s with %s:\t%s",
-                  {i_old, tab, recipe_name, i_new, recipe})
+BioInd.writeDebug("Exchanged %s in %sresults of %s with %s:\t%s",
+                  {i_old, tab == "" and tab or " " .. tab .. " ", recipe_name, i_new, recipe})
         else
 BioInd.show("Skipping", result.name)
         end
+      end
+
+      -- Don't forget to change main_product as well!
+      if check and check.main_product and check.main_product == i_old then
+        check.main_product = i_new
+BioInd.writeDebug("Exchanged %s in main_product%s of %s with %s:\t%s",
+                  {i_old, tab == "" and tab or " (" .. tab .. ")", recipe_name, i_new, recipe})
       end
     end
   end

@@ -46,7 +46,10 @@ BioInd.writeDebug("data.raw[%s][%s]: %s", {item.type, object.result, data.raw[it
             --~ end
             -- Make sure objects also have an icons definition
             elseif not object.icons and data.raw[item.type][object.result] and
-                                          data.raw[item.type][object.result].icons then
+                                          data.raw[item.type][object.result].icons and
+                                          -- Don't assume that an icon already exists,
+                                          -- it could be set later on!
+                                          data.raw[item.type][object.result].icon then
               object.icons = {
                 {icon = data.raw[item.type][object.result].icon, icon_size = 64}
               }

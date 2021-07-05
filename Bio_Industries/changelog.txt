@@ -1,12 +1,13 @@
 ---------------------------------------------------------------------------------------------------
-Version: 1.1.6
+Version: 1.1.7
 Date: 2021-01-31
   Uploaded by:
     - Pi-C
 
   Bugfixes:
-    - Fixed crash on starting the game when both "Angel's Petrochemical Processing" and "Bob's Power" were active. (https://mods.factorio.com/mod/Bio_Industries/discussion/601594a0b16c8766cfae056b)
-    - Removed log spam.
+    - Disabled disassemble recipes (and the associated setting) if IR2 is active. This takes care of a crash when both IR2 and "Resource Spawner Overhaul" are active. (https://mods.factorio.com/mod/Bio_Industries/discussion/600a5cca5f9fe9c9952b0b8a)
+    - If IR2 is active, it's not sufficient to replace "crushed stone" with "gravel" in the recipe ingredients and results only -- we must also replace it in main_product! This fixes a crash when BI was used together with IR2 and "Angel's Refining", and potentially with other mods as well.
+    - Wrongly assumed that a recipe will have either "icon" or "icons" as soon as it has been created (actually, they may be added later on), and created invalid "icons" entries by copying "icon" when it was nil. Added another check to fix a crash related to a missing icon when IR2 is active. (https://mods.factorio.com/mod/Bio_Industries/discussion/600a5cca5f9fe9c9952b0b8a)
 
   TODO:
     - Add an alternative way to produce plastic without fluids. (https://mods.factorio.com/mod/Bio_Industries/discussion/5e3f5fadc359e6000d54cfb2)
@@ -18,6 +19,17 @@ Date: 2021-01-31
     - Make a version of the wooden rail bridge with powered rails. Make version of bridges from other mods (so far "Beautiful Bridge Railway") with powered rails.
     - Bigger trees give more wood (https://forums.factorio.com/viewtopic.php?f=16&t=95205)
     - Don't plant lying trees
+
+
+---------------------------------------------------------------------------------------------------
+Version: 1.1.6
+Date: 2021-01-31
+  Uploaded by:
+    - Pi-C
+
+  Bugfixes:
+    - Fixed crash on starting the game when both "Angel's Petrochemical Processing" and "Bob's Power" were active. (https://mods.factorio.com/mod/Bio_Industries/discussion/601594a0b16c8766cfae056b)
+    - Removed log spam.
 
 
 ---------------------------------------------------------------------------------------------------

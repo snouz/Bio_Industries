@@ -11,11 +11,11 @@ data:extend({
   {
     type = "item",
     name = "bi-bio-reactor",
-    icon = ICONPATH .. "bioreactor.png",
+    icon = ICONPATH .. "entity/bioreactor.png",
     icon_size = 64,
     icons = {
       {
-        icon = ICONPATH .. "bioreactor.png",
+        icon = ICONPATH .. "entity/bioreactor.png",
         icon_size = 64,
       }
     },
@@ -68,11 +68,11 @@ if BI.Settings.BI_Bio_Fuel then
     {
       type = "item",
       name = "bi-bio-boiler",
-      icon = ICONPATH .. "bio_boiler.png",
+      icon = ICONPATH .. "entity/bio_boiler.png",
       icon_size = 64,
       icons = {
         {
-          icon = ICONPATH .. "bio_boiler.png",
+          icon = ICONPATH .. "entity/bio_boiler.png",
           icon_size = 64,
         }
       },

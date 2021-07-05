@@ -138,11 +138,11 @@ if BI.Settings.Bio_Cannon then
     {
       type = "ammo-turret",
       name = "bi-bio-cannon",
-      icon = ICONPATH .. "biocannon_icon.png",
+      icon = ICONPATH .. "entity/biocannon_icon.png",
       icon_size = 64,
       icons = {
         {
-          icon = ICONPATH .. "biocannon_icon.png",
+          icon = ICONPATH .. "entity/biocannon_icon.png",
           icon_size = 64,
         }
       },

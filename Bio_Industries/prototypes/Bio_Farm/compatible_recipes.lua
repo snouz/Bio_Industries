@@ -7,11 +7,11 @@ data:extend({
   {
     type = "recipe",
     name = "bi-pellet-coke-2",
-    icon = ICONPATH .. "pellet_coke_b.png",
+    icon = ICONPATH .. "mod_bobangels/pellet_coke_b.png",
     icon_size = 64,
     icons = {
       {
-        icon = ICONPATH .. "pellet_coke_b.png",
+        icon = ICONPATH .. "mod_bobangels/pellet_coke_b.png",
         icon_size = 64,
       }
     },
@@ -32,11 +32,11 @@ data:extend({
   {
     type = "recipe",
     name = "bi-fertilizer-2",
-    icon = ICONPATH .. "fertilizer_sodium_hydroxide.png",
+    icon = ICONPATH .. "mod_bobangels/fertilizer_sodium_hydroxide.png",
     icon_size = 64,
     icons = {
       {
-        icon = ICONPATH .. "fertilizer_sodium_hydroxide.png",
+        icon = ICONPATH .. "mod_bobangels/fertilizer_sodium_hydroxide.png",
         icon_size = 64,
       }
     },
@@ -50,12 +50,9 @@ data:extend({
       {type = "item", name = "fertilizer", amount = 5}
     },
     enabled = false,
-    --~ always_show_made_in = true,
-    --~ allow_decomposition = false,
-    --~ allow_as_intermediate = false,
-    allow_as_intermediate = true,       -- Changed for 0.18.34/1.1.4
-    always_show_made_in = true,         -- Changed for 0.18.34/1.1.4
-    allow_decomposition = true,         -- Changed for 0.18.34/1.1.4
+    always_show_made_in = true,
+    allow_decomposition = false,
+    allow_as_intermediate = false,
     subgroup = "bio-bio-farm-intermediate-product",
     order = "b[bi-fertilizer]",
   },
@@ -77,17 +74,17 @@ if not data.raw.item["resin"] then
           icon_size = 64,
         }
       },
-      icon_mipmaps = 4,
-      pictures = {
+      icon_mipmaps = 0,
+      --pictures = {
         --~ { size = 64, filename = ICONPATHMIPS.."Resin_1.png", scale = 0.2, mipmap_count = 1 },
         --~ { size = 64, filename = ICONPATHMIPS.."Resin_2.png", scale = 0.2, mipmap_count = 1 },
         --~ { size = 64, filename = ICONPATHMIPS.."Resin_3.png", scale = 0.2, mipmap_count = 1 },
         --~ { size = 64, filename = ICONPATHMIPS.."Resin_4.png", scale = 0.2, mipmap_count = 1 }
-        { size = 64, filename = ICONPATHMIPS.."Resin_1.png", scale = 0.2 },
-        { size = 64, filename = ICONPATHMIPS.."Resin_2.png", scale = 0.2 },
-        { size = 64, filename = ICONPATHMIPS.."Resin_3.png", scale = 0.2 },
-        { size = 64, filename = ICONPATHMIPS.."Resin_4.png", scale = 0.2 }
-      },
+        --{ size = 64, filename = ICONPATHMIPS.."Resin_1.png", scale = 0.2 },
+        --{ size = 64, filename = ICONPATHMIPS.."Resin_2.png", scale = 0.2 },
+        --{ size = 64, filename = ICONPATHMIPS.."Resin_3.png", scale = 0.2 },
+        --{ size = 64, filename = ICONPATHMIPS.."Resin_4.png", scale = 0.2 }
+      --},
       subgroup = "bio-bio-farm-raw",
       --~ order = "a[bi]-a-b[bi-resin]",
       order = "a[bi]-a-bb[bi-resin]",
@@ -114,13 +111,9 @@ if not data.raw.item["resin"] then
       --~ order = "a[bi]-a-aa[bi-2-resin-1-wood]",
       order = "a[bi]-a-bb[bi-2-resin-2-wood]",
       enabled = false,
-      --~ allow_as_intermediate = false,
-      --~ always_show_made_in = true,
-      --~ allow_decomposition = false,
-      allow_as_intermediate = true,     -- Changed for 0.18.34/1.1.4
-      always_show_made_in = false,      -- Changed for 0.18.34/1.1.4
-      allow_decomposition = true,       -- Changed for 0.18.34/1.1.4
-
+      allow_as_intermediate = false,
+      always_show_made_in = true,
+      allow_decomposition = false,
       energy_required = 1,
       ingredients = {
          {type = "item", name = "wood", amount = 1}
@@ -155,20 +148,20 @@ end
  -- Pellet-Coke from Carbon - Bobs & Angels
 if data.raw.item["solid-carbon"] and mods["angelspetrochem"] then
   thxbob.lib.recipe.add_new_ingredient("bi-pellet-coke-2", {type = "item", name = "solid-carbon", amount = 10})
-  data.raw.recipe["bi-coke-coal"].icon = ICONPATH .. "pellet_coke_1.png"
+  data.raw.recipe["bi-coke-coal"].icon = ICONPATH .. "mod_bobangels/pellet_coke_1.png"
   data.raw.recipe["bi-coke-coal"].icon_size = 64
-  data.raw.recipe["bi-pellet-coke-2"].icon = ICONPATH .. "pellet_coke_a.png"
+  data.raw.recipe["bi-pellet-coke-2"].icon = ICONPATH .. "mod_bobangels/pellet_coke_a.png"
   data.raw.recipe["bi-pellet-coke-2"].icon_size = 64
-  data.raw.recipe["bi-pellet-coke"].icon = ICONPATH .. "pellet_coke_c.png"
+  data.raw.recipe["bi-pellet-coke"].icon = ICONPATH .. "mod_bobangels/pellet_coke_c.png"
   data.raw.recipe["bi-pellet-coke"].icon_size = 64
   thxbob.lib.tech.add_recipe_unlock("bi-tech-coal-processing-2", "bi-pellet-coke-2")
 elseif data.raw.item["carbon"] and mods["bobplates"] then
   thxbob.lib.recipe.add_new_ingredient ("bi-pellet-coke-2", {type = "item", name = "carbon", amount = 10})
-  data.raw.recipe["bi-coke-coal"].icon = ICONPATH .. "pellet_coke_1.png"
+  data.raw.recipe["bi-coke-coal"].icon = ICONPATH .. "mod_bobangels/pellet_coke_1.png"
   data.raw.recipe["bi-coke-coal"].icon_size = 64
-  data.raw.recipe["bi-pellet-coke-2"].icon = ICONPATH .. "pellet_coke_b.png"
+  data.raw.recipe["bi-pellet-coke-2"].icon = ICONPATH .. "mod_bobangels/pellet_coke_b.png"
   data.raw.recipe["bi-pellet-coke-2"].icon_size = 64
-  data.raw.recipe["bi-pellet-coke"].icon = ICONPATH .. "pellet_coke_c.png"
+  data.raw.recipe["bi-pellet-coke"].icon = ICONPATH .. "mod_bobangels/pellet_coke_c.png"
   data.raw.recipe["bi-pellet-coke"].icon_size = 64
   thxbob.lib.tech.add_recipe_unlock("bi-tech-coal-processing-2", "bi-pellet-coke-2")
 end
@@ -193,7 +186,7 @@ end
 if data.raw.item["solid-sodium-hydroxide"] and mods["angelspetrochem"] then
   thxbob.lib.recipe.add_new_ingredient("bi-fertilizer-2", {type = "item", name = "solid-sodium-hydroxide", amount = 10})
   thxbob.lib.recipe.replace_ingredient("bi-fertilizer-2", "nitrogen", "gas-nitrogen")
-  data.raw.recipe["bi-fertilizer-2"].icon = ICONPATH .. "fertilizer_solid_sodium_hydroxide.png"
+  data.raw.recipe["bi-fertilizer-2"].icon = ICONPATH .. "mod_bobangels/fertilizer_solid_sodium_hydroxide.png"
   data.raw.recipe["bi-fertilizer-2"].icon_size = 64
   thxbob.lib.tech.add_recipe_unlock("bi-tech-fertilizer", "bi-fertilizer-2")
 elseif data.raw.item["sodium-hydroxide"] and mods["bobplates"] then
@@ -217,14 +210,14 @@ end
 -- If Angels, replace icons for biomass-conversion-2 and bi_basic_gas_processing
 if mods["angelspetrochem"] then
   local conversion = data.raw.recipe["bi-biomass-conversion-2"]
-  conversion.icon = ICONPATH .. "bio_conversion_2_angels.png"
-  conversion.icons[1].icon = ICONPATH .. "bio_conversion_2_angels.png"
+  conversion.icon = ICONPATH .. "mod_bobangels/bio_conversion_2_angels.png"
+  conversion.icons[1].icon = ICONPATH .. "mod_bobangels/bio_conversion_2_angels.png"
   conversion.localised_name = {"recipe-name.bi-biomass-conversion-2-methane"}
   conversion.localised_description = {"recipe-description.bi-biomass-conversion-2-methane"}
 
   local gas_processing = data.raw.recipe["bi-basic-gas-processing"]
-  gas_processing.icon = ICONPATH .. "bi_basic_gas_processing_angels.png"
-  gas_processing.icons[1].icon = ICONPATH .. "bi_basic_gas_processing_angels.png"
+  gas_processing.icon = ICONPATH .. "mod_bobangels/bi_basic_gas_processing_angels.png"
+  gas_processing.icons[1].icon = ICONPATH .. "mod_bobangels/bi_basic_gas_processing_angels.png"
 
 end
 
@@ -276,11 +269,11 @@ if mods["angelsrefining"] then
     {
       type = "recipe",
       name = "bi-mineralized-sulfuric-waste",
-      icon = ICONPATH .. "bi_mineralized_sulfuric.png",
+      icon = ICONPATH .. "mod_bobangels/bi_mineralized_sulfuric.png",
       icon_size = 64,
       icons = {
         {
-          icon = ICONPATH .. "bi_mineralized_sulfuric.png",
+          icon = ICONPATH .. "mod_bobangels/bi_mineralized_sulfuric.png",
           icon_size = 64,
         }
       },
@@ -307,11 +300,11 @@ if mods["angelsrefining"] then
     {
       type = "recipe",
       name = "bi-slag-slurry",
-      icon = ICONPATH .. "bi_slurry.png",
+      icon = ICONPATH .. "mod_bobangels/bi_slurry.png",
       icon_size = 64,
       icons = {
         {
-          icon = ICONPATH .. "bi_slurry.png",
+          icon = ICONPATH .. "mod_bobangels/bi_slurry.png",
           icon_size = 64,
         }
       },
@@ -346,11 +339,11 @@ if data.raw.item["wooden-board"] and mods["bobelectronics"] then
       type = "recipe",
       name = "bi-press-wood",
       localised_name = {"recipe-name.bi-press-wood"},
-      icon = ICONPATH .. "bi_wooden_board.png",
+      icon = ICONPATH .. "mod_bobangels/bi_wooden_board.png",
       icon_size = 64,
       icons = {
         {
-          icon = ICONPATH .. "bi_wooden_board.png",
+          icon = ICONPATH .. "mod_bobangels/bi_wooden_board.png",
           icon_size = 64,
         }
       },
@@ -376,8 +369,8 @@ if data.raw.item["wooden-board"] and mods["bobelectronics"] then
   })
   thxbob.lib.tech.add_recipe_unlock("electronics", "bi-press-wood")
 
-  if mods["ShinyBobGFX"] or mods["ShinyBobGFX_Continued"] then
-    data.raw["recipe"]["bi-press-wood"].icon = ICONPATH .. "bi_wooden_board_shiny.png"
+  if mods["ShinyBobGFX"] then
+    data.raw["recipe"]["bi-press-wood"].icon = ICONPATH .. "mod_bobangels/bi_wooden_board_shiny.png"
     data.raw["recipe"]["bi-press-wood"].icon_size = 64
   end
 end
@@ -385,7 +378,7 @@ end
 
 -- Replace Angels Charcoal Icon
 if data.raw.recipe["wood-charcoal"] then
-  data.raw.recipe["wood-charcoal"].icon = ICONPATH .. "charcoal_pellets.png"
+  data.raw.recipe["wood-charcoal"].icon = ICONPATH .. "mod_bobangels/charcoal_pellets.png"
   data.raw.recipe["wood-charcoal"].icon_size = 64
   data.raw.recipe["wood-charcoal"].category = "biofarm-mod-smelting"
   data.raw.item["wood-charcoal"].icon = ICONPATH .. "charcoal.png"
@@ -409,7 +402,7 @@ BioInd.writeDebug("Generating recipe for sand from crushed stone!")
       name = "bi-sand",
       icons = {
         {
-          icon = ICONPATH .. "sand-aai.png",
+          icon = ICONPATH .. "mod_aai/sand-aai.png",
           icon_size = 64,
           mip_maps = 1,
         }
@@ -423,12 +416,9 @@ BioInd.writeDebug("Generating recipe for sand from crushed stone!")
       result_count = 5,
       main_product = "",
       enabled = false,
-      --~ always_show_made_in = true,
-      --~ allow_decomposition = false,
-      --~ allow_as_intermediate = false,
-      allow_as_intermediate = true,     -- Changed for 0.18.34/1.1.4
-      always_show_made_in = true,       -- Changed for 0.18.34/1.1.4
-      allow_decomposition = true,               -- Changed for 0.18.34/1.1.4
+      always_show_made_in = true,
+      allow_decomposition = false,
+      allow_as_intermediate = false,
     },
   })
 
@@ -447,7 +437,7 @@ BioInd.writeDebug("Adjusting result for \"angelsrefining\" …")
   -- Adjust icon for Krastorio
   elseif mods["Krastorio2"] or mods["Krastorio"] then
 BioInd.writeDebug("Using Krastorio icon …")
-    recipe.icons[1].icon = ICONPATH .. "sand-Krastorio.png"
+    recipe.icons[1].icon = ICONPATH .. "mod_krastorio/sand-Krastorio.png"
   end
 
   -- Add recipe to technology

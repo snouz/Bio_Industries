@@ -85,11 +85,11 @@ data:extend(
     name= "bi-bio-farm",
     localised_name = {"entity-name.bi-bio-farm"},
     localised_description = {"entity-description.bi-bio-farm"},
-    icon = ICONPATH .. "Bio_Farm_Icon.png",
+    icon = ICONPATH .. "entity/Bio_Farm_Icon.png",
     icon_size = 64,
     icons = {
       {
-        icon = ICONPATH .. "Bio_Farm_Icon.png",
+        icon = ICONPATH .. "entity/Bio_Farm_Icon.png",
         icon_size = 64,
       }
     },
@@ -105,11 +105,11 @@ data:extend(
     name= "bi-bio-greenhouse",
     localised_name = {"entity-name.bi-bio-greenhouse"},
     localised_description = {"entity-description.bi-bio-greenhouse"},
-    icon = ICONPATH .. "bio_greenhouse.png",
+    icon = ICONPATH .. "entity/bio_greenhouse.png",
     icon_size = 64,
     icons = {
       {
-        icon = ICONPATH .. "bio_greenhouse.png",
+        icon = ICONPATH .. "entity/bio_greenhouse.png",
         icon_size = 64,
       }
     },
@@ -123,11 +123,11 @@ data:extend(
   {
     type = "item",
     name = "bi-cokery",
-    icon = ICONPATH .. "cokery.png",
+    icon = ICONPATH .. "entity/cokery.png",
     icon_size = 64,
     icons = {
       {
-        icon = ICONPATH .. "cokery.png",
+        icon = ICONPATH .. "entity/cokery.png",
         icon_size = 64,
       }
     },
@@ -143,11 +143,11 @@ data:extend(
     name = "bi-stone-crusher",
     localised_name = {"entity-name.bi-stone-crusher"},
     localised_description = {"entity-description.bi-stone-crusher"},
-    icon = ICONPATH .. "stone_crusher.png",
+    icon = ICONPATH .. "entity/stone_crusher.png",
     icon_size = 64,
     icons = {
       {
-        icon = ICONPATH .. "stone_crusher.png",
+        icon = ICONPATH .. "entity/stone_crusher.png",
         icon_size = 64,
       }
     },
@@ -271,11 +271,11 @@ data:extend(
   {
     type = "item",
     name = "pellet-coke",
-    icon = ICONPATH .. "coke-coal.png",
+    icon = ICONPATH .. "pellet_coke.png",
     icon_size = 64,
     icons = {
       {
-        icon = ICONPATH .. "coke-coal.png",
+        icon = ICONPATH .. "pellet_coke.png",
         icon_size = 64,
       }
     },
@@ -314,9 +314,7 @@ data:extend(
     },
     subgroup = "raw-material",
     order = "a[bi]-a-z[stone-crushed]",
-    -- Changed for 0.18.34/1.1.4
-    --~ stack_size = 800
-    stack_size = 400
+    stack_size = 800
   },
 
 
@@ -324,11 +322,11 @@ data:extend(
   {
     type = "ammo",
     name = "bi-seed-bomb-basic",
-    icon = ICONPATH .. "Seed_bomb_icon_b.png",
+    icon = ICONPATH .. "weapon/Seed_bomb_icon_b.png",
     icon_size = 64,
     icons = {
       {
-        icon = ICONPATH .. "Seed_bomb_icon_b.png",
+        icon = ICONPATH .. "weapon/Seed_bomb_icon_b.png",
         icon_size = 64,
       }
     },
@@ -356,11 +354,11 @@ data:extend(
   {
     type = "ammo",
     name = "bi-seed-bomb-standard",
-    icon = ICONPATH .. "Seed_bomb_icon_s.png",
+    icon = ICONPATH .. "weapon/Seed_bomb_icon_s.png",
     icon_size = 64,
     icons = {
       {
-        icon = ICONPATH .. "Seed_bomb_icon_s.png",
+        icon = ICONPATH .. "weapon/Seed_bomb_icon_s.png",
         icon_size = 64,
       }
     },
@@ -388,11 +386,11 @@ data:extend(
   {
     type = "ammo",
     name = "bi-seed-bomb-advanced",
-    icon = ICONPATH .. "Seed_bomb_icon_a.png",
+    icon = ICONPATH .. "weapon/Seed_bomb_icon_a.png",
     icon_size = 64,
     icons = {
       {
-        icon = ICONPATH .. "Seed_bomb_icon_a.png",
+        icon = ICONPATH .. "weapon/Seed_bomb_icon_a.png",
         icon_size = 64,
       }
     },
@@ -419,11 +417,11 @@ data:extend(
   {
     type= "item",
     name= "bi-arboretum-area",
-    icon = ICONPATH .. "Arboretum_Icon.png",
+    icon = ICONPATH .. "entity/Arboretum_Icon.png",
     icon_size = 64,
     icons = {
       {
-        icon = ICONPATH .. "Arboretum_Icon.png",
+        icon = ICONPATH .. "entity/Arboretum_Icon.png",
         icon_size = 64,
       }
     },
@@ -532,11 +530,11 @@ data:extend(
     {
       type = "item",
       name = "fertilizer",
-      icon = ICONPATH .. "fertilizer_64.png",
+      icon = ICONPATH .. "fertilizer.png",
       icon_size = 64,
       icons = {
         {
-          icon = ICONPATH .. "fertilizer_64.png",
+          icon = ICONPATH .. "fertilizer.png",
           icon_size = 64,
         }
       },
@@ -556,11 +554,11 @@ data:extend(
     {
       type = "item",
       name = "bi-adv-fertilizer",
-      icon = ICONPATH .. "advanced_fertilizer_64.png",
+      icon = ICONPATH .. "fertilizer_advanced.png",
       icon_size = 64,
       icons = {
         {
-          icon = ICONPATH .. "advanced_fertilizer_64.png",
+          icon = ICONPATH .. "fertilizer_advanced.png",
           icon_size = 64,
         }
       },

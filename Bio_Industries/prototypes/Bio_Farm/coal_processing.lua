@@ -15,40 +15,17 @@ return {
     },
     {
       type = "unlock-recipe",
-      recipe = "bi-ash-2"
-    },
-    {
-      type = "unlock-recipe",
-      recipe = "bi-ash-1"
-    },
-    {
-      type = "unlock-recipe",
       recipe = "bi-wood-fuel-brick"
     },
     --~ {
       --~ type = "unlock-recipe",
       --~ recipe = "bi-solid-fuel"
     --~ },
-    {
-      type = "unlock-recipe",
-      recipe = "bi-seed-2"
-    },
-    {
-      type = "unlock-recipe",
-      recipe = "bi-seedling-2"
-    },
-    {
-      type = "unlock-recipe",
-      recipe = "bi-logs-2"
-    },
     --~ {
       --~ type = "unlock-recipe",
       --~ recipe = "bi-stone-brick"
     --~ },
-    {
-      type = "unlock-recipe",
-      recipe = "bi-cokery"
-    },
+    
   },
 
   -- "bi-tech-coal-processing-2"

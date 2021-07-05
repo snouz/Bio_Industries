@@ -11,11 +11,11 @@ if BI.Settings.BI_Solar_Additions then
       name = "bi-bio-solar-farm",
       localised_name = {"entity-name.bi-bio-solar-farm"},
       localised_description = {"entity-description.bi-bio-solar-farm"},
-      icon = ICONPATH .. "Bio_Solar_Farm_Icon.png",
+      icon = ICONPATH .. "entity/Bio_Solar_Farm_Icon.png",
       icon_size = 64,
       icons = {
         {
-          icon = ICONPATH .. "Bio_Solar_Farm_Icon.png",
+          icon = ICONPATH .. "entity/Bio_Solar_Farm_Icon.png",
           icon_size = 64,
         }
       },
@@ -31,11 +31,11 @@ if BI.Settings.BI_Solar_Additions then
       name = "bi-solar-mat",
       localised_name = {"entity-name.bi-solar-mat"},
       localised_description = {"entity-description.bi-solar-mat"},
-      icon = ICONPATH .. "solar-mat.png",
+      icon = ICONPATH .. "entity/solar-mat.png",
       icon_size = 64,
       icons = {
         {
-          icon = ICONPATH .. "solar-mat.png",
+          icon = ICONPATH .. "entity/solar-mat.png",
           icon_size = 64,
         }
       },
@@ -56,11 +56,11 @@ if BI.Settings.BI_Solar_Additions then
       name = "bi-bio-accumulator",
       localised_name = {"entity-name.bi-bio-accumulator"},
       localised_description = {"entity-description.bi-bio-accumulator"},
-      icon = ICONPATH .. "bi_LargeAccumulator.png",
+      icon = ICONPATH .. "entity/bi_LargeAccumulator.png",
       icon_size = 64,
       icons = {
         {
-          icon = ICONPATH .. "bi_LargeAccumulator.png",
+          icon = ICONPATH .. "entity/bi_LargeAccumulator.png",
           icon_size = 64,
         }
       },
@@ -77,11 +77,11 @@ if BI.Settings.BI_Solar_Additions then
       name = "bi-large-substation",
       localised_name = {"entity-name.bi-large-substation"},
       localised_description = {"entity-description.bi-large-substation"},
-      icon = ICONPATH .. "bi_LargeSubstation_icon.png",
+      icon = ICONPATH .. "entity/bi_LargeSubstation_icon.png",
       icon_size = 64,
       icons = {
         {
-          icon = ICONPATH .. "bi_LargeSubstation_icon.png",
+          icon = ICONPATH .. "entity/bi_LargeSubstation_icon.png",
           icon_size = 64,
         }
       },
@@ -97,11 +97,11 @@ if BI.Settings.BI_Solar_Additions then
       name = "bi-solar-boiler",
       localised_name = {"entity-name.bi-solar-boiler"},
       localised_description = {"entity-description.bi-solar-boiler"},
-      icon = ICONPATH .. "Bio_Solar_Boiler_Icon.png",
+      icon = ICONPATH .. "entity/Bio_Solar_Boiler_Icon.png",
       icon_size = 64,
       icons = {
         {
-          icon = ICONPATH .. "Bio_Solar_Boiler_Icon.png",
+          icon = ICONPATH .. "entity/Bio_Solar_Boiler_Icon.png",
           icon_size = 64,
         }
       },

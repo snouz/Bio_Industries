@@ -21,11 +21,11 @@ log("Enabling disassemble recipes!")
       type = "recipe",
       name = "bi-burner-mining-drill-disassemble",
       localised_description = {"recipe-description.bi-disassemble-recipes"},
-      icon = ICONPATH .. "burner-mining-drill_disassemble.png",
+      icon = ICONPATH .. "disassemble_burner-mining-drill.png",
       icon_size = 64,
       icons = {
         {
-          icon = ICONPATH .. "burner-mining-drill_disassemble.png",
+          icon = ICONPATH .. "disassemble_burner-mining-drill.png",
           icon_size = 64,
         }
       },
@@ -51,11 +51,11 @@ log("Enabling disassemble recipes!")
       type = "recipe",
       name = "bi-burner-inserter-disassemble",
       localised_description = {"recipe-description.bi-disassemble-recipes"},
-      icon = ICONPATH .. "burner_inserter_disassemble.png",
+      icon = ICONPATH .. "disassemble_burner_inserter.png",
       icon_size = 64,
       icons = {
         {
-          icon = ICONPATH .. "burner_inserter_disassemble.png",
+          icon = ICONPATH .. "disassemble_burner_inserter.png",
           icon_size = 64,
         }
       },
@@ -80,11 +80,11 @@ log("Enabling disassemble recipes!")
       type = "recipe",
       name = "bi-long-handed-inserter-disassemble",
       localised_description = {"recipe-description.bi-disassemble-recipes"},
-      icon = ICONPATH .. "long_handed_inserter_disassemble.png",
+      icon = ICONPATH .. "disassemble_long_handed_inserter.png",
       icon_size = 64,
       icons = {
         {
-          icon = ICONPATH .. "long_handed_inserter_disassemble.png",
+          icon = ICONPATH .. "disassemble_long_handed_inserter.png",
           icon_size = 64,
         }
       },
@@ -111,11 +111,11 @@ log("Enabling disassemble recipes!")
       type = "recipe",
       name = "bi-stone-furnace-disassemble",
       localised_description = {"recipe-description.bi-disassemble-recipes"},
-      icon = ICONPATH .. "stone_furnace_disassemble.png",
+      icon = ICONPATH .. "disassemble_stone_furnace.png",
       icon_size = 64,
       icons = {
         {
-          icon = ICONPATH .. "stone_furnace_disassemble.png",
+          icon = ICONPATH .. "disassemble_stone_furnace.png",
           icon_size = 64,
         }
       },
@@ -140,11 +140,11 @@ log("Enabling disassemble recipes!")
       type = "recipe",
       name = "bi-steel-furnace-disassemble",
       localised_description = {"recipe-description.bi-disassemble-recipes"},
-      icon = ICONPATH .. "steel-furnace_disassemble.png",
+      icon = ICONPATH .. "disassemble_steel-furnace.png",
       icon_size = 64,
       icons = {
         {
-          icon = ICONPATH .. "steel-furnace_disassemble.png",
+          icon = ICONPATH .. "disassemble_steel-furnace.png",
           icon_size = 64,
         }
       },

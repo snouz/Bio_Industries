@@ -1,6 +1,6 @@
 local BioInd = require('common')('Bio_Industries')
 
-local ICONPATH = BioInd.modRoot .. "/graphics/entities/bio_cannon/projectiles/"
+local ICONPATH = BioInd.modRoot .. "/graphics/icons/weapon/"
 
 if BI.Settings.Bio_Cannon then
 

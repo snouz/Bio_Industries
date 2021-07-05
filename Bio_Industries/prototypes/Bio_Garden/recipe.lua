@@ -11,11 +11,11 @@ data:extend({
     name = "bi-bio-garden",
     localised_name = {"entity-name.bi-bio-garden"},
     localised_description = {"entity-description.bi-bio-garden"},
-    icon = ICONPATH .. "bio_garden_icon.png",
+    icon = ICONPATH .. "entity/bio_garden_icon.png",
     icon_size = 64,
     icons = {
       {
-        icon = ICONPATH .. "bio_garden_icon.png",
+        icon = ICONPATH .. "entity/bio_garden_icon.png",
         icon_size = 64,
       }
     },
@@ -32,11 +32,9 @@ data:extend({
     order = "a[bi]",
     --~ subgroup = "production-machine",
     --~ order = "x[bi]-b[bi_bio_garden]",
-    --~ always_show_made_in = true,
-    --~ allow_decomposition = false,
-    allow_as_intermediate = false,      -- Changed for 0.18.34/1.1.4
-    always_show_made_in = false,        -- Changed for 0.18.34/1.1.4
-    allow_decomposition = true,         -- Changed for 0.18.34/1.1.4    -- This is a custom property for use by "Krastorio 2" (it will change
+    always_show_made_in = true,
+    allow_decomposition = false,
+    -- This is a custom property for use by "Krastorio 2" (it will change
     -- ingredients/results; used for wood/wood pulp)
     mod = "Bio_Industries",
   },

@@ -1,5 +1,4 @@
-local BioInd = require("__" .. script.mod_name .. "__.common")(script.mod_name)
-BioInd.writeDebug("Entered control_bio_cannon.lua")
+local BioInd = require('common')('Bio_Industries')
 
 ---Bio Cannon Stuff
 local Event = require('__stdlib__/stdlib/event/event').set_protected_mode(true)
@@ -10,7 +9,7 @@ local function Bio_Cannon_Check(Bio_Cannon)
 --~ BioInd.writeDebug("Entered function Bio_Cannon_List")
 
   local Radar = Bio_Cannon and Bio_Cannon.valid and
-                  global.bi_bio_cannon_table[Bio_Cannon.unit_number].radar
+                  global.Bio_Cannon_Table[Bio_Cannon.unit_number].radar
 
   if not Bio_Cannon and Bio_Cannon.valid and Radar and Radar.valid then
     error(string.format("Invalid Bio cannon parts!\nCannon: %s\tRadar: %s", Bio_Cannon, Radar))
@@ -111,7 +110,7 @@ local function Bio_Cannon_Check(Bio_Cannon)
         ["bi-bio-cannon-basic-ammo"] = 10,
         ["bi-bio-cannon-poison-ammo"] = 15
       }
-      global.bi_bio_cannon_table[Bio_Cannon.unit_number].delay = delays[AmmoType] or 20
+      global.Bio_Cannon_Table[Bio_Cannon.unit_number].delay = delays[AmmoType] or 20
     end
   end
   --~ BioInd.writeDebug("End of function Bio_Cannon_List")
@@ -120,10 +119,10 @@ end
 
 
 Event.register(defines.events.on_tick, function(event)
-  if global.bi_bio_cannon_table ~= nil then
+  if global.Bio_Cannon_Table ~= nil then
     if global.Bio_Cannon_Counter == 0 or global.Bio_Cannon_Counter == nil then
       global.Bio_Cannon_Counter = 60
-      for b, bio_cannon in pairs(global.bi_bio_cannon_table) do
+      for b, bio_cannon in pairs(global.Bio_Cannon_Table) do
 --~ BioInd.writeDebug("Checking cannon %s (%g)", {b, bio_cannon.base.unit_number})
 
         if bio_cannon.base and bio_cannon.base.valid and

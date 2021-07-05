@@ -8,11 +8,11 @@ data:extend({
   {
     type = "item",
     name = "bi-dart-turret",
-    icon = ICONPATH .. "bio_turret_icon.png",
+    icon = ICONPATH .. "entity/bio_turret_icon.png",
     icon_size = 64,
     icons = {
       {
-        icon = ICONPATH .. "bio_turret_icon.png",
+        icon = ICONPATH .. "entity/bio_turret_icon.png",
         icon_size = 64,
       }
     },

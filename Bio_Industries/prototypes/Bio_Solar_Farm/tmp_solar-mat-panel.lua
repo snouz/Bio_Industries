@@ -1,12 +1,12 @@
         ------- Hidden Solar Panel for Solar Mat
   {
     type = "solar-panel",
-    name = "bi-musk-mat-hidden-panel",
-    icon = ICONPATH .. "solar-mat.png",
+    name = "bi-musk-mat-solar-panel",
+    icon = ICONPATH .. "entity/solar-mat.png",
     icon_size = 64,
     icons = {
         {
-            icon = ICONPATH .. "solar-mat.png",
+            icon = ICONPATH .. "entity/solar-mat.png",
             icon_size = 64,
         }
     },

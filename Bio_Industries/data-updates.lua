@@ -87,34 +87,37 @@ set_tint_to_rails(
 ) -- mix
 
 -- vanilla rail icon & images update
-data.raw["straight-rail"]["straight-rail"].icon = ICONPATH .. "straight-rail-concrete.png"
+data.raw["straight-rail"]["straight-rail"].icon = ICONPATH .. "entity/straight-rail-concrete.png"
 data.raw["straight-rail"]["straight-rail"].icon_size = 64
 data.raw["straight-rail"]["straight-rail"].icon_mipmaps = 4
-data.raw["curved-rail"]["curved-rail"].icon = ICONPATH .. "curved-rail-concrete.png"
+data.raw["curved-rail"]["curved-rail"].icon = ICONPATH .. "entity/curved-rail-concrete.png"
 data.raw["curved-rail"]["curved-rail"].icon_size = 64
 data.raw["curved-rail"]["curved-rail"].icon_mipmaps = 4
-data.raw["rail-planner"]["rail"].icon = ICONPATH .. "rail-concrete.png"
+data.raw["rail-planner"]["rail"].icon = ICONPATH .. "entity/rail-concrete.png"
 data.raw["rail-planner"]["rail"].icon_size = 64
 data.raw["rail-planner"]["rail"].icon_mipmaps = 4
+data.raw["rail-planner"]["rail"].order = "a[train-system]-a[rail1]",
 
 --- Wood Rail added to Tech
 thxbob.lib.tech.add_recipe_unlock("railway", "bi-rail-wood")
+thxbob.lib.tech.add_prerequisite("railway", "bi-tech-stone-crushing-1")
+thxbob.lib.tech.remove_recipe_unlock ("railway", "rail")
 
 
 --- If Bob, move Vanilla Rail to Rail 2, also add Power Rail.
-if data.raw.technology["bob-railway-2"] then
-  thxbob.lib.tech.remove_recipe_unlock ("railway", "rail")
-  thxbob.lib.tech.add_recipe_unlock("bob-railway-2", "rail")
-  thxbob.lib.tech.add_recipe_unlock("bob-railway-2", "bi-rail-wood-to-concrete")
-  thxbob.lib.tech.add_recipe_unlock("bob-railway-2", "bi-rail-wood-bridge")
-  thxbob.lib.tech.add_recipe_unlock("bob-railway-2", "bi-rail-power")
-  thxbob.lib.tech.add_recipe_unlock("bob-railway-2", "bi-power-to-rail-pole")
-else
-  thxbob.lib.tech.add_recipe_unlock("railway", "bi-rail-wood-to-concrete")
-  thxbob.lib.tech.add_recipe_unlock("rail-signals", "bi-rail-wood-bridge")
-  thxbob.lib.tech.add_recipe_unlock("rail-signals", "bi-rail-power")
-  thxbob.lib.tech.add_recipe_unlock("rail-signals", "bi-power-to-rail-pole")
-end
+-- if data.raw.technology["bob-railway-2"] then
+--   --thxbob.lib.tech.remove_recipe_unlock ("railway", "rail")
+--   thxbob.lib.tech.add_recipe_unlock("bob-railway-2", "rail")
+--   thxbob.lib.tech.add_recipe_unlock("bob-railway-2", "bi-rail-wood-to-concrete")
+--   thxbob.lib.tech.add_recipe_unlock("bob-railway-2", "bi-rail-wood-bridge")
+--   thxbob.lib.tech.add_recipe_unlock("bob-railway-2", "bi-rail-power")
+--   thxbob.lib.tech.add_recipe_unlock("bob-railway-2", "bi-power-to-rail-pole")
+-- else
+--   thxbob.lib.tech.add_recipe_unlock("railway", "bi-rail-wood-to-concrete")
+--   thxbob.lib.tech.add_recipe_unlock("rail-signals", "bi-rail-wood-bridge")
+--   thxbob.lib.tech.add_recipe_unlock("rail-signals", "bi-rail-power")
+--   thxbob.lib.tech.add_recipe_unlock("rail-signals", "bi-power-to-rail-pole")
+-- end
 
 -- Damage Bonus to Ammo
 -- Don't duplicate what NE does
@@ -134,14 +137,14 @@ end
 
 
 --- Move Stone Crusher up in tech tree
-thxbob.lib.tech.add_recipe_unlock("steel-processing", "bi-stone-crusher")
-thxbob.lib.tech.add_recipe_unlock("steel-processing", "bi-crushed-stone-1")
+--thxbob.lib.tech.add_recipe_unlock("steel-processing", "bi-stone-crusher")
+--thxbob.lib.tech.add_recipe_unlock("steel-processing", "bi-crushed-stone-1")
 
 -- Unlock recipes for Crushed Stone from concrete/hazard concrete
-thxbob.lib.tech.add_recipe_unlock("advanced-material-processing-2", "bi-crushed-stone-2")
-thxbob.lib.tech.add_recipe_unlock("advanced-material-processing-2", "bi-crushed-stone-3")
-thxbob.lib.tech.add_recipe_unlock("advanced-material-processing-2", "bi-crushed-stone-4")
-thxbob.lib.tech.add_recipe_unlock("advanced-material-processing-2", "bi-crushed-stone-5")
+--thxbob.lib.tech.add_recipe_unlock("advanced-material-processing-2", "bi-crushed-stone-2")
+--thxbob.lib.tech.add_recipe_unlock("advanced-material-processing-2", "bi-crushed-stone-3")
+--thxbob.lib.tech.add_recipe_unlock("advanced-material-processing-2", "bi-crushed-stone-4")
+--thxbob.lib.tech.add_recipe_unlock("advanced-material-processing-2", "bi-crushed-stone-5")
 --~ thxbob.lib.tech.add_prerequisite("advanced-material-processing-2", "concrete")
 
 -- Add Wooden Chests
@@ -150,25 +153,8 @@ thxbob.lib.tech.add_recipe_unlock("logistics-2", "bi-wooden-chest-huge")
 thxbob.lib.tech.add_recipe_unlock("logistics-3", "bi-wooden-chest-giga")
 
 -- Add Big and Huge electric poles to tech tree
---~ if mods["IndustrialRevolution"] then
-  --~ -- Our large wooden poles are unlocked by the "Logistics" research and require small
-  --~ -- electric poles, which are unlocked by IR2 after the Iron Age has been reached. So,
-  --~ -- if IR2 is active, we won't unlock our poles and use IR2's large wooden poles for
-  --~ -- our huge poles instead.
-  --~ local big_pole = "bi-wooden-pole-big"
-  --~ thxbob.lib.tech.add_recipe_unlock ("electric-energy-distribution-1", big_pole)
-  --~ thxbob.lib.tech.add_recipe_unlock ("electric-energy-distribution-2", "bi-wooden-pole-huge")
-
-  --~ -- Adjust localizations
-  --~ for k, v in ipairs({"electric-pole", "item", "recipe"}) do
---~ BioInd.show("Changing localization for", v)
-    --~ data.raw[v][big_pole].localised_name = {"entity-name.bi-wooden-pole-bigger"}
-    --~ data.raw[v][big_pole].localised_description = {"entity-description.bi-wooden-pole-bigger"}
-  --~ end
---~ else
-  thxbob.lib.tech.add_recipe_unlock ("logistics", "bi-wooden-pole-big")
-  thxbob.lib.tech.add_recipe_unlock ("electric-energy-distribution-2", "bi-wooden-pole-huge")
---~ end
+thxbob.lib.tech.add_recipe_unlock ("logistics", "bi-wooden-pole-big")
+thxbob.lib.tech.add_recipe_unlock ("electric-energy-distribution-2", "bi-wooden-pole-huge")
 
 --- Wood Floors
 -- Make wood placeable only if Dectorio isn't installed. Should leave existing flooring intact.
@@ -246,20 +232,12 @@ if BI.Settings.BI_Solar_Additions then
     thxbob.lib.tech.add_recipe_unlock("bob-electric-energy-accumulators-3", "bi-bio-accumulator")
     thxbob.lib.tech.add_recipe_unlock("electric-energy-distribution-2", "bi-large-substation")
     thxbob.lib.tech.add_recipe_unlock("bob-solar-energy-2", "bi-bio-solar-farm")
-    thxbob.lib.tech.add_recipe_unlock("bob-solar-energy-2", "bi-solar-boiler-hidden-panel")
+    thxbob.lib.tech.add_recipe_unlock("bob-solar-energy-2", "bi-solar-boiler-panel")
     --~ thxbob.lib.tech.add_recipe_unlock("bob-solar-energy-2", "bi-solar-boiler")
-  else
-    thxbob.lib.tech.add_recipe_unlock("electric-energy-accumulators", "bi-bio-accumulator")
-    thxbob.lib.tech.add_recipe_unlock("electric-energy-distribution-2", "bi-large-substation")
-    thxbob.lib.tech.add_recipe_unlock("solar-energy", "bi-bio-solar-farm")
-    thxbob.lib.tech.add_recipe_unlock("solar-energy", "bi-solar-boiler-hidden-panel")
-    --~ thxbob.lib.tech.add_recipe_unlock("solar-energy", "bi-solar-boiler")
   end
 
   if data.raw.technology["bob-solar-energy-3"] then
     thxbob.lib.tech.add_recipe_unlock("bob-solar-energy-3", "bi-solar-mat")
-  else
-    thxbob.lib.tech.add_recipe_unlock("solar-energy", "bi-solar-mat")
   end
 
   --- Electric redo if Bob' Electric
@@ -342,8 +320,8 @@ if BI.Settings.BI_Solar_Additions then
 
   -- Solar Boiler / Plant
   if data.raw.item["angels-electric-boiler"] then
-    thxbob.lib.recipe.remove_ingredient("bi-solar-boiler-hidden-panel", "boiler")
-    thxbob.lib.recipe.add_new_ingredient("bi-solar-boiler-hidden-panel", {
+    thxbob.lib.recipe.remove_ingredient("bi-solar-boiler-panel", "boiler")
+    thxbob.lib.recipe.add_new_ingredient("bi-solar-boiler-panel", {
       type = "item",
       name = "angels-electric-boiler",
       amount = 1}
@@ -372,20 +350,17 @@ end
 -- Adds Bio recipes
 if BI.Settings.BI_Bio_Fuel then
   --~ thxbob.lib.tech.add_recipe_unlock("bi-tech-advanced-biotechnology", "bi-bio-reactor")
-  thxbob.lib.tech.add_recipe_unlock("bi-tech-advanced-biotechnology", "bi-cellulose-1")
-  thxbob.lib.tech.add_recipe_unlock("bi-tech-advanced-biotechnology", "bi-cellulose-2")
+  --thxbob.lib.tech.add_recipe_unlock("bi-tech-advanced-biotechnology", "bi-cellulose-1")
+  --thxbob.lib.tech.add_recipe_unlock("bi-tech-advanced-biotechnology", "bi-cellulose-2")
 
   -- Remove unlock for biomass-1 and add it again so all biomass recipes are next to each
   -- other in the preview of technology unlocks!
-  thxbob.lib.tech.remove_recipe_unlock("bi-tech-advanced-biotechnology", "bi-biomass-1")
-  for u, unlock in ipairs({
-    "bi-biomass-1", "bi-biomass-2", "bi-biomass-3",
-    "bi-battery",
-    "bi-biomass-conversion-1", "bi-biomass-conversion-2", "bi-biomass-conversion-3", "bi-biomass-conversion-4",
-    "bi-acid", "bi-bio-boiler"
-  }) do
-    thxbob.lib.tech.add_recipe_unlock("bi-tech-advanced-biotechnology", unlock)
-  end
+  --thxbob.lib.tech.remove_recipe_unlock("bi-tech-advanced-biotechnology", "bi-biomass-1")
+  --for u, unlock in ipairs({
+  --  , "bi-bio-boiler"
+  --}) do
+  --  thxbob.lib.tech.add_recipe_unlock("bi-tech-advanced-biotechnology", unlock)
+  --end
 
   -- Added for 0.17.49/0.18.17 (changed for 0.18.29)
   --~ thxbob.lib.tech.add_recipe_unlock("bi-tech-coal-processing-1", "bi-basic-gas-processing")
@@ -397,9 +372,9 @@ if BI.Settings.BI_Bio_Fuel then
   --~ end
 
   if mods["angelspetrochem"] then
-    thxbob.lib.tech.add_recipe_unlock("bi-tech-advanced-biotechnology", "bi-sulfur-angels")
+    thxbob.lib.tech.add_recipe_unlock("bi-tech-cellulose-1", "bi-sulfur-angels")
   else
-    thxbob.lib.tech.add_recipe_unlock("bi-tech-advanced-biotechnology", "bi-sulfur")
+    thxbob.lib.tech.add_recipe_unlock("bi-tech-cellulose-1", "bi-sulfur")
   end
   --~ thxbob.lib.recipe.add_new_ingredient("bi-adv-fertilizer-1", {type = "fluid", name = "bi-biomass", amount = 10})
   --~ thxbob.lib.recipe.add_new_ingredient("bi-adv-fertilizer-2", {type = "fluid", name = "bi-biomass", amount = 10})
@@ -410,7 +385,7 @@ else
 end
 
 
---- if the Alien Artifact is in the game, use it for some recipes
+--- if the Alien Artifact is in the game, use if for some recipes
 if data.raw.item["alien-artifact"] then
   --- Advanced fertilizer will use Alien Artifact
   thxbob.lib.recipe.remove_ingredient("bi-adv-fertilizer-1", "bi-biomass")
@@ -509,17 +484,17 @@ if data.raw.item["ash"] and mods["pycoalprocessing"] then
   data.raw.recipe["bi-ash-2"].icon_size = 32
 
   -- Use ash icon from pycoalprocessing in icons of recipes using ash
-  data.raw.recipe["bi-seed-2"].icon = ICONPATH .. "py_bio_seed2.png"
+  data.raw.recipe["bi-seed-2"].icon = ICONPATH .. "mod_py/py_bio_seed2.png"
   data.raw.recipe["bi-seed-2"].icon_size = 64
-  data.raw.recipe["bi-seedling-2"].icon = ICONPATH .. "py_Seedling2.png"
+  data.raw.recipe["bi-seedling-2"].icon = ICONPATH .. "mod_py/py_Seedling2.png"
   data.raw.recipe["bi-seedling-2"].icon_size = 64
-  data.raw.recipe["bi-logs-2"].icon = ICONPATH .. "py_raw-wood-mk2.png"
+  data.raw.recipe["bi-logs-2"].icon = ICONPATH .. "mod_py/py_raw-wood-mk2.png"
   data.raw.recipe["bi-logs-2"].icon_size = 64
-  data.raw.recipe["bi-ash-1"].icon = ICONPATH .. "py_ash_raw-wood.png"
+  data.raw.recipe["bi-ash-1"].icon = ICONPATH .. "mod_py/py_ash_raw-wood.png"
   data.raw.recipe["bi-ash-1"].icon_size = 64
-  data.raw.recipe["bi-ash-2"].icon = ICONPATH .. "py_ash_woodpulp.png"
+  data.raw.recipe["bi-ash-2"].icon = ICONPATH .. "mod_py/py_ash_woodpulp.png"
   data.raw.recipe["bi-ash-2"].icon_size = 64
-  data.raw.recipe["bi-stone-brick"].icon = ICONPATH .. "py_bi_stone_brick.png"
+  data.raw.recipe["bi-stone-brick"].icon = ICONPATH .. "mod_py/py_bi_stone_brick.png"
   data.raw.recipe["bi-stone-brick"].icon_size = 64
   --~ data.raw.recipe["bi-sulfur"].icon = ICONPATH .. "py_bio_sulfur.png"
   --~ data.raw.recipe["bi-sulfur"].icon_size = 64
@@ -643,47 +618,56 @@ end
     BioInd.writeDebug("Removed recipes for \"nitrogen\" and \"liquid air\".")
   end
 
--- Moved here from data-final-fixes.lua for 0.18.34/1.1.4! (Fixes https://mods.factorio.com/mod/Bio_Industries/discussion/5ff570bd916993002371332a)
----- Game Tweaks ---- Recipes
-if BI.Settings.BI_Game_Tweaks_Recipe then
-  --- Concrete Recipe Tweak
-  thxbob.lib.recipe.remove_ingredient("concrete", "iron-ore")
-  thxbob.lib.recipe.add_new_ingredient("concrete", {type = "item", name = "iron-stick", amount = 2})
-
-  --- Stone Wall
-  thxbob.lib.recipe.add_new_ingredient("stone-wall", {type = "item", name = "iron-stick", amount = 1})
-
-  --- Rail (Remove Stone and Add Crushed Stone)
-  if data.raw.item["stone-crushed"] then
-    thxbob.lib.recipe.remove_ingredient("rail", "stone")
-    thxbob.lib.recipe.add_new_ingredient("rail", {type = "item", name = "stone-crushed", amount = 6})
-    thxbob.lib.recipe.remove_ingredient("bi-rail-wood", "stone")
-    thxbob.lib.recipe.add_new_ingredient("bi-rail-wood", {type = "item", name = "stone-crushed", amount = 6})
-  end
-
-  -- vanilla rail recipe update
-  thxbob.lib.recipe.add_new_ingredient("rail", {type = "item", name = "concrete", amount = 6})
-end
-
-
-
--- Moved here from data-final-fixes.lua for 0.18.34/1.1.4!
----- Game Tweaks ---- Disassemble Recipes
-require("prototypes.Bio_Tweaks.recipe")
-if BI.Settings.BI_Game_Tweaks_Disassemble then
-  for recipe, tech in pairs({
-    ["bi-burner-mining-drill-disassemble"] = "automation-2",
-    ["bi-burner-inserter-disassemble"] = "automation-2",
-    ["bi-long-handed-inserter-disassemble"] = "automation-2",
-    ["bi-stone-furnace-disassemble"] = "automation-2",
-    ["bi-steel-furnace-disassemble"] = "advanced-material-processing",
-  }) do
-    thxbob.lib.tech.add_recipe_unlock(tech, recipe)
-  end
-
-end
-
 --- Enable Productivity in Recipes
+--~ BI_Functions.lib.allow_productivity("bi-seed-1")
+--~ BI_Functions.lib.allow_productivity("bi-seed-2")
+--~ BI_Functions.lib.allow_productivity("bi-seed-3")
+--~ BI_Functions.lib.allow_productivity("bi-seed-4")
+
+--~ BI_Functions.lib.allow_productivity("bi-seedling-1")
+--~ BI_Functions.lib.allow_productivity("bi-seedling-2")
+--~ BI_Functions.lib.allow_productivity("bi-seedling-3")
+--~ BI_Functions.lib.allow_productivity("bi-seedling-4")
+
+--~ BI_Functions.lib.allow_productivity("bi-logs-1")
+--~ BI_Functions.lib.allow_productivity("bi-logs-2")
+--~ BI_Functions.lib.allow_productivity("bi-logs-3")
+--~ BI_Functions.lib.allow_productivity("bi-logs-4")
+
+--~ BI_Functions.lib.allow_productivity("bi-stone-brick")
+--~ BI_Functions.lib.allow_productivity("bi-crushed-stone-1")
+--~ BI_Functions.lib.allow_productivity("bi-crushed-stone-2")
+--~ BI_Functions.lib.allow_productivity("bi-crushed-stone-3")
+--~ BI_Functions.lib.allow_productivity("bi-crushed-stone-4")
+--~ BI_Functions.lib.allow_productivity("bi-crushed-stone-5")
+
+--~ BI_Functions.lib.allow_productivity("bi-resin-pulp")
+--~ BI_Functions.lib.allow_productivity("bi-press-wood")
+--~ BI_Functions.lib.allow_productivity("bi-resin-wood")
+--~ BI_Functions.lib.allow_productivity("bi-woodpulp")
+--~ BI_Functions.lib.allow_productivity("bi-wood-from-pulp")
+
+--BI_Functions.lib.allow_productivity("bi-liquid-air")
+--BI_Functions.lib.allow_productivity("bi-nitrogen")
+
+--~ BI_Functions.lib.allow_productivity("bi-biomass-1")
+--~ BI_Functions.lib.allow_productivity("bi-biomass-2")
+--~ BI_Functions.lib.allow_productivity("bi-biomass-3")
+
+--~ BI_Functions.lib.allow_productivity("bi-biomass-conversion-1")
+--~ BI_Functions.lib.allow_productivity("bi-biomass-conversion-2")
+--~ BI_Functions.lib.allow_productivity("bi-biomass-conversion-3")
+--~ BI_Functions.lib.allow_productivity("bi-biomass-conversion-4")
+
+--~ BI_Functions.lib.allow_productivity("bi-battery")
+--~ BI_Functions.lib.allow_productivity("bi-acid")
+--~ BI_Functions.lib.allow_productivity("bi-sulfur")
+--~ BI_Functions.lib.allow_productivity("bi-sulfur-angels")
+--~ BI_Functions.lib.allow_productivity("bi-plastic-1")
+--~ BI_Functions.lib.allow_productivity("bi-plastic-2")
+--~ BI_Functions.lib.allow_productivity("bi-cellulose-1")
+--~ BI_Functions.lib.allow_productivity("bi-cellulose-2")
+
 for recipe, r in pairs(data.raw.recipe) do
   for p, pattern in ipairs({
   "bi%-acid",
@@ -716,54 +700,13 @@ for recipe, r in pairs(data.raw.recipe) do
   end
 end
 
-
-------------------------------------------------------------------------------------
--- Add resistances to our hidden entities
-------------------------------------------------------------------------------------
--- Make resistances for each damage type
-local resistances = {}
-for damage, d in pairs(data.raw["damage-type"]) do
-  resistances[#resistances + 1] = {
-    type = damage,
-    percent = 100
-  }
-end
-
--- Add resistances to prototypes
--- (h_type is not guaranteed to be a prototype type -- it's the short handle that we
--- use compound_entities.hidden!)
-local h_type
-for h_key, h_names in pairs(BI.hidden_entities.types) do
-  h_type = BioInd.HE_map[h_key]
-  for h_name, h in pairs(h_names) do
---~ BioInd.writeDebug("h_type: %s\th_name: %s\th:%s", {h_type, h_name, h})
-    data.raw[h_type][h_name].resistances = resistances
-    BioInd.writeDebug("Added resistances to %s (%s): %s",
-                      {h_name, h_type, data.raw[h_type][h_name].resistances})
-  end
-end
-
--- Adjust resistances for radar of the terraformers. Unlike the other hidden parts
--- of compound entities, this one is visible, and should suffer the same as the base
--- when it gets hurt. (Also, damaging the radar will damage the base entity as well.)
-local compound = BioInd.compound_entities["bi-arboretum"]
-local b = compound.base
-local r = compound.hidden.radar
-if b and r then
-  local resistances = data.raw[b.type][b.name].resistances
-  if resistances then
-    data.raw[r.type][r.name].resistances = util.table.deepcopy(resistances)
-    BioInd.writeDebug("Copied resistances from %s to %s!", {b.name, r.name})
-  end
-end
 ------------------------------------------------------------------------------------
 -- Omnifluid will be confused by our bi-solar-boiler (the compound boiler + solar
 -- plant entity). Let's blacklist it if the mod is active!
 BioInd.show("Omnifluid is active", mods["omnimatter_fluid"] or "false")
 BioInd.show("forbidden_boilers", forbidden_boilers)
 
-if mods["omnimatter_fluid"]  then
-  forbidden_boilers = forbidden_boilers or {}
+if mods["omnimatter_fluid"] and forbidden_boilers then
   forbidden_boilers["bi-solar-boiler"] = true
 end
 BioInd.writeDebug("OMNIFLUID Test! forbidden_boilers = %s", {forbidden_boilers})
@@ -821,17 +764,3 @@ if set then
 BioInd.writeDebug("Removed technology " .. "bi-tech-coal-processing-" .. i)
   end
 end
-
--- Moved here from data-final-fixes.lua for 0.18.34/1.1.4! (Fixes https://mods.factorio.com/mod/Bio_Industries/discussion/5ff517c391699300236170a2)
--- "Transport drones" ruins rails by removing object-layer from the collision mask. That
--- causes problems for our "Wooden rail bridges" as they will also pass through cliffs.
-require("prototypes.Wood_Products.rail_updates")
-
--- Compatibility with Industrial Revolution
-require("prototypes.Industrial_Revolution")
-
-
-
-------------------------------------------------------------------------------------
--- Add icons to our prototypes
-BioInd.BI_add_icons()

@@ -182,13 +182,13 @@ function assembler2pipepicturesBioreactor()
       }
     },
     east = {
-      filename = "__base__/graphics/entity/assembling-machine-2/assembling-machine-2-pipe-E.png",
+      filename = "__Bio_Industries__/graphics/entities/bioreactor/bioreactor-pipe-E.png",
       priority = "extra-high",
       width = 20,
       height = 38,
       shift = util.by_pixel(-25, 1),
       hr_version = {
-        filename = "__base__/graphics/entity/assembling-machine-2/hr-assembling-machine-2-pipe-E.png",
+        filename = "__Bio_Industries__/graphics/entities/bioreactor/hr_bioreactor-pipe-E.png",
         priority = "extra-high",
         width = 42,
         height = 76,
@@ -197,13 +197,13 @@ function assembler2pipepicturesBioreactor()
       }
     },
     south = {
-      filename = "__base__/graphics/entity/assembling-machine-2/assembling-machine-2-pipe-S.png",
+      filename = "__Bio_Industries__/graphics/entities/bioreactor/bioreactor-pipe-S.png",
       priority = "extra-high",
       width = 44,
       height = 31,
       shift = util.by_pixel(0, -31.5),
       hr_version = {
-        filename = "__base__/graphics/entity/assembling-machine-2/hr-assembling-machine-2-pipe-S.png",
+        filename = "__Bio_Industries__/graphics/entities/bioreactor/hr_bioreactor-pipe-S.png",
         priority = "extra-high",
         width = 88,
         height = 61,
@@ -212,13 +212,13 @@ function assembler2pipepicturesBioreactor()
       }
     },
     west = {
-      filename = "__base__/graphics/entity/assembling-machine-2/assembling-machine-2-pipe-W.png",
+      filename = "__Bio_Industries__/graphics/entities/bioreactor/bioreactor-pipe-W.png",
       priority = "extra-high",
       width = 19,
       height = 37,
       shift = util.by_pixel(25.5, 1.5),
       hr_version = {
-        filename = "__base__/graphics/entity/assembling-machine-2/hr-assembling-machine-2-pipe-W.png",
+        filename = "__Bio_Industries__/graphics/entities/bioreactor/hr_bioreactor-pipe-W.png",
         priority = "extra-high",
         width = 39,
         height = 73,

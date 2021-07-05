@@ -9,11 +9,11 @@ data:extend({
     {
     type = "item",
     name = "bi-bio-garden",
-    icon = ICONPATH .. "bio_garden_icon.png",
+    icon = ICONPATH .. "entity/bio_garden_icon.png",
     icon_size = 64,
     icons = {
         {
-            icon = ICONPATH .. "bio_garden_icon.png",
+            icon = ICONPATH .. "entity/bio_garden_icon.png",
             icon_size = 64,
         }
     },

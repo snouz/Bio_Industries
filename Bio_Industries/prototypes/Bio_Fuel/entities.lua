@@ -2,6 +2,7 @@ local BioInd = require('common')('Bio_Industries')
 
 local ICONPATH = BioInd.modRoot .. "/graphics/icons/"
 local ENTITYPATH = "__base__/graphics/entity/boiler/"
+local MODENTITYPATH = BioInd.modRoot .. "/graphics/entities/bio_boiler/"
 
 require ("util")
 require ("prototypes.Bio_Fuel.pipeConnectors")
@@ -30,17 +31,14 @@ data:extend({
   {
     type = "assembling-machine",
     name = "bi-bio-reactor",
-    icon = ICONPATH .. "bioreactor.png",
+    icon = ICONPATH .. "entity/bioreactor.png",
     icon_size = 64,
     icons = {
       {
-        icon = ICONPATH .. "bioreactor.png",
+        icon = ICONPATH .. "entity/bioreactor.png",
         icon_size = 64,
       }
     },
-    -- This is necessary for "Space Exploration" (if not true, the entity can only be
-    -- placed on Nauvis)!
-    se_allow_in_space = true,
     flags = {"placeable-neutral", "player-creation"},
     minable = {hardness = 0.2, mining_time = 0.5, result = "bi-bio-reactor"},
     max_health = 100,
@@ -86,19 +84,120 @@ data:extend({
         base_level = 1,
         pipe_connections = {{ type = "output", position = {-2, 1} }}
       },
-      off_when_no_fluid_recipe = false
+      off_when_no_fluid_recipe = true
     },
     collision_box = {{-1.2, -1.2}, {1.2, 1.2}},
     selection_box = {{-1.5, -1.5}, {1.5, 1.5}},
     animation = {
-      filename = "__Bio_Industries__/graphics/entities/bioreactor/bioreactor.png",
-      priority = "high",
-      width = 128,
-      height = 150,
-      frame_count = 26,
-      line_length = 13,
-      animation_speed = 0.4,
-      shift = {0.55, -0.33}
+      layers = {
+        {
+          filename = "__Bio_Industries__/graphics/entities/bioreactor/bioreactor_anim.png",
+          priority = "high",
+          width = 91,
+          height = 128,
+          frame_count = 18,
+          line_length = 6,
+          repeat_count = 1,
+          animation_speed = 0.2,
+          scale = 1,
+          shift = {0, -0.5},
+          hr_version = {
+            filename = "__Bio_Industries__/graphics/entities/bioreactor/hr_bioreactor_anim.png",
+            priority = "high",
+            width = 182,
+            height = 256,
+            frame_count = 18,
+            line_length = 6,
+            repeat_count = 1,
+            animation_speed = 0.2,
+            scale = 0.5,
+            shift = {0, -0.5},
+          }
+
+        },
+        {
+          filename = "__Bio_Industries__/graphics/entities/bioreactor/bioreactor_shadow.png",
+          priority = "high",
+          width = 135,
+          height = 128,
+          frame_count = 1,
+          line_length = 1,
+          repeat_count = 18,
+          animation_speed = 0.2,
+          scale = 1,
+          shift = {0.5, -0.5},
+          draw_as_shadow = true,
+          hr_version = {
+            filename = "__Bio_Industries__/graphics/entities/bioreactor/hr_bioreactor_shadow.png",
+            priority = "high",
+            width = 270,
+            height = 256,
+            frame_count = 1,
+            line_length = 1,
+            repeat_count = 18,
+            animation_speed = 0.2,
+            scale = 0.5,
+            shift = {0.5, -0.5},
+            draw_as_shadow = true,
+          }
+        }
+      },
+    },
+
+    idle_animation = {
+      layers = {
+        {
+          filename = "__Bio_Industries__/graphics/entities/bioreactor/bioreactor_idle.png",
+          priority = "high",
+          width = 91,
+          height = 128,
+          frame_count = 1,
+          line_length = 1,
+          repeat_count = 18,
+          animation_speed = 0.2,
+          scale = 1,
+          shift = {0, -0.5},
+          hr_version = {
+            filename = "__Bio_Industries__/graphics/entities/bioreactor/hr_bioreactor_idle.png",
+            priority = "high",
+            width = 182,
+            height = 256,
+            frame_count = 1,
+            line_length = 1,
+            repeat_count = 18,
+            animation_speed = 0.2,
+            scale = 0.5,
+            shift = {0, -0.5},
+          }
+
+        },
+        {
+          filename = "__Bio_Industries__/graphics/entities/bioreactor/bioreactor_shadow.png",
+          priority = "high",
+          width = 135,
+          height = 128,
+          frame_count = 1,
+          line_length = 1,
+          repeat_count = 18,
+          animation_speed = 0.2,
+          scale = 1,
+          shift = {0.5, -0.5},
+          draw_as_shadow = true,
+          hr_version = {
+            filename = "__Bio_Industries__/graphics/entities/bioreactor/hr_bioreactor_shadow.png",
+            priority = "high",
+            width = 270,
+            height = 256,
+            frame_count = 1,
+            line_length = 1,
+            repeat_count = 18,
+            animation_speed = 0.2,
+            scale = 0.5,
+            shift = {0.5, -0.5},
+            draw_as_shadow = true,
+          }
+        }
+      },
     },
     energy_source = {
       type = "electric",
@@ -123,17 +222,14 @@ if BI.Settings.BI_Bio_Fuel then
       name = "bi-bio-boiler",
       localised_name = {"entity-name.bi-bio-boiler"},
       localised_description = {"entity-description.bi-bio-boiler"},
-      icon = ICONPATH .. "bio_boiler.png",
+      icon = ICONPATH .. "entity/bio_boiler.png",
       icon_size = 64,
       icons = {
         {
-          icon = ICONPATH .. "bio_boiler.png",
+          icon = ICONPATH .. "entity/bio_boiler.png",
           icon_size = 64,
         }
       },
-      -- This is necessary for "Space Exploration" (if not true, the entity can only be
-      -- placed on Nauvis)!
-      se_allow_in_space = true,
       flags = {"placeable-neutral", "player-creation"},
       minable = {hardness = 0.2, mining_time = 0.5, result = "bi-bio-boiler"},
       max_health = 300,
@@ -211,20 +307,18 @@ if BI.Settings.BI_Bio_Fuel then
         north = {
         layers = {
           {
-            filename = ENTITYPATH .. "boiler-N-idle.png",
+            filename = MODENTITYPATH .. "boiler-N-idle.png",
             priority = "extra-high",
             width = 131,
             height = 108,
-            tint = bio_boiler_tint,
             shift = util.by_pixel(-0.5, 4),
             hr_version = {
-              filename = ENTITYPATH .. "hr-boiler-N-idle.png",
+              filename = MODENTITYPATH .. "hr-boiler-N-idle.png",
               priority = "extra-high",
               width = 269,
               height = 221,
               shift = util.by_pixel(-1.25, 5.25),
               scale = 0.5,
-              tint = bio_boiler_tint,
             }
           },
           {
@@ -249,20 +343,18 @@ if BI.Settings.BI_Bio_Fuel then
       east = {
         layers = {
           {
-            filename = ENTITYPATH .. "boiler-E-idle.png",
+            filename = MODENTITYPATH .. "boiler-E-idle.png",
             priority = "extra-high",
             width = 105,
             height = 147,
-            tint = bio_boiler_tint,
             shift = util.by_pixel(-3.5, -0.5),
             hr_version = {
-              filename = ENTITYPATH .. "hr-boiler-E-idle.png",
+              filename = MODENTITYPATH .. "hr-boiler-E-idle.png",
               priority = "extra-high",
               width = 216,
               height = 301,
               shift = util.by_pixel(-3, 1.25),
               scale = 0.5,
-              tint = bio_boiler_tint,
             }
           },
           {
@@ -287,20 +379,18 @@ if BI.Settings.BI_Bio_Fuel then
       south = {
         layers = {
           {
-            filename = ENTITYPATH .. "boiler-S-idle.png",
+            filename = MODENTITYPATH .. "boiler-S-idle.png",
             priority = "extra-high",
             width = 128,
             height = 95,
-            tint = bio_boiler_tint,
             shift = util.by_pixel(3, 12.5),
             hr_version = {
-              filename = ENTITYPATH .. "hr-boiler-S-idle.png",
+              filename = MODENTITYPATH .. "hr-boiler-S-idle.png",
               priority = "extra-high",
               width = 260,
               height = 192,
               shift = util.by_pixel(4, 13),
               scale = 0.5,
-              tint = bio_boiler_tint,
             }
           },
           {
@@ -325,20 +415,18 @@ if BI.Settings.BI_Bio_Fuel then
       west = {
         layers = {
           {
-            filename = ENTITYPATH .. "boiler-W-idle.png",
+            filename = MODENTITYPATH .. "boiler-W-idle.png",
             priority = "extra-high",
             width = 96,
             height = 132,
-            tint = bio_boiler_tint,
             shift = util.by_pixel(1, 5),
             hr_version = {
-              filename = ENTITYPATH .. "hr-boiler-W-idle.png",
+              filename = MODENTITYPATH .. "hr-boiler-W-idle.png",
               priority = "extra-high",
               width = 196,
               height = 273,
               shift = util.by_pixel(1.5, 7.75),
               scale = 0.5,
-              tint = bio_boiler_tint,
             }
           },
           {

@@ -66,12 +66,12 @@ data:extend({
   {
     type = "fluid",
     name = "bi-adv-fertilizer-fluid",
-    icon = ICONPATH .. "fluid_advanced_fertilizer_64.png",
+    icon = ICONPATH .. "fertilizer_advanced.png",
     icon_size = 64,
     icon_mipmaps = 1,
     icons = {
       {
-        icon = ICONPATH .. "fluid_advanced_fertilizer_64.png",
+        icon = ICONPATH .. "fertilizer_advanced.png",
         icon_size = 64,
         icon_mipmaps = 1,
       }
@@ -99,11 +99,11 @@ data:extend({
   {
     type = "recipe",
     name = "bi-fertilizer-fluid",
-    icon = ICONPATH .. "fluid_fertilizer_recipe_64.png",
+    icon = ICONPATH .. "fluid_fertilizer_64.png",
     icon_size = 64,
     icons = {
       {
-        icon = ICONPATH .. "fluid_fertilizer_recipe_64.png",
+        icon = ICONPATH .. "fluid_fertilizer_64.png",
         icon_size = 64,
       }
     },

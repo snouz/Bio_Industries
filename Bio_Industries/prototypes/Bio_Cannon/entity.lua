@@ -10,83 +10,115 @@ if BI.Settings.Bio_Cannon then
   function preparing_animation()
     return {layers = {{
       priority = "medium",
-      width = 341,
-      height = 341,
+      width = 405,
+      height = 444,
       direction_count = 1, -- folding[1],
       frame_count = 12,  -- folding[2],
       line_length = 6, -- folding[3],
       run_mode = "forward",
       axially_symmetrical = false,
-      scale = 1.1261,
-      shift = {1.125, -1.625},
-
-      filename = ENTITYPATH .. "bio_cannon.png",
+      scale = 1,
+      shift = {0.859, -2.257},
+      filename = ENTITYPATH .. "bio_cannon_anim.png",
+	  hr_version = {
+		  priority = "medium",
+		  width = 810,
+		  height = 888,
+		  direction_count = 1, -- folding[1],
+		  frame_count = 12,  -- folding[2],
+		  line_length = 6, -- folding[3],
+		  run_mode = "forward",
+		  axially_symmetrical = false,
+		  scale = 0.5,
+		  shift = {0.859, -2.257},
+		  filename = ENTITYPATH .. "hr_bio_cannon_anim.png",
+	  }
       }}}
   end
 
   function prepared_animation()
     return {layers = {{
       priority = "medium",
-      width = 341,
-      height = 341,
+      width = 405,
+      height = 444,
       direction_count = 1, -- main [1],
       frame_count = 1, -- -- always 1
       line_length = 1, -- main [3],
       axially_symmetrical = false,
-      scale = 1.1261,
-      shift = {1.125, -1.625},
+      scale = 1,
+      shift = {0.859, -2.257},
       filename = ENTITYPATH .. "bio_cannon_open.png",
+	  hr_version = {
+		  priority = "medium",
+		  width = 810,
+		  height = 888,
+		  direction_count = 1, -- main [1],
+		  frame_count = 1, -- -- always 1
+		  line_length = 1, -- main [3],
+		  axially_symmetrical = false,
+		  scale = 0.5,
+		  shift = {0.859, -2.257},
+		  filename = ENTITYPATH .. "hr_bio_cannon_open.png",
+	  }
       }}}
   end
 
-  --~ [[
-  function attacking_animation()
-    return {layers = {{
-      priority = "medium",
-      width = 341,
-      height = 341,
-      direction_count = 1, -- main [1],
-      frame_count = 12, -- -- can be 2 or 3, when you have attacking animation; 1 for no animated
-      line_length = 6, -- main [3],
-      run_mode = "forward",
-      axially_symmetrical = false,
-      scale = 1.1261,
-      shift = {1.125, -1.625},
-      filename = ENTITYPATH .. "bio_cannon_attack.png",
-      }}}
-  end
- --~ ]]
 
   function folding_animation()
     return {layers = {{
       priority = "medium",
-      width = 341,
-      height = 341,
+      width = 405,
+      height = 444,
       direction_count = 1, -- folding[1],
       frame_count = 12, -- folding[2],
       line_length = 6, -- folding[3],
       run_mode = "backward",
       axially_symmetrical = false,
-      scale = 1.1261,
-      shift = {1.125, -1.625},
-
-      filename = ENTITYPATH .. "bio_cannon.png",
+      scale = 1,
+      shift = {0.859, -2.257},
+      filename = ENTITYPATH .. "bio_cannon_anim.png",
+	  hr_version = {
+		  priority = "medium",
+		  width = 810,
+		  height = 888,
+		  direction_count = 1, -- folding[1],
+		  frame_count = 12, -- folding[2],
+		  line_length = 6, -- folding[3],
+		  run_mode = "backward",
+		  axially_symmetrical = false,
+		  scale = 0.5,
+		  shift = {0.859, -2.257},
+		  filename = ENTITYPATH .. "hr_bio_cannon_anim.png",
+	  }
   }}}
   end
 
   function folded_animation()
     return {layers = {{
       priority = "medium",
-      width = 341,
-      height = 341,
+      width = 405,
+      height = 444,
       direction_count = 1, -- folding[1],
       frame_count = 1, -- idk why, for skipping second sprite
       line_length = 1,
       run_mode = "forward",
       axially_symmetrical = false,
-      scale = 1.1261,
-      shift = {1.125, -1.625},
-      filename = ENTITYPATH .. "bio_cannon.png",
+      scale = 1,
+      shift = {0.859, -2.257},
+      filename = ENTITYPATH .. "bio_cannon_anim.png",
+	  hr_version = {
+		  priority = "medium",
+		  width = 810,
+		  height = 888,
+		  direction_count = 1, -- folding[1],
+		  frame_count = 1, -- idk why, for skipping second sprite
+		  line_length = 1,
+		  run_mode = "forward",
+		  axially_symmetrical = false,
+		  scale = 0.5,
+		  shift = {0.859, -2.257},
+		  filename = ENTITYPATH .. "hr_bio_cannon_anim.png",
+	  }
       }}}
   end
 
@@ -97,11 +129,11 @@ if BI.Settings.Bio_Cannon then
       name = "bi-bio-cannon-area",
       localised_name = {"entity-name.bi-bio-cannon"},
       localised_description = {"entity-description.bi-bio-cannon"},
-      icon = ICONPATH .. "biocannon_icon.png",
+      icon = ICONPATH .. "entity/biocannon_icon.png",
       icon_size = 64,
       icons = {
         {
-          icon = ICONPATH .. "biocannon_icon.png",
+          icon = ICONPATH .. "entity/biocannon_icon.png",
           icon_size = 64,
         }
       },
@@ -140,11 +172,11 @@ if BI.Settings.Bio_Cannon then
     {
       type = "ammo-turret",
       name = "bi-bio-cannon",
-      icon = ICONPATH .. "biocannon_icon.png",
+      icon = ICONPATH .. "entity/biocannon_icon.png",
       icon_size = 64,
       icons = {
         {
-          icon = ICONPATH .. "biocannon_icon.png",
+          icon = ICONPATH .. "entity/biocannon_icon.png",
           icon_size = 64,
         }
       },
@@ -191,57 +223,57 @@ if BI.Settings.Bio_Cannon then
 
       preparing_animation = preparing_animation(),
       prepared_animation = prepared_animation(),
-      attacking_animation = attacking_animation(),
+      --attacking_animation = attacking_animation(),
       folding_animation = folding_animation(),
       folded_animation = folded_animation(),
       call_for_help_radius = 90
     },
 
-    --~ ---- Radar
-    --~ {
-      --~ type = "radar",
-      --~ name = "bi-bio-cannon-hidden-radar",
-      --~ localised_name = {"entity-name.bi-bio-cannon"},
-      --~ localised_description = {"entity-description.bi-bio-cannon"},
-      --~ icon = ICONPATH .. "biocannon_icon.png",
-      --~ icon_size = 64,
-      --~ icons = {
-        --~ {
-          --~ icon = ICONPATH .. "biocannon_icon.png",
-          --~ icon_size = 64,
-        --~ }
-      --~ },
-      --~ flags = {"not-deconstructable", "not-on-map", "placeable-off-grid", "not-repairable", "not-blueprintable"},
-      --~ selectable_in_game = false,
-      --~ --minable = {mining_time = 5, result = "bi-bio-cannon-area"},
-      --~ max_health = 600,
-      --~ corpse = "big-remnants",
-      --~ dying_explosion = "massive-explosion",
-      --~ resistances = {},
-      --~ collision_box = {{-4.0, -4.0}, {4.0, 4.0}},
-      --~ selection_box = {{-4.25, -4.25}, {4.25, 4.25}},
-      --~ collision_mask = {},
-      --~ order = "i[items][Bio_Cannon]",
-      --~ energy_per_sector = "22MJ",
-      --~ max_distance_of_nearby_sector_revealed = 5,
-      --~ max_distance_of_sector_revealed = 5,
-      --~ energy_per_nearby_scan = "400kW",
-      --~ energy_source = {
-        --~ type = "electric",
-        --~ usage_priority = "secondary-input"
-      --~ },
-      --~ energy_usage = "6kW",
-      --~ pictures = {
-        --~ filename = ICONPATH .. "biocannon_icon.png",
-        --~ priority = "low",
-        --~ width = 1,
-        --~ height = 1,
-        --~ axially_symmetrical = false,
-        --~ apply_projection = false,
-        --~ direction_count = 1,
-        --~ line_length = 1,
-        --~ shift = {0, -0}
-      --~ },
-    --~ },
+    ---- Radar
+    {
+      type = "radar",
+      name = "Bio-Cannon-r",
+      localised_name = {"entity-name.bi-bio-cannon"},
+      localised_description = {"entity-description.bi-bio-cannon"},
+      icon = ICONPATH .. "entity/biocannon_icon.png",
+      icon_size = 64,
+      icons = {
+        {
+          icon = ICONPATH .. "entity/biocannon_icon.png",
+          icon_size = 64,
+        }
+      },
+      flags = {"not-deconstructable", "not-on-map", "placeable-off-grid", "not-repairable", "not-blueprintable"},
+      selectable_in_game = false,
+      --minable = {mining_time = 5, result = "bi-bio-cannon-area"},
+      max_health = 600,
+      corpse = "big-remnants",
+      dying_explosion = "massive-explosion",
+      resistances = {},
+      collision_box = {{-4.0, -4.0}, {4.0, 4.0}},
+      selection_box = {{-4.25, -4.25}, {4.25, 4.25}},
+      collision_mask = {},
+      order = "i[items][Bio_Cannon]",
+      energy_per_sector = "22MJ",
+      max_distance_of_nearby_sector_revealed = 5,
+      max_distance_of_sector_revealed = 5,
+      energy_per_nearby_scan = "400kW",
+      energy_source = {
+        type = "electric",
+        usage_priority = "secondary-input"
+      },
+      energy_usage = "6kW",
+      pictures = {
+        filename = ICONPATH .. "entity/biocannon_icon.png",
+        priority = "low",
+        width = 1,
+        height = 1,
+        axially_symmetrical = false,
+        apply_projection = false,
+        direction_count = 1,
+        line_length = 1,
+        shift = {0, -0}
+      },
+    },
   })
 end

@@ -18,11 +18,11 @@ data:extend({
   {
     type = "ammo",
     name = "bi-dart-magazine-basic",
-    icon = ICONPATH .. "basic_dart_icon.png",
+    icon = ICONPATH .. "weapon/basic_dart_icon.png",
     icon_size = 64,
     icons = {
       {
-        icon = ICONPATH .. "basic_dart_icon.png",
+        icon = ICONPATH .. "weapon/basic_dart_icon.png",
         icon_size = 64,
       }
     },
@@ -59,11 +59,11 @@ data:extend({
   {
     type = "ammo",
     name = "bi-dart-magazine-standard",
-    icon = ICONPATH .. "standard_dart_icon.png",
+    icon = ICONPATH .. "weapon/standard_dart_icon.png",
     icon_size = 64,
     icons = {
       {
-        icon = ICONPATH .. "standard_dart_icon.png",
+        icon = ICONPATH .. "weapon/standard_dart_icon.png",
         icon_size = 64,
       }
     },
@@ -105,11 +105,11 @@ data:extend({
   {
     type = "ammo",
     name = "bi-dart-magazine-enhanced",
-    icon = ICONPATH .. "enhanced_dart_icon.png",
+    icon = ICONPATH .. "weapon/enhanced_dart_icon.png",
     icon_size = 64,
     icons = {
       {
-        icon = ICONPATH .. "enhanced_dart_icon.png",
+        icon = ICONPATH .. "weapon/enhanced_dart_icon.png",
         icon_size = 64,
       }
     },
@@ -155,11 +155,11 @@ data:extend({
   {
     type = "ammo",
     name = "bi-dart-magazine-poison",
-    icon = ICONPATH .. "poison_dart_icon.png",
+    icon = ICONPATH .. "weapon/poison_dart_icon.png",
     icon_size = 64,
     icons = {
       {
-        icon = ICONPATH .. "poison_dart_icon.png",
+        icon = ICONPATH .. "weapon/poison_dart_icon.png",
         icon_size = 64,
       }
     },
@@ -216,15 +216,28 @@ return
     {
       filename = "__Bio_Industries__/graphics/entities/bio_turret/bio_turret.png",
       priority = "medium",
-      scale = 0.5,
-      width = 224,
-      height = 160,
+      scale = 1,
+      width = 112,
+      height = 80,
       direction_count = inputs.direction_count and inputs.direction_count or 64,
       frame_count = 1,
       line_length = inputs.line_length and inputs.line_length or 8,
       axially_symmetrical = false,
       run_mode = inputs.run_mode and inputs.run_mode or "forward",
       shift = { 0.25, -0.25 },
+	  hr_version = {
+		  filename = "__Bio_Industries__/graphics/entities/bio_turret/hr_bio_turret.png",
+		  priority = "medium",
+		  scale = 0.5,
+		  width = 224,
+		  height = 160,
+		  direction_count = inputs.direction_count and inputs.direction_count or 64,
+		  frame_count = 1,
+		  line_length = inputs.line_length and inputs.line_length or 8,
+		  axially_symmetrical = false,
+		  run_mode = inputs.run_mode and inputs.run_mode or "forward",
+		  shift = { 0.25, -0.25 },
+	  },
     }
   }
 }
@@ -236,11 +249,11 @@ data:extend({
   {
     type = "ammo-turret",
     name = "bi-dart-turret",
-    icon = ICONPATH .. "bio_turret_icon.png",
+    icon = ICONPATH .. "entity/bio_turret_icon.png",
     icon_size = 64,
     icons = {
       {
-        icon = ICONPATH .. "bio_turret_icon.png",
+        icon = ICONPATH .. "entity/bio_turret_icon.png",
         icon_size = 64,
       }
     },
@@ -301,11 +314,11 @@ data:extend({
   {
     type = "gun",
     name = "bi-dart-rifle",
-    icon = ICONPATH .. "bi_dart_rifle_icon.png",
+    icon = ICONPATH .. "weapon/bi_dart_rifle_icon.png",
     icon_size = 64,
     icons = {
       {
-        icon = ICONPATH .. "bi_dart_rifle_icon.png",
+        icon = ICONPATH .. "weapon/bi_dart_rifle_icon.png",
         icon_size = 64,
       }
     },

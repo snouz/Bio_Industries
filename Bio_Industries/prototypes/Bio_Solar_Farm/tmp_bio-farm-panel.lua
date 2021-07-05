@@ -2,11 +2,11 @@
           {
                 type = "solar-panel",
                 name = "bi-bio-solar-farm",
-                icon = ICONPATH .. "Bio_Solar_Farm_Icon.png",
+                icon = ICONPATH .. "entity/Bio_Solar_Farm_Icon.png",
                 icon_size = 64,
                 icons = {
                   {
-                    icon = ICONPATH .. "Bio_Solar_Farm_Icon.png",
+                    icon = ICONPATH .. "entity/Bio_Solar_Farm_Icon.png",
                     icon_size = 64,
                   }
                 },

@@ -8,13 +8,13 @@ data:extend(
       name = "bio-industries",
       order = "vaa-a",
       inventory_order = "v-a",
-      icon = "__Bio_Industries__/graphics/technology/BioIndustries_64.png",
-      icon_size = 64,
+      icon = "__Bio_Industries__/graphics/technology/BioIndustries_itemgroup.png",
+      icon_size = 128,
       icons = {
-          {
-              icon = "__Bio_Industries__/graphics/technology/BioIndustries_64.png",
-              icon_size = 64,
-          }
+        {
+          icon = "__Bio_Industries__/graphics/technology/BioIndustries_itemgroup.png",
+          icon_size = 128,
+        }
       },
     },
 
@@ -26,7 +26,7 @@ data:extend(
     },
 
 
-  --- Bio Farm and Nursery
+  --- Bio Farm and Nursary
     {
       type = "item-subgroup",
       name = "bio-bio-farm-fluid-1",
@@ -62,6 +62,27 @@ data:extend(
 
 
   --- Coals and Cokery and Crushed Stone and Crusher
+  --MBR changed to cockery and stone crusher
+    --{
+    --  type = "item-subgroup",
+    --  name = "bio-bio-farm-raw",
+    --  group = "bio-industries",
+    --  order = "b-a",
+    --},
+    --{
+    --  type = "item-subgroup",
+    --  name = "bio-bio-farm-raw-entity",
+    --  group = "bio-industries",
+    --  order = "b-b",
+    --},
+
+
+    --{
+    --  type = "item-subgroup",
+    --  name = "bio-bio-farm-raw",
+    --  group = "bio-industries",
+    --  order = "b-a",
+    --},
     {
       type = "item-subgroup",
       name = "bio-bio-farm-raw",
@@ -70,10 +91,22 @@ data:extend(
     },
     {
       type = "item-subgroup",
-      name = "bio-bio-farm-raw-entity",
+      name = "bio-cockery",
       group = "bio-industries",
       order = "b-b",
     },
+    {
+      type = "item-subgroup",
+      name = "bio-stone-crusher", --prev bio-bio-farm-raw-entity
+      group = "bio-industries",
+      order = "b-c",
+    },
+
+
+
+
+
+
 
     ----- Other Int Products
     {
@@ -83,19 +116,7 @@ data:extend(
       order = "c-a",
     },
 
-    ---- Arboretum
-    {
-      type = "item-subgroup",
-      name = "bio-arboretum-fluid",
-      group = "bio-industries",
-      order = "c-c",
-    },
-    {
-      type = "item-subgroup",
-      name = "bio-arboretum-fluid-entity",
-      group = "bio-industries",
-      order = "c-d",
-    },
+    
 
     --- Bio Reactor and Bio-Mass
     {
@@ -123,6 +144,21 @@ data:extend(
       name = "bio-bio-fuel-other",
       group = "bio-industries",
       order = "f"
+    },
+
+
+    ---- Arboretum
+    {
+      type = "item-subgroup",
+      name = "bio-arboretum-fluid",
+      group = "bio-industries",
+      order = "w-c",
+    },
+    {
+      type = "item-subgroup",
+      name = "bio-arboretum-fluid-entity",
+      group = "bio-industries",
+      order = "w-d",
     },
 
     ---- Garden
@@ -157,6 +193,8 @@ data:extend(
       group = "bio-industries",
       order = "f-b",
     },
+
+
 
 
     {

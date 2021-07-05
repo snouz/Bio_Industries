@@ -6,11 +6,11 @@ data:extend({
   {
     type = "fluid",
     name = "bi-Bio_Fuel",
-    icon = ICONPATH .. "bio-fuel.png",
+    icon = ICONPATH .. "entity/bio_boiler.png",
     icon_size = 64,
     icons = {
       {
-        icon = ICONPATH .. "bio_boiler.png",
+        icon = ICONPATH .. "entity/bio_boiler.png",
         icon_size = 64,
       }
     },

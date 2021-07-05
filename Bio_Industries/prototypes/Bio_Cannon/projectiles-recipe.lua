@@ -17,9 +17,6 @@ if BI.Settings.Bio_Cannon then
       result_count = 1,
       subgroup = "bi-ammo",
       order = "z[Bio_Cannon_Ammo]-a[Proto]",
-      allow_as_intermediate = true,     -- Added for 0.18.34/1.1.4
-      always_show_made_in = false,      -- Added for 0.18.34/1.1.4
-      allow_decomposition = true,       -- Added for 0.18.34/1.1.4
     },
 
     -- Prototype Artillery Basic Ammo
@@ -35,9 +32,6 @@ if BI.Settings.Bio_Cannon then
       result_count = 1,
       subgroup = "bi-ammo",
       order = "z[Bio_Cannon_Ammo]-b[Basic]",
-      allow_as_intermediate = false,    -- Added for 0.18.34/1.1.4
-      always_show_made_in = false,      -- Added for 0.18.34/1.1.4
-      allow_decomposition = true,       -- Added for 0.18.34/1.1.4
     },
 
     -- Prototype Artillery Poison Ammo
@@ -53,9 +47,6 @@ if BI.Settings.Bio_Cannon then
       result_count = 1,
       subgroup = "bi-ammo",
       order = "z[Bio_Cannon_Ammo]-c[Poison]",
-      allow_as_intermediate = false,    -- Added for 0.18.34/1.1.4
-      always_show_made_in = false,      -- Added for 0.18.34/1.1.4
-      allow_decomposition = true,       -- Added for 0.18.34/1.1.4
     },
   })
 end

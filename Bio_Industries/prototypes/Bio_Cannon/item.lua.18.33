@@ -10,12 +10,12 @@ if BI.Settings.Bio_Cannon then
       name = "bi-bio-cannon",
       localised_name = {"entity-name.bi-bio-cannon"},
       localised_description = {"entity-description.bi-bio-cannon"},
-      icon = ICONPATH .. "biocannon_icon.png",
+      icon = ICONPATH .. "entity/biocannon_icon.png",
       icon_size = 64,
       icon_mipmaps = 1,
       icons = {
         {
-          icon = ICONPATH .. "biocannon_icon.png",
+          icon = ICONPATH .. "entity/biocannon_icon.png",
           icon_size = 64,
         }
       },

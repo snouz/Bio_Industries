@@ -621,3 +621,139 @@ function BioFarm_Pipe_Connectors_Right()
   }
 end
 ]]
+function greenhousepipepictures()
+  return
+  {
+    north =
+    {
+      filename = BioInd.modRoot .. "/graphics/entities/bio_greenhouse/assembling-machine-3-pipe-N.png",
+      priority = "extra-high",
+      width = 35,
+      height = 18,
+      shift = util.by_pixel(2.5, 14),
+      hr_version =
+      {
+        filename = BioInd.modRoot .. "/graphics/entities/bio_greenhouse/hr-assembling-machine-3-pipe-N-exp.png",
+        priority = "extra-high",
+        width = 171,
+        height = 152,
+        shift = util.by_pixel(2.25, 13.5),
+        scale = 0.5
+      }
+    },
+    east =
+    {
+      filename = BioInd.modRoot .. "/graphics/entities/bio_greenhouse/assembling-machine-3-pipe-E.png",
+      priority = "extra-high",
+      width = 20,
+      height = 38,
+      shift = util.by_pixel(-25, 1),
+      hr_version =
+      {
+        filename = BioInd.modRoot .. "/graphics/entities/bio_greenhouse/hr-assembling-machine-3-pipe-E.png",
+        priority = "extra-high",
+        width = 42,
+        height = 76,
+        shift = util.by_pixel(-24.5, 1),
+        scale = 0.5
+      }
+    },
+    south =
+    {
+      filename = BioInd.modRoot .. "/graphics/entities/bio_greenhouse/assembling-machine-3-pipe-S.png",
+      priority = "extra-high",
+      width = 44,
+      height = 31,
+      shift = util.by_pixel(0, -31.5),
+      hr_version =
+      {
+        filename = BioInd.modRoot .. "/graphics/entities/bio_greenhouse/hr-assembling-machine-3-pipe-S.png",
+        priority = "extra-high",
+        width = 88,
+        height = 61,
+        shift = util.by_pixel(0, -31.25),
+        scale = 0.5
+      }
+    },
+    west =
+    {
+      filename = BioInd.modRoot .. "/graphics/entities/bio_greenhouse/assembling-machine-3-pipe-W.png",
+      priority = "extra-high",
+      width = 19,
+      height = 37,
+      shift = util.by_pixel(25.5, 1.5),
+      hr_version =
+      {
+        filename = BioInd.modRoot .. "/graphics/entities/bio_greenhouse/hr-assembling-machine-3-pipe-W.png",
+        priority = "extra-high",
+        width = 39,
+        height = 73,
+        shift = util.by_pixel(25.75, 1.25),
+        scale = 0.5
+      }
+    },
+  }
+end
+
+function biofarmpipepictures()
+  return
+  {
+    north = {
+      filename = ICONPATH .. "empty.png",
+      priority = "low",
+      width = 1,
+      height = 1,
+    },
+    east =
+    {
+      filename = "__Bio_Industries__/graphics/entities/biofarm/biofarm_pipes/bio_farm-pipe-E.png",
+      priority = "extra-high",
+      width = 20,
+      height = 38,
+      shift = util.by_pixel(-25, 1),
+      hr_version =
+      {
+        filename = "__Bio_Industries__/graphics/entities/biofarm/biofarm_pipes/hr_bio_farm-pipe-E.png",
+        priority = "extra-high",
+        width = 42,
+        height = 76,
+        shift = util.by_pixel(-24.5, 1),
+        scale = 0.5
+      }
+    },
+    south =
+    {
+      filename = "__Bio_Industries__/graphics/entities/biofarm/biofarm_pipes/bio_farm-pipe-S.png",
+      priority = "extra-high",
+      width = 44,
+      height = 31,
+      shift = util.by_pixel(0, -31.5),
+      hr_version =
+      {
+        filename = "__Bio_Industries__/graphics/entities/biofarm/biofarm_pipes/hr_bio_farm-pipe-S.png",
+        priority = "extra-high",
+        width = 88,
+        height = 61,
+        shift = util.by_pixel(0, -31.25),
+        scale = 0.5
+      }
+    },
+    west =
+    {
+      filename = "__Bio_Industries__/graphics/entities/biofarm/biofarm_pipes/bio_farm-pipe-W.png",
+      priority = "extra-high",
+      width = 19,
+      height = 37,
+      shift = util.by_pixel(25.5, 1.5),
+      hr_version =
+      {
+        filename = "__Bio_Industries__/graphics/entities/biofarm/biofarm_pipes/hr_bio_farm-pipe-W.png",
+        priority = "extra-high",
+        width = 39,
+        height = 73,
+        shift = util.by_pixel(25.75, 1.25),
+        scale = 0.5
+      }
+    }
+  }
+end

@@ -816,42 +816,76 @@ data:extend({
     render_no_power_icon = true,
     resistances = {{type = "fire", percent = 100}},
     collision_box = {{-4.2, -4.2}, {4.2, 4.2}},
-    selection_box = {{-1.2, -1.2}, {1.2, 1.2}},
+    --selection_box = {{-1.2, -1.2}, {1.2, 1.2}},
     energy_source = {
       type = "electric",
       usage_priority = "solar"
     },
-    picture = {
-      filename = ENTITYPATH .. "Bio_Solar_Boiler.png",
-      priority = "low",
-      width = 288,
-      height = 288,
-      hr_version = {
-        filename = ENTITYPATH .. "hr_Bio_Solar_Boiler.png",
-        priority = "low",
-        width = 576,
-        height = 576,
-		scale = 0.5,
-      }
-    },
-
-    overlay = {
-        layers = {
-          {
-            filename = ENTITYPATH .. "Bio_Solar_Boiler.png",
+    picture = {filename = ICONPATH .. "empty.png", width = 32, height = 32},
+    --[[picture = {
+      layers = {
+        {
+          filename = ENTITYPATH .. "Bio_Solar_Boiler.png",
+          priority = "low",
+          width = 288,
+          height = 288,
+          hr_version = {
+            filename = ENTITYPATH .. "hr_Bio_Solar_Boiler.png",
+            priority = "low",
+            width = 576,
+            height = 576,
+    		    scale = 0.5,
+          }
+        },
+        {
+          filename = ENTITYPATH .. "Bio_Solar_Boiler_shadow.png",
+          priority = "high",
+          width = 288,
+          height = 288,
+          draw_as_shadow = true,
+          hr_version = {
+            filename = ENTITYPATH .. "hr_Bio_Solar_Boiler_shadow.png",
             priority = "high",
-            width = 288,
-            height = 288,
-            hr_version = {
-              filename = ENTITYPATH .. "hr_Bio_Solar_Boiler.png",
-              priority = "high",
-              width = 576,
-              height = 576,
-			  scale = 0.5,
-            }
+            width = 576,
+            height = 576,
+            scale = 0.5,
+            draw_as_shadow = true,
           },
-        }
+        },
+      },
     },
+    overlay = {
+      layers = {
+        {
+          filename = ENTITYPATH .. "Bio_Solar_Boiler.png",
+          priority = "low",
+          width = 288,
+          height = 288,
+          hr_version = {
+            filename = ENTITYPATH .. "hr_Bio_Solar_Boiler.png",
+            priority = "low",
+            width = 576,
+            height = 576,
+            scale = 0.5,
+          }
+        },
+        {
+          filename = ENTITYPATH .. "Bio_Solar_Boiler_shadow.png",
+          priority = "high",
+          width = 288,
+          height = 288,
+          draw_as_shadow = true,
+          hr_version = {
+            filename = ENTITYPATH .. "hr_Bio_Solar_Boiler_shadow.png",
+            priority = "high",
+            width = 576,
+            height = 576,
+            scale = 0.5,
+            draw_as_shadow = true,
+          },
+        },
+      }
+    }, ]]--
     production = "1.8MW"
   },
 
@@ -930,37 +964,71 @@ data:extend({
       max_sounds_per_type = 3
     },
     structure = {
+      --[[north = {filename = ICONPATH .. "empty.png", width = 32, height = 32}, 
+      east = {filename = ICONPATH .. "empty.png", width = 32, height = 32}, 
+      south = {filename = ICONPATH .. "empty.png", width = 32, height = 32}, 
+      west = {filename = ICONPATH .. "empty.png", width = 32, height = 32},]]--
       north = {
         layers = {
           {
             filename = ENTITYPATH .. "Bio_Solar_Boiler.png",
-            priority = "high",
+            priority = "low",
             width = 288,
             height = 288,
             hr_version = {
               filename = ENTITYPATH .. "hr_Bio_Solar_Boiler.png",
+              priority = "low",
+              width = 576,
+              height = 576,
+              scale = 0.5,
+            }
+          },
+          {
+            filename = ENTITYPATH .. "Bio_Solar_Boiler_shadow.png",
+            priority = "high",
+            width = 288,
+            height = 288,
+            draw_as_shadow = true,
+            hr_version = {
+              filename = ENTITYPATH .. "hr_Bio_Solar_Boiler_shadow.png",
               priority = "high",
               width = 576,
               height = 576,
-			  scale = 0.5,
-            }
+              scale = 0.5,
+              draw_as_shadow = true,
+            },
           },
-        }
+        },
       },
       east = {
         layers = {
           {
             filename = ENTITYPATH .. "Bio_Solar_Boiler.png",
-            priority = "high",
+            priority = "low",
             width = 288,
             height = 288,
             hr_version = {
               filename = ENTITYPATH .. "hr_Bio_Solar_Boiler.png",
-              priority = "high",
-			  width = 576,
+              priority = "low",
+              width = 576,
               height = 576,
-			  scale = 0.5,
+              scale = 0.5,
             }
+          },
+          {
+            filename = ENTITYPATH .. "Bio_Solar_Boiler_shadow.png",
+            priority = "high",
+            width = 288,
+            height = 288,
+            draw_as_shadow = true,
+            hr_version = {
+              filename = ENTITYPATH .. "hr_Bio_Solar_Boiler_shadow.png",
+              priority = "high",
+              width = 576,
+              height = 576,
+              scale = 0.5,
+              draw_as_shadow = true,
+            },
           },
         },
       },
@@ -968,112 +1036,148 @@ data:extend({
         layers = {
           {
             filename = ENTITYPATH .. "Bio_Solar_Boiler.png",
-            priority = "high",
+            priority = "low",
             width = 288,
             height = 288,
             hr_version = {
               filename = ENTITYPATH .. "hr_Bio_Solar_Boiler.png",
+              priority = "low",
+              width = 576,
+              height = 576,
+              scale = 0.5,
+            }
+          },
+          {
+            filename = ENTITYPATH .. "Bio_Solar_Boiler_shadow.png",
+            priority = "high",
+            width = 288,
+            height = 288,
+            draw_as_shadow = true,
+            hr_version = {
+              filename = ENTITYPATH .. "hr_Bio_Solar_Boiler_shadow.png",
               priority = "high",
               width = 576,
               height = 576,
-			  scale = 0.5,
-            }
+              scale = 0.5,
+              draw_as_shadow = true,
+            },
           },
-        }
+        },
       },
       west = {
         layers = {
           {
             filename = ENTITYPATH .. "Bio_Solar_Boiler.png",
-            priority = "high",
+            priority = "low",
             width = 288,
             height = 288,
             hr_version = {
               filename = ENTITYPATH .. "hr_Bio_Solar_Boiler.png",
+              priority = "low",
+              width = 576,
+              height = 576,
+              scale = 0.5,
+            }
+          },
+          {
+            filename = ENTITYPATH .. "Bio_Solar_Boiler_shadow.png",
+            priority = "high",
+            width = 288,
+            height = 288,
+            draw_as_shadow = true,
+            hr_version = {
+              filename = ENTITYPATH .. "hr_Bio_Solar_Boiler_shadow.png",
               priority = "high",
               width = 576,
               height = 576,
-			  scale = 0.5,
-            }
+              scale = 0.5,
+              draw_as_shadow = true,
+            },
           },
-        }
-      }
+        },
+      },
     },
     fire_flicker_enabled = false,
     fire = {},
     fire_glow_flicker_enabled = false,
     fire_glow = {
       north = {
-        filename = "__Bio_Industries__/graphics/entities/small-lamp/light-on-patch.png",
+        filename = ENTITYPATH .. "Bio_Solar_Boiler_light.png",
         priority = "extra-high",
         frame_count = 1,
-        width = 62,
-        height = 62,
-        shift = {0.09, -2.8},
-        scale = 1.5,
+        width = 288,
+        height = 288,
+        scale = 1,
+        draw_as_glow = true,
         blend_mode = "additive",
         hr_version = {
-          filename = "__Bio_Industries__/graphics/entities/small-lamp/light-on-patch.png",
+          filename = ENTITYPATH .. "hr_Bio_Solar_Boiler_light.png",
           priority = "extra-high",
           frame_count = 1,
-          width = 62,
-          height = 62,
-          shift = {0.09, -2.8},
-          scale = 1.5,
+          width = 576,
+          height = 576,
+          scale = 0.5,
+          draw_as_glow = true,
           blend_mode = "additive",
         }
       },
       east = {
-        filename = "__Bio_Industries__/graphics/entities/small-lamp/light-on-patch.png",
+        filename = ENTITYPATH .. "Bio_Solar_Boiler_light.png",
         priority = "extra-high",
         frame_count = 1,
-        width = 62,
-        height = 62,
-        shift = {0, -3},
+        width = 288,
+        height = 288,
+        scale = 1,
+        draw_as_glow = true,
         blend_mode = "additive",
         hr_version = {
-          filename = "__Bio_Industries__/graphics/entities/small-lamp/light-on-patch.png",
+          filename = ENTITYPATH .. "hr_Bio_Solar_Boiler_light.png",
           priority = "extra-high",
           frame_count = 1,
-          width = 62,
-          height = 62,
-          shift = {0, -3},
+          width = 576,
+          height = 576,
+          scale = 0.5,
+          draw_as_glow = true,
           blend_mode = "additive",
         }
       },
       south = {
-        filename = "__Bio_Industries__/graphics/entities/small-lamp/light-on-patch.png",
+        filename = ENTITYPATH .. "Bio_Solar_Boiler_light.png",
         priority = "extra-high",
         frame_count = 1,
-        width = 62,
-        height = 62,
-        shift = {0, -3},
+        width = 288,
+        height = 288,
+        scale = 1,
+        draw_as_glow = true,
         blend_mode = "additive",
         hr_version = {
-          filename = "__Bio_Industries__/graphics/entities/small-lamp/light-on-patch.png",
+          filename = ENTITYPATH .. "hr_Bio_Solar_Boiler_light.png",
           priority = "extra-high",
           frame_count = 1,
-          width = 62,
-          height = 62,
-          shift = {0, -3},
+          width = 576,
+          height = 576,
+          scale = 0.5,
+          draw_as_glow = true,
           blend_mode = "additive",
         }
       },
       west = {
-        filename = "__Bio_Industries__/graphics/entities/small-lamp/light-on-patch.png",
+        filename = ENTITYPATH .. "Bio_Solar_Boiler_light.png",
         priority = "extra-high",
         frame_count = 1,
-        width = 62,
-        height = 62,
-        shift = {0, -3},
+        width = 288,
+        height = 288,
+        scale = 1,
+        draw_as_glow = true,
         blend_mode = "additive",
         hr_version = {
-          filename = "__Bio_Industries__/graphics/entities/small-lamp/light-on-patch.png",
+          filename = ENTITYPATH .. "hr_Bio_Solar_Boiler_light.png",
           priority = "extra-high",
           frame_count = 1,
-          width = 62,
-          height = 62,
-          shift = {0, -3},
+          width = 576,
+          height = 576,
+          scale = 0.5,
+          draw_as_glow = true,
           blend_mode = "additive",
         }
       },

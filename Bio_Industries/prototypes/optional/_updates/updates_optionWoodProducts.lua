@@ -297,15 +297,6 @@ if tech then
 end
 
 
-  --~ localised_name = {
-    --~ "technology-name.bi-tech-wooden-pole-1",
-    --~ {"entity-name.bi-wooden-pole-big"}
-  --~ },
-  --~ localised_description = {
-    --~ "technology-description.bi-tech-wooden-pole-1",
-    --~ {"entity-name.bi-wooden-pole-big"}
-  --~ },
-
 ------------------------------------------------------------------------------------
 --                                    END OF FILE                                 --
 ------------------------------------------------------------------------------------

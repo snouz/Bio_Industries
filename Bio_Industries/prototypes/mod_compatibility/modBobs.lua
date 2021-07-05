@@ -2,9 +2,9 @@
 --                                   Bob's mods                                   --
 ------------------------------------------------------------------------------------
 if not BioInd.check_mods({
-  --~ "bobpower",
+  "bobpower",
   "bobelectronics",
-  --~ "bobplates",
+  "bobplates",
 }) then
   BioInd.nothing_to_do("*")
   return
@@ -26,13 +26,14 @@ local recipes = data.raw.recipe
 ------------------------------------------------------------------------------------
 --                      Alternative recipe for Wooden boards                      --
 ------------------------------------------------------------------------------------
--- Bob's Metals, Chemicals and Intermediates mod ("bobplates")
+-- Bob's Electronics mod ("bobelectronics")
 if items["wooden-board"] then
-  BioInd.create_stuff(BI.additional_recipes.mod_compatibility.press_wood)
+  recipe = BI.additional_recipes.mod_compatibility.press_wood
+  BioInd.create_stuff(recipe)
 
   -- Exchange recipe icon
-  if mods["ShinyBobGFX"] then
-    BioInd.BI_change_icon(BI.additional_recipes.mod_compatibility.press_wood,
+  if mods["ShinyBobGFX"] or mods["ShinyBobGFX_Continued"] then
+    BioInd.BI_change_icon(data.raw.recipe[recipe.name],
                           ICONPATH .. "bi_wooden_board_shiny.png")
   end
 end
@@ -42,7 +43,7 @@ end
 ------------------------------------------------------------------------------------
 -- Bob's Metals, Chemicals and Intermediates mod ("bobplates")
 recipe = BI.additional_recipes.mod_compatibility.fertilizer_2
-if items["solid-sodium-hydroxide"] and not recipes[recipe.name] then
+if items["sodium-hydroxide"] and not recipes[recipe.name] then
   BioInd.create_stuff(recipe)
 end
 

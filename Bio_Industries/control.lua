@@ -22,6 +22,7 @@ require ("libs/util_ext")
 require ("control_tree")
 require ("control_arboretum")
 require ("control_sensor")
+
 if BioInd.get_startup_setting("BI_Bio_Cannon") then
   require ("control_bio_cannon")
 end
@@ -125,9 +126,10 @@ end
 --------------------------------------------------------------------
 local function init()
 BioInd.writeDebug("Entered init!")
-  if BioInd.is_debug then
-    game.check_prototype_translations()
-  end
+  -- Moved to control.lua of _debug!
+  --~ if BioInd.is_debug then
+    --~ game.check_prototype_translations()
+  --~ end
 
   global = global or {}
 

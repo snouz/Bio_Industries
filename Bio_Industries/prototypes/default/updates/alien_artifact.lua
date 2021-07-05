@@ -18,7 +18,7 @@ local items = data.raw.item
 ------------------------------------------------------------------------------------
 --~ if items["alien-artifact"] then
   --- Alternative recipe for advanced fertilizer
-  BioInd.create_stuff(BI.additional_recipes.adv_fertilizer_1)
+  BioInd.create_stuff(BI.additional_recipes.adv_fertilizer_2)
 --~ end
 
 

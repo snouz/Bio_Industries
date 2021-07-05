@@ -156,19 +156,6 @@ end
 
 
 ------------------------------------------------------------------------------------
---                        Adjustments to Military science 2                       --
-------------------------------------------------------------------------------------
-new_tech = BI.additional_techs.BI_Rubber.rubber_mat
-
-tech = techs["military-2"]
-if tech then
-  -- Add "Rubber mat" to prerequisites
-  thxbob.lib.tech.add_prerequisite(tech.name, new_tech.name)
-  BioInd.modified_msg("prerequisites", tech)
-end
-
-
-------------------------------------------------------------------------------------
 --             Remove obsolete prerequisites from several technologies            --
 ------------------------------------------------------------------------------------
 local tech_map = {
@@ -179,7 +166,8 @@ local tech_map = {
   ["bi-terraforming-1"] = {"bi-tech-bio-farming-1"},
   ["electric-energy-distribution-1"] = {"steel-processing"},
   ["engine"] = {"steel-processing"},
-  ["military-2"] = {"logistic-science-pack", "military", "steel-processing"},
+  --~ ["military-2"] = {"logistic-science-pack", "military", "steel-processing"},
+  ["military-2"] = {"steel-processing"},
   ["solar-energy"] = {"optics", "steel-processing"},
   ["laser"] = {"optics"},
 }

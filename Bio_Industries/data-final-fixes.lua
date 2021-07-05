@@ -187,8 +187,6 @@ BioInd.writeDebug("Looking for missing prerequisites of technologies depending o
 end
 
 
-log("Bio boiler: " .. serpent.block(data.raw.item["bi-bio-boiler"]))
-
 ------------------------------------------------------------------------------------
 --                                    END OF FILE                                 --
 ------------------------------------------------------------------------------------

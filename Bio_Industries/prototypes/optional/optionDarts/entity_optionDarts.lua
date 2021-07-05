@@ -90,6 +90,7 @@ end
 BI.additional_entities[setting].dart_magazine_basic = {
   type = "ammo",
   name = "bi-dart-magazine-basic",
+  localised_description = {"bi-misc.fuel-hint"},
   icon = ICONPATH .. "weapon/dart_1_basic.png",
   icon_size = 64, icon_mipmaps = 3,
   BI_add_icon = true,
@@ -126,6 +127,7 @@ BI.additional_entities[setting].dart_magazine_basic = {
 BI.additional_entities[setting].dart_magazine_standard = {
   type = "ammo",
   name = "bi-dart-magazine-standard",
+  localised_description = {"bi-misc.fuel-hint"},
   icon = ICONPATH .. "weapon/dart_2_standard.png",
   icon_size = 64, icon_mipmaps = 3,
   BI_add_icon = true,
@@ -167,6 +169,7 @@ BI.additional_entities[setting].dart_magazine_standard = {
 BI.additional_entities[setting].dart_magazine_enhanced = {
   type = "ammo",
   name = "bi-dart-magazine-enhanced",
+  localised_description = {"bi-misc.fuel-hint"},
   icon = ICONPATH .. "weapon/dart_3_enhanced.png",
   icon_size = 64, icon_mipmaps = 3,
   BI_add_icon = true,
@@ -212,6 +215,7 @@ BI.additional_entities[setting].dart_magazine_enhanced = {
 BI.additional_entities[setting].dart_magazine_poison = {
   type = "ammo",
   name = "bi-dart-magazine-poison",
+  localised_description = {"bi-misc.fuel-hint"},
   icon = ICONPATH .. "weapon/dart_4_poison.png",
   icon_size = 64, icon_mipmaps = 3,
   BI_add_icon = true,
@@ -321,6 +325,7 @@ starting_frame_speed_deviation = 0.1
 BI.additional_entities[setting].dart_rifle = {
   type = "gun",
   name = "bi-dart-rifle",
+  localised_description = {"bi-misc.fuel-hint"},
   icon = ICONPATH .. "weapon/dart_rifle.png",
   icon_size = 64, icon_mipmaps = 3,
   BI_add_icon = true,

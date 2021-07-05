@@ -224,10 +224,8 @@ log("compound entities: " .. serpent.block(common.compound_entities))
   -- have this dummy mod but want to turn on logging anyway, set the default value
   -- to "true"!
   local default = false
+  --~ local default = true
 
-  --~ common.is_debug = ( (mods and mods["_debug"]) or
-                      --~ (script and script.active_mods["_debug"])) and
-                    --~ true or default
   common.debug_to_log   = common.get_startup_setting("BI_Debug_To_Log") or
                           (mods and mods["_debug"] and true) or
                           (script and script.active_mods["_debug"] and true) or
@@ -242,6 +240,7 @@ log("compound entities: " .. serpent.block(common.compound_entities))
 --~ log(string.format("common.debug_to_game: %s", tostring(common.debug_to_game)))
 
   common.is_debug       = common.debug_to_log or common.debug_to_game
+  --~ common.is_debug       = false
 --~ log(string.format("common.is_debug: %s", tostring(common.is_debug)))
 
   ------------------------------------------------------------------------------------
@@ -479,19 +478,15 @@ log("compound entities: " .. serpent.block(common.compound_entities))
 
     local active_mods = script and script.active_mods or mods
     local ret
---~ common.show("modlist", modlist)
---~ common.show("mode", mode)
---~ common.show("active_mods", active_mods)
 
-    for m, mod in pairs(modlist) do
-      --~ common.writeDebug("Mod \"%s\": %s", {mod, active_mods[mod] or "not active"})
-      -- We've found a required mod!
-      if active_mods[mod] then
+    for m, mod_name in pairs(modlist) do
+      -- We've found a required mod_name!
+      if active_mods[mod_name] then
         ret = true
         -- If mode is "or", we've struck gold!
         if mode == "or" then
           if #modlist > 1 then
-            common.writeDebug("Mod %s has been found and mode is \"or\". Return: %s", {mod, ret})
+            common.writeDebug("Mod %s has been found and mode is \"or\". Return: %s", {mod_name, ret})
           end
           break
         end
@@ -501,7 +496,7 @@ log("compound entities: " .. serpent.block(common.compound_entities))
         ret = false
         if mode == "and" then
           if #modlist > 1 then
-            common.writeDebug("Mod %s isn't active and mode is \"and\". Return: %s", {mod, ret})
+            common.writeDebug("Mod %s isn't active and mode is \"and\". Return: %s", {mod_name, ret})
           end
           break
         end
@@ -543,7 +538,6 @@ log("compound entities: " .. serpent.block(common.compound_entities))
   -- Function for removing individual entities
   common.remove_entity = function(entity)
     if entity and entity.valid then
-      --~ entity.destroy()
       entity.destroy{raise_destroy = true}
     end
   end
@@ -766,21 +760,19 @@ common.writeDebug("global.compound_entities[%s]: %s entries", {entity_name, tabl
     local restored = 0
     -- Scan the whole table
     for c, compound in pairs(entity_table) do
---~ common.writeDebug("c: %s\tcompound: %s", {c, compound})
       -- Base entity is valid!
       if (compound.base and compound.base.valid) then
 common.writeDebug("%s is valid -- checking hidden entities!", {common.print_name_id(compound.base)})
         for h_name, h_entity in pairs(hidden_entities) do
---~ common.writeDebug("h_name: %s\th_entity: %s", {h_name, h_entity})
           -- Hidden entity is missing
-          if compound[h_name] and compound[h_name].valid then
-            common.writeDebug("%s: OK", {h_name})
-          else
+          if not (compound[h_name] and compound[h_name].valid) then
             common.writeDebug("%s: MISSING!", {h_name})
             common.create_entities(entity_table, compound.base, {[h_name] = h_entity.name})
             restored = restored + 1
             common.writeDebug("Created %s (%s) for %s",
                               {h_name, h_entity.name, common.print_name_id(compound.base)})
+          else
+            common.writeDebug("%s: OK", {h_name})
           end
         end
         checked = checked + 1
@@ -873,7 +865,7 @@ common.writeDebug("Restored %s entities", {restored})
     for compound_entity, c in pairs(global.compound_entities) do
       cnt = cnt + common.register_in_compound_entity_tab(compound_entity)
     end
-    --~ common.writeDebug("Registered %s compound entities", {cnt})
+
     common.writeDebug("Registered %s compound entities.", {cnt})
     return cnt
   end
@@ -901,9 +893,6 @@ common.writeDebug("Restored %s entities", {restored})
     base_pos = common.normalize_position(base_pos)
     offset = common.normalize_position(offset)
 
-common.show("base_pos", base_pos)
-common.show("offset", offset)
-common.show("new", {x = base_pos.x + offset.x, y = base_pos.y + offset.y})
     return {x = base_pos.x + offset.x, y = base_pos.y + offset.y}
   end
 
@@ -1156,7 +1145,6 @@ common.writeDebug("Rail %s of %s (%s): %s (%s)", {direction, base.name, base.uni
       --~ common.writeDebug("Checking data.raw[%s]", {tab_name})
       for proto_type_name, proto_type in pairs(data.raw[tab_name] or {}) do
 --~ common.show("proto_type.BI_add_icon", proto_type.BI_add_icon or "nil" )
-
         if proto_type.BI_add_icon then
           proto_type.icons = {
             {
@@ -1194,36 +1182,20 @@ common.writeDebug("Rail %s of %s (%s): %s (%s)", {direction, base.name, base.uni
   ------------------------------------------------------------------------------------
   -- Exchange icons
   ------------------------------------------------------------------------------------
-  --~ common.BI_change_recipe_icon = function(recipe, icon, icon_size)
-    --~ common.check_args(recipe, "string", "recipe")
-    --~ common.check_args(icon, "string", "path to an icon")
-
-    --~ recipe = data.raw.recipe[recipe]
-    --~ if recipe then
-      --~ recipe.icon = icon
-      --~ recipe.icon_size = icon_size or 64
-      --~ recipe.BI_add_icon = true
-      --~-- common.writeDebug("Changed icon of recipe \"%s\"", {recipe.name})
-      --~ common.modified_msg("icon", recipe)
-    --~ end
-  --~ end
   common.BI_change_icon = function(prototype, icon, ...)
     common.entered_function()
-    --~ common.check_args(recipe, "string", "recipe")
     common.check_args(icon, "string", "path to an icon")
     local proto_type = prototype and prototype.type or common.arg_err(prototype, "prototype")
     local proto_name = prototype and prototype.name or common.arg_err(prototype, "prototype")
 
     local icon_size, icon_mips = ...
 
-    --~ recipe = data.raw.recipe[recipe]
-    --~ if recipe then
     if data.raw[proto_type][proto_name] then
       prototype.icon = icon
       prototype.icon_size = icon_size or 64
-      prototype.icon_mipmaps = icon_mips or 0
+      prototype.icon_mipmaps = icon_mips or prototype.icon_mipmaps or 0
       prototype.BI_add_icon = true
-      --~ common.writeDebug("Changed icon of recipe \"%s\"", {recipe.name})
+
       common.modified_msg("icon", prototype)
     end
   end
@@ -1237,13 +1209,11 @@ common.writeDebug("Rail %s of %s (%s): %s (%s)", {direction, base.name, base.uni
     local techs = data.raw.technology
 
     for r, recipe in pairs(data.raw.recipe) do
-
       -- There may be several techs that unlock a recipe!
       for t, tech in pairs(recipe.BI_add_to_tech or {}) do
         if techs[tech] then
           thxbob.lib.tech.add_recipe_unlock(tech, recipe.name)
           common.modified_msg("unlock for recipe " .. r, techs[tech], "Added")
-  --~ common.show("Technology " .. tech, techs[tech])
         end
       end
       recipe.BI_add_to_tech = nil
@@ -1275,19 +1245,14 @@ common.writeDebug("Rail %s of %s (%s): %s (%s)", {direction, base.name, base.uni
   ------------------------------------------------------------------------------------
   common.make_remnants_for_entity = function(remnants, entity)
     --~ common.entered_function()
-  --~ common.show("Amount of remnants", table_size(remnants))
-  --~ common.show("entity name", entity and entity.name or "nil")
     local pattern = "^" .. entity.name:gsub("%-", "%%-") .. "%-remnant"
 
     -- We want to extend single items as well as complete arrays!
-    remnants = remnants and
-                (remnants.type and remnants.name) and
+    remnants = remnants and (remnants.type and remnants.name) and
                 {remnants} or
                 remnants
 
     for r, remnant in pairs(remnants or {}) do
-  --~ common.show("remnant name", remnant.name)
-  --~ common.show("entity name", entity.name)
       if remnant.name:match(pattern) then
         data:extend({remnant})
         common.created_msg(remnant)

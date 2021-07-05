@@ -55,20 +55,12 @@ if BI.Settings.BI_Stone_Crushing and items["solid-sand"] then
   if not recipes[BI.additional_recipes.mod_compatibility.sand.name] then
     recipe = BioInd.create_stuff(BI.additional_recipes.mod_compatibility.sand)[1]
   end
-  --~ recipe = data.raw.recipe[BI.additional_recipes.sand.name]
 
   -- Adjust result
   if recipe then
     recipe.result = "solid-sand"
     BioInd.modified_msg("result", BI.additional_recipes.mod_compatibility.sand)
   end
-  -- MOVED TO DATA-UPDATES.LUA!
-  --~ -- Use alternative descriptions for stone crusher!
-  --~ BioInd.writeDebug("Using alternative descriptions for \"bi-stone-crusher\"!")
-  --~ for _, t in ipairs({"furnace", "item", "recipe"}) do
-    --~ data.raw[t]["bi-stone-crusher"].localised_description =
-      --~ {"entity-description.bi-stone-crusher-sand"}
-  --~ end
 end
 
 

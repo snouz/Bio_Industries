@@ -571,7 +571,7 @@ BI.additional_entities[setting].big_pole = {
         height = 180,
         axially_symmetrical = false,
         direction_count = 1,
-        shift = {0, -2.5},
+        shift = util.by_pixel(0, -80),
         hr_version = {
           filename = WOODPATH .. "poles/hr_big-wooden-pole-01.png",
           priority = "high",
@@ -580,7 +580,7 @@ BI.additional_entities[setting].big_pole = {
           axially_symmetrical = false,
           direction_count = 1,
           scale = 0.5,
-          shift = {0, -2.5},
+          shift = util.by_pixel(0, -80),
         },
       },
       {
@@ -590,7 +590,7 @@ BI.additional_entities[setting].big_pole = {
         height = 20,
         axially_symmetrical = false,
         direction_count = 1,
-        shift = {2.2, 0},
+        shift = util.by_pixel(70, 0),
         draw_as_shadow = true,
         hr_version = {
           filename = WOODPATH .. "poles/hr_big-wooden-pole-01_shadow.png",
@@ -600,7 +600,7 @@ BI.additional_entities[setting].big_pole = {
           axially_symmetrical = false,
           direction_count = 1,
           scale = 0.5,
-          shift = {2.2, 0},
+          shift = util.by_pixel(70, 0),
           draw_as_shadow = true,
         },
       },
@@ -610,13 +610,13 @@ BI.additional_entities[setting].big_pole = {
     {
       shadow = {
         copper = {3.3, -0},
-        green = {3.3, -0},
-        red = {3.3, -0}
+        green = {3.2, -0},
+        red = {3.1, -0}
       },
        wire = {
-        copper = {0.7, -4.3},
-        green = {0.7, -4.3},
-        red = {0.7, -4.3}
+        copper = util.by_pixel(24, -134),
+        green = util.by_pixel(18, -133),
+        red = util.by_pixel(11, -131),
       }
     }
   },
@@ -686,7 +686,7 @@ BI.additional_entities[setting].huge_pole = {
         width = 64,
         height = 201,
         direction_count = 4,
-        shift = {0, -2.76},
+        shift = util.by_pixel(0, -88),
         scale = 1,
         hr_version ={
           filename = WOODPATH .. "poles/hr_huge_wooden_pole.png",
@@ -694,7 +694,7 @@ BI.additional_entities[setting].huge_pole = {
           width = 128,
           height = 402,
           direction_count = 4,
-          shift = {0, -2.76},
+          shift = util.by_pixel(0, -88),
           scale = 0.5,
         }
       },
@@ -704,7 +704,7 @@ BI.additional_entities[setting].huge_pole = {
         width = 219,
         height = 49,
         direction_count = 4,
-        shift = {2.6, 0},
+        shift = util.by_pixel(83, 0),
         scale = 1,
         draw_as_shadow = true,
         hr_version ={
@@ -713,7 +713,7 @@ BI.additional_entities[setting].huge_pole = {
           width = 438,
           height = 97,
           direction_count = 4,
-          shift = {2.6, 0},
+          shift = util.by_pixel(83, 0),
           scale = 0.5,
           draw_as_shadow = true,
         }
@@ -724,50 +724,50 @@ BI.additional_entities[setting].huge_pole = {
   connection_points = {
     {
       shadow = {
-        copper = {4.56, 0},
-        green = {3.84, 0},
-        red = {5.28, 0}
+        copper = util.by_pixel(169, 5),
+        green = util.by_pixel(154, 5),
+        red = util.by_pixel(186, 5),
       },
       wire = {
-        copper = {0, -4.9},
-        green = {-0.475, -4.9},
-        red = {0.5, -4.9}
+        copper = util.by_pixel(0, -162),
+        green = util.by_pixel(-24, -162),
+        red = util.by_pixel(24, -162),
       }
     },
     {
       shadow = {
-        copper = {4.88, 0.1},
-        green = {4.24, -0.15},
-        red = {5.44, 0.3}
+        copper = util.by_pixel(159, 2),
+        green = util.by_pixel(156, -10),
+        red = util.by_pixel(175, 15),
       },
       wire = {
-        copper = {0, -4.9},
-        green = {-0.4, -5.15},
-        red = {0.275, -4.65}
+        copper = util.by_pixel(-4, -163),
+        green = util.by_pixel(-22, -171),
+        red = util.by_pixel(15, -155),
       }
     },
     {
       shadow = {
-        copper = {4.72, 0.03},
-        green = {4.8, -0.3},
-        red = {4.8, 0.4}
+        copper = util.by_pixel(173, 0),
+        green = util.by_pixel(174, 17),
+        red = util.by_pixel(171, -17),
       },
       wire = {
-        copper = {0, -4.875},
-        green = {0, -5.225},
-        red = {0, -4.525}
+        copper = util.by_pixel(8, -166),
+        green = util.by_pixel(8, -151),
+        red = util.by_pixel(8, -182),
       }
     },
     {
       shadow = {
-        copper = {4.88, 0.1},
-        green = {5.44, -0.15},
-        red = {4.28, 0.3}
+        copper = util.by_pixel(173, 2.5),
+        green = util.by_pixel(166, 16),
+        red = util.by_pixel(180, -11),
       },
       wire = {
-        copper = {0, -4.95},
-        green = {0.3, -5.2},
-        red = {-0.375, -4.725}
+        copper = util.by_pixel(5, -163),
+        green = util.by_pixel(-13, -155),
+        red = util.by_pixel(23, -171),
       }
     }
   },

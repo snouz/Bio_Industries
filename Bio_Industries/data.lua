@@ -36,7 +36,14 @@ BI.Triggers = {
                                   BI.Settings.BI_Rubber or
                                   BI.Settings.BI_Stone_Crushing,
   BI_Trigger_Easy_Bio_Gardens   = BI.Settings.BI_Bio_Garden and
-                                  BI.Settings.BI_Game_Tweaks_Easy_Bio_Gardens
+                                  BI.Settings.BI_Game_Tweaks_Easy_Bio_Gardens,
+  -- Move unlock of "Military 2" behind Rubber mats?
+  BI_Trigger_Rubber_Darts       = BI.Settings.BI_Rubber and
+                                  (BI.Settings.BI_Darts or mods["Natural_Evolution_Buildings"]),
+  -- Add prerequisite "Wood gasification" to "Rubber-coated concrete"?
+  BI_Trigger_Rubber_Woodgas     = BI.Settings.BI_Rubber and BI.Settings.BI_Wood_Gasification,
+  -- Create "bi-wood-floor" tiles? (Will be turned off if other mods create it!)
+  BI_Trigger_Woodfloor          = true,
 }
 
 -- Allow mods to register names or patterns for black-/whitelisting items as
@@ -422,6 +429,21 @@ require("prototypes.mod_compatibility.modPyanodon")
 
 ------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------
+--                                    TRIGGERS                                    --
+------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
+
+
+------------------------------------------------------------------------------------
+--                       Trigger: Create "wooden floor" tile                      --
+--                       (BI.Triggers.BI_Trigger_Woodfloor)                       --
+------------------------------------------------------------------------------------
+require("prototypes.mod_compatibility.triggerWoodfloor")
+
+
+
+------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
 --  ALL BASE ENTITIES EXIST -- NOW CREATE THE HIDDEN PARTS OF COMPOUND ENTITIES!  --
 ------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------
@@ -433,8 +455,6 @@ BioInd.compound_entities = BioInd.rebuild_compound_entity_list()
 BioInd.show("LIST OF COMPOUND ENTITIES:", BioInd.compound_entities)
 -- This will load all other files we need!
 require("prototypes.compound_entities.hidden_entities")
-
-
 
 
 

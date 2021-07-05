@@ -227,8 +227,8 @@ local turrets = data.raw["ammo-turret"]
 ------------------------------------------------------------------------------------
 --          Add Mk3 recipe for wood, using NE' Enhanced nutrient solution         --
 ------------------------------------------------------------------------------------
---~ recipe = recipes["bi-adv-fertilizer-1"]
-recipe = recipes[BI.additional_recipes.adv_fertilizer_1.name]
+--~ recipe = recipes["bi-adv-fertilizer-2"]
+recipe = recipes[BI.additional_recipes.adv_fertilizer_2.name]
 if recipe then
   --~ thxbob.lib.recipe.remove_ingredient(recipe.name, "bi-biomass")
   thxbob.lib.recipe.remove_ingredient(recipe.name, BI.default_fluids.biomass)

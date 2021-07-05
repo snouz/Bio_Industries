@@ -601,6 +601,7 @@ BI.default_recipes.biomass_1 = {
   subgroup = "bio-bio-fuel-fluid",
   order = "a-[biomass]-a-[bi-biomass-1]",
   -- Custom property that allows to automatically add our recipes to tech unlocks.
+  crafting_machine_tint = { primary = util.color("43f436") },
   BI_add_to_tech = {"bi-tech-biomass"},
 }
 
@@ -614,6 +615,8 @@ BI.default_recipes.biomass_1 = {
 BI.default_recipes.fertilizer_1 = {
   type = "recipe",
   name = "bi-fertilizer-1",
+  localised_name = {"recipe-name.bi-fertilizer"},
+  localised_description = {"recipe-description.bi-fertilizer"},
   icon = ICONPATH .. "fertilizer.png",
   icon_size = 64, icon_mipmaps = 3,
   BI_add_icon = true,
@@ -638,6 +641,7 @@ BI.default_recipes.fertilizer_1 = {
   order = "b[bi-fertilizer]",
   -- Custom property that allows to automatically add our recipes to tech unlocks.
   BI_add_to_tech = {"bi-tech-fertilizer"},
+  crafting_machine_tint = { primary = util.color("5e9347"), secondary = util.color("72be51"), tertiary = util.color("63ae42"), quaternary = util.color("bfba21") },
 }
 
 
@@ -645,10 +649,10 @@ BI.default_recipes.fertilizer_1 = {
 --                           Advanced fertilizer recipes                          --
 ------------------------------------------------------------------------------------
 
--- Advanced fertilizer 2
-BI.default_recipes.adv_fertilizer_2 = {
+-- Advanced fertilizer 1
+BI.default_recipes.adv_fertilizer_1 = {
   type = "recipe",
-  name = "bi-adv-fertilizer-2",
+  name = "bi-adv-fertilizer-1",
   icon = ICONPATH .. "fertilizer_advanced.png",
   icon_size = 64, icon_mipmaps = 3,
   BI_add_icon = true,
@@ -670,12 +674,13 @@ BI.default_recipes.adv_fertilizer_2 = {
   always_show_made_in = true,         -- Changed for 0.18.34/1.1.4
   allow_decomposition = true,         -- Changed for 0.18.34/1.1.4
   subgroup = "bio-bio-farm-intermediate-product",
-  order = "b[bi-fertilizer]-b[bi-adv-fertilizer-2]",
+  order = "b[bi-fertilizer]-b[bi-adv-fertilizer-1]",
   -- This is a custom property for use by "Krastorio 2" (it will change
   -- ingredients/results; used for wood/wood pulp)
   mod = "Bio_Industries",
   -- Custom property that allows to automatically add our recipes to tech unlocks.
   BI_add_to_tech = {"bi-tech-advanced-fertilizer"},
+  crafting_machine_tint = { primary = util.color("FF528E"), secondary = util.color("EB75BF"), tertiary = util.color("EB737C"), quaternary = util.color("FF7CF1") },
 }
 
 

@@ -70,7 +70,7 @@ BI.default_items.cokery = {
   stack_size = 10
 }
 
--- Cokery
+-- Pollution sensor
 BI.default_items.pollution_sensor = {
   type = "item",
   name = "bi-pollution-sensor",
@@ -189,6 +189,8 @@ BI.default_items.wood_bricks = {
 BI.default_items.fertilizer = {
   type = "item",
   name = "fertilizer",
+  localised_name = {"item-name.fertilizer"},
+  localised_description = {"item-description.fertilizer"},
   icon = ICONPATH .. "fertilizer.png",
   icon_size = 64, icon_mipmaps = 3,
   BI_add_icon = true,
@@ -208,6 +210,8 @@ BI.default_items.fertilizer = {
 BI.default_items.adv_fertilizer = {
   type = "item",
   name = "bi-adv-fertilizer",
+  localised_name = {"item-name.bi-adv-fertilizer"},
+  localised_description = {"item-description.bi-adv-fertilizer"},
   icon = ICONPATH .. "fertilizer_advanced.png",
   icon_size = 64, icon_mipmaps = 3,
   BI_add_icon = true,

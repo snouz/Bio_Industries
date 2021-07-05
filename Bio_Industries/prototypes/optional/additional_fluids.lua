@@ -35,6 +35,7 @@ local ICONPATH = BioInd.iconpath
 BI.additional_fluids.BI_Trigger_Easy_Bio_Gardens.fertilizer_fluid = {
   type = "fluid",
   name = "bi-fertilizer-fluid",
+  localised_name = {"fluid-name.bi-fertilizer-fluid", {"item-name.fertilizer"}},
   icon = ICONPATH .. "fluid_fertilizer.png",
   icon_size = 64, icon_mipmaps = 3,
   BI_add_icon = true,
@@ -57,6 +58,7 @@ BI.additional_fluids.BI_Trigger_Easy_Bio_Gardens.fertilizer_fluid = {
 BI.additional_fluids.BI_Trigger_Easy_Bio_Gardens.adv_fertilizer_fluid = {
   type = "fluid",
   name = "bi-adv-fertilizer-fluid",
+  localised_name = {"fluid-name.bi-fertilizer-fluid", {"item-name.bi-adv-fertilizer"}},
   icon = ICONPATH .. "fluid_fertilizer_advanced.png",
   icon_size = 64, icon_mipmaps = 3,
   BI_add_icon = true,
@@ -72,7 +74,7 @@ BI.additional_fluids.BI_Trigger_Easy_Bio_Gardens.adv_fertilizer_fluid = {
   --~ flow_color = adv_fertilizer_fluid_colors.flow,
   pressure_to_speed_ratio = 0.4,
   flow_to_energy_ratio = 0.59,
-  order = "a[fluid]-b[fertilizer-advanced]"
+  order = "a[fluid]-b[fertilizer]-[advanced]"
 }
 
 
@@ -83,13 +85,14 @@ BI.additional_fluids.BI_Trigger_Easy_Bio_Gardens.adv_fertilizer_fluid = {
 BI.additional_fluids.BI_Wood_Gasification.tar = {
   type = "fluid",
   name = "tar",
-  default_temperature = 180,
-  heat_capacity = "1470KJ",
-  base_color = {r=0.05, g=0.05, b=0.05},
-  flow_color = {r=0.1, g=0.1, b=0.1},
-  max_temperature = 250,
   icon = ICONPATH .. "fluid_diluted_bitumen.png",
   icon_size = 64, icon_mipmaps = 3,
+  BI_add_icon = true,
+  default_temperature = 180,
+  heat_capacity = "1470KJ",
+  base_color = util.color("345571"),
+  flow_color = util.color("345571"),
+  max_temperature = 250,
   pressure_to_speed_ratio = 0.2,
   flow_to_energy_ratio = 0.80,
   order = "a[fluid]-t[tar]"

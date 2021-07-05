@@ -234,19 +234,6 @@ item = "carbon"
 if items[item] and BI.Settings["BI_Coal_Processing"] then
 
   -- Change recipe icons
-  --~ icon_map = {
-    --~ ["bi-coke-coal"]            = "pellet_coke_1",
-    --~ ["bi-pellet-coke"]          = "pellet_coke_c",
-    --~ ["bi-pellet-coke-2"]        = "pellet_coke_b",
-  --~ }
-  --~ for r, r_data in ipairs({
-    --~ BI.additional_recipes.BI_Coal_Processing.coke_coal,
-    --~ BI.additional_recipes.BI_Coal_Processing.pellet_coke,
-    --~ BI.additional_recipes.mod_compatibility.pellet_coke_2
-  --~ }) do
-    --~ recipe = recipes[r_data.name] or BioInd.create_stuff(r_data)[1]
-    --~ BioInd.BI_change_icon(recipes[recipe.name], BOBICONPATH .. icon_map[recipe.name] .. ".png")
-  --~ end
   icon_map = {
     [BI.additional_recipes.BI_Coal_Processing.coke_coal.name]           = "pellet_coke_1",
     [BI.additional_recipes.BI_Coal_Processing.pellet_coke.name]         = "pellet_coke_c",
@@ -259,19 +246,21 @@ if items[item] and BI.Settings["BI_Coal_Processing"] then
 
   -- Add ingredient to "bi-pellet-coke-2"
   recipe = recipes[BI.additional_recipes.mod_compatibility.pellet_coke_2.name]
-  thxbob.lib.recipe.add_new_ingredient(recipe.name, {
-    type = "item",
-    name = item,
-    amount = 10
-  })
-  BioInd.modified_msg("ingredients", recipe)
+  if recipe then
+    thxbob.lib.recipe.add_new_ingredient(recipe.name, {
+      type = "item",
+      name = item,
+      amount = 10
+    })
+    BioInd.modified_msg("ingredients", recipe)
 
-  -- Change localization of "bi-pellet-coke-2"
-  recipe.localised_name = {
-    "recipe-name.bi-pellet-coke",
-    {"item-name.carbon"},
-  }
-  BioInd.modified_msg("localization", recipe)
+    -- Change localization of "bi-pellet-coke-2"
+    recipe.localised_name = {
+      "recipe-name.bi-pellet-coke",
+      {"item-name.carbon"},
+    }
+    BioInd.modified_msg("localization", recipe)
+  end
 end
 
 

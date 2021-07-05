@@ -21,14 +21,16 @@ local SNDPATH = "__Dectorio__/sound/"
 local items = data.raw.item
 local tiles = data.raw.tile
 
-local sounds = BioInd.check_mods(mod_name) and {} or nil
+--~ local sounds = BioInd.check_mods(mod_name) and {} or nil
+local sounds = {}
 
 
 ------------------------------------------------------------------------------------
 --                     Let wood place our wooden floor tiles!                     --
 ------------------------------------------------------------------------------------
 -- Dectorio exists, so sounds exist and we can modify it
-if sounds then
+--~ if sounds then
+if BioInd.check_mods(mod_name) then
   sounds.mined_sound = {filename = SNDPATH .. "deconstruct-wood.ogg"}
   sounds.walking_sound = {}
   for i = 1, 4 do

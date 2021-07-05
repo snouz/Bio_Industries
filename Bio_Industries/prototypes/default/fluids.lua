@@ -23,8 +23,8 @@ BI.default_fluids.biomass = {
   default_temperature = 25,
   max_temperature = 100,
   heat_capacity = "1KJ",
-  base_color = {r = 0, g = 0, b = 0},
-  flow_color = {r = 0.1, g = 1.0, b = 0.0},
+  base_color = util.color("3a9844"),
+  flow_color = util.color("3a9844"),
   pressure_to_speed_ratio = 0.4,
   flow_to_energy_ratio = 0.59,
   order = "a[fluid]-b[biomass]"

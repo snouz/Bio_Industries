@@ -45,8 +45,8 @@ if fertilizer then
   BioInd.BI_change_icon(fertilizer, ICONPATH .. "fertilizer.png")
 
   -- Change localization
-  fertilizer.localised_name = {"BI-item-name.fertilizer"}
-  fertilizer.localised_description = {"BI-item-description.fertilizer"}
+  fertilizer.localised_name = {"item-name.fertilizer"}
+  fertilizer.localised_description = {"item-description.fertilizer"}
   BioInd.modified_msg("localization", fertilizer)
 end
 

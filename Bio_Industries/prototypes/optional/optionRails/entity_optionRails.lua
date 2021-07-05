@@ -20,8 +20,10 @@ BI.additional_entities[setting] = BI.additional_entities[setting] or {}
 
 local ICONPATH = BioInd.iconpath
 local SNDPATH = "__base__/sound/"
+local CNCTRPATH = BioInd.entitypath .. "rail_power_connector/"
 
 local sound_def = require("__base__.prototypes.entity.sounds")
+local hit_effects = require ("__base__.prototypes.entity.hit-effects")
 local sounds = {}
 
 sounds.car_wood_impact = sound_def.car_wood_impact(0.8)
@@ -229,12 +231,140 @@ BI.additional_entities[setting].curved_rail_power = {
 }
 
 -- Power to Rail Pole
-BI.additional_entities[setting].power_to_rail_pole = table.deepcopy(
+BI.additional_entities[setting].power_to_rail_pole = {
+    type = "electric-pole",
+    name = "bi-power-to-rail-pole",
+    icon = ICONPATH .. "entity/rail_power_connector.png",
+    icon_size = 64,
+    BI_add_icon = true,
+    icon_mipmaps = 4,
+    flags = {"placeable-neutral", "player-creation", "fast-replaceable-no-build-while-moving"},
+    minable = {mining_time = 1, result = "bi-power-to-rail-pole"},
+    max_health = 100,
+    corpse = "medium-electric-pole-remnants",
+    dying_explosion = "medium-electric-pole-explosion",
+    track_coverage_during_build_by_moving = true,
+    fast_replaceable_group = "electric-pole",
+    resistances =
+    {
+      {
+        type = "fire",
+        percent = 100
+      }
+    },
+    collision_box = {{-0.15, -0.15}, {0.15, 0.15}},
+    selection_box = {{-0.5, -0.5}, {0.5, 0.5}},
+    damaged_trigger_effect = hit_effects.entity({{-0.2, -2.2},{0.2, 0.2}}),
+    drawing_box = {{-0.5, -2.8}, {0.5, 0.5}},
+    maximum_wire_distance = BioInd.POWER_TO_RAIL_WIRE_DISTANCE,
+    supply_area_distance = 3.5,
+    vehicle_impact_sound = sound_def.generic_impact,
+    open_sound = sound_def.electric_network_open,
+    close_sound = sound_def.electric_network_close,
+    pictures =
+    {
+      layers =
+      {
+        {
+          filename = CNCTRPATH .. "rail_power_connector.png",
+          priority = "extra-high",
+          width = 42,
+          height = 45,
+          direction_count = 1,
+          shift = util.by_pixel(0, -5),
+          hr_version =
+          {
+            filename = CNCTRPATH .. "hr_rail_power_connector.png",
+            priority = "extra-high",
+            width = 84,
+            height = 90,
+            direction_count = 1,
+            shift = util.by_pixel(0, -5),
+            scale = 0.5
+          }
+        },
+        {
+          filename = CNCTRPATH .. "rail_power_connector_shadow.png",
+          priority = "extra-high",
+          width = 42,
+          height = 45,
+          direction_count = 1,
+          shift = util.by_pixel(8, -5),
+          draw_as_shadow = true,
+          hr_version =
+          {
+            filename = CNCTRPATH .. "hr_rail_power_connector_shadow.png",
+            priority = "extra-high",
+            width = 84,
+            height = 90,
+            direction_count = 1,
+            shift = util.by_pixel(8, -5),
+            draw_as_shadow = true,
+            scale = 0.5
+          }
+        }
+      }
+    },
+    connection_points =
+    {
+      {
+        shadow =
+        {
+          copper = util.by_pixel_hr(40, 7),
+          red = util.by_pixel_hr(10.5, 27),
+          green = util.by_pixel_hr(10.5, 27),
+        },
+        wire =
+        {
+          copper = util.by_pixel_hr(8, -39),
+          red = util.by_pixel_hr(0, 7),
+          green = util.by_pixel_hr(0, 7),
+        }
+      },
+    },
+    radius_visualisation_picture =
+    {
+      filename = "__base__/graphics/entity/small-electric-pole/electric-pole-radius-visualization.png",
+      width = 12,
+      height = 12,
+      priority = "extra-high-no-scale"
+    },
+    water_reflection =
+    {
+      pictures =
+      {
+        filename = "__base__/graphics/entity/medium-electric-pole/medium-electric-pole-reflection.png",
+        priority = "extra-high",
+        width = 12,
+        height = 28,
+        shift = util.by_pixel(0, 55),
+        variation_count = 1,
+        scale = 5
+      },
+      rotate = false,
+      orientation_to_variation = false
+    }
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+--[[
+
+table.deepcopy(
                                     data.raw["electric-pole"]["medium-electric-pole"])
 
 local pole = BI.additional_entities[setting].power_to_rail_pole
 pole.name = "bi-power-to-rail-pole"
-pole.icon = ICONPATH .. "entity/rail-concrete-power-pole.png"
+pole.icon = ICONPATH .. "entity/rail_power_connector.png"
 pole.icon_size = 64
 pole.BI_add_icon = true
 pole.icon_mipmaps = 3
@@ -244,7 +374,7 @@ pole.maximum_wire_distance = BioInd.POWER_TO_RAIL_WIRE_DISTANCE
 pole.pictures.layers[1].hr_version.tint = {r = 0.9, g = 0.87, b = 0.23, a = 1}
 pole.pictures.layers[1].tint = {r = 0.9, g = 0.87, b = 0.23, a = 0.5}
 
-
+]]--
 
 ------------------------------------------------------------------------------------
 --                          Create entities and remnants                          --

@@ -43,17 +43,14 @@ for i, ingredient in pairs({"fertilizer", "bi-adv-fertilizer"}) do
     --~ thxbob.lib.recipe.remove_ingredient(recipe.name, f_item)
     thxbob.lib.recipe.remove_ingredient(recipe.name, ingredient)
     thxbob.lib.recipe.remove_ingredient(recipe.name, "water")
-    thxbob.lib.recipe.add_new_ingredient(recipe.name, {
-      type = "fluid",
-      name = fluid.name,
-      amount = 50
-    })
+    thxbob.lib.recipe.add_new_ingredient(recipe.name, {type = "fluid", name = fluid.name, amount = 50})
     BioInd.modified_msg("ingredients", recipe)
 
     -- Change recipe localization
     recipe.localised_description = {
       "recipe-description." .. recipe.name .. "-fluid",
-      {"fluid-name." .. fluid.name},
+      --~ {"fluid-name." .. fluid.name},
+      {"fluid-name.bi-fertilizer-fluid", {"item-name." .. ingredient}},
     }
 BioInd.show("Fluid recipe description", recipe.localised_description)
     BioInd.modified_msg("localization", recipe)

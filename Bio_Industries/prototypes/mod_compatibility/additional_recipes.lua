@@ -57,6 +57,8 @@ BI.additional_recipes.mod_compatibility.sand = {
 BI.additional_recipes.mod_compatibility.fertilizer_2 = {
   type = "recipe",
   name = "bi-fertilizer-2",
+  localised_name = {"recipe-name.bi-fertilizer"},
+  localised_description = {"recipe-description.bi-fertilizer"},
   icon = ICONPATH .. "mod_bobangels/fertilizer_sodium_hydroxide.png",
   icon_size = 64, icon_mipmaps = 3,
   BI_add_icon = true,
@@ -118,6 +120,7 @@ BI.additional_recipes.mod_compatibility.pellet_coke_2 = {
 BI.additional_recipes.mod_compatibility.sulfuric_waste = {
   type = "recipe",
   name = "bi-mineralized-sulfuric-waste",
+  localised_name = {"recipe-name.bi-mineralized-sulfuric-waste"},
   icon = ICONPATH .. "mod_bobangels/bi_mineralized_sulfuric.png",
   icon_size = 64, icon_mipmaps = 3,
   BI_add_icon = true,
@@ -188,7 +191,7 @@ BI.additional_recipes.mod_compatibility.press_wood = {
   BI_add_icon = true,
   BI_add_to_tech = {"electronics"},
   subgroup = "bob-boards",
-  order = "c-a1[wooden-board]",
+  order = "c-a1bi[wooden-board]",
   category = "electronics",
   energy_required = 1,
   enabled = false,

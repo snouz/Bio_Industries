@@ -183,6 +183,27 @@ for pole_name, locale_name in pairs(BI.hidden_entities.types[h_key] or {}) do
     BioInd.show("Adjusted properties of", pole_name)
 
   ------------------------------------------------------------------------------------
+  -- Adjust properties for hidden pole of Solar boiler
+  ------------------------------------------------------------------------------------
+  elseif c_entities["bi-solar-boiler"] and
+          -- This pole may have been removed because "Bio solar additions" is disabled!
+          c_entities["bi-solar-boiler"].hidden[h_key] and
+          pole_name == c_entities["bi-solar-boiler"].hidden[h_key].name then
+    local vanilla = table.deepcopy(data.raw[h_type]["small-electric-pole"])
+    pole.pictures = BioInd.is_debug and vanilla.pictures or pole.pictures
+    pole.connection_points = BioInd.is_debug and vanilla.connection_points or {{
+      shadow = { copper = util.by_pixel(55, 0), },
+      wire = { copper = util.by_pixel(-19, -69), },
+    }}
+    pole.draw_copper_wires = true
+    --~ pole.connection_points = {{
+      --~ shadow = { copper = util.by_pixel(55, 0), },
+      --~ wire = { copper = util.by_pixel(-19, -69), },
+    --~ }}
+    shift_picture(pole)
+    BioInd.show("Adjusted properties of", pole_name)
+
+  ------------------------------------------------------------------------------------
   -- Adjust properties for hidden pole of Solar farm
   ------------------------------------------------------------------------------------
   elseif c_entities["bi-bio-solar-farm"] and
@@ -190,12 +211,26 @@ for pole_name, locale_name in pairs(BI.hidden_entities.types[h_key] or {}) do
           pole_name == c_entities["bi-bio-solar-farm"].hidden[h_key].name then
 
     local base_entity = BI.additional_entities.BI_Solar_Additions.solar_farm
+    local vanilla = table.deepcopy(data.raw[h_type]["small-electric-pole"])
+    local cp = vanilla.connection_points[1]
 
     pole.supply_area_distance = 1
     pole.maximum_wire_distance = 19
     pole.draw_copper_wires = true
     pole.selection_box = {{-0.5, -0.5}, {0.5, 0.5}}
-    pole.connection_points = {{
+    --~ pole.connection_points = {{
+      --~ shadow = { copper = util.by_pixel(60, 0), },
+      --~ wire = { copper = util.by_pixel(0, -60), },
+    --~ }}
+    --~ for img, img_data in ipairs({"shadow", "wire"}) do
+      --~ cp[img_data].green = nil
+      --~ cp[img_data].red = nil
+
+      --~ cp[img_data].copper[1] = cp[img_data].copper[1] + (offset_x or 0)
+      --~ cp[img_data].copper[2] = cp[img_data].copper[2] + (offset_y or 0)
+    --~ end
+    --~ pole.connection_points = BioInd.is_debug and vanilla.connection_points or {cp}
+    pole.connection_points = BioInd.is_debug and vanilla.connection_points or {{
       shadow = { copper = util.by_pixel(60, 0), },
       wire = { copper = util.by_pixel(0, -60), },
     }}
@@ -217,8 +252,7 @@ for pole_name, locale_name in pairs(BI.hidden_entities.types[h_key] or {}) do
     BioInd.show("Adjusted properties of", pole_name)
   end
 
-  --~ data:extend({pole})
-  --~ BioInd.created_msg(pole)
+
   BioInd.create_stuff({pole})
 end
 

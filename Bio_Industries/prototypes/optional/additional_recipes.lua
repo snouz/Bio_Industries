@@ -99,7 +99,8 @@ BI.additional_recipes.BI_Bio_Fuel.bio_boiler = {
   --~ -- subgroup = "bio-energy-boiler",
   subgroup = "energy",              -- Changed for 0.18.34/1.1.4
   --~ -- order = "b-[steam-power]-a[boiler]-a[bi-bio-boiler]"      -- Changed for 0.18.34/1.1.4
-  order = "b[steam-power]-a[boiler-bio]",
+  --order = "b[steam-power]-a[boiler-bio]",
+  order = "b[steam-power]-a[cboiler2-bio]",
   -- Custom property that allows to automatically add our recipes to tech unlocks.
   BI_add_to_tech = {"bi-tech-bio-boiler"},
 }
@@ -133,6 +134,7 @@ BI.additional_recipes.BI_Bio_Fuel.basic_gas_processing = {
   allow_as_intermediate = false,
   -- Custom property that allows to automatically add our recipes to tech unlocks.
   BI_add_to_tech = {"bi-tech-coal-processing-2"},
+  crafting_machine_tint = { primary = util.color("ffffff"), secondary = util.color("ffffff"), tertiary = util.color("ffffff"), quaternary = util.color("5d8e3c") },
 }
 
 -- Cellulose 1
@@ -168,6 +170,7 @@ BI.additional_recipes.BI_Bio_Fuel.cellulose_1 = {
   mod = "Bio_Industries",
   -- Custom property that allows to automatically add our recipes to tech unlocks.
   BI_add_to_tech = {"bi-tech-cellulose-1"},
+  crafting_machine_tint = { primary = util.color("D1C73B"), secondary = util.color("BDB057"), tertiary = util.color("DEC864"), quaternary = util.color("BDBC55") },
 }
 
 -- Cellulose 2
@@ -202,6 +205,7 @@ BI.additional_recipes.BI_Bio_Fuel.cellulose_2 = {
   allow_as_intermediate = false,
   -- Custom property that allows to automatically add our recipes to tech unlocks.
   BI_add_to_tech = {"bi-tech-cellulose-2"},
+  crafting_machine_tint = { primary = util.color("D1C73B"), secondary = util.color("BDB057"), tertiary = util.color("DEC864"), quaternary = util.color("BDBC55") },
 }
 
 -- Bio plastic 1
@@ -243,6 +247,7 @@ BI.additional_recipes.BI_Bio_Fuel.bio_plastic_1 = {
   allow_as_intermediate = false,
   -- Custom property that allows to automatically add our recipes to tech unlocks.
   BI_add_to_tech = {"bi-tech-bio-plastics"},
+  crafting_machine_tint = { primary = util.color("E3D7AA"), secondary = util.color("C2B99F"), tertiary = util.color("D4AC48"), quaternary = util.color("E0B572") },
 }
 
 -- Bio plastic 2
@@ -275,6 +280,7 @@ BI.additional_recipes.BI_Bio_Fuel.bio_plastic_2 = {
   allow_as_intermediate = false,
   -- Custom property that allows to automatically add our recipes to tech unlocks.
   BI_add_to_tech = {"bi-tech-cellulose-2"},
+  crafting_machine_tint = { primary = util.color("E3D7AA"), secondary = util.color("C2B99F"), tertiary = util.color("E3D1BA"), quaternary = util.color("E3D7AA") },
 }
 
 -- Biomass 2
@@ -307,6 +313,7 @@ BI.additional_recipes.BI_Bio_Fuel.bio_mass_2 = {
   allow_as_intermediate = false,
   -- Custom property that allows to automatically add our recipes to tech unlocks.
   BI_add_to_tech = {"bi-tech-biomass-reprocessing-1"},
+  crafting_machine_tint = { primary = util.color("67f45d") },
 }
 
 -- Biomass 3
@@ -340,6 +347,7 @@ BI.additional_recipes.BI_Bio_Fuel.bio_mass_3 = {
   allow_as_intermediate = false,
   -- Custom property that allows to automatically add our recipes to tech unlocks.
   BI_add_to_tech = {"bi-tech-biomass-reprocessing-2"},
+  crafting_machine_tint = { primary = util.color("60c159") },
 }
 
 -- Biomass conversion 1 (Biomass to Crude oil)
@@ -347,14 +355,11 @@ BI.additional_recipes.BI_Bio_Fuel.bio_mass_3 = {
 BI.additional_recipes.BI_Bio_Fuel.bio_mass_conversion_crude_oil = {
   type = "recipe",
   name = "bi-biomass-conversion-crude-oil",
-  --~ localised_name = {"recipe-name.bi-biomass-conversion-1"},
   localised_name = {
     "recipe-name.bi-biomass-conversion",
     {"fluid-name.bi-biomass"},
     1,
     {"fluid-name.crude-oil"},
-    --~ ", ",
-    --~ {"fluid-name.water"}
   },
   localised_description = {
     "recipe-description.bi-biomass-conversion-crude-oil",
@@ -381,16 +386,12 @@ BI.additional_recipes.BI_Bio_Fuel.bio_mass_conversion_crude_oil = {
     {type = "fluid", name = "water", amount = 50},
   },
   main_product = "",
-  crafting_machine_tint = {
-    primary = {r = 0.000, g = 0.260, b = 0.010, a = 0.000}, -- #00420200
-    secondary = {r = 0.071, g = 0.640, b = 0.000, a = 0.000}, -- #12a30000
-    tertiary = {r = 0.026, g = 0.520, b = 0.000, a = 0.000}, -- #06840000
-  },
   subgroup = "bio-bio-fuel-fluid",
   order = "a-[biomass]-b-[conversion]-1-[crude-oil]",
   allow_as_intermediate = false,
   -- Custom property that allows to automatically add our recipes to tech unlocks.
   BI_add_to_tech = {"bi-tech-biomass-conversion"},
+  crafting_machine_tint = { primary = util.color("2c482a") },
 }
 
 -- Biomass conversion 2 (Biomass to Petroleum gas)
@@ -431,6 +432,7 @@ BI.additional_recipes.BI_Bio_Fuel.bio_mass_conversion_petroleum = {
   allow_as_intermediate = false,
   -- Custom property that allows to automatically add our recipes to tech unlocks.
   BI_add_to_tech = {"bi-tech-biomass-conversion"},
+  crafting_machine_tint = { primary = util.color("9adf95") },
 }
 
 
@@ -468,16 +470,17 @@ BI.additional_recipes.BI_Bio_Fuel.bio_mass_conversion_lubricant = {
     {type = "fluid", name = "lubricant", amount = 10}
   },
   main_product = "",
-  crafting_machine_tint = {
+  --[[crafting_machine_tint = {
     primary = {r = 0.000, g = 0.260, b = 0.010, a = 0.000}, -- #00420200
     secondary = {r = 0.071, g = 0.640, b = 0.000, a = 0.000}, -- #12a30000
     tertiary = {r = 0.026, g = 0.520, b = 0.000, a = 0.000}, -- #06840000
-  },
+  },]]--
   subgroup = "bio-bio-fuel-fluid",
   order = "a-[biomass]-b-[conversion]-3-[lubricant]",
   allow_as_intermediate = false,
   -- Custom property that allows to automatically add our recipes to tech unlocks.
   BI_add_to_tech = {"bi-tech-biomass-conversion"},
+  crafting_machine_tint = { primary = util.color("64de41") },
 }
 
 -- Biomass conversion 4 (Biomass to Sulfuric acid)
@@ -512,11 +515,11 @@ BI.additional_recipes.BI_Bio_Fuel.bio_mass_conversion_sulfuric_acid = {
   enabled = false,
   always_show_made_in = true,
   allow_decomposition = false,
-  crafting_machine_tint = {
+  --[[crafting_machine_tint = {
     primary = {r = 0.875, g = 0.735, b = 0.000, a = 0.000}, -- #dfbb0000
     secondary = {r = 0.103, g = 0.940, b = 0.000, a = 0.000}, -- #1aef0000
     tertiary = {r = 0.564, g = 0.795, b = 0.000, a = 0.000}, -- #8fca0000
-  },
+  },]]--
   subgroup = "bio-bio-fuel-fluid",
   --~ -- subgroup = "fluid-recipes",
   order = "a-[biomass]-b-[conversion]-4-[sulfuric-acid]",
@@ -524,6 +527,7 @@ BI.additional_recipes.BI_Bio_Fuel.bio_mass_conversion_sulfuric_acid = {
   allow_as_intermediate = false,
   -- Custom property that allows to automatically add our recipes to tech unlocks.
   BI_add_to_tech = {"bi-tech-cellulose-1"},
+  crafting_machine_tint = { primary = util.color("e2df69"), secondary = util.color("B6C4A7"), tertiary = util.color("85B87D"), quaternary = util.color("B9BA8A") },
 }
 
 -- Biomass conversion 5 (Biomass to Light oil)
@@ -570,6 +574,7 @@ BI.additional_recipes.BI_Bio_Fuel.bio_mass_conversion_light_oil = {
   allow_as_intermediate = false,
   -- Custom property that allows to automatically add our recipes to tech unlocks.
   BI_add_to_tech = {"bi-tech-bio-plastics"},
+  crafting_machine_tint = { primary = util.color("efd544") },
 }
 
 -- Bio Battery
@@ -595,11 +600,11 @@ BI.additional_recipes.BI_Bio_Fuel.bio_battery = {
   allow_as_intermediate = false,    -- Changed for 0.18.34/1.1.4
   always_show_made_in = true,       -- Added for 0.18.34/1.1.4
   allow_decomposition = true,       -- Added for 0.18.34/1.1.4
-  crafting_machine_tint = {
+  --[[crafting_machine_tint = {
     primary = {r = 0.970, g = 0.611, b = 0.000, a = 0.000}, -- #f79b0000
     secondary = {r = 0.000, g = 0.680, b = 0.894, a = 0.357}, -- #00ade45b
     tertiary = {r = 0.430, g = 0.805, b = 0.726, a = 0.000}, -- #6dcdb900
-  },
+  },]]--
   subgroup = "raw-material",
   order = "h[batteryb]",
   --~ -- subgroup = "raw-material",
@@ -607,6 +612,7 @@ BI.additional_recipes.BI_Bio_Fuel.bio_battery = {
   allow_as_intermediate = false,
   -- Custom property that allows to automatically add our recipes to tech unlocks.
   BI_add_to_tech = {"bi-tech-cellulose-2"},
+  crafting_machine_tint = { primary = util.color("DFF0DA"), secondary = util.color("E0DF77"), tertiary = util.color("88BA8A"), quaternary = util.color("BBB38F") },
 }
 
 -- Sulfuric acid to Sulfur
@@ -629,12 +635,13 @@ BI.additional_recipes.BI_Bio_Fuel.bio_sulfur = {
   always_show_made_in = true,
   allow_decomposition = false,
   subgroup = "raw-material",
-  order = "g[sulfur-1]",
+  order = "g[sulfur]-[Bio Industries]",
   --~ -- subgroup = "raw-material",
   --~ -- order = "g[sulfur]-[bi-sulfur]",
   allow_as_intermediate = false,
   -- Custom property that allows to automatically add our recipes to tech unlocks.
   BI_add_to_tech = {"bi-tech-cellulose-1"},
+  crafting_machine_tint = { primary = util.color("eadc30"), secondary = util.color("ebdd28"), tertiary = util.color("eadc30"), quaternary = util.color("ebdd28") },
 }
 
 
@@ -993,6 +1000,7 @@ BI.additional_recipes.BI_Coal_Processing.solid_fuel = {
   allow_decomposition = true,         -- Changed for 0.18.34/1.1.4
   -- Custom property that allows to automatically add our recipes to tech unlocks.
   BI_add_to_tech = {"bi-tech-coal-processing-2"},
+  crafting_machine_tint = { primary = util.color("454237"), secondary = util.color("454237"), tertiary = util.color("504725"), quaternary = util.color("8d846b") },
 }
 
 
@@ -1830,7 +1838,7 @@ BI.additional_recipes.BI_Rails.power_to_rail_pole = {
   name = "bi-power-to-rail-pole",
   localised_name = {"entity-name.bi-power-to-rail-pole"},
   --~ -- localised_description = {"entity-description.bi-power-to-rail-pole"},
-  icon = ICONPATH .. "entity/rail-concrete-power-pole.png",
+  icon = ICONPATH .. "entity/rail_power_connector.png",
   icon_size = 64, icon_mipmaps = 3,
   BI_add_icon = true,
   normal = {
@@ -1875,6 +1883,8 @@ BI.additional_recipes.BI_Rails.power_to_rail_pole = {
 BI.additional_recipes.BI_Rubber.resin_pulp = {
   type = "recipe",
   name = "bi-resin-pulp",
+  localised_name = {"recipe-name.bi-resin", {"item-name.bi-woodpulp"}},
+  localised_description = {"recipe-description.bi-resin-pulp"},
   icon = ICONPATH .. "resin_woodpulp.png",
   icon_size = 64, icon_mipmaps = 3,
   BI_add_icon = true,
@@ -1905,7 +1915,9 @@ BI.additional_recipes.BI_Rubber.resin_pulp = {
 BI.additional_recipes.BI_Rubber.resin_wood = {
   type = "recipe",
   name = "bi-resin-wood",
-  localised_name = {"recipe-name.bi-resin-wood"},
+  --~ localised_name = {"recipe-name.bi-resin-wood"},
+  --~ localised_description = {"recipe-description.bi-resin-wood"},
+  localised_name = {"recipe-name.bi-resin", {"item-name.wood"}},
   localised_description = {"recipe-description.bi-resin-wood"},
   icon = ICONPATH .. "resin_wood.png",
   icon_size = 64, icon_mipmaps = 3,
@@ -2238,7 +2250,11 @@ BI.additional_recipes.BI_Stone_Crushing.stone_crusher = {
 BI.additional_recipes.BI_Stone_Crushing.crushed_stone_stone = {
   type = "recipe",
   name = "bi-crushed-stone-stone",
-  localised_name = {"recipe-name.bi-crushed-stone", {"item-name.stone"}},
+  localised_name = {
+    "recipe-name.bi-crushed-stone",
+    {"item-name.stone-crushed"},
+    {"item-name.stone"}
+  },
   icon = ICONPATH .. "crushed-stone.png",
   icon_size = 64, icon_mipmaps = 3,
   BI_add_icon = true,
@@ -2265,7 +2281,11 @@ BI.additional_recipes.BI_Stone_Crushing.crushed_stone_stone_brick = {
   type = "recipe",
   name = "bi-crushed-stone-stone-brick",
   --~ localised_name = {"recipe-name.bi-crushed-stone-2", {"item-name.stone-brick"}},
-  localised_name = {"recipe-name.bi-crushed-stone", {"item-name.stone-brick"}},
+  localised_name = {
+    "recipe-name.bi-crushed-stone",
+    {"item-name.stone-crushed"},
+    {"item-name.stone-brick"}
+  },
   localised_description = {"recipe-description.bi-crushed-stone-2", {"item-name.stone-brick"}},
   icon = ICONPATH .. "crushed-stone-stone-brick.png",
   icon_size = 64, icon_mipmaps = 3,
@@ -2295,7 +2315,7 @@ BI.additional_recipes.BI_Stone_Crushing.crushed_stone_concrete = {
   type = "recipe",
   name = "bi-crushed-stone-concrete",
   --~ localised_name = {"recipe-name.bi-crushed-stone-2", {"item-name.concrete"}},
-  localised_name = {"recipe-name.bi-crushed-stone", {"item-name.concrete"}},
+  localised_name = {"recipe-name.bi-crushed-stone", {"item-name.stone-crushed"}, {"item-name.concrete"}},
   localised_description = {"recipe-description.bi-crushed-stone-2", {"item-name.concrete"}},
   icon = ICONPATH .. "crushed-stone-concrete.png",
   icon_size = 64, icon_mipmaps = 3,
@@ -2323,7 +2343,11 @@ BI.additional_recipes.BI_Stone_Crushing.crushed_stone_hazard_concrete = {
   type = "recipe",
   name = "bi-crushed-stone-hazard-concrete",
   --~ localised_name = {"recipe-name.bi-crushed-stone-2", {"item-name.hazard-concrete"}},
-  localised_name = {"recipe-name.bi-crushed-stone", {"item-name.hazard-concrete"}},
+  localised_name = {
+    "recipe-name.bi-crushed-stone",
+    {"item-name.stone-crushed"},
+    {"item-name.hazard-concrete"}
+  },
   localised_description = {"recipe-description.bi-crushed-stone-2", {"item-name.hazard-concrete"}},
   icon = ICONPATH .. "crushed-stone-hazard-concrete.png",
   icon_size = 64, icon_mipmaps = 3,
@@ -2351,7 +2375,11 @@ BI.additional_recipes.BI_Stone_Crushing.crushed_stone_refined_concrete = {
   type = "recipe",
   name = "bi-crushed-stone-refined-concrete",
   --~ localised_name = {"recipe-name.bi-crushed-stone-2", {"item-name.refined-concrete"}},
-  localised_name = {"recipe-name.bi-crushed-stone", {"item-name.refined-concrete"}},
+  localised_name = {
+    "recipe-name.bi-crushed-stone",
+    {"item-name.stone-crushed"},
+    {"item-name.refined-concrete"}
+  },
   localised_description = {"recipe-description.bi-crushed-stone-2", {"item-name.refined-concrete"}},
   icon = ICONPATH .. "crushed-stone-refined-concrete.png",
   icon_size = 64, icon_mipmaps = 3,
@@ -2380,7 +2408,11 @@ BI.additional_recipes.BI_Stone_Crushing.crushed_stone_refined_hazard_concrete = 
   type = "recipe",
   name = "bi-crushed-stone-refined-hazard-concrete",
   --~ localised_name = {"recipe-name.bi-crushed-stone-2", {"item-name.refined-hazard-concrete"}},
-  localised_name = {"recipe-name.bi-crushed-stone", {"item-name.refined-hazard-concrete"}},
+  localised_name = {
+    "recipe-name.bi-crushed-stone",
+    {"item-name.stone-crushed"},
+    {"item-name.refined-hazard-concrete"}
+  },
   localised_description = {"recipe-description.bi-crushed-stone-2", {"item-name.refined-hazard-concrete"}},
   icon = ICONPATH .. "crushed-stone-refined-hazard-concrete.png",
   icon_size = 64, icon_mipmaps = 3,
@@ -2432,6 +2464,7 @@ BI.additional_recipes.BI_Stone_Crushing.stone_brick = {
   -- Custom property that allows to automatically add our recipes to tech unlocks.
   --~ BI_add_to_tech = {"bi-tech-coal-processing-2"},
   BI_add_to_tech = {"bi-tech-ash"},
+  crafting_machine_tint = { primary = util.color("8d846b"), secondary = util.color("776f58"), tertiary = util.color("848380"), quaternary = util.color("848380") },
 }
 
 
@@ -3056,7 +3089,7 @@ BI.additional_recipes.Bio_Cannon.bio_cannon_ammo_proto = {
   name = "bi-bio-cannon-ammo-proto",
   --localised_name = {"item-name.bi-bio-cannon-ammo-proto"},
   --localised_description = {"item-description.bi-bio-cannon-ammo-proto"},
-  localised_description = {"item-description.bi-bio-cannon-ammo"},
+  --~ localised_description = {"item-description.bi-bio-cannon-ammo"},
   enabled = false,
   energy_required = 2,
   ingredients = {
@@ -3081,7 +3114,7 @@ BI.additional_recipes.Bio_Cannon.bio_cannon_ammo_basic = {
   name = "bi-bio-cannon-ammo-basic",
   --localised_name = {"item-name.bi-bio-cannon-ammo-basic"},
   --localised_description = {"item-description.bi-bio-cannon-ammo-basic"},
-  localised_description = {"item-description.bi-bio-cannon-ammo"},
+  --~ localised_description = {"item-description.bi-bio-cannon-ammo"},
   enabled = false,
   energy_required = 4,
   ingredients = {
@@ -3106,7 +3139,7 @@ BI.additional_recipes.Bio_Cannon.bio_cannon_ammo_poison = {
   name = "bi-bio-cannon-ammo-poison",
   --localised_name = {"item-name.bi-bio-cannon-ammo-poison"},
   --localised_description = {"item-description.bi-bio-cannon-ammo-poison"},
-  localised_description = {"item-description.bi-bio-cannon-ammo"},
+  --~ localised_description = {"item-description.bi-bio-cannon-ammo"},
   enabled = false,
   energy_required = 8,
   ingredients = {
@@ -3180,11 +3213,11 @@ BI.additional_recipes.BI_Wood_Gasification.wood_gasification = {
   icon = ICONPATH .. "diluted_bitumen_from_wood.png",
   icon_size = 64, icon_mipmaps = 4,
   BI_add_icon = true,
-  crafting_machine_tint = {
+  --[[crafting_machine_tint = {
     primary = {r = 0.698, g = 0.698, b = 0.698, a = 0.000}, -- #7f7f7f00
     secondary = {r = 0.400, g = 0.400, b = 0.400, a = 0.000}, -- #66666600
     tertiary = {r = 0.305, g = 0.305, b = 0.305, a = 0.000}, -- #4d4d4d00
-  },
+  },]]--
   main_product = "",
   enabled = false,
   always_show_made_in = true,
@@ -3195,6 +3228,7 @@ BI.additional_recipes.BI_Wood_Gasification.wood_gasification = {
   mod = "Bio_Industries",
   -- Custom property that allows to automatically add our recipes to tech unlocks.
   BI_add_to_tech = {"bi-tech-wood-gasification"},
+  crafting_machine_tint = { primary = util.color("7e98b0"), secondary = util.color("6c859c"), tertiary = util.color("81785d"), quaternary = util.color("81785d") },
 }
 
 BI.additional_recipes.BI_Wood_Gasification.solid_fuel = {
@@ -3214,18 +3248,19 @@ BI.additional_recipes.BI_Wood_Gasification.solid_fuel = {
   },
   subgroup = "fluid-recipes",
   order = "a[fluid-chemistry]-w[solid-fuel-from-tar]",
-  crafting_machine_tint =
+  --[[crafting_machine_tint =
   {
     primary = {r = 0.000, g = 0.000, b = 0.000, a = 0.000}, -- #00000000
     secondary = {r = 0.000, g = 0.000, b = 0.000, a = 0.000}, -- #00000000
     tertiary = {r = 0.000, g = 0.000, b = 0.000, a = 0.000}, -- #00000000
-  },
+  },]]--
   always_show_products = true,
   always_show_made_in = true,
   allow_decomposition = false,
   order = "a-w",
   -- Custom property that allows to automatically add our recipes to tech unlocks.
   BI_add_to_tech = {"bi-tech-wood-gasification"},
+  crafting_machine_tint = { primary = util.color("2a3035"), secondary = util.color("242f37"), tertiary = util.color("7e98b0"), quaternary = util.color("6c859c") },
 }
 
 
@@ -3246,6 +3281,7 @@ BI.additional_recipes.BI_Game_Tweaks_Production_Science.production_science_pack 
   },
   result_count = 3,
   result = "production-science-pack",
+  order = "e[production-science-pack]-[Bio Industries]",
   -- Custom property that allows to automatically add our recipes to tech unlocks.
   BI_add_to_tech = {"production-science-pack"},
 }
@@ -3301,6 +3337,7 @@ BI.additional_recipes.BI_Trigger_Easy_Bio_Gardens.fertilizer_fluid = {
   --~ },
   -- Custom property that allows to automatically add our recipes to tech unlocks.
   BI_add_to_tech = {"bi-tech-fertilizer"},
+  crafting_machine_tint = { primary = util.color("5e9347"), secondary = util.color("72be51"), tertiary = util.color("63ae42"), quaternary = util.color("58af33") },
 }
 
 -- Advanced fertilizer fluid (Tints will be added later)
@@ -3340,6 +3377,7 @@ BI.additional_recipes.BI_Trigger_Easy_Bio_Gardens.adv_fertilizer_fluid = {
   --~ },
   -- Custom property that allows to automatically add our recipes to tech unlocks.
   BI_add_to_tech = {"bi-tech-advanced-fertilizer"},
+  crafting_machine_tint = { primary = util.color("d04677"), secondary = util.color("b82e5f"), tertiary = util.color("b64f73"), quaternary = util.color("b85e84") },
 }
 
 

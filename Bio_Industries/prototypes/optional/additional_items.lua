@@ -267,7 +267,7 @@ BI.additional_items.BI_Darts.wooden_fence = {
   type = "item",
   name = "bi-wooden-fence",
   localised_name = {"entity-name.bi-wooden-fence"},
-  localised_description = {"entity-description.bi-wooden-fence"},
+  localised_description = {"item-description.bi-wooden-fence"},
   icon = ICONPATH .. "entity/wooden-fence.png",
   icon_size = 64, icon_mipmaps = 3,
   BI_add_icon = true,
@@ -374,6 +374,7 @@ BI.additional_items.BI_Bio_Garden.purified_air = {
 BI.additional_items.BI_Explosive_Planting.seed_bomb_basic = {
   type = "ammo",
   name = "bi-seed-bomb-basic",
+  localised_description = {"item-description.bi-seed-bomb"},
   icon = ICONPATH .. "weapon/seed-bomb-1.png",
   icon_size = 64, icon_mipmaps = 3,
   BI_add_icon = true,
@@ -400,6 +401,7 @@ BI.additional_items.BI_Explosive_Planting.seed_bomb_basic = {
 BI.additional_items.BI_Explosive_Planting.seed_bomb_standard = {
   type = "ammo",
   name = "bi-seed-bomb-standard",
+  localised_description = {"item-description.bi-seed-bomb"},
   icon = ICONPATH .. "weapon/seed-bomb-2.png",
   icon_size = 64, icon_mipmaps = 3,
   BI_add_icon = true,
@@ -426,6 +428,7 @@ BI.additional_items.BI_Explosive_Planting.seed_bomb_standard = {
 BI.additional_items.BI_Explosive_Planting.seed_bomb_advanced = {
   type = "ammo",
   name = "bi-seed-bomb-advanced",
+  localised_description = {"item-description.bi-seed-bomb"},
   icon = ICONPATH .. "weapon/seed-bomb-3.png",
   icon_size = 64, icon_mipmaps = 3,
   BI_add_icon = true,
@@ -914,7 +917,7 @@ BI.additional_items.BI_Rails.power_to_rail_pole = {
   name = "bi-power-to-rail-pole",
   localised_name = {"entity-name.bi-power-to-rail-pole"},
   localised_description = {"entity-description.bi-power-to-rail-pole"},
-  icon = ICONPATH .. "entity/rail-concrete-power-pole.png",
+  icon = ICONPATH .. "entity/rail_power_connector.png",
   icon_size = 64, icon_mipmaps = 3,
   BI_add_icon = true,
   subgroup = "train-transport",

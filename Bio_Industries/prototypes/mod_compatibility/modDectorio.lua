@@ -14,11 +14,13 @@ end
 ------------------------------------------------------------------------------------
 
 
--- We only want to create our wooden-floor tile if Dectorio isn't active or it's own
--- wooden floor has been disabled!
-if not BioInd.get_startup_setting("dectorio-wood") then
-  BioInd.create_stuff(BI.additional_entities.mod_compatibility.wood_floor)
-end
+-- We only want to create our wooden-floor tile if Dectorio isn't active or if its
+-- own wooden floor has been disabled!
+--~ if not BioInd.get_startup_setting("dectorio-wood") then
+  --~ BioInd.create_stuff(BI.additional_entities.mod_compatibility.wood_floor)
+--~ end
+BI.Triggers.BI_Trigger_Woodfloor = not BioInd.get_startup_setting("dectorio-wood")
+
 
 
 ------------------------------------------------------------------------------------

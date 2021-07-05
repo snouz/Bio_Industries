@@ -815,62 +815,6 @@ BI.default_entities.bio_reactor = {
   animation = {
     layers = {
       {
-        filename = REACTORPATH .. "bioreactor_anim.png",
-        priority = "high",
-        width = 91,
-        height = 128,
-        frame_count = 18,
-        line_length = 6,
-        repeat_count = 1,
-        animation_speed = 0.2,
-        scale = 1,
-        shift = {0, -0.5},
-        hr_version = {
-          filename = REACTORPATH .. "hr_bioreactor_anim.png",
-          priority = "high",
-          width = 182,
-          height = 256,
-          frame_count = 18,
-          line_length = 6,
-          repeat_count = 1,
-          animation_speed = 0.2,
-          scale = 0.5,
-          shift = {0, -0.5},
-        }
-
-      },
-      {
-        filename = REACTORPATH .. "bioreactor_shadow.png",
-        priority = "high",
-        width = 135,
-        height = 128,
-        frame_count = 1,
-        line_length = 1,
-        repeat_count = 18,
-        animation_speed = 0.2,
-        scale = 1,
-        shift = {0.5, -0.5},
-        draw_as_shadow = true,
-        hr_version = {
-          filename = REACTORPATH .. "hr_bioreactor_shadow.png",
-          priority = "high",
-          width = 270,
-          height = 256,
-          frame_count = 1,
-          line_length = 1,
-          repeat_count = 18,
-          animation_speed = 0.2,
-          scale = 0.5,
-          shift = {0.5, -0.5},
-          draw_as_shadow = true,
-        }
-      }
-    },
-  },
-
-  idle_animation = {
-    layers = {
-      {
         filename = REACTORPATH .. "bioreactor_idle.png",
         priority = "high",
         width = 91,
@@ -923,6 +867,77 @@ BI.default_entities.bio_reactor = {
       }
     },
   },
+  working_visualisations = {
+    {
+      effect = "none",
+      render_layer = "object",
+      animation = {
+        layers = {
+          {
+            filename = REACTORPATH .. "bioreactor_anim.png",
+            priority = "high",
+            width = 91,
+            height = 128,
+            frame_count = 18,
+            line_length = 6,
+            repeat_count = 1,
+            animation_speed = 0.2,
+            scale = 1,
+            shift = {0, -0.5},
+            hr_version = {
+              filename = REACTORPATH .. "hr_bioreactor_anim.png",
+              priority = "high",
+              width = 182,
+              height = 256,
+              frame_count = 18,
+              line_length = 6,
+              repeat_count = 1,
+              animation_speed = 0.2,
+              scale = 0.5,
+              shift = {0, -0.5},
+            }
+          },
+          
+        },
+      },
+    },
+    {
+      effect = "none",
+      apply_recipe_tint = "primary",
+      fadeout = true,
+      render_layer = "object",
+      animation = {
+        layers = {
+          {
+            filename = REACTORPATH .. "bioreactor_anim_mask.png",
+            priority = "high",
+            width = 91,
+            height = 128,
+            frame_count = 18,
+            line_length = 6,
+            repeat_count = 1,
+            animation_speed = 0.2,
+            scale = 1,
+            shift = {0, -0.5},
+            hr_version = {
+              filename = REACTORPATH .. "hr_bioreactor_anim_mask.png",
+              priority = "high",
+              width = 182,
+              height = 256,
+              frame_count = 18,
+              line_length = 6,
+              repeat_count = 1,
+              animation_speed = 0.2,
+              scale = 0.5,
+              shift = {0, -0.5},
+            }
+          },
+        },
+      },
+    },
+    
+    
+  },
   energy_source = {
     type = "electric",
     usage_priority = "secondary-input"
@@ -935,6 +950,147 @@ BI.default_entities.bio_reactor = {
     module_slots = 3
   },
   allowed_effects = {"consumption", "speed", "productivity", "pollution"},
+}
+
+
+------------------------------------------------------------------------------------
+--                                Pollution sensor                                --
+------------------------------------------------------------------------------------
+BI.default_entities.pollution_sensor = {
+  type = "constant-combinator",
+  name = "bi-pollution-sensor",
+  icon = ICONPATH .. "entity/pollution_sensor.png",
+  icon_size = 64, icon_mipmaps = 4,
+  flags = {"placeable-neutral", "player-creation"},
+  minable = {mining_time = 0.1, result = "bi-pollution-sensor"},
+  max_health = 120,
+  corpse = "constant-combinator-remnants",
+  dying_explosion = "constant-combinator-explosion",
+  collision_box = {{-0.35, -0.35}, {0.35, 0.35}},
+  selection_box = {{-0.5, -0.5}, {0.5, 0.5}},
+  damaged_trigger_effect = hit_effects.entity(),
+  fast_replaceable_group = "constant-combinator",
+
+  item_slot_count = 1,
+
+  vehicle_impact_sound = sounds.generic_impact,
+  open_sound = sounds.machine_open,
+  close_sound = sounds.machine_close,
+
+  activity_led_sprites =
+  {
+    filename = "__core__/graphics/empty.png",
+    width = 1,
+    height = 1,
+    frame_count = 1,
+    shift = util.by_pixel(0, 0),
+  },
+
+  activity_led_light =
+  {
+    intensity = 0,
+    size = 1,
+    color = {r = 0, g = 0, b = 0}
+  },
+
+  activity_led_light_offsets =
+  {
+    {0, 0},
+    {0, 0},
+    {0, 0},
+    {0, 0},
+  },
+
+  circuit_wire_connection_points =
+  {
+    {
+      shadow =
+      {
+        red = util.by_pixel(-9, 10),
+        green = util.by_pixel(-9, -2)
+      },
+      wire =
+      {
+        red = util.by_pixel(-19.5, -2.5),
+        green = util.by_pixel(-19.5, -14.5)
+      }
+    },
+    {
+      shadow =
+      {
+        red = util.by_pixel(-9, 10),
+        green = util.by_pixel(-9, -2)
+      },
+      wire =
+      {
+        red = util.by_pixel(-19.5, -2.5),
+        green = util.by_pixel(-19.5, -14.5)
+      }
+    },
+    {
+      shadow =
+      {
+        red = util.by_pixel(-9, 10),
+        green = util.by_pixel(-9, -2)
+      },
+      wire =
+      {
+        red = util.by_pixel(-19.5, -2.5),
+        green = util.by_pixel(-19.5, -14.5)
+      }
+    },
+    {
+      shadow =
+      {
+        red = util.by_pixel(-9, 10),
+        green = util.by_pixel(-9, -2)
+      },
+      wire =
+      {
+        red = util.by_pixel(-19.5, -2.5),
+        green = util.by_pixel(-19.5, -14.5)
+      }
+    },
+  },
+
+  circuit_wire_max_distance = 9,
+  sprites = {
+    layers =
+    {
+      {
+        filename = POLSENSORPATH .. "pollution-sensor.png",
+        width = 48,
+        height = 40,
+        shift = util.by_pixel(0, -1),
+        hr_version =
+        {
+          filename = POLSENSORPATH .. "hr-pollution-sensor.png",
+          width = 96,
+          height = 80,
+          shift = util.by_pixel(0, -1),
+          scale = 0.5,
+        },
+      },
+      {
+        filename = POLSENSORPATH .. "pollution-sensor-shadow.png",
+        priority = "extra-high",
+        width = 56,
+        height = 23,
+        shift = util.by_pixel(12, 5.5),
+        draw_as_shadow = true,
+        hr_version =
+        {
+          filename = POLSENSORPATH .. "hr-pollution-sensor-shadow.png",
+          priority = "extra-high",
+          width = 112,
+          height = 46,
+          shift = util.by_pixel(12, 5.5),
+          draw_as_shadow = true,
+          scale = 0.5
+        }
+      }
+    },
+  },
 }
 
 
@@ -1029,143 +1185,6 @@ BI.default_entities.seedling_3 = {
   pictures = seedling_pictures_diverse,
 }
 
-
-BI.default_entities.pollution_sensor = {
-  type = "constant-combinator",
-  name = "bi-pollution-sensor",
-  icon = ICONPATH .. "entity/pollution_sensor.png",
-  icon_size = 64, icon_mipmaps = 4,
-  flags = {"placeable-neutral", "player-creation"},
-  minable = {mining_time = 0.1, result = "bi-pollution-sensor"},
-  max_health = 120,
-  corpse = "constant-combinator-remnants",
-  dying_explosion = "constant-combinator-explosion",
-  collision_box = {{-0.35, -0.35}, {0.35, 0.35}},
-  selection_box = {{-0.5, -0.5}, {0.5, 0.5}},
-  damaged_trigger_effect = hit_effects.entity(),
-  fast_replaceable_group = "constant-combinator",
-
-  item_slot_count = 1,
-
-  vehicle_impact_sound = sounds.generic_impact,
-  open_sound = sounds.machine_open,
-  close_sound = sounds.machine_close,
-  
-  activity_led_sprites =
-  {
-    filename = "__core__/graphics/empty.png",
-    width = 1,
-    height = 1,
-    frame_count = 1,
-    shift = util.by_pixel(0, 0),
-  },
-
-  activity_led_light =
-  {
-    intensity = 0,
-    size = 1,
-    color = {r = 0, g = 0, b = 0}
-  },
-
-  activity_led_light_offsets =
-  {
-    {0, 0},
-    {0, 0},
-    {0, 0},
-    {0, 0},
-  },
-
-  circuit_wire_connection_points =
-  {
-    {
-      shadow =
-      {
-        red = util.by_pixel(-9, 10),
-        green = util.by_pixel(-9, -2)
-      },
-      wire =
-      {
-        red = util.by_pixel(-19.5, -2.5),
-        green = util.by_pixel(-19.5, -14.5)
-      }
-    },
-    {
-      shadow =
-      {
-        red = util.by_pixel(-9, 10),
-        green = util.by_pixel(-9, -2)
-      },
-      wire =
-      {
-        red = util.by_pixel(-19.5, -2.5),
-        green = util.by_pixel(-19.5, -14.5)
-      }
-    },
-    {
-      shadow =
-      {
-        red = util.by_pixel(-9, 10),
-        green = util.by_pixel(-9, -2)
-      },
-      wire =
-      {
-        red = util.by_pixel(-19.5, -2.5),
-        green = util.by_pixel(-19.5, -14.5)
-      }
-    },
-    {
-      shadow =
-      {
-        red = util.by_pixel(-9, 10),
-        green = util.by_pixel(-9, -2)
-      },
-      wire =
-      {
-        red = util.by_pixel(-19.5, -2.5),
-        green = util.by_pixel(-19.5, -14.5)
-      }
-    },
-  },
-
-  circuit_wire_max_distance = 9,
-  sprites = { 
-    layers =
-    {
-      {
-        filename = POLSENSORPATH .. "pollution-sensor.png",
-        width = 48,
-        height = 40,
-        shift = util.by_pixel(0, -1),
-        hr_version =
-        {
-          filename = POLSENSORPATH .. "hr-pollution-sensor.png",
-          width = 96,
-          height = 80,
-          shift = util.by_pixel(0, -1),
-          scale = 0.5,
-        },
-      },
-      {
-        filename = POLSENSORPATH .. "pollution-sensor-shadow.png",
-        priority = "extra-high",
-        width = 56,
-        height = 23,
-        shift = util.by_pixel(12, 5.5),
-        draw_as_shadow = true,
-        hr_version =
-        {
-          filename = POLSENSORPATH .. "hr-pollution-sensor-shadow.png",
-          priority = "extra-high",
-          width = 112,
-          height = 46,
-          shift = util.by_pixel(12, 5.5),
-          draw_as_shadow = true,
-          scale = 0.5
-        }
-      }
-    },
-  },
-}
 
 
 

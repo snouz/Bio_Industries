@@ -7,12 +7,17 @@ BioInd.entered_file()
 BI.additional_entities = BI.additional_entities or {}
 BI.additional_entities.mod_compatibility = BI.additional_entities.mod_compatibility or {}
 
+local triggers = {
+  "BI_Trigger_Woodfloor",
+}
+for t, trigger in pairs(triggers) do
+  BI.additional_entities[trigger] = BI.additional_entities[trigger] or {}
+end
 
 ------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------
 
 
---~ local BioInd = require(['"]common['"])(["']Bio_Industries['"])
 local ICONPATH = BioInd.iconpath
 local SNDPATH = "__base__/sound/"
 local WOODPATH = BioInd.entitypath .. "wood_products/"
@@ -37,17 +42,18 @@ sounds.mined_sound = {
 --                                  Wooden floor                                  --
 ------------------------------------------------------------------------------------
 -- Dectorio ("Dectorio")
-BI.additional_entities.mod_compatibility.wood_floor = {
+--~ BI.additional_entities.mod_compatibility.wood_floor = {
+BI.additional_entities.BI_Trigger_Woodfloor.wood_floor = {
   type = "tile",
   name = "bi-wood-floor",
   needs_correction = false,
-  --~ minable = {hardness = 0.2, mining_time = 0.5, result = "wood"},
+  --~ -- minable = {hardness = 0.2, mining_time = 0.5, result = "wood"},
   minable = {hardness = 0.2, mining_time = 0.25, result = "wood"},
   mined_sound = sounds.mined_sound,
   collision_mask = {"ground-tile"},
   walking_speed_modifier = 1.2,
   layer = 59,
-  decorative_removal_probability = 0.4,
+  decorative_removal_probability = 0.6,
   variants = {
     main =
     {

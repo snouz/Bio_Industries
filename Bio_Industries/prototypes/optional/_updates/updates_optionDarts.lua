@@ -70,44 +70,6 @@ BioInd.show("tech", techs["physical-projectile-damage-" .. level])
   end
 end
 
-------------------------------------------------------------------------------------
---                          Add bonuses for Dart turrets                          --
-------------------------------------------------------------------------------------
---~ local map = {
-  --~ ["physical-projectile-damage"] = {
-    --~ [1] = 0.1,
-    --~ [2] = 0.1,
-    --~ [3] = 0.2,
-    --~ [4] = 0.2,
-  --~ },
-  --~ ["weapon-shooting-speed"] = {
-    --~ [1] = 0.1,
-    --~ [2] = 0.2,
-    --~ [3] = 0.2,
-    --~ [4] = 0.3,
-  --~ },
---~ }
-
---~ local tech_effects, t
---~ local techs = data.raw.technology
-
---~ for tech_name, t_data in pairs(map) do
-  --~ for level, modifier in pairs(t_data) do
-    --~ t = tech_name .. "-" .. level
-    --~ tech_effects = techs[t] and techs[t].effects
-    --~ if tech_effects then
-      --  table.insert(data.raw.technology[tech_name .. "-" .. level].effects, {
-      --~ table.insert(tech_effects, {
-        --~ type = (tech_name == "weapon-shooting-speed") and "gun-speed" or "ammo-damage",
-        --~ ammo_category = "Bio_Turret_Ammo",
-        --~ modifier = modifier
-      --~ })
-      --  BioInd.writeDebug("Biocannon ammo will be affected by %s-%s", {tech_name, level})
-      --~ BioInd.modified_msg(t, techs[t])
-    --~ end
-  --~ end
---~ end
-
 
 ------------------------------------------------------------------------------------
 --                         Remove bonuses for Gun turrets                         --
@@ -139,17 +101,6 @@ end
 ------------------------------------------------------------------------------------
 --                       Change prerequisites of some techs                       --
 ------------------------------------------------------------------------------------
---~ tech = techs["military"]
---~ if tech then
-  --~ thxbob.lib.tech.add_prerequisite(tech.name, "bi-tech-darts-1")
-  --~ BioInd.modified_msg("prerequisites", tech)
---~ end
-
---~ unlock = techs["military-2"]
---~ if unlock then
-  --~ for tech_name, count in pairs({
-    --~ ["stone-wall"] = 25,
-    --~ ["gun-turret"] = 50,
 local prerequisite_map = {
   ["military"] = "bi-tech-darts-1",
   ["stone-wall"] = "military-2",
@@ -221,83 +172,10 @@ map = {
   },
 }
 
---~ local function new_unit(old, new)
-  --~ BioInd.check_args(new, "table")
---~ BioInd.show("old", old)
---~ BioInd.show("new", new)
-
-  --~ local ret = {}
-  --~ local addit, old_pack, new_pack, old_amount, new_amount
-
-  --~ if old then
-    --~ ret.count = (not old.count or old.count < new.count) and new.count or old.count
-    --~ ret.time = (not old.time or old.time < new.time) and new.time or old.time
-    --~ ret.ingredients = {}
-
-    --~ for n, new_i in ipairs(new.ingredients or {}) do
-      --~ new_pack = new_i[1] or new_i.name
-      --~ if not (new_pack and data.raw.tool[new_pack]) then
-        --~ BioInd.arg_err(new_pack, "science pack")
-      --~ end
-      --~ new_amount = new_i[2] or new_i.amount or 1
-
-      --~ addit = true
-      --~ for o, old_i in ipairs(old.ingredients or {}) do
-        --~ old_pack = old_i[1] or old_i.name
-        --~ old_amount = old_i[2] or old_i.amount or 1
-
-        --~ if old_pack == new_pack then
-          --~ table.insert(ret.ingredients, {
-            --~ name = old_pack,
-            --~ amount = (old_amount < new_amount) and new_amount or old_amount
-          --~ })
-          --~ addit = false
-          --~ BioInd.writeDebug("Keep existing ingredient: %s (new amount: %s)",
-                            --~ {old_pack, ret.ingredients[#ret.ingredients].amount})
-          --~ break
-        --~ end
-      --~ end
-
-      --~ if addit then
-        --~ table.insert(ret.ingredients, {
-          --~ name = new_pack,
-          --~ amount = new_amount
-        --~ })
-        --~ BioInd.writeDebug("Added new ingredient: %s (amount: %s)", {new_pack, new_amount})
-      --~ end
-    --~ end
-  --~ else
-    --~ ret = new
-  --~ end
-
-  --~ return ret
---~ end
-
---~ local test
 for t_name, t_unit in pairs(map) do
   tech = techs[t_name]
 BioInd.show("Modifying tech", t_name)
   if tech then
---~ BioInd.show("tech", tech)
-    --~ -- tech.unit = new_unit(tech.unit, t_unit)
-    --~ test = new_unit(tech.unit, t_unit)
---~ BioInd.show("Returned unit", test)
-    --~ tech.unit = test
-    --~ BioInd.modified_msg("unit", tech)
-    --~ tech.normal = tech.normal or {}
-    -- tech.normal.unit = new_unit(tech.normal.unit, t_unit)
-    --~ test = new_unit(tech.normal.unit, t_unit)
---~ BioInd.show("Returned unit", test)
-    --~ tech.normal.unit = test
-    --~ BioInd.modified_msg("normal.unit", tech)
-
-    --~ tech.expensive = tech.expensive or {}
-    -- tech.expensive.unit = new_unit(tech.expensive.unit, t_unit)
-    --~ test = new_unit(tech.expensive.unit, t_unit)
---~ BioInd.show("Returned unit", test)
-    --~ tech.expensive.unit = test
-    --~ BioInd.modified_msg("expensive.unit", tech)
-
     thxbob.lib.tech.replace_unit(t_name, t_unit)
 BioInd.show("Final tech", tech)
   end

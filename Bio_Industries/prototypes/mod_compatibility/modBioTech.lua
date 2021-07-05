@@ -33,13 +33,6 @@ if BI.Settings.BI_Stone_Crushing and data.raw.item["biotech-sand"] then
   recipe.result = "biotech-sand"
   BioInd.modified_msg("result", recipe)
 
-  -- MOVED TO DATA-UPDATES.LUA!
-  --~ -- Use alternative descriptions for stone crusher!
---~ BioInd.writeDebug("Using alternative descriptions for \"bi-stone-crusher\"!")
-  --~ for _, t in ipairs({"furnace", "item", "recipe"}) do
-    --~ data.raw[t]["bi-stone-crusher"].localised_description =
-      --~ {"entity-description.bi-stone-crusher-sand"}
-  --~ end
 end
 
 

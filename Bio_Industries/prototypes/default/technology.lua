@@ -332,7 +332,7 @@ BI.default_techs.advanced_fertilizer = {
   effects = {
     --~ {
       --~ type = "unlock-recipe",
-      --~ recipe = "bi-adv-fertilizer-2"
+      --~ recipe = "bi-adv-fertilizer-1"
     --~ },
   },
   order = "[bi-fertilizer]-b-[advanced-fertilizer]",
@@ -350,6 +350,10 @@ BI.default_techs.advanced_fertilizer = {
   upgrade = true,
 }
 
+
+------------------------------------------------------------------------------------
+--                                Pollution sensor                                --
+------------------------------------------------------------------------------------
 BI.default_techs.pollution_sensor = {
   type = "technology",
   name = "bi-tech-pollution-sensor",

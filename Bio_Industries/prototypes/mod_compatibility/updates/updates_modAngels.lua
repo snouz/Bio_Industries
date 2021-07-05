@@ -127,11 +127,17 @@ if item then
   thxbob.lib.recipe.replace_ingredient(recipe.name, "nitrogen", "gas-nitrogen")
   BioInd.modified_msg("ingredient \"nitrogen\"", recipe, "Replaced")
 
-  -- Change description
-  recipe.localised_description = {
-    "recipe-description.bi-fertilizer-2",
+  -- Change localization
+  recipe.localised_name = {
+    --~ "recipe-name.bi-fertilizer-2",
+    "recipe-name.bi-fertilizer",
     {"item-name.solid-sodium-hydroxide"},
   }
+  --~ recipe.localised_description = {
+    --~ "recipe-description.bi-fertilizer-2",
+    --~ {"item-name.solid-sodium-hydroxide"},
+  --~ }
+  --~ recipe.localised_description = {"recipe-description.bi-fertilizer-1"}
   BioInd.modified_msg("localization", recipe)
 
   -- Change icons
@@ -187,9 +193,20 @@ if mods["angelspetrochem"] and BI.Settings.BI_Bio_Fuel then
     BioInd.BI_change_icon(recipe, ICONPATH .. "bio_conversion_2_angels.png")
 
     -- Change localization
-    recipe.localised_name = {"recipe-name." .. recipe.name .. "-methane"}
+    --~ recipe.localised_name = {"recipe-name." .. recipe.name .. "-methane"}
+    --~ recipe.localised_description = {
+      --~ "recipe-description." .. recipe.name .. "-methane",
+      --~ {"fluid-name.bi-biomass"},
+      --~ {"fluid-name.gas-methane"},
+    --~ }
+    recipe.localised_name = {
+      "recipe-name.bi-biomass-conversion",
+      {"fluid-name.bi-biomass"},
+      2,
+      {"fluid-name.gas-methane"},
+    }
     recipe.localised_description = {
-      "recipe-description." .. recipe.name .. "-methane",
+      "recipe-description.bi-biomass-conversion-petroleum",
       {"fluid-name.bi-biomass"},
       {"fluid-name.gas-methane"},
     }
@@ -224,18 +241,15 @@ if fluids["water-yellow-waste"] and BI.Settings.BI_Bio_Fuel then
     })
     BioInd.modified_msg("results", recipe)
 
-    -- Change recipe localizations
-    --~ recipe.localised_name = {"recipe-name.bi-biomass-conversion-1-yellow-waste"}
-    --~ recipe.localised_name = {"recipe-name.bi-biomass-conversion"}
-    recipe.localised_description = {
-      --~ "recipe-description.bi-biomass-conversion-1-yellow-waste",
-      "recipe-description.bi-biomass-conversion",
-      {"fluid-name.bi-biomass"},
-      1,
-      {"fluid-name.crude-oil"},
-      --~ {"fluid-name.water-yellow-waste"},
-    }
-    BioInd.modified_msg("localization", recipe)
+    --~ -- Change recipe localizations
+    --~ recipe.localised_description = {
+      --~ "recipe-description.bi-biomass-conversion",
+      --~ {"fluid-name.bi-biomass"},
+      --~ 1,
+      --~ {"fluid-name.crude-oil"},
+      --~ --~-- {"fluid-name.water-yellow-waste"},
+    --~ }
+    --~ BioInd.modified_msg("localization", recipe)
   end
 end
 

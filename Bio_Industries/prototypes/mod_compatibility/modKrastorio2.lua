@@ -37,14 +37,6 @@ if BI.Settings.BI_Stone_Crushing and data.raw.item["sand"] then
   if recipe then
     BioInd.BI_change_icon(recipe, ICONPATH .. "sand-Krastorio.png")
   end
-
-  -- MOVED TO DATA-UPDATES.LUA!
-  --~ -- Use alternative descriptions for stone crusher!
---~ BioInd.writeDebug("Using alternative descriptions for \"bi-stone-crusher\"!")
-  --~ for _, t in ipairs({"furnace", "item", "recipe"}) do
-    --~ data.raw[t]["bi-stone-crusher"].localised_description =
-      --~ {"entity-description.bi-stone-crusher-sand"}
-  --~ end
 end
 
 

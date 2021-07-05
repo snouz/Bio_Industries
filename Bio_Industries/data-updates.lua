@@ -10,12 +10,12 @@ local recipes = data.raw.recipe
 local items = data.raw.item
 local fluids = data.raw.fluid
 
-BI.Triggers.BI_Trigger_Sand = BI.Settings.BI_Stone_Crushing and
-                              recipes[BI.additional_recipes.mod_compatibility.sand.name]
+--~ BI.Triggers.BI_Trigger_Sand = BI.Settings.BI_Stone_Crushing and
+                              --~ recipes[BI.additional_recipes.mod_compatibility.sand.name]
 
-BioInd.show("BI.Triggers.BI_Trigger_Sand", BI.Triggers.BI_Trigger_Sand)
-BioInd.show("BI.additional_recipes.mod_compatibility.sand.name", BI.additional_recipes.mod_compatibility.sand.name)
-BioInd.show("recipes[BI.additional_recipes.mod_compatibility.sand.name]", recipes[BI.additional_recipes.mod_compatibility.sand.name])
+--~ BioInd.show("BI.Triggers.BI_Trigger_Sand", BI.Triggers.BI_Trigger_Sand)
+--~ BioInd.show("BI.additional_recipes.mod_compatibility.sand.name", BI.additional_recipes.mod_compatibility.sand.name)
+--~ BioInd.show("recipes[BI.additional_recipes.mod_compatibility.sand.name]", recipes[BI.additional_recipes.mod_compatibility.sand.name])
 
 
 ------------------------------------------------------------------------------------
@@ -56,10 +56,10 @@ require("prototypes.default.updates.alien_artifact")
 require("prototypes.compound_entities.updates.resistances")
 
 
-------------------------------------------------------------------------------------
---    Use alternative descriptions for stone crusher if our sand recipe exists!   --
-------------------------------------------------------------------------------------
-require("prototypes.default.updates.sand_stonecrusher")
+--~ ------------------------------------------------------------------------------------
+--~ --    Use alternative descriptions for stone crusher if our sand recipe exists!   --
+--~ ------------------------------------------------------------------------------------
+--~ require("prototypes.default.updates.sand_stonecrusher")
 
 
 ------------------------------------------------------------------------------------
@@ -161,6 +161,19 @@ require("prototypes.optional._updates.updates_triggerEasyBioGardens")
 ------------------------------------------------------------------------------------
 require("prototypes.optional._updates.updates_triggerConcrete")
 
+
+------------------------------------------------------------------------------------
+--  Trigger: Change prerequisites of "Military 2" (depends on "Rubber" + "Darts") --
+--                      (BI.Triggers.BI_Trigger_Rubber_Darts)                     --
+------------------------------------------------------------------------------------
+require("prototypes.optional._updates.updates_triggerRubberDarts")
+
+
+------------------------------------------------------------------------------------
+-- Trigger: Change prerequisites of "Rubber mat" if "Wood gasification" is active --
+--                      (BI.Triggers.BI_Trigger_Rubber_Woodgas)                   --
+------------------------------------------------------------------------------------
+require("prototypes.optional._updates.updates_triggerRubberWoodgas")
 
 
 ------------------------------------------------------------------------------------

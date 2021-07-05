@@ -34,6 +34,14 @@ data:extend(
     order = "a[modifier]-d[Musk_floor]",
   },
 
+  {
+    type = "bool-setting",
+    name = "BI_Easy_Bio_Gardens",
+    setting_type = "startup",
+    default_value = false,
+    order = "a[modifier]-e[Fluid_fertilizer]",
+  },
+
         -- Game tweaks
   {
     type = "bool-setting",

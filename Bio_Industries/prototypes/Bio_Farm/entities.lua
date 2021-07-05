@@ -284,63 +284,117 @@ data:extend({
       shift = {0.75, 0},
     },
   },
+})
 
   ------- Bio Farm Hidden Electric Pole
+  --~ {
+    --~ type = "electric-pole",
+    --~ name = "bi-bio-farm-electric-pole",
+    --~ icon = ICONPATH .. "Bio_Farm_Cabeling.png",
+    --~ icon_size = 64,
+    --~ icons = {
+      --~ {
+        --~ icon = ICONPATH .. "Bio_Farm_Cabeling.png",
+        --~ icon_size = 64,
+      --~ }
+    --~ },
+    --~ flags = {"not-deconstructable", "not-on-map", "placeable-off-grid", "not-repairable", "not-blueprintable"},
+    --~ selectable_in_game = false,
+    --~ max_health = 1,
+    --~ resistances = {{type = "fire", percent = 100}},
+    --~ collision_box = {{-0, -0}, {0, 0}},
+    --~ collision_mask = {},
+    --~ maximum_wire_distance = 10,
+    --~ supply_area_distance = 5,
+    --~ pictures = {
+      --~ filename = ICONPATH .. "empty.png",
+      --~ priority = "low",
+      --~ width = 1,
+      --~ height = 1,
+      --~ frame_count = 1,
+      --~ axially_symmetrical = false,
+      --~ direction_count = 4,
+      --~ direction_count = 1,
+      --~ shift = {0.75, 0},
+    --~ },
+    --~ connection_points = {
+      --~ {
+        --~ shadow = {},
+        --~ wire = {}
+      --~ },
+      --~ {
+        --~ shadow = {},
+        --~ wire = {}
+      --~ },
+      --~ {
+        --~ shadow = {},
+        --~ wire = {}
+      --~ },
+      --~ {
+        --~ shadow = {},
+        --~ wire = {}
+      --~ }
+    --~ },
+    --~ radius_visualisation_picture = {
+      --~ filename = ICONPATH .. "empty.png",
+      --~ width = 1,
+      --~ height = 1,
+      --~ priority = "low"
+    --~ },
+  --~ },
+local hidden_pole = table.deepcopy(data.raw["electric-pole"]["small-electric-pole"])
+BioInd.show("data.raw[\"electric-pole\"][\"small-electric-pole\"]", data.raw["electric-pole"]["small-electric-pole"])
+hidden_pole.name = "bi-bio-farm-electric-pole"
+hidden_pole.icon = BioInd.is_debug and hidden_pole.icon or ICONPATH .. "Bio_Farm_Cabeling.png"
+hidden_pole.icon_size = BioInd.is_debug and hidden_pole.icon_size or 64
+hidden_pole.icons = BioInd.is_debug and hidden_pole.icons or {
   {
-    type = "electric-pole",
-    name = "bi-bio-farm-electric-pole",
     icon = ICONPATH .. "Bio_Farm_Cabeling.png",
     icon_size = 64,
-    icons = {
-      {
-        icon = ICONPATH .. "Bio_Farm_Cabeling.png",
-        icon_size = 64,
-      }
-    },
-    flags = {"not-deconstructable", "not-on-map", "placeable-off-grid", "not-repairable", "not-blueprintable"},
-    selectable_in_game = false,
-    max_health = 1,
-    resistances = {{type = "fire", percent = 100}},
-    collision_box = {{-0, -0}, {0, 0}},
-    collision_mask = {},
-    maximum_wire_distance = 10,
-    supply_area_distance = 5,
-    pictures = {
-      filename = ICONPATH .. "empty.png",
-      priority = "low",
-      width = 1,
-      height = 1,
-      frame_count = 1,
-      axially_symmetrical = false,
-      direction_count = 4,
-      shift = {0.75, 0},
-    },
-    connection_points = {
-      {
-        shadow = {},
-        wire = {}
-      },
-      {
-        shadow = {},
-        wire = {}
-      },
-      {
-        shadow = {},
-        wire = {}
-      },
-      {
-        shadow = {},
-        wire = {}
-      }
-    },
-    radius_visualisation_picture = {
-      filename = ICONPATH .. "empty.png",
-      width = 1,
-      height = 1,
-      priority = "low"
-    },
+  }
+}
+hidden_pole.flags = {"not-deconstructable", "not-on-map", "placeable-off-grid", "not-repairable", "not-blueprintable"}
+hidden_pole.selectable_in_game = false
+hidden_pole.draw_copper_wires = BioInd.is_debug
+hidden_pole.max_health = 1
+hidden_pole.resistances = {{type = "fire", percent = 100}}
+hidden_pole.collision_box = {{-0, -0}, {0, 0}}
+hidden_pole.collision_mask = {}
+hidden_pole.maximum_wire_distance = 10
+hidden_pole.supply_area_distance = 5
+hidden_pole.pictures = BioInd.is_debug and hidden_pole.pictures or {
+  filename = ICONPATH .. "empty.png",
+  priority = "low",
+  width = 1,
+  height = 1,
+  frame_count = 1,
+  axially_symmetrical = false,
+  direction_count = 1,
+  shift = {0.75, 0},
+}
+hidden_pole.connection_points = BioInd.is_debug and hidden_pole.connection_points or {
+  {
+    shadow = {},
+    wire = {}
   },
+}
+hidden_pole.radius_visualisation_picture = BioInd.is_debug and
+                                            hidden_pole.radius_visualisation_picture or {
+                                              filename = ICONPATH .. "empty.png",
+                                              width = 1,
+                                              height = 1,
+                                              priority = "low"
+                                            }
+hidden_pole.dying_explosion = nil
+hidden_pole.fast_replaceable_group = nil
+hidden_pole.minable = nil
+hidden_pole.open_sound = nil
+hidden_pole.vehicle_impact_sound = nil
+hidden_pole.water_reflection = nil
 
+data:extend({hidden_pole})
+
+data:extend({
   ------- Bio Farm Solar Panel
   {
     type = "solar-panel",
@@ -1045,8 +1099,8 @@ data:extend({
 local my_pole_1 = util.table.deepcopy(data.raw["electric-pole"]["bi-bio-farm-electric-pole"])
 my_pole_1.name = "bi-hidden-power-pole"
 --~ my_pole_1.draw_copper_wires = false
-my_pole_1.draw_copper_wires = BioInd.is_debug
-my_pole_1.pictures = BioInd.is_debug and data.raw["electric-pole"]["small-electric-pole"].pictures  or my_pole_1.pictures
+--~ my_pole_1.draw_copper_wires = BioInd.is_debug
+--~ my_pole_1.pictures = BioInd.is_debug and data.raw["electric-pole"]["small-electric-pole"].pictures  or my_pole_1.pictures
 data:extend({my_pole_1})
 
 --[[

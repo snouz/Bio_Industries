@@ -16,6 +16,49 @@ return function (mod_name)
   -- Set maximum_wire_distance of Power-to-rail connectors
   common.POWER_TO_RAIL_WIRE_DISTANCE = 4
 
+  ------------------------------------------------------------------------------------
+  -- There may be trees for which we don't want to create variations. These patterns
+  -- are used to build a list of trees we want to ignore.
+  common.ignore_name_patterns = {
+    -- Ignore our own trees
+    "bio%-tree%-.+%-%d",
+    -- Tree prototypes created by "Robot Tree Farm" or "Tral's Robot Tree Farm"
+    "rtf%-.+%-%d+",
+  }
+
+
+  -- Get list of tree prototypes that we want to ignore
+  common.get_tree_ignore_list = function()
+  --~ log("Entered function get_tree_ignore_list!")
+    local ignore = {}
+    local trees = game and
+                    game.get_filtered_entity_prototypes({{filter = "type", type = "tree"}}) or
+                    data.raw.tree
+    for tree_name, tree in pairs(trees) do
+--~ log("tree_name: " .. tree_name)
+      for p, pattern in ipairs(common.ignore_name_patterns) do
+--~ log("Check for match against pattern " .. pattern)
+        if tree_name:match(pattern) then
+--~ log("Pattern matches!")
+          ignore[tree_name] = true
+          break
+        end
+      end
+    end
+    --~ log("Tree ignore list (" .. table_size(ignore) .. "): " .. serpent.block(ignore))
+    return ignore
+  end
+
+
+  -- 0.17.42/0.18.09 fixed a bug where musk floor was created for the force "enemy".
+  -- Because it didn't belong to any player, in map view the electric grid overlay wasn't
+  -- shown for musk floor. Somebody complained about seeing it now, so starting with version
+  -- 0.17.45/0.18.13, there is a setting to hide the overlay again. If it is set to "true",
+  -- a new force will be created that the hidden electric poles of musk floor belong to.
+  -- (UPDATE: 0.18.29 reversed the setting -- if active, tiles will now be visible in map
+  -- view, not hidden. The definition of UseMuskForce has been changed accordingly.)
+  common.MuskForceName = "BI-Musk_floor_general_owner"
+  common.UseMuskForce = not settings.startup["BI_Show_musk_floor_in_mapview"].value
 
   --~ ------------------------------------------------------------------------------------
   --~ -- Set some values for Musk floor tiles (bi-solar-mat), so we can use these with
@@ -28,8 +71,6 @@ return function (mod_name)
   -- from the start of a game session can be logged. This depends on a locally
   -- installed dummy mod to allow debugging output during development without
   -- spamming real users.
-
-  ------------------------------------------------------------------------------------
   -- If the "_debug" dummy mod is active, debugging will always be on. If you don't
   -- have this dummy mod but want to turn on logging anyway, set the default value
   -- to "true"!
@@ -111,120 +152,185 @@ return function (mod_name)
     return entity and entity.valid and entity.name or ""
   end
 
-    ------------------------------------------------------------------------------------
-    -- Are tiles from Alien Biomes available? (Returns true or false)
-    common.AB_tiles = function()
+  ------------------------------------------------------------------------------------
+  -- Are tiles from Alien Biomes available? (Returns true or false)
+  common.AB_tiles = function()
 
-      local ret = false
+    local ret = false
 
-      if game then
-        local AB = game.item_prototypes["fertilizer"].place_as_tile_result.result.name
-        -- In data stage, place_as_tile is only changed to Alien Biomes tiles if
-        -- both "vegetation-green-grass-1" and "vegetation-green-grass-3" exist. Therefore,
-        -- we only need to check for one tile in the control stage.
-        ret = (AB == "vegetation-green-grass-3") and true or false
-      else
-        ret = data.raw.tile["vegetation-green-grass-1"] and
-              data.raw.tile["vegetation-green-grass-3"] and true or false
-      end
-
-      return ret
+    if game then
+      local AB = game.item_prototypes["fertilizer"].place_as_tile_result.result.name
+      -- In data stage, place_as_tile is only changed to Alien Biomes tiles if
+      -- both "vegetation-green-grass-1" and "vegetation-green-grass-3" exist. Therefore,
+      -- we only need to check for one tile in the control stage.
+      ret = (AB == "vegetation-green-grass-3") and true or false
+    else
+      ret = data.raw.tile["vegetation-green-grass-1"] and
+            data.raw.tile["vegetation-green-grass-3"] and true or false
     end
 
+    return ret
+  end
 
-    ------------------------------------------------------------------------------------
-    -- Greatly improved version check for mods (thanks to eradicator!)
-    common.Version = {}
-    do
-      local V = common.Version
 
-      local function parse_version(vstr) -- string "Major.Minor.Patch"
-        local err = function()
-          error('Invalid Version String: <' .. tostring(vstr) .. '>')
-        end
-        local r = {vstr:match('^(%d+)%.(%d+)%.(%d+)$')}
+  ------------------------------------------------------------------------------------
+  -- Greatly improved version check for mods (thanks to eradicator!)
+  common.Version = {}
+  do
+    local V = common.Version
 
-        if #r ~= 3 then
-          err()
-        end
+    local function parse_version(vstr) -- string "Major.Minor.Patch"
+      local err = function()
+        error('Invalid Version String: <' .. tostring(vstr) .. '>')
+      end
+      local r = {vstr:match('^(%d+)%.(%d+)%.(%d+)$')}
 
-        for i=1, 3 do
-          r[i] = tonumber(r[i])
-        end
-
-        return r
+      if #r ~= 3 then
+        err()
       end
 
-      V.gtr = function(verA, verB)
-        local a, b, c = unpack(parse_version(verA))
-        local x, y, z = unpack(parse_version(verB))
-        return (a > x) or (a == x and b > y) or (a == x and b == y and c > z)
+      for i=1, 3 do
+        r[i] = tonumber(r[i])
       end
-      local map = {
-        ['=' ] = function(A, B) return not (V.gtr(A, B)   or V.gtr(B, A)) end,
-        ['>' ] = V.gtr,
-        ['!='] = function(A, B) return (V.gtr(A, B)       or V.gtr(B, A)) end,
-        ['<='] = function(A, B) return V.gtr(B, A)        or (not V.gtr(A, B)) end,
-        ['>='] = function(A, B) return V.gtr(A, B)        or (not V.gtr(B, A)) end,
-        ['~='] = function(A, B) return (V.gtr(A, B)       or V.gtr(B, A)) end,
-        ['<' ] = function(A, B) return V.gtr(B, A) end,
-      }
 
-      --~ common.Version.compare = function(mod_name, operator, need_version)
-      common.check_version = function(mod_name, operator, need_version)
+      return r
+    end
+
+    V.gtr = function(verA, verB)
+      local a, b, c = unpack(parse_version(verA))
+      local x, y, z = unpack(parse_version(verB))
+      return (a > x) or (a == x and b > y) or (a == x and b == y and c > z)
+    end
+    local map = {
+      ['=' ] = function(A, B) return not (V.gtr(A, B)   or V.gtr(B, A)) end,
+      ['>' ] = V.gtr,
+      ['!='] = function(A, B) return (V.gtr(A, B)       or V.gtr(B, A)) end,
+      ['<='] = function(A, B) return V.gtr(B, A)        or (not V.gtr(A, B)) end,
+      ['>='] = function(A, B) return V.gtr(A, B)        or (not V.gtr(B, A)) end,
+      ['~='] = function(A, B) return (V.gtr(A, B)       or V.gtr(B, A)) end,
+      ['<' ] = function(A, B) return V.gtr(B, A) end,
+    }
+
+    --~ common.Version.compare = function(mod_name, operator, need_version)
+    common.check_version = function(mod_name, operator, need_version)
 common.writeDebug("modname: %s\toperator: %s\tneeded version: %s", {mod_name, operator, need_version})
-        --~ local mod_version = script and script.active_mods[mod_name] or
+      --~ local mod_version = script and script.active_mods[mod_name] or
                              --~ game and game.active_mods[mod_name]
-        local mod_version = (mods and mods[mod_name]) or (script and script.active_mods[mod_name])
-        return map[operator](mod_version, need_version)
+      local mod_version = (mods and mods[mod_name]) or (script and script.active_mods[mod_name])
+      return map[operator](mod_version, need_version)
+    end
+  end
+
+  -- Function for removing all parts of compound entities
+  common.remove_entity = function(entity)
+    if entity and entity.valid then
+      entity.destroy()
+    end
+  end
+
+
+  -- Function to normalize positions
+  common.normalize_position = function(pos)
+    if pos and type(pos) == "table" and table_size(pos) == 2 then
+      local x = pos.x or pos[1]
+      local y = pos.y or pos[2]
+      if x and y and type(x) == "number" and type(y) == "number" then
+        return { x = x, y = y }
       end
     end
-
-    -- Function for removing all parts of compound entities
-    common.remove_entity = function(entity)
-      if entity and entity.valid then
-        entity.destroy()
-      end
-    end
+  end
 
 
-    -- Function to normalize positions
-    common.normalize_position = function(pos)
-      if pos and type(pos) == "table" and table_size(pos) == 2 then
-        local x = pos.x or pos[1]
-        local y = pos.y or pos[2]
-        if x and y and type(x) == "number" and type(y) == "number" then
-          return { x = x, y = y }
-        end
-      end
-    end
+  -- Check if argument is a valid surface
+  common.is_surface = function(surface)
+    local t = type(surface)
+    surface = (t == "number" or t == "string" and game.surfaces[surface]) or
+              (t == "table" and surface.object_name and
+                                surface.object_name == "LuaSurface" and surface)
+    return surface
+  end
 
 
-    -- Check if argument is a valid surface
-    common.is_surface = function(surface)
-      local t = type(surface)
-      surface = (t == "number" or t == "string" and game.surfaces[surface]) or
-                (t == "table" and surface.object_name and
-                                  surface.object_name == "LuaSurface" and surface)
-      return surface
-    end
-
-
-    -- Throw an error if a wrong argument has been passed to a function
-    common.arg_err = function(arg, arg_type)
-      error(string.format(
-          "Wrong argument! %s is not %s!",
-          (arg or "nil"), (arg_type and "a valid " .. arg_type or "valid")
-        )
+  -- Throw an error if a wrong argument has been passed to a function
+  common.arg_err = function(arg, arg_type)
+    error(string.format(
+        "Wrong argument! %s is not %s!",
+        (arg or "nil"), (arg_type and "a valid " .. arg_type or "valid")
       )
-    end
+    )
+  end
 
-    -- Rudimentary check of the arguments passed to a function
-    common.check_args = function(arg, arg_type, desc)
-      if not (arg and type(arg) == arg_type) then
-        common.arg_err(arg or "nil", desc or arg_type or "nil")
+  -- Rudimentary check of the arguments passed to a function
+  common.check_args = function(arg, arg_type, desc)
+    if not (arg and type(arg) == arg_type) then
+      common.arg_err(arg or "nil", desc or arg_type or "nil")
+    end
+  end
+
+
+
+  -- Make hidden entities unminable and indestructible
+  local function make_unminable(entities)
+    for e, entity in ipairs(entities or {}) do
+      if entity.valid then
+        entity.minable = false
+        entity.destructible = false
       end
     end
+  end
+
+  --------------------------------------------------------------------
+  -- Create and register hidden entities
+  common.create_entities = function(g_table, base_entity, hidden_entity_names, position, ...)
+    common.show("#g_table", g_table and table_size(g_table))
+    common.show("hidden_entity_names", hidden_entity_names)
+
+    common.check_args(g_table, "table")
+    common.check_args(base_entity, "table")
+    if not base_entity.valid then
+      common.arg_err(base_entity, "base entity")
+    elseif not next(hidden_entity_names) then
+      common.arg_err(hidden_entity_names, "array of hidden-entity names")
+    end
+    local pos = common.normalize_position(position)
+    if not pos then
+      common.arg_err(position or "nil", "position")
+    end
+
+    local entity
+
+    -- Initialize entry in global table
+    g_table[base_entity.unit_number] = {}
+    g_table[base_entity.unit_number].base = base_entity
+
+    -- Create hidden entities
+    for key, name in pairs(hidden_entity_names) do
+      entity = base_entity.surface.create_entity({
+        name = name,
+        position = pos,
+        force = base_entity.force,
+        raise_built = true
+      })
+
+      -- Make hidden entity unminable/undestructible
+      make_unminable({entity})
+
+      -- Add hidden entity to global table
+      g_table[base_entity.unit_number][key] = entity
+    end
+
+    -- Add optional values to global table
+    for k, v in pairs(... or {}) do
+      g_table[base_entity.unit_number][k] = v
+    end
+    common.writeDebug("g_table[base.unit_number]", g_table[base_entity.unit_number])
+  end
+
+
+  common.get_startup_setting = function(setting_name)
+    return settings.startup[setting_name] and settings.startup[setting_name].value
+  end
+
 ------------------------------------------------------------------------------------
 --                                    END OF FILE
 ------------------------------------------------------------------------------------

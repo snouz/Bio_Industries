@@ -54,7 +54,7 @@ data:extend({
     allow_decomposition = false,
     allow_as_intermediate = false,
     subgroup = "bio-bio-farm-intermediate-product",
-    order = "b[fertilizer]",
+    order = "b[bi-fertilizer]",
   },
 })
 

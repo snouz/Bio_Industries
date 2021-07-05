@@ -288,113 +288,141 @@ data:extend({
         count = 1
       }
     },
-    --~ walking_sound = {
-      --~ {
-        --~ filename = "__base__/sound/walking/concrete-01.ogg",
-        --~ volume = 1.2
-      --~ },
-      --~ {
-        --~ filename = "__base__/sound/walking/concrete-02.ogg",
-        --~ volume = 1.2
-      --~ },
-      --~ {
-        --~ filename = "__base__/sound/walking/concrete-03.ogg",
-        --~ volume = 1.2
-      --~ },
-      --~ {
-        --~ filename = "__base__/sound/walking/concrete-04.ogg",
-        --~ volume = 1.2
-      --~ }
-    --~ },
     walking_sound = sounds.walking_sound,
     map_color = {r = 93, g = 138, b = 168},
     pollution_absorption_per_second = 0,
     vehicle_friction_modifier = dirt_vehicle_speed_modifer
   },
-
+})
 
    ------- Hidden Electric pole for Solar Mat
-  {
-    type = "electric-pole",
-    name = "bi-musk-mat-pole",
-    icon = ICONPATH .. "solar-mat.png",
-    icon_size = 64,
-    icons = {
-      {
-        icon = ICONPATH .. "solar-mat.png",
-        icon_size = 64,
-      }
-    },
-    flags = {"not-blueprintable", "not-deconstructable", "placeable-off-grid", "not-on-map", "not-repairable"},
-    selectable_in_game = false,
-    draw_copper_wires = false,
-    max_health = 10,
-    resistances = {{type = "fire", percent = 100}},
-    collision_mask = {"ground-tile"},
-    collision_box = {{-0.0, -0.0}, {0.0, 0.0}},
-    selection_box = {{0, 0}, {0, 0}},
-    maximum_wire_distance = 1,
-    --~ maximum_wire_distance = 0,
-    supply_area_distance = 3,
-    pictures = {
+local hidden_pole = table.deepcopy(data.raw["electric-pole"]["small-electric-pole"])
+--~ {
+    --~ type = "electric-pole",
+    --~ name = "bi-musk-mat-pole",
+    --~ icon = ICONPATH .. "solar-mat.png",
+    --~ icon_size = 64,
+    --~ icons = {
+      --~ {
+        --~ icon = ICONPATH .. "solar-mat.png",
+        --~ icon_size = 64,
+      --~ }
+    --~ },
+    --~ flags = {"not-blueprintable", "not-deconstructable", "placeable-off-grid", "not-on-map", "not-repairable"},
+    --~ selectable_in_game = false,
+    --~ draw_copper_wires = false,
+    --~ max_health = 10,
+    --~ resistances = {{type = "fire", percent = 100}},
+    --~ collision_mask = {"ground-tile"},
+    --~ collision_box = {{-0.0, -0.0}, {0.0, 0.0}},
+    --~ selection_box = {{0, 0}, {0, 0}},
+    --~ maximum_wire_distance = 1,
+    --~ supply_area_distance = 3,
+    --~ pictures = {
       --~ filename = ICONPATH .. "empty.png",
       --~ filename = "__base__/graphics/icons/small-electric-pole.png",
-      filename = BioInd.is_debug and
-        "__base__/graphics/icons/small-electric-pole.png" or
-        ICONPATH .. "empty.png",
-      priority = "low",
-      width = 1,
-      height = 1,
-      frame_count = 1,
-      axially_symmetrical = false,
-      direction_count = 4,
-      shift = {0.75, 0},
-    },
-    connection_points = {
-      {
-        shadow = {
+      --~ filename = BioInd.is_debug and
+        --~ "__base__/graphics/icons/small-electric-pole.png" or
+        --~ ICONPATH .. "empty.png",
+      --~ priority = "low",
+      --~ width = 1,
+      --~ height = 1,
+      --~ frame_count = 1,
+      --~ axially_symmetrical = false,
+      --~ direction_count = 4,
+      --~ shift = {0.75, 0},
+    --~ },
+    --~ connection_points = {
+      --~ {
+        --~ shadow = {
 
-        },
-        wire = {
-          copper_wire = {-0, -0},
-        }
-      },
-      {
-        shadow = {
+        --~ },
+        --~ wire = {
+          --~ copper_wire = {-0, -0},
+        --~ }
+      --~ },
+      --~ {
+        --~ shadow = {
 
-        },
-        wire = {
-          copper_wire = {-0, -0},
-        }
-      },
-      {
-        shadow = {
+        --~ },
+        --~ wire = {
+          --~ copper_wire = {-0, -0},
+        --~ }
+      --~ },
+      --~ {
+        --~ shadow = {
 
-        },
-        wire = {
-          copper_wire = {-0, -0},
-        }
-      },
-      {
-        shadow = {
+        --~ },
+        --~ wire = {
+          --~ copper_wire = {-0, -0},
+        --~ }
+      --~ },
+      --~ {
+        --~ shadow = {
 
-        },
-        wire = {
-          copper_wire = {-0, -0},
-        }
-      }
-    },
+        --~ },
+        --~ wire = {
+          --~ copper_wire = {-0, -0},
+        --~ }
+      --~ }
+    --~ },
 
-    radius_visualisation_picture = {
-      filename = ICONPATH .. "empty.png",
-      width = 1,
-      height = 1,
-      priority = "low"
-    },
+    --~ radius_visualisation_picture = {
+      --~ filename = ICONPATH .. "empty.png",
+      --~ width = 1,
+      --~ height = 1,
+      --~ priority = "low"
+    --~ },
+  --~ },
+hidden_pole.name = "bi-musk-mat-pole"
+hidden_pole.icon = ICONPATH .. "solar-mat.png"
+hidden_pole.icon_size = 64
+hidden_pole.icons = {
+  {
+    icon = ICONPATH .. "solar-mat.png",
+    icon_size = 64,
+  }
+}
+hidden_pole.flags = {"not-blueprintable", "not-deconstructable", "placeable-off-grid", "not-on-map", "not-repairable"}
+hidden_pole.selectable_in_game = false
+hidden_pole.draw_copper_wires = BioInd.is_debug
+hidden_pole.max_health = 10
+hidden_pole.resistances = {{type = "fire", percent = 100}}
+hidden_pole.collision_mask = {"ground-tile"}
+hidden_pole.collision_box = {{-0.0, -0.0}, {0.0, 0.0}}
+hidden_pole.selection_box = {{0, 0}, {0, 0}}
+hidden_pole.maximum_wire_distance = 1
+hidden_pole.supply_area_distance = 3
+hidden_pole.pictures = BioInd.is_debug and hidden_pole.pictures or {
+  filename = ICONPATH .. "empty.png",
+  --~ filename = "__base__/graphics/icons/small-electric-pole.png",
+  --~ filename = BioInd.is_debug and
+    --~ "__base__/graphics/icons/small-electric-pole.png" or
+    --~ ICONPATH .. "empty.png",
+  priority = "low",
+  width = 1,
+  height = 1,
+  frame_count = 1,
+  axially_symmetrical = false,
+  direction_count = 1,
+  shift = {0.75, 0},
+}
+hidden_pole.connection_points = BioInd.is_debug and hidden_pole.connection_points or {
+  {
+    shadow = {},
+    wire = { copper_wire = {-0, -0} }
   },
+}
+hidden_pole.radius_visualisation_picture = {
+  filename = ICONPATH .. "empty.png",
+  width = 1,
+  height = 1,
+  priority = "low"
+}
+data:extend({hidden_pole})
 
-
-        ------- Hidden Solar Panel for Solar Mat
+data:extend({
+  ------- Hidden Solar Panel for Solar Mat
   {
     type = "solar-panel",
     name = "bi-musk-mat-solar-panel",

@@ -8,6 +8,7 @@ local PIPEPATH = ENTITYPATH .. "pipe/"
 
 --~ local BIGICONS = BioInd.check_base_version("0.18.0")
 
+log("rail_pictures(): " .. serpent.block(rail_pictures()))
 
 require("prototypes.Wood_Products.demo-remnants-wood")
 
@@ -1072,61 +1073,48 @@ data:extend({
 
 
 ------- Power Rail Pole - Hidden
-data:extend({
+local hidden_pole = table.deepcopy(data.raw["electric-pole"]["small-electric-pole"])
+hidden_pole.name = "bi-rail-hidden-power-pole"
+hidden_pole.flags = {
+  "not-deconstructable",
+  "not-on-map",
+  "placeable-off-grid",
+  "not-repairable",
+  "not-blueprintable",
+}
+hidden_pole.selectable_in_game = false
+hidden_pole.draw_copper_wires = BioInd.is_debug
+hidden_pole.max_health = 1
+hidden_pole.resistances = {{type = "fire", percent = 100}}
+hidden_pole.collision_mask = {}
+hidden_pole.collision_box = {{-0, -0}, {0, 0}}
+hidden_pole.selection_box = {{0, 0}, {0, 0}}
+hidden_pole.maximum_wire_distance = 9
+hidden_pole.supply_area_distance = 2
+hidden_pole.pictures = BioInd.is_debug and hidden_pole.pictures or {
+  filename = ICONPATH .. "empty.png",
+  priority = "low",
+  width = 1,
+  height = 1,
+  frame_count = 1,
+  axially_symmetrical = false,
+  direction_count = 1,
+}
+hidden_pole.connection_points = BioInd.is_debug and hidden_pole.connection_points or {
   {
-    type = "electric-pole",
-    name = "bi-rail-hidden-power-pole",
-    icon = "__base__/graphics/icons/small-electric-pole.png",
-    icon_size = 64,
-    icons = {
-      {
-        icon = "__base__/graphics/icons/small-electric-pole.png",
-        icon_size = 64,
-      }
-    },
-    flags = {
-      "not-deconstructable",
-      "not-on-map",
-      "placeable-off-grid",
-      "not-repairable",
-      "not-blueprintable",
-    },
-    selectable_in_game = false,
-    draw_copper_wires = false,
-    max_health = 1,
-    resistances = {{type = "fire", percent = 100}},
-    collision_mask = {},
-    collision_box = {{-0, -0}, {0, 0}},
-    selection_box = {{0, 0}, {0, 0}},
-    maximum_wire_distance = 9,
-    supply_area_distance = 2,
-    pictures = {
-      filename = ICONPATH .. "empty.png",
-      priority = "low",
-      width = 1,
-      height = 1,
-      frame_count = 1,
-      axially_symmetrical = false,
-      direction_count = 32,
-    },
-    --~ connection_points = {},
-    radius_visualisation_picture = {
-      filename = ICONPATH .. "empty.png",
-      width = 1,
-      height = 1,
-      priority = "low"
-    },
-  },
-})
--- Need 32 identical blank connection_points!
-local connection_points = {}
-for i = 1, 32 do
-  connection_points[i] = {
     shadow = {},
     wire = { copper_wire_tweak = {-0, -0} }
   }
-end
-data.raw["electric-pole"]["bi-rail-hidden-power-pole"].connection_points = connection_points
+}
+hidden_pole.radius_visualisation_picture = BioInd.is_debug and
+                                            hidden_pole.radius_visualisation_picture or {
+                                              filename = ICONPATH .. "empty.png",
+                                              width = 1,
+                                              height = 1,
+                                              priority = "low"
+                                            }
+data:extend({hidden_pole})
+
 
 ---- Wood Pipe
 data:extend({
@@ -1406,14 +1394,6 @@ data:extend({
 ------ Power to Rail Pole
 -- Changed to medium-electric pole so the built entity resembles the icon (0.18.1)
 --~ local my_pole_2 = util.table.deepcopy(data.raw["electric-pole"]["small-electric-pole"])
---~ my_pole_2.name = "bi-power-to-rail-pole"
---~ my_pole_2.icon = "__Bio_Industries__/graphics/icons/electric-to-rail.png"
---~ my_pole_2.icon_size = 64
---~ my_pole_2.icon_mipmaps = 1
---~ my_pole_2.minable = {mining_time = 1, result = "bi-power-to-rail-pole"}
---~ my_pole_2.maximum_wire_distance = 4
---~ my_pole_2.supply_area_distance = 3
---~ my_pole_2.pictures.tint = {r = 183/255, g = 125/255, b = 62/255, a = 1}
 local my_pole_2 = util.table.deepcopy(data.raw["electric-pole"]["medium-electric-pole"])
 my_pole_2.name = "bi-power-to-rail-pole"
 my_pole_2.icon = ICONPATH .. "electric-to-rail.png"
@@ -1431,110 +1411,3 @@ my_pole_2.maximum_wire_distance = BioInd.POWER_TO_RAIL_WIRE_DISTANCE
 my_pole_2.supply_area_distance = 3.5 -- 3 doesn't look right, 2.5 is too small
 my_pole_2.pictures.tint = {r = 183/255, g = 125/255, b = 62/255, a = 1}
 data:extend({my_pole_2})
-
---[[
----- Rail Replacement Group settings
-if data.raw["straight-rail"]["straight-rail"].fast_replaceable_group then
-
-        data.raw["straight-rail"]["bi-straight-rail-wood"].fast_replaceable_group = data.raw["straight-rail"]["straight-rail"].fast_replaceable_group
-
-else
-
-        data.raw["straight-rail"]["straight-rail"].fast_replaceable_group = "rail"
-        data.raw["straight-rail"]["bi-straight-rail-wood"].fast_replaceable_group = "rail"
-
-end
-
-if data.raw["curved-rail"]["curved-rail"].fast_replaceable_group then
-
-        data.raw["curved-rail"]["bi-curved-rail-wood"].fast_replaceable_group = data.raw["curved-rail"]["curved-rail"].fast_replaceable_group
-
-else
-
-        data.raw["curved-rail"]["curved-rail"].fast_replaceable_group = "rail"
-        data.raw["curved-rail"]["bi-curved-rail-wood"].fast_replaceable_group = "rail"
-
-end
-]]
-
---~ -- TESTING: Hidden power pole for powered rails
---~ local hidden_pole = table.deepcopy(data.raw["electric-pole"]["small-electric-pole"])
---~ hidden_pole.name = "bi-rail-hidden-power-pole"
---~ hidden_pole.pictures = {
-  --~ filename = ICONPATH .. "empty.png",
-  --~ priority = "low",
-  --~ width = 1,
-  --~ height = 1,
-  --~ frame_count = 1,
-  --~ axially_symmetrical = false,
-  --~ direction_count = 32,
---~ }
---~ hidden_pole.connection_points = {}
---~ for i = 1, 32 do
-  --~ hidden_pole.connection_points[i] = {
-    --~ shadow = {},
-    --~ wire = { copper_wire_tweak = {-0, -0} }
-  --~ }
---~ end
-
---~ hidden_pole.flags = {
-  --~ "not-deconstructable",
-  --~ "not-on-map",
-  --~ "placeable-off-grid",
-  --~ "not-repairable",
-  --~ "not-blueprintable",
---~ }
---~ hidden_pole.collision_mask = {}
---~ hidden_pole.collision_box = {{-0, -0}, {0, 0}}
---~ hidden_pole.maximum_wire_distance = 9
-  ------- Power Rail Pole - Hidden
---~ local hidden_pole = table.deepcopy(data.raw["electric-pole"]["small-electric-pole"])
---~ hidden_pole.name = "bi-rail-hidden-power-pole"
---~ hidden_pole.icon = "__base__/graphics/icons/small-electric-pole.png"
---~ hidden_pole.icon_size = 64
---~ hidden_pole.icons = {
-  --~ {
-    --~ icon = "__base__/graphics/icons/small-electric-pole.png",
-    --~ icon_size = 64,
-  --~ }
---~ }
---~ hidden_pole.flags = {
-  --~ "not-deconstructable",
-  --~ "not-on-map",
-  --~ "placeable-off-grid",
-  --~ "not-repairable",
-  --~ "not-blueprintable",
---~ }
---~ hidden_pole.selectable_in_game = false
---~ hidden_pole.draw_copper_wires = false
---~ hidden_pole.draw_circuit_wires = false
---~ hidden_pole.max_health = 1
---~ hidden_pole.resistances = {{type = "fire", percent = 100}}
---~ hidden_pole.collision_mask = {}
---~ hidden_pole.collision_box = {{-0, -0}, {0, 0}}
---~ hidden_pole.selection_box = {{0, 0}, {0, 0}}
---~ hidden_pole.maximum_wire_distance = 9
---~ hidden_pole.supply_area_distance = 2
---~ hidden_pole.pictures = {
-  --~ filename = ICONPATH .. "empty.png",
-  --~ priority = "low",
-  --~ width = 1,
-  --~ height = 1,
-  --~ frame_count = 1,
-  --~ axially_symmetrical = false,
-  --~ direction_count = 32,
---~ }
---~ hidden_pole.radius_visualisation_picture = {
-  --~ filename = ICONPATH .. "empty.png",
-  --~ width = 1,
-  --~ height = 1,
-  --~ priority = "low"
---~ }
---~ hidden_pole.connection_points = {}
---~ for i = 1, 32 do
-  --~ hidden_pole.connection_points[i] = {
-    --~ shadow = {},
-    --~ wire = { copper_wire_tweak = {-0, -0} }
-  --~ }
---~ end
---~ data:extend({ hidden_pole })

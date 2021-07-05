@@ -11,18 +11,35 @@ if not BI_Functions.lib then BI_Functions.lib = {} end
 if not thxbob then thxbob = {} end
 if not thxbob.lib then thxbob.lib = {} end
 
-BI.Settings.Bio_Cannon = settings.startup["BI_Bio_Cannon"].value
-BI.Settings.BI_Bio_Fuel = settings.startup["BI_Bio_Fuel"].value
-BI.Settings.BI_Game_Tweaks_Stack_Size = settings.startup["BI_Game_Tweaks_Stack_Size"].value
-BI.Settings.BI_Game_Tweaks_Recipe = settings.startup["BI_Game_Tweaks_Recipe"].value
-BI.Settings.BI_Game_Tweaks_Tree = settings.startup["BI_Game_Tweaks_Tree"].value
-BI.Settings.BI_Game_Tweaks_Small_Tree_Collisionbox = settings.startup["BI_Game_Tweaks_Small_Tree_Collisionbox"].value
-BI.Settings.BI_Game_Tweaks_Player = settings.startup["BI_Game_Tweaks_Player"].value
-BI.Settings.BI_Game_Tweaks_Disassemble = settings.startup["BI_Game_Tweaks_Disassemble"].value
-BI.Settings.BI_Game_Tweaks_Bot = settings.startup["BI_Game_Tweaks_Bot"].value
-BI.Settings.BI_Solar_Additions = settings.startup["BI_Solar_Additions"].value
+for var, name in pairs({
+  Bio_Cannon = "BI_Bio_Cannon",
+  BI_Bio_Fuel = "BI_Bio_Fuel",
+  BI_Easy_Bio_Gardens = "BI_Easy_Bio_Gardens",
+  BI_Game_Tweaks_Stack_Size = "BI_Game_Tweaks_Stack_Size",
+  BI_Game_Tweaks_Recipe = "BI_Game_Tweaks_Recipe",
+  BI_Game_Tweaks_Tree = "BI_Game_Tweaks_Tree",
+  BI_Game_Tweaks_Small_Tree_Collisionbox = "BI_Game_Tweaks_Small_Tree_Collisionbox",
+  BI_Game_Tweaks_Player = "BI_Game_Tweaks_Player",
+  BI_Game_Tweaks_Disassemble = "BI_Game_Tweaks_Disassemble",
+  BI_Game_Tweaks_Bot = "BI_Game_Tweaks_Bot",
+  BI_Solar_Additions = "BI_Solar_Additions"
+}) do
+  BI.Settings[var] = BioInd.get_startup_setting(name)
+end
+--~ BI.Settings.Bio_Cannon = settings.startup["BI_Bio_Cannon"].value
+--~ BI.Settings.BI_Bio_Fuel = settings.startup["BI_Bio_Fuel"].value
+--~ BI.Settings.BI_Easy_Bio_Gardens = settings.startup["BI_Easy_Bio_Gardens"].value
+--~ BI.Settings.BI_Game_Tweaks_Stack_Size = settings.startup["BI_Game_Tweaks_Stack_Size"].value
+--~ BI.Settings.BI_Game_Tweaks_Recipe = settings.startup["BI_Game_Tweaks_Recipe"].value
+--~ BI.Settings.BI_Game_Tweaks_Tree = settings.startup["BI_Game_Tweaks_Tree"].value
+--~ BI.Settings.BI_Game_Tweaks_Small_Tree_Collisionbox = settings.startup["BI_Game_Tweaks_Small_Tree_Collisionbox"].value
+--~ BI.Settings.BI_Game_Tweaks_Player = settings.startup["BI_Game_Tweaks_Player"].value
+--~ BI.Settings.BI_Game_Tweaks_Disassemble = settings.startup["BI_Game_Tweaks_Disassemble"].value
+--~ BI.Settings.BI_Game_Tweaks_Bot = settings.startup["BI_Game_Tweaks_Bot"].value
+--~ BI.Settings.BI_Solar_Additions = settings.startup["BI_Solar_Additions"].value
 
-BioInd.show("BI.Settings.BI_Game_Tweaks_Disassemble", BI.Settings.BI_Game_Tweaks_Disassemble)
+BioInd.show("BI.Settings.BI_Easy_Bio_Gardens", BI.Settings.BI_Easy_Bio_Gardens)
+--~ BioInd.show("BI.Settings.BI_Game_Tweaks_Disassemble", BI.Settings.BI_Game_Tweaks_Disassemble)
 --- Help Files
 require ("libs.item-functions") -- From Bob's Libary
 require ("libs.recipe-functions") -- From Bob's Libary

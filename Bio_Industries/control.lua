@@ -8,14 +8,9 @@ do
   end
 end
 
---~ -- Check if "omnimatter_fluid" is active
---~ local OMNImatter_fluid
---~ if script.active_mods["omnimatter_fluid"] then
-  --~ OMNImatter_fluid = true
---~ end
-
 
 local BioInd = require('common')('Bio_Industries')
+local settings_changed = require("settings_changed")
 
 -- We can't just check if Alien Biomes is active, because we need to know if
 -- the tiles we need from it exist in the game! To check this, we must call
@@ -35,22 +30,22 @@ require ("control_arboretum")
 --require ("Test_Spawn")
 ---*************
 
--- 0.17.42/0.18.09 fixed a bug where musk floor was created for the force "enemy".
--- Because it didn't belong to any player, in map view the electric grid overlay wasn't
--- shown for musk floor. Somebody complained about seeing it now, so starting with version
--- 0.17.45/0.18.13, there is a setting to hide the overlay again. If it is set to "true",
--- a new force will be created that the hidden electric poles of musk floor belong to.
--- (UPDATE: 0.18.29 reversed the setting -- if active, tiles will now be visible in map
--- view, not hidden. The definition of UseMuskForce has been changed accordingly.)
-local MuskForceName = "BI-Musk_floor_general_owner"
-local UseMuskForce = not settings.startup["BI_Show_musk_floor_in_mapview"].value
+--~ -- 0.17.42/0.18.09 fixed a bug where musk floor was created for the force "enemy".
+--~ -- Because it didn't belong to any player, in map view the electric grid overlay wasn't
+--~ -- shown for musk floor. Somebody complained about seeing it now, so starting with version
+--~ -- 0.17.45/0.18.13, there is a setting to hide the overlay again. If it is set to "true",
+--~ -- a new force will be created that the hidden electric poles of musk floor belong to.
+--~ -- (UPDATE: 0.18.29 reversed the setting -- if active, tiles will now be visible in map
+--~ -- view, not hidden. The definition of UseMuskForce has been changed accordingly.)
+--~ local MuskForceName = "BI-Musk_floor_general_owner"
+--~ local UseMuskForce = not settings.startup["BI_Show_musk_floor_in_mapview"].value
 
 local function Create_dummy_force()
   -- Create dummy force for musk floor if electric grid overlay should NOT be shown in map view
-    local f = game.create_force(MuskForceName)
+    local f = game.create_force(BioInd.MuskForceName)
     -- Set new force as neutral to every other force
     for name, force in pairs(game.forces) do
-      if name ~= MuskForceName then
+      if name ~= BioInd.MuskForceName then
         f.set_friend(force, false)
         f.set_cease_fire(force, true)
       end
@@ -58,7 +53,7 @@ local function Create_dummy_force()
     -- New force won't share chart data with any other force
     f.share_chart = false
 
-    BioInd.writeDebug("Created force: %s", {game.forces[MuskForceName].name})
+    BioInd.writeDebug("Created force: %s", {game.forces[BioInd.MuskForceName].name})
 end
 
 
@@ -88,9 +83,10 @@ local tile_patterns = {
 local function get_fixed_tiles()
   local list = {}
 
-  local tiles = game.tile_prototypes
+  --~ local tiles = game.tile_prototypes
 
-  for tile_name, tile in pairs(tiles) do
+  --~ for tile_name, tile in pairs(tiles) do
+  for tile_name, tile in pairs(game.tile_prototypes) do
     for p, pattern in ipairs(tile_patterns) do
       if tile_name:match(pattern) then
 BioInd.show("Found matching tile", tile_name)
@@ -132,66 +128,7 @@ local function get_arboretum_recipes()
 end
 
 
--- Make hidden entities unminable and indestructible
-local function make_unminable(entities)
-  for e, entity in ipairs(entities or {}) do
-    if entity.valid then
-      entity.minable = false
-      entity.destructible = false
-    end
-  end
-end
-
 --------------------------------------------------------------------
--- Create and register hidden entities
-local function create_entities(g_table, base_entity, hidden_entity_names, position, ...)
-BioInd.show("#g_table", g_table and table_size(g_table))
-BioInd.show("hidden_entity_names", hidden_entity_names)
-
-  BioInd.check_args(g_table, "table")
-  BioInd.check_args(base_entity, "table")
-  if not base_entity.valid then
-    BioInd.arg_err(base_entity, "base entity")
-  elseif not next(hidden_entity_names) then
-    BioInd.arg_err(hidden_entity_names, "array of hidden-entity names")
-  end
-  local pos = BioInd.normalize_position(position)
-  if not pos then
-    BioInd.arg_err(position or "nil", "position")
-  end
-
-  local entity
-
-  -- Initialize entry in global table
-  g_table[base_entity.unit_number] = {}
-  g_table[base_entity.unit_number].base = base_entity
-
-  -- Create hidden entities
-  for key, name in pairs(hidden_entity_names) do
-    entity = base_entity.surface.create_entity({
-      name = name,
-      position = pos,
-      force = base_entity.force
-    })
-
-    -- Make hidden entity unminable/undestructible
-    make_unminable({entity})
-
-    -- Add hidden entity to global table
-    g_table[base_entity.unit_number][key] = entity
-  end
-
-  -- Add optional values to global table
-  for k, v in pairs(... or {}) do
-    g_table[base_entity.unit_number][k] = v
-  end
-BioInd.writeDebug("g_table[base.unit_number]", g_table[base_entity.unit_number])
-end
-
-
---------------------------------------------------------------------
---~ local function On_Init()
---~ log("Entered On_Init!")
 local function init()
 BioInd.writeDebug("Entered init!")
   if BioInd.is_debug then
@@ -218,6 +155,9 @@ BioInd.writeDebug("Entered init!")
   -- Global table for bio farm
   global.bi_bio_farm_table = global.bi_bio_farm_table or {}
 
+  -- Global table for bio garden
+  global.bi_bio_garden_table = global.bi_bio_garden_table or {}
+
   -- Global table for solar boiler
   global.bi_solar_boiler_table = global.bi_solar_boiler_table or {}
 
@@ -241,17 +181,14 @@ BioInd.writeDebug("Entered init!")
   -- Global table for mod compatibilities
   global.compatible = global.compatible or {}
   global.compatible.AlienBiomes = BioInd.AB_tiles()
-  --~ global.compatible.OmniFluid = script.active_mods["omnimatter_fluid"] and true or false
 
   -- Global table of ingredients for terraformer recipes
   global.Arboretum_Recipes = get_arboretum_recipes()
 
-  --~ -- enable researched recipes
-  --~ for i, force in pairs(game.forces) do
-    --~ force.reset_technologies()
-    --~ force.reset_recipes()
-  --~ end
- -- enable researched recipes
+  -- Global table for storing the last state of certain mod settings
+  global.mod_settings = global.mod_settings or {}
+
+  -- enable researched recipes
   for i, force in pairs(game.forces) do
     for _, tech in pairs(force.technologies) do
       if tech.researched then
@@ -266,7 +203,7 @@ BioInd.writeDebug("Entered init!")
   end
 
   -- Create dummy force for musk floor if electric grid overlay should NOT be shown in map view
-  if UseMuskForce and not game.forces[MuskForceName] then
+  if BioInd.UseMuskForce and not game.forces[BioInd.MuskForceName] then
     --~ BioInd.writeDebug("Force for musk floor is required but doesn't exist.")
     Create_dummy_force()
   end
@@ -304,79 +241,78 @@ BioInd.writeDebug("On Configuration changed: %s", {ConfigurationChangedData})
 
   -- Has setting BI_Show_musk_floor_in_mapview changed?
   if ConfigurationChangedData.mod_startup_settings_changed then
-    --~ -- Create dummy force if necessary (Moved to init()!)
-    --~ if UseMuskForce and not game.forces[MuskForceName] then
-      --~ Create_dummy_force()
+
+    --~ -- Look for solar panels on every surface. They determine the force poles will use
+    --~ -- if the electric grid overlay will be shown in mapview.
+    --~ local sm_panel_name = "bi-musk-mat-solar-panel"
+    --~ local sm_pole_name = "bi-musk-mat-pole"
+
+    --~ -- If dummy force is not used, force of a hidden pole should be that of the hidden solar panel.
+    --~ -- That force will be "enemy" for poles/solar panels created with versions of Bio Industries
+    --~ -- prior to 0.17.45/0.18.13 because of the bug. We can fix that for singleplayer games by setting
+    --~ -- the force to player force. In multiplayer games, we can do this as well if all players are
+    --~ -- on the same force. If there are several forces that have players, it's impossible to find out
+    --~ -- which force built a certain musk floor tile, so "enemy" will still be used.
+    --~ -- (Only fix in this case: Players must remove and rebuild all existing musk floor tiles!)
+    --~ -- local single_player_force = game.is_multiplayer() and nil or game.players[1].force.name
+    --~ local force = nil
+
+    --~ -- Always use dummy force if option is set
+    --~ if UseMuskForce then
+      --~ force = MuskForceName
+    --~ -- Singleplayer mode: use force of first player
+    --~ elseif not game.is_multiplayer() then
+      --~ force = game.players[1].force.name
+    --~ -- Multiplayer game
+    --~ else
+      --~ local count = 0
+      --~ -- Count forces with players
+      --~ for _, check_force in pairs(game.forces) do
+       --~ -- if check_force.players ~= {} then
+        --~ if next(check_force.players) then
+          --~ force = check_force.name
+          --~ count = count + 1
+        --~ end
+      --~ end
+      --~ -- Several forces with players: reset force to nil now and use force of panel later
+      --~ -- (If this happens in a game were musk floor was created the buggy way with "force == nil",
+      --~ --  it will be impossible to determine which force built it, so the force will still be
+      --~ --  the default, i.e. "enemy".)
+      --~ if count > 1 then
+        --~ -- force = panel.force
+        --~ force = nil
+      --~ end
     --~ end
 
+    --~ for name, surface in pairs(game.surfaces) do
+      --~ BioInd.writeDebug("Looking for %s on surface %s", {sm_panel_name, name})
+      --~ local sm_panel = surface.find_entities_filtered{name = sm_panel_name}
+      --~ local sm_pole = {}
 
-  -- Look for solar panels on every surface. They determine the force poles will use
-  -- if the electric grid overlay will be shown in mapview.
-    local sm_panel_name = "bi-musk-mat-solar-panel"
-    local sm_pole_name = "bi-musk-mat-pole"
+      --~ -- Look for hidden poles on position of hidden panels
+      --~ for p, panel in ipairs(sm_panel) do
+        --~ sm_pole = surface.find_entities_filtered{
+          --~ name = sm_pole_name,
+          --~ position = panel.position,
+          --~ -- limit = 1
+        --~ }
+        --~ -- If more than one hidden pole exists at that position for some reason, remove all but the first!
+        --~ if #sm_pole > 1 then
+--~ BioInd.writeDebug("Number of poles for panel %g: %g", {p, #sm_pole})
+          --~ for i = 2, #sm_pole do
+--~ BioInd.writeDebug("Destroying pole number %g", {i})
+            --~ sm_pole[i].destroy()
+          --~ end
+        --~ end
 
-    -- If dummy force is not used, force of a hidden pole should be that of the hidden solar panel.
-    -- That force will be "enemy" for poles/solar panels created with versions of Bio Industries
-    -- prior to 0.17.45/0.18.13 because of the bug. We can fix that for singleplayer games by setting
-    -- the force to player force. In multiplayer games, we can do this as well if all players are
-    -- on the same force. If there are several forces that have players, it's impossible to find out
-    -- which force built a certain musk floor tile, so "enemy" will still be used.
-    -- (Only fix in this case: Players must remove and rebuild all existing musk floor tiles!)
-    --~ local single_player_force = game.is_multiplayer() and nil or game.players[1].force.name
-    local force = nil
-
-    -- Always use dummy force if option is set
-    if UseMuskForce then
-      force = MuskForceName
-    -- Singleplayer mode: use force of first player
-    elseif not game.is_multiplayer() then
-      force = game.players[1].force.name
-    -- Multiplayer game
-    else
-      local count = 0
-      -- Count forces with players
-      for _, check_force in pairs(game.forces) do
-        if check_force.players ~= {} then
-          force = check_force.name
-          count = count + 1
-        end
-      end
-      -- Several forces with players: reset force to nil now and use force of panel later
-      -- (If this happens in a game were musk floor was created the buggy way with "force == nil",
-      --  it will be impossible to determine which force built it, so the force will still be
-      --  the default, i.e. "enemy".)
-      if count > 1 then
-        --~ force = panel.force
-        force = nil
-      end
-    end
-
-    for name, surface in pairs(game.surfaces) do
-      BioInd.writeDebug("Looking for %s on surface %s", {sm_panel_name, name})
-      local sm_panel = surface.find_entities_filtered{name = sm_panel_name}
-      local sm_pole = {}
-
-      -- Look for hidden poles on position of hidden panels
-      for p, panel in ipairs(sm_panel) do
-        sm_pole = surface.find_entities_filtered{
-          name = sm_pole_name,
-          position = panel.position,
-          --~ limit = 1
-        }
-        -- If more than one hidden pole exists at that position for some reason, remove all but the first!
-        if #sm_pole > 1 then
-BioInd.writeDebug("Number of poles for panel %g: %g", {p, #sm_pole})
-          for i = 2, #sm_pole do
-BioInd.writeDebug("Destroying pole number %g", {i})
-            sm_pole[i].destroy()
-          end
-        end
-
-        -- Set force of the pole
-        sm_pole[1].force = force or panel.force
-      end
-    end
-    BioInd.writeDebug("Electric grid overlay of musk floor will be %s in map view.",            {UseMuskForce and "hidden" or "displayed"})
+        --~ -- Set force of the pole
+        --~ sm_pole[1].force = force or panel.force
+      --~ end
+    --~ end
+    --~ BioInd.writeDebug("Electric grid overlay of musk floor will be %s in map view.",
+                      --~ {UseMuskForce and "hidden" or "displayed"})
+    settings_changed.musk_floor()
+    settings_changed.bio_garden()
   end
 end
 
@@ -466,115 +402,41 @@ local boiler_name, lamp_name, pole_name, radar_name, panel_name, overlay_name
     --- Bio Farm has been built
   elseif entity.name == "bi-bio-farm" then
     BioInd.writeDebug("Bio Farm has been built")
-    --~ local b_farm = entity
 
-    --~ local pole_name = "bi-bio-farm-electric-pole"
-    --~ local panel_name = "bi-bio-farm-solar-panel"
-    --~ local lamp_name = "bi-bio-farm-light"
     pole_name = "bi-bio-farm-electric-pole"
     panel_name = "bi-bio-farm-solar-panel"
     lamp_name = "bi-bio-farm-light"
     hidden_entities = {pole = pole_name, panel = panel_name, lamp = lamp_name}
-    --~ -- Hidden Power Pole
-    --~ local create_pole = surface.create_entity({
-      --~ name = pole_name,
-      --~ position = position,
-      --~ force = force
-    --~ })
 
-    --~ -- Hidden Solar Panel
-    --~ local create_panel = surface.create_entity({
-      --~ name = panel_name,
-      --~ position = position,
-      --~ force = force
-    --~ })
-
-    --~ -- Hidden Lamp
-    --~ local create_lamp = surface.create_entity({
-      --~ name = lamp_name,
-      --~ position = position,
-      --~ force = force
-    --~ })
-
-    --~ create_pole.minable = false
-    --~ create_pole.destructible = false
-    --~ create_panel.minable = false
-    --~ create_panel.destructible = false
-    --~ create_lamp.minable = false
-    --~ create_lamp.destructible = false
-
-    --~ -- Group Multiple Entities Together
-    --~ global.bi_bio_farm_table[b_farm.unit_number] = {
-      --~ base = b_farm,
-      --~ pole = create_pole,
-      --~ panel = create_panel,
-      --~ lamp = create_lamp
-    --~ }
-
-    create_entities(global.bi_bio_farm_table, base, hidden_entities, base.position)
+    BioInd.create_entities(global.bi_bio_farm_table, base, hidden_entities, base.position)
     BioInd.writeDebug("Stored Biofarm %g in table: %s", {base.unit_number,    global.bi_bio_farm_table[base.unit_number]})
+
+    --- Bio Garden has been built
+  elseif entity.name == "bi-bio-garden" then
+    BioInd.writeDebug("Bio Garden has been built")
+    pole_name = "bi-bio-garden-hidden-pole"
+    hidden_entities = {pole = pole_name}
+
+    BioInd.create_entities(global.bi_bio_garden_table, base, hidden_entities, base.position)
+    BioInd.writeDebug("Stored Bio garden %g in table: %s", {base.unit_number,    global.bi_bio_garden_table[base.unit_number]})
 
   --- Bio Solar Boiler / Solar Plant has been built
   elseif entity.name == "bi-solar-boiler" then
    BioInd.writeDebug("Bio Solar Boiler has been built")
-    --~ local solar_plant = entity
-    --~ local boiler_solar = "bi-solar-boiler-panel"
-    --~ local sm_pole_name = "bi-hidden-power-pole"
+
     boiler_name = "bi-solar-boiler-panel"
     pole_name = "bi-hidden-power-pole"
     hidden_entities = {boiler = boiler_name, pole = pole_name}
-
-    --~ -- Hidden Solar Panel
-    --~ local create_solar_boiler = surface.create_entity({
-      --~ name = boiler_solar,
-      --~ position = position,
-      --~ force = force
-    --~ })
-
-    --~ -- Hidden Power Pole
-    --~ local create_sm_pole = surface.create_entity({
-      --~ name = sm_pole_name,
-      --~ position = position,
-      --~ force = force
-    --~ })
-
-    --~ create_solar_boiler.minable = false
-    --~ create_solar_boiler.de,löstructible = false
-    --~ create_sm_pole.minable = false
-    --~ create_sm_pole.destructible = false
-
-    --~ -- Group Multiple Entities Together
-    --~ global.bi_solar_boiler_table[solar_plant.unit_number] = {
-      --~ base = solar_plant,
-      --~ boiler = create_solar_boiler,
-      --~ pole = create_sm_pole
-    --~ }
-    create_entities(global.bi_solar_boiler_table, base, hidden_entities, base.position)
+    BioInd.create_entities(global.bi_solar_boiler_table, base, hidden_entities, base.position)
     BioInd.writeDebug("Stored solar boiler %g in table: %s", {base.unit_number, global.bi_solar_boiler_table[base.unit_number]})
 
     --- Solar Farm has been built
   elseif entity.name == "bi-bio-solar-farm" then
     BioInd.writeDebug("Bio Solar Farm has been built")
-    --~ local solar_farm = entity
-    --~ local sm_pole_name = "bi-hidden-power-pole"
     pole_name = "bi-hidden-power-pole"
     hidden_entities = {pole = pole_name}
 
-    --~ -- Hidden Power Pole
-    --~ local create_sm_pole = surface.create_entity({
-      --~ name = sm_pole_name,
-      --~ position = position,
-      --~ force = force
-    --~ })
-    --~ create_sm_pole.minable = false
-    --~ create_sm_pole.destructible = false
-
-    --~ -- Group Multiple Entities Together
-    --~ global.bi_solar_farm_table[solar_farm.unit_number] = {
-      --~ base = solar_farm,
-      --~ pole = create_sm_pole
-    --~ }
-    create_entities(global.bi_solar_farm_table, base, hidden_entities, base.position)
+    BioInd.create_entities(global.bi_solar_farm_table, base, hidden_entities, base.position)
 
     BioInd.writeDebug("Bio Solar Farm %g in table: %s", {base.unit_number, global.bi_solar_farm_table[base.unit_number]})
 
@@ -584,43 +446,8 @@ local boiler_name, lamp_name, pole_name, radar_name, panel_name, overlay_name
       (entity.name == "bi-bio-cannon-area" or
       -- Built from blueprint
        entity.name == "bi-bio-cannon") then
-    --~ local New_Bio_Cannon, New_Bio_CannonR
 
     BioInd.writeDebug("Bio Cannon has been built")
-
-    --~ -- Hidden Radar
-    --~ New_Bio_CannonR = surface.create_entity({
-      --~ name = "Bio-Cannon-r",
-      --~ position = position,
-      --~ direction = event.created_entity.direction,
-      --~ force = force
-    --~ })
-    --~ New_Bio_CannonR.operable = false
-    --~ New_Bio_CannonR.destructible = false
-    --~ New_Bio_CannonR.minable = false
-
-    --~ -- New Cannon, the first was just used for Radius overlay
-    --~ -- (If normally built -- if built from blueprint we just use the same code anyway.)
-    --~ New_Bio_Cannon = surface.create_entity({
-      --~ name = "bi-bio-cannon",
-      --~ position = position,
-      --~ direction = event.created_entity.direction,
-      --~ force = force
-    --~ })
-    --~ New_Bio_Cannon.health = event.created_entity.health
-
-    --~ if not global.Bio_Cannon_Table then
-      --~ global.Bio_Cannon_Table = {}
-      --~ Event.register(defines.events.on_tick, function(event) end)
-    --~ end
-
-    --~ -- Group Multiple Entities Together
-    --~ -- table.insert(global.Bio_Cannon_Table, {New_Bio_Cannon, New_Bio_CannonR, 0})
-    --~ global.Bio_Cannon_Table[New_Bio_Cannon.unit_number] = {
-      --~ base = New_Bio_Cannon,
-      --~ radar = New_Bio_CannonR,
-      --~ delay = 0
-    --~ }
 
     radar_name = "Bio-Cannon-r"
     hidden_entities = {radar = radar_name}
@@ -634,15 +461,7 @@ local boiler_name, lamp_name, pole_name, radar_name, panel_name, overlay_name
     })
     base.health = entity.health
 
-    --~ New_Bio_CannonR.operable = false
-
-    -- Group Multiple Entities Together
-    --~ global.Bio_Cannon_Table[New_Bio_Cannon.unit_number] = {
-      --~ base = New_Bio_Cannon,
-      --~ radar = New_Bio_CannonR,
-      --~ delay = 0
-    --~ }
-    create_entities(global.Bio_Cannon_Table, base, hidden_entities, base.position, {delay = 0})
+    BioInd.create_entities(global.Bio_Cannon_Table, base, hidden_entities, base.position, {delay = 0})
     global.Bio_Cannon_Table[base.unit_number].radar.operable = false
 
     -- Remove the "Overlay" Entity
@@ -650,7 +469,6 @@ local boiler_name, lamp_name, pole_name, radar_name, panel_name, overlay_name
     BioInd.writeDebug("Stored Bio Cannon %g in table: %s", {#global.Bio_Cannon_Table, global.Bio_Cannon_Table})
 
   --- Arboretum has been built
-  --~ if entity.valid and entity.name == "bi-arboretum-area" then
   elseif
       -- Built normally
       entity.name == "bi-arboretum-area" or
@@ -662,54 +480,7 @@ local boiler_name, lamp_name, pole_name, radar_name, panel_name, overlay_name
     radar_name = "bi-arboretum-radar"
     pole_name = "bi-hidden-power-pole"
     lamp_name = "bi-bio-farm-light"
-    hidden_entities = {pole = pole_name, lamp = lamp_name}
-    --~ -- New Arboretum, the first was just used for Radius overlay
-    --~ local create_arboretum = surface.create_entity({
-      --~ name = arboretum_new,
-      --~ position = position,
-      --~ direction = entity.direction,
-      --~ force = force
-    --~ })
-    --~ local position_c = {position.x - 3.5, position.y + 3.5}
-
-    --~ -- Radar
-    --~ local create_radar = surface.create_entity({
-      --~ name = radar_name,
-      --~ position = position_c,
-      --~ direction = entity.direction,
-      --~ force = force
-    --~ })
-
-    --~ -- Hidden pole
-    --~ local create_pole = surface.create_entity({
-      --~ name = pole_name,
-      --~ position = position,
-      --~ direction = entity.direction,
-      --~ force = force
-    --~ })
-
-    --~ -- Hidden Lamp
-    --~ local create_lamp = surface.create_entity({
-      --~ name = lamp_name,
-      --~ position = position,
-      --~ force = force
-    --~ })
-
-    --~ create_radar.minable = false
-    --~ create_radar.destructible = false
-    --~ create_pole.minable = false
-    --~ create_pole.destructible = false
-    --~ create_lamp.minable = false
-    --~ create_lamp.destructible = false
-
-    --~ -- Group Multiple Entities Together
-    --~ global.Arboretum_Table[create_arboretum.unit_number] = {
-      --~ base = create_arboretum,
-      --~ radar = create_radar,
-      --~ pole = create_pole,
-      --~ lamp = create_lamp
-    --~ }
-    --~ global.Arboretum_Radar_Table[create_radar.unit_number] = create_arboretum.unit_number
+    hidden_entities = {lamp = lamp_name, pole = pole_name}
 
     -- New Arboretum, the first was just used for Radius overlay
     base = surface.create_entity({
@@ -724,12 +495,13 @@ local boiler_name, lamp_name, pole_name, radar_name, panel_name, overlay_name
       name = radar_name,
       position = {position.x - 3.5, position.y + 3.5},
       direction = entity.direction,
-      force = force
+      force = force,
+      raise_built = true
     })
     create_radar.minable = false
     create_radar.destructible = false
 
-    create_entities(global.Arboretum_Table, base, hidden_entities, base.position,
+    BioInd.create_entities(global.Arboretum_Table, base, hidden_entities, base.position,
                     {radar = create_radar})
 
     global.Arboretum_Radar_Table[create_radar.unit_number] = base.unit_number
@@ -742,30 +514,13 @@ local boiler_name, lamp_name, pole_name, radar_name, panel_name, overlay_name
     entity.destroy()
 
   -- Power Rail
-  --~ elseif
-          --~ (entity.name == "bi-straight-rail-power" or
-           --~ entity.name == "bi-curved-rail-power") then
   elseif entity.name:match("bi%-[^%-]+%-rail%-power") then
     BioInd.writeDebug("Power Rail has been built")
 
-    --~ local rail_track = entity
     pole_name = "bi-rail-hidden-power-pole"
     hidden_entities = {pole = pole_name}
 
-    --~ -- Create Hidden Power Pole
-    --~ local create_rail_pole = surface.create_entity({
-      --~ name = pole_name,
-      --~ position = position,
-      --~ force = force
-    --~ })
-
-    --~ create_rail_pole.minable = false
-    --~ create_rail_pole.destructible = false
-
-    --~ -- Group Multiple Entities Together Together
-    --~ global.bi_power_rail_table[rail_track.unit_number] = {base = rail_track, pole = create_rail_pole}
-
-    create_entities(global.bi_power_rail_table, base, hidden_entities, base.position)
+    BioInd.create_entities(global.bi_power_rail_table, base, hidden_entities, base.position)
 
     pole = global.bi_power_rail_table[base.unit_number].pole
     if pole.valid then
@@ -820,7 +575,6 @@ BioInd.writeDebug("Rail %s of %s (%s): %s (%s)", {direction, base.name, base.uni
     BioInd.writeDebug("Electric pole has been built")
 
     pole = entity
-    --~ local neighbours = pole.neighbours["copper"]
 
     for n, neighbour in ipairs(pole.neighbours["copper"] or {}) do
       if neighbour.name == "bi-rail-hidden-power-pole" then
@@ -835,6 +589,7 @@ end
 
 local remove_compound_entities = {
   ["bi-bio-farm"] = {tab = "bi_bio_farm_table", hidden = {"pole", "panel", "lamp"}},
+  ["bi-bio-garden"] = {tab = "bi_bio_garden_table", hidden = {"pole"}},
   ["bi-bio-solar-farm"] = {tab = "bi_solar_farm_table", hidden = {"pole"}},
   ["bi-solar-boiler"] = {tab = "bi_solar_boiler_table", hidden = {"boiler", "pole"}},
   ["bi-straight-rail-power"] = {tab = "bi_power_rail_table", hidden = {"pole"}},
@@ -847,7 +602,7 @@ local function remove_plants(entity_position, tabl)
 BioInd.writeDebug("Entered function remove_plants(%s, %s)", {entity_position or "nil", tabl or "nil"})
     local e = BioInd.normalize_position(entity_position)
     if not e then
-      BioInd.arg_err(entity_position or "nil", "positio")
+      BioInd.arg_err(entity_position or "nil", "position")
     end
     BioInd.check_args(tabl, "table")
 
@@ -872,83 +627,6 @@ BioInd.writeDebug("Entered function On_Pre_Remove(%s)", {event})
     BioInd.writeDebug("No valid entity -- nothing to do!")
     return
   end
-
-  --~ --- Bio Farm has been removed
-  --~ if entity.name == "bi-bio-farm" then
-  --~ BioInd.writeDebug("Bio Farm has been removed")
-    --~ local bi_bio_farm = global.bi_bio_farm_table[entity.unit_number]
-    --~ if bi_bio_farm then
-      --~ for e, ent in ipairs({"pole", "panel", "lamp"}) do
-        --~ BioInd.remove_entity(bi_bio_farm[ent])
-      --~ end
-      --~ global.bi_bio_farm_table[entity.unit_number] = nil
-    --~ end
-  --~ end
-
-  --~ --- Bio Solar Farm has been removed
-  --~ if entity.valid and entity.name == "bi-bio-solar-farm" then
-    --~ BioInd.writeDebug("Solar Farm has been removed")
-    --~ local bi_solar_farm = global.bi_solar_farm_table[entity.unit_number]
-    --~ if bi_solar_farm then
-      --~ BioInd.remove_entity(bi_solar_farm.pole)
-      --~ global.bi_solar_farm_table[entity.unit_number] = nil
-    --~ end
-  --~ end
-
-  --~ --- Bio Solar Boiler has been removed
-  --~ if entity.valid and entity.name == "bi-solar-boiler" then
-    --~ BioInd.writeDebug("Solar Boiler has been removed")
-    --~ local bi_solar_boiler = global.bi_solar_boiler_table[entity.unit_number]
-    --~ if bi_solar_boiler then
-      --~ BioInd.remove_entity(bi_solar_boiler.boiler)
-      --~ BioInd.remove_entity(bi_solar_boiler.pole)
-      --~ global.bi_solar_boiler_table[entity.unit_number] = nil
-    --~ end
-  --~ end
-
-  --~ --- Power Rail has been removed
-  -- if (entity.valid and entity.name == "bi-straight-rail-power") or
-    -- (entity.valid and entity.name == "bi-curved-rail-power") then
-  --~ if entity.valid and entity.name:match("bi%-%a+%-rail%-power") then
-    --~ BioInd.writeDebug("Power-Rail has been removed")
-    --~ local bi_power_rail = global.bi_power_rail_table[entity.unit_number]
-    --~ if bi_power_rail then
-      --~ -- Connections must be explicitely removed, otherwise the poles from the
-      --~ -- remaining rails will automatically connect and gap the bridge in the
-      --~ -- powersupply
-      --~ bi_power_rail.pole.disconnect_neighbour()
-      --~ BioInd.remove_entity(bi_power_rail.pole)
-      --~ global.bi_power_rail_table[entity.unit_number] = nil
-    --~ end
-  --~ end
-
-  --~ --- Rail-to-power connector has been removed
-  --~ if entity.valid and entity.name == "bi-power-to-rail-pole" then
-    --~ BioInd.writeDebug("Rail-to-power connector has been removed")
-    --~ -- Connections must be explicitely removed, otherwise the poles from the
-    --~ -- different rail tracks hooked up to this connector will automatically
-    --~ -- keep the separate power networks connected
-    --~ entity.disconnect_neighbour()
-    --~ BioInd.writeDebug("Removed copper wires from %s (%g)", {entity.name, entity.unit_number})
-  --~ end
-
-  --~ --- Arboretum has been removed
-  --~ if entity.valid and entity.name == "bi-arboretum" then
-
-    --~ local arboretum = global.Arboretum_Table[entity.unit_number]
-    --~ if arboretum then
-    --~ --game.print("passed if statement: global.Arboretum_Table[entity.unit_number]")  -- it does not get here now!
-      --~ if arboretum.radar then
-        --~ global.Arboretum_Radar_Table[arboretum.radar.unit_number] = nil
-      --~ end
-
-      --~ for e, ent in ipairs({"radar", "pole", "lamp"}) do
-        --~ BioInd.remove_entity(arboretum[ent])
-      --~ end
-
-      --~ global.Arboretum_Table[entity.unit_number] = nil
-    --~ end
-  --~ end
 
   local compound_entity = remove_compound_entities[entity.name]
   local base_entry = compound_entity and global[compound_entity.tab][entity.unit_number]
@@ -986,84 +664,16 @@ BioInd.writeDebug("Removing hidden entity %s %s", {base_entry[hidden].name, base
     BioInd.writeDebug("Rail-to-power connector has been removed")
     entity.disconnect_neighbour()
     BioInd.writeDebug("Removed copper wires from %s (%g)", {entity.name, entity.unit_number})
-  --~ end
 
-  -- Seedling
-  --~ if entity.valid and entity.name == "seedling" then
-    --~ BioInd.writeDebug("Seedling has been removed")
-    --~ -- positions from entity and table
-    --~ local e = BioInd.normalize_position(entity.position)
-    --~ local t
-    --~ for k, v in pairs(global.bi.tree_growing) do
-      --~ t = BioInd.normalize_position(v.position)
-      --~ if e and t and t.x == e.x and t.y == e.y then
-        --~ table.remove(global.bi.tree_growing, k)
-        --~ return
-      --~ end
-    --~ end
-  --~ end
+  -- Removed seedling
   elseif entity.name == "seedling" then
     BioInd.writeDebug("Seedling has been removed")
     remove_plants(entity.position, global.bi.tree_growing)
-  --~ end
 
-  --~ --- Tree Stage 1 Removed
-  --~ if entity.valid and entity.type == "tree" and global.bi.trees[entity.name] then
-    --~ BioInd.writeDebug("Tree Removed removed name: %s", {entity.name})
-    --~ local tree_name = (string.find(entity.name, "bio%-tree%-"))
-    --~ BioInd.writeDebug("Tree Removed removed name: %s", {tree_name})
-    --~ if tree_name then
-      --~ local tree_stage_1 = (string.find(entity.name, '1.-$'))
-      --~ if tree_stage_1 then
-        --~ BioInd.writeDebug("1: Entity Name: %s\tTree last two digits: %s", {entity.name, tree_stage_1})
-        --~ for k, v in pairs(global.bi.tree_growing_stage_1) do
-          --~ if v.position.x == entity.position.x and v.position.y == entity.position.y then
-            --~ table.remove(global.bi.tree_growing_stage_1, k)
-            --~ return
-          --~ end
-        --~ end
-      --~ end
-
-      --~ local tree_stage_2 = (string.find(entity.name, '2.-$'))
-      --~ if tree_stage_2 then
-        --~ BioInd.writeDebug("2: Entity Name: %s (%g)", {entity.name, tree_stage_2})
-        --~ for k, v in pairs(global.bi.tree_growing_stage_2) do
-          --~ if v.position.x == entity.position.x and v.position.y == entity.position.y then
-            --~ table.remove(global.bi.tree_growing_stage_2, k)
-            --~ return
-          --~ end
-        --~ end
-      --~ end
-
-      --~ local tree_stage_3 = (string.find(entity.name, '3.-$'))
-      --~ if tree_stage_3 then
-        --~ BioInd.writeDebug("3: Entity Name: %s (%g)", {entity.name, tree_stage_3})
-        --~ for k, v in pairs(global.bi.tree_growing_stage_3) do
-          --~ if v.position.x == entity.position.x and v.position.y == entity.position.y then
-            --~ table.remove(global.bi.tree_growing_stage_3, k)
-            --~ return
-          --~ end
-        --~ end
-      --~ end
-
-      --~ local tree_stage_4 = (string.find(entity.name, '4.-$'))
-      --~ if tree_stage_4 then
-        --~ BioInd.writeDebug("4: Entity Name: %s (%g)", {entity.name, tree_stage_4})
-        --~ for k, v in pairs(global.bi.tree_growing_stage_4) do
-          --~ if v.position.x == entity.position.x and v.position.y == entity.position.y then
-            --~ table.remove(global.bi.tree_growing_stage_4, k)
-            --~ return
-          --~ end
-        --~ end
-      --~ end
-    --~ end
-  --~ end
-
-  --- Removed tree
+  -- Removed tree
   elseif entity.type == "tree" and global.bi.trees[entity.name] then
     BioInd.show("Removed tree", entity.name)
-    --~ local tree_name = (string.find(entity.name, "bio%-tree%-"))
-    --~ BioInd.writeDebug("Tree Removed removed name: %s", {tree_name})
+
     local tree_stage = entity.name:match('^.+%-(%d)$')
 BioInd.writeDebug("Removed tree %s (grow stage: %s)", {entity.name, tree_stage or nil})
     if tree_stage then
@@ -1096,128 +706,6 @@ BioInd.writeDebug("Entered function On_Death(%s)", {event})
     BioInd.writeDebug("Divert to On_Pre_Remove!")
     On_Pre_Remove(event)
   end
-
-  --~ --- Bio Farm has been destroyed
-  --~ if entity.valid and entity.name == "bi-bio-farm" then
-  --~ BioInd.writeDebug("Bio Farm has been destroyed")
-    --~ local bio_farm = global.bi_bio_farm_table[entity.unit_number]
-    --~ if bio_farm then
-      --~ for e, ent in ipairs({"pole", "panel", "lamp"}) do
-        --~ BioInd.remove_entity(bio_farm[ent])
-      --~ end
-      --~ global.bi_bio_farm_table[entity.unit_number] = nil
-    --~ end
-  --~ end
-
-  --~ --- Bio Solar Farm has been destroyed
-  --~ if entity.valid and entity.name == "bi-bio-solar-farm" then
-  --~ BioInd.writeDebug("Solar Farm has been destroyed")
-    --~ local bi_solar_farm = global.bi_solar_farm_table[entity.unit_number]
-    --~ if bi_solar_farm then
-      --~ BioInd.remove_entity(bi_solar_farm.pole)
-      --~ global.bi_solar_farm_table[entity.unit_number] = nil
-    --~ end
-  --~ end
-
-  --~ --- Bio Solar Boiler has been destroyed
-  --~ if entity.valid and entity.name == "bi-solar-boiler" then
-  --~ BioInd.writeDebug("Solar Boiler has been destroyed")
-    --~ local bi_solar_boiler = global.bi_solar_boiler_table[entity.unit_number]
-    --~ if bi_solar_boiler then
-      --~ BioInd.remove_entity(bi_solar_boiler.boiler)
-      --~ BioInd.remove_entity(bi_solar_boiler.pole)
-      --~ global.bi_solar_boiler_table[entity.unit_number] = nil
-    --~ end
-  --~ end
-
-  --~ --- Power Rail has been destroyed
-  --~ if (entity.valid and entity.name == "bi-straight-rail-power") or
-     --~ (entity.valid and entity.name == "bi-curved-rail-power") then
-    --~ BioInd.writeDebug("Power-Rail has been destroyed")
-    --~ local bi_power_rail = global.bi_power_rail_table[entity.unit_number]
-    --~ if bi_power_rail then
-      --~ BioInd.remove_entity(bi_power_rail.pole)
-      --~ global.bi_power_rail_table[entity.unit_number] = nil
-    --~ end
-  --~ end
-
-  --~ --- Arboretum has been removed
-  --~ if entity.valid and entity.name == "bi-arboretum" then
-    --~ BioInd.writeDebug("Arboretum has been removed")
-    --~ BioInd.show("entity unit_number", entity.unit_number)
-    --~ BioInd.show("global.Arboretum_Table", global.Arboretum_Table[entity.unit_number])
-
-    --~ local Arboretum = global.Arboretum_Table[entity.unit_number]
-    --~ if Arboretum then
-      --~ for e, ent in ipairs("radar", "pole", "lamp") do
-        --~ BioInd.remove_entity(Arboretum[ent])
-      --~ end
-      --~ global.Arboretum_Table[entity.unit_number] = nil
-    --~ end
-  --~ end
-
-  --~ --- Seedling destroyed
-  --~ if entity.valid and entity.name == "seedling" then
-  --~ BioInd.writeDebug("Seedling has been destroyed")
-    --~ for k, v in pairs(global.bi.tree_growing) do
-      --~ if v.position.x == entity.position.x and v.position.y == entity.position.y then
-        --~ table.remove(global.bi.tree_growing, k)
-        --~ return
-      --~ end
-    --~ end
-  --~ end
-
-  --~ --- Tree Stage 1 Removed
-  --~ if entity.valid and entity.type == "tree" then --and global.bi.trees[entity.name] then
-    --~ BioInd.show("Tree Removed removed name", entity.name)
-    --~ local tree_name = (string.find(entity.name, "bio%-tree%-"))
-    --~ BioInd.show("Tree Removed removed name", tree_name)
-    --~ if tree_name then
-      --~ local tree_stage_1 = (string.find(entity.name, '1.-$'))
-      --~ if tree_stage_1 then
-        --~ BioInd.writeDebug("1: Entity Name: %s\tTree last two digits: %s", {entity.name, tree_stage_1})
-        --~ for k, v in pairs(global.bi.tree_growing_stage_1) do
-          --~ if v.position.x == entity.position.x and v.position.y == entity.position.y then
-            --~ table.remove(global.bi.tree_growing_stage_1, k)
-            --~ return
-          --~ end
-        --~ end
-      --~ end
-
-      --~ local tree_stage_2 = (string.find(entity.name, '2.-$'))
-      --~ if tree_stage_2 then
-        --~ BioInd.writeDebug("2: Entity Name: %s\tTree last two digits: %s", {entity.name, tree_stage_2})
-        --~ for k, v in pairs(global.bi.tree_growing_stage_2) do
-          --~ if v.position.x == entity.position.x and v.position.y == entity.position.y then
-            --~ table.remove(global.bi.tree_growing_stage_2, k)
-            --~ return
-          --~ end
-        --~ end
-      --~ end
-
-      --~ local tree_stage_3 = (string.find(entity.name, '3.-$'))
-      --~ if tree_stage_3 then
-        --~ BioInd.writeDebug("3: Entity Name: %s\tTree last two digits: %s", {entity.name, tree_stage_3})
-        --~ for k, v in pairs(global.bi.tree_growing_stage_3) do
-          --~ if v.position.x == entity.position.x and v.position.y == entity.position.y then
-            --~ table.remove(global.bi.tree_growing_stage_3, k)
-            --~ return
-          --~ end
-        --~ end
-      --~ end
-
-      --~ local tree_stage_4 = (string.find(entity.name, '4.-$'))
-      --~ if tree_stage_4 then
-        --~ BioInd.writeDebug("4: Entity Name: %s\tTree last two digits: %s", {entity.name, tree_stage_4})
-        --~ for k, v in pairs(global.bi.tree_growing_stage_4) do
-          --~ if v.position.x == entity.position.x and v.position.y == entity.position.y then
-            --~ table.remove(global.bi.tree_growing_stage_4, k)
-            --~ return
-          --~ end
-        --~ end
-      --~ end
-    --~ end
-  --~ end
 end
 
 
@@ -1317,7 +805,7 @@ BioInd.show("Entered function \"solar_mat_built\"", event)
   local surface = game.surfaces[event.surface_index]
   local player = event.player_index and game.players[event.player_index]
   local robot = event.robot
-  local force = (UseMuskForce and MuskForceName) or
+  local force = (BioInd.UseMuskForce and BioInd.MuskForceName) or
                 (event.player_index and game.players[event.player_index].force.name) or
                 (event.robot and event.robot.force.name) or
                 event.force.name
@@ -1426,7 +914,6 @@ end
 
 
 Event.register(Event.core_events.configuration_changed, On_Config_Change)
---~ Event.register(Event.core_events.init, On_Init)
 Event.register(Event.core_events.init, init)
 Event.register(Event.core_events.load, On_Load)
 
@@ -1440,7 +927,13 @@ Event.build_events = {
 Event.pre_remove_events = {
   defines.events.on_pre_player_mined_item,
   defines.events.on_robot_pre_mined,
+  defines.events.on_player_mined_entity,
+  defines.events.on_robot_mined_entity,
 }
+--~ Event.remove_events = {
+  --~ defines.events.on_player_mined_entity,
+  --~ defines.events.on_robot_mined_entity,
+--~ }
 Event.death_events = {
   defines.events.on_entity_died,
   defines.events.script_raised_destroy
@@ -1459,12 +952,10 @@ Event.tile_script_action = {
 
 Event.register(Event.build_events, On_Built)
 Event.register(Event.pre_remove_events, On_Pre_Remove)
+--~ Event.register(Event.remove_events, On_Remove)
 Event.register(Event.death_events, On_Death)
 --~ Event.register(Event.death_events, On_Pre_Remove)
 Event.register(Event.tile_build_events, solar_mat_built)
---~ Event.register(Event.tile_remove_events, function(event)
-  --~ solar_mat_removed(game.surfaces[event.surface_index], event.tiles)
---~ end)
 Event.register(Event.tile_remove_events, solar_mat_removed)
 
 Event.register(Event.tile_script_action, function(event)
@@ -1498,7 +989,7 @@ BioInd.show("Placed tile", tile.name)
         old_tile = { name = tile.name },
         position = pos,
         force = tile_force or
-                UseMuskForce and MuskForceName or
+                BioInd.UseMuskForce and BioInd.MuskForceName or
                 "neutral"
       }
     -- Other tile was placed -- by one of our fertilizers?
@@ -1531,10 +1022,8 @@ BioInd.show("remove_musk_floor_tiles", remove_musk_floor_tiles)
   if next(new_musk_floor_tiles) then
     solar_mat_built({
       surface_index = event.surface_index,
-      --~ tile =  tile,
       tile = {name = "bi-solar-mat"},
-      force = MuskForceName,
-      --~ tiles = {old_tile = tile, position = tile.position}
+      force = BioInd.MuskForceName,
       tiles = new_musk_floor_tiles
     })
   end
@@ -1542,18 +1031,11 @@ BioInd.show("remove_musk_floor_tiles", remove_musk_floor_tiles)
     solar_mat_built({
       surface_index = event.surface_index,
       tile = {name = "bi-solar-mat"},
-      --~ force = MuskForceName,
       tiles = old_musk_floor_tiles
     })
   end
   if next(remove_musk_floor_tiles) then
-    --~ solar_mat_removed({
-      --~ surface_index = event.surface_index,
-      --~ tiles = remove_musk_floor_tiles
-    --~ })
-  --~ end
-    --~ solar_mat_removed(event.surface_index, remove_musk_floor_tiles)
-      solar_mat_removed({surface_index = event.surface_index, tiles = remove_musk_floor_tiles})
+    solar_mat_removed({surface_index = event.surface_index, tiles = remove_musk_floor_tiles})
   end
   BioInd.show("End of tile_script_action", event)
 end)
@@ -1568,10 +1050,10 @@ setmetatable(_ENV, {
     error('\n\n[ER Global Lock] Forbidden global *write*:\n'
       .. serpent.line{key = key or '<nil>', value = value or '<nil>'} .. '\n')
     end,
-  __index   =function (self, key) --locked_global_read
-      if not (key == "game" or key == "mods") then
-        error('\n\n[ER Global Lock] Forbidden global *read*:\n'
-          .. serpent.line{key = key or '<nil>'} .. '\n')
-      end
-    end ,
-  })
+  __index = function (self, key) --locked_global_read
+    if not (key == "game" or key == "mods") then
+      error('\n\n[ER Global Lock] Forbidden global *read*:\n'
+        .. serpent.line{key = key or '<nil>'} .. '\n')
+    end
+  end
+})

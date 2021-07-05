@@ -1261,7 +1261,7 @@ data:extend({
     allow_decomposition = false,
     allow_as_intermediate = false,
     subgroup = "bio-bio-farm-intermediate-product",
-    order = "b[fertilizer]-b[bi-adv-fertilizer-1]",
+    order = "b[bi-fertilizer]-b[bi-adv-fertilizer-1]",
   },
 
 
@@ -1293,7 +1293,7 @@ data:extend({
     allow_decomposition = false,
     allow_as_intermediate = false,
     subgroup = "bio-bio-farm-intermediate-product",
-    order = "b[fertilizer]-b[bi-adv-fertilizer-2]",
+    order = "b[bi-fertilizer]-b[bi-adv-fertilizer-2]",
     -- This is a custom property for use by "Krastorio 2" (it will change
     -- ingredients/results; used for wood/wood pulp)
     mod = "Bio_Industries",
@@ -1301,7 +1301,7 @@ data:extend({
 
 
   --- Seed Bomb - Basic
-     {
+  {
     type = "recipe",
     name = "bi-seed-bomb-basic",
     --~ localised_name = {"item-name.bi-seed-bomb-basic"},
@@ -1328,8 +1328,8 @@ data:extend({
       enabled = false,
       energy_required = 8,
       ingredients = {
-      {"bi-seed", 400},
-      {"rocket", 2},
+        {"bi-seed", 400},
+        {"rocket", 2},
       },
       result = "bi-seed-bomb-basic",
       main_product = "",
@@ -1338,12 +1338,11 @@ data:extend({
     allow_decomposition = false,
     subgroup = "bi-ammo",
     order = "a[rocket-launcher]-x[seed-bomb]-a",
+  },
 
-    },
 
-
-     --- Seed Bomb - Standard
-     {
+  --- Seed Bomb - Standard
+  {
     type = "recipe",
     name = "bi-seed-bomb-standard",
     --~ localised_name = {"item-name.bi-seed-bomb-standard"},
@@ -1360,9 +1359,9 @@ data:extend({
       enabled = false,
       energy_required = 8,
       ingredients = {
-      {"bi-seed", 400},
-      {"fertilizer", 200},
-      {"rocket", 1},
+        {"bi-seed", 400},
+        {"fertilizer", 200},
+        {"rocket", 1},
       },
       result = "bi-seed-bomb-standard",
       main_product = "",
@@ -1371,9 +1370,9 @@ data:extend({
       enabled = false,
       energy_required = 8,
       ingredients = {
-      {"bi-seed", 400},
-      {"fertilizer", 200},
-      {"rocket", 2},
+        {"bi-seed", 400},
+        {"fertilizer", 200},
+        {"rocket", 2},
       },
       result = "bi-seed-bomb-standard",
       main_product = "",
@@ -1382,11 +1381,11 @@ data:extend({
     allow_decomposition = false,
     subgroup = "bi-ammo",
     order = "a[rocket-launcher]-x[seed-bomb]-b",
-   },
+  },
 
 
-    --- Seed Bomb - Advanced
-     {
+  --- Seed Bomb - Advanced
+  {
     type = "recipe",
     name = "bi-seed-bomb-advanced",
     --~ localised_name = {"item-name.bi-seed-bomb-advanced"},
@@ -1403,9 +1402,9 @@ data:extend({
       enabled = false,
       energy_required = 8,
       ingredients = {
-      {"bi-seed", 400},
-      {"bi-adv-fertilizer", 200},
-      {"rocket", 1},
+        {"bi-seed", 400},
+        {"bi-adv-fertilizer", 200},
+        {"rocket", 1},
       },
       result = "bi-seed-bomb-advanced",
       main_product = "",
@@ -1414,9 +1413,9 @@ data:extend({
       enabled = false,
       energy_required = 8,
       ingredients = {
-      {"bi-seed", 400},
-      {"bi-adv-fertilizer", 200},
-      {"rocket", 2},
+        {"bi-seed", 400},
+        {"bi-adv-fertilizer", 200},
+        {"rocket", 2},
       },
       result = "bi-seed-bomb-advanced",
       main_product = "",
@@ -1428,7 +1427,7 @@ data:extend({
     },
 
 
-   ---    Arboretum (ENTITY)
+  ---    Arboretum (ENTITY)
   {
     type = "recipe",
     name = "bi-arboretum",

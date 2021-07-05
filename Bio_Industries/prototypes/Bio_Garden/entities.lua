@@ -5,10 +5,11 @@ local ICONPATH = BioInd.modRoot .. "/graphics/icons/"
 require ("util")
 
 
---- Bio Gardens
-data:extend({
+-- Bio Gardens need to have a hidden pole. This will only be connectable if
+-- fluid fertilizer is used in the game.
 
 --- Bio Garden
+data:extend({
   {
     type = "assembling-machine",
     name = "bi-bio-garden",
@@ -61,7 +62,7 @@ data:extend({
     energy_source = {
       type = "electric",
       usage_priority = "secondary-input",
-          emissions_per_minute = -45, -- the "-" means it Absorbs pollution.
+      emissions_per_minute = -45, -- the "-" means it Absorbs pollution.
     },
     energy_usage = "200kW",
     ingredient_count = 1,
@@ -71,3 +72,108 @@ data:extend({
     allowed_effects = {"consumption", "speed"},
   },
 })
+
+  ------- Bio Garden Hidden Electric Pole (has only wire reach if Fluid fertilizer is used)
+--~ data:extend({
+  --~ {
+    --~ type = "electric-pole",
+    --~ name = "bi-bio-garden-hidden-pole",
+    --~ icon = "__base__/graphics/icons/small-electric-pole.png",
+    --~ icon_size = 64,
+    --~ icons = {
+      --~ {
+        --~ icon = "__base__/graphics/icons/small-electric-pole.png",
+        --~ icon_size = 64,
+      --~ }
+    --~ },
+    --~ flags = {
+      --~ "not-deconstructable",
+      --~ "not-on-map",
+      --~ "placeable-off-grid",
+      --~ "not-repairable",
+      --~ "not-blueprintable",
+    --~ },
+    --~ selectable_in_game = false,
+    --~ draw_copper_wires = BioInd.is_debug,
+    --~ max_health = 1,
+    --~ minable = nil,
+    --~ collision_mask = {},
+    --~ collision_box = {{-0, -0}, {0, 0}},
+    --~ selection_box = {{0, 0}, {0, 0}},
+    --~ maximum_wire_distance = BI.Settings.BI_Easy_Bio_Gardens and 4 or 0,
+    --~ supply_area_distance = 1,
+    --~ pictures = {
+      --~ filename = ICONPATH .. "empty.png",
+      --~ priority = "low",
+      --~ width = 1,
+      --~ height = 1,
+      --~ frame_count = 1,
+      --~ axially_symmetrical = false,
+      --~ direction_count = 32,
+      --~ direction_count = 1,
+    --~ },
+    --~ connection_points = {
+      --~ {
+        --~ shadow = {},
+        --~ wire = { copper_wire_tweak = {-0, -0} }
+      --~ }
+    --~ },
+    --~ radius_visualisation_picture = {
+      --~ filename = ICONPATH .. "empty.png",
+      --~ width = 1,
+      --~ height = 1,
+      --~ priority = "low"
+    --~ },
+  --~ },
+--~ })
+
+local hidden_pole = table.deepcopy(data.raw["electric-pole"]["small-electric-pole"])
+hidden_pole.name = "bi-bio-garden-hidden-pole"
+hidden_pole.icon = "__base__/graphics/icons/small-electric-pole.png"
+hidden_pole.icon_size = 64
+hidden_pole.icons = {
+      {
+        icon = "__base__/graphics/icons/small-electric-pole.png",
+        icon_size = 64,
+      }
+    }
+hidden_pole.flags = {
+      "not-deconstructable",
+      "not-on-map",
+      "placeable-off-grid",
+      "not-repairable",
+      "not-blueprintable",
+    }
+hidden_pole.selectable_in_game = false
+hidden_pole.draw_copper_wires = BioInd.is_debug
+hidden_pole.max_health = 1
+hidden_pole.minable = nil
+hidden_pole.collision_mask = {}
+hidden_pole.collision_box = {{-0, -0}, {0, 0}}
+hidden_pole.selection_box = {{0, 0}, {0, 0}}
+hidden_pole.maximum_wire_distance = BI.Settings.BI_Easy_Bio_Gardens and 4 or 0
+hidden_pole.supply_area_distance = 1
+hidden_pole.pictures = BioInd.is_debug and hidden_pole.pictures or {
+  filename = ICONPATH .. "empty.png",
+  priority = "low",
+  width = 1,
+  height = 1,
+  frame_count = 1,
+  axially_symmetrical = false,
+  direction_count = 1,
+}
+hidden_pole.connection_points = BioInd.is_debug and hidden_pole.connection_points or {
+  {
+    shadow = {},
+    wire = { copper_wire_tweak = {-0, -0} }
+  }
+}
+hidden_pole.radius_visualisation_picture = BioInd.is_debug and
+                                            hidden_pole.radius_visualisation_picture or {
+                                                filename = ICONPATH .. "empty.png",
+                                                width = 1,
+                                                height = 1,
+                                                priority = "low"
+                                              }
+
+data:extend({hidden_pole})

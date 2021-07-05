@@ -1,6 +1,21 @@
 local BioInd = require('common')('Bio_Industries')
 local ICONPATH = "__Bio_Industries__/graphics/icons/"
 
+-- If OwnlyMe's or Tral'a "Robot Tree Farm" mods are active, they will create variatons
+-- of our variations of tree prototypes. Remove them!
+local ignore_trees = BioInd.get_tree_ignore_list()
+local removed = 0
+
+for name, _ in pairs(ignore_trees or {}) do
+  if name:match("rtf%-bio%-tree%-.+%-%d-%d+") then
+    data.raw.tree[name] = nil
+    ignore_trees[name] = nil
+    removed = removed + 1
+    BioInd.show("Removed tree prototype", name)
+  end
+end
+BioInd.writeDebug("Removed %g tree prototypes. Number of trees to ignore now: %g", {removed, table_size(ignore_trees)})
+
 BI.Settings.BI_Game_Tweaks_Emissions_Multiplier = settings.startup["BI_Game_Tweaks_Emissions_Multiplier"].value
 
 
@@ -35,20 +50,17 @@ end
 
 ---- Game Tweaks ---- Tree
 if BI.Settings.BI_Game_Tweaks_Tree then
-  local BI_tree
-
-  --- Trees Give Random 1 - 6 Wood.
-  for _, tree in pairs(data.raw["tree"]or {}) do
-    --CHECK FOR SINGLE RESULTS
+  for tree_name, tree in pairs(data.raw["tree"] or {}) do
+    if tree.minable and not ignore_trees[tree_name] then
 BioInd.writeDebug("Tree name: %s\tminable.result: %s", {tree.name, (tree.minable and tree.minable.result or "nil")}, "line")
-    if tree.minable and tree.minable.result then
-      --CHECK FOR VANILLA TREES WOOD x 4
-      if tree.minable.result == "wood" and tree.minable.count == 4 then
-BioInd.writeDebug("Changing wood yield of %s to random value.", {tree.name})
-        tree.minable = {
-          mining_particle = "wooden-particle",
-          mining_time = 1.5,
-          results = {
+    --CHECK FOR SINGLE RESULTS
+      if tree.minable.result then
+        --CHECK FOR VANILLA TREES WOOD x 4
+        if tree.minable.result == "wood" and tree.minable.count == 4 then
+  BioInd.writeDebug("Changing wood yield of %s to random value.", {tree.name})
+          tree.minable.mining_particle = "wooden-particle"
+          tree.minable.mining_time = 1.5
+          tree.minable.results = {
             {
               type = "item",
               name = "wood",
@@ -56,45 +68,37 @@ BioInd.writeDebug("Changing wood yield of %s to random value.", {tree.name})
               amount_max = 6
             }
           }
-        }
-      -- CONVERT RESULT TO RESULTS
-      else
-BioInd.writeDebug("Converting tree.minable.result to tree.minable.results!")
-        tree.minable = {
-          mining_particle = "wooden-particle",
-          --~ mining_time = 1.5,
-          mining_time = tree.minable.mining_time,
-          results = {
+        -- CONVERT RESULT TO RESULTS
+        else
+  BioInd.writeDebug("Converting tree.minable.result to tree.minable.results!")
+  --~ BioInd.show("tree.minable", tree.minable)
+
+          tree.minable.mining_particle = "wooden-particle"
+          tree.minable.results = {
             {
               type = "item",
-              --~ name = "wood",
-              --~ amount_min = 1,
-              --~ amount_max = 6}}
               name = tree.minable.result,
               amount = tree.minable.count,
             }
           }
-        }
-      end
-    else
+  --~ BioInd.show("tree.minable.results", tree.minable.results)
+        end
       --CHECK FOR RESULTS TABLE
-      BI_tree = tree.name:match("bio%-tree%-.+%-%d")
-BioInd.writeDebug("Tree name: %s\tMatch: %s", {tree.name, BI_tree or "nil"})
-      if tree.minable and tree.minable.results then
-        if not BI_tree then
+      elseif tree.minable.results then
 BioInd.writeDebug("Changing results!")
-          for k, results in pairs(tree.minable.results) do
-            --CHECK FOR RESULT WOOD x 4
-            if results.name == "wood" and results.amount == 4 then
-               results.amount = nil
-               results.amount_min = 1
-               results.amount_max = 6
-            end
+        for r, result in pairs(tree.minable.results) do
+          --CHECK FOR RESULT WOOD x 4
+          if result.name == "wood" and result.amount == 4 then
+            result.amount = nil
+            result.amount_min = 1
+            result.amount_max = 6
           end
         end
         tree.minable.result = nil
         tree.minable.count = nil
       end
+    else
+BioInd.writeDebug("Ignoring  %s!", {tree.name})
     end
 --~ BioInd.show("tree.minable", tree.minable)
   end
@@ -262,6 +266,22 @@ if BI.Settings.BI_Bio_Fuel then
   data.raw["boiler"]["bi-bio-boiler"].fast_replaceable_group = boiler_group
 end
 
+-- Make vanilla and wooden rails exchangeable
+local straight = data.raw["straight-rail"]["straight-rail"].fast_replaceable_group or "rail"
+local curved = data.raw["curved-rail"]["curved-rail"].fast_replaceable_group or "rail"
+local vanilla, group
+
+for f, form in ipairs({"straight", "curved"}) do
+  vanilla = data.raw[form .. "-rail"][form .. "-rail"]
+  group =vanilla and vanilla.fast_replaceable_group or "rail"
+
+  if vanilla then
+    vanilla.fast_replaceable_group = group
+  end
+  data.raw[form .. "-rail"]["bi-" .. form .. "-rail-wood"].fast_replaceable_group = group
+  data.raw[form .. "-rail"]["bi-" .. form .. "-rail-power"].fast_replaceable_group = group
+end
+
 
 if mods["Krastorio2"] then
   -- Krastorio² needs much more wood than usually provided by Bio Industries. If Krastorio² is
@@ -364,7 +384,7 @@ if not fertilizer.place_as_tile then
     }
   }
   fertilizer.localised_name = {"BI-item-name.fertilizer"}
-  fertilizer.localised_name = {"item-description.fertilizer"}
+  fertilizer.localised_description = {"BI-item-description.fertilizer"}
 end
 
 data.raw.item["bi-adv-fertilizer"].place_as_tile = {
@@ -387,9 +407,6 @@ end
 -- "Transport drones" ruins rails by removing object-layer from the collision mask. That
 -- causes problems for our "Wooden rail bridges" as they will also pass through cliffs.
 -- Fix the collision masks for rail bridges if "Transport drones" is active!
-
---~  common.RAIL_BRIDGE_MASK = {"floor-layer", "object-layer", "consider-tile-transitions"}
---~  common.RAIL_MASK = {"item-layer", "floor-layer", "object-layer", "water-tile", "consider-tile-transitions"}
 if mods["Transport_Drones"] then
   for _, type in pairs({"straight-rail", "curved-rail"}) do
         data.raw[type]["bi-" .. type .. "-wood-bridge"].collision_mask = BioInd.RAIL_BRIDGE_MASK
@@ -400,13 +417,13 @@ end
 
 ---TESTING!
 --~ for k,v in pairs(data.raw["curved-rail"]) do
---~ log(v.name .. " collision_mask: " .. serpent.line(v.collision_mask))
+--~ log(v.name)
 --~ end
 --~ for k,v in pairs(data.raw["straight-rail"]) do
---~ log(v.name .. " collision_mask: " .. serpent.line(v.collision_mask))
+--~ log(v.name)
+--~ end
+--~ for k,v in pairs(data.raw["rail-planner"]) do
+--~ log(v.name)
 --~ end
 
 --~ BioInd.writeDebug("Testing at end of data-final-fixes.lua!")
---~ for t, tile in pairs(data.raw.tile) do
-  --~ BioInd.writeDebug("Tile name: %s", {t})
---~ end

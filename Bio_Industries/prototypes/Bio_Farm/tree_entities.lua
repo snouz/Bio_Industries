@@ -8,8 +8,9 @@ License:  CC BY-SA 4.0
 
 ]]
 
---~ local OPTIMIZED = tonumber(util.split(mods["base"], '.')[2]) > 17
---~ local OPTIMIZED = BioInd.check_base_version("0.18.0")
+-- Don't create prototypes for trees in this table!
+local ignore_trees = BioInd.get_tree_ignore_list()
+BioInd.show("Ignoring these trees", ignore_trees)
 
 local COLLISION_BOX = {{-0.1, -0.1}, {0.1, 0.1}}
 local TREE_LEVELS = 4
@@ -17,7 +18,6 @@ local extend = {}
 local wooden, branch, leaf
 
 for i = 1, TREE_LEVELS do
-  --~ wooden = table.deepcopy(data.raw[OPTIMIZED and "optimized-particle" or "particle"]["wooden-particle"])
   wooden = table.deepcopy(data.raw["optimized-particle"]["wooden-particle"])
   wooden.name = "bio-" .. wooden.name .. "-" .. i
   for _, pic in pairs(wooden.pictures) do
@@ -29,7 +29,6 @@ for i = 1, TREE_LEVELS do
     pic.hr_version.scale = (pic.hr_version.scale or 1)/TREE_LEVELS*i
   end
 
-  --~ branch = table.deepcopy(data.raw[OPTIMIZED and "optimized-particle" or "particle"]["branch-particle"])
   branch = table.deepcopy(data.raw["optimized-particle"]["branch-particle"])
   branch.name = "bio-" .. branch.name .. "-" .. i
   for _, pic in pairs(branch.pictures) do
@@ -41,7 +40,6 @@ for i = 1, TREE_LEVELS do
     pic.hr_version.scale = (pic.hr_version.scale or 1)/TREE_LEVELS*i
   end
 
-  --~ local leaf = table.deepcopy(data.raw[OPTIMIZED and "optimized-particle" or "leaf-particle"]["leaf-particle"])
   leaf = table.deepcopy(data.raw["optimized-particle"]["leaf-particle"])
   leaf.name = "bio-" .. leaf.name .. "-" .. i
   for _, pic in pairs(leaf.pictures) do
@@ -59,17 +57,15 @@ end
 
 local tree, stump
 for id, prototype in pairs(data.raw.tree) do
-
-  if prototype.variations then
+--~ BioInd.show("id", id)
+  if prototype.variations and not ignore_trees[id] then
     for i = 1, TREE_LEVELS do
       tree = table.deepcopy(prototype)
       tree.name = "bio-tree-" .. tree.name .. "-" .. i
       if i < (TREE_LEVELS-1) then
-        --~ tree.localised_name = "Sapling"
         tree.localised_name = {"bi-misc.growing-tree"}
         tree.localised_description = {"bi-misc.growing-tree-desc"}
       else
-        --~ tree.localised_name = "Young Tree"
         tree.localised_name = {"bi-misc.young-tree"}
         tree.localised_description = {"bi-misc.young-tree-desc"}
       end
@@ -116,7 +112,7 @@ for id, prototype in pairs(data.raw.tree) do
       }
       -- minable.result will be ignored by Factorio if minable.results exists, but
       -- in data-final-fixes, we check for minable.result == "wood" before setting
-      -- minable,results to yield a random number of wood. We therefore must remove
+      -- minable.results to yield a random number of wood. We therefore must remove
       -- tree.minable.result!
       tree.minable.result = nil
 
@@ -140,21 +136,30 @@ for id, prototype in pairs(data.raw.tree) do
           -- This doesn't make sense, the condition can never be true! Either more
           -- than 4 levels have been used originally, or it should be compared to just
           -- TREE_LEVELS, not TREE_LEVELS/10 (i.e. typo)
-          if i <= TREE_LEVELS /10 then
-            variation.trunk = {layers = {{
+          -- EDIT: OwnlyMe's Robot Tree Farm has 20 grow stages per default (min 3, max 200),
+          -- so we should use a limit of i<=2.)
+          --~ local max = TREE_LEVELS /10
+          local max = 2
+          if i <= max then
+            variation.trunk.layers = {{
               filename = "__Bio_Industries__/graphics/icons/Seedling_a.png",
               priority = "extra-high",
               width = 64,
               height = 64,
               scale = 0.5,
-              frame_count = (variation.trunk.frame_count or 1),
+              frame_count = 1,
               tint= {
-                r = 0.7-0.5*i/(TREE_LEVELS/10),
-                g = 0.7-0.5*i/(TREE_LEVELS/10),
-                b = 0.7-0.5*i/(TREE_LEVELS/10),
-                a = 0.7-0.5*i/(TREE_LEVELS/10)
-              },
-            }, variation.trunk}}
+                --~ r = 0.7-0.5*i/(TREE_LEVELS/10),
+                --~ g = 0.7-0.5*i/(TREE_LEVELS/10),
+                --~ b = 0.7-0.5*i/(TREE_LEVELS/10),
+                --~ a = 0.7-0.5*i/(TREE_LEVELS/10)
+                r = 0.7-0.5*i/max,
+                g = 0.7-0.5*i/max,
+                b = 0.7-0.5*i/max,
+                a = 0.7-0.5*i/max
+              }
+            }}
+            variation.trunk.frame_count = 1
           end
 
           variation.leaves.scale = (variation.leaves.scale or 1) * i / TREE_LEVELS

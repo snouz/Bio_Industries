@@ -1,28 +1,46 @@
 local BioInd = require('common')('Bio_Industries')
 
-BI.Settings.Bio_Cannon = settings.startup["BI_Bio_Cannon"].value
-BI.Settings.BI_Bio_Fuel = settings.startup["BI_Bio_Fuel"].value
-BI.Settings.BI_Game_Tweaks_Stack_Size = settings.startup["BI_Game_Tweaks_Stack_Size"].value
-BI.Settings.BI_Game_Tweaks_Recipe = settings.startup["BI_Game_Tweaks_Recipe"].value
-BI.Settings.BI_Game_Tweaks_Tree = settings.startup["BI_Game_Tweaks_Tree"].value
-BI.Settings.BI_Game_Tweaks_Player = settings.startup["BI_Game_Tweaks_Player"].value
-BI.Settings.BI_Game_Tweaks_Disassemble = settings.startup["BI_Game_Tweaks_Disassemble"].value
-BI.Settings.BI_Game_Tweaks_Bot = settings.startup["BI_Game_Tweaks_Bot"].value
-BI.Settings.BI_Solar_Additions = settings.startup["BI_Solar_Additions"].value
+--~ BI.Settings.Bio_Cannon = settings.startup["BI_Bio_Cannon"].value
+--~ BI.Settings.BI_Bio_Fuel = settings.startup["BI_Bio_Fuel"].value
+--~ BI.Settings.BI_Easy_Bio_Gardens = settings.startup["BI_Easy_Bio_Gardens"].value
+
+--~ BI.Settings.BI_Game_Tweaks_Stack_Size = settings.startup["BI_Game_Tweaks_Stack_Size"].value
+--~ BI.Settings.BI_Game_Tweaks_Recipe = settings.startup["BI_Game_Tweaks_Recipe"].value
+--~ BI.Settings.BI_Game_Tweaks_Tree = settings.startup["BI_Game_Tweaks_Tree"].value
+--~ BI.Settings.BI_Game_Tweaks_Player = settings.startup["BI_Game_Tweaks_Player"].value
+--~ BI.Settings.BI_Game_Tweaks_Disassemble = settings.startup["BI_Game_Tweaks_Disassemble"].value
+--~ BI.Settings.BI_Game_Tweaks_Bot = settings.startup["BI_Game_Tweaks_Bot"].value
+--~ BI.Settings.BI_Solar_Additions = settings.startup["BI_Solar_Additions"].value
+
+for var, name in pairs({
+  Bio_Cannon = "BI_Bio_Cannon",
+  BI_Bio_Fuel = "BI_Bio_Fuel",
+  BI_Easy_Bio_Gardens = "BI_Easy_Bio_Gardens",
+  BI_Game_Tweaks_Stack_Size = "BI_Game_Tweaks_Stack_Size",
+  BI_Game_Tweaks_Recipe = "BI_Game_Tweaks_Recipe",
+  BI_Game_Tweaks_Tree = "BI_Game_Tweaks_Tree",
+  BI_Game_Tweaks_Player = "BI_Game_Tweaks_Player",
+  BI_Game_Tweaks_Disassemble = "BI_Game_Tweaks_Disassemble",
+  BI_Game_Tweaks_Bot = "BI_Game_Tweaks_Bot",
+  BI_Solar_Additions = "BI_Solar_Additions",
+}) do
+  BI.Settings[var] = BioInd.get_startup_setting(name)
+end
 
 
-log("data.raw.recipe[\"bi-sulfur\"]: " .. serpent.block(data.raw.recipe["bi-sulfur"]))
+--~ BioInd.show("data.raw.recipe[\"bi-sulfur\"]", data.raw.recipe["bi-sulfur"])
+BioInd.show("BI.Settings.BI_Easy_Bio_Gardens", BI.Settings.BI_Easy_Bio_Gardens)
 local ICONPATH = "__Bio_Industries__/graphics/icons/"
 
 ----Update the Wood Pipe Images
-require ("prototypes.Wood_Products.pipes")
+require("prototypes.Wood_Products.pipes")
 
 --- Update the Rail Images
-require ("prototypes.Wood_Products.wooden_rail_bridge_update")
+require("prototypes.Wood_Products.wooden_rail_bridge_update")
 
 --- Bridge Rail Remnants
-require ("prototypes.Wood_Products.update_bridge_rails_remnants")
-require ("prototypes.Wood_Products.tint_rails_remnants_function")
+require("prototypes.Wood_Products.update_bridge_rails_remnants")
+require("prototypes.Wood_Products.tint_rails_remnants_function")
 
 -- Concrete Rail
 ---- Update Standard Rails to use and look like concrete
@@ -114,6 +132,7 @@ if not mods["Natural_Evolution_Buildings"] and BI.Settings.Bio_Cannon then
   thxbob.lib.tech.add_prerequisite("artillery", "bi-tech-bio-cannon")
 end
 
+
 --- Move Stone Crusher up in tech tree
 thxbob.lib.tech.add_recipe_unlock("steel-processing", "bi-stone-crusher")
 thxbob.lib.tech.add_recipe_unlock("steel-processing", "bi-crushed-stone-1")
@@ -158,165 +177,54 @@ end
 
 if mods["alien-biomes"] then
   BioInd.writeDebug("Removing AB tiles from blueprints")
-  for _, tile in pairs({
-    "frozen-snow-0",
-    "frozen-snow-1",
-    "frozen-snow-2",
-    "frozen-snow-3",
-    "frozen-snow-4",
-    "frozen-snow-5",
-    "frozen-snow-6",
-    "frozen-snow-7",
-    "frozen-snow-8",
-    "frozen-snow-9",
-    "mineral-aubergine-dirt-1",
-    "mineral-aubergine-dirt-2",
-    "mineral-aubergine-dirt-3",
-    "mineral-aubergine-dirt-4",
-    "mineral-aubergine-dirt-5",
-    "mineral-aubergine-dirt-6",
-    "mineral-aubergine-sand-1",
-    "mineral-aubergine-sand-2",
-    "mineral-aubergine-sand-3",
-    "mineral-beige-dirt-1",
-    "mineral-beige-dirt-2",
-    "mineral-beige-dirt-3",
-    "mineral-beige-dirt-4",
-    "mineral-beige-dirt-5",
-    "mineral-beige-dirt-6",
-    "mineral-beige-sand-1",
-    "mineral-beige-sand-2",
-    "mineral-beige-sand-3",
-    "mineral-black-dirt-1",
-    "mineral-black-dirt-2",
-    "mineral-black-dirt-3",
-    "mineral-black-dirt-4",
-    "mineral-black-dirt-5",
-    "mineral-black-dirt-6",
-    "mineral-black-sand-1",
-    "mineral-black-sand-2",
-    "mineral-black-sand-3",
-    "mineral-brown-dirt-1",
-    "mineral-brown-dirt-2",
-    "mineral-brown-dirt-3",
-    "mineral-brown-dirt-4",
-    "mineral-brown-dirt-5",
-    "mineral-brown-dirt-6",
-    "mineral-brown-sand-1",
-    "mineral-brown-sand-2",
-    "mineral-brown-sand-3",
-    "mineral-cream-dirt-1",
-    "mineral-cream-dirt-2",
-    "mineral-cream-dirt-3",
-    "mineral-cream-dirt-4",
-    "mineral-cream-dirt-5",
-    "mineral-cream-dirt-6",
-    "mineral-cream-sand-1",
-    "mineral-cream-sand-2",
-    "mineral-cream-sand-3",
-    "mineral-dustyrose-dirt-1",
-    "mineral-dustyrose-dirt-2",
-    "mineral-dustyrose-dirt-3",
-    "mineral-dustyrose-dirt-4",
-    "mineral-dustyrose-dirt-5",
-    "mineral-dustyrose-dirt-6",
-    "mineral-dustyrose-sand-1",
-    "mineral-dustyrose-sand-2",
-    "mineral-dustyrose-sand-3",
-    "mineral-grey-dirt-1",
-    "mineral-grey-dirt-2",
-    "mineral-grey-dirt-3",
-    "mineral-grey-dirt-4",
-    "mineral-grey-dirt-5",
-    "mineral-grey-dirt-6",
-    "mineral-grey-sand-1",
-    "mineral-grey-sand-2",
-    "mineral-grey-sand-3",
-    "mineral-purple-dirt-1",
-    "mineral-purple-dirt-2",
-    "mineral-purple-dirt-3",
-    "mineral-purple-dirt-4",
-    "mineral-purple-dirt-5",
-    "mineral-purple-dirt-6",
-    "mineral-purple-sand-1",
-    "mineral-purple-sand-2",
-    "mineral-purple-sand-3",
-    "mineral-red-dirt-1",
-    "mineral-red-dirt-2",
-    "mineral-red-dirt-3",
-    "mineral-red-dirt-4",
-    "mineral-red-dirt-5",
-    "mineral-red-dirt-6",
-    "mineral-red-sand-1",
-    "mineral-red-sand-2",
-    "mineral-red-sand-3",
-    "mineral-tan-dirt-1",
-    "mineral-tan-dirt-2",
-    "mineral-tan-dirt-3",
-    "mineral-tan-dirt-4",
-    "mineral-tan-dirt-5",
-    "mineral-tan-dirt-6",
-    "mineral-tan-sand-1",
-    "mineral-tan-sand-2",
-    "mineral-tan-sand-3",
-    "mineral-violet-dirt-1",
-    "mineral-violet-dirt-2",
-    "mineral-violet-dirt-3",
-    "mineral-violet-dirt-4",
-    "mineral-violet-dirt-5",
-    "mineral-violet-dirt-6",
-    "mineral-violet-sand-1",
-    "mineral-violet-sand-2",
-    "mineral-violet-sand-3",
-    "mineral-white-dirt-1",
-    "mineral-white-dirt-2",
-    "mineral-white-dirt-3",
-    "mineral-white-dirt-4",
-    "mineral-white-dirt-5",
-    "mineral-white-dirt-6",
-    "mineral-white-sand-1",
-    "mineral-white-sand-2",
-    "mineral-white-sand-3",
-    "vegetation-blue-grass-1",
-    "vegetation-blue-grass-2",
-    "vegetation-green-grass-1",
-    "vegetation-green-grass-2",
-    "vegetation-green-grass-3",
-    "vegetation-green-grass-4",
-    "vegetation-mauve-grass-1",
-    "vegetation-mauve-grass-2",
-    "vegetation-olive-grass-1",
-    "vegetation-olive-grass-2",
-    "vegetation-orange-grass-1",
-    "vegetation-orange-grass-2",
-    "vegetation-purple-grass-1",
-    "vegetation-purple-grass-2",
-    "vegetation-red-grass-1",
-    "vegetation-red-grass-2",
-    "vegetation-turquoise-grass-1",
-    "vegetation-turquoise-grass-2",
-    "vegetation-violet-grass-1",
-    "vegetation-violet-grass-2",
-    "vegetation-yellow-grass-1",
-    "vegetation-yellow-grass-2",
-    "volcanic-blue-heat-1",
-    "volcanic-blue-heat-2",
-    "volcanic-blue-heat-3",
-    "volcanic-blue-heat-4",
-    "volcanic-green-heat-1",
-    "volcanic-green-heat-2",
-    "volcanic-green-heat-3",
-    "volcanic-green-heat-4",
-    "volcanic-orange-heat-1",
-    "volcanic-orange-heat-2",
-    "volcanic-orange-heat-3",
-    "volcanic-orange-heat-4",
-    "volcanic-purple-heat-1",
-    "volcanic-purple-heat-2",
-    "volcanic-purple-heat-3",
-    "volcanic-purple-heat-4",
-  }) do
-    BI_Functions.lib.remove_from_blueprint(tile)
+  local patterns = {
+    "frozen%-snow%-%d",
+    "mineral%-aubergine%-dirt%-%d",
+    "mineral%-aubergine%-sand%-%d",
+    "mineral%-beige%-dirt%-%d",
+    "mineral%-beige%-sand%-%d",
+    "mineral%-black%-dirt%-%d",
+    "mineral%-black%-sand%-%d",
+    "mineral%-brown%-dirt%-%d",
+    "mineral%-brown%-sand%-%d",
+    "mineral%-cream%-dirt%-%d",
+    "mineral%-cream%-sand%-%d",
+    "mineral%-dustyrose%-dirt%-%d",
+    "mineral%-dustyrose%-sand%-%d",
+    "mineral%-grey%-dirt%-%d",
+    "mineral%-grey%-sand%-%d",
+    "mineral%-purple%-dirt%-%d",
+    "mineral%-purple%-sand%-%d",
+    "mineral%-red%-dirt%-%d",
+    "mineral%-red%-sand%-%d",
+    "mineral%-tan%-dirt%-%d",
+    "mineral%-tan%-sand%-%d",
+    "mineral%-violet%-dirt%-%d",
+    "mineral%-violet%-sand%-%d",
+    "mineral%-white%-dirt%-%d",
+    "mineral%-white%-sand%-%d",
+    "vegetation%-blue%-grass%-%d",
+    "vegetation%-green%-grass%-%d",
+    "vegetation%-mauve%-grass%-%d",
+    "vegetation%-olive%-grass%-%d",
+    "vegetation%-orange%-grass%-%d",
+    "vegetation%-purple%-grass%-%d",
+    "vegetation%-red%-grass%-%d",
+    "vegetation%-turquoise%-grass%-%d",
+    "vegetation%-violet%-grass%-%d",
+    "vegetation%-yellow%-grass%-%d",
+    "volcanic%-blue%-heat%-%d",
+    "volcanic%-green%-heat%-%d",
+    "volcanic%-orange%-heat%-%d",
+    "volcanic%-purple%-heat%-%d",
+  }
+  for t, tile in pairs(data.raw.tile) do
+    for p, pattern in ipairs(patterns) do
+      if t:match(pattern) then
+        BI_Functions.lib.remove_from_blueprint(tile)
+        break
+      end
+    end
   end
 end
 
@@ -436,12 +344,13 @@ end
 require("prototypes.Bio_Farm.compatible_recipes") -- Bob and Angels mesh
 require("prototypes.Bio_Farm.technology2")
 
+-- Replace fertilizer/advanced fertilizer + water with fluid fertilizers in Bio garden recipes!
+BioInd.show("data-updates.lua -- BI.Settings.BI_Easy_Bio_Gardens", BI.Settings.BI_Easy_Bio_Gardens)
+if BI.Settings.BI_Easy_Bio_Gardens then
+  BioInd.writeDebug("Must create fluid fertilizers!")
+  require("prototypes.Bio_Garden.fluid_fertilizer")
+end
 
--- Changed for 0.18.29: We always have advanced fertilizer now, so we can unlock this
--- recipe even if BI.Settings.BI_Bio_Fuel has been turned off!
---~ if BI.Settings.BI_Bio_Fuel or mods["Natural_Evolution_Buildings"] then
-  --~ thxbob.lib.tech.add_recipe_unlock("bi-tech-advanced-biotechnology", "bi-purified-air-2")
---~ end
 
 -- Blacklist bioreactor in Assembler Pipe Passthrough
 if mods["assembler-pipe-passthrough"] then
@@ -522,19 +431,24 @@ if data.raw["item"]["bob-greenhouse"] then
   data.raw["item"]["fertilizer"].icon = ICONPATH .. "fertilizer.png"
   data.raw["item"]["fertilizer"].icon_size = 64
 
-  if BioInd.AB_tiles() then
-    data.raw["item"]["fertilizer"].place_as_tile = {
-      result = "vegetation-green-grass-3",
-      condition_size = 1,
-      condition = { "water-tile" }
-    }
-  else
-    data.raw["item"]["fertilizer"].place_as_tile = {
-      result = "grass-3",
-      condition_size = 1,
-      condition = { "water-tile" }
-    }
-  end
+  --~ if BioInd.AB_tiles() then
+    --~ data.raw["item"]["fertilizer"].place_as_tile = {
+      --~ result = "vegetation-green-grass-3",
+      --~ condition_size = 1,
+      --~ condition = { "water-tile" }
+    --~ }
+  --~ else
+    --~ data.raw["item"]["fertilizer"].place_as_tile = {
+      --~ result = "grass-3",
+      --~ condition_size = 1,
+      --~ condition = { "water-tile" }
+    --~ }
+  --~ end
+  data.raw["item"]["fertilizer"].place_as_tile = {
+    result = BioInd.AB_tiles() and "vegetation-green-grass-3" or "grass-3",
+    condition_size = 1,
+    condition = { "water-tile" }
+  }
 end
 
 

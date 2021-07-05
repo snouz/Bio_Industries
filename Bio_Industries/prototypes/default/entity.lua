@@ -288,7 +288,7 @@ BI.default_entities.bio_farm = {
   flags = {"placeable-neutral", "placeable-player", "player-creation"},
   minable = {hardness = 0.2, mining_time = 0.5, result = "bi-bio-farm"},
   max_health = 250,
-  corpse = "big-remnants",
+  corpse = "bi-bio-farm-remnant",
   dying_explosion = "medium-explosion",
   resistances = {{type = "fire", percent = 70}},
   fluid_boxes = {
@@ -416,7 +416,7 @@ BI.default_entities.bio_greenhouse = {
   collision_box = {{-1.2, -1.2}, {1.2, 1.2}},
   selection_box = {{-1.5, -1.5}, {1.5, 1.5}},
   max_health = 250,
-  corpse = "medium-remnants",
+  corpse = "bi-bio-greenhouse-remnant",
   dying_explosion = "medium-explosion",
   crafting_categories = {"biofarm-mod-greenhouse"},
   crafting_speed = 1,
@@ -624,7 +624,7 @@ BI.default_entities.cokery = {
   order = "a[cokery]",
   minable = {hardness = 0.2, mining_time = 0.5, result = "bi-cokery"},
   max_health = 200,
-  corpse = "medium-remnants",
+  corpse = "bi-cokery-remnant",
   resistances = {{type = "fire", percent = 95}},
   collision_box = {{-1.2, -1.2}, {1.2, 1.2}},
   selection_box = {{-1.5, -1.5}, {1.5, 1.5}},
@@ -754,13 +754,17 @@ BI.default_entities.cokery = {
 BI.default_entities.bio_reactor = {
   type = "assembling-machine",
   name = "bi-bio-reactor",
+  localised_description = {
+    "entity-description.bi-bio-reactor",
+    {"fluid-name.bi-biomass"},
+  },
   icon = ICONPATH .. "entity/bioreactor.png",
   icon_size = 64, icon_mipmaps = 3,
   BI_add_icon = true,
   flags = {"placeable-neutral", "player-creation"},
   minable = {hardness = 0.2, mining_time = 0.5, result = "bi-bio-reactor"},
   max_health = 100,
-  corpse = "big-remnants",
+  corpse = "bi-bio-reactor-remnant",
   fluid_boxes = {
     {
       production_type = "input",

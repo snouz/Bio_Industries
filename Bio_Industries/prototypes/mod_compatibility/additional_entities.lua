@@ -24,6 +24,7 @@ sounds.mined_sound = {
 }
 
 BI.additional_entities = BI.additional_entities or {}
+BI.additional_entities.mod_compatibility = BI.additional_entities.mod_compatibility or {}
 
 ------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------
@@ -32,7 +33,7 @@ BI.additional_entities = BI.additional_entities or {}
 --                                  Wooden floor                                  --
 ------------------------------------------------------------------------------------
 -- Dectorio ("Dectorio")
-BI.additional_entities.wood_floor = {
+BI.additional_entities.mod_compatibility.wood_floor = {
   type = "tile",
   name = "bi-wood-floor",
   needs_correction = false,
@@ -196,7 +197,10 @@ BI.additional_entities.wood_floor = {
   vehicle_friction_modifier = dirt_vehicle_speed_modifer
 }
 
-BioInd.writeDebug("Read data for additional entities (dependent on other mods).")
+
+-- Status report
+BioInd.readdata_msg(BI.additional_entities, mod_compatibility,
+                    "additional entities", "compatibility with other mods")
 
 ------------------------------------------------------------------------------------
 --                                    END OF FILE                                 --

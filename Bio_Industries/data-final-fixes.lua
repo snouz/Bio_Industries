@@ -1,11 +1,15 @@
 BioInd.entered_file()
 
+------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
 
-------------------------------------------------------------------------------------
-------------------------------------------------------------------------------------
 
 --~ local BioInd = require(['"]common['"])(["']Bio_Industries['"])
 local ICONPATH = BioInd.iconpath
+
+
+-- Check if we need to replace "bi-ash" with "ash" in recipe ingredients/results!
+require("prototypes.default.final_fixes.ash")
 
 
 -- If OwnlyMe's or Tral'a "Robot Tree Farm" mods are active, they will create variatons
@@ -337,6 +341,8 @@ require("prototypes.optional._final_fixes.fixes_tweaksEmissionsMultiplier")
 --~ end
 
 
+-- Assign fuel values to items
+require("prototypes.optional._final_fixes.fixes_tweaksFuelValue")
 
 
 -- Make vanilla and Bio boilers exchangeable
@@ -521,15 +527,15 @@ require("prototypes.mod_compatibility.final_fixes.fixes_modAlienBiomes")
 --~ }
 
 -- Moved to data-updates.lua (Py mods)
-if mods["pycoalprocessing"] and BI.Settings.BI_Bio_Fuel then
-    -- Bio_Fuel/recipe.lua:30:      {type = "item", name = "bi-ash", amount = 15}
-    thxbob.lib.recipe.remove_result ("bi-basic-gas-processing", "bi-ash")
-    thxbob.lib.recipe.add_result("bi-basic-gas-processing", {
-      type = "item",
-      name = "ash",
-      amount = 15
-    })
-end
+--~ if mods["pycoalprocessing"] and BI.Settings.BI_Bio_Fuel then
+    --~ -- Bio_Fuel/recipe.lua:30:      {type = "item", name = "bi-ash", amount = 15}
+    --~ thxbob.lib.recipe.remove_result ("bi-basic-gas-processing", "bi-ash")
+    --~ thxbob.lib.recipe.add_result("bi-basic-gas-processing", {
+      --~ type = "item",
+      --~ name = "ash",
+      --~ amount = 15
+    --~ })
+--~ end
 
 
 -- Updates to darts etc. if NE Buildings is NOT active
@@ -566,59 +572,63 @@ BioInd.BI_add_unlocks()
 ------------------------------------------------------------------------------------
 local techs = data.raw.technology
 
---~ local function check_prerequisites(technology)
-  -- BioInd.entered_function()
-  --~ tech = techs[technology.name]
+local function sort_difficulty_unlocks(technology, difficulty)
+BioInd.entered_function()
+  if difficulty ~= "normal" and difficulty ~= "expensive" and difficulty ~= "" then
+    error(string.format("%s is not a valid difficulty!", difficulty))
+  end
 
-  --~ if tech then
-    --~ local removed = false
-    -- for p, prerequisite in pairs(tech.prerequisites or {}) do
-      -- -- If prerequisite tech doesn't exist, remove it from the list!
-      -- if not techs[prerequisite] then
-        -- tech.prerequisites[p] = nil
-        -- removed = true
-        -- BioInd.writeDebug("Removed \"%s\" from prerequisites of %s \"%s\"!",
-                          -- {prerequisite, tech.type, tech.name})
-      -- end
-    -- end
-    --~ if tech.prerequisites then
-      --~ for p = #tech.prerequisites in pairs(tech.prerequisites or {}) do
-        --~ -- If prerequisite tech doesn't exist, remove it from the list!
-        --~ if not techs[prerequisite] then
-          --~ tech.prerequisites[p] = nil
-          --~ removed = true
-          --~ BioInd.writeDebug("Removed \"%s\" from prerequisites of %s \"%s\"!",
-                            --~ {prerequisite, tech.type, tech.name})
-        --~ end
-      --~ end
-      --~ if not removed then
-        --~ BioInd.writeDebug("All prerequisites of %s \"%s\" exist.", {tech.type, tech.name})
-      --~ end
-    --~ else
-      --~ BioInd.writeDebug("%s \"%s\" has no prerequisites.", {tech.type, tech.name})
-  --~ else
-    --~ BioInd.writeDebug("Technology \"%s\" doesn't exist!", {technology.name})
-  --~ end
-  -- BioInd.entered_function("leave")
---~ end
+  local effects, recipe
+  local unlock_recipes = {}
+  local unlock_other = {}
+  local tech = data.raw.technology[technology]
 
---~ -- Check default techs
---~ BioInd.writeDebug("Looking for missing prerequisites of default technologies:")
---~ for t, tech in pairs(BI.default_techs) do
-  --~ check_prerequisites(tech)
---~ end
+  if tech then
+    if difficulty == "" then
+      effects = tech.effects
+    else
+      if not tech[difficulty] then
+        thxbob.lib.tech.add_difficulty(technology, difficulty)
+      end
+      effects = tech[difficulty].effects
+    end
 
---~ -- Check optional techs
---~ for s, setting in pairs(BI.additional_techs) do
---~ BioInd.writeDebug("Looking for missing prerequisites of technologies depending on setting %s:", {s})
-  --~ for t, tech in pairs(setting) do
-    --~ check_prerequisites(tech)
-  --~ end
---~ end
+    for e, effect in ipairs(effects or {}) do
+      if effect.type == "unlock-recipe" then
+        recipe = data.raw.recipe[effect.recipe]
+        if recipe then
+          unlock_recipes[#unlock_recipes + 1] = {
+            type = effect.type,
+            recipe = recipe.name,
+            order = recipe.order or ""
+          }
+        end
+      else
+        unlock_other[#unlock_other + 1] = effect
+      end
+    end
+BioInd.show("Unsorted recipe unlocks", unlock_recipes)
+    table.sort(unlock_recipes, function(a,b) return a.order < b.order end)
+BioInd.show("Sorted recipe unlocks", unlock_recipes)
+    if next(unlock_other) then
+      table.move(unlock_other, 1, #unlock_other, #unlock_recipe, unlock_recipe)
+    end
+    for u, unlock in ipairs(unlock_recipes) do
+      effects[u] = unlock
+    end
+BioInd.show("Final unlocks of " .. tech.name, effects)
+  end
+end
+
 -- Check default techs
 BioInd.writeDebug("Looking for missing prerequisites of default technologies:")
 for t, tech in pairs(BI.default_techs) do
   thxbob.lib.tech.remove_obsolete_prerequisites(tech.name)
+
+  --~ for d, diff in ipairs({"", "normal", "expensive"}) do
+  for d, diff in ipairs(BioInd.difficulties) do
+    sort_difficulty_unlocks(tech.name, diff)
+  end
 end
 
 -- Check optional techs
@@ -626,11 +636,22 @@ for s, setting in pairs(BI.additional_techs) do
 BioInd.writeDebug("Looking for missing prerequisites of technologies depending on setting %s:", {s})
   for t, tech in pairs(setting) do
     thxbob.lib.tech.remove_obsolete_prerequisites(tech)
+    --~ for d, diff in ipairs({"", "normal", "expensive"}) do
+    for d, diff in ipairs(BioInd.difficulties) do
+      sort_difficulty_unlocks(tech.name, diff)
+    end
   end
 end
 
 
---~ BioInd.show("ir2-steam-power", data.raw.technology["ir2-steam-power"])
+--~ ------------------------------------------------------------------------------------
+--~ --                           Assign fuel values to items                          --
+--~ ------------------------------------------------------------------------------------
+--~ require("prototypes/fuel_values/assign_fuel_values")
+
+
+--~ BioInd.show("RECIPE AFTER DATA-FINAL-FIXES.LUA", data.raw.recipe["hotair-molybdenum-plate"])
+--~ BioInd.show("RECIPE AFTER DATA-FINAL-FIXES.LUA", data.raw.recipe["molybdenum-plate"])
 
 ------------------------------------------------------------------------------------
 --                                    END OF FILE                                 --

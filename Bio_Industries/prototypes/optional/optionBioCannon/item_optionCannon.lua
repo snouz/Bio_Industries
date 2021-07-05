@@ -18,11 +18,13 @@ end
 ------------------------------------------------------------------------------------
 --                                  Create items                                  --
 ------------------------------------------------------------------------------------
---~ for i, i_data in pairs(BI.additional_items[setting] or {}) do
-  --~ data:extend({i_data})
-  --~ BioInd.created_msg(i_data)
---~ end
-BioInd.create_stuff(BI.additional_items[setting])
+for i, i_data in pairs(BI.additional_items[setting] or {}) do
+  -- Don't create the Poison artillery shell yet -- other mods may have created one!
+  if i_data.name ~= BI.additional_items[setting].poison_artillery_shell.name then
+    BioInd.create_stuff(i_data)
+  end
+end
+
 
 ------------------------------------------------------------------------------------
 --                                    END OF FILE                                 --

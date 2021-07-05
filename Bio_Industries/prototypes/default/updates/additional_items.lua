@@ -1,23 +1,23 @@
---~ BioInd.entered_file()
+BioInd.entered_file()
 
---~ BI.additional_items = BI.additional_items or {}
-
-
---~ ------------------------------------------------------------------------------------
---~ ------------------------------------------------------------------------------------
+BI.additional_items = BI.additional_items or {}
 
 
---~ local ICONPATH = BioInd.iconpath
-
---~ local items = data.raw.fluid
---~ local techs = data.raw.technology
---~ local recipes = data.raw.recipe
---~ local tech, item, recipe
+------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
 
 
---~ ------------------------------------------------------------------------------------
---~ --                            Data of additional items                            --
---~ ------------------------------------------------------------------------------------
+local ICONPATH = BioInd.iconpath
+
+local items = data.raw.fluid
+local techs = data.raw.technology
+local recipes = data.raw.recipe
+local tech, item, recipe
+
+
+------------------------------------------------------------------------------------
+--                            Data of additional items                            --
+------------------------------------------------------------------------------------
 --~ -- Resin
 --~ BI.additional_items.resin = {
   --~ type = "item",
@@ -31,9 +31,27 @@
   --~ stack_size = 200
 --~ }
 
---~ BioInd.writeDebug("Read data for additional items.")
+-- Ash
+BI.additional_items.ash = {
+  type = "item",
+  name = "bi-ash",
+  icon = ICONPATH .. "ash.png",
+  icon_size = 64, icon_mipmaps = 3,
+  BI_add_icon = true,
+  --~ fuel_value = "1MJ",
+  --~ fuel_category = "chemical",
+  subgroup = "raw-material",
+  order = "a[bi]-a-b[bi-ash]",
+  stack_size = 400
+}
+BI.additional_items.ash.pictures = BioInd.add_pix("ash", 4)
 
---~ ------------------------------------------------------------------------------------
---~ --                                    END OF FILE                                 --
---~ ------------------------------------------------------------------------------------
---~ BioInd.entered_file("leave")
+
+-- Status report
+BioInd.readdata_msg(BI.additional_items, nil, "additional items")
+
+
+------------------------------------------------------------------------------------
+--                                    END OF FILE                                 --
+------------------------------------------------------------------------------------
+BioInd.entered_file("leave")

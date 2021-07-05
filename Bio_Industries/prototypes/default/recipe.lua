@@ -17,6 +17,7 @@ local ICONPATH = BioInd.iconpath
 BI.default_recipes.logs_1 = {
   type = "recipe",
   name = "bi-logs-1",
+  localised_name = {"recipe-name.bi-logs"},
   icon = ICONPATH .. "wood_woodpulp.png",
   icon_size = 64, icon_mipmaps = 3,
   BI_add_icon = true,
@@ -109,7 +110,9 @@ BI.default_recipes.wood_fuel_brick = {
 BI.default_recipes.seed_1 = {
   type = "recipe",
   name = "bi-seed-1",
-  localised_name = {"recipe-name.bi-seed-1"},
+  --~ localised_name = {"recipe-name.bi-seed-1"},
+  localised_name = {"recipe-name.bi-seed"},
+  localised_description = {"recipe-description.bi-seed", {"fluid-name.water"}},
   icon = ICONPATH .. "tree_seed.png",
   icon_size = 64, icon_mipmaps = 3,
   BI_add_icon = true,
@@ -123,7 +126,8 @@ BI.default_recipes.seed_1 = {
     {type = "item", name = "bi-seed", amount = 40},
   },
   enabled = false,
-  show_amount_in_title = false,
+  --~ show_amount_in_title = false,
+  show_amount_in_title = true,
   always_show_made_in = true,
   allow_decomposition = false,
   subgroup = "bio-bio-farm-fluid-1",
@@ -139,7 +143,8 @@ BI.default_recipes.seed_1 = {
 BI.default_recipes.seed_2 = {
   type = "recipe",
   name = "bi-seed-2",
-  localised_name = {"recipe-name.bi-seed-2"},
+  --~ localised_name = {"recipe-name.bi-seed-2"},
+  localised_name = {"recipe-name.bi-seed-using", {"item-name.bi-ash"}},
   icon = ICONPATH .. "tree_seed_ash.png",
   icon_size = 64, icon_mipmaps = 3,
   BI_add_icon = true,
@@ -153,7 +158,8 @@ BI.default_recipes.seed_2 = {
   results = {
     {type = "item", name = "bi-seed", amount = 50},
   },
-  show_amount_in_title = false,
+  --~ show_amount_in_title = false,
+  show_amount_in_title = true,
   enabled = false,
   always_show_made_in = true,
   allow_decomposition = false,
@@ -171,7 +177,8 @@ BI.default_recipes.seed_2 = {
 BI.default_recipes.seed_3 = {
   type = "recipe",
   name = "bi-seed-3",
-  localised_name = {"recipe-name.bi-seed-3"},
+  --~ localised_name = {"recipe-name.bi-seed-3"},
+  localised_name = {"recipe-name.bi-seed-using", {"item-name.fertilizer"}},
   icon = ICONPATH .. "tree_seed_fert1.png",
   icon_size = 64, icon_mipmaps = 3,
   BI_add_icon = true,
@@ -185,7 +192,8 @@ BI.default_recipes.seed_3 = {
   results = {
     {type = "item", name = "bi-seed", amount = 60},
   },
-  show_amount_in_title = false,
+  --~ show_amount_in_title = false,
+  show_amount_in_title = true,
   enabled = false,
   always_show_made_in = true,
   allow_decomposition = false,
@@ -209,7 +217,8 @@ BI.default_recipes.seed_3 = {
 BI.default_recipes.seed_4 = {
   type = "recipe",
   name = "bi-seed-4",
-  localised_name = {"recipe-name.bi-seed-4"},
+  --~ localised_name = {"recipe-name.bi-seed-4"},
+  localised_name = {"recipe-name.bi-seed-using", {"item-name.bi-adv-fertilizer"}},
   icon = ICONPATH .. "tree_seed_fert2.png",
   icon_size = 64, icon_mipmaps = 3,
   BI_add_icon = true,
@@ -223,7 +232,8 @@ BI.default_recipes.seed_4 = {
   results = {
     {type = "item", name = "bi-seed", amount = 80},
   },
-  show_amount_in_title = false,
+  --~ show_amount_in_title = false,
+  show_amount_in_title = true,
   enabled = false,
   always_show_made_in = true,
   allow_decomposition = false,
@@ -248,7 +258,9 @@ BI.default_recipes.seed_4 = {
 BI.default_recipes.seedling_1 = {
   type = "recipe",
   name = "bi-seedling-1",
-  localised_name = {"recipe-name.bi-seedling-1"},
+  --~ localised_name = {"recipe-name.bi-seedling-1"},
+  localised_name = {"recipe-name.bi-seedling"},
+  localised_description = {"recipe-description.bi-seedling", {"fluid-name.water"}},
   icon = ICONPATH .. "seedling.png",
   icon_size = 64, icon_mipmaps = 3,
   BI_add_icon = true,
@@ -262,7 +274,8 @@ BI.default_recipes.seedling_1 = {
     {type = "item", name = "seedling", amount = 40},
   },
   enabled = false,
-  show_amount_in_title = false,
+  --~ show_amount_in_title = false,
+  show_amount_in_title = true,
   always_show_made_in = true,
   allow_decomposition = true,
   subgroup = "bio-bio-farm-fluid-1",
@@ -278,7 +291,8 @@ BI.default_recipes.seedling_1 = {
 BI.default_recipes.seedling_2 = {
   type = "recipe",
   name = "bi-seedling-2",
-  localised_name = {"recipe-name.bi-seedling-2"},
+  --~ localised_name = {"recipe-name.bi-seedling-2"},
+  localised_name = {"recipe-name.bi-seedling-using", {"item-name.bi-ash"}},
   icon = ICONPATH .. "seedling_ash.png",
   icon_size = 64, icon_mipmaps = 3,
   BI_add_icon = true,
@@ -292,7 +306,8 @@ BI.default_recipes.seedling_2 = {
   results = {
     {type = "item", name = "seedling", amount = 60},
   },
-  show_amount_in_title = false,
+  --~ show_amount_in_title = false,
+  show_amount_in_title = true,
   enabled = false,
   always_show_made_in = true,
   allow_decomposition = false,
@@ -310,7 +325,8 @@ BI.default_recipes.seedling_2 = {
 BI.default_recipes.seedling_3 = {
   type = "recipe",
   name = "bi-seedling-3",
-  localised_name = {"recipe-name.bi-seedling-3"},
+  --~ localised_name = {"recipe-name.bi-seedling-3"},
+  localised_name = {"recipe-name.bi-seedling-using", {"item-name.fertilizer"}},
   icon = ICONPATH .. "seedling_fert1.png",
   icon_size = 64, icon_mipmaps = 3,
   BI_add_icon = true,
@@ -324,7 +340,8 @@ BI.default_recipes.seedling_3 = {
   results = {
     {type = "item", name = "seedling", amount = 90},
   },
-  show_amount_in_title = false,
+  --~ show_amount_in_title = false,
+  show_amount_in_title = true,
   enabled = false,
   always_show_made_in = true,
   subgroup = "bio-bio-farm-fluid-1",
@@ -347,7 +364,8 @@ BI.default_recipes.seedling_3 = {
 BI.default_recipes.seedling_4 = {
   type = "recipe",
   name = "bi-seedling-4",
-  localised_name = {"recipe-name.bi-seedling-4"},
+  --~ localised_name = {"recipe-name.bi-seedling-4"},
+  localised_name = {"recipe-name.bi-seedling-using", {"item-name.bi-adv-fertilizer"}},
   icon = ICONPATH .. "seedling_fert2.png",
   icon_size = 64, icon_mipmaps = 3,
   BI_add_icon = true,
@@ -361,7 +379,8 @@ BI.default_recipes.seedling_4 = {
   results = {
     {type = "item", name = "seedling", amount = 160},
   },
-  show_amount_in_title = false,
+  --~ show_amount_in_title = false,
+  show_amount_in_title = true,
   enabled = false,
   always_show_made_in = true,
   allow_decomposition = false,
@@ -385,6 +404,7 @@ BI.default_recipes.seedling_4 = {
 BI.default_recipes.logs_2 = {
   type = "recipe",
   name = "bi-logs-2",
+  localised_name = {"recipe-name.bi-logs-using", {"item-name.bi-ash"}},
   icon = ICONPATH .. "wood_woodpulp_ash.png",
   icon_size = 64, icon_mipmaps = 3,
   BI_add_icon = true,
@@ -417,6 +437,7 @@ BI.default_recipes.logs_2 = {
 BI.default_recipes.logs_3 = {
   type = "recipe",
   name = "bi-logs-3",
+  localised_name = {"recipe-name.bi-logs-using", {"item-name.fertilizer"}},
   icon = ICONPATH .. "wood_woodpulp_fert1.png",
   icon_size = 64, icon_mipmaps = 3,
   BI_add_icon = true,
@@ -455,6 +476,7 @@ BI.default_recipes.logs_3 = {
 BI.default_recipes.logs_4 = {
   type = "recipe",
   name = "bi-logs-4",
+  localised_name = {"recipe-name.bi-logs-using", {"item-name.bi-adv-fertilizer"}},
   icon = ICONPATH .. "wood_woodpulp_fert2.png",
   icon_size = 64, icon_mipmaps = 3,
   BI_add_icon = true,
@@ -558,8 +580,9 @@ BI.default_recipes.ash_2 = {
 BI.default_recipes.biomass_1 = {
   type = "recipe",
   name = "bi-biomass-1",
-  localised_name = {"recipe-name.bi-biomass-1"},
-  localised_description = {"recipe-description.bi-biomass-1"},
+  --~ localised_name = {"recipe-name.bi-biomass-1"},
+  localised_name = {"fluid-name.bi-biomass"},
+  localised_description = {"recipe-description.bi-biomass-1", {"fluid-name.bi-biomass"}},
   icon = ICONPATH .. "fluid_biomass.png",
   icon_size = 64, icon_mipmaps = 3,
   BI_add_icon = true,
@@ -576,10 +599,12 @@ BI.default_recipes.biomass_1 = {
   always_show_made_in = true,
   allow_decomposition = true,
   subgroup = "bio-bio-fuel-fluid",
-  order = "x[oil-processing]-z1[bi-biomass]",
+  order = "a-[biomass]-a-[bi-biomass-1]",
   -- Custom property that allows to automatically add our recipes to tech unlocks.
   BI_add_to_tech = {"bi-tech-biomass"},
 }
+
+
 
 
 ------------------------------------------------------------------------------------
@@ -619,36 +644,6 @@ BI.default_recipes.fertilizer_1 = {
 ------------------------------------------------------------------------------------
 --                           Advanced fertilizer recipes                          --
 ------------------------------------------------------------------------------------
--- Fertilizer from sulfur
-BI.default_recipes.fertilizer_1 = {
-  type = "recipe",
-  name = "bi-fertilizer-1",
-  icon = ICONPATH .. "fertilizer.png",
-  icon_size = 64, icon_mipmaps = 3,
-  BI_add_icon = true,
-  category = "chemistry",
-  energy_required = 5,
-  ingredients = {
-    {type = "item", name = "sulfur", amount = 1},
-    {type = "fluid", name = "nitrogen", amount = 10},
-    {type = "item", name = "bi-ash", amount = 10}
-  },
-  results = {
-    {type = "item", name = "fertilizer", amount = 5}
-  },
-  enabled = false,
-  --~ always_show_made_in = true,
-  --~ allow_decomposition = false,
-  --~ allow_as_intermediate = false,
-  allow_as_intermediate = true,       -- Changed for 0.18.34/1.1.4
-  always_show_made_in = true,         -- Changed for 0.18.34/1.1.4
-  allow_decomposition = true,         -- Changed for 0.18.34/1.1.4
-  subgroup = "bio-bio-farm-intermediate-product",
-  order = "b[bi-fertilizer]",
-  -- Custom property that allows to automatically add our recipes to tech unlocks.
-  BI_add_to_tech = {"bi-tech-fertilizer"},
-}
-
 
 -- Advanced fertilizer 2
 BI.default_recipes.adv_fertilizer_2 = {
@@ -680,7 +675,7 @@ BI.default_recipes.adv_fertilizer_2 = {
   -- ingredients/results; used for wood/wood pulp)
   mod = "Bio_Industries",
   -- Custom property that allows to automatically add our recipes to tech unlocks.
-  BI_add_to_tech = {"bi-tech-advanced-fertilizers"},
+  BI_add_to_tech = {"bi-tech-advanced-fertilizer"},
 }
 
 

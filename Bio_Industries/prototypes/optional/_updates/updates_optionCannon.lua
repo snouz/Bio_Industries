@@ -18,6 +18,8 @@ end
 
 local techs = data.raw.technology
 local tech_effects, tech
+local ammos = data.raw.ammo
+local addit
 
 
 ------------------------------------------------------------------------------------
@@ -64,58 +66,36 @@ if turret then
   BioInd.modified_msg(turret.name, tech, "Added")
 end
 
---~ ------------------------------------------------------------------------------------
---~ --                     Add research bonuses to the Bio cannon                     --
---~ ------------------------------------------------------------------------------------
---~ local map = {
-  --~ ["physical-projectile-damage"] = {
-    --~ [5] = 0.9,
-    --~ [6] = 1.3,
-    --~ [7] = 1
-  --~ },
-  --~ ["artillery-shell-speed"] = {
-    --~ [1] = 1,
-  --~ },
-  --~ ["weapon-shooting-speed"] = {
-    --~ [5] = 0.8,
-    --~ [6] = 1.5,
-  --~ },
---~ }
-
---~ for tech_name, t_data in pairs(map) do
-  --~ for level, modifier in pairs(t_data) do
-    --~ tech = techs[tech_name .. "-" .. level]
-    --~ if tech then
-      --~ tech_effects = tech.effects
-
-      --~ if tech_effects then
-        --~ table.insert(tech_effects, {
-          --~ type = (tech_name == "physical-projectile-damage" and "ammo-damage" or "gun-speed"),
-          --~ ammo_category = "Bio_Cannon_Ammo",
-          --~ modifier = modifier
-        --~ })
-        --~ BioInd.writeDebug("Biocannon ammo will be affected by %s", {tech.name})
-      --~ else
-        --~ tech_effects = {
-          --~ type = (tech_name == "physical-projectile-damage" and "ammo-damage" or "gun-speed"),
-          --~ ammo_category = "Bio_Cannon_Ammo",
-          --~ modifier = modifier
-        --~ }
-        --~ BioInd.modified_msg("effects", tech, "Added")
-      --~ end
-    --~ end
-  --~ end
---~ end
-
 
 ------------------------------------------------------------------------------------
 --              Add prototype artillery to prerequisites of artillery             --
 ------------------------------------------------------------------------------------
 tech = techs["artillery"]
---~ if tech and techs["bi-tech-bio-cannon-3"] then
 if tech then
   thxbob.lib.tech.add_prerequisite(tech.name, "bi-tech-bio-cannon-3")
   BioInd.modified_msg("prerequisites", tech)
+end
+
+
+
+------------------------------------------------------------------------------------
+--                       Create the Poison artillery shell?                       --
+------------------------------------------------------------------------------------
+addit = true
+for a, ammo in pairs(ammos) do
+BioInd.show("Checking ammo", a)
+  if a:match(".*poison%-artillery%-shell.*") then
+    addit = false
+BioInd.writeDebug("Found poison artillery shell: %s -- nothing to do!", {a})
+    break
+  end
+end
+
+if addit then
+  --~ BioInd.create_stuff(BI.additional_entities[setting].poison_cloud)
+  BioInd.create_stuff(BI.additional_entities[setting].poison_artillery_shell)
+  BioInd.create_stuff(BI.additional_items[setting].poison_artillery_shell)
+  BioInd.create_stuff(BI.additional_recipes[setting].poison_artillery_shell)
 end
 
 

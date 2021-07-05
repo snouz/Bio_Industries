@@ -17,8 +17,8 @@ local ICONPATH = BioInd.techiconpath
 BI.default_techs.bio_farming_1 = {
   type = "technology",
   name = "bi-tech-bio-farming-1",
-    localised_name = {"technology-name.bi-tech-bio-farming-1"},
-    localised_description = {"technology-description.bi-tech-bio-farming-1"},
+  --~ localised_name = {"technology-name.bi-tech-bio-farming-1"},
+  localised_description = {"technology-description.bi-tech-bio-farming-1"},
   icon_size = 256, icon_mipmaps = 4,
   icon = ICONPATH .. "bi-tech-bio-farming-1.png",
   BI_add_icon = true,
@@ -51,7 +51,7 @@ BI.default_techs.bio_farming_1 = {
 BI.default_techs.bio_farming_2 = {
   type = "technology",
   name = "bi-tech-bio-farming-2",
-  localised_name = {"technology-name.bi-tech-bio-farming-2"},
+  --~ localised_name = {"technology-name.bi-tech-bio-farming-2"},
   localised_description = {"technology-description.bi-tech-bio-farming-2"},
   icon = ICONPATH .. "bi-tech-bio-farming-2.png",
   icon_size = 256, icon_mipmaps = 4,
@@ -88,7 +88,7 @@ BI.default_techs.bio_farming_2 = {
 BI.default_techs.bio_farming_3 = {
   type = "technology",
   name = "bi-tech-bio-farming-3",
-  localised_name = {"technology-name.bi-tech-bio-farming-3"},
+  --~ localised_name = {"technology-name.bi-tech-bio-farming-3"},
   localised_description = {"technology-description.bi-tech-bio-farming-3"},
   icon = ICONPATH .. "bi-tech-bio-farming-3.png",
   icon_size = 256, icon_mipmaps = 4,
@@ -125,7 +125,7 @@ BI.default_techs.bio_farming_3 = {
 BI.default_techs.bio_farming_4 = {
   type = "technology",
   name = "bi-tech-bio-farming-4",
-  localised_name = {"technology-name.bi-tech-bio-farming-4"},
+  --~ localised_name = {"technology-name.bi-tech-bio-farming-4"},
   localised_description = {"technology-description.bi-tech-bio-farming-4"},
   icon = ICONPATH .. "bi-tech-bio-farming-4.png",
   icon_size = 256, icon_mipmaps = 4,
@@ -145,7 +145,7 @@ BI.default_techs.bio_farming_4 = {
     --~ },
   },
   order = "[bio-farming]-a-[bio-farming-4]",
-  prerequisites = {"bi-tech-bio-farming-3", "bi-tech-advanced-fertilizers"},
+  prerequisites = {"bi-tech-bio-farming-3", "bi-tech-advanced-fertilizer"},
   unit = {
     count = 250,
     ingredients = {
@@ -288,7 +288,7 @@ BI.default_techs.biomass = {
   type = "technology",
   name = "bi-tech-biomass",
   localised_name = {"technology-name.bi-tech-biomass"},
-  localised_description = {"technology-description.bi-tech-biomass"},
+  localised_description = {"technology-description.bi-tech-biomass", {"fluid-name.bi-biomass"}},
   icon = ICONPATH .. "bi-tech-biomass.png",
   icon_size = 256, icon_mipmaps = 4,
   BI_add_icon = true,
@@ -321,11 +321,11 @@ BI.default_techs.biomass = {
 ------------------------------------------------------------------------------------
 --                              Advanced fertilizers                              --
 ------------------------------------------------------------------------------------
-BI.default_techs.advanced_fertilizers = {
+BI.default_techs.advanced_fertilizer = {
   type = "technology",
-  name = "bi-tech-advanced-fertilizers",
-  localised_name = {"technology-name.bi-tech-advanced-fertilizers"},
-  localised_description = {"technology-description.bi-tech-advanced-fertilizers"},
+  name = "bi-tech-advanced-fertilizer",
+  localised_name = {"technology-name.bi-tech-advanced-fertilizer"},
+  localised_description = {"technology-description.bi-tech-advanced-fertilizer"},
   icon = ICONPATH .. "bi-tech-advanced-fertilizers.png",
   icon_size = 256, icon_mipmaps = 4,
   BI_add_icon = true,

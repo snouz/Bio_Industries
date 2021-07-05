@@ -1,8 +1,6 @@
 ------------------------------------------------------------------------------------
 --                                  Angel's mods                                  --
 ------------------------------------------------------------------------------------
---~ BioInd.writeDebug(BI.entered_msg, {debug.getinfo(1).source})
-
 if not BioInd.check_mods({
   "angelspetrochem",
   --~ "angelsbioprocessing",
@@ -33,7 +31,7 @@ if fluids["water-purified"] and
     fluids["water-yellow-waste"] and
     fluids["water-mineralized"] then
 
-  BioInd.create_stuff(BI.additional_recipes.sulfuric_waste)
+  BioInd.create_stuff(BI.additional_recipes.mod_compatibility.sulfuric_waste)
 end
 
 ------------------------------------------------------------------------------------
@@ -41,24 +39,24 @@ end
 ------------------------------------------------------------------------------------
 -- Angel's Refining ("angelsrefining")
 if fluids["water-saline"] and fluids["slag-slurry"] then
-  BioInd.create_stuff(BI.additional_recipes.slag_slurry)
+  BioInd.create_stuff(BI.additional_recipes.mod_compatibility.slag_slurry)
 end
 
 ------------------------------------------------------------------------------------
 --             Add recipe for sand from crushed stone if there is sand            --
 ------------------------------------------------------------------------------------
 -- Angel's Refining ("angelsrefining")
-if items["solid-sand"] then
+if BI.Settings.BI_Stone_Crushing and items["solid-sand"] then
   -- Make sure our sand recipe exists
-  if not recipes[BI.additional_recipes.sand.name] then
-    recipe = BioInd.create_stuff(BI.additional_recipes.sand)[1]
+  if not recipes[BI.additional_recipes.mod_compatibility.sand.name] then
+    recipe = BioInd.create_stuff(BI.additional_recipes.mod_compatibility.sand)[1]
   end
   --~ recipe = data.raw.recipe[BI.additional_recipes.sand.name]
 
   -- Adjust result
   if recipe then
     recipe.result = "solid-sand"
-    BioInd.modified_msg("result", BI.additional_recipes.sand)
+    BioInd.modified_msg("result", BI.additional_recipes.mod_compatibility.sand)
   end
   -- MOVED TO DATA-UPDATES.LUA!
   --~ -- Use alternative descriptions for stone crusher!
@@ -75,8 +73,8 @@ end
 ------------------------------------------------------------------------------------
 -- Angel's Petrochemical Processing ("angelspetrochem")
 if items["solid-sodium-hydroxide"] and
-    not recipes[BI.additional_recipes.fertilizer.name] then
-  BioInd.create_stuff(BI.additional_recipes.fertilizer)
+    not recipes[BI.additional_recipes.mod_compatibility.fertilizer_2.name] then
+  BioInd.create_stuff(BI.additional_recipes.mod_compatibility.fertilizer_2)
 end
 
 

@@ -106,7 +106,9 @@ BI.additional_recipes.adv_fertilizer_1 = {
 }
 
 
-BioInd.writeDebug("Read data for additional recipes.")
+-- Status report
+BioInd.readdata_msg(BI.additional_recipes, nil, "additional recipes")
+
 
 ------------------------------------------------------------------------------------
 --                                    END OF FILE                                 --

@@ -1,15 +1,21 @@
 ------------------------------------------------------------------------------------
---                          Game tweaks: Easy Bio gardens                         --
---                  (BI.Settings.BI_Game_Tweaks_Easy_Bio_Gardens)                 --
+--                            Trigger: Easy Bio gardens                           --
+--                    (BI.Triggers.BI_Trigger_Easy_Bio_Gardens)                   --
 ------------------------------------------------------------------------------------
-local setting = "BI_Game_Tweaks_Easy_Bio_Gardens"
-if not BI.Settings[setting] then
+--~ local setting = "BI_Game_Tweaks_Easy_Bio_Gardens"
+--~ if not BI.Settings[setting] then
+  --~ BioInd.nothing_to_do("*")
+  --~ return
+--~ else
+  --~ BioInd.entered_file()
+--~ end
+local trigger = "BI_Trigger_Easy_Bio_Gardens"
+if not BI.Triggers[trigger] then
   BioInd.nothing_to_do("*")
   return
 else
   BioInd.entered_file()
 end
-
 
 ------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------
@@ -50,7 +56,9 @@ local adv_fertilizer_fluid_colors = make_colors({r = 0, g = 1, b = 0.071, a = .5
 --                            Create fluid fertilizers                            --
 ------------------------------------------------------------------------------------
 -- Fertilizer fluid
-fluid = BioInd.create_stuff(BI.additional_fluids[setting].fertilizer_fluid)[1]
+--~ fluid = BioInd.create_stuff(BI.additional_fluids[setting].fertilizer_fluid)
+--~ fluid = fluid[1]
+fluid = BioInd.create_stuff(BI.additional_fluids[trigger].fertilizer_fluid)[1]
 
 if fluid then
   fluid.base_color = fertilizer_fluid_colors.base
@@ -59,7 +67,7 @@ if fluid then
 end
 
 -- Advanced fertilizer fluid
-fluid = BioInd.create_stuff(BI.additional_fluids[setting].adv_fertilizer_fluid)[1]
+fluid = BioInd.create_stuff(BI.additional_fluids[trigger].adv_fertilizer_fluid)[1]
 
 if fluid then
   fluid.base_color = adv_fertilizer_fluid_colors.base
@@ -71,7 +79,7 @@ end
 --                      Create recipes for fluid fertilizers                      --
 ------------------------------------------------------------------------------------
 -- Fertilizer fluid
-recipe = BioInd.create_stuff(BI.additional_recipes[setting].fertilizer_fluid)[1]
+recipe = BioInd.create_stuff(BI.additional_recipes[trigger].fertilizer_fluid)[1]
 
 if recipe then
   recipe.crafting_machine_tint = {
@@ -86,8 +94,7 @@ if recipe then
 end
 
 -- Advanced fertilizer fluid
-recipe = BioInd.create_stuff(BI.additional_recipes[setting].adv_fertilizer_fluid)[1]
-
+recipe = BioInd.create_stuff(BI.additional_recipes[trigger].adv_fertilizer_fluid)[1]
 if recipe then
   recipe.crafting_machine_tint = {
     -- Kettle

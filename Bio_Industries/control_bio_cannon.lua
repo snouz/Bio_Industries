@@ -108,9 +108,9 @@ local function Bio_Cannon_Check(Bio_Cannon)
 
       --Delay between shots
       local delays = {
-        ["bi-bio-cannon-proto-ammo"] = 9,
-        ["bi-bio-cannon-basic-ammo"] = 10,
-        ["bi-bio-cannon-poison-ammo"] = 15
+        ["bi-bio-cannon-ammo-proto"] = 9,
+        ["bi-bio-cannon-ammo-basic"] = 10,
+        ["bi-bio-cannon-ammo-poison"] = 15
       }
       global.bi_bio_cannon_table[Bio_Cannon.unit_number].delay = delays[AmmoType] or 20
     end

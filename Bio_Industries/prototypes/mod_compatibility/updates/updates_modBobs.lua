@@ -25,7 +25,7 @@ local BOBICONPATH = BioInd.iconpath .. "mod_bobangels/"
 
 local icon_map
 
-local recipe, item
+local recipe, item, tech
 
 local items = data.raw.item
 local recipes = data.raw.recipe
@@ -64,16 +64,23 @@ local techs = data.raw.technology
 --                               Huge Electric Pole                               --
 ------------------------------------------------------------------------------------
 -- Bob's Electronics mod ("bobelectronics")
-if items["tinned-copper-cable"] then
-  recipe = recipes["bi-wooden-pole-huge"]
+item = "tinned-copper-cable"
+if items[item] then
+  --~ recipe = recipes["bi-wooden-pole-huge"]
+  recipe = recipes[BI.additional_entities.BI_Wood_Products.huge_pole.name]
   if recipe then
     -- Change ingredients
-    thxbob.lib.recipe.remove_ingredient(recipe.name, "wood")
-    thxbob.lib.recipe.add_new_ingredient(recipe.name, {
+    --~ thxbob.lib.recipe.remove_ingredient(recipe.name, "wood")
+    --~ thxbob.lib.recipe.add_new_ingredient(recipe.name, {
+      --~ type = "item",
+      --~ name = "tinned-copper-cable",
+      --~ amount = 15}
+    --~ )
+    thxbob.lib.recipe.replace_ingredient(recipe, "wood", {
       type = "item",
-      name = "tinned-copper-cable",
-      amount = 15}
-    )
+      name = item,
+      amount = 15
+    })
     BioInd.modified_msg("ingredients", recipe)
   end
 end
@@ -83,14 +90,21 @@ end
 --                                   Solar Farm                                   --
 ------------------------------------------------------------------------------------
 -- Bob's Power mod ("bobpower")
-if items["solar-panel-large"] then
-  recipe = recipes["bi-bio-solar-farm"]
+item = "solar-panel-large"
+if items[item] then
+  --~ recipe = recipes["bi-bio-solar-farm"]
+  recipe = recipes[BI.additional_recipes.BI_Solar_Additions.solar_farm.name]
   if recipe then
     -- Change ingredients
-    thxbob.lib.recipe.remove_ingredient(recipe.name, "solar-panel")
-    thxbob.lib.recipe.add_new_ingredient(recipe.name, {
+    --~ thxbob.lib.recipe.remove_ingredient(recipe.name, "solar-panel")
+    --~ thxbob.lib.recipe.add_new_ingredient(recipe.name, {
+      --~ type = "item",
+      --~ name = "solar-panel-large",
+      --~ amount = 30}
+    --~ )
+    thxbob.lib.recipe.replace_ingredient(recipe, "solar-panel", {
       type = "item",
-      name = "solar-panel-large",
+      name = item,
       amount = 30}
     )
     BioInd.modified_msg("ingredients", recipe)
@@ -101,37 +115,35 @@ end
 --                                Huge Sub Station                                --
 ------------------------------------------------------------------------------------
 -- Bob's Power mod ("bobpower")
-if items["substation-3"] then
-  recipe = recipes["bi-huge-substation"]
+item = "substation-3"
+if items[item] then
+  --~ recipe = recipes["bi-huge-substation"]
+  recipe = recipes[BI.additional_recipes.BI_Solar_Additions.huge_substation.name]
   if recipe then
     -- Change ingredients
-    thxbob.lib.recipe.remove_ingredient(recipe.name, "substation")
-    thxbob.lib.recipe.add_new_ingredient(recipe.name, {
+    --~ thxbob.lib.recipe.remove_ingredient(recipe.name, "substation")
+    --~ thxbob.lib.recipe.add_new_ingredient(recipe.name, {
+      --~ type = "item",
+      --~ name = "substation-3",
+      --~ amount = 6}
+    --~ )
+    thxbob.lib.recipe.replace_ingredient(recipe, "substation", {
       type = "item",
-      name = "substation-3",
+      name = item,
       amount = 6}
     )
     BioInd.modified_msg("ingredients", recipe)
   end
 end
 
--- Angel's Smelting ("angelssmelting") -- "electrum-alloy" was removed in 0.4.4!
---~ if items["electrum-alloy"] then
-  --~ thxbob.lib.recipe.remove_ingredient("bi-huge-substation", "steel-plate")
-  --~ thxbob.lib.recipe.add_new_ingredient("bi-huge-substation", {
-    --~ type = "item",
-    --~ name = "electrum-alloy",
-    --~ amount = 10}
-  --~ )
---~ end
-
 
 ------------------------------------------------------------------------------------
 --                                Huge Accumulator                                --
 ------------------------------------------------------------------------------------
 -- Bob's Power mod ("bobpower")
+--~ item =
 if items["large-accumulator-2"] then
-  recipe = recipes["bi-bio-accumulator"]
+  recipe = recipes[BI.additional_recipes.BI_Solar_Additions.huge_accumulator.name]
   if recipe then
     -- Change ingredients
     thxbob.lib.recipe.remove_ingredient(recipe.name, "accumulator")
@@ -145,14 +157,20 @@ if items["large-accumulator-2"] then
 end
 
 -- Bob's Metals, Chemicals and Intermediates mod ("bobplates")
-if items["aluminium-plate"] then
-  recipe = recipes["bi-bio-accumulator"]
+item = "aluminium-plate"
+if items[item] then
+  recipe = recipes[BI.additional_recipes.BI_Solar_Additions.huge_accumulator.name]
   if recipe then
     -- Change ingredients
-    thxbob.lib.recipe.remove_ingredient(recipe.name, "copper-cable")
-    thxbob.lib.recipe.add_new_ingredient(recipe.name, {
+    --~ thxbob.lib.recipe.remove_ingredient(recipe.name, "copper-cable")
+    --~ thxbob.lib.recipe.add_new_ingredient(recipe.name, {
+      --~ type = "item",
+      --~ name = "aluminium-plate",
+      --~ amount = 50
+    --~ })
+    thxbob.lib.recipe.replace_ingredient(recipe, "copper-cable", {
       type = "item",
-      name = "aluminium-plate",
+      name = item,
       amount = 50
     })
     BioInd.modified_msg("ingredients", recipe)
@@ -164,14 +182,21 @@ end
 --                          Adjust recipe for Musk floor                          --
 ------------------------------------------------------------------------------------
 -- Bob's Metals, Chemicals and Intermediates mod ("bobplates")
-if items["aluminium-plate"] then
-  recipe = recipes["bi-solar-mat"]
+item = "aluminium-plate"
+if items[item] then
+  --~ recipe = recipes["bi-solar-mat"]
+  recipe = recipes[BI.additional_recipes.BI_Solar_Additions.solar_mat.name]
   if recipe then
     -- Change ingredients
-    thxbob.lib.recipe.remove_ingredient(recipe.name, "steel-plate")
-    thxbob.lib.recipe.add_new_ingredient(recipe.name, {
+    --~ thxbob.lib.recipe.remove_ingredient(recipe.name, "steel-plate")
+    --~ thxbob.lib.recipe.add_new_ingredient(recipe.name, {
+      --~ type = "item",
+      --~ name = "aluminium-plate",
+      --~ amount = 1}
+    --~ )
+    thxbob.lib.recipe.replace_ingredient(recipe, "steel-plate", {
       type = "item",
-      name = "aluminium-plate",
+      name = item,
       amount = 1}
     )
     BioInd.modified_msg("ingredients", recipe)
@@ -179,14 +204,21 @@ if items["aluminium-plate"] then
 end
 
 -- Bob's Metals, Chemicals and Intermediates mod ("bobplates")
-if items["silicon-wafer"] then
-  recipe = recipes["bi-solar-mat"]
+item = "silicon-wafer"
+if items[item] then
+  --~ recipe = recipes["bi-solar-mat"]
+  recipe = recipes[BI.additional_recipes.BI_Solar_Additions.solar_mat.name]
   if recipe then
     -- Change ingredients
-    thxbob.lib.recipe.remove_ingredient(recipe.name, "copper-cable")
-    thxbob.lib.recipe.add_new_ingredient(recipe.name, {
+    --~ thxbob.lib.recipe.remove_ingredient(recipe.name, "copper-cable")
+    --~ thxbob.lib.recipe.add_new_ingredient(recipe.name, {
+      --~ type = "item",
+      --~ name = "silicon-wafer",
+      --~ amount = 4}
+    --~ )
+    thxbob.lib.recipe.replace_ingredient(recipe, "copper-cable", {
       type = "item",
-      name = "silicon-wafer",
+      name = item,
       amount = 4}
     )
     BioInd.modified_msg("ingredients", recipe)
@@ -198,32 +230,48 @@ end
 --                             Pellet coke from Carbon                            --
 ------------------------------------------------------------------------------------
 -- Bob's Metals, Chemicals and Intermediates mod ("bobplates")
-if items["carbon"] and BI.Settings["BI_Coal_Processing"] then
+item = "carbon"
+if items[item] and BI.Settings["BI_Coal_Processing"] then
 
   -- Change recipe icons
+  --~ icon_map = {
+    --~ ["bi-coke-coal"]            = "pellet_coke_1",
+    --~ ["bi-pellet-coke"]          = "pellet_coke_c",
+    --~ ["bi-pellet-coke-2"]        = "pellet_coke_b",
+  --~ }
+  --~ for r, r_data in ipairs({
+    --~ BI.additional_recipes.BI_Coal_Processing.coke_coal,
+    --~ BI.additional_recipes.BI_Coal_Processing.pellet_coke,
+    --~ BI.additional_recipes.mod_compatibility.pellet_coke_2
+  --~ }) do
+    --~ recipe = recipes[r_data.name] or BioInd.create_stuff(r_data)[1]
+    --~ BioInd.BI_change_icon(recipes[recipe.name], BOBICONPATH .. icon_map[recipe.name] .. ".png")
+  --~ end
   icon_map = {
-    ["bi-coke-coal"]            = "pellet_coke_1",
-    ["bi-pellet-coke"]          = "pellet_coke_c",
-    ["bi-pellet-coke-2"]        = "pellet_coke_b",
+    [BI.additional_recipes.BI_Coal_Processing.coke_coal.name]           = "pellet_coke_1",
+    [BI.additional_recipes.BI_Coal_Processing.pellet_coke.name]         = "pellet_coke_c",
+    [BI.additional_recipes.mod_compatibility.pellet_coke_2.name]        = "pellet_coke_b",
   }
-  for r, r_data in ipairs({
-    BI.additional_recipes.BI_Coal_Processing.coke_coal,
-    BI.additional_recipes.BI_Coal_Processing.pellet_coke,
-    BI.additional_recipes.pellet_coke_2
-  }) do
-    recipe = recipes[r_data.name] or BioInd.create_stuff(r_data)[1]
-    BioInd.BI_change_icon(recipes[recipe.name], BOBICONPATH .. icon_map[recipe.name] .. ".png")
+  for r_name, r_data in ipairs(icon_map) do
+    recipe = recipes[r_name] or BioInd.create_stuff(r_name)[1]
+    BioInd.BI_change_icon(recipes[r_name], BOBICONPATH .. icon_map[r_data] .. ".png")
   end
 
   -- Add ingredient to "bi-pellet-coke-2"
-  recipe = recipes["bi-pellet-coke-2"]
+  recipe = recipes[BI.additional_recipes.mod_compatibility.pellet_coke_2.name]
   thxbob.lib.recipe.add_new_ingredient(recipe.name, {
     type = "item",
-    name = "carbon",
+    name = item,
     amount = 10
   })
   BioInd.modified_msg("ingredients", recipe)
 
+  -- Change localization of "bi-pellet-coke-2"
+  recipe.localised_name = {
+    "recipe-name.bi-pellet-coke",
+    {"item-name.carbon"},
+  }
+  BioInd.modified_msg("localization", recipe)
 end
 
 
@@ -231,29 +279,29 @@ end
 --                   Add fertilizer recipe with Sodium hydroxide                  --
 ------------------------------------------------------------------------------------
 -- Bob's Metals, Chemicals and Intermediates mod ("bobplates")
-if items["sodium-hydroxide"] then
+item = "sodium-hydroxide"
+if items[item] then
 
-  -- Make sure the recipe exists
-  --~ recipe = BI.additional_recipes.fertilizer.name
-  --~ if not recipes[recipe.name] then
-    --~ data:extend({recipe})
-    --~ BioInd.created_msg(recipe)
-    --~ BioInd.create_stuff(recipe)
-  --~ end
-  --~ recipe = recipes[BI.additional_recipes.fertilizer.name]
-  recipe = BioInd.create_stuff(BI.additional_recipes.fertilizer)[1]
+  recipe = recipes[BI.additional_recipes.mod_compatibility.fertilizer_2.name]
 
-  -- Change ingredients
-  thxbob.lib.recipe.add_new_ingredient(recipe.name, {
-    type = "item",
-    name = "sodium-hydroxide",
-    amount = 10
-  })
-  BioInd.modified_msg("ingredients", recipe)
-
-  -- Add unlock
-  recipe.BI_add_to_tech = {"bi-tech-fertilizer"}
-  BioInd.modified_msg("unlock", recipe)
+  -- Add item to ingredients unless it's already used!
+  if recipe then
+    --~ thxbob.lib.recipe.add_new_ingredient(recipe.name, {
+      --~ type = "item",
+      --~ name = "sodium-hydroxide",
+      --~ amount = 10
+    --~ })
+    thxbob.lib.recipe.add_new_ingredient(recipe.name, {
+      type = "item",
+      name = item,
+      amount = 10
+    })
+    BioInd.modified_msg("ingredients", recipe)
+    -- Add unlock
+    --~ recipe.BI_add_to_tech = {"bi-tech-fertilizer"}
+    recipe.BI_add_to_tech = {BI.default_techs.fertilizer.name}
+    BioInd.modified_msg("unlock", recipe)
+  end
 end
 
 
@@ -261,11 +309,14 @@ end
 --                Replace copper cable with glass in Biofarm recipe               --
 ------------------------------------------------------------------------------------
 -- Bob's Metals, Chemicals and Intermediates mod ("bobplates")
-if items.glass  then
-  recipe = recipes["bi-bio-farm"]
+item = "glass"
+if items[item]  then
+  --~ recipe = recipes["bi-bio-farm"]
+  recipe = recipes[BI.default_recipes.bio_farm.name]
   if recipe then
     -- Change ingredients
-    thxbob.lib.recipe.replace_ingredient(recipe.name, "copper-cable", "glass")
+    --~ thxbob.lib.recipe.replace_ingredient(recipe.name, "copper-cable", "glass")
+    thxbob.lib.recipe.replace_ingredient(recipe.name, "copper-cable", item)
     BioInd.modified_msg("ingredients", recipe)
   end
 end
@@ -277,11 +328,16 @@ end
 -- Bob's Revamp mod ("bobrevamp")
 
 -- This tech depends on settings, so it may not exist!
-if techs["solid-fuel"] then
-  recipe = recipes["bi-solid-fuel"]
+tech = "solid-fuel"
+if techs[tech] then
+  --~ recipe = recipes["bi-solid-fuel"]
+  recipe = recipes[BI.additional_recipes.BI_Coal_Processing.solid_fuel.name]
   if recipe then
-    thxbob.lib.tech.remove_recipe_unlock("bi-tech-coal-processing-2", recipe.name)
-    thxbob.lib.tech.add_recipe_unlock("solid-fuel", recipe.name)
+    --~ thxbob.lib.tech.remove_recipe_unlock("bi-tech-coal-processing-2", recipe.name)
+    --~ thxbob.lib.tech.add_recipe_unlock("solid-fuel", recipe.name)
+    thxbob.lib.tech.remove_recipe_unlock(
+      BI.additional_techs.BI_Coal_Processing.coal_processing_2.name, recipe.name)
+    thxbob.lib.tech.add_recipe_unlock(tech, recipe.name)
     BioInd.modified_msg("unlock", recipe)
   end
 end

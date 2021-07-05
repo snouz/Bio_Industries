@@ -50,12 +50,6 @@ h_entity.radius_visualisation_picture = BioInd.is_debug and
                                             h_entity.radius_visualisation_picture or BI.hidden_entities.picture
 
 
-h_entity.energy_source = {
-    type = "electric",
-    usage_priority = "solar"
-}
-
-
 ------------------------------------------------------------------------------------
 --      Make a copy of the hidden-entity prototype for each compound entity!      --
 ------------------------------------------------------------------------------------
@@ -118,8 +112,12 @@ for pole_name, locale_name in pairs(BI.hidden_entities.types[h_key] or {}) do
       --~ pole.selection_box = {{-.25, -.25}, {.25, .25}}
       local vanilla = table.deepcopy(data.raw[h_type]["small-electric-pole"])
       local cp = vanilla.connection_points[1]
-      local offset_x = 1
-      local offset_y = 3.7
+      --~ local offset_x = 1
+      --~ local offset_y = 3.7
+      --~ local offset_x = 1
+      local offset_y = 2.7
+      --~ local offset = {offset_x, offset_y}
+      --~ local offset = c_entities["bi-bio-farm"].hidden["connector"]
 
       for img, img_data in ipairs({"shadow", "wire"}) do
         cp[img_data].green = nil
@@ -132,7 +130,13 @@ for pole_name, locale_name in pairs(BI.hidden_entities.types[h_key] or {}) do
       pole.pictures = BioInd.is_debug and vanilla.pictures or pole.pictures
       pole.supply_area_distance = 1
 
+      pole.selection_box = {{-0.5, -0.5}, {0.5, 0.5}}
+      --~ pole.selection_box = {util.add_shift({-0.5, -0.5}, offset), util.add_shift({0.5, 0.5}, offset)}
+      pole.selectable_in_game = true
+      pole.selection_priority = 100
+
       shift_picture(pole)
+      --~ shift_picture(pole, {offset_x, offset_y})
       BioInd.show("Adjusted properties of", pole_name)
 
     -- Hidden center pole for supplying the area around the building
@@ -176,6 +180,25 @@ for pole_name, locale_name in pairs(BI.hidden_entities.types[h_key] or {}) do
     pole.maximum_wire_distance = 4
     pole.supply_area_distance = 1
     shift_picture(pole)
+    BioInd.show("Adjusted properties of", pole_name)
+
+  ------------------------------------------------------------------------------------
+  -- Adjust properties for hidden pole of Solar farm
+  ------------------------------------------------------------------------------------
+  elseif c_entities["bi-bio-solar-farm"] and
+          c_entities["bi-bio-solar-farm"].hidden[h_key] and
+          pole_name == c_entities["bi-bio-solar-farm"].hidden[h_key].name then
+
+    local base_entity = BI.additional_entities.BI_Solar_Additions.solar_farm
+
+    pole.supply_area_distance = 1
+    pole.maximum_wire_distance = 19
+    pole.draw_copper_wires = true
+    pole.selection_box = {{-0.5, -0.5}, {0.5, 0.5}}
+    pole.selectable_in_game = true
+    pole.selection_priority = 100
+    shift_picture(pole)
+    pole.localised_description = {"entity-description." .. pole.name}
     BioInd.show("Adjusted properties of", pole_name)
 
   ------------------------------------------------------------------------------------

@@ -127,7 +127,7 @@ BI.additional_entities[setting].solar_farm = {
   selection_box = {{-4.5, -4.5}, {4.5, 4.5}},
   energy_source = {
     type = "electric",
-    usage_priority = "solar"
+    usage_priority = "solar",
   },
   picture = {
     layers = {

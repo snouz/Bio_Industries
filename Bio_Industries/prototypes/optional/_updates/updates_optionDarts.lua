@@ -278,7 +278,7 @@ for t_name, t_unit in pairs(map) do
   tech = techs[t_name]
 BioInd.show("Modifying tech", t_name)
   if tech then
-BioInd.show("tech", tech)
+--~ BioInd.show("tech", tech)
     --~ -- tech.unit = new_unit(tech.unit, t_unit)
     --~ test = new_unit(tech.unit, t_unit)
 --~ BioInd.show("Returned unit", test)

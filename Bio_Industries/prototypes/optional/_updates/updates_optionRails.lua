@@ -36,6 +36,7 @@ require("prototypes.optional._updates.rails.updates_wooden_rail_bridge")
 ------------------------------------------------------------------------------------
 --           Adjust the vanilla rails -- they are "Concrete rails" now!           --
 ------------------------------------------------------------------------------------
+BioInd.writeDebug("Adjusting vanilla rails")
 -- Recipe
 recipe = recipes["rail"]
 if recipe then

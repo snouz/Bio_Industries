@@ -28,6 +28,8 @@ local skip_recipes = {}
 local sep = string.rep("*", 100)
 
 local stack_name, crate_name, loc_name, stack_size, items_per_crate, src_recipe
+local run_again, cnt
+
 
 ------------------------------------------------------------------------------------
 --                             List of stackable items                            --
@@ -37,12 +39,14 @@ local stacked_items={
 -- Key: tech level. Value: item data
  [2] = {
     BI.default_items.adv_fertilizer,
-    BI.default_items.ash,
+    --~ BI.default_items.ash,
     BI.default_items.fertilizer,
     BI.default_items.seed,
     BI.default_items.seedling,
     BI.default_items.wood_bricks,
     BI.default_items.woodpulp,
+
+    BI.additional_items.ash,
 
     BI.additional_items.BI_Bio_Fuel.cellulose,
 
@@ -68,24 +72,31 @@ local stacked_items={
   }
 }
 
--- Remove all items that don't exist from the list
+-- Remove non-existing items from list
 cnt = 0
-for l, i_data in pairs(stacked_items) do
-  for i, item in ipairs(i_data) do
-    -- Some things (rail-planner, ammo etc.) are considered items although they are
-    -- of another prototype type!
-    if not data.raw[item.type][item.name] then
-      BioInd.show("Removing non-existent item", item.name)
-      stacked_items[l][i] = nil
-      cnt = cnt + 1
-      if not next(stacked_items[l]) then
-        stacked_items[l] = nil
+for level, i_data in pairs(stacked_items) do
+  run_again = false
+  -- Removing
+  repeat
+    for i, item in ipairs(i_data) do
+      -- Some things (rail-planner, ammo etc.) are considered items although they are
+      -- of another prototype type!
+      if not data.raw[item.type][item.name] then
+        BioInd.show("Removing non-existent item", item.name)
+        stacked_items[level][i] = nil
+        cnt = cnt + 1
+        run_again = true
+        break
+
+        if not next(stacked_items[level]) then
+          stacked_items[level] = nil
+        end
       end
     end
-  end
+  until not run_again
 end
 BioInd.writeDebug("Removed %s items from list of stackable items. Need to check these items:", {cnt})
-for l, i_data in pairs(stacked_items) do
+for level, i_data in pairs(stacked_items) do
   for i, item in pairs(i_data) do
     BioInd.writeDebug(item.name)
   end
@@ -134,7 +145,8 @@ BioInd.entered_function()
 
   -- Skip recipes that exist in the list but have not been created
   elseif recipe and recipe.name and not recipes[recipe.name] then
-    BioInd.writeDebug("Recipe %s does not exist -- returning immediately!", {recipe and recipe.name or "nil"})
+    BioInd.writeDebug("Recipe %s does not exist -- returning immediately!",
+                      {recipe and recipe.name or "nil"})
 
   -- Check recipe
   else
@@ -284,9 +296,10 @@ if deadlock_crating then
 
         -- Create new item if necessary
         if not new_item then
-         local test = deadlock_crating.add_crate(item.name, "deadlock-crating-" .. level)
-BioInd.show("Returned from add_crate", test)
-BioInd.show("new_item", new_item)
+         deadlock_crating.add_crate(item.name, "deadlock-crating-" .. level)
+         --~ local test = deadlock_crating.add_crate(item.name, "deadlock-crating-" .. level)
+--~ BioInd.show("Returned from add_crate", test)
+--~ BioInd.show("new_item", new_item)
 
           new_item = items[crate_name]
           BioInd.created_msg(new_item)

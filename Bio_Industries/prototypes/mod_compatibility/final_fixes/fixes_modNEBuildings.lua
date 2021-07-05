@@ -11,6 +11,10 @@ else
 end
 
 
+------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
+
+
 local ICONPATH = BioInd.iconpath
 local tech, recipe, wood, gun
 local techs = data.raw.technology
@@ -19,22 +23,23 @@ local ammos = data.raw.ammo
 
 
 ------------------------------------------------------------------------------------
-------------------------------------------------------------------------------------
-
-
-------------------------------------------------------------------------------------
 --                         Hide the recipe for the pistol                         --
 ------------------------------------------------------------------------------------
 recipe = recipes["pistol"]
 BioInd.show("Pistol", recipe)
 if recipe then
-  recipe.enabled = false
+  -- The functions set a property for all difficulties!
+  --~ recipe.enabled = false
+  thxbob.lib.recipe.set_enabled(recipe, false)
   BioInd.modified_msg("enabled", recipe)
 
-  recipe.hidden = true
+  --~ recipe.hidden = true
+  thxbob.lib.recipe.set_hidden(recipe, true)
   BioInd.modified_msg("hidden", recipe)
 
-  recipe.hide_from_player_crafting = true
+  --~ recipe.hide_from_player_crafting = true
+  --~ recipe.hide_from_player_crafting = true
+  thxbob.lib.recipe.set_hide_from_player_crafting(recipe, true)
   BioInd.modified_msg("hide_from_player_crafting", recipe)
 end
 
@@ -44,7 +49,8 @@ end
 ------------------------------------------------------------------------------------
 recipe = recipes["firearm-magazine"]
 if recipe then
-  recipe.enabled = false
+  --~ recipe.enabled = false
+  thxbob.lib.recipe.set_enabled(recipe, false)
   BioInd.modified_msg("enabled", recipe)
 
   thxbob.lib.tech.add_recipe_unlock("military", recipe.name)
@@ -62,7 +68,8 @@ end
 ------------------------------------------------------------------------------------
 wood = data.raw.item.wood
 gun = data.raw.gun["bi-dart-rifle"]
-recipe = recipes["bi-dart-rifle"]
+--~ recipe = recipes["bi-dart-rifle"]
+recipe = recipes[BI.additional_recipes.BI_Darts.dart_rifle.name]
 
 if wood and gun and recipe then
   -- Prefer ingredients from normal mode over expensive mode!

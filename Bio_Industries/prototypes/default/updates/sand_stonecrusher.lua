@@ -1,4 +1,6 @@
-if not data.raw.recipe[BI.additional_recipes.sand.name] then
+--~ if not (data.raw.recipe[BI.additional_recipes.mod_compatibility.sand.name] and
+          --~ BI.additional_entities.BI_Stone_Crushing) then
+if not BI.Triggers.BI_Trigger_Sand then
   BioInd.nothing_to_do("*")
   return
 else

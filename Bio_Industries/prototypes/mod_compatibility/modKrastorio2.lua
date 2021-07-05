@@ -20,9 +20,9 @@ local recipes = data.raw.recipe
 ------------------------------------------------------------------------------------
 --             Add recipe for sand from crushed stone if there is sand            --
 ------------------------------------------------------------------------------------
-if data.raw.item["sand"] then
+if BI.Settings.BI_Stone_Crushing and data.raw.item["sand"] then
 
-BioInd.writeDebug("Generating recipe for sand from crushed stone!")
+  BioInd.writeDebug("Generating recipe for sand from crushed stone!")
 
   -- Make sure our sand recipe exists
   --~ if not recipes[BI.additional_recipes.sand.name] then
@@ -31,11 +31,12 @@ BioInd.writeDebug("Generating recipe for sand from crushed stone!")
     --~ BioInd.create_stuff(BI.additional_recipes.sand)
   --~ end
   --~ recipe = recipes[BI.additional_recipes.sand.name]
-  recipe = BioInd.create_stuff(BI.additional_recipes.sand)[1]
+  recipe = BioInd.create_stuff(BI.additional_recipes.mod_compatibility.sand)[1]
 
   -- Adjust icon
-  BioInd.BI_change_icon(recipe, ICONPATH .. "sand-Krastorio.png")
-
+  if recipe then
+    BioInd.BI_change_icon(recipe, ICONPATH .. "sand-Krastorio.png")
+  end
 
   -- MOVED TO DATA-UPDATES.LUA!
   --~ -- Use alternative descriptions for stone crusher!

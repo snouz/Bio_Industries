@@ -62,8 +62,8 @@ for r, r_name in ipairs(recipe_list) do
 
       -- Either amount of copper cables in vanilla recipe or fixed value multiplied
       -- with index in recipe_list (list is ordered by entity size)
-      amount = ingredients["copper-cable"] and ingredients["copper-cable"].amount > 0 and
-                ingredients["copper-cable"].amount or
+      amount = ingredients and ingredients["copper-cable"] and
+                ingredients["copper-cable"].amount > 0 and ingredients["copper-cable"].amount or
                 r * 5
 
       thxbob.lib.recipe.add_difficulty_ingredient(recipe.name, mode, {item_data.name, amount})

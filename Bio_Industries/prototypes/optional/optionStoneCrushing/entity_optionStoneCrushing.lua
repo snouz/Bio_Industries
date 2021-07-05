@@ -59,7 +59,7 @@ BI.additional_entities[setting].stone_crusher = {
   flags = {"placeable-neutral", "player-creation"},
   minable = {hardness = 0.2, mining_time = 0.5, result = "bi-stone-crusher"},
   max_health = 100,
-  corpse = "medium-remnants",
+  corpse = "bi-stone-crusher-remnant",
   module_slots = 1,
   resistances = {{type = "fire", percent = 70}},
   working_sound = {

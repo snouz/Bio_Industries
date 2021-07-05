@@ -5,10 +5,11 @@ BioInd.entered_file()
 
 BI.additional_categories = BI.additional_categories or {}
 
-for s, setting in pairs({
+local settings = {
   "BI_Darts",
   "Bio_Cannon",
-}) do
+}
+for s, setting in pairs(settings) do
   BI.additional_categories[setting] = BI.additional_categories[setting] or {}
 end
 
@@ -64,8 +65,10 @@ BI.additional_categories.Bio_Cannon.cannon_ammo = {
 BI.additional_categories.Bio_Cannon.ammo = BI.additional_categories.BI_Darts.ammo
 
 
-BioInd.writeDebug("Read data for optional categories (ammo).")
 
+-- Status report
+BioInd.readdata_msg(BI.additional_categories, settings,
+                    "optional ammo categories", "setting")
 
 ------------------------------------------------------------------------------------
 --                                    END OF FILE                                 --

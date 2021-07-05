@@ -5,7 +5,7 @@ BioInd.entered_file()
 
 BI.additional_remnants = BI.additional_remnants or {}
 
-for s, setting in pairs({
+local settings = {
   --~ "BI_Bio_Fuel",
   "BI_Bio_Garden",
   "BI_Darts",
@@ -15,7 +15,8 @@ for s, setting in pairs({
   "BI_Terraforming",
   "BI_Wood_Products",
   "Bio_Cannon",
-}) do
+}
+for s, setting in pairs(settings) do
   BI.additional_remnants[setting] = BI.additional_remnants[setting] or {}
 end
 
@@ -923,7 +924,9 @@ BI.additional_remnants.Bio_Cannon.bio_cannon = {
 }
 
 
-BioInd.writeDebug("Read data for optional remnants.")
+-- Status report
+BioInd.readdata_msg(BI.additional_remnants, settings,
+                    "optional remnants", "setting")
 
 
 ------------------------------------------------------------------------------------

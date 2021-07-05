@@ -7,6 +7,7 @@ BioInd.entered_file()
 local ICONPATH = BioInd.iconpath
 
 BI.additional_recipes = BI.additional_recipes or {}
+BI.additional_recipes.mod_compatibility = BI.additional_recipes.mod_compatibility or {}
 
 ------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------
@@ -17,7 +18,7 @@ BI.additional_recipes = BI.additional_recipes or {}
 -- Angel's Refining ("angelsrefining"),
 -- BioTech ("BioTech"),
 -- Krastorio2 ("Krastorio2")
-BI.additional_recipes.sand = {
+BI.additional_recipes.mod_compatibility.sand = {
   type = "recipe",
   name = "bi-sand",
   icon = ICONPATH .. "mod_aai/sand-aai.png",
@@ -49,7 +50,7 @@ BI.additional_recipes.sand = {
 ------------------------------------------------------------------------------------
 -- Angel's Petrochemical Processing ("angelspetrochem"),
 -- Bob's Metals, Chemicals and Intermediates mod ("bobplates")
-BI.additional_recipes.fertilizer = {
+BI.additional_recipes.mod_compatibility.fertilizer_2 = {
   type = "recipe",
   name = "bi-fertilizer-2",
   icon = ICONPATH .. "mod_bobangels/fertilizer_sodium_hydroxide.png",
@@ -60,6 +61,7 @@ BI.additional_recipes.fertilizer = {
   category = "chemistry",
   energy_required = 5,
   ingredients = {
+    -- Add "sodium-hydroxide" or "solid-sodium-hydroxide" in data-updates (Angel's/Bob's)!
     {type = "fluid", name = "nitrogen", amount = 10},
     {type = "item", name = "bi-ash", amount = 10}
   },
@@ -82,9 +84,11 @@ BI.additional_recipes.fertilizer = {
 --        Pellet coke (alternative recipe, ingredients will be added later)       --
 ------------------------------------------------------------------------------------
 -- Angel's Petrochemical Processing ("angelspetrochem")
-BI.additional_recipes.pellet_coke_2 = {
+BI.additional_recipes.mod_compatibility.pellet_coke_2 = {
   type = "recipe",
   name = "bi-pellet-coke-2",
+  --~ localised_name = {"recipe-name.bi-pellet-coke"},
+  --~ localised_description = {"recipe-description.bi-pellet-coke"},
   icon = ICONPATH .. "mod_bobangels/pellet_coke_b.png",
   icon_size = 64, icon_mipmaps = 3,
   BI_add_icon = true,
@@ -107,7 +111,7 @@ BI.additional_recipes.pellet_coke_2 = {
 --                        Mineralized sulfuric waste water                        --
 ------------------------------------------------------------------------------------
 -- Angel's Refining ("angelsrefining")
-BI.additional_recipes.sulfuric_waste = {
+BI.additional_recipes.mod_compatibility.sulfuric_waste = {
   type = "recipe",
   name = "bi-mineralized-sulfuric-waste",
   icon = ICONPATH .. "mod_bobangels/bi_mineralized_sulfuric.png",
@@ -124,8 +128,9 @@ BI.additional_recipes.sulfuric_waste = {
   },
   results= {
     {type = "fluid", name = "water-yellow-waste", amount = 40},
-     {type = "fluid", name = "water-mineralized", amount = 60},
+    {type = "fluid", name = "water-mineralized", amount = 60},
   },
+  main_product = "water-mineralized",
   enabled = false,
   allow_as_intermediate = false,
   always_show_made_in = true,
@@ -138,7 +143,7 @@ BI.additional_recipes.sulfuric_waste = {
 --                                   Slag slurry                                  --
 ------------------------------------------------------------------------------------
 -- Angel's Refining ("angelsrefining")
-BI.additional_recipes.slag_slurry = {
+BI.additional_recipes.mod_compatibility.slag_slurry = {
   type = "recipe",
   name = "bi-slag-slurry",
   icon = ICONPATH .. "mod_bobangels/bi_slurry.png",
@@ -170,7 +175,7 @@ BI.additional_recipes.slag_slurry = {
 --                      Alternative recipe for Wooden boards                      --
 ------------------------------------------------------------------------------------
 -- Bob's Metals, Chemicals and Intermediates mod ("bobplates")
-BI.additional_recipes.press_wood = {
+BI.additional_recipes.mod_compatibility.press_wood = {
   type = "recipe",
   name = "bi-press-wood",
   localised_name = {"recipe-name.bi-press-wood"},
@@ -201,7 +206,10 @@ BI.additional_recipes.press_wood = {
   mod = "Bio_Industries",
 }
 
-BioInd.writeDebug("Read data for additional recipes (dependent on other mods).")
+
+-- Status report
+BioInd.readdata_msg(BI.additional_recipes, mod_compatibility,
+                    "additional recipes", "compatibility with other mods")
 
 ------------------------------------------------------------------------------------
 --                                    END OF FILE                                 --

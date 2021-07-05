@@ -130,20 +130,18 @@ BI.default_items.seedling.pictures = BioInd.add_pix("seedling", 9)
 ------------------------------------------------------------------------------------
 --                              Intermediate products                             --
 ------------------------------------------------------------------------------------
--- Ash
-BI.default_items.ash = {
-  type = "item",
-  name = "bi-ash",
-  icon = ICONPATH .. "ash.png",
-  icon_size = 64, icon_mipmaps = 3,
-  BI_add_icon = true,
-  --~ fuel_value = "1MJ",
-  --~ fuel_category = "chemical",
-  subgroup = "raw-material",
-  order = "a[bi]-a-b[bi-ash]",
-  stack_size = 400
-}
-BI.default_items.ash.pictures = BioInd.add_pix("ash", 4)
+--~ -- Ash
+--~ BI.default_items.ash = {
+  --~ type = "item",
+  --~ name = "bi-ash",
+  --~ icon = ICONPATH .. "ash.png",
+  --~ icon_size = 64, icon_mipmaps = 3,
+  --~ BI_add_icon = true,
+  --~ subgroup = "raw-material",
+  --~ order = "a[bi]-a-b[bi-ash]",
+  --~ stack_size = 400
+--~ }
+--~ BI.default_items.ash.pictures = BioInd.add_pix("ash", 4)
 
 -- Wood Pulp
 BI.default_items.woodpulp = {

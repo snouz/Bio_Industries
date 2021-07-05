@@ -36,8 +36,10 @@ BioInd.writeDebug("Stone crushing is enabled!")
     for m, mode in pairs({"normal", "expensive" }) do
       ingredients = recipe[mode] and recipe[mode].ingredients
       -- Get the amount of stone used in the original recipe
-      amount = BI_Functions.lib.get_recipe_ingredients(ingredients)["stone"]
-      amount = (amount and amount.amount or 1) * 4
+      --~ amount = BI_Functions.lib.get_recipe_ingredients(ingredients)["stone"]
+      --~ amount = (amount and amount.amount or 1.5) * 4
+      amount = BI_Functions.lib.get_recipe_ingredients(ingredients)
+      amount = (amount and amount["stone"].amount or 1.5) * 4
       thxbob.lib.recipe.add_difficulty_ingredient(recipe.name, mode, {item.name, amount})
     end
     recipe.ingredients = table.deepcopy(recipe.normal.ingredients)
@@ -61,7 +63,7 @@ else
     for m, mode in pairs({"normal", "expensive" }) do
       --~ ingredients = recipe[mode] and recipe[mode].ingredients
       ingredients = BI_Functions.lib.get_recipe_ingredients(recipe[mode].ingredients)
-      if ingredients[name] then
+      if ingredients and ingredients[name] then
         amount = math.max(1, math.ceil(ingredients[name].amount/2))
         thxbob.lib.recipe.add_difficulty_ingredient(recipe.name, mode, {"stone", amount})
       end

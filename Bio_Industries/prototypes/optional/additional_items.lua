@@ -5,7 +5,7 @@ BioInd.entered_file()
 
 BI.additional_items = BI.additional_items or {}
 
-for s, setting in pairs({
+local settings = {
   "BI_Bio_Fuel",
   "BI_Bio_Garden",
   "BI_Coal_Processing",
@@ -18,7 +18,8 @@ for s, setting in pairs({
   "BI_Terraforming",
   "BI_Wood_Products",
   "Bio_Cannon",
-}) do
+}
+for s, setting in pairs(settings) do
   BI.additional_items[setting] = BI.additional_items[setting] or {}
 end
 
@@ -52,10 +53,11 @@ BI.additional_items.Bio_Cannon.bio_cannon = {
 
 
 -- Prototype Ammo
-BI.additional_items.Bio_Cannon.bio_cannon_proto_ammo = {
+BI.additional_items.Bio_Cannon.bio_cannon_ammo_proto = {
   type = "ammo",
-  name = "bi-bio-cannon-proto-ammo",
-  icon = ICONPATH .. "weapon/bio_cannon_proto_ammo_icon.png",
+  name = "bi-bio-cannon-ammo-proto",
+  localised_description = {"item-description.bi-bio-cannon-ammo"},
+  icon = ICONPATH .. "weapon/bio_cannon_ammo_proto_icon.png",
   icon_size = 64, icon_mipmaps = 3,
   BI_add_icon = true,
   ammo_type = {
@@ -66,8 +68,9 @@ BI.additional_items.Bio_Cannon.bio_cannon_proto_ammo = {
         type = "direct",
         action_delivery = {
           type = "projectile",
-          projectile = "bi-bio-cannon-proto-ammo",
-          starting_speed = 1,
+          projectile = "bi-bio-cannon-ammo-proto",
+          --~ starting_speed = 1,
+          starting_speed = 0.2,
           direction_deviation = 0.8,
           range_deviation = 0.8,
           max_range = 90
@@ -82,10 +85,11 @@ BI.additional_items.Bio_Cannon.bio_cannon_proto_ammo = {
 
 
 -- Prototype Artillery Basic Ammo
-BI.additional_items.Bio_Cannon.bio_cannon_basic_ammo = {
+BI.additional_items.Bio_Cannon.bio_cannon_ammo_basic = {
   type = "ammo",
-  name = "bi-bio-cannon-basic-ammo",
-  icon = ICONPATH .. "weapon/bio_cannon_basic_ammo_icon.png",
+  name = "bi-bio-cannon-ammo-basic",
+  localised_description = {"item-description.bi-bio-cannon-ammo"},
+  icon = ICONPATH .. "weapon/bio_cannon_ammo_basic_icon.png",
   icon_size = 64, icon_mipmaps = 3,
   BI_add_icon = true,
   ammo_type = {
@@ -96,10 +100,13 @@ BI.additional_items.Bio_Cannon.bio_cannon_basic_ammo = {
         type = "direct",
         action_delivery = {
           type = "projectile",
-          projectile = "bi-bio-cannon-basic-ammo",
-          starting_speed = 1,
-          direction_deviation = 0.8,
-          range_deviation = 0.8,
+          projectile = "bi-bio-cannon-ammo-basic",
+          --~ starting_speed = 1,
+          --~ direction_deviation = 0.8,
+          --~ range_deviation = 0.8,
+          starting_speed = 0.4,
+          direction_deviation = 0.4,
+          range_deviation = 0.4,
           max_range = 90
         }
       }
@@ -112,10 +119,11 @@ BI.additional_items.Bio_Cannon.bio_cannon_basic_ammo = {
 
 
 -- Prototype Artillery Poison Ammo
-BI.additional_items.Bio_Cannon.bio_cannon_poison_ammo = {
+BI.additional_items.Bio_Cannon.bio_cannon_ammo_poison = {
   type = "ammo",
-  name = "bi-bio-cannon-poison-ammo",
-  icon = ICONPATH .. "weapon/bio_cannon_poison_ammo_icon.png",
+  name = "bi-bio-cannon-ammo-poison",
+  localised_description = {"item-description.bi-bio-cannon-ammo"},
+  icon = ICONPATH .. "weapon/bio_cannon_ammo_poison_icon.png",
   icon_size = 64, icon_mipmaps = 3,
   BI_add_icon = true,
   ammo_type = {
@@ -126,10 +134,13 @@ BI.additional_items.Bio_Cannon.bio_cannon_poison_ammo = {
         type = "direct",
         action_delivery = {
           type = "projectile",
-          projectile = "bi-bio-cannon-poison-ammo",
-          starting_speed = 1,
-          direction_deviation = 0.8,
-          range_deviation = 0.8,
+          projectile = "bi-bio-cannon-ammo-poison",
+          --~ starting_speed = 1,
+          --~ direction_deviation = 0.8,
+          --~ range_deviation = 0.8,
+          starting_speed = 0.8,
+          direction_deviation = 0.2,
+          range_deviation = 0.2,
           max_range = 90
         }
       }
@@ -143,6 +154,31 @@ BI.additional_items.Bio_Cannon.bio_cannon_poison_ammo = {
 
 -- Poison artillery shell
 BI.additional_items.Bio_Cannon.poison_artillery_shell = {
+  --~ type = "ammo",
+  --~ name = "bi-poison-artillery-shell",
+  --~ icon = ICONPATH .. "weapon/artillery-shell-poison.png",
+  --~ icon_size = 64, icon_mipmaps = 3,
+  --~ BI_add_icon = true,
+  --~ ammo_type = {
+    --~ category = "artillery-shell",
+    --~ target_type = "direction",
+    --~ action = {
+      --~ {
+        --~ type = "direct",
+        --~ action_delivery = {
+          --~ type = "artillery",
+          --~ projectile = "bi-poison-artillery-projectile",
+          --~ starting_speed = 1,
+          --~ direction_deviation = 0.8,
+          --~ range_deviation = 0.8,
+          --~ max_range = 90
+        --~ }
+      --~ }
+    --~ }
+  --~ },
+  --~ subgroup = "ammo",
+  --~ order = "d[explosive-cannon-shell]-d[artillery]-[bi-poison]",
+  --~ stack_size = 1,
   type = "ammo",
   name = "bi-poison-artillery-shell",
   icon = ICONPATH .. "weapon/artillery-shell-poison.png",
@@ -150,7 +186,9 @@ BI.additional_items.Bio_Cannon.poison_artillery_shell = {
   BI_add_icon = true,
   ammo_type = {
     category = "artillery-shell",
-    target_type = "direction",
+    --~ target_type = "direction",
+    target_type = "position",
+    clamp_position = true,
     action = {
       {
         type = "direct",
@@ -158,12 +196,11 @@ BI.additional_items.Bio_Cannon.poison_artillery_shell = {
           type = "artillery",
           projectile = "bi-poison-artillery-projectile",
           starting_speed = 1,
-          direction_deviation = 0.8,
-          range_deviation = 0.8,
-          max_range = 90
+          direction_deviation = 0,
+          range_deviation = 0,
         }
       }
-    }
+    },
   },
   subgroup = "ammo",
   order = "d[explosive-cannon-shell]-d[artillery]-[bi-poison]",
@@ -614,6 +651,8 @@ BI.additional_items.BI_Terraforming.arboretum_area = {
 BI.additional_items.BI_Terraforming.arboretum_r1 = {
   type = "item",
   name = "bi-arboretum-r1",
+  localised_name = {"recipe-name.bi-arboretum-r1"},
+  localised_description = {"recipe-description.bi-arboretum-r1"},
   icon = ICONPATH .. "change_plant.png",
   icon_size = 64, icon_mipmaps = 3,
   BI_add_icon = true,
@@ -627,6 +666,8 @@ BI.additional_items.BI_Terraforming.arboretum_r1 = {
 BI.additional_items.BI_Terraforming.arboretum_r2 = {
   type = "item",
   name = "bi-arboretum-r2",
+  localised_name = {"recipe-name.bi-arboretum-r2"},
+  localised_description = {"recipe-description.bi-arboretum-r2"},
   icon = ICONPATH .. "change_fert_1.png",
   icon_size = 64,
   BI_add_icon = true,
@@ -640,6 +681,8 @@ BI.additional_items.BI_Terraforming.arboretum_r2 = {
 BI.additional_items.BI_Terraforming.arboretum_r3 = {
   type = "item",
   name = "bi-arboretum-r3",
+  localised_name = {"recipe-name.bi-arboretum-r3"},
+  localised_description = {"recipe-description.bi-arboretum-r3"},
   icon = ICONPATH .. "change_fert_2.png",
   icon_size = 64, icon_mipmaps = 3,
   BI_add_icon = true,
@@ -653,6 +696,8 @@ BI.additional_items.BI_Terraforming.arboretum_r3 = {
 BI.additional_items.BI_Terraforming.arboretum_r4 = {
   type = "item",
   name = "bi-arboretum-r4",
+  localised_name = {"recipe-name.bi-arboretum-r4"},
+  localised_description = {"recipe-description.bi-arboretum-r4"},
   icon = ICONPATH .. "change_fert_plant_1.png",
   icon_size = 64, icon_mipmaps = 3,
   BI_add_icon = true,
@@ -666,6 +711,8 @@ BI.additional_items.BI_Terraforming.arboretum_r4 = {
 BI.additional_items.BI_Terraforming.arboretum_r5 = {
   type = "item",
   name = "bi-arboretum-r5",
+  localised_name = {"recipe-name.bi-arboretum-r5"},
+  localised_description = {"recipe-description.bi-arboretum-r5"},
   icon = ICONPATH .. "change_fert_plant_2.png",
   icon_size = 64, icon_mipmaps = 3,
   BI_add_icon = true,
@@ -872,7 +919,9 @@ BI.additional_items.BI_Rails.power_to_rail_pole = {
 }
 
 
-BioInd.writeDebug("Read data for optional items.")
+-- Status report
+BioInd.readdata_msg(BI.additional_items, settings,
+                    "optional items", "setting")
 
 
 ------------------------------------------------------------------------------------

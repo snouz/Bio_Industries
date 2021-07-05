@@ -19,15 +19,15 @@ local recipe
 ------------------------------------------------------------------------------------
 --             Add recipe for sand from crushed stone if there is sand            --
 ------------------------------------------------------------------------------------
-if data.raw.item["biotech-sand"] then
+if BI.Settings.BI_Stone_Crushing and data.raw.item["biotech-sand"] then
 
   -- Make sure our sand recipe exists
-  if not data.raw.recipe[BI.additional_recipes.sand.name] then
+  if not data.raw.recipe[BI.additional_recipes.mod_compatibility.sand.name] then
     --~ data:extend({BI.additional_recipes.sand})
     --~ BioInd.created_msg(BI.additional_recipes.sand)
-    BioInd.create_stuff(BI.additional_recipes.sand)
+    BioInd.create_stuff(BI.additional_recipes.mod_compatibility.sand)
   end
-  recipe = data.raw.recipe[BI.additional_recipes.sand.name]
+  recipe = data.raw.recipe[BI.additional_recipes.mod_compatibility.sand.name]
 
   -- Adjust result
   recipe.result = "biotech-sand"

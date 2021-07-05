@@ -1,7 +1,7 @@
 require("util")
 local compound_entities = require("prototypes.compound_entities.main_list")
 
-return function (mod_name)
+return function(mod_name)
   local common = {}
 
   ------------------------------------------------------------------------------------
@@ -20,11 +20,14 @@ return function (mod_name)
 
 
   ------------------------------------------------------------------------------------
+  -- Table with the difficulties we may need to check
+  common.difficulties = {"", "normal", "expensive"}
+
+  ------------------------------------------------------------------------------------
   -- Get the value of a startup setting
   common.get_startup_setting = function(setting_name)
     return settings and settings.startup[setting_name] and settings.startup[setting_name].value
   end
-
 
   ------------------------------------------------------------------------------------
   -- Get values of all startup settings
@@ -41,10 +44,13 @@ return function (mod_name)
       BI_Solar_Additions                        = "BI_Solar_Additions",
       BI_Stone_Crushing                         = "BI_Stone_Crushing",
       BI_Terraforming                           = "BI_Terraforming",
+      BI_Wood_Gasification                      = "BI_Wood_Gasification",
       BI_Wood_Products                          = "BI_Wood_Products",
       Bio_Cannon                                = "BI_Bio_Cannon",
       BI_Game_Tweaks_Bot                        = "BI_Game_Tweaks_Bot",
       BI_Game_Tweaks_Easy_Bio_Gardens           = "BI_Game_Tweaks_Easy_Bio_Gardens",
+      BI_Game_Tweaks_Emissions_Multiplier       = "BI_Game_Tweaks_Emissions_Multiplier",
+      BI_Game_Tweaks_Fuel_Values                = "BI_Game_Tweaks_Fuel_Values",
       BI_Game_Tweaks_Player                     = "BI_Game_Tweaks_Player",
       BI_Game_Tweaks_Production_Science         = "BI_Game_Tweaks_Production_Science",
       BI_Game_Tweaks_Recipe                     = "BI_Game_Tweaks_Recipe",
@@ -330,6 +336,33 @@ log("compound entities: " .. serpent.block(common.compound_entities))
     common.writeDebug("Created %s \"%s\".", {proto_type, proto_name})
   end
 
+  ------------------------------------------------------------------------------------
+  -- Print message if data for additional prototype have been read
+  -- data:      Prototype data
+  -- list:      List of the subtables that in data that we must check
+  -- name:      Name of the thing that has been changed
+  -- list_name: The type of list (settings, triggers etc.)
+  common.readdata_msg = function(data, list, name, list_name)
+    local read_data = false
+
+    if list then
+      for t, tab in pairs(list) do
+        if next(data[tab]) then
+          read_data = true
+          break
+        end
+      end
+    elseif next(data) then
+      read_data = true
+    end
+
+    if read_data then
+      common.writeDebug("Read data for %s%s.", {name, list_name and " (" .. list_name .. ")" or ""})
+    else
+      common.writeDebug("No data for %s read.", {name})
+    end
+  end
+
 
   --~ ------------------------------------------------------------------------------------
   --~ -- Print message if something has been removed
@@ -428,6 +461,7 @@ log("compound entities: " .. serpent.block(common.compound_entities))
     if not (arg and type(arg) == arg_type) then
       common.arg_err(arg or "nil", desc or arg_type or "nil")
     end
+    return true
   end
 
 
@@ -456,8 +490,9 @@ log("compound entities: " .. serpent.block(common.compound_entities))
         ret = true
         -- If mode is "or", we've struck gold!
         if mode == "or" then
-          common.writeDebug("Required mod %s has been found and mode is \"or\". Return: %s",
-                            {mod, ret})
+          if #modlist > 1 then
+            common.writeDebug("Mod %s has been found and mode is \"or\". Return: %s", {mod, ret})
+          end
           break
         end
       -- Mod is not active
@@ -465,8 +500,9 @@ log("compound entities: " .. serpent.block(common.compound_entities))
         -- If mode is "and", the test has failed!
         ret = false
         if mode == "and" then
-          common.writeDebug("Required mod %s isn't active and mode is \"and\". Return: %s",
-                            {mod, ret})
+          if #modlist > 1 then
+            common.writeDebug("Mod %s isn't active and mode is \"and\". Return: %s", {mod, ret})
+          end
           break
         end
       end
@@ -1198,19 +1234,40 @@ common.writeDebug("Rail %s of %s (%s): %s (%s)", {direction, base.name, base.uni
   ------------------------------------------------------------------------------------
   common.BI_add_unlocks = function()
     common.entered_function()
+    local techs = data.raw.technology
 
     for r, recipe in pairs(data.raw.recipe) do
 
       -- There may be several techs that unlock a recipe!
       for t, tech in pairs(recipe.BI_add_to_tech or {}) do
-        thxbob.lib.tech.add_recipe_unlock(tech, recipe.name)
-        --~ common.writeDebug("Added unlock for recipe \"%s\" to tech \"%s\".",
-                          --~ {recipe.name, tech})
-        common.modified_msg("unlock for recipe " .. r, data.raw.technology[tech], "Added")
-common.show("Technology " .. tech, data.raw.technology[tech])
+        if techs[tech] then
+          thxbob.lib.tech.add_recipe_unlock(tech, recipe.name)
+          common.modified_msg("unlock for recipe " .. r, techs[tech], "Added")
+  --~ common.show("Technology " .. tech, techs[tech])
+        end
       end
       recipe.BI_add_to_tech = nil
     end
+  end
+
+
+  ------------------------------------------------------------------------------------
+  --                       Add difficulty to all our recipes                        --
+  ------------------------------------------------------------------------------------
+  common.BI_add_difficulty = function()
+    common.entered_function()
+
+    for r, recipe in pairs(BI.default_recipes) do
+      thxbob.lib.recipe.difficulty_split(recipe)
+      common.modified_msg("difficulties", recipe, "Added")
+    end
+    for l, recipe_list in pairs(BI.additional_recipes) do
+      for r, recipe in pairs(recipe_list) do
+        thxbob.lib.recipe.difficulty_split(recipe)
+        common.modified_msg("difficulties", recipe, "Added")
+      end
+    end
+
   end
 
   ------------------------------------------------------------------------------------

@@ -5,6 +5,8 @@ BioInd.entered_file()
 ------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------
 
+BioInd.show("RECIPE BEFORE DATA.LUA", data.raw.recipe.flask)
+
 
 ------------------------------------------------------------------------------------
 --                                      Init                                      --
@@ -30,11 +32,56 @@ end
 -- Set triggers depending on multiple settings/mods
 BI.Triggers = {
   -- Create new tech "Refined concrete"?
-  BI_Trigger_Concrete = BI.Settings.BI_Game_Tweaks_Recipe or
-                        BI.Settings.BI_Rubber or
-                        BI.Settings.BI_Stone_Crushing,
+  BI_Trigger_Concrete           = BI.Settings.BI_Game_Tweaks_Recipe or
+                                  BI.Settings.BI_Rubber or
+                                  BI.Settings.BI_Stone_Crushing,
+  BI_Trigger_Easy_Bio_Gardens   = BI.Settings.BI_Bio_Garden and
+                                  BI.Settings.BI_Game_Tweaks_Easy_Bio_Gardens
 }
 
+-- Allow mods to register names or patterns for black-/whitelisting items as
+-- fuel_items (see prototypes/fuel_values/read_patterns.lua!)
+BI_FuelItem_Filters = {}
+
+------------------------------------------------------------------------------------
+-- Modders may use the following code in data-updates.lua to add/remove filters.  --
+-- Adjust strings/boolean values to your needs! If there are any presets for      --
+-- your mod, setting a filter to "false" will remove it from the presets.         --
+-- Special characters in patterns are parsed by string.match and must be escaped! --
+------------------------------------------------------------------------------------
+-- if BI_FuelItem_Filters then
+--   BI_FuelItem_Filters["your_mod_name"] = {
+--     -- These lists may be nil or empty. Any other lists will be ignored!
+--     whitelist_items = {
+--       -- Contains a list of item_name and item_type
+--       ["wood-beam"]                          = "item",
+--       ["my-special-item"]            = "capsule",
+--       -- Setting a value to false will remove this item from the preset (if any)
+--       -- whitelist_items of mod "your_mod_name
+--       ["dont-whitelist-this-item"]   = false,
+--     },
+--     blacklist_items = {
+--       -- Contains a list of item_name and item_type
+--       ["wood-beam"]                          = "item",
+--       ["my-special-weapon"]                  = "gun",
+--       -- Setting a value to false will remove this item from the preset (if any)
+--       -- blacklist_items of mod "your_mod_name"
+--       ["dont-blacklist-this-item"]           = false,
+--     },
+--     whitelist_patterns = {
+--       -- Add this pattern
+--       [".*wood.*"]                      = true,
+--       -- Remove this pattern from presets (if there are any)
+--       ["remove%-pattern"]               = false,
+--     },
+--     blacklist_patterns = {
+--       -- Add this pattern
+--       [".*wood.*"]                      = true,
+--       -- Remove this pattern from presets (if there are any)
+--       ["remove%-pattern"]               = false,
+--     },
+--   }
+-- end
 
 ------------------------------------------------------------------------------------
 --                                 Auxiliary files                                --
@@ -251,6 +298,15 @@ require("prototypes.optional.optionTerraforming.technology_optionTerraforming")
 
 
 ------------------------------------------------------------------------------------
+--                            Enable: Wood gasification                           --
+--                       (BI.Settings.BI_Wood_Gasification)                       --
+------------------------------------------------------------------------------------
+require("prototypes.optional.optionWoodGasification.fluid_optionWoodGasification")
+require("prototypes.optional.optionWoodGasification.recipe_optionWoodGasification")
+require("prototypes.optional.optionWoodGasification.technology_optionWoodGasification")
+
+
+------------------------------------------------------------------------------------
 --                              Enable: Wood products                             --
 --                         (BI.Settings.BI_Wood_Products)                         --
 ------------------------------------------------------------------------------------
@@ -261,17 +317,25 @@ require("prototypes.optional.optionWoodProducts.technology_optionWoodProducts")
 
 
 ------------------------------------------------------------------------------------
---                          Game tweaks: Easy Bio gardens                         --
---                  (BI.Settings.BI_Game_Tweaks_Easy_Bio_Gardens)                 --
-------------------------------------------------------------------------------------
-require("prototypes.optional.tweaksEasyBioGardens")
-
-
-------------------------------------------------------------------------------------
 --           Game tweaks: Alternative recipe for Production Science Pack          --
 --                 (BI.Settings.BI_Game_Tweaks_Production_Science)                --
 ------------------------------------------------------------------------------------
 require("prototypes.optional.tweaksSciencePack")
+
+
+
+------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
+--                                    TRIGGERS                                    --
+------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
+
+
+------------------------------------------------------------------------------------
+--                            Trigger: Easy Bio gardens                           --
+--                    (BI.Triggers.BI_Trigger_Easy_Bio_Gardens)                   --
+------------------------------------------------------------------------------------
+require("prototypes.optional.triggerEasyBioGardens")
 
 
 ------------------------------------------------------------------------------------
@@ -279,6 +343,7 @@ require("prototypes.optional.tweaksSciencePack")
 --                        (BI.Triggers.BI_Trigger_Concrete)                       --
 ------------------------------------------------------------------------------------
 require("prototypes.optional.triggerConcrete")
+
 
 
 ------------------------------------------------------------------------------------
@@ -389,6 +454,81 @@ BioInd.BI_add_icons()
 BioInd.BI_add_unlocks()
 
 
+------------------------------------------------------------------------------------
+--      Add difficulty to our recipes -- other mods may expect them to exist!     --
+------------------------------------------------------------------------------------
+BioInd.BI_add_difficulty()
+
+--~ thxbob.lib.recipe.difficulty_split(recipe_in)
+
+
+--~ BioInd.show("RECIPE AFTER DATA.LUA", data.raw.recipe.flask)
+
+
+--~ data:extend({
+  --~ {
+    --~ category = "chemistry",
+    --~ enabled = false,
+    --~ energy_required = 3,
+    --~ ingredients = {
+      --~ {
+        --~ amount = 10,
+        --~ name = "iron-plate",
+        --~ type = "item"
+      --~ },
+      --~ {
+        --~ amount = 50,
+        --~ name = "hot-air",
+        --~ type = "fluid"
+      --~ }
+    --~ },
+    --~ results = {
+      --~ {
+        --~ amount = 4,
+        --~ name = "wood",
+        --~ type = "item"
+      --~ },
+      --~ {
+        --~ amount = 10,
+        --~ name = "water",
+        --~ type = "fluid"
+      --~ }
+    --~ },
+    --~ icons = {
+      --~ {
+        --~ icon = "__pyfusionenergygraphics__/graphics/icons/molybdenum-plate.png",
+        --~ icon_size = 32
+      --~ },
+      --~ {
+        --~ icon = "__pypetroleumhandlinggraphics__/graphics/icons/hot-air.png",
+        --~ icon_size = 32,
+        --~ shift = {
+          --~ -7.5,
+          --~ -7.5
+        --~ }
+      --~ }
+    --~ },
+    --~ main_product = "wood",
+    --~ name = "hotair-molybdenum-plate",
+    --~ type = "recipe"
+  --~ },
+
+  --~ {
+    --~ type = "fluid",
+    --~ name = "hot-air",
+    --~ icon = "__pypetroleumhandlinggraphics__/graphics/icons/hot-air.png",
+    --~ icon_size = 32,
+    --~ default_temperature = 15, -- less than 15 = liquid / equal a 15 = gas
+    --~ base_color = {r = 1, g = 0.250, b = 0.203},
+    --~ flow_color = {r = 1, g = 0.250, b = 0.203},
+    --~ max_temperature = 100,
+    --~ gas_temperature = 15,
+    --~ pressure_to_speed_ratio = 0.4,
+    --~ flow_to_energy_ratio = 0.59,
+    --~ order = "c"
+  --~ }
+
+--~ })
 ------------------------------------------------------------------------------------
 --                                    END OF FILE                                 --
 ------------------------------------------------------------------------------------

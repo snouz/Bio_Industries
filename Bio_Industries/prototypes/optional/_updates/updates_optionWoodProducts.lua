@@ -24,8 +24,9 @@ local pipes = data.raw.pipe
 local upipes = data.raw["pipe-to-ground"]
 local items = data.raw.item
 local recipes = data.raw.recipe
+local techs = data.raw.technology
+local recipe, item, tech, chest, pole, name, p_type
 
-local recipe, item
 
 ------------------------------------------------------------------------------------
 --                                      Data                                      --
@@ -249,6 +250,61 @@ if not items[item.name] then
   BioInd.modified_msg("ingredient " .. item.name, recipe, "Removed")
 end
 
+
+------------------------------------------------------------------------------------
+--               Change the localization of the vanilla wooden chest              --
+------------------------------------------------------------------------------------
+name = "wooden-chest"
+for p, p_type in ipairs({"container", "item", "recipe"}) do
+  chest = data.raw[p_type][name]
+  if chest then
+    chest.localised_name = {"entity-name.bi-wooden-chest"}
+    chest.localised_description = {"entity-description.bi-wooden-chest"}
+    BioInd.modified_msg("localization", chest)
+  end
+end
+
+
+------------------------------------------------------------------------------------
+--                  Adjust localization of techs for wooden poles                 --
+------------------------------------------------------------------------------------
+tech = techs[BI.additional_techs.BI_Wood_Products.wooden_pole_1.name]
+if tech then
+  p_type = BI.additional_entities[setting].big_pole
+  pole = data.raw[p_type.type][p_type.name]
+  tech.localised_name = {
+    "technology-name.bi-tech-wooden-pole-1",
+    {"entity-name.bi-wooden-pole-big"}
+  }
+  tech.localised_description = {
+    "technology-description.bi-tech-wooden-pole-1",
+    {"entity-name.bi-wooden-pole-big"},
+    pole.maximum_wire_distance
+  }
+  BioInd.modified_msg("localization", tech)
+end
+
+
+tech = techs[BI.additional_techs.BI_Wood_Products.wooden_pole_2.name]
+if tech then
+  p_type = BI.additional_entities[setting].huge_pole
+  pole = data.raw[p_type.type][p_type.name]
+  tech.localised_description = {
+    "technology-description.bi-tech-wooden-pole-2",
+    pole.maximum_wire_distance
+  }
+  BioInd.modified_msg("localization", tech)
+end
+
+
+  --~ localised_name = {
+    --~ "technology-name.bi-tech-wooden-pole-1",
+    --~ {"entity-name.bi-wooden-pole-big"}
+  --~ },
+  --~ localised_description = {
+    --~ "technology-description.bi-tech-wooden-pole-1",
+    --~ {"entity-name.bi-wooden-pole-big"}
+  --~ },
 
 ------------------------------------------------------------------------------------
 --                                    END OF FILE                                 --

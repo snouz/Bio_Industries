@@ -5,7 +5,7 @@ BioInd.entered_file()
 
 BI.additional_techs = BI.additional_techs or {}
 
-for s, setting in pairs({
+local settings = {
   "BI_Bio_Fuel",
   "BI_Bio_Garden",
   "BI_Coal_Processing",
@@ -15,16 +15,20 @@ for s, setting in pairs({
   "BI_Solar_Additions",
   "BI_Stone_Crushing",
   "BI_Terraforming",
+  "BI_Wood_Gasification",
   "BI_Wood_Products",
   "Bio_Cannon",
   "BI_Darts",
-}) do
+
+}
+for s, setting in pairs(settings) do
   BI.additional_techs[setting] = BI.additional_techs[setting] or {}
 end
 
-for t, trigger in pairs({
+local triggers = {
   "BI_Trigger_Concrete",
-}) do
+}
+for t, trigger in pairs(triggers) do
   BI.additional_techs[trigger] = BI.additional_techs[trigger] or {}
 end
 
@@ -40,11 +44,15 @@ local techs = data.raw.technology
 --                            (BI.Settings.BI_Bio_Fuel)                           --
 ------------------------------------------------------------------------------------
 -- Biomass processing 1
-BI.additional_techs.BI_Bio_Fuel.biomass_processing_1 = {
+BI.additional_techs.BI_Bio_Fuel.biomass_reprocessing_1 = {
   type = "technology",
   name = "bi-tech-biomass-reprocessing-1",
-  localised_name = {"technology-name.bi-tech-biomass-reprocessing-1"},
-  localised_description = {"technology-description.bi-tech-biomass-reprocessing-1"},
+  --~ localised_name = {"technology-name.bi-tech-biomass-reprocessing-1"},
+  localised_description = {
+    "technology-description.bi-tech-biomass-reprocessing-1",
+    {"fluid-name.bi-biomass"},
+    {"fluid-name.water"},
+  },
   icon = ICONPATH .. "bi-tech-biomass-reprocessing-1.png",
   icon_size = 256, icon_mipmaps = 4,
   BI_add_icon = true,
@@ -70,11 +78,14 @@ BI.additional_techs.BI_Bio_Fuel.biomass_processing_1 = {
 }
 
 -- Biomass processing 2
-BI.additional_techs.BI_Bio_Fuel.biomass_processing_2 = {
+BI.additional_techs.BI_Bio_Fuel.biomass_reprocessing_2 = {
   type = "technology",
   name = "bi-tech-biomass-reprocessing-2",
-  localised_name = {"technology-name.bi-tech-biomass-reprocessing-2"},
-  localised_description = {"technology-description.bi-tech-biomass-reprocessing-2"},
+  --~ localised_name = {"technology-name.bi-tech-biomass-reprocessing-2"},
+  localised_description = {
+    "technology-description.bi-tech-biomass-reprocessing-2",
+    {"fluid-name.bi-biomass"}
+  },
   icon = ICONPATH .. "bi-tech-biomass-reprocessing-2.png",
   icon_size = 256, icon_mipmaps = 4,
   BI_add_icon = true,
@@ -105,7 +116,10 @@ BI.additional_techs.BI_Bio_Fuel.biomass_conversion = {
   type = "technology",
   name = "bi-tech-biomass-conversion",
   localised_name = {"technology-name.bi-tech-biomass-conversion"},
-  localised_description = {"technology-description.bi-tech-biomass-conversion"},
+  localised_description = {
+    "technology-description.bi-tech-biomass-conversion",
+    {"fluid-name.bi-biomass"}
+  },
   icon = ICONPATH .. "bi-tech-biomass-conversion.png",
   icon_size = 256, icon_mipmaps = 4,
   BI_add_icon = true,
@@ -143,8 +157,8 @@ BI.additional_techs.BI_Bio_Fuel.biomass_conversion = {
 BI.additional_techs.BI_Bio_Fuel.cellulose_1 = {
   type = "technology",
   name = "bi-tech-cellulose-1",
-  localised_name = {"technology-name.bi-tech-cellulose-1"},
-  localised_description = {"technology-description.bi-tech-cellulose-1"},
+  --~ localised_name = {"technology-name.bi-tech-cellulose-1"},
+  localised_description = {"technology-description.bi-tech-cellulose-1", {"fluid-name.sulfuric-acid"}},
   icon = ICONPATH .. "bi-tech-cellulose-1.png",
   icon_size = 256, icon_mipmaps = 4,
   BI_add_icon = true,
@@ -155,7 +169,7 @@ BI.additional_techs.BI_Bio_Fuel.cellulose_1 = {
     --~ -- },
     --~ -- {
       --~ -- type = "unlock-recipe",
-      --~ -- recipe = "bi-acid"
+      --~ -- recipe = "bi-biomass-conversion-4"
     --~ -- },
   },
   order = "[bi-bio-fuel]-[cellulose-1]",
@@ -177,7 +191,7 @@ BI.additional_techs.BI_Bio_Fuel.cellulose_1 = {
 BI.additional_techs.BI_Bio_Fuel.cellulose_2 = {
   type = "technology",
   name = "bi-tech-cellulose-2",
-  localised_name = {"technology-name.bi-tech-cellulose-2"},
+  --~ localised_name = {"technology-name.bi-tech-cellulose-2"},
   localised_description = {"technology-description.bi-tech-cellulose-2"},
   icon = ICONPATH .. "bi-tech-cellulose-2.png",
   icon_size = 256, icon_mipmaps = 4,
@@ -218,14 +232,18 @@ BI.additional_techs.BI_Bio_Fuel.bio_plastics = {
   type = "technology",
   name = "bi-tech-bio-plastics",
   localised_name = {"technology-name.bi-tech-bio-plastics"},
-  localised_description = {"technology-description.bi-tech-bio-plastics"},
+  localised_description = {
+    "technology-description.bi-tech-bio-plastics",
+    {"fluid-name.bi-biomass"},
+    {"fluid-name.light-oil"},
+  },
   icon = ICONPATH .. "bi-tech-bio-plastics.png",
   icon_size = 256, icon_mipmaps = 4,
   BI_add_icon = true,
   effects = {
     --~ -- {
       --~ -- type = "unlock-recipe",
-      --~ -- recipe = "bi-biomass-conversion-4"
+      --~ -- recipe = "bi-biomass-conversion-5"
     --~ -- },
     --~ -- {
       --~ -- type = "unlock-recipe",
@@ -290,7 +308,7 @@ BI.additional_techs.BI_Bio_Fuel.bio_boiler = {
 BI.additional_techs.BI_Bio_Garden.garden_1 = {
   type = "technology",
   name = "bi-tech-garden-1",
-  localised_name = {"technology-name.bi-tech-garden-1"},
+  --~ localised_name = {"technology-name.bi-tech-garden-1"},
   localised_description = {"technology-description.bi-tech-garden-1"},
   icon = ICONPATH .. "bi-tech-garden-1.png",
   icon_size = 256, icon_mipmaps = 4,
@@ -320,7 +338,7 @@ BI.additional_techs.BI_Bio_Garden.garden_1 = {
 BI.additional_techs.BI_Bio_Garden.garden_2 = {
   type = "technology",
   name = "bi-tech-garden-2",
-  localised_name = {"technology-name.bi-tech-garden-2"},
+  --~ localised_name = {"technology-name.bi-tech-garden-2"},
   localised_description = {"technology-description.bi-tech-garden-2"},
   icon = ICONPATH .. "bi-tech-garden-2.png",
   icon_size = 256, icon_mipmaps = 4,
@@ -350,7 +368,7 @@ BI.additional_techs.BI_Bio_Garden.garden_2 = {
 BI.additional_techs.BI_Bio_Garden.garden_3 = {
   type = "technology",
   name = "bi-tech-garden-3",
-  localised_name = {"technology-name.bi-tech-garden-3"},
+  --~ localised_name = {"technology-name.bi-tech-garden-3"},
   localised_description = {"technology-description.bi-tech-garden-3"},
   icon = ICONPATH .. "bi-tech-garden-3.png",
   icon_size = 256, icon_mipmaps = 4,
@@ -381,7 +399,7 @@ BI.additional_techs.BI_Bio_Garden.garden_3 = {
 BI.additional_techs.BI_Bio_Garden.depollution_1 = {
     type = "technology",
   name = "bi-tech-depollution-1",
-  localised_name = {"technology-name.bi-tech-depollution-1"},
+  --~ localised_name = {"technology-name.bi-tech-depollution-1"},
   localised_description = {"technology-description.bi-tech-depollution-1"},
   icon = ICONPATH .. "bi-tech-depollution-1.png",
   icon_size = 256, icon_mipmaps = 4,
@@ -410,7 +428,7 @@ BI.additional_techs.BI_Bio_Garden.depollution_1 = {
 BI.additional_techs.BI_Bio_Garden.depollution_2 = {
   type = "technology",
   name = "bi-tech-depollution-2",
-  localised_name = {"technology-name.bi-tech-depollution-2"},
+  --~ localised_name = {"technology-name.bi-tech-depollution-2"},
   localised_description = {"technology-description.bi-tech-depollution-2"},
   icon = ICONPATH .. "bi-tech-depollution-2.png",
   icon_size = 256, icon_mipmaps = 4,
@@ -422,7 +440,7 @@ BI.additional_techs.BI_Bio_Garden.depollution_2 = {
     --~ --  },
   },
   order = "[bi-bio-garden]-b-[depollution-3]",
-  prerequisites = {"bi-tech-depollution-1", "bi-tech-advanced-fertilizers"},
+  prerequisites = {"bi-tech-depollution-1", "bi-tech-advanced-fertilizer"},
   unit = {
     count = 250,
     ingredients = {
@@ -445,7 +463,7 @@ BI.additional_techs.BI_Bio_Garden.depollution_2 = {
 BI.additional_techs.BI_Coal_Processing.coal_processing_1 = {
   type = "technology",
   name = "bi-tech-coal-processing-1",
-  localised_name = {"technology-name.bi-tech-coal-processing-1"},
+  --~ localised_name = {"technology-name.bi-tech-coal-processing-1"},
   localised_description = {"technology-description.bi-tech-coal-processing-1"},
   icon = ICONPATH .. "bi-tech-coal-processing-1.png",
   icon_size = 256, icon_mipmaps = 4,
@@ -481,7 +499,7 @@ BI.additional_techs.BI_Coal_Processing.coal_processing_1 = {
 BI.additional_techs.BI_Coal_Processing.coal_processing_2 = {
   type = "technology",
   name = "bi-tech-coal-processing-2",
-  localised_name = {"technology-name.bi-tech-coal-processing-2"},
+  --~ localised_name = {"technology-name.bi-tech-coal-processing-2"},
   localised_description = {"technology-description.bi-tech-coal-processing-2"},
   icon = ICONPATH .. "bi-tech-coal-processing-2.png",
   icon_size = 256, icon_mipmaps = 4,
@@ -523,7 +541,7 @@ BI.additional_techs.BI_Coal_Processing.coal_processing_2 = {
 BI.additional_techs.BI_Coal_Processing.coal_processing_3 = {
   type = "technology",
   name = "bi-tech-coal-processing-3",
-  localised_name = {"technology-name.bi-tech-coal-processing-3"},
+  --~ localised_name = {"technology-name.bi-tech-coal-processing-3"},
   localised_description = {"technology-description.bi-tech-coal-processing-3"},
   icon = ICONPATH .. "bi-tech-coal-processing-3.png",
   icon_size = 256, icon_mipmaps = 4,
@@ -562,7 +580,7 @@ BI.additional_techs.BI_Coal_Processing.coal_processing_3 = {
 BI.additional_techs.BI_Explosive_Planting.explosive_planting_1 = {
   type = "technology",
   name = "bi-tech-explosive-planting-1",
-  localised_name = {"technology-name.bi-tech-explosive-planting-1"},
+  --~ localised_name = {"technology-name.bi-tech-explosive-planting-1"},
   localised_description = {"technology-description.bi-tech-explosive-planting-1"},
   icon = ICONPATH .. "bi-tech-explosive-planting-1.png",
   icon_size = 256, icon_mipmaps = 4,
@@ -590,7 +608,7 @@ BI.additional_techs.BI_Explosive_Planting.explosive_planting_1 = {
 BI.additional_techs.BI_Explosive_Planting.explosive_planting_2 = {
   type = "technology",
   name = "bi-tech-explosive-planting-2",
-  localised_name = {"technology-name.bi-tech-explosive-planting-2"},
+  --~ localised_name = {"technology-name.bi-tech-explosive-planting-2"},
   localised_description = {"technology-description.bi-tech-explosive-planting-2"},
   icon = ICONPATH .. "bi-tech-explosive-planting-2.png",
   icon_size = 256, icon_mipmaps = 4,
@@ -619,7 +637,7 @@ BI.additional_techs.BI_Explosive_Planting.explosive_planting_2 = {
 BI.additional_techs.BI_Explosive_Planting.explosive_planting_3 = {
   type = "technology",
   name = "bi-tech-explosive-planting-3",
-  localised_name = {"technology-name.bi-tech-explosive-planting-3"},
+  --~ localised_name = {"technology-name.bi-tech-explosive-planting-3"},
   localised_description = {"technology-description.bi-tech-explosive-planting-3"},
   icon = ICONPATH .. "bi-tech-explosive-planting-3.png",
   icon_size = 256, icon_mipmaps = 4,
@@ -631,7 +649,7 @@ BI.additional_techs.BI_Explosive_Planting.explosive_planting_3 = {
     --~ },
   },
   order = "[bi-explosive-planting]-[bi-explosive-planting-3]",
-  prerequisites = {"bi-tech-explosive-planting-2", "bi-tech-advanced-fertilizers"},
+  prerequisites = {"bi-tech-explosive-planting-2", "bi-tech-advanced-fertilizer"},
   unit = {
     count = 200,
     ingredients = {
@@ -883,7 +901,7 @@ BI.additional_techs.BI_Solar_Additions.steamsolar_combination = {
   type = "technology",
   name = "bi-tech-steamsolar-combination",
   localised_name = {"technology-name.bi-tech-steamsolar-combination"},
-  localised_description = {"technology-description.bi-tech-steamsolar-combination"},
+  localised_description = {"technology-description.bi-tech-steamsolar-combination", {"fluid-name.steam"}},
   icon = ICONPATH .. "bi-tech-steamsolar-combination.png",
   icon_size = 256, icon_mipmaps = 4,
   BI_add_icon = true,
@@ -1010,7 +1028,7 @@ BI.additional_techs.BI_Solar_Additions.huge_substation = {
 BI.additional_techs.BI_Stone_Crushing.stone_crushing_1 = {
   type = "technology",
   name = "bi-tech-stone-crushing-1",
-  localised_name = {"technology-name.bi-tech-stone-crushing-1"},
+  --~ localised_name = {"technology-name.bi-tech-stone-crushing-1"},
   localised_description = {"technology-description.bi-tech-stone-crushing-1"},
   icon = ICONPATH .. "bi-tech-stone-crushing-1.png",
   icon_size = 256, icon_mipmaps = 4,
@@ -1023,6 +1041,10 @@ BI.additional_techs.BI_Stone_Crushing.stone_crushing_1 = {
     -- {
       -- type = "unlock-recipe",
       -- recipe = "bi-crushed-stone-1"
+    -- },
+    -- {
+      -- type = "unlock-recipe",
+      -- recipe = "bi-crushed-stone-6"
     -- },
   },
   order = "[bi-stone-crushing]-a-[bi-stone-crushing-1]",
@@ -1043,7 +1065,7 @@ BI.additional_techs.BI_Stone_Crushing.stone_crushing_1 = {
 BI.additional_techs.BI_Stone_Crushing.stone_crushing_2 = {
   type = "technology",
   name = "bi-tech-stone-crushing-2",
-  localised_name = {"technology-name.bi-tech-stone-crushing-2"},
+  --~ localised_name = {"technology-name.bi-tech-stone-crushing-2"},
   localised_description = {"technology-description.bi-tech-stone-crushing-2"},
   icon = ICONPATH .. "bi-tech-stone-crushing-2.png",
   icon_size = 256, icon_mipmaps = 4,
@@ -1085,7 +1107,7 @@ BI.additional_techs.BI_Stone_Crushing.stone_crushing_2 = {
 BI.additional_techs.BI_Stone_Crushing.stone_crushing_3 = {
   type = "technology",
   name = "bi-tech-stone-crushing-3",
-  localised_name = {"technology-name.bi-tech-stone-crushing-3"},
+  --~ localised_name = {"technology-name.bi-tech-stone-crushing-3"},
   localised_description = {"technology-description.bi-tech-stone-crushing-3"},
   icon = ICONPATH .. "bi-tech-stone-crushing-3.png",
   icon_size = 256, icon_mipmaps = 4,
@@ -1123,7 +1145,7 @@ BI.additional_techs.BI_Stone_Crushing.stone_crushing_3 = {
 BI.additional_techs.BI_Terraforming.terraforming_1 = {
   type = "technology",
   name = "bi-terraforming-1",
-  localised_name = {"technology-name.bi-terraforming-1"},
+  --~ localised_name = {"technology-name.bi-terraforming-1"},
   localised_description = {"technology-description.bi-terraforming-1"},
   icon = ICONPATH .. "bi-terraforming-1.png",
   icon_size = 256, icon_mipmaps = 4,
@@ -1155,7 +1177,7 @@ BI.additional_techs.BI_Terraforming.terraforming_1 = {
 BI.additional_techs.BI_Terraforming.terraforming_2 = {
   type = "technology",
   name = "bi-terraforming-2",
-  localised_name = {"technology-name.bi-terraforming-2"},
+  --~ localised_name = {"technology-name.bi-terraforming-2"},
   localised_description = {"technology-description.bi-terraforming-2"},
   icon = ICONPATH .. "bi-terraforming-2.png",
   icon_size = 256, icon_mipmaps = 4,
@@ -1188,7 +1210,7 @@ BI.additional_techs.BI_Terraforming.terraforming_2 = {
 BI.additional_techs.BI_Terraforming.terraforming_3 = {
   type = "technology",
   name = "bi-terraforming-3",
-  localised_name = {"technology-name.bi-terraforming-3"},
+  --~ localised_name = {"technology-name.bi-terraforming-3"},
   localised_description = {"technology-description.bi-terraforming-3"},
   icon = ICONPATH .. "bi-terraforming-3.png",
   icon_size = 256, icon_mipmaps = 4,
@@ -1204,7 +1226,7 @@ BI.additional_techs.BI_Terraforming.terraforming_3 = {
     --~ --  },
   },
   order = "[bi-terraforming]-a-[bi-terraforming-3]",
-  prerequisites = {"bi-terraforming-2", "bi-tech-advanced-fertilizers"},
+  prerequisites = {"bi-terraforming-2", "bi-tech-advanced-fertilizer"},
   unit = {
     count = 200,
     ingredients = {
@@ -1226,7 +1248,7 @@ BI.additional_techs.BI_Terraforming.terraforming_3 = {
 BI.additional_techs.BI_Wood_Products.wooden_storage_1 = {
   type = "technology",
   name = "bi-tech-wooden-storage-1",
-  localised_name = {"technology-name.bi-tech-wooden-storage-1"},
+  --~ localised_name = {"technology-name.bi-tech-wooden-storage-1"},
   localised_description = {"technology-description.bi-tech-wooden-storage-1"},
   icon = ICONPATH .. "bi-tech-wooden-storage-1.png",
   icon_size = 256, icon_mipmaps = 4,
@@ -1254,7 +1276,7 @@ BI.additional_techs.BI_Wood_Products.wooden_storage_1 = {
 BI.additional_techs.BI_Wood_Products.wooden_storage_2 = {
   type = "technology",
   name = "bi-tech-wooden-storage-2",
-  localised_name = {"technology-name.bi-tech-wooden-storage-2"},
+  --~ localised_name = {"technology-name.bi-tech-wooden-storage-2"},
   localised_description = {"technology-description.bi-tech-wooden-storage-2"},
   icon = ICONPATH .. "bi-tech-wooden-storage-2.png",
   icon_size = 256, icon_mipmaps = 4,
@@ -1282,7 +1304,7 @@ BI.additional_techs.BI_Wood_Products.wooden_storage_2 = {
 BI.additional_techs.BI_Wood_Products.wooden_storage_3 = {
   type = "technology",
   name = "bi-tech-wooden-storage-3",
-  localised_name = {"technology-name.bi-tech-wooden-storage-3"},
+  --~ localised_name = {"technology-name.bi-tech-wooden-storage-3"},
   localised_description = {"technology-description.bi-tech-wooden-storage-3"},
   icon = ICONPATH .. "bi-tech-wooden-storage-3.png",
   icon_size = 256, icon_mipmaps = 4,
@@ -1311,8 +1333,14 @@ BI.additional_techs.BI_Wood_Products.wooden_storage_3 = {
 BI.additional_techs.BI_Wood_Products.wooden_pole_1 = {
   type = "technology",
   name = "bi-tech-wooden-pole-1",
-  localised_name = {"technology-name.bi-tech-wooden-pole-1"},
-  localised_description = {"technology-description.bi-tech-wooden-pole-1"},
+  --~ localised_name = {
+    --~ "technology-name.bi-tech-wooden-pole-1",
+    --~ {"entity-name.bi-wooden-pole-big"}
+  --~ },
+  --~ localised_description = {
+    --~ "technology-description.bi-tech-wooden-pole-1",
+    --~ {"entity-name.bi-wooden-pole-big"}
+  --~ },
   icon = ICONPATH .. "bi-tech-wooden-pole-1.png",
   icon_size = 256, icon_mipmaps = 4,
   effects = {
@@ -1339,7 +1367,7 @@ BI.additional_techs.BI_Wood_Products.wooden_pole_2 = {
   type = "technology",
   name = "bi-tech-wooden-pole-2",
   localised_name = {"technology-name.bi-tech-wooden-pole-2"},
-  localised_description = {"technology-description.bi-tech-wooden-pole-2"},
+  --~ localised_description = {"technology-description.bi-tech-wooden-pole-2"},
   icon = ICONPATH .. "bi-tech-wooden-pole-2.png",
   icon_size = 256, icon_mipmaps = 4,
   effects = {
@@ -1370,7 +1398,7 @@ BI.additional_techs.BI_Wood_Products.wooden_pole_2 = {
 BI.additional_techs.Bio_Cannon.bio_cannon_1 = {
   type = "technology",
   name = "bi-tech-bio-cannon-1",
-  localised_name = {"technology-name.bi-tech-bio-cannon-1"},
+  --~ localised_name = {"technology-name.bi-tech-bio-cannon-1"},
   localised_description = {"technology-description.bi-tech-bio-cannon-1"},
   icon = ICONPATH .. "bi-tech-bio-cannon-1.png",
   icon_size = 256, icon_mipmaps = 4,
@@ -1382,7 +1410,7 @@ BI.additional_techs.Bio_Cannon.bio_cannon_1 = {
     --~ },
     --~ {
       --~ type = "unlock-recipe",
-      --~ recipe = "bi-bio-cannon-proto-ammo"
+      --~ recipe = "bi-bio-cannon-ammo-proto"
     --~ },
 
   },
@@ -1406,7 +1434,7 @@ BI.additional_techs.Bio_Cannon.bio_cannon_1 = {
 BI.additional_techs.Bio_Cannon.bio_cannon_2 = {
   type = "technology",
   name = "bi-tech-bio-cannon-2",
-  localised_name = {"technology-name.bi-tech-bio-cannon-2"},
+  --~ localised_name = {"technology-name.bi-tech-bio-cannon-2"},
   localised_description = {"technology-description.bi-tech-bio-cannon-2"},
   icon = ICONPATH .. "bi-tech-bio-cannon-2.png",
   icon_size = 256, icon_mipmaps = 4,
@@ -1414,7 +1442,7 @@ BI.additional_techs.Bio_Cannon.bio_cannon_2 = {
   effects = {
     --~ {
       --~ type = "unlock-recipe",
-      --~ recipe = "bi-bio-cannon-basic-ammo"
+      --~ recipe = "bi-bio-cannon-ammo-basic"
     --~ },
 
   },
@@ -1436,7 +1464,7 @@ BI.additional_techs.Bio_Cannon.bio_cannon_2 = {
 BI.additional_techs.Bio_Cannon.bio_cannon_3 = {
   type = "technology",
   name = "bi-tech-bio-cannon-3",
-  localised_name = {"technology-name.bi-tech-bio-cannon-3"},
+  --~ localised_name = {"technology-name.bi-tech-bio-cannon-3"},
   localised_description = {"technology-description.bi-tech-bio-cannon-3"},
   icon = ICONPATH .. "bi-tech-bio-cannon-3.png",
   icon_size = 256, icon_mipmaps = 4,
@@ -1444,7 +1472,7 @@ BI.additional_techs.Bio_Cannon.bio_cannon_3 = {
   effects = {
     --~ {
       --~ type = "unlock-recipe",
-      --~ recipe = "bi-bio-cannon-poison-ammo"
+      --~ recipe = "bi-bio-cannon-ammo-poison"
     --~ },
   },
   order = "[bio-ammo]-ab-[bio-cannon-3]",
@@ -1465,6 +1493,46 @@ BI.additional_techs.Bio_Cannon.bio_cannon_3 = {
 
 
 ------------------------------------------------------------------------------------
+--                            Enable: Wood gasification                           --
+--                       (BI.Settings.BI_Wood_Gasification)                       --
+------------------------------------------------------------------------------------
+BI.additional_techs.BI_Wood_Gasification.wood_gasification = {
+  type = "technology",
+  name = "bi-tech-wood-gasification",
+  localised_name = {"technology-name.bi-tech-wood-gasification"},
+  localised_description = {
+    "technology-description.bi-tech-wood-gasification",
+    {"fluid-name.petroleum-gas"},
+    {"fluid-name.tar"},
+  },
+  icon = ICONPATH .. "bi-tech-refined-concrete.png",
+  icon_size = 256, icon_mipmaps = 4,
+  BI_add_icon = true,
+  effects = {
+    --~ {
+      --~ type = "unlock-recipe",
+      --~ recipe = "refined-concrete"
+    --~ },
+    --~ {
+      --~ type = "unlock-recipe",
+      --~ recipe = "refined-hazard-concrete"
+    --~ },
+  },
+  order = techs["concrete"] and techs["concrete"].order .. "-[bi-refined-concrete]" or
+                                "c-c-c-[bi-refined-concrete]",
+  prerequisites = {"bi-tech-timber", "oil-processing"},
+  unit = {
+    count = 120,
+    ingredients = {
+      {"automation-science-pack", 1},
+      {"logistic-science-pack", 1},
+    },
+    time = 30,
+  }
+}
+
+
+------------------------------------------------------------------------------------
 --                          Enable: Early wooden defenses                         --
 --                             (BI.Settings.BI_Darts)                             --
 ------------------------------------------------------------------------------------
@@ -1472,7 +1540,7 @@ BI.additional_techs.Bio_Cannon.bio_cannon_3 = {
 BI.additional_techs.BI_Darts.piercing_darts = {
   type = "technology",
   name = "bi-tech-darts-1",
-  localised_name = {"technology-name.bi-tech-darts-1"},
+  --~ localised_name = {"technology-name.bi-tech-darts-1"},
   localised_description = {"technology-description.bi-tech-darts-1"},
   icon = ICONPATH .. "bi-tech-darts-1.png",
   icon_size = 256, icon_mipmaps = 4,
@@ -1499,7 +1567,7 @@ BI.additional_techs.BI_Darts.piercing_darts = {
 BI.additional_techs.BI_Darts.enhanced_darts = {
   type = "technology",
   name = "bi-tech-darts-2",
-  localised_name = {"technology-name.bi-tech-darts-2"},
+  --~ localised_name = {"technology-name.bi-tech-darts-2"},
   localised_description = {"technology-description.bi-tech-darts-2"},
   icon = ICONPATH .. "bi-tech-darts-2.png",
   icon_size = 256, icon_mipmaps = 4,
@@ -1526,7 +1594,7 @@ BI.additional_techs.BI_Darts.enhanced_darts = {
 BI.additional_techs.BI_Darts.poison_darts = {
   type = "technology",
   name = "bi-tech-darts-3",
-  localised_name = {"technology-name.bi-tech-darts-3"},
+  --~ localised_name = {"technology-name.bi-tech-darts-3"},
   localised_description = {"technology-description.bi-tech-darts-3"},
   icon = ICONPATH .. "bi-tech-darts-3.png",
   icon_size = 256, icon_mipmaps = 4,
@@ -1589,8 +1657,11 @@ BI.additional_techs.BI_Trigger_Concrete.refined_concrete = {
 }
 
 
-
-BioInd.writeDebug("Read data for optional technologies.")
+-- Status report
+BioInd.readdata_msg(BI.additional_techs, settings,
+                    "optional technologies", "setting")
+BioInd.readdata_msg(BI.additional_techs, triggers,
+                    "optional technologies", "trigger")
 
 
 ------------------------------------------------------------------------------------

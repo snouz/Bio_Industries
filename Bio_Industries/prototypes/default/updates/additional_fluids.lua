@@ -75,7 +75,9 @@ BI.additional_fluids.nitrogen = {
   --~ flow_to_energy_ratio = 0.59,
 --~ }
 
-BioInd.writeDebug("Read data for additional fluids.")
+
+-- Status report
+BioInd.readdata_msg(BI.additional_fluids, nil, "additional_fluids")
 
 ------------------------------------------------------------------------------------
 --                                    END OF FILE                                 --

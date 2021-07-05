@@ -1156,8 +1156,8 @@ Event.register(defines.events.on_entity_damaged, On_Damage, function(event)
   -- Ignore damage without effect (invulnerable/resistant entities)
   if event.final_damage_amount ~= 0 and
       -- Terraformer/Terraformer radar was damaged
-      (global.bi_arboretum_table[entity.unit_number] or
-       global.bi_arboretum_radar_table[entity.unit_number]) then
+      (global.bi_arboretum_table and global.bi_arboretum_table[entity.unit_number] or
+       global.bi_arboretum_radar_table and global.bi_arboretum_radar_table[entity.unit_number]) then
     return true
   end
 end)

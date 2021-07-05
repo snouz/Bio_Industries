@@ -23,6 +23,10 @@ local tiles = data.raw.tile
 
 local sounds = BioInd.check_mods(mod_name) and {} or nil
 
+
+------------------------------------------------------------------------------------
+--                     Let wood place our wooden floor tiles!                     --
+------------------------------------------------------------------------------------
 -- Dectorio exists, so sounds exist and we can modify it
 if sounds then
   sounds.mined_sound = {filename = SNDPATH .. "deconstruct-wood.ogg"}
@@ -33,9 +37,6 @@ if sounds then
       volume = 0.95
     }
   end
--- There are no sounds we could add, but we need at least an empty table later on!
-else
-  sounds = {}
 end
 
 

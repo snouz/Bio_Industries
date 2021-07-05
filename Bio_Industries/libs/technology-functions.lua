@@ -16,58 +16,106 @@ local difficulty_properties = {
 
 
 -- Added by Pi-C
-function thxbob.lib.tech.add_difficulty(technology, difficulty)
+function thxbob.lib.tech.sort_difficulty_unlocks(technology, difficulty)
 BioInd.entered_function()
-BioInd.writeDebug("Technology: %s\tDifficulty: %s", {technology, difficulty})
+--~ BioInd.writeDebug("Technology: %s\tDifficulty: %s", {technology, difficulty})
   if difficulty ~= "normal" and difficulty ~= "expensive" then
     error(string.format("%s is not a valid difficulty!", difficulty))
   end
-BioInd.writeDebug("Passed argument check")
+
+  local effects, recipe
+  local unlock_recipes = {}
+  local unlock_other = {}
+  local tech = data.raw.technology[technology]
+
+  if tech then
+    if difficulty == "" then
+      effects = tech.effects
+    else
+      if not tech[difficulty] then
+        thxbob.lib.tech.add_difficulty(technology, difficulty)
+      end
+      effects = tech[difficulty].effects
+    end
+
+    for e, effect in ipairs(effects or {}) do
+      if effect.type == "unlock-recipe" then
+        recipe = data.raw.recipe[effect.recipe]
+        if recipe then
+          unlock_recipes[#unlock_recipes + 1] = {
+            type = effect.type,
+            recipe = recipe.name,
+            order = recipe.order or ""
+          }
+        end
+      else
+        unlock_other[#unlock_other + 1] = effect
+      end
+    end
+BioInd.show("Unsorted recipe unlocks", unlock_recipes)
+    table.sort(unlock_recipes, function(a,b) return a.order < b.order end)
+BioInd.show("Sorted recipe unlocks", unlock_recipes)
+    effects = table.deepcopy(unlock_recipes)
+    for u, unlock in ipairs(unlock_other) do
+      effects[#effects] = unlock
+    end
+BioInd.show("Final unlocks of " .. tech.name, tech)
+
+  end
+--~ BioInd.entered_function("leave")
+end
+
+
+-- Added by Pi-C
+function thxbob.lib.tech.add_difficulty(technology, difficulty)
+--~ BioInd.entered_function()
+--~ BioInd.writeDebug("Technology: %s\tDifficulty: %s", {technology, difficulty})
+  if difficulty ~= "normal" and difficulty ~= "expensive" then
+    error(string.format("%s is not a valid difficulty!", difficulty))
+  end
 
   local tech = data.raw.technology[technology]
   if tech then
-BioInd.writeDebug("Tech exists")
     if not tech[difficulty] then
-BioInd.writeDebug("Must create difficulty: %s", {difficulty})
+--~ BioInd.writeDebug("Must create difficulty: %s", {difficulty})
       tech[difficulty] = {}
-BioInd.show("data.raw.technology["..technology.."]", data.raw.technology[technology])
       for property, p in pairs(difficulty_properties) do
-BioInd.show("Property", property)
-BioInd.show("tech["..difficulty.."]["..property.."]", tech[difficulty][property])
+--~ BioInd.show("Property", property)
+--~ BioInd.show("tech["..difficulty.."]["..property.."]", tech[difficulty][property])
 
-BioInd.show("tech["..property.."]", tech[property])
-BioInd.show("tech[normal]["..property.."]", tech.normal[property])
-BioInd.show("tech[expensive]["..property.."]", tech.expensive and tech.expensive[property] or "nil")
+--~ BioInd.show("tech["..property.."]", tech[property])
+--~ BioInd.show("tech[normal]["..property.."]", tech.normal[property])
+--~ BioInd.show("tech[expensive]["..property.."]", tech.expensive and tech.expensive[property] or "nil")
 
         --~ tech[difficulty][property] =
                   --~ table.deepcopy(tech[property]) or
                   --~ difficulty == "normal" and table.deepcopy(tech["expensive"][property]) or
                   --~ difficulty == "expensive" and table.deepcopy(tech["normal"][property])
         tech[difficulty][property] = table.deepcopy(tech[property])
-BioInd.writeDebug("data.raw.technology[%s][%s][%s] after change: %s", {technology, difficulty, property, data.raw.technology[technology][difficulty][property] or "nil"})
+--~ BioInd.writeDebug("data.raw.technology[%s][%s][%s] after change: %s", {technology, difficulty, property, data.raw.technology[technology][difficulty][property] or "nil"})
 
       end
     end
   end
-BioInd.entered_function("leave")
+--~ BioInd.entered_function("leave")
 end
 
 
 -- Added by Pi-C
 function thxbob.lib.tech.make_difficulties(technology)
-BioInd.entered_function()
+--~ BioInd.entered_function()
   local tech = data.raw.technology[technology]
   if tech then
     thxbob.lib.tech.add_difficulty(technology, "normal")
     thxbob.lib.tech.add_difficulty(technology, "expensive")
   end
-BioInd.entered_function("leave")
+--~ BioInd.entered_function("leave")
 end
 
 
 -- Added by Pi-C
 function thxbob.lib.tech.remove_difficulty(technology, difficulty)
-BioInd.entered_function()
+--~ BioInd.entered_function()
   if difficulty ~= "normal" and difficulty ~= "expensive" then
     error(string.format("%s is not a valid difficulty!", difficulty))
   end
@@ -90,12 +138,12 @@ BioInd.entered_function()
       tech[difficulty] = nil
     end
   end
-BioInd.entered_function("leave")
+--~ BioInd.entered_function("leave")
 end
 
 -- Added by Pi-C
 function thxbob.lib.tech.replace_difficulty_unit(technology, difficulty, unit)
-BioInd.entered_function()
+--~ BioInd.entered_function()
   if difficulty ~= "normal" and difficulty ~= "expensive" and difficulty ~= "" then
     error(string.format("%s is not a valid difficulty!", difficulty))
   end
@@ -115,35 +163,35 @@ BioInd.entered_function()
       tech[difficulty].unit = table.deepcopy(unit)
     end
   end
-BioInd.entered_function("leave")
+--~ BioInd.entered_function("leave")
 end
 
 
 -- Added by Pi-C
 function thxbob.lib.tech.replace_unit(technology, unit)
-BioInd.entered_function()
+--~ BioInd.entered_function()
   if type(unit) ~= "table" or
       not (unit.count or unit.count_formula or unit.time or unit.ingredients) then
     error(string.format("%s is not valid unit data!", unit))
   end
-BioInd.show("technology", technology)
-BioInd.show("unit", unit)
+--~ BioInd.show("technology", technology)
+--~ BioInd.show("unit", unit)
 local tech = type(technology) == "string" and technology or
               type(technology) == "table" and technology.type == "technology" and technology.name
-BioInd.show("tech", tech)
+--~ BioInd.show("tech", tech)
 
   if data.raw.technology[technology] then
     thxbob.lib.tech.replace_difficulty_unit(technology, "", unit)
     thxbob.lib.tech.replace_difficulty_unit(technology, "normal", unit)
     thxbob.lib.tech.replace_difficulty_unit(technology, "expensive", unit)
   end
-BioInd.entered_function("leave")
+--~ BioInd.entered_function("leave")
 end
 
 
 -- Added by Pi-C
 function thxbob.lib.tech.replace_difficulty_science_pack(technology, difficulty, old, new)
-BioInd.entered_function()
+--~ BioInd.entered_function()
   if difficulty ~= "normal" and difficulty ~= "expensive" and difficulty ~= "" then
     error(string.format("%s is not a valid difficulty!", difficulty))
   end
@@ -184,39 +232,12 @@ BioInd.entered_function()
       end
     end
   end
-BioInd.entered_function("leave")
+--~ BioInd.entered_function("leave")
 end
 
 
 -- Modified by Pi-C
 function thxbob.lib.tech.replace_science_pack(technology, old, new)
-BioInd.entered_function()
-  --~ if data.raw.technology[technology] and data.raw.tool[new] then
-    --~ local doit = false
-    --~ local amount = 0
-    --~ for i, ingredient in pairs(data.raw.technology[technology].unit.ingredients) do
-      --~ if ingredient[1] == old then
-        --~ doit = true
-        --~ amount = ingredient[2] + amount
-      --~ end
-      --~ if ingredient.name == old then
-        --~ doit = true
-        --~ amount = ingredient.amount + amount
-      --~ end
-    --~ end
-    --~ if doit then
-      --~ thxbob.lib.tech.remove_science_pack(technology, old)
-      --~ thxbob.lib.tech.add_science_pack(technology, new, amount)
-    --~ end
-  --~ else
-    --~ if not data.raw.technology[technology] then
-      --~ BioInd.writeDebug("Technology %s does not exist.", {technology})
-    --~ end
-    --~ if not data.raw.tool[new] then
-      --~ BioInd.writeDebug("Science pack %s does not exist.", {new})
-    --~ end
-  --~ end
-
   if data.raw.technology[technology] and data.raw.tool[new] then
     thxbob.lib.tech.replace_difficulty_science_pack(technology, "", old, new)
     thxbob.lib.tech.replace_difficulty_science_pack(technology, "normal", old, new)
@@ -229,13 +250,13 @@ BioInd.entered_function()
       BioInd.writeDebug("Science pack %s does not exist.", {new})
     end
   end
-BioInd.entered_function("leave")
+--~ BioInd.entered_function("leave")
 end
 
 
 -- Added by Pi-C
 function thxbob.lib.tech.add_new_difficulty_science_pack(technology, difficulty, pack, amount)
-BioInd.entered_function()
+--~ BioInd.entered_function()
   if difficulty ~= "normal" and difficulty ~= "expensive" and difficulty ~= "" then
     error(string.format("%s is not a valid difficulty!", difficulty))
   end
@@ -265,14 +286,12 @@ BioInd.entered_function()
     end
 
     doit = true
-    --~ if ingredients then
-      for i, ingredient in ipairs(ingredients) do
-        if ingredient[1] == pack or ingredient.name == pack then
-          doit = false
-          break
-        end
+    for i, ingredient in ipairs(ingredients) do
+      if ingredient[1] == pack or ingredient.name == pack then
+        doit = false
+        break
       end
-    --~ end
+    end
 
     if doit then
       if difficulty == "" then
@@ -282,27 +301,13 @@ BioInd.entered_function()
       end
     end
   end
-BioInd.entered_function("leave")
+--~ BioInd.entered_function("leave")
 end
 
 
 -- Modified by Pi-C
 function thxbob.lib.tech.add_new_science_pack(technology, pack, amount)
-BioInd.entered_function()
-  --~ if data.raw.technology[technology] and data.raw.tool[pack] then
-    --~ local addit = true
-    --~ for i, ingredient in pairs(data.raw.technology[technology].unit.ingredients) do
-      --~ if ingredient[1] == pack or ingredient.name == pack then addit = false end
-    --~ end
-    --~ if addit then table.insert(data.raw.technology[technology].unit.ingredients, {pack, amount}) end
-  --~ else
-    --~ if not data.raw.technology[technology] then
-      --~ BioInd.writeDebug("Technology %s does not exist.", {technology})
-    --~ end
-    --~ if not data.raw.tool[pack] then
-      --~ BioInd.writeDebug("Science pack %s does not exist.", {pack})
-    --~ end
-  --~ end
+--~ BioInd.entered_function()
   if data.raw.technology[technology] and data.raw.tool[pack] then
     thxbob.lib.tech.add_new_difficulty_science_pack(technology, "", pack, amount)
     thxbob.lib.tech.add_new_difficulty_science_pack(technology, "normal", pack, amount)
@@ -315,13 +320,13 @@ BioInd.entered_function()
       BioInd.writeDebug("Science pack %s does not exist.", {new})
     end
   end
-BioInd.entered_function("leave")
+--~ BioInd.entered_function("leave")
 end
 
 
 -- Added by Pi-C
 function thxbob.lib.tech.add_difficulty_science_pack(technology, difficulty, pack, amount)
-BioInd.entered_function()
+--~ BioInd.entered_function()
   if difficulty ~= "normal" and difficulty ~= "expensive" and difficulty ~= "" then
     error(string.format("%s is not a valid difficulty!", difficulty))
   end
@@ -351,24 +356,16 @@ BioInd.entered_function()
     end
 
     cnt = 0
-    --~ if ingredients then
-      for i, ingredient in ipairs(ingredients) do
-        -- Accumulate amount in case the same pack is in use multiple times,
-        if ingredient[1] == pack or ingredient.name == pack then
-          cnt = (ingredient[2] or ingredient.amount) + cnt
-        end
+    for i, ingredient in ipairs(ingredients) do
+      -- Accumulate amount in case the same pack is in use multiple times,
+      if ingredient[1] == pack or ingredient.name == pack then
+        cnt = (ingredient[2] or ingredient.amount) + cnt
       end
-      -- In case we've found the same pack one or more times remove it
-      if cnt > 0 then
-        thxbob.lib.tech.remove_difficulty_science_pack(technology, difficulty, pack)
-      end
-    --~ else
-      --~ if difficulty == "" then
-        --~ tech.unit.ingredients = { {name = pack, amount = amount} }
-      --~ else
-        --~ tech[difficulty].unit.ingredients = { {name = pack, amount = amount} }
-      --~ end
-    --~ end
+    end
+    -- In case we've found the same pack one or more times remove it
+    if cnt > 0 then
+      thxbob.lib.tech.remove_difficulty_science_pack(technology, difficulty, pack)
+    end
 
     amount = amount + cnt
     if difficulty == "" then
@@ -377,13 +374,13 @@ BioInd.entered_function()
       table.insert(tech[difficulty].unit.ingredients, {pack, amount})
     end
   end
-BioInd.entered_function("leave")
+--~ BioInd.entered_function("leave")
 end
 
 
 -- Modified by Pi-C
 function thxbob.lib.tech.add_science_pack(technology, pack, amount)
-BioInd.entered_function()
+--~ BioInd.entered_function()
   if data.raw.technology[technology] and data.raw.tool[pack] then
     --~ local addit = true
     --~ for i, ingredient in pairs(data.raw.technology[technology].unit.ingredients) do
@@ -410,14 +407,14 @@ BioInd.entered_function()
       BioInd.writeDebug("Science pack %s does not exist.", {pack})
     end
   end
-BioInd.entered_function("leave")
+--~ BioInd.entered_function("leave")
 end
 
 
 
 -- Added by Pi-C
 function thxbob.lib.tech.remove_difficulty_science_pack(technology, difficulty, pack)
-BioInd.entered_function()
+--~ BioInd.entered_function()
   if difficulty ~= "normal" and difficulty ~= "expensive" and difficulty ~= "" then
     error(string.format("%s is not a valid difficulty!", difficulty))
   end
@@ -447,19 +444,13 @@ BioInd.entered_function()
       end
     end
   end
-BioInd.entered_function("leave")
+--~ BioInd.entered_function("leave")
 end
 
 
 -- Modified by Pi-C
 function thxbob.lib.tech.remove_science_pack(technology, pack)
-BioInd.entered_function()
-  --~ if data.raw.technology[technology] then
-    --~ for i, ingredient in pairs(data.raw.technology[technology].unit.ingredients) do
-      --~ if ingredient[1] == pack or ingredient.name == pack then
-        --~ table.remove(data.raw.technology[technology].unit.ingredients, i)
-      --~ end
-    --~ end
+--~ BioInd.entered_function()
   if data.raw.technology[technology] and data.raw.tool[pack] then
     thxbob.lib.tech.remove_difficulty_science_pack(technology, "", pack)
     thxbob.lib.tech.remove_difficulty_science_pack(technology, "normal", pack)
@@ -472,14 +463,14 @@ BioInd.entered_function()
       BioInd.writeDebug("Science pack %s does not exist.", {pack})
     end
   end
-BioInd.entered_function("leave")
+--~ BioInd.entered_function("leave")
 end
 
 
 -- Added by Pi-C
 function thxbob.lib.tech.add_difficulty_recipe_unlock(technology, difficulty, recipe)
-BioInd.entered_function()
-BioInd.writeDebug("Technology: %s\tDifficulty: %s\tRecipe: %s", {technology, difficulty, recipe})
+--~ BioInd.entered_function()
+--~ BioInd.writeDebug("Technology: %s\tDifficulty: %s\tRecipe: %s", {technology, difficulty, recipe})
   if difficulty ~= "normal" and difficulty ~= "expensive" and difficulty ~= "" then
     error(string.format("%s is not a valid difficulty!", difficulty))
   end
@@ -487,17 +478,17 @@ BioInd.writeDebug("Technology: %s\tDifficulty: %s\tRecipe: %s", {technology, dif
   if recipe and type(recipe) ~= "string" then
     error(string.format("%s is not a valid recipe name!", recipe))
   end
-BioInd.writeDebug("Passed argument check")
+--~ BioInd.writeDebug("Passed argument check")
 
   local tech = data.raw.technology[technology]
   local effects
 
   if tech and recipe then
-BioInd.writeDebug("Tech and recipe exist")
+--~ BioInd.writeDebug("Tech and recipe exist")
     if difficulty == "" then
       tech.effects = tech.effects or {}
       effects = tech.effects
-BioInd.writeDebug("Effects (no difficulty): %s", {effects or "nil"}, "line")
+--~ BioInd.writeDebug("Effects (no difficulty): %s", {effects or "nil"}, "line")
     else
       if not tech[difficulty] then
         thxbob.lib.tech.add_difficulty(technology, difficulty)
@@ -505,7 +496,7 @@ BioInd.writeDebug("Created difficulty): %s", {difficulty})
       end
       tech[difficulty].effects = tech[difficulty].effects or {}
       effects = tech[difficulty].effects
-BioInd.writeDebug("Effects (%s): %s", {difficulty, effects or "nil"}, "line")
+--~ BioInd.writeDebug("Effects (%s): %s", {difficulty, effects or "nil"}, "line")
     end
 
     local addit = true
@@ -516,6 +507,7 @@ BioInd.writeDebug("Effects (%s): %s", {difficulty, effects or "nil"}, "line")
     end
     if addit then
       table.insert(effects, {type = "unlock-recipe", recipe = recipe})
+      table.sort(effects, function(a, b) return a.order and b.order and a.order < b.order end)
     end
   else
     if not data.raw.technology[technology] then
@@ -525,22 +517,13 @@ BioInd.writeDebug("Effects (%s): %s", {difficulty, effects or "nil"}, "line")
       BioInd.writeDebug("Recipe %s does not exist.", {recipe})
     end
   end
-BioInd.entered_function("leave")
+--~ BioInd.entered_function("leave")
 end
 
 
 -- Modified by Pi-C
-BioInd.entered_function()
 function thxbob.lib.tech.add_recipe_unlock(technology, recipe)
   if data.raw.technology[technology] and data.raw.recipe[recipe] then
-    --~ local addit = true
-    --~ if not data.raw.technology[technology].effects then
-      --~ data.raw.technology[technology].effects = {}
-    --~ end
-    --~ for i, effect in pairs(data.raw.technology[technology].effects) do
-      --~ if effect.type == "unlock-recipe" and effect.recipe == recipe then addit = false end
-    --~ end
-    --~ if addit then table.insert(data.raw.technology[technology].effects, {type = "unlock-recipe", recipe = recipe}) end
     thxbob.lib.tech.add_difficulty_recipe_unlock(technology, "", recipe)
     thxbob.lib.tech.add_difficulty_recipe_unlock(technology, "normal", recipe)
     thxbob.lib.tech.add_difficulty_recipe_unlock(technology, "expensive", recipe)
@@ -552,13 +535,13 @@ function thxbob.lib.tech.add_recipe_unlock(technology, recipe)
       BioInd.writeDebug("Recipe %s does not exist.", {recipe})
     end
   end
-BioInd.entered_function("leave")
+--~ BioInd.entered_function("leave")
 end
 
 
 -- Added by Pi-C
 function thxbob.lib.tech.remove_difficulty_recipe_unlock(technology, difficulty, recipe)
-BioInd.entered_function()
+--~ BioInd.entered_function()
   if difficulty ~= "normal" and difficulty ~= "expensive" and difficulty ~= "" then
     error(string.format("%s is not a valid difficulty!", difficulty))
   end
@@ -593,20 +576,14 @@ BioInd.entered_function()
       BioInd.writeDebug("Recipe %s does not exist.", {recipe})
     end
   end
-BioInd.entered_function("leave")
+--~ BioInd.entered_function("leave")
 end
 
 
 
 -- Modified by Pi-C
 function thxbob.lib.tech.remove_recipe_unlock(technology, recipe)
-BioInd.entered_function()
-  --~ if data.raw.technology[technology] and data.raw.technology[technology].effects then
-    --~ for i, effect in pairs(data.raw.technology[technology].effects) do
-      --~ if effect.type == "unlock-recipe" and effect.recipe == recipe then
-        --~ table.remove(data.raw.technology[technology].effects, i)
-      --~ end
-    --~ end
+--~ BioInd.entered_function()
   if data.raw.technology[technology] and data.raw.recipe[recipe] then
     thxbob.lib.tech.remove_difficulty_recipe_unlock(technology, "", recipe)
     thxbob.lib.tech.remove_difficulty_recipe_unlock(technology, "normal", recipe)
@@ -619,13 +596,13 @@ BioInd.entered_function()
       BioInd.writeDebug("Recipe %s does not exist.", {recipe})
     end
   end
-BioInd.entered_function("leave")
+--~ BioInd.entered_function("leave")
 end
 
 
 -- Added by Pi-C
 function thxbob.lib.tech.replace_difficulty_prerequisite(technology, difficulty, old, new)
-BioInd.entered_function()
+--~ BioInd.entered_function()
   if difficulty ~= "normal" and difficulty ~= "expensive" and difficulty ~= "" then
     error(string.format("%s is not a valid difficulty!", difficulty))
   end
@@ -673,20 +650,14 @@ BioInd.entered_function()
       BioInd.writeDebug("Prerequisite technology %s does not exist.", {new})
     end
   end
-BioInd.entered_function("leave")
+--~ BioInd.entered_function("leave")
 end
 
 
 -- Modified by Pi-C
 function thxbob.lib.tech.replace_prerequisite(technology, old, new)
-BioInd.entered_function()
+--~ BioInd.entered_function()
   if data.raw.technology[technology] and data.raw.technology[new] then
-    --~ for i, prerequisite in ipairs(data.raw.technology[technology].prerequisites) do
-      --~ if prerequisite == old then
-        --~ thxbob.lib.tech.remove_prerequisite(technology, old)
-        --~ thxbob.lib.tech.add_prerequisite(technology, new)
-      --~ end
-    --~ end
     thxbob.lib.tech.replace_difficulty_prerequisite(technology, "", old, new)
     thxbob.lib.tech.replace_difficulty_prerequisite(technology, "normal", old, new)
     thxbob.lib.tech.replace_difficulty_prerequisite(technology, "expensive", old, new)
@@ -698,13 +669,13 @@ BioInd.entered_function()
       BioInd.writeDebug("Prerequisite technology %s does not exist.", {new})
     end
   end
-BioInd.entered_function("leave")
+--~ BioInd.entered_function("leave")
 end
 
 
 -- Added by Pi-C
 function thxbob.lib.tech.add_difficulty_prerequisite(technology, difficulty, prerequisite)
-BioInd.entered_function()
+--~ BioInd.entered_function()
   if difficulty ~= "normal" and difficulty ~= "expensive" and difficulty ~= "" then
     error(string.format("%s is not a valid difficulty!", difficulty))
   end
@@ -745,23 +716,14 @@ BioInd.entered_function()
       BioInd.writeDebug("Prerequisite technology %s does not exist.", {prerequisite})
     end
   end
-BioInd.entered_function("leave")
+--~ BioInd.entered_function("leave")
 end
 
 
 -- Modified by Pi-C
 function thxbob.lib.tech.add_prerequisite(technology, prerequisite)
-BioInd.entered_function()
+--~ BioInd.entered_function()
   if data.raw.technology[technology] and data.raw.technology[prerequisite] then
-    --~ local addit = true
-    --~ if data.raw.technology[technology].prerequisites then
-      --~ for i, check in ipairs(data.raw.technology[technology].prerequisites) do
-        --~ if check == prerequisite then addit = false end
-      --~ end
-    --~ else
-      --~ data.raw.technology[technology].prerequisites = {}
-    --~ end
-    --~ if addit then table.insert(data.raw.technology[technology].prerequisites, prerequisite) end
     thxbob.lib.tech.add_difficulty_prerequisite(technology, "", prerequisite)
     thxbob.lib.tech.add_difficulty_prerequisite(technology, "normal", prerequisite)
     thxbob.lib.tech.add_difficulty_prerequisite(technology, "expensive", prerequisite)
@@ -773,13 +735,13 @@ BioInd.entered_function()
       BioInd.writeDebug("Prerequisite technology %s does not exist.", {prerequisite})
     end
   end
-BioInd.entered_function("leave")
+--~ BioInd.entered_function("leave")
 end
 
 
 -- Added by Pi-C
 function thxbob.lib.tech.remove_difficulty_prerequisite(technology, difficulty, prerequisite)
-BioInd.entered_function()
+--~ BioInd.entered_function()
   if difficulty ~= "normal" and difficulty ~= "expensive" and difficulty ~= "" then
     error(string.format("%s is not a valid difficulty!", difficulty))
   end
@@ -810,19 +772,13 @@ BioInd.entered_function()
       BioInd.writeDebug("Prerequisite technology %s does not exist.", {prerequisite})
     end
   end
-BioInd.entered_function("leave")
+--~ BioInd.entered_function("leave")
 end
 
 
 -- Modified by Pi-C
 function thxbob.lib.tech.remove_prerequisite(technology, prerequisite)
-BioInd.entered_function()
-  --~ if data.raw.technology[technology] then
-    --~ for i, check in ipairs(data.raw.technology[technology].prerequisites) do
-      --~ if check == prerequisite then
-        --~ table.remove(data.raw.technology[technology].prerequisites, i)
-      --~ end
-    --~ end
+--~ BioInd.entered_function()
   if data.raw.technology[technology] and data.raw.technology[prerequisite] then
     thxbob.lib.tech.remove_difficulty_prerequisite(technology, "", prerequisite)
     thxbob.lib.tech.remove_difficulty_prerequisite(technology, "normal", prerequisite)
@@ -835,13 +791,13 @@ BioInd.entered_function()
       BioInd.writeDebug("Prerequisite technology %s does not exist.", {prerequisite})
     end
   end
-BioInd.entered_function("leave")
+--~ BioInd.entered_function("leave")
 end
 
 
 -- Added by Pi-C
 function thxbob.lib.tech.remove_difficulty_obsolete_prerequisites(technology, difficulty)
-BioInd.entered_function()
+--~ BioInd.entered_function()
   if difficulty ~= "normal" and difficulty ~= "expensive" and difficulty ~= "" then
     error(string.format("%s is not a valid difficulty!", difficulty))
   end
@@ -871,7 +827,7 @@ BioInd.entered_function()
       BioInd.writeDebug("Technology %s does not exist.", {technology})
     end
   end
-BioInd.entered_function("leave")
+--~ BioInd.entered_function("leave")
 end
 
 
@@ -880,7 +836,7 @@ end
 -- be confused with redundant prerequisites that exist but are already required via
 -- other techs!
 function thxbob.lib.tech.remove_obsolete_prerequisites(technology)
-BioInd.entered_function()
+--~ BioInd.entered_function()
   local tech
   if type(technology) == "string" and data.raw.technology[technology] then
     tech = technology
@@ -895,13 +851,13 @@ BioInd.entered_function()
   else
     BioInd.writeDebug("Technology %s does not exist.", {technology})
   end
-BioInd.entered_function("leave")
+--~ BioInd.entered_function("leave")
 end
 
 
 -- Added by Pi-C
 function thxbob.lib.tech.remove_difficulty_obsolete_prerequisites(technology, difficulty)
-BioInd.entered_function()
+--~ BioInd.entered_function()
   if difficulty ~= "normal" and difficulty ~= "expensive" and difficulty ~= "" then
     error(string.format("%s is not a valid difficulty!", difficulty))
   end
@@ -931,7 +887,7 @@ BioInd.entered_function()
       BioInd.writeDebug("Technology %s does not exist.", {technology})
     end
   end
-BioInd.entered_function("leave")
+--~ BioInd.entered_function("leave")
 end
 
 
@@ -940,7 +896,7 @@ end
 -- be confused with redundant prerequisites that exist but are already required via
 -- other techs!
 function thxbob.lib.tech.remove_obsolete_prerequisites(technology)
-BioInd.entered_function()
+--~ BioInd.entered_function()
   local tech
   if type(technology) == "string" and data.raw.technology[technology] then
     tech = technology
@@ -955,62 +911,5 @@ BioInd.entered_function()
   else
     BioInd.writeDebug("Technology %s does not exist.", {technology})
   end
-BioInd.entered_function("leave")
+--~ BioInd.entered_function("leave")
 end
-
-
---~ -- Added by Pi-C
---~ function thxbob.lib.tech.replace_difficulty_unit(technology, difficulty, unit)
---~ BioInd.entered_function()
-  --~ if difficulty ~= "normal" and difficulty ~= "expensive" and difficulty ~= "" then
-    --~ error(string.format("%s is not a valid difficulty!", difficulty))
-  --~ end
-
-  --~ if type(unit) ~= "table" or
-      --~ not (unit.count or unit.count_formula or unit.time or unit.ingredients) then
-    --~ error(string.format("%s is not a valid unit!", unit))
-  --~ end
-
-  --~ local tech
-  --~ if type(technology) == "string" and data.raw.technology[technology] then
-    --~ tech = data.raw.technology[technology]
-  --~ elseif type(technology) == "table" and technology.type == "technology" then
-    --~ tech = technology
-  --~ end
-
-  --~ if tech then
-    --~ local old_unit
-    --~ if difficulty == "" then
-      --~ tech.unit = unit
-    --~ else
-      --~ if not tech[difficulty] then
-        --~ thxbob.lib.tech.add_difficulty(technology, difficulty)
-      --~ end
-      --~ tech.unit = unit
-    --~ end
-  --~ else
-    --~ BioInd.writeDebug("Technology %s does not exist.", {technology})
-  --~ end
---~ BioInd.entered_function("leave")
---~ end
-
-
---~ -- Added by Pi-C
---~ function thxbob.lib.tech.replace_unit(technology, unit)
---~ BioInd.entered_function()
-  --~ local tech
-  --~ if type(technology) == "string" and data.raw.technology[technology] then
-    --~ tech = technology
-  --~ elseif type(technology) == "table" and technology.type == "technology" then
-    --~ tech = technology.name
-  --~ end
-
-  --~ if tech then
-    --~ thxbob.lib.tech.replace_difficulty_unit(tech, "", unit)
-    --~ thxbob.lib.tech.replace_difficulty_unit(tech, "normal", unit)
-    --~ thxbob.lib.tech.replace_difficulty_unit(tech, "expensive", unit)
-  --~ else
-    --~ BioInd.writeDebug("Technology %s does not exist.", {technology})
-  --~ end
---~ BioInd.entered_function("leave")
---~ end

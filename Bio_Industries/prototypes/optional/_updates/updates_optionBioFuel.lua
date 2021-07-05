@@ -55,7 +55,8 @@ end
 ------------------------------------------------------------------------------------
 if not BI.Settings[setting] then
   -- Common fertilizer
-  recipe = recipes["bi-adv-fertilizer-1"]
+  --~ recipe = recipes["bi-adv-fertilizer-1"]
+  recipe = recipes[BI.additional_recipes.adv_fertilizer_1.name]
   if recipe then
     thxbob.lib.recipe.remove_ingredient(recipe.name, "fertilizer")
     thxbob.lib.recipe.add_new_ingredient(recipe.name, {
@@ -67,7 +68,8 @@ if not BI.Settings[setting] then
   end
 
   -- Advanced fertilizer
-  recipe = recipes["bi-adv-fertilizer-2"]
+  --~ recipe = recipes["bi-adv-fertilizer-2"]
+  recipe = recipes[BI.default_recipes.adv_fertilizer_2.name]
   if recipe then
     thxbob.lib.recipe.remove_ingredient(recipe.name, "fertilizer")
     thxbob.lib.recipe.add_new_ingredient(recipe.name, {

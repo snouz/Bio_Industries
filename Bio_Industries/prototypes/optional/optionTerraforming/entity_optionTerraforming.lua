@@ -40,118 +40,118 @@ local sounds = {
 ------------------------------------------------------------------------------------
 
 
-------------------------------------------------------------------------------------
---                                   Bio reactor                                  --
-------------------------------------------------------------------------------------
--- Pipes
-function assembler2pipepicturesBioreactor()
-  return {
-    north = {
-      filename = "__core__/graphics/empty.png",
-      priority = "low",
-      width = 1,
-      height = 1,
-      shift = util.by_pixel(2.5, 14),
-    },
-    east = {
-      filename = REACTORPATH .. "pipes/bioreactor-pipe-e.png",
-      priority = "extra-high",
-      width = 20,
-      height = 38,
-      shift = util.by_pixel(-25, 1),
-      hr_version = {
-        filename = REACTORPATH .. "pipes/hr_bioreactor-pipe-e.png",
-        priority = "extra-high",
-        width = 42,
-        height = 76,
-        shift = util.by_pixel(-24.5, 1),
-        scale = 0.5,
-      }
-    },
-    south = {
-      filename = REACTORPATH .. "pipes/bioreactor-pipe-s.png",
-      priority = "extra-high",
-      width = 44,
-      height = 31,
-      shift = util.by_pixel(0, -31.5),
-      hr_version = {
-        filename = REACTORPATH .. "pipes/hr_bioreactor-pipe-s.png",
-        priority = "extra-high",
-        width = 88,
-        height = 61,
-        shift = util.by_pixel(0, -31.25),
-        scale = 0.5,
-      }
-    },
-    west = {
-      filename = REACTORPATH .. "pipes/bioreactor-pipe-W.png",
-      priority = "extra-high",
-      width = 19,
-      height = 37,
-      shift = util.by_pixel(25.5, 1.5),
-      hr_version = {
-        filename = REACTORPATH .. "pipes/hr_bioreactor-pipe-w.png",
-        priority = "extra-high",
-        width = 39,
-        height = 73,
-        shift = util.by_pixel(25.75, 1.25),
-        scale = 0.5,
-      }
-    }
-  }
-end
+--~ ------------------------------------------------------------------------------------
+--~ --                                   Bio reactor                                  --
+--~ ------------------------------------------------------------------------------------
+--~ -- Pipes
+--~ function assembler2pipepicturesBioreactor()
+  --~ return {
+    --~ north = {
+      --~ filename = "__core__/graphics/empty.png",
+      --~ priority = "low",
+      --~ width = 1,
+      --~ height = 1,
+      --~ shift = util.by_pixel(2.5, 14),
+    --~ },
+    --~ east = {
+      --~ filename = REACTORPATH .. "pipes/bioreactor-pipe-e.png",
+      --~ priority = "extra-high",
+      --~ width = 20,
+      --~ height = 38,
+      --~ shift = util.by_pixel(-25, 1),
+      --~ hr_version = {
+        --~ filename = REACTORPATH .. "pipes/hr_bioreactor-pipe-e.png",
+        --~ priority = "extra-high",
+        --~ width = 42,
+        --~ height = 76,
+        --~ shift = util.by_pixel(-24.5, 1),
+        --~ scale = 0.5,
+      --~ }
+    --~ },
+    --~ south = {
+      --~ filename = REACTORPATH .. "pipes/bioreactor-pipe-s.png",
+      --~ priority = "extra-high",
+      --~ width = 44,
+      --~ height = 31,
+      --~ shift = util.by_pixel(0, -31.5),
+      --~ hr_version = {
+        --~ filename = REACTORPATH .. "pipes/hr_bioreactor-pipe-s.png",
+        --~ priority = "extra-high",
+        --~ width = 88,
+        --~ height = 61,
+        --~ shift = util.by_pixel(0, -31.25),
+        --~ scale = 0.5,
+      --~ }
+    --~ },
+    --~ west = {
+      --~ filename = REACTORPATH .. "pipes/bioreactor-pipe-W.png",
+      --~ priority = "extra-high",
+      --~ width = 19,
+      --~ height = 37,
+      --~ shift = util.by_pixel(25.5, 1.5),
+      --~ hr_version = {
+        --~ filename = REACTORPATH .. "pipes/hr_bioreactor-pipe-w.png",
+        --~ priority = "extra-high",
+        --~ width = 39,
+        --~ height = 73,
+        --~ shift = util.by_pixel(25.75, 1.25),
+        --~ scale = 0.5,
+      --~ }
+    --~ }
+  --~ }
+--~ end
 
 
--- Pipe covers
-function pipecoverspicturesBioreactor()
-  return {
-    north = {
-      filename = "__core__/graphics/empty.png",
-      priority = "low",
-      width = 1,
-      height = 1,
-    },
-    east = {
-      filename = PIPEPATH .. "pipe-cover-east.png",
-      priority = "extra-high",
-      width = 64,
-      height = 64,
-      hr_version = {
-        filename = PIPEPATH .. "hr-pipe-cover-east.png",
-        priority = "extra-high",
-        width = 128,
-        height = 128,
-        scale = 0.5
-      }
-    },
-    south = {
-      filename = PIPEPATH .. "pipe-cover-south.png",
-      priority = "extra-high",
-      width = 64,
-      height = 64,
-      hr_version = {
-        filename = PIPEPATH .. "hr-pipe-cover-south.png",
-        priority = "extra-high",
-        width = 128,
-        height = 128,
-        scale = 0.5
-      }
-    },
-    west = {
-      filename = PIPEPATH .. "pipe-cover-west.png",
-      priority = "extra-high",
-      width = 64,
-      height = 64,
-      hr_version = {
-        filename = PIPEPATH .. "hr-pipe-cover-west.png",
-        priority = "extra-high",
-        width = 128,
-        height = 128,
-        scale = 0.5
-      }
-    }
-  }
-end
+--~ -- Pipe covers
+--~ function pipecoverspicturesBioreactor()
+  --~ return {
+    --~ north = {
+      --~ filename = "__core__/graphics/empty.png",
+      --~ priority = "low",
+      --~ width = 1,
+      --~ height = 1,
+    --~ },
+    --~ east = {
+      --~ filename = PIPEPATH .. "pipe-cover-east.png",
+      --~ priority = "extra-high",
+      --~ width = 64,
+      --~ height = 64,
+      --~ hr_version = {
+        --~ filename = PIPEPATH .. "hr-pipe-cover-east.png",
+        --~ priority = "extra-high",
+        --~ width = 128,
+        --~ height = 128,
+        --~ scale = 0.5
+      --~ }
+    --~ },
+    --~ south = {
+      --~ filename = PIPEPATH .. "pipe-cover-south.png",
+      --~ priority = "extra-high",
+      --~ width = 64,
+      --~ height = 64,
+      --~ hr_version = {
+        --~ filename = PIPEPATH .. "hr-pipe-cover-south.png",
+        --~ priority = "extra-high",
+        --~ width = 128,
+        --~ height = 128,
+        --~ scale = 0.5
+      --~ }
+    --~ },
+    --~ west = {
+      --~ filename = PIPEPATH .. "pipe-cover-west.png",
+      --~ priority = "extra-high",
+      --~ width = 64,
+      --~ height = 64,
+      --~ hr_version = {
+        --~ filename = PIPEPATH .. "hr-pipe-cover-west.png",
+        --~ priority = "extra-high",
+        --~ width = 128,
+        --~ height = 128,
+        --~ scale = 0.5
+      --~ }
+    --~ }
+  --~ }
+--~ end
 
 
 ------------------------------------------------------------------------------------
@@ -172,7 +172,7 @@ BI.additional_entities[setting].arboretum_area = {
   open_sound = sounds.open_sound,
   close_sound = sounds.close_sound,
   max_health = 250,
-  corpse = "big-remnants",
+  corpse = "bi-arboretum-area-remnant",
   dying_explosion = "medium-explosion",
   collision_box = {{-4.5, -4.5}, {4.5, 4.5}},
   selection_box = {{-4.5, -4.5}, {4.5, 4.5}},
@@ -257,7 +257,7 @@ BI.additional_entities[setting].arboretum = {
   placeable_by = {item ="bi-arboretum-area", count = 1}, -- Fixes that entity couldn't be blueprinted
   minable = {hardness = 0.2, mining_time = 0.5, result = "bi-arboretum-area"},
   max_health = 250,
-  corpse = "big-remnants",
+  corpse = "bi-arboretum-area-remnant",
   dying_explosion = "medium-explosion",
   resistances = {{type = "fire", percent = 70}},
   fluid_boxes = {

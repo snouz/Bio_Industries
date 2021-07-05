@@ -15,17 +15,18 @@ end
 
 
 local ICONPATH = BioInd.iconpath
+local items = data.raw.item
+local tiles = data.raw.tile
 
 
 ------------------------------------------------------------------------------------
 --                       Fix properties of fertilizer items                       --
 ------------------------------------------------------------------------------------
-local fertilizer = data.raw.item["fertilizer"]
-local fertilizer_adv = data.raw.item["bi-adv-fertilizer"]
+local fertilizer = items["fertilizer"]
+local fertilizer_adv = items["bi-adv-fertilizer"]
 
 -- Even though the mod is active, we should make sure its tiles exist!
-local AlienBiomes = data.raw.tile["vegetation-green-grass-3"] and
-                      data.raw.tile["vegetation-green-grass-1"] and true or false
+local AlienBiomes = tiles["vegetation-green-grass-3"] and tiles["vegetation-green-grass-1"] and true
 
 
 ------------------------------------------------------------------------------------
@@ -115,7 +116,7 @@ local patterns = {
   "volcanic%-orange%-heat%-%d",
   "volcanic%-purple%-heat%-%d",
 }
-for tile_name, tile in pairs(data.raw.tile) do
+for tile_name, tile in pairs(tiles) do
   for p, pattern in ipairs(patterns) do
     if tile_name:match(pattern) then
       BI_Functions.lib.remove_from_blueprint(tile)

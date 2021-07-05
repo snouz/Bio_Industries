@@ -18,11 +18,12 @@ end
 ------------------------------------------------------------------------------------
 --                                 Create recipes                                 --
 ------------------------------------------------------------------------------------
---~ for r, r_data in pairs(BI.additional_recipes[setting] or {}) do
-  --~ data:extend({r_data})
-  --~ BioInd.created_msg(r_data)
---~ end
-BioInd.create_stuff(BI.additional_recipes[setting])
+for r, r_data in pairs(BI.additional_recipes[setting] or {}) do
+  -- Don't create the Poison artillery shell yet -- other mods may have created one!
+  if r_data.name ~= BI.additional_recipes[setting].poison_artillery_shell.name then
+    BioInd.create_stuff(r_data)
+  end
+end
 
 
 ------------------------------------------------------------------------------------

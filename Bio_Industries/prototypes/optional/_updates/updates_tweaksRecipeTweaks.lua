@@ -49,26 +49,38 @@ end
 
 -- Rails (Replace stone with crushed stone)
 if data.raw.item["stone-crushed"] then
-  recipe = recipes["rail"]
-  if recipe then
-    thxbob.lib.recipe.remove_ingredient(recipe.name, "stone")
-    thxbob.lib.recipe.add_new_ingredient(recipe.name, {
-      type = "item",
-      name = "stone-crushed",
-      amount = 6
-    })
-    BioInd.modified_msg("ingredients", recipe)
-  end
+  --~ recipe = recipes["rail"]
+  --~ if recipe then
+    --~ thxbob.lib.recipe.remove_ingredient(recipe.name, "stone")
+    --~ thxbob.lib.recipe.add_new_ingredient(recipe.name, {
+      --~ type = "item",
+      --~ name = "stone-crushed",
+      --~ amount = 6
+    --~ })
+    --~ BioInd.modified_msg("ingredients", recipe)
+  --~ end
 
-  recipe = recipes["bi-rail-wood"]
-  if recipe then
-    thxbob.lib.recipe.remove_ingredient(recipe.name, "stone")
-    thxbob.lib.recipe.add_new_ingredient(recipe.name, {
-      type = "item",
-      name = "stone-crushed",
-      amount = 6
-    })
-    BioInd.modified_msg("ingredients", recipe)
+  --~ recipe = recipes["bi-rail-wood"]
+  --~ if recipe then
+    --~ thxbob.lib.recipe.remove_ingredient(recipe.name, "stone")
+    --~ thxbob.lib.recipe.add_new_ingredient(recipe.name, {
+      --~ type = "item",
+      --~ name = "stone-crushed",
+      --~ amount = 6
+    --~ })
+    --~ BioInd.modified_msg("ingredients", recipe)
+  --~ end
+  for _, r in ipairs({"rail", "bi-rail-wood"}) do
+   recipe = recipes[r]
+    if recipe then
+      thxbob.lib.recipe.remove_ingredient(recipe.name, "stone")
+      thxbob.lib.recipe.add_new_ingredient(recipe.name, {
+        type = "item",
+        name = "stone-crushed",
+        amount = 6
+      })
+      BioInd.modified_msg("ingredients", recipe)
+    end
   end
 end
 

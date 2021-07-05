@@ -403,9 +403,9 @@ BI.additional_entities[setting].bio_cannon = {
 --                                   Projectiles                                  --
 ------------------------------------------------------------------------------------
 -- Prototype ammo
-BI.additional_entities[setting].bio_cannon_proto_ammo = {
+BI.additional_entities[setting].bio_cannon_ammo_proto = {
   type = "projectile",
-  name = "bi-bio-cannon-proto-ammo",
+  name = "bi-bio-cannon-ammo-proto",
   flags = {"not-on-map"},
   acceleration = 0.0004,
   action = {
@@ -430,7 +430,7 @@ BI.additional_entities[setting].bio_cannon_proto_ammo = {
   },
   light = {intensity = 0.7, size = 3},
   animation = {
-    filename = PROJECTILEPATH .. "bio_cannon_basic_ammo.png",
+    filename = PROJECTILEPATH .. "bio_cannon_ammo_basic.png",
     priority = "extra-high",
     width = 18,
     height = 47,
@@ -462,9 +462,9 @@ BI.additional_entities[setting].bio_cannon_proto_ammo = {
 
 
 -- Basic ammo
-BI.additional_entities[setting].bio_cannon_basic_ammo = {
+BI.additional_entities[setting].bio_cannon_ammo_basic = {
   type = "projectile",
-  name = "bi-bio-cannon-basic-ammo",
+  name = "bi-bio-cannon-ammo-basic",
   flags = {"not-on-map"},
   acceleration = 0.0005,
   action = {
@@ -519,7 +519,7 @@ BI.additional_entities[setting].bio_cannon_basic_ammo = {
   },
   light = {intensity = 0.7, size = 6},
   animation = {
-    filename = PROJECTILEPATH .. "bio_cannon_basic_ammo.png",
+    filename = PROJECTILEPATH .. "bio_cannon_ammo_basic.png",
     priority = "extra-high",
     width = 18,
     height = 47,
@@ -532,14 +532,6 @@ BI.additional_entities[setting].bio_cannon_basic_ammo = {
     height = 47,
     frame_count = 1
   },
-  --[[
-  sound = {
-    {
-      filename = "__Natural_Evolution_Buildings__/sound/launch.ogg",
-      volume = 4.0
-    },
-  },
-  ]]
   sound = sounds.launch,
   smoke = {
     {
@@ -558,9 +550,9 @@ BI.additional_entities[setting].bio_cannon_basic_ammo = {
 
 
 -- Poison ammo
-BI.additional_entities[setting].bio_cannon_poison_ammo = {
+BI.additional_entities[setting].bio_cannon_ammo_poison = {
   type = "projectile",
-  name = "bi-bio-cannon-poison-ammo",
+  name = "bi-bio-cannon-ammo-poison",
   flags = {"not-on-map"},
   acceleration = 0.0006,
   action = {
@@ -616,10 +608,22 @@ BI.additional_entities[setting].bio_cannon_poison_ammo = {
         }
       }
     },
+    {
+      action_delivery = {
+        target_effects = {
+          {
+            entity_name = "bi-poison-cloud",
+            type = "create-entity"
+          }
+        },
+        type = "instant"
+      },
+      type = "direct"
+    },
   },
   light = {intensity = 0.8, size = 7},
   animation = {
-    filename = PROJECTILEPATH .. "bio_cannon_poison_ammo.png",
+    filename = PROJECTILEPATH .. "bio_cannon_ammo_poison.png",
     priority = "extra-high",
     width = 18,
     height = 47,
@@ -632,14 +636,6 @@ BI.additional_entities[setting].bio_cannon_poison_ammo = {
     height = 47,
     frame_count = 1
   },
-  --[[
-  sound = {
-    {
-      filename = "__Natural_Evolution_Buildings__/sound/launch.ogg",
-      volume = 4.0
-    },
-  },
-  ]]
   sound = sounds.launch,
   smoke = {
     {
@@ -710,12 +706,6 @@ BI.additional_entities[setting].bio_cannon_explosion = {
     line_length = 3,
     scale = 2,
   },
-  --~ sound = {
-    --~ {
-      --~ filename = BioInd.soundpath .. "boom.ogg",
-      --~ volume = 4.0
-    --~ },
-  --~ },
   sound = sounds.explosion,
   slow_down_factor = 0,
   affected_by_wind = false,
@@ -726,78 +716,296 @@ BI.additional_entities[setting].bio_cannon_explosion = {
 
 
 -- Poison artillery shell
-BI.additional_entities[setting].poison_artillery_shell = table.deepcopy(
-                              data.raw["artillery-projectile"]["artillery-projectile"])
-local poison_shell = BI.additional_entities[setting].poison_artillery_shell
-if poison_shell then
-  poison_shell.name = "bi-poison-artillery-projectile"
-  poison_shell.picture.filename = PROJECTILEPATH .. "hr-shell-poison.png"
-  poison_shell.chart_picture.filename = PROJECTILEPATH .. "poison-artillery-shoot-map-visualization.png"
-
-  if poison_shell.action and
-      poison_shell.action.action_delivery and
-      poison_shell.action.action_delivery.target_effects then
-
-    local check, effect_index
-    local poison_damage_amount = 300
-
-check = true
-    -- Really! This is a nested property.
-    for e, effect in pairs(poison_shell.action.action_delivery.target_effects) do
-      if effect.action and
-          effect.action.action_delivery and
-          effect.action.action_delivery.target_effects then
-BioInd.writeDebug("Found target effects!")
-        for t, target_effect in pairs(effect.action.action_delivery.target_effects) do
-BioInd.writeDebug("t: %s\teffect: %s", {t, target_effect})
-          if target_effect.damage and
-              target_effect.damage.type == "poison" and
-              target_effect.damage.amount < poison_damage_amount then
-            target_effect.damage.amount = poison_damage_amount
-            BioInd.modified_msg("damage.amount (poison)", poison_shell)
-            check = false
-            break
-          end
-        end
-        if check then
-          table.insert(effect.action.action_delivery.target_effects, {
-            type = "damage",
-            damage = {
-              amount = poison_damage_amount,
-              type = "poison"
+BI.additional_entities[setting].poison_artillery_shell = {
+  name = "bi-poison-artillery-projectile",
+  type = "artillery-projectile",
+  picture = {
+    draw_as_glow = true,
+    filename = PROJECTILEPATH .. "hr-shell-poison.png",
+    height = 64,
+    scale = 0.5,
+    width = 64
+  },
+  shadow = {
+    filename = "__base__/graphics/entity/artillery-projectile/hr-shell-shadow.png",
+    height = 64,
+    scale = 0.5,
+    width = 64
+  },
+  action = {
+    {
+      action_delivery = {
+        target_effects = {
+          {
+            entity_name = "bi-poison-cloud",
+            type = "create-entity"
+          }
+        },
+        type = "instant"
+      },
+      type = "direct"
+    },
+    {
+      action_delivery = {
+        target_effects = {
+          {
+            action = {
+              action_delivery = {
+                target_effects = {
+                  {
+                    damage = {
+                      amount = 500,
+                      type = "physical"
+                    },
+                    type = "damage"
+                  },
+                  {
+                    damage = {
+                      amount = 500,
+                      type = "explosion"
+                    },
+                    type = "damage"
+                  },
+                  {
+                    damage = {
+                      amount = 300,
+                      type = "poison"
+                    },
+                    type = "damage"
+                  }
+                },
+                type = "instant"
+              },
+              radius = 4,
+              type = "area"
             },
-          })
-          BioInd.modified_msg("poison damage", poison_shell, "Added")
-        end
+            type = "nested-result"
+          },
+          {
+            initial_height = 0,
+            max_radius = 3.5,
+            offset_deviation = { {-4, -4}, {4, 4} },
+            repeat_count = 240,
+            smoke_name = "artillery-smoke",
+            speed_from_center = 0.05,
+            speed_from_center_deviation = 0.005,
+            type = "create-trivial-smoke"
+          },
+          {
+            entity_name = "big-artillery-explosion",
+            type = "create-entity"
+          },
+          {
+            scale = 0.25,
+            type = "show-explosion-on-chart"
+          }
+        },
+        type = "instant"
+      },
+      type = "direct"
+    }
+  },
+  chart_picture = {
+    filename = PROJECTILEPATH .. "poison-artillery-shoot-map-visualization.png",
+    flags = {
+      "icon"
+    },
+    frame_count = 1,
+    height = 64,
+    priority = "high",
+    scale = 0.25,
+    width = 64
+  },
+  final_action = {
+    action_delivery = {
+      target_effects = {
+        {
+          check_buildability = true,
+          entity_name = "medium-scorchmark-tintable",
+          type = "create-entity"
+        },
+        {
+          repeat_count = 1,
+          type = "invoke-tile-trigger"
+        },
+        {
+          decoratives_with_trigger_only = false,
+          from_render_layer = "decorative",
+          include_decals = false,
+          include_soft_decoratives = true,
+          invoke_decorative_trigger = true,
+          radius = 3.5,
+          to_render_layer = "object",
+          type = "destroy-decoratives"
+        }
+      },
+      type = "instant"
+    },
+    type = "direct"
+  },
+  flags = {
+    "not-on-map"
+  },
+  height_from_ground = 4.375,
+  map_color = {b = 0, g = 1, r = 1},
+  reveal_map = true,
+}
 
-      end
-    end
 
-    --~ if check then
-      --~ table.insert(poison_shell.action.action_delivery.target_effects[check].action.action_delivery.target_effects, {
-        --~ type = "damage",
-        --~ damage = {
-          --~ amount = poison_damage_amount,
-          --~ type = "poison"
-        --~ },
-      --~ })
-      --~ BioInd.modified_msg("poison damage", poison_shell, "Added")
-    --~ end
-  end
-end
+-- Poison cloud
+--~ local ingredients = BI.additional_recipes.Bio_Cannon.poison_artillery_shell.ingredients
+--~ local multiplier = BI_Functions.lib.get_recipe_ingredients(ingredients)["poison-capsule"].amount
+
+BI.additional_entities[setting].poison_cloud = {
+  name = "bi-poison-cloud",
+  type = "smoke-with-trigger",
+  action = {
+    action_delivery = {
+      target_effects = {
+        action = {
+          action_delivery = {
+            target_effects = {
+              damage = {
+                --~ amount = 8 * multiplier,
+                amount = 8,
+                type = "poison"
+              },
+              type = "damage"
+            },
+            type = "instant"
+          },
+          entity_flags = {
+            "breaths-air"
+          },
+          radius = 11,
+          type = "area"
+        },
+        type = "nested-result"
+      },
+      type = "instant"
+    },
+    type = "direct"
+  },
+  action_cooldown = 30,
+  affected_by_wind = false,
+  animation = {
+    animation_speed = 0.25,
+    filename = "__base__/graphics/entity/smoke/smoke.png",
+    flags = {
+      "smoke"
+    },
+    frame_count = 60,
+    height = 120,
+    line_length = 5,
+    priority = "high",
+    shift = {
+      -0.53125,
+      -0.4375
+    },
+    width = 152
+  },
+  color = {
+    a = 0.68999999999999995,
+    b = 0.99199999999999999,
+    g = 0.875,
+    r = 0.23899999999999997
+  },
+  created_effect = {
+    {
+      action_delivery = {
+        target_effects = {
+          {
+            entity_name = "poison-cloud-visual-dummy",
+            initial_height = 0,
+            show_in_tooltip = false,
+            type = "create-smoke"
+          },
+          {
+            sound = {
+              aggregation = {
+                max_count = 1,
+                remove = true
+              },
+              variations = {
+                {
+                  filename = "__base__/sound/fight/poison-capsule-explosion-1.ogg",
+                  volume = 0.3
+                }
+              }
+            },
+            type = "play-sound"
+          }
+        },
+        type = "instant"
+      },
+      cluster_count = 10,
+      distance = 4,
+      distance_deviation = 5,
+      type = "cluster"
+    },
+    {
+      action_delivery = {
+        target_effects = {
+          {
+            entity_name = "poison-cloud-visual-dummy",
+            initial_height = 0,
+            show_in_tooltip = false,
+            type = "create-smoke"
+          }
+        },
+        type = "instant"
+      },
+      cluster_count = 11,
+      distance = 8.8000000000000007,
+      distance_deviation = 2,
+      type = "cluster"
+    }
+  },
+  cyclic = true,
+  duration = 1200,
+  fade_away_duration = 120,
+  flags = {
+    "not-on-map"
+  },
+  particle_count = 16,
+  particle_distance_scale_factor = 0.5,
+  particle_duration_variation = 180,
+  particle_scale_factor = {
+    1,
+    0.70699999999999994
+  },
+  particle_spread = {
+    3.7800000000000002,
+    2.2680000000000002
+  },
+  render_layer = "object",
+  show_when_smoke_off = true,
+  spread_duration = 20,
+  spread_duration_variation = 20,
+  wave_distance = {
+    0.3,
+    0.2
+  },
+  wave_speed = {
+    0.0125,
+    0.016666666666666665
+  }
+}
 
 
 ------------------------------------------------------------------------------------
 --                          Create entities and remnants                          --
 ------------------------------------------------------------------------------------
 for e, e_data in pairs(BI.additional_entities[setting] or {}) do
-  -- Entity
-  --~ data:extend({e_data})
-  --~ BioInd.created_msg(e_data)
-  BioInd.create_stuff(e_data)
+  -- Don't create the Poison artillery shell yet -- other mods may have created one!
+  --~ if e_data.name ~= BI.additional_entities[setting].poison_artillery_shell.name and
+      --~ e_data.name ~= BI.additional_entities[setting].poison_cloud then
+  if e_data.name ~= BI.additional_entities[setting].poison_artillery_shell.name then
+    BioInd.create_stuff(e_data)
 
-  -- Remnants, if they exist
-  BioInd.make_remnants_for_entity(BI.additional_remnants[setting], e_data)
+    -- Remnants, if they exist
+    BioInd.make_remnants_for_entity(BI.additional_remnants[setting], e_data)
+  end
 end
 
 

@@ -50,7 +50,7 @@ end
 ------------------------------------------------------------------------------------
 
 
--- Solar mat/Musk floor
+-- Rubber mat/Rubber-coated concrete
 BI.additional_entities[setting].rubber_mat = {
   type = "tile",
   name = "bi-rubber-mat",

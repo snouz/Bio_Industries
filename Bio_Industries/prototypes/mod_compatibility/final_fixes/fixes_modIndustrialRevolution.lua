@@ -17,9 +17,74 @@ end
 --~ local recipe, item, entity
 
 --~ local items = data.raw.item
---~ local recipes = data.raw.recipe
+local recipes = data.raw.recipe
+local items = data.raw.item
 local techs = data.raw.technology
-local tech
+local recipe, tech, entity_data, gun, old, new, amount
+
+
+------------------------------------------------------------------------------------
+--                  Lock shotgun and shotgun shells behind techs                  --
+------------------------------------------------------------------------------------
+entity_data = BI.additional_entities.BI_Darts.dart_rifle
+gun = data.raw[entity_data.type][entity_data.name]
+
+if gun then
+  -- IR makes the shotgun available right from the start. Lock it behind "Military 1".
+  recipe = recipes["shotgun"]
+  if recipe then
+--~ BioInd.writeDebug("Trying to disable shotgun!")
+    thxbob.lib.recipe.set_enabled(recipe, false)
+    BioInd.modified_msg("enabled", recipe)
+    recipe.BI_add_to_tech = {"military"}
+--~ BioInd.show(recipe.name, recipe)
+  end
+
+  -- Lock shotgun shells behind "Scattergun turret".
+  recipe = recipes["shotgun-shell"]
+  if recipe then
+    thxbob.lib.recipe.set_enabled(recipe, false)
+    BioInd.modified_msg("enabled", recipe)
+    recipe.BI_add_to_tech = {"ir2-scattergun-turret"}
+  end
+end
+
+
+------------------------------------------------------------------------------------
+-- If wooden rails exist, vanilla rails are renamed to "Concrete rails". We have
+-- already added concrete to the recipe. Now we remove IR2's "wood-beam" and make
+-- sure that they require more than just 1 gravel.
+------------------------------------------------------------------------------------
+BioInd.writeDebug("Change vanilla rails?")
+
+if recipes[BI.additional_recipes.BI_Rails.rail_wood.name] then
+BioInd.writeDebug("Wooden rails are active")
+  recipe = recipes["rail"]
+  -- Wood beam
+  old = items["wood-beam"]
+  new = items["steel-plate"]
+  if old then
+    if not new then
+      thxbob.lib.recipe.remove_ingredient(recipe.name, old.name)
+      BioInd.modified_msg("ingredient \"" .. item .. "\"", recipe, "Removed")
+    else
+      thxbob.lib.recipe.replace_ingredient(recipe.name, old.name, new.name)
+      BioInd.modified_msg("ingredient \"" .. old.name .. "\"", recipe, "Replaced")
+    end
+  end
+
+  local ingredients = recipe.ingredients or
+                        recipe.normal and recipe.normal.ingredients or
+                        recipe.expensive and recipe.expensive.ingredients
+  -- Gravel
+  --~ old = ingredients and BI_Functions.lib.get_recipe_ingredients(ingredients)["gravel"]
+  old = ingredients and BI_Functions.lib.get_recipe_ingredients(ingredients)
+  old = old and old["gravel"]
+  if old and old.amount < 6 and recipes[BI.additional_recipes.BI_Rails.rail_wood.name] then
+    thxbob.lib.recipe.set_ingredient(recipe.name, {"gravel", 6})
+    BioInd.modified_msg("ingredient \"" .. old.name .. "\"", recipe, "Replaced")
+  end
+end
 
 
 ------------------------------------------------------------------------------------

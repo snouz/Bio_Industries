@@ -5,14 +5,15 @@ BioInd.entered_file()
 
 BI.additional_categories = BI.additional_categories or {}
 
-for s, setting in pairs({
+local settings = {
   "BI_Bio_Fuel",
   "BI_Bio_Garden",
   "BI_Disassemble",
   "BI_Solar_Additions",
   "BI_Stone_Crushing",
   "BI_Terraforming",
-}) do
+}
+for s, setting in pairs(settings) do
   BI.additional_categories[setting] = BI.additional_categories[setting] or {}
 end
 
@@ -275,7 +276,9 @@ BI.additional_categories.BI_Terraforming.arboretum_fluid = {
 --~ }
 
 
-BioInd.writeDebug("Read data for optional categories (item).")
+-- Status report
+BioInd.readdata_msg(BI.additional_categories, settings,
+                    "optional item categories", "setting")
 
 
 ------------------------------------------------------------------------------------

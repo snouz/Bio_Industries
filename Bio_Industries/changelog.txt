@@ -25,6 +25,7 @@ Date: 2021-03-?
   Localization:
     - Most descriptions and recipe titles rewritten to be more concise.
     - Some descriptions removed.
+    - Color-coded the settings list according to default value (green for "on", orange for "off").
 
   Changes:
     - Made the mod more modular: "Coal processing", "Early wooden defenses", "Explosive planting", "Bio gardens", "Resin extraction", "Stone crushing", "Terraforming", "Wood products", and "Wooden rails" are now also optional.
@@ -41,11 +42,11 @@ Date: 2021-03-?
     - Biofuel conversion recipes will now be made in the bio-reactor. That fixes an issue with IR2, which assigns a fixed recipe to the oil refinery, so there was no way to craft our recipes.
     - Added new techs "Rubber production" (new item "rubber" will be used in some recipes) and "Rubber-coated concrete" (new item and tile).
     - Bio Cannon:
-      - Tier 1 unlocks only the cannon and basic ammo. Cost reduced to 75 automation/logistics/military science packs.
-      - Tier 2 unlocks default ammo. Cost: 150 automation/logistics/military science packs.
-      - Tier 3 unlocks poison ammo. Cost: 175 automation/logistics/military/chemical science packs.
+      - Tier 1 unlocks only the cannon and basic ammo (low precision). Cost reduced to 75 automation/logistics/military science packs.
+      - Tier 2 unlocks default ammo (medium precision). Cost: 150 automation/logistics/military science packs.
+      - Tier 3 unlocks poison ammo (almost perfect precision). Cost: 175 automation/logistics/military/chemical science packs.
       - Replaced tier 1 with tier 3 in prerequisites of "Artillery".
-      - Added new ammo "Poison artillery shell" to unlocks of "Artillery". (The purpose of prototype artillery is to experiment with artillery turrets/ammo and use the result for making the real stuff.)
+      - The purpose of prototype artillery is to experiment with artillery turrets/ammo and use the result for making the real stuff.Added new ammo "Poison artillery shell" to unlocks of "Artillery". () Ammo and recipe will only be created if no other mod provides ".*poison-artillery-shell.*"!
     - Stone crushing:
       - Tier 1: Added new recipe "stone brick --> crushed stone".
       - Tier 2: Removed unlocks for "refined concrete/hazard concrete --> crushed stone".
@@ -60,6 +61,14 @@ Date: 2021-03-?
       - Increased costs of "Modular armor" (150 automation/logistic science packs, 30s).
     - Rubber/Stone crushing/Recipe tweaks: Make "Refined concrete" a separate research, and replace concrete with refined concrete in recipes for artillery turret, centrifuge, nuclear reactor, and the rocket silo.
     - If the setting "Enable: Rubber products" is active, we shuffle around some of the vanilla techs. That doesn't work well with "Industrial Revolution 2" because of circular tech dependencies, so the setting (and our Resin/Rubber techs) won't be available if IR2 is active as well!
+    - If IR2 is not active we'll allow for Bio-fuel conversion recipes to be made in the bio reactor as well as the vanilla oil-refinery.
+    - Added setting "Game tweaks: Fuel values". This will add a fuel value to all items that contain wood or items made with wood etc. in their production chain (e.g. "wood" --> "woodpulp" --> "cellulose" --> "plastic bar" --> "advanced circuit" --> "stack inserter"), based on the fuel value of wood.
+    - Added additional dependency on "Pyanodons Petroleum Handling". (For now, the optional dependency on PyCoalProcessing has to be removed for this to work!)
+
+
+  Modding:
+    - Migrated some recipes ("bi-sulfur-angels", "bi-crushed-stone-X", "bi-biomass-conversion-X", "bi-acid") and technologies ("bi-tech-bio-cannon", "bi-tech-advanced-fertilizers")
+    - If your mod has items that should/shouldn't get a fuel value, you can pass on filters to BI. Please check BI's data.lua for an explanation! (There are already filters for some mods included in BI. If you're not happy with the presets for your mod, either provide a complete list with the filters you want, or overwrite the presets yourselves at runtime following the explanation in BI's data.lua!)
 
   Compatibility:
     - Added support for "Deadlock's Stacking Beltboxes & Compact Loaders" and "Deadlock's Crating Machine".
@@ -93,7 +102,6 @@ Date: 2021-03-?
     - Bigger trees give more wood (https://forums.factorio.com/viewtopic.php?f=16&t=95205)
     - Don't plant lying trees
 
-    - Recipe tweaks: New tech for "Refined concrete", replace concrete with refined concrete (or even hazard concrete) in recipes for centrifuge, nuclear reactor and rocket silo, possibly artillery turret
     - Tar
 
 ---------------------------------------------------------------------------------------------------
@@ -493,6 +501,7 @@ Date: 2020-06-18
   Modding:
     - Migrated recipe "bi-basic-petroleum-gas-processing" to "bi-basic-gas-processing".
     - Changed filename of icon from "bi_basic_petroleum_gas_processing.png" to "bi_basic_gas_processing.png".
+
 
 ---------------------------------------------------------------------------------------------------
 Version: 0.18.19

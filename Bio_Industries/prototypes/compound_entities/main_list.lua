@@ -79,10 +79,13 @@ ret.compound_entities = {
         --~ base_offset = {x = 1.0, y = 1.0},
         --~ base_offset = (script and script.active_mods["_debug"] or mods and mods["_debug"]) and
                       --~ {x = 1.0, y = 1.0} or {x = 0, y = 0},
+        base_offset = (script and script.active_mods["_debug"] or mods and mods["_debug"]) and
+                      --~ {x = 1.0, y = 1.0} or {x = 1, y = 3.7},
+                      {x = 1.0, y = 1.0} or {x = 1, y = 1},
       },
       pole = {
-        --~ name = "bi-bio-farm-hidden-pole",
-        --~ type = ret.HE_map.pole,
+        name = "bi-bio-farm-hidden-pole",
+        type = ret.HE_map.pole,
         --~ base_offset = {x = 1.0, y = 1.0},
         base_offset = (script and script.active_mods["_debug"] or mods and mods["_debug"]) and
                       {x = 1.0, y = 1.0} or {x = 0, y = 0},
@@ -110,6 +113,19 @@ ret.compound_entities = {
       },
     }
   },
+  --~ ["bi-bio-solar-farm"] = {
+    --~ tab = "bi_solar_farm_table",
+    --~ base = {
+      --~ name = "bi-bio-solar-farm",
+      --~ type = ret.HE_map.panel,
+    --~ },
+    --~ hidden = {
+      --~ pole = {
+       -- name = "bi-solar-farm-hidden-pole",
+       -- type = ret.HE_map.pole,
+      --~ },
+    --~ }
+  --~ },
   ["bi-bio-solar-farm"] = {
     tab = "bi_solar_farm_table",
     base = {

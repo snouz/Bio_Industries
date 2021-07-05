@@ -1,0 +1,11 @@
+{
+  "name": "Bio_Industries_NE_graphics",
+  "version": "1.0.0",
+  "factorio_version": "1.1",
+  "title": "Bio Industries and Natural Evolution graphics",
+  "author": "Snouz, TheSAguy, Pi-C",
+  "contact": "",
+  "homepage": "",
+  "description": "This is the main dependency for Bio Industries and Natural Evolution buildings",
+  "dependencies": []
+}

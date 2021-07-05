@@ -2,7 +2,7 @@
 local BioInd = require('common')('Bio_Industries')
 BioInd.writeDebug("Entered prototypes.hidden_lamps.lua of \"%s\".", {BioInd.modName})
 
-local ICONPATH = BioInd.modRoot .. "/graphics/icons/"
+local ICONPATH = BioInd.iconpath
 
 ------------------------------------------------------------------------------------
 --  Create the main prototype for hidden lamps. All others will be based on this! --
@@ -11,7 +11,7 @@ local ICONPATH = BioInd.modRoot .. "/graphics/icons/"
 --~ local h_entity = table.deepcopy(data.raw[h_type]["small-lamp"])
 -- The short name of the hidden entity (e.g. "lamp" or "pole")
 local h_key = "lamp"
--- The actual prototype type, identified by h_keyentities
+-- The actual prototype type, identified by h_key
 local h_type = BioInd.HE_map[h_key]
 local h_entity = table.deepcopy(data.raw[h_type]["small-lamp"])
 

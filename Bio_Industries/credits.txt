@@ -1,6 +1,6 @@
--------------------------------------------------------------------------------
-------------------------------------- Credits ---------------------------------
--------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------
+------------------------------------- Credits -----------------------------------------
+---------------------------------------------------------------------------------------
 
 L0771 - For his help given to me to start this MOD.
 AlyxDeLunar - For his MOD Dynamic Expansion that I've used in my MOD.
@@ -28,6 +28,9 @@ LukeM212 &  JJtJJ - Tree Mods
 DySoch - DyTech, showing me what was possible
 Bobingabout - Bob's Mods - Learned a lot from looking at your amazing work and am using a lot of your great code!
 YuokiTani - Art!!  Amazing work!
+Pi-C - Bug squishing, maintenance, features
+Snouz - Complete art revamp for 1.2 (all entities, remnants, new gardens, icons, recipe organization, logo...)
+
 And everyone else who give feedback/suggestions/help on the forums!
 
 Sorry if I missed anyone! PM me!!

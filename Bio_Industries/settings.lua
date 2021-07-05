@@ -109,6 +109,13 @@ setting_list.BI_Game_Tweaks_Bot = {
     default_value = false,
     order = "b[tweaks]-f[Bot_tweaks]",
 }
+setting_list.BI_Bigger_Wooden_Chests = {
+    type = "bool-setting",
+    name = "BI_Bigger_Wooden_Chests",
+    setting_type = "startup",
+    default_value = true,
+    order = "a[modifier]-b[Bigger_Wooden_Chests]",
+}
 
 
 -- Compatibility with other mods (optional)

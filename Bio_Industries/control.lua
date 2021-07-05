@@ -289,10 +289,16 @@ BioInd.writeDebug("On Configuration changed: %s", {ConfigurationChangedData})
   for i = 1, 4 do
     tab = global.bi["tree_growing_stage_" .. i]
 BioInd.writeDebug("Number of trees in growing stage %s: %s", {i, table_size(tab)})
-    for t, tree in pairs(tab) do
-      if not trees[tree.tree_name] then
-BioInd.writeDebug("Removing invalid tree %s (%s)", {t, tree.tree_name})
-        tab[t] = nil
+    --~ for t, tree in pairs(tab) do
+      --~ if not trees[tree.tree_name] then
+--~ BioInd.writeDebug("Removing invalid tree %s (%s)", {t, tree.tree_name})
+        --~ table.remove(tab, t)
+      --~ end
+    --~ end
+    for t = #tab, 1, -1 do
+      if not trees[tab[t].tree_name] then
+        BioInd.writeDebug("Removing invalid tree %s (%s)", {t, tab[t].tree_name})
+        table.remove(tab, t)
       end
     end
     -- Removing trees will create gaps in the table, but we need it as a continuous
@@ -300,7 +306,8 @@ BioInd.writeDebug("Removing invalid tree %s (%s)", {t, tree.tree_name})
     -- tree with index 1 when checking if a tree has completed the growing stage, so
     -- lets sort the table after all invalid trees have been removed!)
     table.sort(tab, function(a, b) return a.time < b.time end)
-BioInd.show("Final tree list", tab)
+--~ BioInd.show("Final tree list", tab)
+BioInd.show("Number of trees in final list", #tab)
   end
 end
 

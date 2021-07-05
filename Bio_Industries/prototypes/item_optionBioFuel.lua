@@ -1,0 +1,50 @@
+local BioInd = require('common')('Bio_Industries')
+
+local ICONPATH = BioInd.iconpath
+
+
+-- Changed for 0.18.29: We always want to make advanced fertilizer, so we need to
+-- unlock the bio-reactor and the most basic recipe for algae biomass even if
+-- BI.Settings.BI_Bio_Fuel has been turned off!
+
+
+if BI.Settings.BI_Bio_Fuel then
+  data:extend({
+    ---- Cellulose
+    {
+      type = "item",
+      name = "bi-cellulose",
+      icon = ICONPATH .. "cellulose.png",
+      icon_size = 64,
+      BI_add_icon = true,
+      --~ icons = {
+        --~ {
+          --~ icon = ICONPATH .. "cellulose.png",
+          --~ icon_size = 64,
+        --~ }
+      --~ },
+      subgroup = "intermediate-product",
+      order = "b[cellulose]",
+      stack_size = 200
+    },
+
+    --- Bio Boiler
+    {
+      type = "item",
+      name = "bi-bio-boiler",
+      icon = ICONPATH .. "entity/bio_boiler.png",
+      icon_size = 64,
+      BI_add_icon = true,
+      --~ icons = {
+        --~ {
+          --~ icon = ICONPATH .. "bio_boiler.png",
+          --~ icon_size = 64,
+        --~ }
+      --~ },
+      subgroup = "energy",
+      order = "b[steam-power]-b[boiler]",
+      place_result = "bi-bio-boiler",
+      stack_size = 50
+    },
+  })
+end

@@ -2,7 +2,7 @@
 local BioInd = require('common')('Bio_Industries')
 BioInd.writeDebug("Entered prototypes.hidden_radars.lua of \"%s\".", {BioInd.modName})
 
-local ICONPATH = BioInd.modRoot .. "/graphics/icons/"
+local ICONPATH = BioInd.iconpath
 
 require ("util")
 
@@ -49,11 +49,15 @@ BioInd.show("locale_name", locale_name)
   radar.localised_name = {"entity-name." .. locale_name}
   radar.localised_description = {"entity-description." .. locale_name}
 
-BioInd.show("radar_name", radar_name)
-BioInd.show("radar.name", c_entities["bi-arboretum"].hidden[h_key].name)
+--~ BioInd.show("radar_name", radar_name)
+--~ BioInd.show("radar.name", c_entities["bi-arboretum"].hidden[h_key].name)
   -- Adjust properties for hidden radar of Bio cannon
   if c_entities["bi-bio-cannon"] and
       radar_name == c_entities["bi-bio-cannon"].hidden[h_key].name then
+
+    local base = c_entities["bi-bio-cannon"].base
+    base = data.raw[base.type][base.name]
+
     radar.icon = ICONPATH .. "entity/biocannon_icon.png"
     radar.icon_size = 64
     radar.BI_add_icon = true
@@ -61,8 +65,16 @@ BioInd.show("radar.name", c_entities["bi-arboretum"].hidden[h_key].name)
     radar.energy_per_sector = "22MJ"
     radar.energy_per_nearby_scan = "400kW"
     radar.energy_usage = "6kW"
+    -- The cannon can only shoot if the radar has power, so we need to show
+    -- if it is connected. Also, the collision_box of the radar should be big
+    -- enough that it is within reach even of poles with a small supply_area.
+    radar.collision_box = base.collision_box
+    radar.energy_source.render_no_network_icon = true
+    radar.energy_source.render_no_power_icon = true
+
     radar.max_distance_of_nearby_sector_revealed = 5
     radar.max_distance_of_sector_revealed = 5
+
     BioInd.show("Adjusted properties of", radar_name)
 
   -- Adjust properties for hidden radar of Terraformer

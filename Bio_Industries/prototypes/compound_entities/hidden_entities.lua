@@ -45,7 +45,7 @@ BI.hidden_entities.selection_box = BioInd.is_debug and
 BI.hidden_entities.selectable_in_game = BioInd.is_debug
 BI.hidden_entities.max_health = 1
 
-BI.hidden_entities.icon = ICONPATH .. "empty.png"
+BI.hidden_entities.icon = "__core__/graphics/empty.png"
 --~ BI.hidden_entities.icon_size = 32
 BI.hidden_entities.icon_size = 1
 BI.hidden_entities.icon_mipmaps = 0
@@ -59,7 +59,7 @@ BI.hidden_entities.icons = {
 }
 BI.hidden_entities.picture = {
   --~ filename = ICONPATH .. "blank.png",
-  filename = ICONPATH .. "empty.png",
+  filename = "__core__/graphics/empty.png",
   priority = "low",
   size = 1,
   frame_count = 1,
@@ -218,7 +218,7 @@ BI.add_layer = function(layers, data)
     height = height,
     size = size,
     draw_as_shadow = shadow,
-    hr_version = {
+    hr_version = hr_name and {
       filename = hr_name,
       priority = priority or "low",
       width = width and width * 2,

@@ -2,8 +2,8 @@
 local BioInd = require('common')('Bio_Industries')
 BioInd.writeDebug("Entered prototypes.hidden_panels.lua of \"%s\".", {BioInd.modName})
 
-local ICONPATH = BioInd.modRoot .. "/graphics/icons/"
-local ENTITYPATH = BioInd.modRoot .. "/graphics/entities/"
+local ICONPATH = BioInd.iconpath
+local ENTITYPATH = BioInd.entitypath
 ------------------------------------------------------------------------------------
 --  Create the main prototype for hidden lamps. All others will be based on this! --
 ------------------------------------------------------------------------------------
@@ -61,17 +61,21 @@ for panel_name, locale_name in pairs(BI.hidden_entities.types[h_key]) do
     panel.BI_add_icon = true
 
     panel.picture = {}
-    panel.picture.layers = BI.add_layer(panel.picture.layers, {
-      name = ENTITYPATH .. "Bio_Solar_Boiler.png",
-      hr_name = ENTITYPATH .. "bio_solar_farm/hr_Bio_Solar_Boiler.png",
+    --[[panel.picture.layers = BI.add_layer(panel.picture.layers, {
+      name = ENTITYPATH .. "bio_solar_boiler/Bio_Solar_Boiler.png",
+      hr_name = ENTITYPATH .. "bio_solar_boiler/hr_Bio_Solar_Boiler.png",
       size = 288
     })
     panel.picture.layers = BI.add_layer(panel.picture.layers, {
-      name = ENTITYPATH .. "Bio_Solar_Boiler_shadow.png",
-      hr_name = ENTITYPATH .. "bio_solar_farm/hr_Bio_Solar_Boiler_shadow.png",
+      name = ENTITYPATH .. "bio_solar_boiler/Bio_Solar_Boiler_shadow.png",
+      hr_name = ENTITYPATH .. "bio_solar_boiler/hr_Bio_Solar_Boiler_shadow.png",
       size = 288,
       priority = "high",
       draw_as_shadow = true,
+    })]]--
+    panel.picture.layers = BI.add_layer(panel.picture.layers, {
+      name = "__core__/graphics/empty.png",
+      size = 1
     })
     panel.overlay = {}
     panel.overlay.layers = table.deepcopy(panel.picture.layers)

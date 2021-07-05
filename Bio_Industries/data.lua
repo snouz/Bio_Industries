@@ -38,76 +38,74 @@ require ("libs.functions") -- From Bob's Libary
 require ("libs.category-functions") -- From Bob's Libary
 require ("libs.bi_functions") -- Functions
 
-require ("prototypes.category")
+
 
 -- Create the hidden entities
-require("prototypes.compound_entities.hidden_entities")
+--require("prototypes.hidden_entities.hidden_entities")
 
 --~ BioInd.show("BioInd.compound_entities", BioInd.compound_entities)
 --~ error("Break!")
 
 
---- Bio Farm
-require ("prototypes.Bio_Farm.entities")
-require ("prototypes.Bio_Farm.item")
-require ("prototypes.Bio_Farm.recipe")
-require ("prototypes.Bio_Farm.liquids")
-require ("prototypes.Bio_Farm.recipe-categories")
-require ("prototypes.Bio_Farm.pipeConnectors")
-require ("prototypes.Bio_Farm.technology")
-require ("prototypes.Bio_Farm.tree_entities")
-
--- Bio Garden
-require ("prototypes.Bio_Garden.entities")
-require ("prototypes.Bio_Garden.item")
-require ("prototypes.Bio_Garden.recipe")
-require ("prototypes.Bio_Garden.recipe-categories")
 
 
---- Bio Solar Farm
-require ("prototypes.Bio_Solar_Farm.entities")
-require ("prototypes.Bio_Solar_Farm.item")
-require ("prototypes.Bio_Solar_Farm.recipe")
 
 
---- Wood Products
-require ("prototypes.Wood_Products.entities")
-require ("prototypes.Wood_Products.item")
-require ("prototypes.Wood_Products.recipe")
-require ("prototypes.Wood_Products.containers-entities")
-require ("prototypes.Wood_Products.containers-item")
-require ("prototypes.Wood_Products.containers-recipe")
+----------------CATEGORIES
+require ("prototypes.categories_item")
+require ("prototypes.categories_recipe")
+require ("prototypes.damage-type")
 
 
---- Dart Turret (Bio turret)
-require ("prototypes.Bio_Turret.item-group")
-require ("prototypes.Bio_Turret.damage-type")
-require ("prototypes.Bio_Turret.item")
-require ("prototypes.Bio_Turret.recipe")
-require ("prototypes.Bio_Turret.entity")
+require ("prototypes.fluid")
+
+----------------TECHNOLOGY
+require ("prototypes.technology")
+require ("prototypes.technology_optionBioFuel")
+require ("prototypes.technology_optionSolar")
+require ("prototypes.technology_optionChests")
+
+require ("prototypes.technology_optionCannon")
+
+----------------ENTITY
+require ("prototypes.entity_remnants")
+require ("prototypes.entity")
+require ("prototypes.entity_garden")
+require ("prototypes.entity_woodproducts")
+require ("prototypes.entity_trees")
+
+require ("prototypes.entity_optionBioFuel")
+require ("prototypes.entity_optionSolar")
+require ("prototypes.entity_optionChests")
+require ("prototypes.entity_optionCannon")
+require ("prototypes.entity_optionDarts")
+
+require ("prototypes.compound_entities.hidden_entities") --after other entities
+
+----------------ITEM
+require ("prototypes.item")
+require ("prototypes.item_garden")
+require ("prototypes.item_woodproducts")
+
+require ("prototypes.item_optionBioFuel")
+require ("prototypes.item_optionSolar")
+require ("prototypes.item_optionChests")
+require ("prototypes.item_optionDarts")
+require ("prototypes.item_optionCannon")
+
+----------------RECIPE
+require ("prototypes.recipe")
+require ("prototypes.recipe_forEntity")
+require ("prototypes.recipe_garden")
+require ("prototypes.recipe_woodproducts")
+
+require ("prototypes.recipe_optionBioFuel")
+require ("prototypes.recipe_optionSolar")
+require ("prototypes.recipe_optionChests")
+require ("prototypes.recipe_optionDarts")
+require ("prototypes.recipe_optionCannon")
 
 
---- Bio Cannon
--- Items Groups
-require ("prototypes.Bio_Cannon.item-group")
-
--- Cannon
-require ("prototypes.Bio_Cannon.item")
-require ("prototypes.Bio_Cannon.recipe")
-require ("prototypes.Bio_Cannon.entity")
-require ("prototypes.Bio_Cannon.technology")
-
--- Projectiles
-require ("prototypes.Bio_Cannon.projectiles-item")
-require ("prototypes.Bio_Cannon.projectiles-recipe")
-require ("prototypes.Bio_Cannon.projectiles-entity")
-
-
----- Add Bio Fuel & Plastic, etc.
-require("prototypes.Bio_Fuel.item")
-require("prototypes.Bio_Fuel.recipe")
-require("prototypes.Bio_Fuel.entities")
-require("prototypes.Bio_Fuel.technology")
 
 
 ------------------------------------------------------------------------------------

@@ -10,6 +10,15 @@ return function (mod_name)
   common.modRoot = "__" .. common.modName .. "__"
 
 
+  common.graphicsmod = "__Bio_Industries_NE_graphics__"
+  common.graphics = common.graphicsmod .. "/graphics"
+  common.iconpath = common.graphics .. "/icons/"
+  common.techiconpath = common.graphics .. "/technology/"
+  common.entitypath = common.graphics .. "/entities/"
+
+  common.soundpath = common.graphicsmod .. "/sound/"
+
+
   ------------------------------------------------------------------------------------
   -- Greatly improved version check for mods (thanks to eradicator!)
   common.Version = {}
@@ -109,6 +118,8 @@ return function (mod_name)
     "bio%-tree%-.+%-%d",
     -- Tree prototypes created by "Robot Tree Farm" or "Tral's Robot Tree Farm"
     "rtf%-.+%-%d+",
+    -- Tree prototypes created by "Industrial Revolution 2"
+    ".*%-*ir2%-.+",
   }
 
 
@@ -840,28 +851,6 @@ common.writeDebug("Rail %s of %s (%s): %s (%s)", {direction, base.name, base.uni
   ------------------------------------------------------------------------------------
   -- Add the "icons" property based on the value of "icon"
   ------------------------------------------------------------------------------------
-  -- List of prototype types we need to add "icons" to
-  --~ local proto_types = {
-    --~ "accumulator",
-    --~ "ammo", "ammo-turret",
-    --~ "assembling-machine",
-    --~ "boiler",
-    --~ "container",
-    --~ "curved-rail", "straight-rail", "rail-planner", "rail-remnants",
-    --~ "electric-pole",
-    --~ "furnace",
-    --~ "gun",
-    --~ "pipe", "pipe-to-ground",
-    --~ "simple-entity-with-force",
-    --~ "solar-panel",
-    --~ "tile",
-    --~ "wall",
-
-    --~ "item", "item-group", "fluid", "recipe", "technology",
-  --~ }
-  -- (May be easier to loop over everything in data.raw!)
-  --~ local proto_types = data.raw
-
   common.BI_add_icons = function()
     for tab_name, tab in pairs(data.raw) do
       --~ common.writeDebug("Checking data.raw[%s]", {tab_name})

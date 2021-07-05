@@ -30,17 +30,17 @@ end
 
 --~ BioInd.show("data.raw.recipe[\"bi-sulfur\"]", data.raw.recipe["bi-sulfur"])
 BioInd.show("BI.Settings.BI_Easy_Bio_Gardens", BI.Settings.BI_Easy_Bio_Gardens)
-local ICONPATH = "__Bio_Industries__/graphics/icons/"
+local ICONPATH = BioInd.iconpath
 
 ----Update the Wood Pipe Images
-require("prototypes.Wood_Products.pipes")
+require("prototypes.update_pipes")
 
 --- Update the images of Wooden rail bridges and their remnants
-require("prototypes.Wood_Products.wooden_rail_bridge_update")
+require("prototypes.update_wooden_rail_bridge")
 
 --~ --- Bridge Rail Remnants
 --~ require("prototypes.Wood_Products.update_bridge_rails_remnants")
-require("prototypes.Wood_Products.tint_rails_remnants_function")
+require("prototypes.update_tint_rails_remnants_function")
 
 -- Concrete Rail
 ---- Update Standard Rails to use and look like concrete
@@ -127,8 +127,8 @@ if not mods["Natural_Evolution_Buildings"] then
   thxbob.lib.tech.add_recipe_unlock ("military-3", "bi-dart-magazine-poison")
 end
 
-require("prototypes.Bio_Turret.technology-updates")
-require("prototypes.Bio_Cannon.technology-updates")
+require("prototypes.technology-updates_optionDarts")
+require("prototypes.technology-updates_optionCannon")
 
 if not mods["Natural_Evolution_Buildings"] and BI.Settings.Bio_Cannon then
   -- add Prototype Artillery as pre req for artillery
@@ -148,12 +148,13 @@ end
 --~ -- thxbob.lib.tech.add_prerequisite("advanced-material-processing-2", "concrete")
 
 -- Add Wooden Chests
-thxbob.lib.tech.add_recipe_unlock("logistics", "bi-wooden-chest-large")
-thxbob.lib.tech.add_recipe_unlock("logistics-2", "bi-wooden-chest-huge")
-thxbob.lib.tech.add_recipe_unlock("logistics-3", "bi-wooden-chest-giga")
+--thxbob.lib.tech.add_recipe_unlock("logistics", "bi-wooden-chest-large")
+--thxbob.lib.tech.add_recipe_unlock("logistics-2", "bi-wooden-chest-huge")
+--thxbob.lib.tech.add_recipe_unlock("logistics-3", "bi-wooden-chest-giga")
 
-thxbob.lib.tech.add_recipe_unlock ("logistics", "bi-wooden-pole-big")
-thxbob.lib.tech.add_recipe_unlock ("electric-energy-distribution-2", "bi-wooden-pole-huge")
+-- Add bigger wooden poles
+--thxbob.lib.tech.add_recipe_unlock ("logistics", "bi-wooden-pole-big")
+--thxbob.lib.tech.add_recipe_unlock ("electric-energy-distribution-2", "bi-wooden-pole-huge")
 
 --- Wood Floors
 -- Make wood placeable only if Dectorio isn't installed. Should leave existing flooring intact.
@@ -341,20 +342,21 @@ if BI.Settings.BI_Solar_Additions then
   end
 end
 
-require("prototypes.Bio_Farm.compatible_recipes") -- Bob and Angels mesh
-require("prototypes.Bio_Farm.technology2")
+require("prototypes.mod_compatibility.Bio_Farm_compatible_recipes") -- Bob and Angels mesh
 
 -- Replace fertilizer/advanced fertilizer + water with fluid fertilizers in Bio garden recipes!
 BioInd.show("data-updates.lua -- BI.Settings.BI_Easy_Bio_Gardens", BI.Settings.BI_Easy_Bio_Gardens)
 if BI.Settings.BI_Easy_Bio_Gardens then
   BioInd.writeDebug("Must create fluid fertilizers!")
-  require("prototypes.Bio_Garden.fluid_fertilizer")
+  require("prototypes.fluid_optionFertilizer")
 end
 
 
 -- Blacklist bioreactor in Assembler Pipe Passthrough
 if mods["assembler-pipe-passthrough"] then
   appmod.blacklist['bi-bio-reactor'] = true
+  appmod.blacklist['bi-bio-garden-large'] = true
+  appmod.blacklist['bi-bio-garden-huge'] = true
 end
 
 -- Adds Bio recipes
@@ -564,7 +566,7 @@ end
 --~ if check then
   --~ BioInd.writeDebug("We can create the fluids now, if we need to!")
 
-  local ICONPATH = BioInd.modRoot .. "/graphics/icons/"
+  local ICONPATH = BioInd.iconpath
 
   -- We only want to create nitrogen if it doesn't exist yet. We then also need to create
   -- liquid air.
@@ -675,10 +677,11 @@ if BI.Settings.BI_Game_Tweaks_Recipe then
 end
 
 
+require("prototypes.recipe_optionSciencePack")
 
 -- Moved here from data-final-fixes.lua for 0.18.34/1.1.4!
 ---- Game Tweaks ---- Disassemble Recipes
-require("prototypes.Bio_Tweaks.recipe")
+require("prototypes.recipe_optionDisassemble")
 if BI.Settings.BI_Game_Tweaks_Disassemble then
   for recipe, tech in pairs({
     ["bi-burner-mining-drill-disassemble"] = "automation-2",
@@ -689,6 +692,10 @@ if BI.Settings.BI_Game_Tweaks_Disassemble then
   }) do
     thxbob.lib.tech.add_recipe_unlock(tech, recipe)
   end
+
+
+
+
 
 end
 
@@ -793,7 +800,7 @@ if mods["pyrawores"] then
 
   if check then
     set = true
-    local unlocks = require("prototypes.Bio_Farm.coal_processing")
+    --local unlocks = require("prototypes.Bio_Farm.coal_processing")
     for i = 1, 3 do
       for u, unlock in ipairs(unlocks[i]) do
         thxbob.lib.tech.add_recipe_unlock("coal-mk0" .. i, unlock.recipe)
@@ -815,7 +822,7 @@ if mods["pycoalprocessing"] and not set then
 
   if check then
     set = true
-    local unlocks = require("prototypes.Bio_Farm.coal_processing")
+    --local unlocks = require("prototypes.Bio_Farm.coal_processing")
     for i = 1, 3 do
       for u, unlock in ipairs(unlocks[i]) do
         thxbob.lib.tech.add_recipe_unlock("coal-processing-" .. i, unlock.recipe)
@@ -834,10 +841,10 @@ end
 -- Moved here from data-final-fixes.lua for 0.18.34/1.1.4! (Fixes https://mods.factorio.com/mod/Bio_Industries/discussion/5ff517c391699300236170a2)
 -- "Transport drones" ruins rails by removing object-layer from the collision mask. That
 -- causes problems for our "Wooden rail bridges" as they will also pass through cliffs.
-require("prototypes.Wood_Products.rail_updates")
+require("prototypes.update_rail")
 
 -- Compatibility with Industrial Revolution
-require("prototypes.Industrial_Revolution")
+require("prototypes.mod_compatibility.Industrial_Revolution")
 
 
 

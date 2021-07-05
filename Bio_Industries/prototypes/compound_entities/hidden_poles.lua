@@ -2,7 +2,7 @@
 local BioInd = require('common')('Bio_Industries')
 BioInd.writeDebug("Entered prototypes.hidden_poles.lua of \"%s\".", {BioInd.modName})
 
-local ICONPATH = BioInd.modRoot .. "/graphics/icons/"
+local ICONPATH = BioInd.iconpath
 
 ------------------------------------------------------------------------------------
 --  Create the main prototype for hidden poles. All others will be based on this! --
@@ -64,7 +64,10 @@ BI.make_hidden_entity_list(h_key)
 local Musk_name = "bi-musk-mat-hidden-pole"
 BI.hidden_entities.types[h_key][Musk_name] = "bi-solar-mat"
 
+-- We only have one "connector" at the moment. No need to add another file just for that,
+-- so let's add this connector manually to the list!
 BI.hidden_entities.types[h_key]["bi-bio-farm-hidden-connector_pole"] = "bi-bio-farm"
+
 --~ BioInd.show("BI.hidden_entities.types", BI.hidden_entities.types[h_key])
 local function shift_picture(pole, offset)
   if not BioInd.is_debug then

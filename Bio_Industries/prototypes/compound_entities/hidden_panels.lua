@@ -1,24 +1,31 @@
 BI.entered_file()
 
--- Add functions that are also used in other files (debugging output etc.)
-local BioInd = require('common')('Bio_Industries')
+
+------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
+
+
+BioInd.show("Compound entities", BioInd.compound_entities)
+
 
 local ICONPATH = BioInd.iconpath
 local ENTITYPATH = BioInd.entitypath
+
+
 ------------------------------------------------------------------------------------
 --  Create the main prototype for hidden lamps. All others will be based on this! --
 ------------------------------------------------------------------------------------
 -- The short name of the hidden entity (e.g. "lamp" or "pole")
 local h_key = "panel"
+
 -- The actual prototype type, identified by h_key
 local h_type = BioInd.HE_map[h_key]
 local h_entity = table.deepcopy(data.raw[h_type]["solar-panel"])
 
-BioInd.show("Panel data", h_entity)
-
 BI.set_common_properties(h_entity)
 
-BioInd.show("Panel data after set_common_properties", h_entity)
+--~ BioInd.show("Panel data after set_common_properties", h_entity)
+
 ------------------------------------------------------------------------------------
 -- Panel specific attributes!
 h_entity.energy_source = {
@@ -46,7 +53,9 @@ BI.hidden_entities.types[h_key][Musk_name] = "bi-solar-mat"
 local tmp, panel
 local c_entities = BioInd.compound_entities
 
-for panel_name, locale_name in pairs(BI.hidden_entities.types[h_key]) do
+BioInd.show("Compound entities", BioInd.compound_entities)
+
+for panel_name, locale_name in pairs(BI.hidden_entities.types[h_key] or {}) do
   panel = table.deepcopy(h_entity)
   panel.name = panel_name
   panel.localised_name = {"entity-name." .. locale_name}
@@ -59,6 +68,7 @@ for panel_name, locale_name in pairs(BI.hidden_entities.types[h_key]) do
 
     panel.icon = ICONPATH .. "entity/solar-boiler.png"
     panel.icon_size = 64
+    panel.icon_mipmaps = 3
     panel.BI_add_icon = true
 
     panel.picture = {}
@@ -93,6 +103,7 @@ for panel_name, locale_name in pairs(BI.hidden_entities.types[h_key]) do
 
     panel.icon = ICONPATH .. "entity/biofarm_solarpanel.png"
     panel.icon_size = 64
+    panel.icon_mipmaps = 3
     panel.BI_add_icon = true
     panel.production = "100kW"
     BioInd.show("Adjusted properties of", panel_name)
@@ -110,15 +121,17 @@ for panel_name, locale_name in pairs(BI.hidden_entities.types[h_key]) do
   elseif panel_name == Musk_name then
     panel.icon = ICONPATH .. "entity/solar-mat.png"
     panel.icon_size = 64
+    panel.icon_mipmaps = 3
     panel.BI_add_icon = true
     panel.production = "10kW"
     BioInd.show("Adjusted properties of", panel_name)
   end
 
 
-  data:extend({panel})
+  --~ data:extend({panel})
+  --~ BioInd.created_msg(panel)
+  BioInd.create_stuff({panel})
 
-  BioInd.show("Created", panel_name)
 end
 
 

@@ -1,10 +1,13 @@
 BI.entered_file()
 
--- Add functions that are also used in other files (debugging output etc.)
-local BioInd = require('common')('Bio_Industries')
---~ local ICONPATH = BioInd.modRoot .. "/graphics/icons/"
+
+------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
+
+
 local ICONPATH = "__core__/graphics/"
 local HIDDENPATH = BioInd.modRoot .. "/prototypes/compound_entities/"
+
 
 ------------------------------------------------------------------------------------
 -- Keep a list of all hidden entities we create, so we can modify them easily in  --
@@ -17,6 +20,8 @@ local no_sound = {
   filename = "__base__/sound/silence-1sec.ogg",
 
 }
+
+
 ------------------------------------------------------------------------------------
 -- Some common properties that should be used by all hidden entity types          --
 ------------------------------------------------------------------------------------
@@ -60,7 +65,7 @@ BI.hidden_entities.icons = {
 }
 BI.hidden_entities.picture = {
   --~ filename = ICONPATH .. "blank.png",
-  filename = "__core__/graphics/empty.png",
+  filename = ICONPATH .. "empty.png",
   priority = "low",
   size = 1,
   frame_count = 1,

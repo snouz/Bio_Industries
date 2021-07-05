@@ -1,10 +1,12 @@
 BI.entered_file()
 
-local BioInd = require('common')('Bio_Industries')
+
+------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
+
+--~ local BioInd = require(['"]common['"])(["']Bio_Industries['"])
 local ICONPATH = BioInd.iconpath
 
-
---~ BioInd.get_startup_settings()
 
 -- If OwnlyMe's or Tral'a "Robot Tree Farm" mods are active, they will create variatons
 -- of our variations of tree prototypes. Remove them!
@@ -48,7 +50,7 @@ BioInd.writeDebug("Removed %g tree prototypes. Number of trees to ignore now: %g
 --~ end
 
 ---- Game Tweaks ---- Tree
-require("prototypes.optional.final_fixes.tweaks_tree_yield")
+require("prototypes.optional._final_fixes.fixes_tweaksTreeYield")
 --~ if BI.Settings.BI_Game_Tweaks_Tree then
 
   --~ local new_results = {
@@ -119,7 +121,7 @@ require("prototypes.optional.final_fixes.tweaks_tree_yield")
 
 
 ---- Game Tweaks ---- Player (Changed for 0.18.34/1.1.4!)
-require("prototypes.optional.final_fixes.tweaks_player")
+require("prototypes.optional._final_fixes.fixes_tweaksPlayer")
 --~ if BI.Settings.BI_Game_Tweaks_Player then
   --~ -- There may be more than one character in the game! Here's a list of
   --~ -- the character prototype names or patterns matching character prototype
@@ -203,7 +205,7 @@ require("prototypes.optional.final_fixes.tweaks_player")
 -- Moved to data-updates.lua for 0.18.34/1.1.4!
 --~ ---- Game Tweaks ---- Disassemble Recipes
 --~ require("prototypes.Bio_Tweaks.recipe")
---~ if BI.Settings.BI_Game_Tweaks_Disassemble then
+--~ if BI.Settings.BI_Disassemble then
   --~ for recipe, tech in pairs({
     --~ ["bi-burner-mining-drill-disassemble"] = "automation-2",
     --~ ["bi-burner-inserter-disassemble"] = "automation-2",
@@ -225,7 +227,7 @@ require("prototypes.optional.final_fixes.tweaks_player")
 --~ end
 
 ---- Game Tweaks ---- Bots
-require("prototypes.optional.final_fixes.tweaks_bots")
+require("prototypes.optional._final_fixes.fixes_tweaksBots")
 --~ if BI.Settings.BI_Game_Tweaks_Bot then
   --~ -- Logistic & Construction bots can't catch fire or be mined
   --~ local function immunify(bot)
@@ -274,7 +276,7 @@ require("prototypes.optional.final_fixes.tweaks_bots")
 
 
 ---- Game Tweaks ----
-require("prototypes.optional.final_fixes.tweaks_stack_size")
+require("prototypes.optional._final_fixes.fixes_tweaksStackSize")
 --~ if BI.Settings.BI_Game_Tweaks_Stack_Size then
   --~ -- Changed for 0.18.34/1.1.4
   --~ local tweaks = {
@@ -297,7 +299,7 @@ require("prototypes.optional.final_fixes.tweaks_stack_size")
 
 
 --- Update fuel_emissions_multiplier values
-require("prototypes.optional.final_fixes.tweaks_emissions_multiplier")
+require("prototypes.optional._final_fixes.fixes_tweaksEmissionsMultiplier")
 --~ if BI.Settings.BI_Game_Tweaks_Emissions_Multiplier then
   --~ for item, factor in pairs({
     --~ ["pellet-coke"] = 0.80,
@@ -338,7 +340,7 @@ require("prototypes.optional.final_fixes.tweaks_emissions_multiplier")
 
 
 -- Make vanilla and Bio boilers exchangeable
-require("prototypes.optional.final_fixes.final-fixes_optionBioFuel")
+require("prototypes.optional._final_fixes.fixes_optionBioFuel")
 --~ if BI.Settings.BI_Bio_Fuel then
   --~ local boiler = data.raw["boiler"]["boiler"]
   --~ local boiler_group = boiler.fast_replaceable_group or "boiler"
@@ -365,6 +367,11 @@ require("prototypes.optional.final_fixes.final-fixes_optionBioFuel")
   --~ data.raw[form .. "-rail"]["bi-" .. form .. "-rail-wood-bridge"].fast_replaceable_group = group
 --~ end
 
+------------------------------------------------------------------------------------
+--                          Enable: Early wooden defenses                         --
+--                             (BI.Settings.BI_Darts)                             --
+------------------------------------------------------------------------------------
+require("prototypes.optional._final_fixes.fixes_optionDarts")
 
 
 ------------------------------------------------------------------------------------
@@ -372,7 +379,8 @@ require("prototypes.optional.final_fixes.final-fixes_optionBioFuel")
 ------------------------------------------------------------------------------------
 
 -- 5dim Stack changes
-require("prototypes.mod_compatibility.final_fixes.5dim")
+require("prototypes.mod_compatibility.final_fixes.fixes_mod5dim")
+
 --~ if settings.startup["5d-change-stack"] and settings.startup["5d-change-stack"].value then
 --~ if BioInd.get_startup_setting("5d-change-stack") then
   --~ local item = data.raw.item["wood"]
@@ -381,7 +389,14 @@ require("prototypes.mod_compatibility.final_fixes.5dim")
    --~ end
 --~ end
 
-require("prototypes.mod_compatibility.final_fixes.krastorio_2")
+
+
+------------------------------------------------------------------------------------
+--   Deadlock's Stacking Beltboxes & Compact Loaders/Deadlock's Crating Machine   --
+------------------------------------------------------------------------------------
+require("prototypes.mod_compatibility.final_fixes.fixes_modDeadlockStacking")
+
+require("prototypes.mod_compatibility.final_fixes.fixes_modKrastorio2")
 --~ if mods["Krastorio2"] then
   --~ -- Krastorio² needs much more wood than usually provided by Bio Industries. If Krastorio² is
   --~ -- active, BI should produce much more wood/wood pulp. For better baĺancing, our recipes should
@@ -475,8 +490,8 @@ require("prototypes.mod_compatibility.final_fixes.krastorio_2")
 --~ end
 
 
-require("prototypes.mod_compatibility.final_fixes.alien_biomes")
---~ -- Make sure fertilizers have the "place_as_tile" property!
+-- Make sure fertilizers have the "place_as_tile" property!
+require("prototypes.mod_compatibility.final_fixes.fixes_modAlienBiomes")
 --~ local AlienBiomes = data.raw.tile["vegetation-green-grass-3"] and
                     --~ data.raw.tile["vegetation-green-grass-1"] and true or false
 
@@ -515,7 +530,7 @@ end
 
 
 -- Updates to darts etc. if NE Buildings is NOT active
-require("prototypes.mod_compatibility.final_fixes.ne_buildings")
+require("prototypes.mod_compatibility.final_fixes.fixes_modNEBuildings")
 
 
 -- Moved to data-updates.lua for 0.18.34/1.1.4!
@@ -543,39 +558,50 @@ BioInd.BI_add_icons()
 BioInd.BI_add_unlocks()
 
 
+------------------------------------------------------------------------------------
+--                 Remove obsolete prerequisites from technologies                --
+------------------------------------------------------------------------------------
+local techs = data.raw.technology
 
----TESTING!
---~ for k,v in pairs(data.raw["curved-rail"]) do
---~ log(v.name)
---~ end
---~ for k,v in pairs(data.raw["straight-rail"]) do
---~ log(v.name)
---~ end
-  --~ for k,v in pairs(data.raw["rail-planner"]) do
---~ log(v.name)
---~ end
+local function check_prerequisites(technology)
+  --~ BioInd.entered_function()
+  tech = techs[technology.name]
 
---~ BioInd.writeDebug("Testing at end of data-final-fixes.lua!")
---~ for rail_name, rail in pairs(data.raw["straight-rail"]) do
-  --~ BioInd.show("rail_name", rail_name)
-  --~ BioInd.show("flags", rail.flags)
-  --~ BioInd.show("fast_replaceable_group", rail.fast_replaceable_group)
-  --~ BioInd.show("next_upgrade", rail.next_upgrade)
-  --~ BioInd.show("bounding_box", rail.bounding_box)
-  --~ BioInd.show("collision_mask", rail.collision_mask)
---~ end
---~ for r, recipe in pairs(data.raw.recipe) do
-  --~ if r:match("^.*boiler.*$") then
-    --~ BioInd.writeDebug("recipe: %s\torder: %s\tsubgroup: %s", {r, recipe.order or "", recipe.subgroup or "" })
-  --~ end
---~ end
---~ for k, v in pairs(data.raw) do
-  --~ for t, p in pairs(v) do
-    --~ if p.se_allow_in_space then
-      --~ BioInd.writeDebug("%s (%s) can be built in space!", {p.name, t})
-    --~ end
-  --~ end
---~ end
+  if tech then
+    local removed = false
+    for p, prerequisite in pairs(tech.prerequisites or {}) do
+      -- If prerequisite tech doesn't exist, remove it from the list!
+      if not techs[prerequisite] then
+        tech.prerequisites[p] = nil
+        removed = true
+        BioInd.writeDebug("Removed \"%s\" from prerequisites of %s \"%s\"!",
+                          {prerequisite, tech.type, tech.name})
+      end
+    end
+    if not removed then
+      BioInd.writeDebug("All prerequisites of %s \"%s\" exist.", {tech.type, tech.name})
+    end
+  else
+    BioInd.writeDebug("Technology \"%s\" doesn't exist!", {technology.name})
+  end
+  --~ BioInd.entered_function("leave")
+end
+
+-- Check default techs
+BioInd.writeDebug("Looking for missing prerequisites of default technologies:")
+for t, tech in pairs(BI.default_techs) do
+  check_prerequisites(tech)
+end
+
+-- Check optional techs
+for s, setting in pairs(BI.additional_techs) do
+BioInd.writeDebug("Looking for missing prerequisites of technologies depending on setting %s:", {s})
+  for t, tech in pairs(setting) do
+    check_prerequisites(tech)
+  end
+end
+
+BioInd.show("Icons of Item group", BI.default_item_group.bio_industries.icons)
 
 
 ------------------------------------------------------------------------------------

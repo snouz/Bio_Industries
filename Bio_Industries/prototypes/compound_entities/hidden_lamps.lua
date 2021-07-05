@@ -1,15 +1,17 @@
 BI.entered_file()
 
--- Add functions that are also used in other files (debugging output etc.)
-local BioInd = require('common')('Bio_Industries')
 
+------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
+
+
+BioInd.show("Compound entities", BioInd.compound_entities)
 local ICONPATH = BioInd.iconpath
+
 
 ------------------------------------------------------------------------------------
 --  Create the main prototype for hidden lamps. All others will be based on this! --
 ------------------------------------------------------------------------------------
---~ local h_type = "lamp"
---~ local h_entity = table.deepcopy(data.raw[h_type]["small-lamp"])
 -- The short name of the hidden entity (e.g. "lamp" or "pole")
 local h_key = "lamp"
 -- The actual prototype type, identified by h_key
@@ -54,7 +56,7 @@ BI.make_hidden_entity_list(h_key)
 local lamp
 local c_entities = BioInd.compound_entities
 
-for lamp_name, locale_name in pairs(BI.hidden_entities.types[h_key]) do
+for lamp_name, locale_name in pairs(BI.hidden_entities.types[h_key] or {}) do
   lamp = table.deepcopy(h_entity)
   lamp.name = lamp_name
   lamp.localised_name = {"entity-name." .. locale_name}
@@ -66,20 +68,15 @@ for lamp_name, locale_name in pairs(BI.hidden_entities.types[h_key]) do
 
     lamp.icon = ICONPATH .. "entity/biofarm_lamp.png"
     lamp.icon_size = 64
+    lamp.icon_mipmaps = 3
     lamp.BI_add_icon = true
     BioInd.show("Adjusted properties of", lamp_name)
   end
-  data:extend({lamp})
 
-  BioInd.show("Created", lamp_name)
+  --~ data:extend({lamp})
+  --~ BioInd.created_msg(lamp)
+  BioInd.create_stuff({lamp})
 end
-
-
-------------------------------------------------------------------------------------
--- Testing
---~ for k, v in pairs(data.raw[h_entity.type]) do
-  --~ BioInd.writeDebug("%s: %s", {k, v})
---~ end
 
 
 ------------------------------------------------------------------------------------

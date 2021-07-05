@@ -3,9 +3,9 @@
 ------------------------------------------------------------------------------------
 BI.entered_file()
 
-local BioInd = require('common')('Bio_Industries')
 
-local ICONPATH = BioInd.iconpath
+------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
 
 
 ------------------------------------------------------------------------------------
@@ -19,10 +19,10 @@ for damage, d in pairs(data.raw["damage-type"]) do
 end
 
 -- Add resistances to prototypes
--- (h_type is not guaranteed to be a prototype type -- it's the short handle that we
--- use compound_entities.hidden!)
 local h_type
 for h_key, h_names in pairs(BI.hidden_entities.types) do
+  -- (h_type is not guaranteed to be a prototype type -- it's the short handle that we
+  -- use in compound_entities.hidden!)
   h_type = BioInd.HE_map[h_key]
   for h_name, h in pairs(h_names) do
 --~ -- BioInd.writeDebug("h_type: %s\th_name: %s\th:%s", {h_type, h_name, h})
@@ -37,12 +37,16 @@ end
 -- of compound entities, this one is visible, and should suffer the same as the base
 -- when it gets hurt. (Also, damaging the radar will damage the base entity as well.)
 local compound = BioInd.compound_entities["bi-arboretum"]
-local b = compound.base
-local r = compound.hidden.radar
+local b = compound and compound.base
+local r = compound and compound and compound.hidden.radar
+
 if b and r then
-  local resistances = data.raw[b.type][b.name].resistances
+  local resistances = data.raw[b.type] and
+                        data.raw[b.type][b.name] and
+                        data.raw[b.type][b.name].resistances
+
   if resistances then
-    data.raw[r.type][r.name].resistances = util.table.deepcopy(resistances)
+    data.raw[r.type][r.name].resistances = table.deepcopy(resistances)
     BioInd.writeDebug("Copied resistances from %s to %s!", {b.name, r.name})
   end
 end

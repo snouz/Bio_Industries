@@ -1,4 +1,4 @@
-local BioInd = require('common')('Bio_Industries')
+--~ local BioInd = require(['"]common['"])(["']Bio_Industries['"])
 
 
 -- Merges table2's contents into table1.
@@ -51,7 +51,7 @@ BioInd.writeDebug("data.raw[%s][%s]: %s", {item.type, object.result, data.raw[it
                                           -- it could be set later on!
                                           data.raw[item.type][object.result].icon then
               object.icons = {
-                {icon = data.raw[item.type][object.result].icon, icon_size = 64}
+                {icon = data.raw[item.type][object.result].icon, icon_size = 64, icon_mipmaps = 3}
               }
             end
             if not object.subgroup and data.raw[item.type][object.result] and

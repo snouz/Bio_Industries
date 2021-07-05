@@ -10,40 +10,54 @@ Date: 2021-03-?
     - New building: the Huge garden (27x27), like 9 Large gardens but ~19% more cost efficient
 
   Graphics:
-    - New visuals, animations & lighting for almost all buildings (Bio nurseries, Bio farms, Cokeries, Stone crushers, Bio reactors, terraformers, Bio-gardens, Large chests, huge chests, Gigantic chests, Big poles, Huge poles, Wood pipes, Solar farms, Solar power plants & boilers, Huge accumulators, Wooden fences, Prototype artillery, bio boilers, Dart turrets, projectiles)
-    - New visuals for tiles (Musk floor, Wood floor)
-    - New custom remnants for each building
-    - Unique visuals for each technology
-    - Added an HD and SD version to all buildings
-    - Added correct, engine-understood shadows to all buildings (no more shadows overlapping)
-    - Revamped all 150+ icons visuals (recipes, items and variations)
-    - Removed the Terraformer's small radar
-    - Removed useless secondary selection boxes
-    - New mod logo
+    - New visuals, animations & lighting for all buildings (Bio nurseries, Bio farms, Cokeries, Stone crushers, Bio reactors, terraformers, Bio-gardens, Large chests, huge chests, Gigantic chests, Big poles, Huge poles, Wood pipes, Solar farms, Solar power plants & boilers, Huge accumulators, Wooden fences, Prototype artillery, bio boilers, Dart turrets, projectiles)
+    - New textures and shapes for tiles (Musk floor, Wood floor).
+    - New custom remnants for each building.
+    - Unique visuals for each technology.
+    - Added an HD and SD version to all buildings.
+    - Added correct, engine-understood shadows to all buildings (no more shadows overlapping).
+    - Revamped all 150+ icons visuals (recipes, items, variations).
+    - Removed the Terraformer's small radar.
+    - Advanced and normal fertilizers recipes make terraformers, gardens, farms and nurseries glow green or pink.
+    - Removed useless secondary selection boxes.
+    - New mod logo.
 
   Localization:
-    - Most text rewritten to be more streamlined, some descriptions removed
+    - Most descriptions and recipe titles rewritten to be more concise.
+    - Some descriptions removed.
 
   Changes:
-    - Made the mod more modular (settings to toggle "Early wooden defenses" (darts, dart turret, dart rifle, wooden fences; will replace the pistol with the dart rifle), "Wood products" (bigger power poles, bigger chests, wood pipes), and "Stone crushing")
-    - Re-organized mod recipes in a cleaner, more logical way
+    - Made the mod more modular: "Coal processing", "Early wooden defenses", "Explosive planting", "Bio gardens", "Resin extraction", "Stone crushing", "Terraforming", "Wood products", and "Wooden rails" are now also optional.
+    - Re-organized mod recipes in a cleaner, more logical way.
+    - Re-ordered items in the logistic request window to put them in vanilla categories 
+    - "Bio fuel conversion" numbers inverted.
     - Removed the "made in" section of recipes that are done in assembling machine
     - Simplified recipe information (result in title, removed "made in" for handmade recipes, removed some descriptions)
     - Removed some recipes parasiting the "total raw" calculation of other recipes (no more resin everywhere, wood is considered basic material)
     - Divided some recipes into smaller chunks for readability (e.g.: 2 bricks = 2 ash + 6 pebbles => 1 brick = 1 ash + 3 pebbles in half the time)
-    - Some code and file structure cleanup, code factorisation
-    - Added separate mod for visuals
+    - Changes if "Early wooden defenses" are enabled: Pistol will be replaced with the dart rifle; firearm magazines will be locked behind "Military 1"; stone walls and gun turrets will be locked behind "Military 2"; darts will get bonus effects from "Physical projectile damage" and "Weapon shooting speed" research (levels 1-4); bonus turret effects of "Physical projectile damage" (levels 1-3) will be removed from gun turrets.
+    - Made the terraformer accept water from all 8 pipes instead of turning it, makes the water pass through. Only newly built ones.
+
+  Compatibility
+    - Added support for "Deadlock's Stacking Beltboxes & Compact Loaders" and "Deadlock's Crating Machine".
+    - Added support for Brevven's "Silica & Silicon".
+    - Updated compatibility icons.
+
+  Optimization
+    - Major code and file structure cleanup and factori(o)sation.
+    - Made graphics and sounds a separate mod to avoid redownloads.
+    - Added icon mipmaps.
+    - Images losslessly optimized with PNGGauntlet (some are compressed with loss).
+    - Added settings to enable debugging to log and game. You should leave these disabled unless you want to help fixing bugs!
 
   Sound:
-    - Added unique sounds for Huge gardens, Stone crushers and Bio farms
-    - Removed the jungle sound from working gardens
+    - Added unique sounds for Huge gardens, Stone crushers and Bio farms.
+    - Removed the jungle sound from working gardens.
 
   Bugfixes:
     - Added a tint on the Power rail connector when HD graphics are on (so it's different from the Medium electric pole)
     - Fixed visual zone for Huge wooden poles
     - Fixed that powered rails and the rail-to-power connectors could not be unlocked if IR2 was active.
-
-
 
 
   TODO:

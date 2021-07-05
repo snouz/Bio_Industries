@@ -1,6 +1,10 @@
 BI.entered_file()
 
-local BioInd = require('common')('Bio_Industries')
+BI.additional_fluids = BI.additional_fluids or {}
+
+
+------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
 
 local ICONPATH = BioInd.iconpath
 
@@ -9,17 +13,16 @@ local techs = data.raw.technology
 local recipes = data.raw.recipe
 local tech, fluid, recipe
 
-local create_fluids = {}
 
 ------------------------------------------------------------------------------------
 --                            Data of additional fluids                           --
 ------------------------------------------------------------------------------------
 -- Liquid air
-create_fluids.liquid_air = {
+BI.additional_fluids.liquid_air = {
   type = "fluid",
   name = "liquid-air",
   icon = ICONPATH .. "fluid_liquid-air.png",
-  icon_size = 64,
+  icon_size = 64, icon_mipmaps = 3,
   default_temperature = 25,
   gas_temperature = -100,
   max_temperature = 100,
@@ -32,11 +35,11 @@ create_fluids.liquid_air = {
 }
 
 -- Nitrogen
-create_fluids.nitrogen = {
+BI.additional_fluids.nitrogen = {
   type = "fluid",
   name = "nitrogen",
   icon = ICONPATH .. "fluid_nitrogen.png",
-  icon_size = 64,
+  icon_size = 64, icon_mipmaps = 3,
   default_temperature = 25,
   gas_temperature = -210,
   max_temperature = 100,
@@ -49,9 +52,9 @@ create_fluids.nitrogen = {
 }
 
 --~ ------------------------------------------------------------------------------------
---~ --            Biofuel for boilers apparently abandonned at some point.            --
+--~ --            Biofuel for boilers apparently abandoned at some point.             --
 --~ ------------------------------------------------------------------------------------
---~ create_fluids.bio_fuel = {
+--~ BI.additional_fluids.bio_fuel = {
   --~ type = "fluid",
   --~ name = "bi-Bio_Fuel",
   --~ icon = ICONPATH .. "entity/bio_boiler.png",
@@ -72,61 +75,7 @@ create_fluids.nitrogen = {
   --~ flow_to_energy_ratio = 0.59,
 --~ }
 
-
-------------------------------------------------------------------------------------
---                            Create additional fluids                            --
-------------------------------------------------------------------------------------
-
---~ if not (fluids[create_fluids.nitrogen.name] and fluids[create_fluids.liquid_air.name]) then
-
-------------------------------------------------------------------------------------
--- Liquid air
-
--- Do we really need liquid air? Check if there are substitutes
-if not fluids[create_fluids.liquid_air.name] then
-  local substitutes = {
-    "oxygen",
-    "nitrogen",
-  }
-  local success
-
-  for s, substitute in ipairs(substitutes) do
-    if fluids[substitute] then
-      for r, recipe in ipairs({"bi-biomass-2", "bi-biomass-2"}) do
-        thxbob.lib.recipe.replace_ingredient(recipe, "liquid-air", substitute)
-        --~ BioInd.writeDebug("Replaced \"liquid-air\" with \"oxygen\" in recipes \"bi-biomass-2\" and \"bi-biomass-3\"")
-        BioInd.modified_msg("ingredients", recipes[recipe])
-        success = true
-        break
-      end
-    end
-  end
-
-  -- No substitute found: Create liquid air!
-  if not success then
-    data:extend({create_fluids.liquid_air})
-    BioInd.created_msg(create_fluids.liquid_air)
-  end
-end
-
-------------------------------------------------------------------------------------
--- Nitrogen
-
--- We will always need nitrogen. If no other mod provides it, we create it.
-if not fluids[create_fluids.nitrogen.name] then
-  data:extend({create_fluids.nitrogen})
-  BioInd.created_msg(create_fluids.nitrogen)
-
--- Fluid already exists. Remove unlocks for our recipe!
-else
-  fluid = fluids[create_fluids.nitrogen.name]
-  recipe = recipes["bi-" .. fluid.name]
-  --~ thxbob.lib.tech.remove_recipe_unlock("bi-tech-fertilizer", "bi-" .. fluid.name)
-  thxbob.lib.tech.remove_recipe_unlock(tech.name, recipe.name)
-  --~ BioInd.writeDebug("Removed recipe unlocks for recipe \"%s\"!", {recipe.name})
-  BioInd.modified_msg("unlock", recipe, "Removed")
-end
-
+BioInd.writeDebug("Read data for additional fluids.")
 
 ------------------------------------------------------------------------------------
 --                                    END OF FILE                                 --

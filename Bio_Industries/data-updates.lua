@@ -1,11 +1,9 @@
 BI.entered_file()
 
-local BioInd = require('common')('Bio_Industries')
-local ICONPATH = BioInd.iconpath
 
---~ BioInd.get_startup_settings()
+------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
 
-require('prototypes.mod_compatibility.additional_recipes')
 
 local recipe, item, fluid
 local recipes = data.raw.recipe
@@ -14,40 +12,34 @@ local fluids = data.raw.fluid
 
 
 
+------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
+--                                     DEFAULT                                    --
+------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
+
 
 ------------------------------------------------------------------------------------
 --                        Data of things we may need to add                       --
 ------------------------------------------------------------------------------------
--- Liquid air/Nitrogen
 require("prototypes.default.updates.additional_fluids")
-
--- Resin
 require("prototypes.default.updates.additional_items")
-
-------------------------------------------------------------------------------------
-------------------------------------------------------------------------------------
---                         DEFAULT -- ALWAYS UPDATE THESE!                        --
-------------------------------------------------------------------------------------
-------------------------------------------------------------------------------------
-
-
---~ ------------------------------------------------------------------------------------
---~ --                          Update images of Wooden pipes                         --
---~ ------------------------------------------------------------------------------------
---~ require("prototypes.default.updates.update_pipes")
+require("prototypes.default.updates.additional_recipes")
 
 
 ------------------------------------------------------------------------------------
---                            Update rail-related stuff                           --
+--               Create liquid air and nitrogen? (Fluids + recipes)               --
 ------------------------------------------------------------------------------------
--- Rail collision masks and unlocks of vanilla rails
-require("prototypes.default.updates.update_rail")
+require("prototypes.default.updates.liquid_air_+_nitrogen")
 
--- Update rail images/icons
-require("prototypes.default.updates.update_tint_rails")
 
--- Wooden rail bridge
-require("prototypes.default.updates.update_wooden_rail_bridge")
+------------------------------------------------------------------------------------
+--         If the Alien Artifact is in the game, use it for some recipes!         --
+------------------------------------------------------------------------------------
+require("prototypes.default.updates.alien_artifact")
+
+
+
 
 
 ------------------------------------------------------------------------------------
@@ -61,42 +53,70 @@ require("prototypes.default.updates.update_wooden_rail_bridge")
 --                           Enable: Prototype artillery                          --
 --                            (BI.Settings.Bio_Cannon)                            --
 ------------------------------------------------------------------------------------
-require("prototypes.optional.updates.updates_optionCannon")
+require("prototypes.optional._updates.updates_optionCannon")
 
 
 ------------------------------------------------------------------------------------
 --                           Enable: Bio fuel production                          --
 --                            (BI.Settings.BI_Bio_Fuel)                           --
 ------------------------------------------------------------------------------------
-require("prototypes.optional.updates.updates_optionBioFuel")
+require("prototypes.optional._updates.updates_optionBioFuel")
 
 
 ------------------------------------------------------------------------------------
---                            Enable: Easy Bio gardens                            --
---                  (BI.Settings.BI_Game_Tweaks_Easy_Bio_Gardens)                 --
+--                          Enable: Early wooden defenses                         --
+--                             (BI.Settings.BI_Darts)                             --
 ------------------------------------------------------------------------------------
-require("prototypes.optional.updates.updates_optionEasyBioGardens")
+require("prototypes.optional._updates.updates_optionDarts")
 
 
 ------------------------------------------------------------------------------------
---                              Game tweaks: Recipes                              --
---                       (BI.Settings.BI_Game_Tweaks_Recipe)                      --
+--                              Enable: Wooden rails                              --
+--                             (BI.Settings.BI_Rails)                             --
 ------------------------------------------------------------------------------------
-require("prototypes.optional.updates.updates_optionRecipeTweaks")
+require("prototypes.optional._updates.updates_optionRails")
 
 
 ------------------------------------------------------------------------------------
---                              Enable: Wood products                             --
---                         (BI.Settings.BI_Wood_Products)                         --
+--                             Enable: Rubber products                            --
+--                             (BI.Settings.BI_Rubber)                            --
 ------------------------------------------------------------------------------------
-require("prototypes.optional.updates.updates_optionWoodProducts")
+require("prototypes.optional._updates.updates_optionRubber")
+
 
 
 ------------------------------------------------------------------------------------
 --                             Enable: Stone crushing                             --
 --                         (BI.Settings.BI_Stone_Crushing)                        --
 ------------------------------------------------------------------------------------
-require("prototypes.optional.updates.updates_optionStoneCrushing")
+require("prototypes.optional._updates.updates_optionStoneCrushing")
+
+
+------------------------------------------------------------------------------------
+--                              Enable: Wood products                             --
+--                         (BI.Settings.BI_Wood_Products)                         --
+------------------------------------------------------------------------------------
+require("prototypes.optional._updates.updates_optionWoodProducts")
+
+
+
+
+
+------------------------------------------------------------------------------------
+--                          Game tweaks: Easy Bio gardens                         --
+--                  (BI.Settings.BI_Game_Tweaks_Easy_Bio_Gardens)                 --
+------------------------------------------------------------------------------------
+require("prototypes.optional._updates.updates_tweaksEasyBioGardens")
+
+
+------------------------------------------------------------------------------------
+--                              Game tweaks: Recipes                              --
+--                       (BI.Settings.BI_Game_Tweaks_Recipe)                      --
+------------------------------------------------------------------------------------
+require("prototypes.optional._updates.updates_tweaksRecipeTweaks")
+
+
+
 
 
 ------------------------------------------------------------------------------------
@@ -106,87 +126,65 @@ require("prototypes.optional.updates.updates_optionStoneCrushing")
 ------------------------------------------------------------------------------------
 
 
---~ ------------------------------------------------------------------------------------
---~ --                   Alien Biomes: Remove tiles from blueprints!                  --
---~ ------------------------------------------------------------------------------------
---~ require("prototypes.mod_compatibility.updates.alien_biomes")
-
 
 ------------------------------------------------------------------------------------
 --                          Angel's mods: Lots of changes                         --
 ------------------------------------------------------------------------------------
-require("prototypes.mod_compatibility.updates.angels")
+require("prototypes.mod_compatibility.updates.updates_modAngels")
 
 
 ------------------------------------------------------------------------------------
 --                          Bob's mods: Lots of changes                           --
 ------------------------------------------------------------------------------------
-require("prototypes.mod_compatibility.updates.bobs")
+require("prototypes.mod_compatibility.updates.updates_modBobs")
 
 
 ------------------------------------------------------------------------------------
 --                             Dectorio: Wooden floor                             --
 ------------------------------------------------------------------------------------
-require("prototypes.mod_compatibility.updates.dectorio")
+require("prototypes.mod_compatibility.updates.updates_modDectorio")
 
 
 ------------------------------------------------------------------------------------
 --                     Industrial Revolution: Lots of changes                     --
 ------------------------------------------------------------------------------------
-require("prototypes.mod_compatibility.updates.industrial_revolution")
+require("prototypes.mod_compatibility.updates.updates_modIndustrialRevolution")
 
 
 ------------------------------------------------------------------------------------
 --                         Krastorio 2: Replace Liquid air                        --
 ------------------------------------------------------------------------------------
-require("prototypes.mod_compatibility.updates.krastorio_2")
-
-
-------------------------------------------------------------------------------------
---                         Omnifluid: Blacklist Bio boiler                        --
-------------------------------------------------------------------------------------
-require("prototypes.mod_compatibility.updates.omnifluid")
-
-
-------------------------------------------------------------------------------------
---                      Pyanodon's mods: Coal processing, ash                     --
-------------------------------------------------------------------------------------
-require("prototypes.mod_compatibility.updates.py_mods")
-
-
-------------------------------------------------------------------------------------
---                   Simple Silicon: Use solar cells in recipes                   --
-------------------------------------------------------------------------------------
-require("prototypes.mod_compatibility.updates.simple_silicon")
+require("prototypes.mod_compatibility.updates.updates_modKrastorio2")
 
 
 ------------------------------------------------------------------------------------
 --                           Natural Evolution: Weapons                           --
 ------------------------------------------------------------------------------------
-require("prototypes.mod_compatibility.updates.ne_buildings")
+require("prototypes.mod_compatibility.updates.updates_modNEBuildings")
 
 
-
---~ ------------------------------------------------------------------------------------
---~ --                                     DARTS!                                     --
---~ ------------------------------------------------------------------------------------
---~ require("prototypes.mod_compatibility.updates.ne_buildings")
-
---~ if not mods["Natural_Evolution_Buildings"] and BI.Settings.Bio_Cannon then
-  --~ -- add Prototype Artillery as pre req for artillery
-  --~ thxbob.lib.tech.add_prerequisite("artillery", "bi-tech-bio-cannon")
---~ end
+------------------------------------------------------------------------------------
+--                         Omnifluid: Blacklist Bio boiler                        --
+------------------------------------------------------------------------------------
+require("prototypes.mod_compatibility.updates.updates_modOmniFluid")
 
 
+------------------------------------------------------------------------------------
+--                      Pyanodon's mods: Coal processing, ash                     --
+------------------------------------------------------------------------------------
+require("prototypes.mod_compatibility.updates.updates_modPyanodon")
 
 
+------------------------------------------------------------------------------------
+--              Silica & Silicon: Add solar-cell to Musk floor recipe             --
+------------------------------------------------------------------------------------
+require("prototypes.mod_compatibility.updates.updates_modBZSilicon")
 
 
-
---~ ------------------------------------------------------------------------------------
---~ -- CLEAN THIS ONE OUT!
---~ require("prototypes.mod_compatibility.Bio_Farm_compatible_recipes") -- Bob and Angels mesh
---~ ------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
+--                   Simple Silicon: Use solar cells in recipes                   --
+------------------------------------------------------------------------------------
+require("prototypes.mod_compatibility.updates.updates_modSimpleSilicon")
 
 
 
@@ -242,32 +240,23 @@ require("prototypes.compound_entities.updates.resistances")
 
 
 --~ ------------------------------------------------------------------------------------
---~ --                  Create Resin if no other mod provides it yet!                 --
+--~ --         If the Alien Artifact is in the game, use it for some recipes!         --
 --~ ------------------------------------------------------------------------------------
---~ if not items["resin"] then
-  --~ data:extend({BI.optional_items.resin})
-  --~ --BioInd.writeDebug("Created item \"resin\"!")
-  --~ BioInd.created_msg(BI.optional_items.resin)
+--~ require("prototypes.default.updates.alien_artifact")
+--~ if items["alien-artifact"] then
+  --~ --- Alternative recipe for advanced fertilizer
+  --~ local recipe = recipes["bi-adv-fertilizer-1"]
+  --~ if recipe then
+    --~ thxbob.lib.recipe.remove_ingredient(recipe.name, "bi-biomass")
+    --~ thxbob.lib.recipe.add_new_ingredient(recipe.name, {
+      --~ type = "item",
+      --~ name = "alien-artifact",
+      --~ amount = 5
+    --~ })
+    -- BioInd.writeDebug("Changed ingredients of recipe \"%s\".", {recipe.name})
+    --~ BioInd.modified("ingredients", recipe)
+  --~ end
 --~ end
-
-
-------------------------------------------------------------------------------------
---         If the Alien Artifact is in the game, use it for some recipes!         --
-------------------------------------------------------------------------------------
-if items["alien-artifact"] then
-  --- Alternative recipe for advanced fertilizer
-  local recipe = recipes["bi-adv-fertilizer-1"]
-  if recipe then
-    thxbob.lib.recipe.remove_ingredient(recipe.name, "bi-biomass")
-    thxbob.lib.recipe.add_new_ingredient(recipe.name, {
-      type = "item",
-      name = "alien-artifact",
-      amount = 5
-    })
-    --~ BioInd.writeDebug("Changed ingredients of recipe \"%s\".", {recipe.name})
-    BioInd.modified("ingredients", recipe)
-  end
-end
 
 
 
@@ -333,9 +322,10 @@ if recipes[BI.additional_recipes.sand.name] then
   recipe = recipes["bi-stone-crusher"]
   if recipe then
     for _, t in ipairs({"furnace", "item", "recipe"}) do
-      data.raw[t][recipe.name].localised_description = {"entity-description." .. recipe.name .. "-sand"}
-      --~ BioInd.writeDebug("Changed localization of %s \"%s\"!", {t, recipe.name})
-      BioInd.modified_msg("localization", recipe)
+      data.raw[t][recipe.name].localised_description = {
+        "entity-description." .. recipe.name .. "-sand"
+      }
+      BioInd.modified_msg("localization", data.raw[t][recipe.name])
     end
   end
 end

@@ -1,4 +1,4 @@
-local BioInd = require('common')('Bio_Industries')
+--~ local BioInd = require(['"]common['"])(["']Bio_Industries['"])
 
 if not thxbob.lib.recipe then thxbob.lib.recipe = {} end
 

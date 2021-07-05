@@ -1,11 +1,13 @@
 BI.entered_file()
 
--- Add functions that are also used in other files (debugging output etc.)
-local BioInd = require('common')('Bio_Industries')
+
+------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
+
 
 local ICONPATH = BioInd.iconpath
 
-require ("util")
+BioInd.show("Compound entities", BioInd.compound_entities)
 
 
 ------------------------------------------------------------------------------------
@@ -41,7 +43,7 @@ BI.make_hidden_entity_list(h_key)
 local radar
 local c_entities = BioInd.compound_entities
 
-for radar_name, locale_name in pairs(BI.hidden_entities.types[h_key]) do
+for radar_name, locale_name in pairs(BI.hidden_entities.types[h_key]or {}) do
   radar = table.deepcopy(h_entity)
 
 BioInd.show("radar_name", radar_name)
@@ -59,25 +61,27 @@ BioInd.show("locale_name", locale_name)
     local base = c_entities["bi-bio-cannon"].base
     base = data.raw[base.type][base.name]
 
-    radar.icon = ICONPATH .. "entity/biocannon_icon.png"
-    radar.icon_size = 64
-    radar.BI_add_icon = true
+    if base then
+      radar.icon = ICONPATH .. "entity/biocannon_icon.png"
+      radar.icon_size = 64
+      radar.icon_mipmaps = 3
+      radar.BI_add_icon = true
 
-    radar.energy_per_sector = "22MJ"
-    radar.energy_per_nearby_scan = "400kW"
-    radar.energy_usage = "6kW"
-    -- The cannon can only shoot if the radar has power, so we need to show
-    -- if it is connected. Also, the collision_box of the radar should be big
-    -- enough that it is within reach even of poles with a small supply_area.
-    radar.collision_box = base.collision_box
-    radar.energy_source.render_no_network_icon = true
-    radar.energy_source.render_no_power_icon = true
+      radar.energy_per_sector = "22MJ"
+      radar.energy_per_nearby_scan = "400kW"
+      radar.energy_usage = "6kW"
+      -- The cannon can only shoot if the radar has power, so we need to show
+      -- if it is connected. Also, the collision_box of the radar should be big
+      -- enough that it is within reach even of poles with a small supply_area.
+      radar.collision_box = base.collision_box
+      radar.energy_source.render_no_network_icon = true
+      radar.energy_source.render_no_power_icon = true
 
-    radar.max_distance_of_nearby_sector_revealed = 5
-    radar.max_distance_of_sector_revealed = 5
+      radar.max_distance_of_nearby_sector_revealed = 5
+      radar.max_distance_of_sector_revealed = 5
 
-    BioInd.show("Adjusted properties of", radar_name)
-
+      BioInd.show("Adjusted properties of", radar_name)
+    end
   -- Adjust properties for hidden radar of Terraformer
   elseif c_entities["bi-arboretum"] and
             radar_name == c_entities["bi-arboretum"].hidden[h_key].name then
@@ -86,6 +90,7 @@ BioInd.show("locale_name", locale_name)
 
     radar.icon = ICONPATH .. "entity/terraformer_radar.png"
     radar.icon_size = 64
+    radar.icon_mipmaps = 3
     radar.BI_add_icon = true
 
     -- We want to be able to see the scanning progress of this radar!
@@ -116,17 +121,10 @@ BioInd.show("locale_name", locale_name)
     BioInd.show("Adjusted properties of", radar_name)
   end
 
-  data:extend({radar})
-
-  BioInd.show("Created", radar_name)
+  --~ data:extend({radar})
+  --~ BioInd.created_msg(radar)
+  BioInd.create_stuff({radar})
 end
-
-
-------------------------------------------------------------------------------------
---~ -- Testing
---~ for k, v in pairs(data.raw[h_entity.type]) do
-  --~ BioInd.writeDebug("%s: %s", {k, v})
---~ end
 
 
 ------------------------------------------------------------------------------------

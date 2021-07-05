@@ -3,7 +3,7 @@
 ------------------------------------------------------------------------------------
 BI.entered_file()
 
-local BioInd = require('common')('Bio_Industries')
+--~ local BioInd = require(['"]common['"])(["']Bio_Industries['"])
 local ICONPATH = BioInd.iconpath
 
 BI.additional_recipes = BI.additional_recipes or {}
@@ -21,7 +21,7 @@ BI.additional_recipes.sand = {
   type = "recipe",
   name = "bi-sand",
   icon = ICONPATH .. "mod_aai/sand-aai.png",
-  icon_size = 64,
+  icon_size = 64, icon_mipmaps = 3,
   BI_add_icon = true,
   BI_add_to_tech = {"bi-tech-stone-crushing-1"},
   category = "biofarm-mod-crushing",
@@ -53,7 +53,7 @@ BI.additional_recipes.fertilizer = {
   type = "recipe",
   name = "bi-fertilizer-2",
   icon = ICONPATH .. "mod_bobangels/fertilizer_sodium_hydroxide.png",
-  icon_size = 64,
+  icon_size = 64, icon_mipmaps = 3,
   BI_add_icon = true,
   -- Custom property that allows to automatically add our recipes to tech unlocks.
   BI_add_to_tech = {"bi-tech-fertilizer"},
@@ -82,11 +82,11 @@ BI.additional_recipes.fertilizer = {
 --        Pellet coke (alternative recipe, ingredients will be added later)       --
 ------------------------------------------------------------------------------------
 -- Angel's Petrochemical Processing ("angelspetrochem")
-BI.additional_recipes.pellet_coke = {
+BI.additional_recipes.pellet_coke_2 = {
   type = "recipe",
   name = "bi-pellet-coke-2",
   icon = ICONPATH .. "mod_bobangels/pellet_coke_b.png",
-  icon_size = 64,
+  icon_size = 64, icon_mipmaps = 3,
   BI_add_icon = true,
   BI_add_to_tech = {"bi-tech-coal-processing-2"},
   category = "biofarm-mod-smelting",
@@ -111,7 +111,7 @@ BI.additional_recipes.sulfuric_waste = {
   type = "recipe",
   name = "bi-mineralized-sulfuric-waste",
   icon = ICONPATH .. "mod_bobangels/bi_mineralized_sulfuric.png",
-  icon_size = 64,
+  icon_size = 64, icon_mipmaps = 3,
   BI_add_icon = true,
   BI_add_to_tech = {"water-treatment"},
   category = "liquifying",
@@ -142,7 +142,7 @@ BI.additional_recipes.slag_slurry = {
   type = "recipe",
   name = "bi-slag-slurry",
   icon = ICONPATH .. "mod_bobangels/bi_slurry.png",
-  icon_size = 64,
+  icon_size = 64, icon_mipmaps = 3,
   BI_add_icon = true,
   BI_add_to_tech = {"slag-processing-1"},
   category = "liquifying",
@@ -175,7 +175,7 @@ BI.additional_recipes.press_wood = {
   name = "bi-press-wood",
   localised_name = {"recipe-name.bi-press-wood"},
   icon = ICONPATH .. "mod_bobangels/bi_wooden_board.png",
-  icon_size = 64,
+  icon_size = 64, icon_mipmaps = 3,
   BI_add_icon = true,
   BI_add_to_tech = {"electronics"},
   subgroup = "bob-boards",
@@ -198,6 +198,7 @@ BI.additional_recipes.press_wood = {
   mod = "Bio_Industries",
 }
 
+BioInd.writeDebug("Read data for additional recipes (dependent on other mods).")
 
 ------------------------------------------------------------------------------------
 --                                    END OF FILE                                 --

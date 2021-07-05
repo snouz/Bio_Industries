@@ -1,5 +1,3 @@
---~ data:extend(
---~ {
 local setting_list = {}
         -- Add/enable stuff
 setting_list.BI_Solar_Additions = {
@@ -7,16 +5,24 @@ setting_list.BI_Solar_Additions = {
     name = "BI_Solar_Additions",
     setting_type = "startup",
     default_value = true,
-    order = "a[modifier]-a[Solar_Farm]",
+    order = "a[enable]-a[BI_Solar_Additions]",
 }
 
---~ setting_list.BI_Bigger_Wooden_Chests = {
-    --~ type = "bool-setting",
-    --~ name = "BI_Bigger_Wooden_Chests",
-    --~ setting_type = "startup",
-    --~ default_value = true,
-    --~ order = "a[modifier]-b[Bigger_Wooden_Chests]",
---~ }
+setting_list.BI_Coal_Processing = {
+    type = "bool-setting",
+    name = "BI_Coal_Processing",
+    setting_type = "startup",
+    default_value = true,
+    order = "a[enable]-b[BI_Coal_Processing]",
+}
+
+setting_list.BI_Terraforming = {
+    type = "bool-setting",
+    name = "BI_Terraforming",
+    setting_type = "startup",
+    default_value = true,
+    order = "a[enable]-b[BI_Terraforming]",
+}
 
 -- Chests, pipes, poles
 setting_list.BI_Wood_Products = {
@@ -24,7 +30,7 @@ setting_list.BI_Wood_Products = {
     name = "BI_Wood_Products",
     setting_type = "startup",
     default_value = true,
-    order = "a[modifier]-b[Bigger_Wooden_Chests]",
+    order = "a[enable]-b[BI_Wood_Products]",
 }
 
 -- Darts, dart rifle, dart turret
@@ -33,7 +39,7 @@ setting_list.BI_Darts = {
     name = "BI_Darts",
     setting_type = "startup",
     default_value = true,
-    order = "a[modifier]-c[Darts]",
+    order = "a[enable]-c[BI_Darts]",
 }
 
 setting_list.BI_Bio_Cannon = {
@@ -41,7 +47,7 @@ setting_list.BI_Bio_Cannon = {
     name = "BI_Bio_Cannon",
     setting_type = "startup",
     default_value = true,
-    order = "a[modifier]-c[Bio_Cannon]",
+    order = "a[enable]-c[BI_Bio_Cannon]",
 }
 
 setting_list.BI_Stone_Crushing = {
@@ -49,127 +55,186 @@ setting_list.BI_Stone_Crushing = {
     name = "BI_Stone_Crushing",
     setting_type = "startup",
     default_value = true,
-    order = "a[modifier]-c[Bio_Cannon]",
+    order = "a[enable]-c[BI_Stone_Crushing]",
 }
 
-setting_list.BI_Show_musk_floor_in_mapview = {
+setting_list.BI_Bio_Garden = {
     type = "bool-setting",
-    name = "BI_Show_musk_floor_in_mapview",
+    name = "BI_Bio_Garden",
     setting_type = "startup",
     default_value = true,
-    order = "a[modifier]-d[Musk_floor]",
+    order = "a[enable]-c[BI_Bio_Garden]",
 }
 
-setting_list.BI_Game_Tweaks_Easy_Bio_Gardens = {
+setting_list.BI_Rails = {
     type = "bool-setting",
-    name = "BI_Game_Tweaks_Easy_Bio_Gardens",
+    name = "BI_Rails",
     setting_type = "startup",
-    default_value = false,
-    order = "a[modifier]-e[Fluid_fertilizer]",
+    default_value = true,
+    order = "a[enable]-c[BI_Rails]",
 }
+
+setting_list.BI_Explosive_Planting = {
+    type = "bool-setting",
+    name = "BI_Explosive_Planting",
+    setting_type = "startup",
+    default_value = true,
+    order = "a[enable]-c[BI_Explosive_Planting]",
+}
+
+setting_list.BI_Rubber = {
+    type = "bool-setting",
+    name = "BI_Rubber",
+    setting_type = "startup",
+    default_value = true,
+    order = "a[enable]-c[BI_Rubber]",
+}
+
+
 
 setting_list.BI_Bio_Fuel = {
     type = "bool-setting",
     name = "BI_Bio_Fuel",
     setting_type = "startup",
     default_value = true,
-    order = "a[modifier]-b[Bio_Fuel]",
+    order = "a[enable]-b[Bio_Fuel]",
 }
+
+setting_list.BI_Terraforming = {
+    type = "bool-setting",
+    name = "BI_Terraforming",
+    setting_type = "startup",
+    default_value = true,
+    order = "a[enable]-b[BI_Terraforming]",
+}
+
+
         -- Game tweaks
+setting_list.BI_Game_Tweaks_Easy_Bio_Gardens = {
+    type = "bool-setting",
+    name = "BI_Game_Tweaks_Easy_Bio_Gardens",
+    setting_type = "startup",
+    default_value = false,
+    order = "a[tweaks]-e[BI_Game_Tweaks_Easy_Bio_Gardens]",
+}
+
 setting_list.BI_Game_Tweaks_Emissions_Multiplier = {
     type = "bool-setting",
     name = "BI_Game_Tweaks_Emissions_Multiplier",
     setting_type = "startup",
     default_value = true,
-    order = "b[tweaks]-a[Fuel_emission_multiplier]",
+    order = "b[tweaks]-a[BI_Game_Tweaks_Emissions_Multiplier]",
     per_user = true,
 }
+
+setting_list.BI_Game_Tweaks_Show_musk_floor_in_mapview = {
+    type = "bool-setting",
+    name = "BI_Game_Tweaks_Show_musk_floor_in_mapview",
+    setting_type = "startup",
+    default_value = true,
+    order = "b[tweaks-d[Musk_floor]",
+}
+
 setting_list.BI_Game_Tweaks_Stack_Size = {
     type = "bool-setting",
     name = "BI_Game_Tweaks_Stack_Size",
     setting_type = "startup",
     default_value = true,
-    order = "b[tweaks]-b[Stack_size]",
+    order = "b[tweaks]-b[BI_Game_Tweaks_Stack_Size]",
 }
+
 setting_list.BI_Game_Tweaks_Recipe = {
     type = "bool-setting",
     name = "BI_Game_Tweaks_Recipe",
     setting_type = "startup",
-    default_value = true,
-    order = "b[tweaks]-c1[Recipe]",
+    default_value = false,
+    order = "b[tweaks]-c1[BI_Game_Tweaks_Recipe]",
 }
---~ if not mods["IndustrialRevolution"] then
-  --~ setting_list.BI_Game_Tweaks_Disassemble = {
-      --~ type = "bool-setting",
-      --~ name = "BI_Game_Tweaks_Disassemble",
-      --~ setting_type = "startup",
-      --~ default_value = true,
-      --~ order = "b[tweaks]-c2[Disassemble]",
-  --~ }
---~ end
+
 setting_list.BI_Game_Tweaks_Production_Science = {
     type = "bool-setting",
     name = "BI_Game_Tweaks_Production_Science",
     setting_type = "startup",
     default_value = true,
-    order = "b[tweaks]-c3[Production_science]",
+    order = "b[tweaks]-c3[BI_Game_Tweaks_Production_Science]",
 }
+
 setting_list.BI_Game_Tweaks_Tree = {
     type = "bool-setting",
     name = "BI_Game_Tweaks_Tree",
     setting_type = "startup",
     default_value = true,
-    order = "b[tweaks]-d1[Trees]",
+    order = "b[tweaks]-d1[BI_Game_Tweaks_Tree]",
 }
+
 setting_list.BI_Game_Tweaks_Small_Tree_Collisionbox = {
     type = "bool-setting",
     name = "BI_Game_Tweaks_Small_Tree_Collisionbox",
     setting_type = "startup",
     default_value = true,
-    order = "b[tweaks]-d2[Tree_collision_box]",
+    order = "b[tweaks]-d2[BI_Game_Tweaks_Small_Tree_Collisionbox]",
 }
+
 setting_list.BI_Game_Tweaks_Player = {
     type = "bool-setting",
     name = "BI_Game_Tweaks_Player",
     setting_type = "startup",
     default_value = false,
-    order = "b[tweaks]-e[Player_tweaks]",
+    order = "b[tweaks]-e[BI_Game_Tweaks_Player]",
 }
+
 setting_list.BI_Game_Tweaks_Bot = {
     type = "bool-setting",
     name = "BI_Game_Tweaks_Bot",
     setting_type = "startup",
     default_value = false,
-    order = "b[tweaks]-f[Bot_tweaks]",
+    order = "b[tweaks]-f[BI_Game_Tweaks_Bot]",
 }
 
+
+  -- Debugging
+setting_list.BI_Debug_To_Log = {
+      type = "bool-setting",
+      name = "BI_Debug_To_Log",
+      setting_type = "startup",
+      default_value = false,
+      order = "c[debugging]-c1[BI_Debugging]",
+}
+
+setting_list.BI_Debug_To_Game = {
+      type = "bool-setting",
+      name = "BI_Debug_To_Game",
+      setting_type = "startup",
+      default_value = false,
+      order = "c[debugging]-c2[BI_Debugging]",
+}
 
 -- Compatibility with other mods (optional)
   -- Industrial Revolution + AAI Industry
 if not (mods["IndustrialRevolution"] or mods["aai-industry"]) then
-  setting_list.BI_Game_Tweaks_Disassemble = {
+  setting_list.BI_Disassemble = {
       type = "bool-setting",
-      name = "BI_Game_Tweaks_Disassemble",
+      name = "BI_Disassemble",
       setting_type = "startup",
       default_value = true,
-      order = "b[tweaks]-c2[Disassemble]",
+      order = "a[enable]-c[BI_Disassemble]",
   }
 end
 
   -- Lua API global Variable Viewer (gvv)
 if mods["gvv"] then
-  setting_list.BI_Enable_gvv_support = {
+  setting_list.BI_Debug_gvv = {
       type = "bool-setting",
-      name = "BI_Enable_gvv_support",
+      name = "BI_Debug_gvv",
       setting_type = "startup",
       default_value = false,
-      order = "c[compatibility]-c1[debugging_gvv]",
+      order = "c[debugging]-c3[BI_Debug_gvv]",
   }
 end
 
 for name, setting in pairs(setting_list) do
   data:extend({setting})
-  log("Added setting " .. setting.name .. "\tDefault value: " .. tostring(setting.default_value) .. "\tType: " .. setting.setting_type)
+  --~ log("Added setting " .. setting.name .. "\tDefault value: " .. tostring(setting.default_value) .. "\tType: " .. setting.setting_type)
 end
 
 --[[

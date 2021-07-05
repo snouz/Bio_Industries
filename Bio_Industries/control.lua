@@ -3,7 +3,7 @@ BioInd.entered_file()
 
 local settings_changed = require("settings_changed")
 
-if BioInd.get_startup_setting("BI_Enable_gvv_support") then
+if BioInd.get_startup_setting("BI_Debug_gvv") then
   BioInd.writeDebug("Activating support for gvv!")
   require("__gvv__/gvv")()
 end
@@ -89,6 +89,13 @@ end
 
 -- Generate a look-up table with recipe ingredients, as other mods may have changed them
 local function get_arboretum_recipes()
+  if not BioInd.get_startup_setting("BI_Terraforming") then
+    BioInd.nothing_to_do("*")
+    return
+  else
+    BioInd.entered_function()
+  end
+
   local list = {}
 
   local recipes = game.recipe_prototypes
@@ -252,6 +259,132 @@ BioInd.show("Need to check these tables in global", compound_entity_tables)
     Create_dummy_force()
   end
 
+
+  ----------------------------------------------------------------------------------
+  -- If "Early wooden defenses" (setting BI_Darts) is active, set the items players
+  -- get on starting a new game or on respawning!
+  ----------------------------------------------------------------------------------
+  if BioInd.get_startup_setting("BI_Darts") and remote.interfaces["freeplay"] then
+    --~ local created = remote.call("freeplay", "get_created_items")
+    --~ local respawn = remote.call("freeplay", "get_respawn_items")
+    --~ local ship =
+    local weapons = game.get_filtered_item_prototypes({ {filter = "type", type = "gun"} })
+    local ammo = game.get_filtered_item_prototypes({ {filter = "type", type = "ammo"} })
+
+    local new_gun = {"bi-dart-rifle", 1}
+    local new_ammo = {"bi-dart-magazine-basic", 10}
+
+    local list
+
+    local function replace_item(list_handle, replace_list, new_item)
+      BioInd.entered_function()
+BioInd.show("list_handle", list_handle)
+BioInd.show("new_item", new_item)
+
+      local new_list = {}
+      local list = remote.call("freeplay", "get_" .. list_handle .. "_items")
+
+      for item, amount in pairs(list or {}) do
+--~ BioInd.writeDebug("Item: %s\tAmount: %s", {item, amount})
+        if (replace_list[item] and item ~= new_item[1]) then
+          new_list[new_item[1]] = new_item[2]
+  BioInd.writeDebug("Replaced %s", {item})
+        else
+  BioInd.writeDebug("Keep: %s", {item})
+          new_list[item] = amount
+        end
+      end
+  BioInd.writeDebug("New list for %s items: %s", {list_handle, new_list})
+      remote.call("freeplay", "set_" .. list_handle .. "_items", new_list)
+      BioInd.entered_function("leave")
+    end
+
+    local function remove_item(list_handle, remove_list, keep_list)
+      BioInd.entered_function()
+BioInd.show("list_handle", list_handle)
+BioInd.show("remove_list", remove_list)
+BioInd.show("keep_list", keep_list)
+      local new_list = {}
+      local list = remote.call("freeplay", "get_" .. list_handle .. "_items")
+
+      for item, amount in pairs(list or {}) do
+BioInd.show("item", item)
+        if not remove_list[item] or keep_list[item] then
+          new_list[item] = amount
+  BioInd.writeDebug("Keep %s", {item})
+        else
+  BioInd.writeDebug("Remove %s", {item})
+        end
+      end
+  BioInd.writeDebug("New list: %s", {new_list})
+      remote.call("freeplay", "set_" .. list_handle .. "_items", new_list)
+      BioInd.entered_function("leave")
+    end
+
+    local function add_item(list_handle, new_item)
+      BioInd.entered_function()
+BioInd.show("list_handle", list_handle)
+BioInd.show("new_item", new_item)
+      local new_list = {}
+      local found = false
+      local list = remote.call("freeplay", "get_" .. list_handle .. "_items")
+
+      for item, amount in pairs(list or {}) do
+        if item == new_item[1] then
+          new_list[item] = (new_list[item] or amount) + new_item[2]
+          found = true
+  BioInd.writeDebug("Add %s to %s: %s", {new_item[2], new_item[1], new_list[item]})
+        else
+  BioInd.writeDebug("Keep %s", {item})
+          new_list[item] = amount
+        end
+      end
+
+      if not found then
+  BioInd.writeDebug("Add %s to list of %s items", {new_item[1], list_handle})
+        new_list[new_item[1]] = new_item[2]
+      end
+  BioInd.writeDebug("New list: %s", {new_list})
+      remote.call("freeplay", "set_" .. list_handle .. "_items", new_list)
+      BioInd.entered_function("leave")
+    end
+
+    for w, what in ipairs({"created", "respawn"}) do
+      replace_item(what, weapons, new_gun)
+      replace_item(what, ammo, new_ammo)
+    end
+
+    for w, what in ipairs({"ship", "debris"}) do
+      --~ remove_item(remote.call("freeplay", "get_" .. what .. "_items"), weapons)
+      --~ remove_item(remote.call("freeplay", "get_" .. what .. "_items"), ammo)
+      remove_item(what, weapons, {[new_gun[1]]= true})
+      remove_item(what, ammo, {[new_ammo[1]] = true})
+    end
+
+    add_item("debris", {"bi-dart-magazine-standard", 5})
+    add_item("debris", {"bi-dart-magazine-enhanced", 2})
+    add_item("ship", {"bi-dart-magazine-poison", 1})
+
+
+    --~ for w, what in ipairs({"created", "respawn"}) do
+      --~ list = {}
+      --~ for item, amount in pairs(remote.call("freeplay", "get_" .. what .. "_items")) do
+
+        --~ if weapons[item] and item ~= new_gun then
+          --~ list[new_gun[1]] = new_gun[2]
+  --~ BioInd.writeDebug("Replaced weapon: %s", {item})
+        --~ elseif ammo[item] and item ~= new_ammo then
+          --~ list[new_ammo[1]] = new_ammo[2]
+  --~ BioInd.writeDebug("Rplaced ammo: %s", {item})
+        --~ else
+  --~ BioInd.writeDebug("Keep: %s", {item})
+          --~ list[item] = amount
+        --~ end
+      --~ end
+  --~ BioInd.writeDebug("New list for %s items: %s", {what, list})
+      --~ remote.call("freeplay", "set_" .. what .. "_items", list)
+    --~ end
+  end
 end
 
 
@@ -274,7 +407,7 @@ BioInd.writeDebug("On Configuration changed: %s", {ConfigurationChangedData})
   -- Re-initialize global tables etc.
   init()
 
-  -- Has setting BI_Show_musk_floor_in_mapview changed?
+  -- Has setting BI_Game_Tweaks_Show_musk_floor_in_mapview changed?
   if ConfigurationChangedData.mod_startup_settings_changed then
     settings_changed.musk_floor()
     -- Has this been obsoleted by the new init process? Turn it off for now!
@@ -662,13 +795,20 @@ BioInd.writeDebug("Entered function %s(%s)", {f_name, event})
     error("Something went wrong -- no entity data!")
   end
 
+  local arboretum = global.compound_entities["bi-arboretum"] and
+                      global.compound_entities["bi-arboretum"].hidden
+  local power_rail = global.compound_entities["bi-curved-rail-power"] and
+                      global.compound_entities["bi-curved-rail-power"].hidden
   if
       -- Table checks
       global.compound_entities[entity.name] or
       global.bi.trees[entity.name] or
       -- Entity checks
-      entity.name == global.compound_entities["bi-arboretum"].hidden.radar.name or
-      entity.name == "bi-power-to-rail-pole" or
+      -- Hidden radar of terraformer
+      entity.name == (arboretum and arboretum.radar and arboretum.radar.name) or
+      -- Hidden pole of powered rails
+      entity.name == (power_rail and power_rail.pole and power_rail.pole.name) or
+      -- Seedlings
       entity.name == "seedling" then
 
     BioInd.writeDebug("Divert to On_Pre_Remove!")
@@ -1061,7 +1201,7 @@ setmetatable(_ENV, {
       .. serpent.line{key = key or '<nil>', value = value or '<nil>'} .. '\n')
     end,
   __index = function (self, key) --locked_global_read
-    if not (key == "game" or key == "mods") then
+    if not (key == "game" or key == "mods" or key == "data") then
       error('\n\n[ER Global Lock] Forbidden global *read*:\n'
         .. serpent.line{key = key or '<nil>'} .. '\n')
     end

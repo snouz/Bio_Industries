@@ -3,51 +3,32 @@
 ------------------------------------------------------------------------------------
 BI.entered_file()
 
-local BioInd = require('common')('Bio_Industries')
-local ICONPATH = BioInd.iconpath
-local SNDPATH = "__base__/sound/"
-local WOODPATH = BioInd.entitypath .. "wood_products/"
-
-local sound_def = require("__base__.prototypes.entity.sounds")
-local sounds = {}
-
-sounds.walking_sound = {}
-for i = 1, 11 do
-  sounds.walking_sound[i] = {
-    filename = SNDPATH .. "walking/concrete-" .. (i < 10 and "0" or "")  .. i ..".ogg",
-    volume = 1.2
-  }
-end
-sounds.mined_sound = {
-  filename = SNDPATH .. "deconstruct-bricks.ogg",
-  volume = 1
-}
-
---~ BI.additional_fluids = BI.additional_fluids or {}
-
-BI.optional_fluids = BI.optional_fluids or {}
+BI.additional_fluids = BI.additional_fluids or {}
 
 for s, setting in pairs({
   "BI_Game_Tweaks_Easy_Bio_Gardens",
-  "BI_Game_Tweaks_Production_Science",
-  "BI_Game_Tweaks_Disassemble",
 }) do
-  BI.optional_fluids[setting] = BI.optional_fluids[setting] or {}
+  BI.additional_fluids[setting] = BI.additional_fluids[setting] or {}
 end
 
+
 ------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------
 
+
+local ICONPATH = BioInd.iconpath
+
+
 ------------------------------------------------------------------------------------
---                           "Enable: Easy Bio Gardens"                           --
+--                         "Game tweaks: Easy Bio gardens"                        --
 --                  (BI.Settings.BI_Game_Tweaks_Easy_Bio_Gardens)                 --
 ------------------------------------------------------------------------------------
 -- Fertilizer fluid
-BI.optional_fluids.BI_Game_Tweaks_Easy_Bio_Gardens.fertilizer_fluid = {
+BI.additional_fluids.BI_Game_Tweaks_Easy_Bio_Gardens.fertilizer_fluid = {
   type = "fluid",
   name = "bi-fertilizer-fluid",
   icon = ICONPATH .. "fluid_fertilizer.png",
-  icon_size = 64,
+  icon_size = 64, icon_mipmaps = 3,
   BI_add_icon = true,
   default_temperature = 25,
   max_temperature = 100,
@@ -65,11 +46,11 @@ BI.optional_fluids.BI_Game_Tweaks_Easy_Bio_Gardens.fertilizer_fluid = {
 }
 
 -- Advanced fertilizer fluid
-BI.optional_fluids.BI_Game_Tweaks_Easy_Bio_Gardens.adv_fertilizer_fluid = {
+BI.additional_fluids.BI_Game_Tweaks_Easy_Bio_Gardens.adv_fertilizer_fluid = {
   type = "fluid",
   name = "bi-adv-fertilizer-fluid",
   icon = ICONPATH .. "fluid_fertilizer_advanced.png",
-  icon_size = 64,
+  icon_size = 64, icon_mipmaps = 3,
   BI_add_icon = true,
   default_temperature = 25,
   max_temperature = 100,
@@ -85,6 +66,9 @@ BI.optional_fluids.BI_Game_Tweaks_Easy_Bio_Gardens.adv_fertilizer_fluid = {
   flow_to_energy_ratio = 0.59,
   order = "a[fluid]-b[fertilizer-advanced]"
 }
+
+
+BioInd.writeDebug("Read data for optional fluids.")
 
 
 ------------------------------------------------------------------------------------

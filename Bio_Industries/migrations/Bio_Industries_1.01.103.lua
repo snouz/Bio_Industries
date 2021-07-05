@@ -4,15 +4,8 @@ BioInd.writeDebug("Entered migration script 0.18.35+1.01.05")
 
 
 ------------------------------------------------------------------------------------
--- Just remove some obsolete global tables!
+-- Just adjust the name of a global table to the new name of a setting!
 ------------------------------------------------------------------------------------
-{
-  "recipe":
-  [
-    ["bi-sulfur-angels",                "bi-sulfur"]
-  ]
-
-}
 
 global = global or {}
 global.mod_settings = global.mod_settings or {}

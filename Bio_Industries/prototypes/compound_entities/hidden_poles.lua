@@ -1,15 +1,17 @@
 BI.entered_file()
 
--- Add functions that are also used in other files (debugging output etc.)
-local BioInd = require('common')('Bio_Industries')
+
+------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
+
 
 local ICONPATH = BioInd.iconpath
+BioInd.show("Compound entities", BioInd.compound_entities)
+
 
 ------------------------------------------------------------------------------------
 --  Create the main prototype for hidden poles. All others will be based on this! --
 ------------------------------------------------------------------------------------
---~ local h_type = "electric-pole"
---~ local h_entity = table.deepcopy(data.raw[h_type]["small-electric-pole"])
 -- The short name of the hidden entity (e.g. "lamp" or "pole")
 local h_key = "pole"
 -- The actual prototype type, identified by h_key
@@ -17,6 +19,7 @@ local h_type = BioInd.HE_map[h_key]
 local h_entity = table.deepcopy(data.raw[h_type]["small-electric-pole"])
 
 BI.set_common_properties(h_entity)
+
 
 ------------------------------------------------------------------------------------
 -- Pole specific attributes!
@@ -83,7 +86,7 @@ local c_entities = BioInd.compound_entities
 
 BioInd.writeDebug("BI.hidden_entities.types[%s]: %s", {h_key, BI.hidden_entities.types[h_key]})
 --~ for pole_name, locale_name in pairs(pole_list) do
-for pole_name, locale_name in pairs(BI.hidden_entities.types[h_key]) do
+for pole_name, locale_name in pairs(BI.hidden_entities.types[h_key] or {}) do
   --~ pole = table.deepcopy(data.raw["electric-pole"]["bi-hidden-power-pole"])
   pole = table.deepcopy(h_entity)
   pole.name = pole_name
@@ -97,10 +100,6 @@ for pole_name, locale_name in pairs(BI.hidden_entities.types[h_key]) do
   ------------------------------------------------------------------------------------
   -- Adjust properties for hidden biofarm poles
   ------------------------------------------------------------------------------------
-  --~ if c_entities["bi-bio-farm"] then
-    --~ -- We have connectors on the roof of Bio farms, so we want to display connections
-    --~ if c_entities["bi-bio-farm"].hidden["connector"] and
-          --~ pole_name == c_entities["bi-bio-farm"].hidden["connector"].name then
   if c_entities["bi-bio-farm"] and
       (c_entities["bi-bio-farm"].hidden["connector"] and
         pole_name == c_entities["bi-bio-farm"].hidden["connector"].name) or
@@ -108,8 +107,6 @@ for pole_name, locale_name in pairs(BI.hidden_entities.types[h_key]) do
         pole_name == c_entities["bi-bio-farm"].hidden[h_key].name) then
 
     -- We have connectors on the roof of Bio farms, so we want to display connections
-    --~ if c_entities["bi-bio-farm"].hidden["connector"] and
-          --~ pole_name == c_entities["bi-bio-farm"].hidden["connector"].name then
     if pole_name == c_entities["bi-bio-farm"].hidden["connector"].name then
 
       --~ pole.localised_name = {"entity-name.bi-bio-farm"}
@@ -139,8 +136,8 @@ for pole_name, locale_name in pairs(BI.hidden_entities.types[h_key]) do
       BioInd.show("Adjusted properties of", pole_name)
 
     -- Hidden center pole for supplying the area around the building
-    --~ elseif pole_name == c_entities["bi-bio-farm"].hidden[h_key].name then
-    else
+    elseif pole_name == c_entities["bi-bio-farm"].hidden[h_key].name then
+    --~ else
       --~ pole.draw_copper_wires = true
       pole.maximum_wire_distance = 2
       pole.supply_area_distance = 5
@@ -187,21 +184,16 @@ for pole_name, locale_name in pairs(BI.hidden_entities.types[h_key]) do
   elseif pole_name == Musk_name then
     pole.icon = ICONPATH .. "entity/solar-mat.png"
     pole.icon_size = 64
+    pole.icon_mipmaps = 3
     pole.maximum_wire_distance = 1
     pole.supply_area_distance = 3
     BioInd.show("Adjusted properties of", pole_name)
   end
 
-  data:extend({pole})
-  BioInd.show("Created", pole_name)
+  --~ data:extend({pole})
+  --~ BioInd.created_msg(pole)
+  BioInd.create_stuff({pole})
 end
-
-
-------------------------------------------------------------------------------------
---~ -- Testing
---~ for k, v in pairs(data.raw[h_entity.type]) do
-  --~ BioInd.writeDebug("%s: %s", {k, v})
---~ end
 
 
 ------------------------------------------------------------------------------------

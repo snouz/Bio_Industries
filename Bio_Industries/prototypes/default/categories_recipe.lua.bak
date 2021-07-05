@@ -1,0 +1,65 @@
+BI.entered_file()
+
+BI.default_recipe_categories = BI.default_recipe_categories or {}
+
+
+------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
+
+
+------------------------------------------------------------------------------------
+--                                  Recipe groups                                 --
+------------------------------------------------------------------------------------
+-- Terraformer (Arboretum)
+BI.default_recipe_categories.arboretum = {
+  type = "recipe-category",
+  name = "bi-arboretum"
+}
+
+-- Bio farm
+BI.default_recipe_categories.farm = {
+  type = "recipe-category",
+  name = "biofarm-mod-farm"
+}
+
+-- Bio reactor
+BI.default_recipe_categories.bioreactor = {
+  type = "recipe-category",
+  name = "biofarm-mod-bioreactor"
+}
+
+-- Greenhouse
+BI.default_recipe_categories.greenhouse = {
+  type = "recipe-category",
+  name = "biofarm-mod-greenhouse"
+}
+
+-- Depollution
+BI.default_recipe_categories.clean_air = {
+  type = "recipe-category",
+  name = "clean-air"
+}
+
+-- Crushing
+BI.default_recipe_categories.crushing = {
+  type = "recipe-category",
+  name = "biofarm-mod-crushing"
+}
+
+-- Smelting
+BI.default_recipe_categories.smelting = {
+  type = "recipe-category",
+  name = "biofarm-mod-smelting"
+}
+
+
+------------------------------------------------------------------------------------
+--                            Create recipe categories                            --
+------------------------------------------------------------------------------------
+BioInd.create_stuff(BI.default_recipe_categories)
+
+
+------------------------------------------------------------------------------------
+--                                    END OF FILE                                 --
+------------------------------------------------------------------------------------
+BI.entered_file("leave")

@@ -1,10 +1,10 @@
-log("Entered file" .. debug.getinfo(1).source)
 ------------------------------------------------------------------------------------
 --  This file contains the data of all compound entities. It will be used in the  --
 --  data stage to create the prototypes for the hidden enitities, and during the  --
 --  control stage to combine the compound entities and pass on any optional data  --
 --  that may be required by the scripts.
 ------------------------------------------------------------------------------------
+log("Entered file" .. debug.getinfo(1).source)
 require("util")
 
 -- During the data stage, we want to remove compound entities (or some of their
@@ -198,6 +198,7 @@ ret.compound_entities = {
   },
 }
 
+
 ------------------------------------------------------------------------------------
 --     Fill in the missing names and types of the hidden entities' prototypes!    --
 ------------------------------------------------------------------------------------
@@ -211,46 +212,63 @@ for c_name, c_data in pairs(ret.compound_entities) do
 end
 --~ log("ret.compound_entities: " .. serpent.block(ret.compound_entities))
 
+
 ------------------------------------------------------------------------------------
 --  Remove entries for disabled compound entities. Do this before making copies!  --
 ------------------------------------------------------------------------------------
 ret.get_HE_list = function(get_complete_list)
+
+  -- Return complete list
   if get_complete_list or script then
-    --~ log("Preserving complete list!")
+    log("Preserving complete list!")
 
+  -- Clean up list before returning it
   else
-    --~ log("Removing obsolete entities from the list!")
+    log("Removing obsolete entities from the list!")
 
+    -- We still have the complete table to work with. Let's adjust hidden
+    -- entities based on individual settings now!
     local settings = settings.startup
     local function get_settings(name)
       return settings[name] and settings[name].value
     end
 
-    -- Bio Cannon
-    --~ if not BI.Settings.Bio_Cannon then
-    if not get_settings("BI_Bio_Cannon") then
-      --~ log("Bio cannon has been disabled!")
-      ret.compound_entities["bi-bio-cannon"] = nil
-      --~ log("Removed \"bi-bio-cannon\" from compound_entity list!")
-    end
+    --~ -- Bio Cannon
+    --~ if not get_settings("BI_Bio_Cannon") then
+      --  log("Bio cannon has been disabled!")
+      --~ ret.compound_entities["bi-bio-cannon"] = nil
+      --  log("Removed \"bi-bio-cannon\" from compound_entity list!")
+    --~ end
 
-    -- Solar additions
-    --~ if not BI.Settings.BI_Solar_Additions then
-    if not get_settings("BI_Solar_Additions") then
-      --~ log("Solar additions have been disabled!")
-      for e, entry in ipairs({"bi-bio-solar-farm", "bi-solar-boiler"}) do
-        ret.compound_entities[entry] = nil
-        --~ log("Removed " .. entry .. " from compound_entity list!")
-      end
-    end
+    --~ -- Solar additions
+    --  if not BI.Settings.BI_Solar_Additions then
+    --~ if not get_settings("BI_Solar_Additions") then
+      --  log("Solar additions have been disabled!")
+      --~ for e, entry in ipairs({"bi-bio-solar-farm", "bi-solar-boiler"}) do
+        --~ ret.compound_entities[entry] = nil
+        --  log("Removed " .. entry .. " from compound_entity list!")
+      --~ end
+    --~ end
 
     -- Easy Bio gardens: We only need the hidden pole if the setting is enabled. (But we
     -- want to keep the rest of the table even if the setting is disabled.)
-    --~ if not BI.Settings.BI_Game_Tweaks_Easy_Bio_Gardens then
     if not get_settings("BI_Game_Tweaks_Easy_Bio_Gardens") then
-      --~ log("\"Easy Bio gardens\" are disabled!")
+      --~ --  log("\"Easy Bio gardens\" are disabled!")
       ret.compound_entities["bi-bio-garden"].hidden.pole = nil
-      --~ log("Removed hidden pole from list of hidden entities!")
+      --~ --  log("Removed hidden pole from list of hidden entities!")
+    end
+
+    -- All base entities required by a setting have been created. We can safely remove
+    -- all entries from the list where the base entity doesn't exist!
+    local base
+    for e_name, e_data in pairs(ret.compound_entities) do
+      base = e_data.base
+log(string.format("Checking base entity for \"%s\".\nType: %s\tName: %s",
+                    e_name, base.type, base.name))
+      if not data.raw[base.type][base.name] then
+        ret.compound_entities[e_name] =nil
+log(string.format("Removed \"%s\" from list of compound entities!", e_name))
+      end
     end
   end
 
@@ -272,6 +290,10 @@ ret.get_HE_list = function(get_complete_list)
     end
   end
 
+log("Final list of compound entities:")
+for k, v in pairs(ret.compound_entities) do
+  log(k)
+end
   return ret.compound_entities
 end
 

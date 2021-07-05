@@ -20,6 +20,46 @@ return function (mod_name)
 
 
   ------------------------------------------------------------------------------------
+  -- Get the value of a startup setting
+  common.get_startup_setting = function(setting_name)
+    return settings and settings.startup[setting_name] and settings.startup[setting_name].value
+  end
+
+
+  ------------------------------------------------------------------------------------
+  -- Get values of all startup settings
+  common.get_startup_settings = function()
+    for var, name in pairs({
+      BI_Bio_Fuel                               = "BI_Bio_Fuel",
+      BI_Bio_Garden                             = "BI_Bio_Garden",
+      BI_Coal_Processing                        = "BI_Coal_Processing",
+      BI_Darts                                  = "BI_Darts",
+      BI_Disassemble                            = "BI_Disassemble",
+      BI_Explosive_Planting                     = "BI_Explosive_Planting",
+      BI_Rails                                  = "BI_Rails",
+      BI_Rubber                                 = "BI_Rubber",
+      BI_Solar_Additions                        = "BI_Solar_Additions",
+      BI_Stone_Crushing                         = "BI_Stone_Crushing",
+      BI_Terraforming                           = "BI_Terraforming",
+      BI_Wood_Products                          = "BI_Wood_Products",
+      Bio_Cannon                                = "BI_Bio_Cannon",
+      BI_Game_Tweaks_Bot                        = "BI_Game_Tweaks_Bot",
+      BI_Game_Tweaks_Easy_Bio_Gardens           = "BI_Game_Tweaks_Easy_Bio_Gardens",
+      BI_Game_Tweaks_Player                     = "BI_Game_Tweaks_Player",
+      BI_Game_Tweaks_Production_Science         = "BI_Game_Tweaks_Production_Science",
+      BI_Game_Tweaks_Recipe                     = "BI_Game_Tweaks_Recipe",
+      BI_Game_Tweaks_Small_Tree_Collisionbox    = "BI_Game_Tweaks_Small_Tree_Collisionbox",
+      BI_Game_Tweaks_Stack_Size                 = "BI_Game_Tweaks_Stack_Size",
+      BI_Game_Tweaks_Tree                       = "BI_Game_Tweaks_Tree",
+      BI_Debug_To_Game                          = "BI_Debug_To_Game",
+      BI_Debug_To_Log                           = "BI_Debug_To_Log",
+    }) do
+      BI.Settings[var] = common.get_startup_setting(name)
+    end
+  end
+
+
+  ------------------------------------------------------------------------------------
   -- Greatly improved version check for mods (thanks to eradicator!)
   common.Version = {}
   do
@@ -105,8 +145,9 @@ return function (mod_name)
   -- hidden:    table containing the hidden entities needed by this entity
   --            (Key:   name under which the hidden entity will be stored in the table;
   --             Value: name of the entity that should be placed)
-  common.compound_entities = compound_entities.get_HE_list()
-
+  common.compound_entities = compound_entities.get_HE_list("complete")
+  --~ common.compound_entities = {}
+log("compound entities: " .. serpent.block(common.compound_entities))
   -- Map the short handles of hidden entities (e.g. "pole") to real prototype types
   -- (e.g. "electric-pole")
   common.HE_map = compound_entities.HE_map
@@ -159,7 +200,8 @@ return function (mod_name)
   -- (UPDATE: 0.18.29 reversed the setting -- if active, tiles will now be visible in map
   -- view, not hidden. The definition of UseMuskForce has been changed accordingly.)
   common.MuskForceName = "BI-Musk_floor_general_owner"
-  common.UseMuskForce = not settings.startup["BI_Show_musk_floor_in_mapview"].value
+  --~ common.UseMuskForce = not settings.startup["BI_Game_Tweaks_Show_musk_floor_in_mapview"].value
+  common.UseMuskForce = not common.get_startup_setting("BI_Game_Tweaks_Show_musk_floor_in_mapview")
 
   --~ ------------------------------------------------------------------------------------
   --~ -- Set some values for Musk floor tiles (bi-solar-mat), so we can use these with
@@ -177,10 +219,24 @@ return function (mod_name)
   -- to "true"!
   local default = false
 
-  common.is_debug = ( (mods and mods["_debug"]) or
-                      (script and script.active_mods["_debug"])) and
-                    true or default
+  --~ common.is_debug = ( (mods and mods["_debug"]) or
+                      --~ (script and script.active_mods["_debug"])) and
+                    --~ true or default
+  common.debug_to_log   = common.get_startup_setting("BI_Debug_To_Log") or
+                          (mods and mods["_debug"] and true) or
+                          (script and script.active_mods["_debug"] and true) or
+                          default
+--~ log(string.format("BI_Debug_To_Log: %s", tostring(common.get_startup_setting("BI_Debug_To_Log"))))
+--~ log(string.format("common.debug_to_log: %s", tostring(common.debug_to_log)))
+  common.debug_to_game  = common.get_startup_setting("BI_Debug_To_Game") or
+                          --~ (mods and mods["_debug"] and true) or
+                          --~ (script and script.active_mods["_debug"] and true) or
+                          default
+--~ log(string.format("BI_Debug_To_Game: %s", tostring(common.get_startup_setting("BI_Debug_To_Game"))))
+--~ log(string.format("common.debug_to_game: %s", tostring(common.debug_to_game)))
 
+  common.is_debug       = common.debug_to_log or common.debug_to_game
+--~ log(string.format("common.is_debug: %s", tostring(common.is_debug)))
 
   ------------------------------------------------------------------------------------
   --                               DEBUGGING FUNCTIONS                              --
@@ -220,10 +276,13 @@ return function (mod_name)
       end
       args.n = #args
 
-      -- Print the message text to log and game
-      log(string.format(tostring(msg), table.unpack(args)))
+      -- Print the message text to log
+      if common.debug_to_log then
+        log(string.format(tostring(msg), table.unpack(args)))
+      end
 
-      if game then
+      -- Print the message text to the game
+      if game and common.debug_to_game then
         game.print(string.format(tostring(msg), table.unpack(args)))
       end
     end
@@ -309,11 +368,6 @@ return function (mod_name)
   end
 
 
-
-
-
-
-
   ------------------------------------------------------------------------------------
   -- Print message when a file or function has been entered
   local function print_on_entered(msg, sep)
@@ -363,10 +417,9 @@ return function (mod_name)
   -- Throw an error if a wrong argument has been passed to a function
   common.arg_err = function(arg, arg_type)
     error(string.format(
-        "Wrong argument! %s is not %s!",
-        (arg or "nil"), (arg_type and "a valid " .. arg_type or "valid")
-      )
-    )
+      "Wrong argument! %s is not %s!",
+      (arg or "nil"), (arg_type and "a valid " .. arg_type or "valid")
+    ))
   end
 
   ------------------------------------------------------------------------------------
@@ -459,6 +512,68 @@ return function (mod_name)
     end
   end
 
+  --~ ------------------------------------------------------------------------------------
+  --~ -- Function for removing invalid prototypes from list of compound entities
+  --~ common.rebuild_compound_entity_list = function()
+    --~ local f_name = "rebuild_compound_entity_list"
+    --~ common.writeDebug("Entered function %s()", {f_name})
+
+    --~ local ret = {}
+    --~ local h_type
+
+    --~ for c_name, c_data in pairs(common.compound_entities) do
+--~ common.show("base_name", c_name)
+--~ common.show("data", c_data)
+      --~ -- Is the base entity in the game?
+      --~ if c_data.base and c_data.base.name and game.entity_prototypes[c_data.base.name] then
+        --~ -- Make a copy of the compound-entity data
+        --~ common.writeDebug("%s exists -- copying data", {c_name})
+        --~ ret[c_name] = util.table.deepcopy(c_data)
+
+        --~ -- Check hidden entities
+        --~ for h_key, h_data in pairs(ret[c_name].hidden) do
+          --  h_type = common.HE_map[h_key]
+--~ common.writeDebug("h_key: %s\th_data: %s", {h_key, h_data})
+          --~ -- Remove hidden entity if it doesn't exist
+          --~ if not game.entity_prototypes[h_data.name] then
+            --~ common.writeDebug("Removing %s (%s) from list of hidden entities!", {h_data.name, h_key})
+            --~ ret[c_name].hidden[h_key] = nil
+          --~ end
+        --~ end
+
+      --~ -- Clean table
+      --~ else
+        --~ local tab = c_data.tab
+        --~ if tab then
+          --~ -- Remove main table from global
+          --~ common.writeDebug("Removing %s (%s obsolete entries)", {tab, #tab})
+          --~ global[tab] = nil
+        --~ end
+
+        --~ -- If this compound entity requires additional tables in global, remove them!
+        --~ local related_tables = c_data.add_global_tables
+        --~ if related_tables then
+          --~ for t, tab in ipairs(related_tables or {}) do
+            --~ common.writeDebug("Removing global[%s] (%s values)", {tab, table_size(global[tab])})
+            --~ global[tab] = nil
+          --~ end
+        --~ end
+
+        --~ -- If this compound entity requires additional values in global, remove them!
+        --~ local related_vars = c_data.add_global_values
+        --~ if related_vars then
+          --~ for var_name, value in pairs(related_vars or {}) do
+            --~ common.writeDebug("Removing global[%s] (was: %s)",
+                              --~ {var_name, global[var_name] or "nil"})
+            --~ global[var_name] = nil
+          --~ end
+        --~ end
+      --~ end
+    --~ end
+    --~ common.show("ret", ret)
+    --~ return ret
+  --~ end
+
   ------------------------------------------------------------------------------------
   -- Function for removing invalid prototypes from list of compound entities
   common.rebuild_compound_entity_list = function()
@@ -468,11 +583,19 @@ return function (mod_name)
     local ret = {}
     local h_type
 
+    local base_prototype, base_name, base_type
+
     for c_name, c_data in pairs(common.compound_entities) do
 common.show("base_name", c_name)
 common.show("data", c_data)
-      -- Is the base entity in the game?
-      if c_data.base and c_data.base.name and game.entity_prototypes[c_data.base.name] then
+      -- Is the base entity in the game? (Data and control stage!)
+      base_name = c_data.base and c_data.base.name
+      base_type = c_data.base and c_data.base.type
+
+      base_prototype = game and game.entity_prototypes[base_name] or
+                        data and base_type and base_name and
+                        data.raw[base_type] and data.raw[base_type][base_name]
+      if base_prototype then
         -- Make a copy of the compound-entity data
         common.writeDebug("%s exists -- copying data", {c_name})
         ret[c_name] = util.table.deepcopy(c_data)
@@ -482,14 +605,14 @@ common.show("data", c_data)
           --~ h_type = common.HE_map[h_key]
 common.writeDebug("h_key: %s\th_data: %s", {h_key, h_data})
           -- Remove hidden entity if it doesn't exist
-          if not game.entity_prototypes[h_data.name] then
+          if game and not game.entity_prototypes[h_data.name] then
             common.writeDebug("Removing %s (%s) from list of hidden entities!", {h_data.name, h_key})
             ret[c_name].hidden[h_key] = nil
           end
         end
 
-      -- Clean table
-      else
+      -- Clean table (Control stage only!)
+      elseif game then
         local tab = c_data.tab
         if tab then
           -- Remove main table from global
@@ -497,12 +620,13 @@ common.writeDebug("h_key: %s\th_data: %s", {h_key, h_data})
           global[tab] = nil
         end
 
-        -- If this compound entity requires additional tables in global, initialize
-        -- them now!
+        -- If this compound entity requires additional tables in global, remove them!
         local related_tables = c_data.add_global_tables
+common.show("related_tables", related_tables)
         if related_tables then
           for t, tab in ipairs(related_tables or {}) do
-            common.writeDebug("Removing global[%s] (%s values)", {tab, table_size(global[tab])})
+            common.writeDebug("Removing global[%s] (%s values)",
+                              {tab, table_size(global[tab] or {})})
             global[tab] = nil
           end
         end
@@ -828,10 +952,6 @@ common.show("data", data)
     end
 
     -- Add optional values to global table
-    --~ local optional = global.compound_entities[base_entity.name].optional
-    --~ for k, v in pairs(optional or {}) do
-      --~ g_table[base_entity.unit_number][k] = v
-    --~ end
     common.add_optional_data(base_entity)
     common.writeDebug("g_table[%s]: %s", {base_entity.unit_number, g_table[base_entity.unit_number]})
   end
@@ -990,39 +1110,6 @@ common.writeDebug("Rail %s of %s (%s): %s (%s)", {direction, base.name, base.uni
 
 
   ------------------------------------------------------------------------------------
-  -- Get the value of a startup setting
-  common.get_startup_setting = function(setting_name)
-    return settings.startup[setting_name] and settings.startup[setting_name].value
-  end
-
-
-  ------------------------------------------------------------------------------------
-  -- Get values of all startup settings
-  common.get_startup_settings = function()
-    for var, name in pairs({
-      --~ BI_Bigger_Wooden_Chests                   = "BI_Bigger_Wooden_Chests",
-      BI_Bio_Fuel                               = "BI_Bio_Fuel",
-      BI_Darts                                  = "BI_Darts",
-      BI_Game_Tweaks_Bot                        = "BI_Game_Tweaks_Bot",
-      BI_Game_Tweaks_Disassemble                = "BI_Game_Tweaks_Disassemble",
-      BI_Game_Tweaks_Easy_Bio_Gardens           = "BI_Game_Tweaks_Easy_Bio_Gardens",
-      BI_Game_Tweaks_Player                     = "BI_Game_Tweaks_Player",
-      BI_Game_Tweaks_Production_Science         = "BI_Game_Tweaks_Production_Science",
-      BI_Game_Tweaks_Recipe                     = "BI_Game_Tweaks_Recipe",
-      BI_Game_Tweaks_Small_Tree_Collisionbox    = "BI_Game_Tweaks_Small_Tree_Collisionbox",
-      BI_Game_Tweaks_Stack_Size                 = "BI_Game_Tweaks_Stack_Size",
-      BI_Game_Tweaks_Tree                       = "BI_Game_Tweaks_Tree",
-      BI_Solar_Additions                        = "BI_Solar_Additions",
-      BI_Wood_Products                          = "BI_Wood_Products",
-      Bio_Cannon                                = "BI_Bio_Cannon",
-      BI_Stone_Crushing                         = "BI_Stone_Crushing",
-    }) do
-      BI.Settings[var] = common.get_startup_setting(name)
-    end
-  end
-
-
-  ------------------------------------------------------------------------------------
   -- Make prototype.icons from prototype.icon
   ------------------------------------------------------------------------------------
   common.BI_add_icons = function()
@@ -1039,7 +1126,8 @@ common.writeDebug("Rail %s of %s (%s): %s (%s)", {direction, base.name, base.uni
             {
               icon = proto_type.icon,
               icon_size = proto_type.icon_size,
-              icon_mipmaps = proto_type.icon_mipmaps
+              icon_mipmaps = proto_type.icon_mipmaps,
+              scale = proto_type.scale
             }
           }
           proto_type.BI_add_icon = nil
@@ -1052,6 +1140,20 @@ common.writeDebug("Rail %s of %s (%s): %s (%s)", {direction, base.name, base.uni
     common.entered_function("leave")
   end
 
+  ------------------------------------------------------------------------------------
+  -- Combine icon mips to pictures
+  ------------------------------------------------------------------------------------
+  common.add_pix = function(icon, count)
+    local ret = {}
+    for i = 1, count do
+      ret[i] = {
+        size = 64,
+        filename = common.iconpath .. "mips/" .. icon .. "_" ..  i .. ".png",
+        scale = 0.25
+      }
+    end
+    return ret
+  end
 
   ------------------------------------------------------------------------------------
   -- Exchange icons
@@ -1098,7 +1200,7 @@ common.writeDebug("Rail %s of %s (%s): %s (%s)", {direction, base.name, base.uni
     common.entered_function()
 
     for r, recipe in pairs(data.raw.recipe) do
-      common.writeDebug("Checking recipe %s", {recipe.name})
+      --~ common.writeDebug("Checking recipe %s", {recipe.name})
 
       -- There may be several techs that unlock a recipe!
       for t, tech in pairs(recipe.BI_add_to_tech or {}) do
@@ -1109,6 +1211,60 @@ common.writeDebug("Rail %s of %s (%s): %s (%s)", {direction, base.name, base.uni
       end
       recipe.BI_add_to_tech = nil
     end
+  end
+
+  ------------------------------------------------------------------------------------
+  --                           Make remnants for an entity                          --
+  ------------------------------------------------------------------------------------
+  common.make_remnants_for_entity = function(remnants, entity)
+    --~ common.entered_function()
+  --~ common.show("Amount of remnants", table_size(remnants))
+  --~ common.show("entity name", entity and entity.name or "nil")
+    local pattern = "^" .. entity.name:gsub("%-", "%%-") .. "%-remnant"
+
+    -- We want to extend single items as well as complete arrays!
+    remnants = remnants and
+                (remnants.type and remnants.name) and
+                {remnants} or
+                remnants
+
+    for r, remnant in pairs(remnants or {}) do
+  --~ common.show("remnant name", remnant.name)
+  --~ common.show("entity name", entity.name)
+      if remnant.name:match(pattern) then
+        data:extend({remnant})
+        common.created_msg(remnant)
+        break
+      end
+    end
+  end
+
+  ------------------------------------------------------------------------------------
+  --                                  Create things                                 --
+  ------------------------------------------------------------------------------------
+  common.create_stuff = function(create_list)
+    --~ common.entered_function()
+  --~ common.show("table_size(create_list)", table_size(create_list))
+
+    common.check_args (create_list, "table")
+
+    -- We want to extend single items as well as complete arrays!
+  --~ common.show("create_list.type", create_list.type)
+  --~ common.show("create_list.name", create_list.name)
+    create_list = (create_list.type and create_list.name) and {create_list} or create_list
+
+    local ret = {}
+
+    for entry, entry_data in pairs(create_list) do
+--~ common.writeDebug("Entry: %s\tData:s %s", {entry, entry_data and entry_data.name or "nil"})
+      if not (data.raw[entry_data.type] and data.raw[entry_data.type][entry_data.name]) then
+        data:extend({entry_data})
+        BioInd.created_msg(entry_data)
+      end
+      ret[#ret + 1] = data.raw[entry_data.type] and
+                      data.raw[entry_data.type][entry_data.name]
+    end
+    return ret
   end
 
 

@@ -1,0 +1,79 @@
+BI.entered_file()
+
+local BioInd = require('common')('Bio_Industries')
+
+local ICONPATH = BioInd.iconpath
+
+data:extend({
+  --- Wood Rail Planner
+  {
+    type = "rail-planner",
+    name = "bi-rail-wood",
+    localised_name = {"entity-name.bi-rail-wood"},
+    localised_description = {"entity-description.bi-rail-wood"},
+    icon = ICONPATH .. "entity/rail-wood.png",
+    icon_size = 64,
+    BI_add_icon = true,
+    subgroup = "transport",
+    order = "a[train-system]-a[rail]",
+    place_result = "bi-straight-rail-wood",
+    stack_size = 100,
+    straight_rail = "bi-straight-rail-wood",
+    curved_rail = "bi-curved-rail-wood"
+  },
+
+  --- Wooden Bridge Rail
+  {
+    type = "rail-planner",
+    name = "bi-rail-wood-bridge",
+    localised_name = {"entity-name.bi-rail-wood-bridge"},
+    localised_description = {"entity-description.bi-rail-wood-bridge"},
+    icon = ICONPATH .. "entity/rail-bridge-wood.png",
+    icon_size = 64,
+    BI_add_icon = true,
+    subgroup = "transport",
+    order = "a[train-system]-aa[rail]",
+    place_result = "bi-straight-rail-wood-bridge",
+    stack_size = 100,
+    straight_rail = "bi-straight-rail-wood-bridge",
+    curved_rail = "bi-curved-rail-wood-bridge"
+  },
+
+  --- Electric Rail Planner
+  {
+    type = "rail-planner",
+    name = "bi-rail-power",
+    localised_name = {"entity-name.bi-rail-power"},
+    localised_description = {"entity-description.bi-rail-power"},
+    icon = ICONPATH .. "entity/rail-concrete-power.png",
+    icon_size = 64,
+    BI_add_icon = true,
+    subgroup = "transport",
+    order = "a[train-system]-ab[rail]",
+    place_result = "bi-straight-rail-power",
+    stack_size = 100,
+    straight_rail = "bi-straight-rail-power",
+    curved_rail = "bi-curved-rail-power"
+  },
+
+  ---- Power pole to connect Rail to Power Grid
+  {
+    type = "item",
+    name = "bi-power-to-rail-pole",
+    localised_name = {"entity-name.bi-power-to-rail-pole"},
+    localised_description = {"entity-description.bi-power-to-rail-pole"},
+    icon = ICONPATH .. "entity/rail-concrete-power-pole.png",
+    icon_size = 64,
+    BI_add_icon = true,
+    subgroup = "transport",
+    order = "a[train-system]-ac[rail]",
+    place_result = "bi-power-to-rail-pole",
+    stack_size = 50
+  },
+})
+
+
+------------------------------------------------------------------------------------
+--                                    END OF FILE                                 --
+------------------------------------------------------------------------------------
+BI.entered_file("leave")

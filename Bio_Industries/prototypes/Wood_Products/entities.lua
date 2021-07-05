@@ -6,6 +6,7 @@ local WOODPATH = BioInd.modRoot .. "/graphics/entities/wood_products/"
 local ENTITYPATH = "__base__/graphics/entity/"
 local PIPEPATH = ENTITYPATH .. "pipe/"
 
+local SNDPATH = "__base__/sound/"
 --~ local BIGICONS = BioInd.check_base_version("0.18.0")
 
 
@@ -21,11 +22,13 @@ sounds.generic_impact = sound_def.generic_impact
 for _, sound in ipairs(sounds.generic_impact) do
   sound.volume = 0.65
 end
+--~ sounds.open_sound = { filename = "__base__/sound/wooden-chest-open.ogg" }
+--~ sounds.close_sound = { filename = SNDPATH .. "wooden-chest-close.ogg" }
 
 sounds.walking_sound = {}
 for i = 1, 11 do
   sounds.walking_sound[i] = {
-    filename = "__base__/sound/walking/concrete-" .. (i < 10 and "0" or "")  .. i ..".ogg",
+    filename = SNDPATH .. "walking/concrete-" .. (i < 10 and "0" or "")  .. i ..".ogg",
     volume = 1.2
   }
 end
@@ -317,7 +320,7 @@ data:extend({
     needs_correction = false,
     --~ minable = {hardness = 0.2, mining_time = 0.5, result = "wood"},
     minable = {hardness = 0.2, mining_time = 0.25, result = "wood"},
-    mined_sound = { filename = "__base__/sound/deconstruct-bricks.ogg" },
+    mined_sound = { filename = SNDPATH .. "deconstruct-bricks.ogg" },
     collision_mask = {"ground-tile"},
     walking_speed_modifier = 1.2,
     layer = 59,
@@ -483,6 +486,15 @@ data:extend({
     name = "bi-wooden-pole-big",
     icon = ICONPATH .. "entity/big-wooden-pole.png",
     icon_size = 64,
+    BI_add_icon = true,
+    --~ icons = {
+      --~ {
+        --~ icon = ICONPATH .. "big-wooden-pole.png",
+        --~ icon_size = 64,
+      --~ }
+    --~ },
+    -- This is necessary for "Space Exploration" (if not true, the entity can only be placed on Nauvis)!
+    se_allow_in_space = true,
     flags = {"placeable-neutral", "player-creation"},
     minable = {hardness = 0.2, mining_time = 0.5, result = "bi-wooden-pole-big"},
     max_health = 150,
@@ -600,6 +612,15 @@ data:extend({
     name = "bi-wooden-pole-huge",
     icon = ICONPATH .. "entity/huge-wooden-pole.png",
     icon_size = 64,
+    BI_add_icon = true,
+    --~ icons = {
+      --~ {
+        --~ icon = ICONPATH .. "huge-wooden-pole.png",
+        --~ icon_size = 64,
+      --~ }
+    --~ },
+    -- This is necessary for "Space Exploration" (if not true, the entity can only be placed on Nauvis)!
+    se_allow_in_space = true,
     flags = {"placeable-neutral", "player-creation"},
     minable = {hardness = 0.2, mining_time = 0.5, result = "bi-wooden-pole-huge"},
     max_health = 250,
@@ -661,7 +682,7 @@ data:extend({
           }
         },
       },
-      
+
     },
     connection_points = {
       {
@@ -729,6 +750,13 @@ data:extend({
     name = "bi-wooden-fence",
     icon = ICONPATH .. "entity/wooden-fence.png",
     icon_size = 64,
+    BI_add_icon = true,
+    --~ icons = {
+      --~ {
+        --~ icon = ICONPATH .. "wooden-fence.png",
+        --~ icon_size = 64,
+      --~ }
+    --~ },
     flags = {"placeable-neutral", "player-creation"},
     collision_box = {{-0.29, -0.09}, {0.29, 0.49}},
     selection_box = {{-0.5, -0.5}, {0.5, 0.5}},
@@ -737,7 +765,7 @@ data:extend({
     max_health = 150,
     repair_speed_modifier = 2,
     corpse = "wall-remnants",
-    repair_sound = { filename = "__base__/sound/manual-repair-simple.ogg" },
+    repair_sound = { filename = SNDPATH .. "manual-repair-simple.ogg" },
     --~ vehicle_impact_sound =  { filename = "__base__/sound/car-wood-impact.ogg", volume = 1.0 },
     vehicle_impact_sound = sounds.car_wood_impact,
     resistances = {
@@ -1034,6 +1062,13 @@ data:extend({
     localised_description = {"entity-description.bi-rail-wood"},
     icon = ICONPATH .. "entity/straight-rail-wood.png",
     icon_size = 64,
+    BI_add_icon = true,
+    --~ icons = {
+      --~ {
+        --~ icon = ICONPATH .. "straight-rail-wood.png",
+        --~ icon_size = 64,
+      --~ }
+    --~ },
     --~ flags = {
       --~ "placeable-neutral",
       --~ "player-creation",
@@ -1075,6 +1110,13 @@ data:extend({
     localised_description = {"entity-description.bi-rail-wood"},
     icon = ICONPATH .. "entity/curved-rail-wood.png",
     icon_size = 64,
+    BI_add_icon = true,
+    --~ icons = {
+      --~ {
+        --~ icon = ICONPATH .. "curved-rail-wood.png",
+        --~ icon_size = 64,
+      --~ }
+    --~ },
     --~ flags = {
       --~ "placeable-neutral",
       --~ "player-creation",
@@ -1115,6 +1157,13 @@ data:extend({
     localised_description = {"entity-description.bi-rail-wood-bridge"},
     icon = ICONPATH .. "entity/straight-rail-wood.png",
     icon_size = 64,
+    BI_add_icon = true,
+    --~ icons = {
+      --~ {
+        --~ icon = ICONPATH .. "straight-rail-wood.png",
+        --~ icon_size = 64,
+      --~ }
+    --~ },
     flags = {"placeable-neutral", "player-creation", "building-direction-8-way"},
     --~ collision_mask = {"object-layer"},
 --~ collision_mask = { "item-layer", "object-layer"},
@@ -1139,6 +1188,13 @@ data:extend({
     localised_description = {"entity-description.bi-rail-wood-bridge"},
     icon = ICONPATH .. "entity/rail-wood.png",
     icon_size = 64,
+    BI_add_icon = true,
+    --~ icons = {
+      --~ {
+        --~ icon = ICONPATH .. "rail-wood.png",
+        --~ icon_size = 64,
+      --~ }
+    --~ },
     flags = {
       "placeable-neutral",
       "player-creation",
@@ -1169,6 +1225,13 @@ data:extend({
     localised_description = {"entity-description.bi-rail-power"},
     icon = ICONPATH .. "entity/rail-concrete-power.png",
     icon_size = 64,
+    BI_add_icon = true,
+    --~ icons = {
+      --~ {
+        --~ icon = ICONPATH .. "rail-concrete-power.png",
+        --~ icon_size = 64,
+      --~ }
+    --~ },
     flags = {
       "placeable-neutral",
       "player-creation",
@@ -1191,10 +1254,17 @@ data:extend({
   {
     type = "curved-rail",
     name = "bi-curved-rail-power",
-    icon = ICONPATH .. "entity/rail-concrete-power.png",
     localised_name = {"entity-name.bi-rail-power"},
     localised_description = {"entity-description.bi-rail-power"},
+    icon = ICONPATH .. "entity/rail-concrete-power.png",
     icon_size = 64,
+    BI_add_icon = true,
+    --~ icons = {
+      --~ {
+        --~ icon = ICONPATH .. "rail-concrete-power.png",
+        --~ icon_size = 64,
+      --~ }
+    --~ },
     flags = {
       "placeable-neutral",
       "player-creation",
@@ -1215,48 +1285,48 @@ data:extend({
 })
 
 
-------- Power Rail Pole - Hidden
-local hidden_pole = table.deepcopy(data.raw["electric-pole"]["small-electric-pole"])
-hidden_pole.name = "bi-rail-hidden-power-pole"
-hidden_pole.flags = {
-  "not-deconstructable",
-  "not-on-map",
-  "placeable-off-grid",
-  "not-repairable",
-  "not-blueprintable",
-}
-hidden_pole.selectable_in_game = false
-hidden_pole.draw_copper_wires = BioInd.is_debug
-hidden_pole.max_health = 1
-hidden_pole.resistances = {{type = "fire", percent = 100}}
-hidden_pole.collision_mask = {}
-hidden_pole.collision_box = {{-0, -0}, {0, 0}}
-hidden_pole.selection_box = {{0, 0}, {0, 0}}
-hidden_pole.maximum_wire_distance = 9
-hidden_pole.supply_area_distance = 2
-hidden_pole.pictures = BioInd.is_debug and hidden_pole.pictures or {
-  filename = ICONPATH .. "empty.png",
-  priority = "low",
-  width = 1,
-  height = 1,
-  frame_count = 1,
-  axially_symmetrical = false,
-  direction_count = 1,
-}
-hidden_pole.connection_points = BioInd.is_debug and hidden_pole.connection_points or {
-  {
-    shadow = {},
-    wire = { copper_wire_tweak = {-0, -0} }
-  }
-}
-hidden_pole.radius_visualisation_picture = BioInd.is_debug and
-                                            hidden_pole.radius_visualisation_picture or {
-                                              filename = ICONPATH .. "empty.png",
-                                              width = 1,
-                                              height = 1,
-                                              priority = "low"
-                                            }
-data:extend({hidden_pole})
+--~ ------- Power Rail Pole - Hidden
+--~ local hidden_pole = table.deepcopy(data.raw["electric-pole"]["small-electric-pole"])
+--~ hidden_pole.name = "bi-power-rail-hidden-pole"
+--~ hidden_pole.flags = {
+  --~ "not-deconstructable",
+  --~ "not-on-map",
+  --~ "placeable-off-grid",
+  --~ "not-repairable",
+  --~ "not-blueprintable",
+--~ }
+--~ hidden_pole.selectable_in_game = false
+--~ hidden_pole.draw_copper_wires = BioInd.is_debug
+--~ hidden_pole.max_health = 1
+--~ hidden_pole.resistances = {{type = "fire", percent = 100}}
+--~ hidden_pole.collision_mask = {}
+--~ hidden_pole.collision_box = {{-0, -0}, {0, 0}}
+--~ hidden_pole.selection_box = {{0, 0}, {0, 0}}
+--~ hidden_pole.maximum_wire_distance = 9
+--~ hidden_pole.supply_area_distance = 2
+--~ hidden_pole.pictures = BioInd.is_debug and hidden_pole.pictures or {
+  --~ filename = ICONPATH .. "empty.png",
+  --~ priority = "low",
+  --~ width = 1,
+  --~ height = 1,
+  --~ frame_count = 1,
+  --~ axially_symmetrical = false,
+  --~ direction_count = 1,
+--~ }
+--~ hidden_pole.connection_points = BioInd.is_debug and hidden_pole.connection_points or {
+  --~ {
+    --~ shadow = {},
+    --~ wire = { copper_wire_tweak = {-0, -0} }
+  --~ }
+--~ }
+--~ hidden_pole.radius_visualisation_picture = BioInd.is_debug and
+                                            --~ hidden_pole.radius_visualisation_picture or {
+                                              --~ filename = ICONPATH .. "empty.png",
+                                              --~ width = 1,
+                                              --~ height = 1,
+                                              --~ priority = "low"
+                                            --~ }
+--~ data:extend({hidden_pole})
 
 
 ---- Wood Pipe
@@ -1266,6 +1336,13 @@ data:extend({
     name = "bi-wood-pipe",
     icon = ICONPATH .. "entity/wood_pipe.png",
     icon_size = 64,
+    BI_add_icon = true,
+    --~ icons = {
+      --~ {
+        --~ icon = ICONPATH .. "wood_pipe.png",
+        --~ icon_size = 64,
+      --~ }
+    --~ },
     flags = {"placeable-neutral", "player-creation"},
     minable = {mining_time = 0.075, result = "bi-wood-pipe"},
     max_health = 100,
@@ -1299,7 +1376,7 @@ data:extend({
     working_sound = {
       sound = {
         {
-          filename = "__base__/sound/pipe.ogg",
+          filename = SNDPATH .. "pipe.ogg",
           volume = 0.85
         },
       },
@@ -1318,6 +1395,13 @@ data:extend({
     name = "bi-wood-pipe-to-ground",
     icon = ICONPATH .. "entity/pipe-to-ground-wood.png",
     icon_size = 64,
+    BI_add_icon = true,
+    --~ icons = {
+      --~ {
+        --~ icon = ICONPATH .. "pipe-to-ground-wood.png",
+        --~ icon_size = 64,
+      --~ }
+    --~ },
     flags = {"placeable-neutral", "player-creation"},
     minable = {mining_time = 0.075, result = "bi-wood-pipe-to-ground"},
     max_health = 150,
@@ -1403,178 +1487,187 @@ data:extend({
   },
 })
 
-------- Large Wooden Chest
-data:extend({
-  {
-    type = "container",
-    name = "bi-wooden-chest-large",
-    icon = ICONPATH .. "entity/large_wooden_chest_icon.png",
-    icon_size = 64,
-    flags = {"placeable-neutral", "player-creation"},
-    minable = {mining_time = 1, result = "bi-wooden-chest-large"},
-    max_health = 200,
-    corpse = "small-remnants",
-    collision_box = {{-0.7, -0.7}, {0.7, 0.7}},
-    selection_box = {{-1.0, -1.0}, {1.0, 1.0}},
-    fast_replaceable_group = "container",
-    inventory_size = 128, -- 64
-    open_sound = { filename = "__base__/sound/wooden-chest-open.ogg" },
-    close_sound = { filename = "__base__/sound/wooden-chest-close.ogg" },
-    --~ vehicle_impact_sound =  { filename = "__base__/sound/car-wood-impact.ogg", volume = 1.0 },
-    vehicle_impact_sound = sounds.car_wood_impact,
-    picture = {
-      layers = {
-        {
-          filename = WOODPATH .. "large_wooden_chest.png",
-          priority = "extra-high",
-          width = 64,
-          height = 64,
-          shift = {0, 0},
-          scale = 1,
-          hr_version = {
-            filename = WOODPATH .. "hr_large_wooden_chest.png",
-            priority = "extra-high",
-            width = 128,
-            height = 128,
-            shift = {0, 0},
-            scale = 0.5,
-          }
-        },
-        {
-          filename = WOODPATH .. "large_wooden_chest_shadow.png",
-          priority = "extra-high",
-          width = 64,
-          height = 64,
-          shift = {1, 0},
-          scale = 1,
-          draw_as_shadow = true,
-          hr_version = {
-            filename = WOODPATH .. "hr_large_wooden_chest_shadow.png",
-            priority = "extra-high",
-            width = 128,
-            height = 128,
-            shift = {1, 0},
-            scale = 0.5,
-            draw_as_shadow = true,
-          }
-        },
-      },
-    },
-    circuit_wire_connection_point = circuit_connector_definitions["chest"].points,
-    circuit_connector_sprites = circuit_connector_definitions["chest"].sprites,
-    circuit_wire_max_distance = default_circuit_wire_max_distance
-  },
-})
+--~ ------- Large Wooden Chest
+--~ data:extend({
+  --~ {
+    --~ type = "container",
+    --~ name = "bi-wooden-chest-large",
+    --~ icon = ICONPATH .. "entity/large_wooden_chest_icon.png",
+    --~ icon_size = 64,
+    --~ BI_add_icon = true,
+    --~ flags = {"placeable-neutral", "player-creation"},
+    --~ minable = {mining_time = 1, result = "bi-wooden-chest-large"},
+    --~ max_health = 200,
+    --~ corpse = "small-remnants",
+    --~ collision_box = {{-0.7, -0.7}, {0.7, 0.7}},
+    --~ selection_box = {{-1.0, -1.0}, {1.0, 1.0}},
+    --~ fast_replaceable_group = "container",
+    --~ inventory_size = 128, -- 64
+    --~ open_sound = sounds.open_sound,
+    --~ close_sound = sounds.close_sound,
+    --~ vehicle_impact_sound = sounds.car_wood_impact,
+    --~ picture = {
+      --~ layers = {
+        --~ {
+          --~ filename = WOODPATH .. "large_wooden_chest.png",
+          --~ priority = "extra-high",
+          --~ width = 64,
+          --~ height = 64,
+          --~ shift = {0, 0},
+          --~ scale = 1,
+          --~ hr_version = {
+            --~ filename = WOODPATH .. "hr_large_wooden_chest.png",
+            --~ priority = "extra-high",
+            --~ width = 128,
+            --~ height = 128,
+            --~ shift = {0, 0},
+            --~ scale = 0.5,
+          --~ }
+        --~ },
+        --~ {
+          --~ filename = WOODPATH .. "large_wooden_chest_shadow.png",
+          --~ priority = "extra-high",
+          --~ width = 64,
+          --~ height = 64,
+          --~ shift = {1, 0},
+          --~ scale = 1,
+          --~ draw_as_shadow = true,
+          --~ hr_version = {
+            --~ filename = WOODPATH .. "hr_large_wooden_chest_shadow.png",
+            --~ priority = "extra-high",
+            --~ width = 128,
+            --~ height = 128,
+            --~ shift = {1, 0},
+            --~ scale = 0.5,
+            --~ draw_as_shadow = true,
+          --~ }
+        --~ },
+      --~ },
+    --~ },
+    --~ circuit_wire_connection_point = circuit_connector_definitions["chest"].points,
+    --~ circuit_connector_sprites = circuit_connector_definitions["chest"].sprites,
+    --~ circuit_wire_max_distance = default_circuit_wire_max_distance
+  --~ },
+--~ })
 
-------- Huge Wooden Chest
-data:extend({
-  {
-    type = "container",
-    name = "bi-wooden-chest-huge",
-    icon = ICONPATH .. "entity/huge_wooden_chest_icon.png",
-    icon_size = 64,
-    scale_info_icons = true,
-    flags = {"placeable-neutral", "player-creation"},
-    minable = {mining_time = 1.5, result = "bi-wooden-chest-huge"},
-    max_health = 350,
-    corpse = "small-remnants",
-    collision_box = {{-1.2, -1.2}, {1.2, 1.2}},
-    selection_box = {{-1.5, -1.5}, {1.5, 1.5}},
-    fast_replaceable_group = "container",
-    inventory_size = 432, --144
-    open_sound = { filename = "__base__/sound/wooden-chest-open.ogg" },
-    close_sound = { filename = "__base__/sound/wooden-chest-close.ogg" },
-    --~ vehicle_impact_sound =  { filename = "__base__/sound/car-wood-impact.ogg", volume = 1.0 },
-    vehicle_impact_sound = sounds.car_wood_impact,
-    picture = {
-      layers = {
-        {
-          filename = WOODPATH .. "huge_wooden_chest.png",
-          priority = "extra-high",
-          width = 112,
-          height = 112,
-          shift = {0, 0},
-          scale = 1,
-          hr_version = {
-            filename = WOODPATH .. "hr_huge_wooden_chest.png",
-            priority = "extra-high",
-            width = 224,
-            height = 224,
-            shift = {0, 0},
-            scale = 0.5,
-          }
-        },
-        {
-          filename = WOODPATH .. "huge_wooden_chest_shadow.png",
-          priority = "extra-high",
-          width = 112,
-          height = 112,
-          shift = {1, 0},
-          scale = 1,
-          draw_as_shadow = true,
-          hr_version = {
-            filename = WOODPATH .. "hr_huge_wooden_chest_shadow.png",
-            priority = "extra-high",
-            width = 224,
-            height = 224,
-            shift = {1, 0},
-            scale = 0.5,
-            draw_as_shadow = true,
-          }
-        },
-      },
-    },
-    circuit_wire_connection_point = circuit_connector_definitions["chest"].points,
-    circuit_connector_sprites = circuit_connector_definitions["chest"].sprites,
-    circuit_wire_max_distance = default_circuit_wire_max_distance
-  },
-})
+--~ ------- Huge Wooden Chest
+--~ data:extend({
+  --~ {
+    --~ type = "container",
+    --~ name = "bi-wooden-chest-huge",
+    --~ icon = ICONPATH .. "entity/huge_wooden_chest_icon.png",
+    --~ icon_size = 64,
+    --~ BI_add_icon = true,
+    --~ scale_info_icons = true,
+    --~ flags = {"placeable-neutral", "player-creation"},
+    --~ minable = {mining_time = 1.5, result = "bi-wooden-chest-huge"},
+    --~ max_health = 350,
+    --~ corpse = "small-remnants",
+    --~ collision_box = {{-1.2, -1.2}, {1.2, 1.2}},
+    --~ selection_box = {{-1.5, -1.5}, {1.5, 1.5}},
+    --~ fast_replaceable_group = "container",
+    --~ inventory_size = 432, --144
+    --~ open_sound = sounds.open_sound,
+    --~ close_sound = sounds.close_sound,
+    --~ vehicle_impact_sound = sounds.car_wood_impact,
+    --~ picture = {
+      --~ layers = {
+        --~ {
+          --~ filename = WOODPATH .. "huge_wooden_chest.png",
+          --~ priority = "extra-high",
+          --~ width = 112,
+          --~ height = 112,
+          --~ shift = {0, 0},
+          --~ scale = 1,
+          --~ hr_version = {
+            --~ filename = WOODPATH .. "hr_huge_wooden_chest.png",
+            --~ priority = "extra-high",
+            --~ width = 224,
+            --~ height = 224,
+            --~ shift = {0, 0},
+            --~ scale = 0.5,
+          --~ }
+        --~ },
+        --~ {
+          --~ filename = WOODPATH .. "huge_wooden_chest_shadow.png",
+          --~ priority = "extra-high",
+          --~ width = 112,
+          --~ height = 112,
+          --~ shift = {1, 0},
+          --~ scale = 1,
+          --~ draw_as_shadow = true,
+          --~ hr_version = {
+            --~ filename = WOODPATH .. "hr_huge_wooden_chest_shadow.png",
+            --~ priority = "extra-high",
+            --~ width = 224,
+            --~ height = 224,
+            --~ shift = {1, 0},
+            --~ scale = 0.5,
+            --~ draw_as_shadow = true,
+          --~ }
+        --~ },
+      --~ },
+    --~ },
+    --~ circuit_wire_connection_point = circuit_connector_definitions["chest"].points,
+    --~ circuit_connector_sprites = circuit_connector_definitions["chest"].sprites,
+    --~ circuit_wire_max_distance = default_circuit_wire_max_distance
+  --~ },
+--~ })
 
-------- Giga Wooden Chest
-data:extend({
-  {
-    type = "container",
-    name = "bi-wooden-chest-giga",
-    icon = ICONPATH .. "entity/giga_wooden_chest_icon.png",
-    icon_size = 64,
-    scale_info_icons = true,
-    flags = {"placeable-neutral", "player-creation"},
-    minable = {mining_time = 3.5, result = "bi-wooden-chest-giga"},
-    max_health = 350,
-    corpse = "big-remnants",
-    collision_box = {{-2.8, -2.8}, {2.8, 2.8}},
-    selection_box = {{-3, -3}, {3, 3}},
-    fast_replaceable_group = "container",
-    inventory_size = 1728, --576
-    open_sound = { filename = "__base__/sound/wooden-chest-open.ogg" },
-    close_sound = { filename = "__base__/sound/wooden-chest-close.ogg" },
-    --~ vehicle_impact_sound =  { filename = "__base__/sound/car-wood-impact.ogg", volume = 1.0 },
-    vehicle_impact_sound = sounds.car_wood_impact,
-    picture = {
-      filename = WOODPATH .. "giga_wooden_chest.png",
-      priority = "extra-high",
-      width = 501,
-      height = 366,
-      shift = {0.88, -0.170},
-      scale = 0.5,
-    },
-    circuit_wire_connection_point = circuit_connector_definitions["chest"].points,
-    circuit_connector_sprites = circuit_connector_definitions["chest"].sprites,
-    circuit_wire_max_distance = default_circuit_wire_max_distance
-  },
-})
+--~ ------- Giga Wooden Chest
+--~ data:extend({
+  --~ {
+    --~ type = "container",
+    --~ name = "bi-wooden-chest-giga",
+    --~ icon = ICONPATH .. "entity/giga_wooden_chest_icon.png",
+    --~ icon_size = 64,
+    --~ BI_add_icon = true,
+    --~ scale_info_icons = true,
+    --~ flags = {"placeable-neutral", "player-creation"},
+    --~ minable = {mining_time = 3.5, result = "bi-wooden-chest-giga"},
+    --~ max_health = 350,
+    --~ corpse = "big-remnants",
+    --~ collision_box = {{-2.8, -2.8}, {2.8, 2.8}},
+    --~ selection_box = {{-3, -3}, {3, 3}},
+    --~ fast_replaceable_group = "container",
+    --~ inventory_size = 1728, --576
+    --~ open_sound = sounds.open_sound,
+    --~ close_sound = sounds.close_sound,
+    --~ vehicle_impact_sound = sounds.car_wood_impact,
+    --~ picture = {
+      --~ filename = WOODPATH .. "giga_wooden_chest.png",
+      --~ priority = "extra-high",
+      --~ width = 501,
+      --~ height = 366,
+      --~ shift = {0.88, -0.170},
+      --~ scale = 0.5,
+    --~ },
+    --~ circuit_wire_connection_point = circuit_connector_definitions["chest"].points,
+    --~ circuit_connector_sprites = circuit_connector_definitions["chest"].sprites,
+    --~ circuit_wire_max_distance = default_circuit_wire_max_distance
+  --~ },
+--~ })
 
 ------ Power to Rail Pole
 -- Changed to medium-electric pole so the built entity resembles the icon (0.18.1)
---~ local my_pole_2 = util.table.deepcopy(data.raw["electric-pole"]["small-electric-pole"])
-local my_pole_2 = util.table.deepcopy(data.raw["electric-pole"]["medium-electric-pole"])
-my_pole_2.name = "bi-power-to-rail-pole"
-my_pole_2.icon = ICONPATH .. "entity/electric-to-rail.png"
-my_pole_2.icon_size = 64
-my_pole_2.minable = {mining_time = 1, result = "bi-power-to-rail-pole"}
---~ my_pole_2.maximum_wire_distance = 4
-my_pole_2.maximum_wire_distance = BioInd.POWER_TO_RAIL_WIRE_DISTANCE
-my_pole_2.supply_area_distance = 3.5 -- 3 doesn't look right, 2.5 is too small
-my_pole_2.pictures.layers[1].hr_version.tint = {r = 0.9, g = 0.87, b = 0.23, a = 1}
-my_pole_2.pictures.layers[1].tint = {r = 0.9, g = 0.87, b = 0.23, a = 0.5}
-data:extend({my_pole_2})
+--~ local my_pole = util.table.deepcopy(data.raw["electric-pole"]["small-electric-pole"])
+local my_pole = util.table.deepcopy(data.raw["electric-pole"]["medium-electric-pole"])
+my_pole.name = "bi-power-to-rail-pole"
+my_pole.icon = ICONPATH .. "entity/electric-to-rail.png"
+my_pole.icon_size = 64
+my_pole.BI_add_icon = true
+--~ my_pole.icons = {
+  --~ {
+    --~ icon = ICONPATH .. "electric-to-rail.png",
+    --~ icon_size = 64,
+  --~ }
+--~ }
+my_pole.icon_mipmaps = 0
+my_pole.minable = {mining_time = 1, result = "bi-power-to-rail-pole"}
+--~ my_pole.maximum_wire_distance = 4
+my_pole.maximum_wire_distance = BioInd.POWER_TO_RAIL_WIRE_DISTANCE
+my_pole.supply_area_distance = 3.5 -- 3 doesn't look right, 2.5 is too small
+--~ my_pole.pictures.tint = {r = 183/255, g = 125/255, b = 62/255, a = 1}
+my_pole.pictures.layers[1].hr_version.tint = {r = 0.9, g = 0.87, b = 0.23, a = 1}
+my_pole.pictures.layers[1].tint = {r = 0.9, g = 0.87, b = 0.23, a = 0.5}
+data:extend({my_pole})

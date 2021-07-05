@@ -13,6 +13,13 @@ data:extend({
     name = "bi-bio-reactor",
     icon = ICONPATH .. "entity/bioreactor.png",
     icon_size = 64,
+    BI_add_icon = true,
+    --~ icons = {
+      --~ {
+        --~ icon = ICONPATH .. "bioreactor.png",
+        --~ icon_size = 64,
+      --~ }
+    --~ },
     subgroup = "production-machine",
     order = "z[bi]-a[bi-bio-reactor]",
     place_result = "bi-bio-reactor",
@@ -29,6 +36,13 @@ if BI.Settings.BI_Bio_Fuel then
       name = "bi-cellulose",
       icon = ICONPATH .. "cellulose.png",
       icon_size = 64,
+      BI_add_icon = true,
+      --~ icons = {
+        --~ {
+          --~ icon = ICONPATH .. "cellulose.png",
+          --~ icon_size = 64,
+        --~ }
+      --~ },
       subgroup = "intermediate-product",
       order = "b[cellulose]",
       stack_size = 200
@@ -40,6 +54,13 @@ if BI.Settings.BI_Bio_Fuel then
       name = "bi-bio-boiler",
       icon = ICONPATH .. "entity/bio_boiler.png",
       icon_size = 64,
+      BI_add_icon = true,
+      --~ icons = {
+        --~ {
+          --~ icon = ICONPATH .. "bio_boiler.png",
+          --~ icon_size = 64,
+        --~ }
+      --~ },
       subgroup = "energy",
       order = "b[steam-power]-b[boiler]",
       place_result = "bi-bio-boiler",

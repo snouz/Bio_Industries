@@ -20,33 +20,36 @@ BI.Settings.BI_Game_Tweaks_Emissions_Multiplier = settings.startup["BI_Game_Twea
 
 
 -- 5dim Stack changes
-if settings.startup["5d-change-stack"] and settings.startup["5d-change-stack"].value then
-   if data.raw.item["wood"] then
-      data.raw.item["wood"].stack_size = math.max(210, data.raw.item["wood"].stack_size)
+--~ if settings.startup["5d-change-stack"] and settings.startup["5d-change-stack"].value then
+if BioInd.get_startup_setting("5d-change-stack") then
+  local item = data.raw.item["wood"]
+   if item then
+      item.stack_size = math.max(210, item.stack_size)
    end
 end
 
 
----- Game Tweaks ---- Recipes
-if BI.Settings.BI_Game_Tweaks_Recipe then
-  --- Concrete Recipe Tweak
-  thxbob.lib.recipe.remove_ingredient("concrete", "iron-ore")
-  thxbob.lib.recipe.add_new_ingredient("concrete", {type = "item", name = "iron-stick", amount = 2})
+-- Moved to data-updates.lua for 0.18.34/1.1.4!
+--~ ---- Game Tweaks ---- Recipes
+--~ if BI.Settings.BI_Game_Tweaks_Recipe then
+  --~ --- Concrete Recipe Tweak
+  --~ thxbob.lib.recipe.remove_ingredient("concrete", "iron-ore")
+  --~ thxbob.lib.recipe.add_new_ingredient("concrete", {type = "item", name = "iron-stick", amount = 2})
 
-  --- Stone Wall
-  thxbob.lib.recipe.add_new_ingredient("stone-wall", {type = "item", name = "iron-stick", amount = 1})
+  --~ --- Stone Wall
+  --~ thxbob.lib.recipe.add_new_ingredient("stone-wall", {type = "item", name = "iron-stick", amount = 1})
 
-  --- Rail (Remove Stone and Add Crushed Stone)
-  if data.raw.item["stone-crushed"] then
-    thxbob.lib.recipe.remove_ingredient("rail", "stone")
-    thxbob.lib.recipe.add_new_ingredient("rail", {type = "item", name = "stone-crushed", amount = 6})
-    thxbob.lib.recipe.remove_ingredient("bi-rail-wood", "stone")
-    thxbob.lib.recipe.add_new_ingredient("bi-rail-wood", {type = "item", name = "stone-crushed", amount = 6})
-  end
+  --~ --- Rail (Remove Stone and Add Crushed Stone)
+  --~ if data.raw.item["stone-crushed"] then
+    --~ thxbob.lib.recipe.remove_ingredient("rail", "stone")
+    --~ thxbob.lib.recipe.add_new_ingredient("rail", {type = "item", name = "stone-crushed", amount = 6})
+    --~ thxbob.lib.recipe.remove_ingredient("bi-rail-wood", "stone")
+    --~ thxbob.lib.recipe.add_new_ingredient("bi-rail-wood", {type = "item", name = "stone-crushed", amount = 6})
+  --~ end
 
-  -- vanilla rail recipe update
-  thxbob.lib.recipe.add_new_ingredient("rail", {type = "item", name = "concrete", amount = 6})
-end
+  --~ -- vanilla rail recipe update
+  --~ thxbob.lib.recipe.add_new_ingredient("rail", {type = "item", name = "concrete", amount = 6})
+--~ end
 
 ---- Game Tweaks ---- Tree
 if BI.Settings.BI_Game_Tweaks_Tree then
@@ -105,55 +108,104 @@ BioInd.writeDebug("Ignoring  %s!", {tree.name})
 end
 
 
----- Game Tweaks ---- Player
+---- Game Tweaks ---- Player (Changed for 0.18.34/1.1.4!)
 if BI.Settings.BI_Game_Tweaks_Player then
-  local chr = data.raw.character.character
+  -- There may be more than one character in the game! Here's a list of
+  -- the character prototype names or patterns matching character prototype
+  -- names we want to ignore.
+  local blacklist = {
+    ------------------------------------------------------------------------------------
+    --                                  Known dummies                                 --
+    ------------------------------------------------------------------------------------
+    -- Autodrive
+    "autodrive-passenger",
+    -- AAI Programmable Vehicles
+    "^.+%-_%-driver$",
+    -- Minime
+    "minime_character_dummy",
+    -- Water Turret (currently the dummies are not characters -- but things may change!)
+    "^WT%-.+%-dummy$",
+    ------------------------------------------------------------------------------------
+    --                                Other characters                                --
+    ------------------------------------------------------------------------------------
+    -- Bob's Classes and Multiple characters mod
+    "^.*bob%-character%-.+$",
+  }
 
-  --- Loot Picup
-  if chr.loot_pickup_distance < 5 then
-    chr.loot_pickup_distance = 5 -- default 2
-  end
+  local whitelist = {
+    -- Default character
+    "^character$",
+    -- Characters compatible with Minime
+    "^.*skin.*$",
+  }
 
-  if chr.build_distance < 20 then -- Vanilla 6
-    chr.build_distance = 20
-  end
+  local tweaks = {
+    loot_pickup_distance        = 5,    -- default 2
+    build_distance              = 20,   -- Vanilla 6
+    drop_item_distance          = 20,   -- Vanilla 6
+    reach_distance              = 20,   -- Vanilla 6
+    item_pickup_distance        = 6,    -- Vanilla 1
+    reach_resource_distance     = 6,    -- Vanilla 2.7
+  }
 
-  if chr.drop_item_distance < 20 then -- Vanilla 6
-    chr.drop_item_distance = 20
-  end
+  local found, ignore
+  for char_name, character in pairs(data.raw.character) do
+BioInd.show("Checking character", char_name)
+    found = false
 
-  if chr.reach_distance < 20 then -- Vanilla 6
-    chr.reach_distance = 20
-  end
+    for w, w_pattern in ipairs(whitelist) do
+--~ BioInd.show("w_pattern", w_pattern)
+      if char_name == w_pattern or char_name:match(w_pattern) then
+        ignore = false
+BioInd.show("Found whitelisted character name", char_name)
+        for b, b_pattern in ipairs(blacklist) do
+--~ BioInd.show("b_pattern", b_pattern)
 
-  if chr.item_pickup_distance < 6 then -- Vanilla 1
-    chr.item_pickup_distance = 6
-  end
+          if char_name == b_pattern or char_name:match(b_pattern) then
+BioInd.writeDebug("%s is on the ignore list!", char_name)
+            -- Mark character as found
+            ignore = true
+            break
+          end
+        end
+        if not ignore then
+          found = true
+          break
+        end
+      end
+      if found then
+        break
+      end
+    end
 
-  if chr.reach_resource_distance <  6 then -- Vanilla 2.7
-    chr.reach_resource_distance = 6
-  end
-
-  if chr.resource_reach_distance and chr.resource_reach_distance <  6 then -- Vanilla 2.7
-    chr.resource_reach_distance = 6
+    -- Apply tweaks
+    if found then
+      for tweak_name, tweak in pairs(tweaks) do
+        if character[tweak_name] < tweak then
+BioInd.writeDebug("Changing %s from %s to %s", {tweak_name, character[tweak_name], tweak})
+          character[tweak_name] = tweak
+        end
+      end
+    end
   end
 end
 
 
----- Game Tweaks ---- Disassemble Recipes
-require("prototypes.Bio_Tweaks.recipe")
-if BI.Settings.BI_Game_Tweaks_Disassemble then
-  for recipe, tech in pairs({
-    ["bi-burner-mining-drill-disassemble"] = "automation-2",
-    ["bi-burner-inserter-disassemble"] = "automation-2",
-    ["bi-long-handed-inserter-disassemble"] = "automation-2",
-    ["bi-stone-furnace-disassemble"] = "automation-2",
-    ["bi-steel-furnace-disassemble"] = "advanced-material-processing",
-  }) do
-    thxbob.lib.tech.add_recipe_unlock(tech, recipe)
-  end
+-- Moved to data-updates.lua for 0.18.34/1.1.4!
+--~ ---- Game Tweaks ---- Disassemble Recipes
+--~ require("prototypes.Bio_Tweaks.recipe")
+--~ if BI.Settings.BI_Game_Tweaks_Disassemble then
+  --~ for recipe, tech in pairs({
+    --~ ["bi-burner-mining-drill-disassemble"] = "automation-2",
+    --~ ["bi-burner-inserter-disassemble"] = "automation-2",
+    --~ ["bi-long-handed-inserter-disassemble"] = "automation-2",
+    --~ ["bi-stone-furnace-disassemble"] = "automation-2",
+    --~ ["bi-steel-furnace-disassemble"] = "advanced-material-processing",
+  --~ }) do
+    --~ thxbob.lib.tech.add_recipe_unlock(tech, recipe)
+  --~ end
 
-end
+--~ end
 
 ---- Game Tweaks ---- Production science pack recipe
 if data.raw.recipe["bi-production-science-pack"] then
@@ -164,17 +216,45 @@ end
 
 ---- Game Tweaks ---- Bots
 if BI.Settings.BI_Game_Tweaks_Bot then
-  -- Logistic & Construction bots can't catch fire or be Mined
+  -- Logistic & Construction bots can't catch fire or be mined
   local function immunify(bot)
-  if not bot.flags then
-    bot.flags = {}
-  end
-  if not bot.resistances then
-    bot.resistances = {}
-  end
-  table.insert(bot.flags, "not-flammable")
-  table.insert(bot.resistances, {type = "fire", percent = 100})
-  bot.minable = nil
+    -- Changed for 0.18.34/1.1.4!
+    --~ if not bot.flags then
+      --~ bot.flags = {}
+    --~ end
+    --~ if not bot.resistances then
+      --~ bot.resistances = {}
+    --~ end
+    local can_insert = true
+    bot.flags = bot.flags or {}
+    bot.resistances = bot.resistances or {}
+    for f, flag in pairs(bot.flags) do
+      if flag == "not-flammable" then
+        can_insert = false
+        break
+      end
+    end
+    if can_insert then
+      table.insert(bot.flags, "not-flammable")
+      BioInd.writeDebug("Added flag \"not-flammable\" to %s", {bot.name})
+    end
+
+    can_insert = true
+    for r, resistance in pairs(bot.resistances) do
+      if resistance.type == "fire" and resistance.percent ~= 100 then
+        BioInd.writeDebug("Change resistance against \"fire\" from %s to 100 %% for %s", {resistance.percent or "nil", bot.name})
+        bot.resistances[r] = {type = "fire", percent = 100}
+        can_insert = false
+        break
+      end
+    end
+    if can_insert then
+      table.insert(bot.resistances, {type = "fire", percent = 100})
+      BioInd.writeDebug("Added resistance against  \"fire\" to %s", {bot.name})
+    end
+
+    bot.minable = nil
+    BioInd.writeDebug("Made  %s unminable", {bot.name})
   end
 
   --catches modded bots too
@@ -190,29 +270,22 @@ end
 
 ---- Game Tweaks ----
 if BI.Settings.BI_Game_Tweaks_Stack_Size then
-  ---- Increase Wood Stack Size
-  if data.raw.item["wood"] and data.raw.item["wood"].stack_size < 400 then
-    data.raw.item["wood"].stack_size = 400
-  end
+  -- Changed for 0.18.34/1.1.4
+  local tweaks = {
+    ["wood"]            = 400,
+    ["stone"]           = 400,
+    ["stone-crushed"]   = 800,
+    ["concrete"]        = 400,
+    ["slag"]            = 800,
+  }
+  local item
 
-  --- Stone Stack Size
-  if data.raw.item["stone"] and data.raw.item["stone"].stack_size < 400 then
-    data.raw.item["stone"].stack_size = 400
-  end
-
-  --- Crushed Stone Stack Size
-  if data.raw.item["stone-crushed"] and data.raw.item["stone-crushed"].stack_size < 800 then
-    data.raw.item["stone-crushed"].stack_size = 800
-  end
-
-  --- Concrete Stack Size
-  if data.raw.item["concrete"] and data.raw.item["concrete"].stack_size < 400 then
-    data.raw.item["concrete"].stack_size = 400
-  end
-
-  --- Slag Stack Size
-  if data.raw.item["slag"] and data.raw.item["slag"].stack_size < 800 then
-    data.raw.item["slag"].stack_size = 800
+  for tweak_name, tweak in pairs(tweaks) do
+    item = data.raw.item[tweak_name]
+    if item and item.stack_size < tweak then
+      BioInd.writeDebug("Changing stacksize of %s from %s to %s", {item.name, item.stack_size, tweak})
+      item.stack_size = 800
+    end
   end
 end
 
@@ -301,8 +374,8 @@ if mods["Krastorio2"] then
     if recipe.mod == "Bio_Industries" then
       krastorio.recipes.multiplyIngredients(recipe.name, update, 4)
       krastorio.recipes.multiplyProducts(recipe.name, update, 4)
-      BioInd.writeDebug("Changed ingredients for %s: %s", {recipe.name, recipe.ingredients})
-      BioInd.writeDebug("Changed results for %s: %s", {recipe.name, recipe.results})
+      BioInd.writeDebug("Changed ingredients for %s: %s", {recipe and recipe.name or "nil", recipe and recipe.ingredients or "nil"})
+      BioInd.writeDebug("Changed results for %s: %s", {recipe and recipe.name or "nil", recipe and recipe.results or "nil"})
     end
   end
 
@@ -377,8 +450,16 @@ if not fertilizer.place_as_tile then
     condition_size = 1,
     condition = { "water-tile" }
   }
+  --~ fertilizer.icon = ICONPATH .. "fertilizer_64.png"
   fertilizer.icon = ICONPATH .. "fertilizer.png"
   fertilizer.icon_size = 64
+  fertilizer.BI_add_icon = true
+  --~ fertilizer.icons = {
+    --~ {
+      --~ icon = ICONPATH .. "fertilizer_64.png",
+      --~ icon_size = 64,
+    --~ }
+  --~ }
   fertilizer.localised_name = {"BI-item-name.fertilizer"}
   fertilizer.localised_description = {"BI-item-description.fertilizer"}
 end
@@ -400,6 +481,7 @@ if mods["pycoalprocessing"] and BI.Settings.BI_Bio_Fuel then
 end
 
 
+-- Moved to data-updates.lua for 0.18.34/1.1.4!
 --~ -- "Transport drones" ruins rails by removing object-layer from the collision mask. That
 --~ -- causes problems for our "Wooden rail bridges" as they will also pass through cliffs.
 --~ -- Fix the collision masks for rail bridges if "Transport drones" is active!
@@ -408,7 +490,13 @@ end
         --~ data.raw[type]["bi-" .. type .. "-wood-bridge"].collision_mask = BioInd.RAIL_BRIDGE_MASK
   --~ end
 --~ end
-require("prototypes.Wood_Products.rail_updates")
+--~ require("prototypes.Wood_Products.rail_updates")
+
+
+
+------------------------------------------------------------------------------------
+-- Add icons to our prototypes
+BioInd.BI_add_icons()
 
 
 ---TESTING!
@@ -431,3 +519,15 @@ require("prototypes.Wood_Products.rail_updates")
   --~ BioInd.show("bounding_box", rail.bounding_box)
   --~ BioInd.show("collision_mask", rail.collision_mask)
 --~ end
+--~ for r, recipe in pairs(data.raw.recipe) do
+  --~ if r:match("^.*boiler.*$") then
+    --~ BioInd.writeDebug("recipe: %s\torder: %s\tsubgroup: %s", {r, recipe.order or "", recipe.subgroup or "" })
+  --~ end
+--~ end
+for k, v in pairs(data.raw) do
+  for t, p in pairs(v) do
+    if p.se_allow_in_space then
+      BioInd.writeDebug("%s (%s) can be built in space!", {p.name, t})
+    end
+  end
+end

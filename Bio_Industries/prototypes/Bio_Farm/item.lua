@@ -11,6 +11,14 @@ data:extend(
     name = "bi-seed",
     icon = ICONPATH .. "bio_seed.png",
     icon_size = 64,
+    BI_add_icon = true,
+    --~ icons = {
+      --~ {
+        --~ icon = ICONPATH .. "bio_seed.png",
+        --~ icon_size = 64,
+      --~ }
+    --~ },
+    --~ icon_mipmaps = 4,
     pictures = {
       --~ { size = 64, filename = ICONPATHMIPS.."bio_seed_1.png", scale = 0.25, mipmap_count = 1 },
       --~ { size = 64, filename = ICONPATHMIPS.."bio_seed_2.png", scale = 0.25, mipmap_count = 1 },
@@ -24,9 +32,9 @@ data:extend(
     category = "biofarm-mod-greenhouse",
     subgroup = "bio-bio-farm",
     order = "x[bi]-a[bi-seed]",
-    fuel_value = "0.5MJ",
-    fuel_category = "chemical",
-    stack_size= 800
+    --fuel_value = "0.5MJ",
+    --fuel_category = "chemical",
+    stack_size = 800
   },
 
   ---- Seedling
@@ -34,9 +42,17 @@ data:extend(
     type = "item",
     name = "seedling",
     localised_name = {"entity-name.seedling"},
-    localised_description = {"entity-description.seedling"},
+    --localised_description = {"entity-description.seedling"},
     icon = ICONPATH .. "Seedling.png",
     icon_size = 64,
+    BI_add_icon = true,
+    --~ icons = {
+      --~ {
+        --~ icon = ICONPATH .. "Seedling.png",
+        --~ icon_size = 64,
+      --~ }
+    --~ },
+    --~ icon_mipmaps = 9,
     pictures = {
       { size = 64, filename = ICONPATHMIPS.."Seedling_1.png", scale = 0.25 },
       { size = 64, filename = ICONPATHMIPS.."Seedling_2.png", scale = 0.25 },
@@ -51,9 +67,9 @@ data:extend(
     subgroup = "bio-bio-farm",
     order = "x[bi]-b[bi-seedling]",
     place_result = "seedling",
-    fuel_value = "0.5MJ",
-    fuel_category = "chemical",
-    stack_size= 400
+    --fuel_value = "0.5MJ",
+    --fuel_category = "chemical",
+    stack_size = 400
   },
 
   ----Bio Farm
@@ -64,6 +80,13 @@ data:extend(
     localised_description = {"entity-description.bi-bio-farm"},
     icon = ICONPATH .. "entity/Bio_Farm_Icon.png",
     icon_size = 64,
+    BI_add_icon = true,
+    --~ icons = {
+      --~ {
+        --~ icon = ICONPATH .. "Bio_Farm_Icon.png",
+        --~ icon_size = 64,
+      --~ }
+    --~ },
     subgroup = "production-machine",
     order = "x[bi]-ab[bi-bio-farm]",
     place_result = "bi-bio-farm",
@@ -78,6 +101,13 @@ data:extend(
     localised_description = {"entity-description.bi-bio-greenhouse"},
     icon = ICONPATH .. "entity/bio_greenhouse.png",
     icon_size = 64,
+    BI_add_icon = true,
+    --~ icons = {
+      --~ {
+        --~ icon = ICONPATH .. "bio_greenhouse.png",
+        --~ icon_size = 64,
+      --~ }
+    --~ },
     subgroup = "production-machine",
     order = "x[bi]-aa[bi-bio-greenhouse]",
     place_result = "bi-bio-greenhouse",
@@ -90,6 +120,13 @@ data:extend(
     name = "bi-cokery",
     icon = ICONPATH .. "entity/cokery.png",
     icon_size = 64,
+    BI_add_icon = true,
+    --~ icons = {
+      --~ {
+        --~ icon = ICONPATH .. "cokery.png",
+        --~ icon_size = 64,
+      --~ }
+    --~ },
     subgroup = "production-machine",
     order = "x[bi]-b[bi-cokery]",
     place_result = "bi-cokery",
@@ -104,6 +141,13 @@ data:extend(
     localised_description = {"entity-description.bi-stone-crusher"},
     icon = ICONPATH .. "entity/stone_crusher.png",
     icon_size = 64,
+    BI_add_icon = true,
+    --~ icons = {
+      --~ {
+        --~ icon = ICONPATH .. "stone_crusher.png",
+        --~ icon_size = 64,
+      --~ }
+    --~ },
     subgroup = "production-machine",
     order = "x[bi]-c[bi-stone-crusher]",
     place_result = "bi-stone-crusher",
@@ -116,6 +160,14 @@ data:extend(
     name = "bi-woodpulp",
     icon = ICONPATH .. "woodpulp_64.png",
     icon_size = 64,
+    BI_add_icon = true,
+    --~ icons = {
+      --~ {
+        --~ icon = ICONPATH .. "woodpulp_64.png",
+        --~ icon_size = 64,
+      --~ }
+    --~ },
+    --~ icon_mipmaps = 4,
     pictures = {
       { size = 64, filename = ICONPATHMIPS.."Woodpulp_1.png", scale = 0.2 },
       { size = 64, filename = ICONPATHMIPS.."Woodpulp_2.png", scale = 0.2 },
@@ -135,6 +187,13 @@ data:extend(
     name = "wood-bricks",
     icon = ICONPATH .. "Fuel_Brick.png",
     icon_size = 64,
+    BI_add_icon = true,
+    --~ icons = {
+      --~ {
+        --~ icon = ICONPATH .. "Fuel_Brick.png",
+        --~ icon_size = 64,
+      --~ }
+    --~ },
     subgroup = "bio-bio-farm-raw",
     order = "a[bi]-a-bx[bi-woodbrick]",
     fuel_category = "chemical",
@@ -149,6 +208,14 @@ data:extend(
     name = "bi-ash",
     icon = ICONPATH .. "ash.png",
     icon_size = 64,
+    BI_add_icon = true,
+    --~ icons = {
+      --~ {
+        --~ icon = ICONPATH .. "ash.png",
+        --~ icon_size = 64,
+      --~ }
+    --~ },
+    --~ icon_mipmaps = 4,
     pictures = {
       { size = 64, filename = ICONPATHMIPS.."Ash_1.png", scale = 0.2 },
       { size = 64, filename = ICONPATHMIPS.."Ash_2.png", scale = 0.2 },
@@ -168,6 +235,14 @@ data:extend(
     name = "wood-charcoal",
     icon = ICONPATH .. "charcoal.png",
     icon_size = 64,
+    BI_add_icon = true,
+    --~ icons = {
+      --~ {
+        --~ icon = ICONPATH .. "charcoal.png",
+        --~ icon_size = 64,
+      --~ }
+    --~ },
+    --~ icon_mipmaps = 4,
     pictures = {
       { size = 64, filename = ICONPATHMIPS.."Charcoal_1.png", scale = 0.2 },
       { size = 64, filename = ICONPATHMIPS.."Charcoal_2.png", scale = 0.2 },
@@ -187,6 +262,13 @@ data:extend(
     name = "pellet-coke",
     icon = ICONPATH .. "pellet_coke.png",
     icon_size = 64,
+    BI_add_icon = true,
+    --~ icons = {
+      --~ {
+        --~ icon = ICONPATH .. "coke-coal.png",
+        --~ icon_size = 64,
+      --~ }
+    --~ },
     fuel_value = "28MJ",
     fuel_category = "chemical",
     fuel_acceleration_multiplier = 1.2,
@@ -203,6 +285,14 @@ data:extend(
     name = "stone-crushed",
     icon = ICONPATH .. "crushed-stone.png",
     icon_size = 64,
+    BI_add_icon = true,
+    --~ icons = {
+      --~ {
+        --~ icon = ICONPATH .. "crushed-stone.png",
+        --~ icon_size = 64,
+      --~ }
+    --~ },
+    --~ icon_mipmaps = 4,
     pictures = {
       { size = 64, filename = ICONPATHMIPS.."Crush_1.png", scale = 0.2 },
       { size = 64, filename = ICONPATHMIPS.."Crush_2.png", scale = 0.2 },
@@ -211,7 +301,9 @@ data:extend(
     },
     subgroup = "raw-material",
     order = "a[bi]-a-z[stone-crushed]",
-    stack_size = 800
+    -- Changed for 0.18.34/1.1.4
+    --~ stack_size = 800
+    stack_size = 400
   },
 
 
@@ -221,6 +313,13 @@ data:extend(
     name = "bi-seed-bomb-basic",
     icon = ICONPATH .. "weapon/Seed_bomb_icon_b.png",
     icon_size = 64,
+    BI_add_icon = true,
+    --~ icons = {
+      --~ {
+        --~ icon = ICONPATH .. "Seed_bomb_icon_b.png",
+        --~ icon_size = 64,
+      --~ }
+    --~ },
     ammo_type = {
       range_modifier = 3,
       cooldown_modifier = 3,
@@ -247,6 +346,13 @@ data:extend(
     name = "bi-seed-bomb-standard",
     icon = ICONPATH .. "weapon/Seed_bomb_icon_s.png",
     icon_size = 64,
+    BI_add_icon = true,
+    --~ icons = {
+      --~ {
+        --~ icon = ICONPATH .. "Seed_bomb_icon_s.png",
+        --~ icon_size = 64,
+      --~ }
+    --~ },
     ammo_type = {
       range_modifier = 3,
       cooldown_modifier = 3,
@@ -273,6 +379,13 @@ data:extend(
     name = "bi-seed-bomb-advanced",
     icon = ICONPATH .. "weapon/Seed_bomb_icon_a.png",
     icon_size = 64,
+    BI_add_icon = true,
+    --~ icons = {
+      --~ {
+        --~ icon = ICONPATH .. "Seed_bomb_icon_a.png",
+        --~ icon_size = 64,
+      --~ }
+    --~ },
     ammo_type = {
       range_modifier = 3,
       cooldown_modifier = 3,
@@ -294,14 +407,21 @@ data:extend(
 
    --- Arboretum (Entity)
   {
-    type = "item",
-    name = "bi-arboretum-area",
+    type= "item",
+    name= "bi-arboretum-area",
     icon = ICONPATH .. "entity/Arboretum_Icon.png",
     icon_size = 64,
+    BI_add_icon = true,
+    --~ icons = {
+      --~ {
+        --~ icon = ICONPATH .. "entity/Arboretum_Icon.png",
+        --~ icon_size = 64,
+      --~ }
+    --~ },
     subgroup = "production-machine",
     order = "x[bi]-a[bi-arboretum]",
     place_result = "bi-arboretum-area",
-    stack_size = 10,
+    stack_size= 10,
   },
 
    --- Arboretum Hidden Recipe
@@ -310,6 +430,13 @@ data:extend(
     name = "bi-arboretum-r1",
     icon = ICONPATH .. "Seedling_b.png",
     icon_size = 64,
+    BI_add_icon = true,
+    --~ icons = {
+      --~ {
+        --~ icon = ICONPATH .. "Seedling_b.png",
+        --~ icon_size = 64,
+      --~ }
+    --~ },
     flags = {"hidden"},
     subgroup = "terrain",
     order = "bi-arboretum-r1",
@@ -322,6 +449,13 @@ data:extend(
     name = "bi-arboretum-r2",
     icon = ICONPATH .. "bi_change_1.png",
     icon_size = 64,
+    BI_add_icon = true,
+    --~ icons = {
+      --~ {
+        --~ icon = ICONPATH .. "bi_change_1.png",
+        --~ icon_size = 64,
+      --~ }
+    --~ },
     flags = {"hidden"},
     subgroup = "terrain",
     order = "bi-arboretum-r2",
@@ -334,6 +468,13 @@ data:extend(
     name = "bi-arboretum-r3",
     icon = ICONPATH .. "bi_change_2.png",
     icon_size = 64,
+    BI_add_icon = true,
+    --~ icons = {
+      --~ {
+        --~ icon = ICONPATH .. "bi_change_2.png",
+        --~ icon_size = 64,
+      --~ }
+    --~ },
     flags = {"hidden"},
     subgroup = "terrain",
     order = "bi-arboretum-r3",
@@ -346,10 +487,17 @@ data:extend(
     name = "bi-arboretum-r4",
     icon = ICONPATH .. "bi_change_plant_1.png",
     icon_size = 64,
+    BI_add_icon = true,
+    --~ icons = {
+      --~ {
+        --~ icon = ICONPATH .. "bi_change_plant_1.png",
+        --~ icon_size = 64,
+      --~ }
+    --~ },
     flags = {"hidden"},
     subgroup = "terrain",
     order = "bi-arboretum-r4",
-    stack_size = 1
+    stack_size = 1,
   },
 
   --- Arboretum Hidden Recipe
@@ -358,7 +506,14 @@ data:extend(
     name = "bi-arboretum-r5",
     icon = ICONPATH .. "bi_change_plant_2.png",
     icon_size = 64,
-    flags = {"hidden"},
+    BI_add_icon = true,
+    --~ icons = {
+      --~ {
+        --~ icon = ICONPATH .. "bi_change_plant_2.png",
+        --~ icon_size = 64,
+      --~ }
+    --~ },
+     flags = {"hidden"},
     subgroup = "terrain",
     order = "bi-arboretum-r5",
     stack_size = 1
@@ -375,6 +530,13 @@ data:extend(
       name = "fertilizer",
       icon = ICONPATH .. "fertilizer.png",
       icon_size = 64,
+      BI_add_icon = true,
+      --~ icons = {
+        --~ {
+          --~ icon = ICONPATH .. "fertilizer_64.png",
+          --~ icon_size = 64,
+        --~ }
+      --~ },
       subgroup = "intermediate-product",
       order = "b[fertilizer]",
       stack_size = 200,
@@ -393,6 +555,13 @@ data:extend(
       name = "bi-adv-fertilizer",
       icon = ICONPATH .. "fertilizer_advanced.png",
       icon_size = 64,
+      BI_add_icon = true,
+      --~ icons = {
+        --~ {
+          --~ icon = ICONPATH .. "advanced_fertilizer_64.png",
+          --~ icon_size = 64,
+        --~ }
+      --~ },
       subgroup = "intermediate-product",
       order = "b[fertilizer]-b[bi-adv-fertilizer]",
       stack_size = 200,

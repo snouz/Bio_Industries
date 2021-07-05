@@ -23,6 +23,13 @@ log("Enabling disassemble recipes!")
       localised_description = {"recipe-description.bi-disassemble-recipes"},
       icon = ICONPATH .. "disassemble_burner-mining-drill.png",
       icon_size = 64,
+      BI_add_icon = true,
+      --~ icons = {
+        --~ {
+          --~ icon = ICONPATH .. "burner-mining-drill_disassemble.png",
+          --~ icon_size = 64,
+        --~ }
+      --~ },
       category = "advanced-crafting",
       subgroup = "bio-disassemble",
       order = "a[Disassemble]-a[bi-burner-mining-drill-disassemble]",
@@ -47,6 +54,13 @@ log("Enabling disassemble recipes!")
       localised_description = {"recipe-description.bi-disassemble-recipes"},
       icon = ICONPATH .. "disassemble_burner_inserter.png",
       icon_size = 64,
+      BI_add_icon = true,
+      --~ icons = {
+        --~ {
+          --~ icon = ICONPATH .. "burner_inserter_disassemble.png",
+          --~ icon_size = 64,
+        --~ }
+      --~ },
       category = "advanced-crafting",
       subgroup = "bio-disassemble",
       order = "a[Disassemble]-b[bi-burner-inserter-disassemble]",
@@ -70,6 +84,13 @@ log("Enabling disassemble recipes!")
       localised_description = {"recipe-description.bi-disassemble-recipes"},
       icon = ICONPATH .. "disassemble_long_handed_inserter.png",
       icon_size = 64,
+      BI_add_icon = true,
+      --~ icons = {
+        --~ {
+          --~ icon = ICONPATH .. "long_handed_inserter_disassemble.png",
+          --~ icon_size = 64,
+        --~ }
+      --~ },
       category = "advanced-crafting",
       subgroup = "bio-disassemble",
       order = "a[Disassemble]-c[bi-long-handed-inserter-disassemble]",
@@ -95,6 +116,13 @@ log("Enabling disassemble recipes!")
       localised_description = {"recipe-description.bi-disassemble-recipes"},
       icon = ICONPATH .. "disassemble_stone_furnace.png",
       icon_size = 64,
+      BI_add_icon = true,
+      --~ icons = {
+        --~ {
+          --~ icon = ICONPATH .. "stone_furnace_disassemble.png",
+          --~ icon_size = 64,
+        --~ }
+      --~ },
       category = "advanced-crafting",
       subgroup = "bio-disassemble",
       order = "a[Disassemble]-d[bi-stone-furnace-disassemble]",
@@ -118,6 +146,13 @@ log("Enabling disassemble recipes!")
       localised_description = {"recipe-description.bi-disassemble-recipes"},
       icon = ICONPATH .. "disassemble_steel-furnace.png",
       icon_size = 64,
+      BI_add_icon = true,
+      --~ icons = {
+        --~ {
+          --~ icon = ICONPATH .. "steel-furnace_disassemble.png",
+          --~ icon_size = 64,
+        --~ }
+      --~ },
       category = "advanced-crafting",
       subgroup = "bio-disassemble",
       order = "a[Disassemble]-e[bi-steel-furnace-disassemble]",

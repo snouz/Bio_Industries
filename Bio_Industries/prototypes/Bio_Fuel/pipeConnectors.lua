@@ -5,8 +5,7 @@ local ENTITYPATH = "__Bio_Industries__/graphics/entities/bioreactor/"
 local PIPEPATH = "__base__/graphics/entity/pipe-covers/"
 
 function assembler2pipepicturesBioreactor()
-  return
-  {
+  return {
     north = {
       filename = ICONPATH .. "empty.png",
       priority = "extra-high",

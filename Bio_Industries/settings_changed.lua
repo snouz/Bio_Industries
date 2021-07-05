@@ -12,8 +12,8 @@ local settings_changed = {}
 settings_changed.musk_floor = function()
   -- Look for solar panels on every surface. They determine the force poles will use
   -- if the electric grid overlay will be shown in mapview.
-  local sm_panel_name = "bi-musk-mat-solar-panel"
-  local sm_pole_name = "bi-musk-mat-pole"
+  local sm_panel_name = "bi-musk-mat-hidden-panel"
+  local sm_pole_name = "bi-musk-mat-hidden-pole"
 
   -- If dummy force is not used, force of a hidden pole should be that of the hidden solar panel.
   -- That force will be "enemy" for poles/solar panels created with versions of Bio Industries
@@ -81,31 +81,6 @@ BioInd.writeDebug("Destroying pole number %g", {i})
 end
 
 
--- If the setting for Bio Gardens (fluid fertilizer etc.) has been changed, we need
--- to disconnect or rewire the hidden poles!
-
--- Electric poles we want to connect to
-local good_poles
-
-local function get_good_poles()
-  local ret = {}
-  local poles = game.get_filtered_entity_prototypes({
-    {filter = "type", type = "electric-pole"},
-    {filter = "name", name = {
-        -- Poles named here will be ignored!
-        "bi-rail-hidden-power-pole",
-        "bi-musk-mat-pole",
-        "bi-bio-garden-hidden-pole"
-        }, invert = "true", mode = "and"
-    }
-  })
-  for p, pole in pairs(poles) do
-    ret[#ret + 1] = pole.name
-  end
-  return ret
-end
-
-
 settings_changed.bio_garden = function()
   BioInd.writeDebug("Entered function settings_changed.bio_garden!")
 
@@ -117,71 +92,129 @@ BioInd.show("Current state of BI_Easy_Bio_Gardens", current)
   if global.mod_settings.BI_Easy_Bio_Gardens ~= current then
 BioInd.writeDebug("Setting has been changed!")
     local pole, neighbours
-    local wire_reach = game.entity_prototypes["bi-bio-garden-hidden-pole"].max_wire_distance
-BioInd.show("wire_reach", wire_reach)
+    -- This is the unmodified table!
+    local compound_entity = BioInd.compound_entities["bi-bio-garden"]
+    local hidden_entities = compound_entity.hidden
 
-    -- Setting is on, so we need to hook up the hidden poles
+    -- Check that all gardens are still valid
+    for g, garden in pairs(global[compound_entity.tab]) do
+      -- Base entity doesn't exist -- remove hidden entities!''
+      if not (garden.base and garden.base.valid) then
+        -- Remove all hidden entities!
+        for hidden, h_name in pairs(compound_entity.hidden or {}) do
+BioInd.show("hidden", hidden)
+BioInd.writeDebug("Removing hidden entity %s %s", {
+  garden[hidden] and garden[hidden].valid and garden[hidden].name or "nil",
+  garden[hidden] and garden[hidden].valid and garden[hidden].unit_number or "nil"})
+          BioInd.remove_entity(garden[hidden])
+          garden[hidden] = nil
+        end
+        global[compound_entity.tab][garden.entity.unit_number] = nil
+      end
+    end
+
+
+    -- For whatever reason, there may be hidden poles that aren't associated
+    -- with any garden. We want to remove these, so lets' compile a list of all
+    -- hidden poles first.
+    local remove_poles = {}
+    local found_poles
+    local pole_type = "electric-pole"
+    for s, surface in pairs(game.surfaces) do
+      -- Find poles on surface
+      found_poles = surface.find_entities_filtered{
+        name = compound_entity.hidden[pole_type].name,
+        type = "electric-pole",
+      }
+      -- Add them to list of removeable poles, indexed by unit_number
+      for p, pole in ipairs(found_poles) do
+        remove_poles[pole.unit_number] = pole
+      end
+    end
+
+    -- Setting is on, so we need to create the hidden poles
     if current then
-BioInd.writeDebug("Need to reconnect hidden poles for %s Bio Gardens!",
-                  {table_size(global.bi_bio_garden_table) })
+      BioInd.writeDebug("Need to create hidden poles for %s Bio Gardens!",
+                        {table_size(global.bi_bio_garden_table) })
 
-      -- Connect all hidden poles that are in reach of each other. Each pole can
-      -- have just 5 connections, so we do this first!
+      -- Restore the list of hidden entities
+      global.compound_entities["bi-bio-garden"] = BioInd.compound_entities["bi-bio-garden"]
+      local base
       for g, garden in pairs(global.bi_bio_garden_table or {}) do
-        pole = garden.pole
-        -- Look for other hidden poles around this one
-        neighbours = pole.surface.find_entities_filtered({
-          position = pole.position,
-          radius = wire_reach,
-          type = "electric-pole",
-          name = "bi-bio-garden-hidden-pole"
-        })
-BioInd.writeDebug("Pole %g has %s neighbours", {pole.unit_number, #neighbours - 1})
-        for n, neighbour in pairs(neighbours or{}) do
-          if pole ~= neighbour then
-            pole.connect_neighbour(neighbour)
-BioInd.writeDebug("Connected pole %g to %s %g",
-                  {pole.unit_number, neighbour.name, neighbour.unit_number})
+        -- Make sure the base entity exists!
+        base = garden.base
+        pole = base and garden[pole_type]
+BioInd.show("pole", pole)
+        -- There is a pole referenced in the table, and it is a valid entity
+        if pole and pole.valid then
+          -- Delete pole from list of removeable poles
+          BioInd.writeDebug("Pole exists -- keep it!")
+          remove_poles[pole.unit_number] = nil
+
+        -- There is no valid pole, let's create one!
+        elseif base then
+          -- Create hidden poles
+          pole = BioInd.create_entities(
+            global[compound_entity.tab],
+            base,
+            {pole = hidden_entities[pole_type].name}
+            --~ base.position
+          )
+
+          -- Add the new pole to the table
+          if pole then
+            global[compound_entity.tab][base.unit_number][pole_type] = pole
+            BioInd.writeDebug("Stored %s %g in table: %s", {
+              base.name,
+              base.unit_number,
+              global[compound_entity.tab][base.unit_number]
+            })
           end
         end
       end
 
-      -- Connect hidden poles to other poles that may be in reach.
-      good_poles = good_poles or get_good_poles()
-BioInd.show("Good poles", good_poles)
-
-      for g, garden in pairs(global.bi_bio_garden_table or {}) do
-        pole = garden.pole
-        -- Look for other hidden poles around this one
-        neighbours = pole.surface.find_entities_filtered({
-          position = pole.position,
-          radius = wire_reach,
-          type = "electric-pole",
-          name = good_poles
-        })
-BioInd.writeDebug("Pole %g has %s neighbours", {pole.unit_number, #neighbours})
-        for n, neighbour in pairs(neighbours or{}) do
-          pole.connect_neighbour(neighbour)
-BioInd.writeDebug("Connected pole %g to neighbour %s (%g)",
-                  {pole.unit_number, neighbour.name, neighbour.unit_number})
-        end
-      end
-
-    -- Setting is off -- disconnect hidden poles!
+    -- Setting is off -- disconnect and remove hidden poles!
     else
-BioInd.writeDebug("%s Bio Gardens found -- must disconnect hidden poles!",
-                  {table_size(global.bi_bio_garden_table) })
-      -- Connect hidden poles to other poles that may be in reach.
+      BioInd.writeDebug("%s Bio Gardens found -- try to disconnect hidden poles!",
+                        {table_size(global.bi_bio_garden_table) })
+      -- Find hidden poles of registered gardens
+BioInd.show("global.bi_bio_garden_table", global.bi_bio_garden_table)
       for g, garden in pairs(global.bi_bio_garden_table or {}) do
-        if garden.pole and garden.pole.valid then
-          garden.pole.disconnect_neighbour()
-BioInd.show("Disconnected pole", garden.pole.unit_number)
+        if garden[pole_type] then
+          -- Pole really exists: destroy the entity
+          if garden[pole_type].valid then
+            -- Disconnect to prevent random connections of other poles when
+            -- this one is removed
+            garden[pole_type].disconnect_neighbour()
+            -- Remove pole from the list of poles not associated with a garden
+            remove_poles[garden[pole_type].unit_number] = nil
+            -- Destroy pole
+            BioInd.remove_entity(garden[pole_type])
+            BioInd.show("Removed pole of garden", garden.base.unit_number)
+          end
+          garden[pole_type] = nil
+          BioInd.show("Removed pole from table of garden", garden.base.unit_number)
         end
       end
+
+      -- We don't want to create hidden poles if the setting is off,
+      -- so remove the pole from hidden entities!
+      global.compound_entities["bi-bio-garden"].hidden[pole_type] = nil
+BioInd.show("global.compound_entities", global.compound_entities)
     end
+
+    -- Remove any hidden poles that are not associated with a garden
+    BioInd.writeDebug("Removing %s hidden poles not associated with a bio garden!",
+                      {table_size(remove_poles)})
+    for p, pole in pairs(remove_poles) do
+      pole.destroy()
+    end
+
     -- Update setting!
     global.mod_settings.BI_Easy_Bio_Gardens = current
-BioInd.show("Updated setting to", global.mod_settings.BI_Easy_Bio_Gardens)
+    BioInd.show("Updated setting to", global.mod_settings.BI_Easy_Bio_Gardens)
+  else
+    BioInd.writeDebug("Nothing to do!")
   end
 end
 

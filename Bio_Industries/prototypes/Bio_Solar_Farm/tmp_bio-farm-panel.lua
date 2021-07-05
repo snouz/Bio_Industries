@@ -2,8 +2,15 @@
           {
                 type = "solar-panel",
                 name = "bi-bio-solar-farm",
-                icon = ICONPATH .. "entity/Bio_Solar_Farm_Icon.png",
+                icon = ICONPATH .. "Bio_Solar_Farm_Icon.png",
                 icon_size = 64,
+                BI_add_icon = true,
+                --~ icons = {
+                  --~ {
+                    --~ icon = ICONPATH .. "Bio_Solar_Farm_Icon.png",
+                    --~ icon_size = 64,
+                  --~ }
+                --~ },
                 flags = {"placeable-neutral", "player-creation"},
                 minable = {hardness = 0.25, mining_time = 0.5, result = "bi-bio-solar-farm"},
                 max_health = 600,

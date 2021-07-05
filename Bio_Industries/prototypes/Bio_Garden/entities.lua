@@ -4,10 +4,15 @@ local ICONPATH = BioInd.modRoot .. "/graphics/icons/"
 
 require ("util")
 
-
--- Bio Gardens need to have a hidden pole. This will only be connectable if
--- fluid fertilizer is used in the game.
-
+local sounds = {
+  open_sound = { filename = "__base__/sound/machine-open.ogg", volume = 0.85 },
+  close_sound = { filename = "__base__/sound/machine-close.ogg", volume = 0.75 },
+  working_sound = {
+    filename = BioInd.modRoot .. "/sound/BI_garden_fan.ogg",
+    volume = 0.9,
+    max_sounds_per_typem = 3
+  },
+}
 function garden_pipes()
   return
   {
@@ -73,6 +78,7 @@ function garden_pipes()
 end
 
 
+
 --- Bio Garden
 data:extend({
   {
@@ -80,6 +86,13 @@ data:extend({
     name = "bi-bio-garden",
     icon = ICONPATH .. "entity/bio_garden_icon.png",
     icon_size = 64,
+    BI_add_icon = true,
+    --~ icons = {
+      --~ {
+        --~ icon = ICONPATH .. "bio_garden_icon.png",
+        --~ icon_size = 64,
+      --~ }
+    --~ },
     flags = {"placeable-neutral", "placeable-player", "player-creation"},
     minable = {hardness = 0.2, mining_time = 0.5, result = "bi-bio-garden"},
     fast_replaceable_group = "bi-bio-garden",
@@ -123,30 +136,6 @@ data:extend({
           },
         },
         {
-          filename = "__Bio_Industries__/graphics/entities/biogarden/bio_garden_anim_light.png",
-          width = 128,
-          height = 160,
-          scale = 1,
-          frame_count = 10,
-          line_length = 5,
-          repeat_count = 2,
-          animation_speed = 0.431,
-          shift = {0, -0.75},
-          draw_as_glow = true,
-          hr_version = {
-            filename = "__Bio_Industries__/graphics/entities/biogarden/hr_bio_garden_anim_light.png",
-            width = 256,
-            height = 320,
-            scale = 0.5,
-            frame_count = 10,
-            line_length = 5,
-            repeat_count = 2,
-            animation_speed = 0.431,
-            shift = {0, -0.75},
-            draw_as_glow = true,
-          },
-        },
-        {
           filename = "__Bio_Industries__/graphics/entities/biogarden/bio_garden_shadow.png",
           width = 192,
           height = 160,
@@ -172,73 +161,58 @@ data:extend({
         },
       },
     },
-    idle_animation = {
-      layers = {
-        {
-          filename = "__Bio_Industries__/graphics/entities/biogarden/bio_garden_anim_trees.png",
-          width = 128,
-          height = 160,
-          scale = 1,
-          frame_count = 20,
-          line_length = 5,
-          repeat_count = 1,
-          animation_speed = 0.15,
-          shift = {0, -0.75},
-          hr_version = {
-            filename = "__Bio_Industries__/graphics/entities/biogarden/hr_bio_garden_anim_trees.png",
-            width = 256,
-            height = 320,
-            scale = 0.5,
-            frame_count = 20,
-            line_length = 5,
-            repeat_count = 1,
-            animation_speed = 0.15,
-            shift = {0, -0.75},
-          },
-        },
-        {
-          filename = "__Bio_Industries__/graphics/entities/biogarden/bio_garden_shadow.png",
-          width = 192,
-          height = 160,
-          scale = 1,
-          frame_count = 1,
-          line_length = 1,
-          repeat_count = 20,
-          animation_speed = 0.431,
-          shift = {1, -0.75},
-          draw_as_shadow = true,
-          hr_version = {
-            filename = "__Bio_Industries__/graphics/entities/biogarden/hr_bio_garden_shadow.png",
-            width = 384,
-            height = 320,
-            scale = 0.5,
-            frame_count = 1,
-            line_length = 1,
-            repeat_count = 20,
-            animation_speed = 0.431,
-            shift = {1, -0.75},
-            draw_as_shadow = true,
+    working_visualisations = {
+      {
+        draw_as_light = true,
+        effect = "flicker",
+        apply_recipe_tint = "primary",
+        animation = {
+          layers = {
+            {
+              filename = "__Bio_Industries__/graphics/entities/biogarden/bio_garden_anim_light.png",
+              width = 128,
+              height = 160,
+              scale = 1,
+              frame_count = 10,
+              line_length = 5,
+              repeat_count = 2,
+              animation_speed = 0.431,
+              shift = {0, -0.75},
+              hr_version = {
+                filename = "__Bio_Industries__/graphics/entities/biogarden/hr_bio_garden_anim_light.png",
+                width = 256,
+                height = 320,
+                scale = 0.5,
+                frame_count = 10,
+                line_length = 5,
+                repeat_count = 2,
+                animation_speed = 0.431,
+                shift = {0, -0.75},
+              },
+            },
           },
         },
       },
     },
-    open_sound = { filename = "__base__/sound/machine-open.ogg", volume = 0.85 },
-    close_sound = { filename = "__base__/sound/machine-close.ogg", volume = 0.75 },
+    --~ open_sound = { filename = "__base__/sound/machine-open.ogg", volume = 0.85 },
+    --~ close_sound = { filename = "__base__/sound/machine-close.ogg", volume = 0.75 },
+    open_sound = sounds.open_sound,
+    close_sound = sounds.close_sound,
     crafting_categories = {"clean-air"},
     source_inventory_size = 1,
     result_inventory_size = 1,
-    crafting_speed = 1.0,
+    crafting_speed = 0.5,
     energy_source = {
       type = "electric",
       usage_priority = "secondary-input",
       emissions_per_minute = -20, -- the "-" means it Absorbs pollution.
     },
-    energy_usage = "200kW",
+    energy_usage = "100kW",
     ingredient_count = 1,
     module_specification = {
-      module_slots = 1
+      module_slots = 0
     },
-    allowed_effects = {"consumption", "speed"},
+    allowed_effects = {},
   },
 
 
@@ -253,63 +227,108 @@ data:extend({
     name = "bi-bio-garden-large",
     icon = ICONPATH .. "entity/bio_garden_large_icon.png",
     icon_size = 64,
+    BI_add_icon = true,
     flags = {"placeable-neutral", "placeable-player", "player-creation"},
-    minable = {hardness = 0.2, mining_time = 0.5, result = "bi-bio-garden"},
+    minable = {hardness = 0.3, mining_time = 1, result = "bi-bio-garden-large"},
     fast_replaceable_group = "bi-bio-garden-large",
     max_health = 150,
     corpse = "medium-remnants",
-    collision_box = {{-4.4, -4.4}, {4.4, 4.4}},
+    collision_box = {{-4.3, -4.3}, {4.3, 4.3}},
     selection_box = {{-4.5, -4.5}, {4.5, 4.5}},
     fluid_boxes = {
       {
         production_type = "input",
-        pipe_picture = garden_pipes(),
         pipe_covers = pipecoverspictures(),
         base_area = 1,
         base_level = -1,
-        pipe_connections = {{ type = "input", position = {0, -5} }}
+        filter = "water",
+        pipe_connections = {
+          { type = "input-output", position = {0, -5} },
+          { type = "input-output", position = {0, 5} },
+          { type = "input-output", position = {-5, 0} },
+          { type = "input-output", position = {5, 0} },
+        },
       },
-      off_when_no_fluid_recipe = true
+      off_when_no_fluid_recipe = false,
     },
     animation = {
       layers = {
         {
+          filename = "__Bio_Industries__/graphics/entities/biogarden_large/bio_garden_large.png",
+          width = 320,
+          height = 352,
+          scale = 1,
+          shift = {0, -0.5},
+          hr_version = {
             filename = "__Bio_Industries__/graphics/entities/biogarden_large/hr_bio_garden_large.png",
             width = 640,
+            height = 704,
+            scale = 0.5,
+            shift = {0, -0.5},
+          }
+        },
+        {
+          filename = "__Bio_Industries__/graphics/entities/biogarden_large/bio_garden_large_shadow.png",
+          width = 352,
+          height = 320,
+          scale = 1,
+          shift = {0.5, 0},
+          draw_as_shadow = true,
+          hr_version = {
+            filename = "__Bio_Industries__/graphics/entities/biogarden_large/hr_bio_garden_large_shadow.png",
+            width = 704,
             height = 640,
             scale = 0.5,
-            frame_count = 1,
-            line_length = 1,
-            repeat_count = 1,
-            animation_speed = 0.01,
-            shift = {0, 0},
+            shift = {0.5, 0},
+            draw_as_shadow = true,
+          }
         },
       },
     },
-    open_sound = { filename = "__base__/sound/machine-open.ogg", volume = 0.85 },
-    close_sound = { filename = "__base__/sound/machine-close.ogg", volume = 0.75 },
-    working_sound = {
-      sound = {
-        filename = "__Bio_Industries__/sound/BI_garden_fan.ogg",
-        volume = 0.9
+    working_visualisations = {
+      {
+        draw_as_light = true,
+        effect = "flicker",
+        apply_recipe_tint = "primary",
+        animation = {
+          layers = {
+            {
+              filename = "__Bio_Industries__/graphics/entities/biogarden_large/bio_garden_large_light.png",
+              width = 320,
+              height = 320,
+              scale = 1,
+              shift = {0, 0},
+              hr_version = {
+                filename = "__Bio_Industries__/graphics/entities/biogarden_large/hr_bio_garden_large_light.png",
+                width = 640,
+                height = 640,
+                scale = 0.5,
+                shift = {0, 0},
+              },
+            },
+          },
+        },
       },
-      max_sounds_per_type = 3
     },
+    --~ open_sound = { filename = "__base__/sound/machine-open.ogg", volume = 0.85 },
+    --~ close_sound = { filename = "__base__/sound/machine-close.ogg", volume = 0.75 },
+    open_sound = sounds.open_sound,
+    close_sound = sounds.close_sound,
     crafting_categories = {"clean-air"},
     source_inventory_size = 1,
     result_inventory_size = 1,
-    crafting_speed = 1.0,
+    crafting_speed = 5.0,
     energy_source = {
       type = "electric",
       usage_priority = "secondary-input",
-      emissions_per_minute = -180, -- the "-" means it Absorbs pollution.
+      emissions_per_minute = -185, -- the "-" means it Absorbs pollution.
     },
-    energy_usage = "200kW",
+    energy_usage = "900kW",
     ingredient_count = 1,
     module_specification = {
-      module_slots = 1
+      module_slots = 0
     },
-    allowed_effects = {"consumption", "speed"},
+    allowed_effects = {},
   },
 
 
@@ -325,8 +344,9 @@ data:extend({
     name = "bi-bio-garden-huge",
     icon = ICONPATH .. "entity/bio_garden_huge_icon.png",
     icon_size = 64,
+    BI_add_icon = true,
     flags = {"placeable-neutral", "placeable-player", "player-creation"},
-    minable = {hardness = 0.2, mining_time = 0.5, result = "bi-bio-garden"},
+    minable = {hardness = 0.9, mining_time = 2, result = "bi-bio-garden-huge"},
     fast_replaceable_group = "bi-bio-garden-huge",
     max_health = 150,
     corpse = "medium-remnants",
@@ -486,75 +506,34 @@ data:extend({
         },
       },
     },
-    open_sound = { filename = "__base__/sound/machine-open.ogg", volume = 0.85 },
-    close_sound = { filename = "__base__/sound/machine-close.ogg", volume = 0.75 },
-    working_sound = {
-      sound = {
-        filename = "__Bio_Industries__/sound/BI_garden_fan.ogg",
-        volume = 0.9
-      },
-      max_sounds_per_type = 3
-    },
+    --~ open_sound = { filename = "__base__/sound/machine-open.ogg", volume = 0.85 },
+    --~ close_sound = { filename = "__base__/sound/machine-close.ogg", volume = 0.75 },
+    open_sound = sounds.open_sound,
+    close_sound = sounds.close_sound,
+    working_sound = sounds.working_sound,
     crafting_categories = {"clean-air"},
     source_inventory_size = 1,
     result_inventory_size = 1,
-    crafting_speed = 1.0,
+    crafting_speed = 44,
     energy_source = {
       type = "electric",
       usage_priority = "secondary-input",
-      emissions_per_minute = -1620, -- the "-" means it Absorbs pollution.
+      emissions_per_minute = -1700, -- the "-" means it Absorbs pollution.
     },
-    energy_usage = "200kW",
+    energy_usage = "8100kW",
     ingredient_count = 1,
+    -- Changed for 0.18.34/1.1.4 -- Modules don't make sense for the gardens!
+    -- (Efficiency modules are also meant to reduce pollution, but as the base value
+    -- is negative, the resulting value is greater than the base value! )
+    --~ module_specification = {
+      --~ module_slots = 1
+    --~ },
     module_specification = {
-      module_slots = 1
+      module_slots = 0
     },
-    allowed_effects = {"consumption", "speed"},
+    -- Changed for 0.18.34/1.1.4 -- We need to use an empty table here, so the gardens
+    -- won't be affected by beacons!
+    --~ allowed_effects = {"consumption", "speed"},
+    allowed_effects = {},
   },
 })
-
-
-local hidden_pole = table.deepcopy(data.raw["electric-pole"]["small-electric-pole"])
-hidden_pole.name = "bi-bio-garden-hidden-pole"
-hidden_pole.icon = "__base__/graphics/icons/small-electric-pole.png"
-hidden_pole.icon_size = 64
-hidden_pole.flags = {
-      "not-deconstructable",
-      "not-on-map",
-      "placeable-off-grid",
-      "not-repairable",
-      "not-blueprintable",
-    }
-hidden_pole.selectable_in_game = false
-hidden_pole.draw_copper_wires = BioInd.is_debug
-hidden_pole.max_health = 1
-hidden_pole.minable = nil
-hidden_pole.collision_mask = {}
-hidden_pole.collision_box = {{-0, -0}, {0, 0}}
-hidden_pole.selection_box = {{0, 0}, {0, 0}}
-hidden_pole.maximum_wire_distance = BI.Settings.BI_Easy_Bio_Gardens and 4 or 0
-hidden_pole.supply_area_distance = 1
-hidden_pole.pictures = BioInd.is_debug and hidden_pole.pictures or {
-  filename = ICONPATH .. "empty.png",
-  priority = "low",
-  width = 1,
-  height = 1,
-  frame_count = 1,
-  axially_symmetrical = false,
-  direction_count = 1,
-}
-hidden_pole.connection_points = BioInd.is_debug and hidden_pole.connection_points or {
-  {
-    shadow = {},
-    wire = { copper_wire_tweak = {-0, -0} }
-  }
-}
-hidden_pole.radius_visualisation_picture = BioInd.is_debug and
-                                            hidden_pole.radius_visualisation_picture or {
-                                                filename = ICONPATH .. "empty.png",
-                                                width = 1,
-                                                height = 1,
-                                                priority = "low"
-                                              }
-
-data:extend({hidden_pole})

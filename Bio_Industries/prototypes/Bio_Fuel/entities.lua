@@ -33,6 +33,13 @@ data:extend({
     name = "bi-bio-reactor",
     icon = ICONPATH .. "entity/bioreactor.png",
     icon_size = 64,
+    BI_add_icon = true,
+    --~ icons = {
+      --~ {
+        --~ icon = ICONPATH .. "bioreactor.png",
+        --~ icon_size = 64,
+      --~ }
+    --~ },
     flags = {"placeable-neutral", "player-creation"},
     minable = {hardness = 0.2, mining_time = 0.5, result = "bi-bio-reactor"},
     max_health = 100,
@@ -78,7 +85,7 @@ data:extend({
         base_level = 1,
         pipe_connections = {{ type = "output", position = {-2, 1} }}
       },
-      off_when_no_fluid_recipe = true
+      off_when_no_fluid_recipe = true,
     },
     collision_box = {{-1.2, -1.2}, {1.2, 1.2}},
     selection_box = {{-1.5, -1.5}, {1.5, 1.5}},
@@ -218,6 +225,16 @@ if BI.Settings.BI_Bio_Fuel then
       localised_description = {"entity-description.bi-bio-boiler"},
       icon = ICONPATH .. "entity/bio_boiler.png",
       icon_size = 64,
+      BI_add_icon = true,
+      --~ icons = {
+        --~ {
+          --~ icon = ICONPATH .. "bio_boiler.png",
+          --~ icon_size = 64,
+        --~ }
+      --~ },
+      -- This is necessary for "Space Exploration" (if not true, the entity can only be
+      -- placed on Nauvis)!
+      se_allow_in_space = true,
       flags = {"placeable-neutral", "player-creation"},
       minable = {hardness = 0.2, mining_time = 0.5, result = "bi-bio-boiler"},
       max_health = 300,

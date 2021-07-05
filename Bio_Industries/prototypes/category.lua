@@ -10,9 +10,16 @@ data:extend(
       inventory_order = "v-a",
       icon = "__Bio_Industries__/graphics/technology/BioIndustries_itemgroup.png",
       icon_size = 128,
+      BI_add_icon = true
+      --~ icons = {
+          --~ {
+              --~ icon = "__Bio_Industries__/graphics/technology/BioIndustries_64.png",
+              --~ icon_size = 64,
+          --~ }
+      --~ },
     },
 
-     {
+    {
       type = "item-subgroup",
       name = "bio-bio-farm",
       group = "bio-industries",
@@ -20,7 +27,7 @@ data:extend(
     },
 
 
-  --- Bio Farm and Nursary
+  --- Bio Farm and Nursery
     {
       type = "item-subgroup",
       name = "bio-bio-farm-fluid-1",
@@ -56,27 +63,6 @@ data:extend(
 
 
   --- Coals and Cokery and Crushed Stone and Crusher
-  --MBR changed to cockery and stone crusher
-    --{
-    --  type = "item-subgroup",
-    --  name = "bio-bio-farm-raw",
-    --  group = "bio-industries",
-    --  order = "b-a",
-    --},
-    --{
-    --  type = "item-subgroup",
-    --  name = "bio-bio-farm-raw-entity",
-    --  group = "bio-industries",
-    --  order = "b-b",
-    --},
-
-
-    --{
-    --  type = "item-subgroup",
-    --  name = "bio-bio-farm-raw",
-    --  group = "bio-industries",
-    --  order = "b-a",
-    --},
     {
       type = "item-subgroup",
       name = "bio-bio-farm-raw",
@@ -85,7 +71,7 @@ data:extend(
     },
     {
       type = "item-subgroup",
-      name = "bio-cockery",
+      name = "bio-cokery",
       group = "bio-industries",
       order = "b-b",
     },
@@ -110,7 +96,6 @@ data:extend(
       order = "c-a",
     },
 
-    
 
     --- Bio Reactor and Bio-Mass
     {
@@ -140,7 +125,6 @@ data:extend(
       order = "f"
     },
 
-
     ---- Arboretum
     {
       type = "item-subgroup",
@@ -154,6 +138,7 @@ data:extend(
       group = "bio-industries",
       order = "w-d",
     },
+
 
     ---- Garden
     {
@@ -187,8 +172,6 @@ data:extend(
       group = "bio-industries",
       order = "f-b",
     },
-
-
 
 
     {

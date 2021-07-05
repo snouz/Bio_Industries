@@ -5,15 +5,20 @@ local ICONPATH = BioInd.modRoot .. "/graphics/icons/weapon/"
 if BI.Settings.Bio_Cannon then
 
   data:extend({
-
-      -- Prototype Artillery Proto Ammo
+    -- Prototype Artillery Proto Ammo
     {
       type = "ammo",
       name = "bi-bio-cannon-proto-ammo",
       icon = ICONPATH .. "Bio_Cannon_Proto_Ammo_Icon.png",
       icon_size = 64,
+      BI_add_icon = true,
+      --~ icons = {
+        --~ {
+          --~ icon = ICONPATH .. "Bio_Cannon_Proto_Ammo_Icon.png",
+          --~ icon_size = 64,
+        --~ }
+      --~ },
       ammo_type = {
-        --~ category = "artillery-shell",
         category = "Bio_Cannon_Ammo",
         target_type = "direction",
         action = {
@@ -42,8 +47,14 @@ if BI.Settings.Bio_Cannon then
       name = "bi-bio-cannon-basic-ammo",
       icon = ICONPATH .. "Bio_Cannon_Basic_Ammo_Icon.png",
       icon_size = 64,
+      BI_add_icon = true,
+      --~ icons = {
+        --~ {
+          --~ icon = ICONPATH .. "Bio_Cannon_Basic_Ammo_Icon.png",
+          --~ icon_size = 64,
+        --~ }
+      --~ },
       ammo_type = {
-        --~ category = "artillery-shell",
         category = "Bio_Cannon_Ammo",
         target_type = "direction",
         action = {
@@ -71,8 +82,14 @@ if BI.Settings.Bio_Cannon then
       name = "bi-bio-cannon-poison-ammo",
       icon = ICONPATH .. "Bio_Cannon_Poison_Ammo_Icon.png",
       icon_size = 64,
+      BI_add_icon = true,
+      --~ icons = {
+        --~ {
+          --~ icon = ICONPATH .. "Bio_Cannon_Poison_Ammo_Icon.png",
+          --~ icon_size = 64,
+        --~ }
+      --~ },
       ammo_type = {
-        --~ category = "artillery-shell",
         category = "Bio_Cannon_Ammo",
         target_type = "direction",
         action = {
@@ -93,8 +110,5 @@ if BI.Settings.Bio_Cannon then
       order = "z[Bio_Cannon_Ammo]-c[Poison]",
       stack_size = 50,
     },
-
-
   })
-
 end

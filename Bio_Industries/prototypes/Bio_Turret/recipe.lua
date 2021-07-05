@@ -7,10 +7,17 @@ data:extend({
   {
     type = "recipe",
     name = "bi-dart-magazine-basic",
-    localised_name = {"item-name.bi-dart-magazine-basic"},
-    localised_description = {"item-description.bi-dart-magazine-basic"},
+    --localised_name = {"item-name.bi-dart-magazine-basic"},
+    --localised_description = {"item-description.bi-dart-magazine-basic"},
     icon = ICONPATH .. "weapon/basic_dart_icon.png",
     icon_size = 64,
+    BI_add_icon = true,
+    --~ icons = {
+      --~ {
+        --~ icon = ICONPATH .. "basic_dart_icon.png",
+        --~ icon_size = 64,
+      --~ }
+    --~ },
     normal = {
       enabled = true,
       energy_required = 4,
@@ -19,7 +26,9 @@ data:extend({
       },
       result = "bi-dart-magazine-basic",
       result_count = 10,
-      main_product = "",
+      allow_as_intermediate = false,    -- Added for 0.18.34/1.1.4
+      always_show_made_in = false,      -- Added for 0.18.34/1.1.4
+      allow_decomposition = true,       -- Added for 0.18.34/1.1.4
     },
     expensive = {
       enabled = true,
@@ -29,10 +38,15 @@ data:extend({
       },
       result = "bi-dart-magazine-basic",
       result_count = 8,
-      main_product = "",
+      allow_as_intermediate = false,    -- Added for 0.18.34/1.1.4
+      always_show_made_in = false,      -- Added for 0.18.34/1.1.4
+      allow_decomposition = true,       -- Added for 0.18.34/1.1.4
     },
-    always_show_made_in = false,
-    allow_decomposition = false,
+    --~ always_show_made_in = true,
+    --~ allow_decomposition = false,
+    allow_as_intermediate = false,      -- Added for 0.18.34/1.1.4
+    always_show_made_in = false,        -- Changed for 0.18.34/1.1.4
+    allow_decomposition = true,         -- Changed for 0.18.34/1.1.4
     subgroup = "bi-ammo",
     order = "[bio-ammo]-a-[darts]-1",
     -- This is a custom property for use by "Krastorio 2" (it will change
@@ -44,10 +58,17 @@ data:extend({
   {
     type = "recipe",
     name = "bi-dart-magazine-standard",
-    localised_name = {"item-name.bi-dart-magazine-standard"},
-    localised_description = {"item-description.bi-dart-magazine-standard"},
+   --localised_name = {"item-name.bi-dart-magazine-standard"},
+    --localised_description = {"item-description.bi-dart-magazine-standard"},
     icon = ICONPATH .. "weapon/standard_dart_icon.png",
     icon_size = 64,
+    BI_add_icon = true,
+    --~ icons = {
+      --~ {
+        --~ icon = ICONPATH .. "standard_dart_icon.png",
+        --~ icon_size = 64,
+      --~ }
+    --~ },
     normal = {
       enabled = false,
       energy_required = 5,
@@ -57,7 +78,9 @@ data:extend({
       },
       result = "bi-dart-magazine-standard",
       result_count = 10,
-      main_product = "",
+      allow_as_intermediate = false,    -- Added for 0.18.34/1.1.4
+      always_show_made_in = false,      -- Added for 0.18.34/1.1.4
+      allow_decomposition = true,       -- Added for 0.18.34/1.1.4
     },
     expensive = {
       enabled = false,
@@ -68,10 +91,15 @@ data:extend({
       },
       result = "bi-dart-magazine-standard",
       result_count = 8,
-      main_product = "",
+      allow_as_intermediate = false,    -- Added for 0.18.34/1.1.4
+      always_show_made_in = false,      -- Added for 0.18.34/1.1.4
+      allow_decomposition = true,       -- Added for 0.18.34/1.1.4
     },
-    always_show_made_in = false,
-    allow_decomposition = false,
+    --~ always_show_made_in = true,
+    --~ allow_decomposition = false,
+    allow_as_intermediate = false,      -- Added for 0.18.34/1.1.4
+    always_show_made_in = false,        -- Changed for 0.18.34/1.1.4
+    allow_decomposition = true,         -- Changed for 0.18.34/1.1.4
     subgroup = "bi-ammo",
     order = "[bio-ammo]-a-[darts]-2",
   },
@@ -80,10 +108,17 @@ data:extend({
   {
     type = "recipe",
     name = "bi-dart-magazine-enhanced",
-    localised_name = {"item-name.bi-dart-magazine-enhanced"},
-    localised_description = {"item-description.bi-dart-magazine-enhanced"},
+    --localised_name = {"item-name.bi-dart-magazine-enhanced"},
+    --localised_description = {"item-description.bi-dart-magazine-enhanced"},
     icon = ICONPATH .. "weapon/enhanced_dart_icon.png",
     icon_size = 64,
+    BI_add_icon = true,
+    --~ icons = {
+      --~ {
+        --~ icon = ICONPATH .. "enhanced_dart_icon.png",
+        --~ icon_size = 64,
+      --~ }
+    --~ },
     normal = {
       enabled = false,
       energy_required = 6,
@@ -93,7 +128,9 @@ data:extend({
       },
       result = "bi-dart-magazine-enhanced",
       result_count = 10,
-      main_product = "",
+      allow_as_intermediate = false,    -- Added for 0.18.34/1.1.4
+      always_show_made_in = false,      -- Added for 0.18.34/1.1.4
+      allow_decomposition = true,       -- Added for 0.18.34/1.1.4
     },
     expensive = {
       enabled = false,
@@ -104,10 +141,15 @@ data:extend({
       },
       result = "bi-dart-magazine-enhanced",
       result_count = 8,
-      main_product = "",
+      allow_as_intermediate = false,    -- Added for 0.18.34/1.1.4
+      always_show_made_in = false,      -- Added for 0.18.34/1.1.4
+      allow_decomposition = true,       -- Added for 0.18.34/1.1.4
     },
-    always_show_made_in = false,
-    allow_decomposition = false,
+    --~ always_show_made_in = true,
+    --~ allow_decomposition = false,
+    allow_as_intermediate = false,      -- Added for 0.18.34/1.1.4
+    always_show_made_in = false,        -- Changed for 0.18.34/1.1.4
+    allow_decomposition = true,         -- Changed for 0.18.34/1.1.4
     subgroup = "bi-ammo",
     order = "[bio-ammo]-a-[darts]-3",
   },
@@ -116,10 +158,17 @@ data:extend({
   {
     type = "recipe",
     name = "bi-dart-magazine-poison",
-    localised_name = {"item-name.bi-dart-magazine-poison"},
-    localised_description = {"item-description.bi-dart-magazine-poison"},
+    --localised_name = {"item-name.bi-dart-magazine-poison"},
+    --localised_description = {"item-description.bi-dart-magazine-poison"},
     icon = ICONPATH .. "weapon/poison_dart_icon.png",
     icon_size = 64,
+    BI_add_icon = true,
+    --~ icons = {
+      --~ {
+        --~ icon = ICONPATH .. "poison_dart_icon.png",
+        --~ icon_size = 64,
+      --~ }
+    --~ },
     normal = {
       enabled = false,
       energy_required = 8,
@@ -129,7 +178,9 @@ data:extend({
       },
       result = "bi-dart-magazine-poison",
       result_count = 10,
-      main_product = "",
+      allow_as_intermediate = false,    -- Added for 0.18.34/1.1.4
+      always_show_made_in = false,      -- Added for 0.18.34/1.1.4
+      allow_decomposition = true,       -- Added for 0.18.34/1.1.4
     },
     expensive = {
       enabled = false,
@@ -140,10 +191,15 @@ data:extend({
       },
       result = "bi-dart-magazine-poison",
       result_count = 8,
-      main_product = "",
+      allow_as_intermediate = false,    -- Added for 0.18.34/1.1.4
+      always_show_made_in = false,      -- Added for 0.18.34/1.1.4
+      allow_decomposition = true,       -- Added for 0.18.34/1.1.4
     },
-    always_show_made_in = false,
-    allow_decomposition = false,
+    --~ always_show_made_in = true,
+    --~ allow_decomposition = false,
+    allow_as_intermediate = false,      -- Added for 0.18.34/1.1.4
+    always_show_made_in = false,        -- Changed for 0.18.34/1.1.4
+    allow_decomposition = true,         -- Changed for 0.18.34/1.1.4
     subgroup = "bi-ammo",
     order = "[bio-ammo]-a-[darts]-4",
   },
@@ -153,9 +209,17 @@ data:extend({
     type = "recipe",
     name = "bi-dart-turret",
     localised_name = {"entity-name.bi-dart-turret"},
-    --localised_description = {"entity-description.bi-dart-turret"},
+    --~ localised_description = {"entity-description.bi-dart-turret"},
+    localised_description = {"entity"},
     icon = ICONPATH .. "entity/bio_turret_icon.png",
     icon_size = 64,
+    BI_add_icon = true,
+    --~ icons = {
+      --~ {
+        --~ icon = ICONPATH .. "bio_turret_icon.png",
+        --~ icon_size = 64,
+      --~ }
+    --~ },
     normal = {
       enabled = true,
       energy_required = 8,
@@ -165,7 +229,9 @@ data:extend({
       },
       result = "bi-dart-turret",
       result_count = 1,
-      main_product = "",
+      allow_as_intermediate = false,    -- Added for 0.18.34/1.1.4
+      always_show_made_in = false,      -- Added for 0.18.34/1.1.4
+      allow_decomposition = true,       -- Added for 0.18.34/1.1.4
     },
     expensive = {
       enabled = true,
@@ -177,9 +243,15 @@ data:extend({
       result = "bi-dart-turret",
       result_count = 1,
       main_product = "",
+      allow_as_intermediate = false,    -- Added for 0.18.34/1.1.4
+      always_show_made_in = false,      -- Added for 0.18.34/1.1.4
+      allow_decomposition = true,       -- Added for 0.18.34/1.1.4
     },
-    always_show_made_in = false,
-    allow_decomposition = false,
+    --~ always_show_made_in = true,
+    --~ allow_decomposition = false,
+    allow_as_intermediate = false,      -- Added for 0.18.34/1.1.4
+    always_show_made_in = false,        -- Changed for 0.18.34/1.1.4
+    allow_decomposition = true,         -- Changed for 0.18.34/1.1.4
     subgroup = "defensive-structure",
     order = "b[turret]-e[bi-dart-turret]",
     -- This is a custom property for use by "Krastorio 2" (it will change
@@ -191,34 +263,48 @@ data:extend({
   {
     type = "recipe",
     name = "bi-dart-rifle",
-    localised_name = {"item-name.bi-dart-rifle"},
-    --localised_description = {"item-description.bi-dart-rifle"},
+    --localised_name = {"item-name.bi-dart-rifle"},
+    --~ localised_description = {"item-description.bi-dart-rifle"},
     icon = ICONPATH .. "weapon/bi_dart_rifle_icon.png",
     icon_size = 64,
+    BI_add_icon = true,
+    --~ icons = {
+      --~ {
+        --~ icon = ICONPATH .. "bi_dart_rifle_icon.png",
+        --~ icon_size = 64,
+      --~ }
+    --~ },
     normal = {
-        enabled = true,
-        energy_required = 8,
-        ingredients = {
-          {"copper-plate", 5},
-          {"wood", 15},
-        },
-        result = "bi-dart-rifle",
-        result_count = 1,
-        main_product = "",
+      enabled = true,
+      energy_required = 8,
+      ingredients = {
+        {"copper-plate", 5},
+        {"wood", 15},
+      },
+      result = "bi-dart-rifle",
+      result_count = 1,
+      allow_as_intermediate = false,    -- Added for 0.18.34/1.1.4
+      always_show_made_in = false,      -- Added for 0.18.34/1.1.4
+      allow_decomposition = true,       -- Added for 0.18.34/1.1.4
     },
     expensive = {
-        enabled = true,
-        energy_required = 16,
-        ingredients = {
-          {"copper-plate", 10},
-          {"wood", 25},
-        },
-        result = "bi-dart-rifle",
-        result_count = 1,
-        main_product = "",
+      enabled = true,
+      energy_required = 16,
+      ingredients = {
+        {"copper-plate", 10},
+        {"wood", 25},
+      },
+      result = "bi-dart-rifle",
+      result_count = 1,
+      allow_as_intermediate = false,    -- Added for 0.18.34/1.1.4
+      always_show_made_in = false,      -- Added for 0.18.34/1.1.4
+      allow_decomposition = true,       -- Added for 0.18.34/1.1.4
     },
-    always_show_made_in = false,
-    allow_decomposition = false,
+    --~ always_show_made_in = true,
+    --~ allow_decomposition = false,
+    allow_as_intermediate = false,      -- Added for 0.18.34/1.1.4
+    always_show_made_in = false,        -- Changed for 0.18.34/1.1.4
+    allow_decomposition = true,         -- Changed for 0.18.34/1.1.4
     subgroup = "gun",
     --~ order = "[bi-dart-rifle]"
     order = "a[basic-clips]-b[bi-dart-rifle]"

@@ -2,174 +2,66 @@ local BioInd = require('common')('Bio_Industries')
 
 --~ local ICONPATH = BioInd.modRoot .. "/graphics/entities/biofarm/"
 local ICONPATH = BioInd.modRoot .. "/graphics/icons/"
-local ENTITYPATH = BioInd.modRoot .. "/graphics/entities/biofarm/"
+local ENTITYPATH = BioInd.modRoot .. "/graphics/entities/"
 
 --~ local BIGICONS = BioInd.check_base_version()
 
 require ("prototypes.Bio_Farm.pipeConnectors")
 require ("util")
 
+--~ -- demo-sounds has been removed in Factorio 1.1, so we need to check the game version!
+--~ local sound_def = BioInd.check_version("base", "<", "1.1.0") and
+                    --~ require("__base__.prototypes.entity.demo-sounds") or
+                    --~ require("__base__.prototypes.entity.sounds")
 -- demo-sounds has been removed in Factorio 1.1, so we need to check the game version!
-local sound_def = BioInd.check_version("base", "<", "1.1.0") and
-                    require("__base__.prototypes.entity.demo-sounds") or
-                    require("__base__.prototypes.entity.sounds")
+local sound_def = require("__base__.prototypes.entity.sounds")
 local sounds = {}
 sounds.car_wood_impact = sound_def.car_wood_impact(0.8)
 sounds.generic_impact = sound_def.generic_impact
-  for _, sound in ipairs(sounds.generic_impact) do
-    sound.volume = 0.65
-  end
+for _, sound in ipairs(sounds.generic_impact) do
+  sound.volume = 0.65
+end
+sounds.open_sound = { filename = "__base__/sound/machine-open.ogg", volume = 0.85 }
+sounds.close_sound = { filename = "__base__/sound/machine-close.ogg", volume = 0.75 }
 
+-- No need to make that a function! We always want the same data, so just store
+-- it in a table once.
 
-function seedling_pictures_diverse()
-  return 
-  {
-    {
-      filename = ICONPATH .. "mips/Seedling_1.png",
-      priority = "extra-high",
-      width = 64,
-      height = 64,
-      scale = 0.5,
-      shift = {0, -0.3},
-    },
-    {
-      filename = ICONPATH .. "mips/Seedling_2.png",
-      priority = "extra-high",
-      width = 64,
-      height = 64,
-      scale = 0.5,
-      shift = {0, -0.3},
-    },
-    {
-      filename = ICONPATH .. "mips/Seedling_3.png",
-      priority = "extra-high",
-      width = 64,
-      height = 64,
-      scale = 0.5,
-      shift = {0, -0.3},
-    },
-    {
-      filename = ICONPATH .. "mips/Seedling_4.png",
-      priority = "extra-high",
-      width = 64,
-      height = 64,
-      scale = 0.5,
-      shift = {0, -0.3},
-    },
-    {
-      filename = ICONPATH .. "mips/Seedling_5.png",
-      priority = "extra-high",
-      width = 64,
-      height = 64,
-      scale = 0.5,
-      shift = {0, -0.3},
-    },
-    {
-      filename = ICONPATH .. "mips/Seedling_6.png",
-      priority = "extra-high",
-      width = 64,
-      height = 64,
-      scale = 0.5,
-      shift = {0, -0.3},
-    },
-    {
-      filename = ICONPATH .. "mips/Seedling_7.png",
-      priority = "extra-high",
-      width = 64,
-      height = 64,
-      scale = 0.5,
-      shift = {0, -0.3},
-    },
-    {
-      filename = ICONPATH .. "mips/Seedling_8.png",
-      priority = "extra-high",
-      width = 64,
-      height = 64,
-      scale = 0.5,
-      shift = {0, -0.3},
-    },
-    {
-      filename = ICONPATH .. "mips/Seedling_9.png",
-      priority = "extra-high",
-      width = 64,
-      height = 64,
-      scale = 0.5,
-      shift = {0, -0.3},
-    },
-    {
-      filename = ICONPATH .. "mips/Seedling_1.png",
-      priority = "extra-high",
-      width = 64,
-      height = 64,
-      scale = 0.5,
-      shift = {0.4, -0.4},
-    },
-    {
-      filename = ICONPATH .. "mips/Seedling_2.png",
-      priority = "extra-high",
-      width = 64,
-      height = 64,
-      scale = 0.5,
-      shift = {-0.4, -0.5},
-    },
-    {
-      filename = ICONPATH .. "mips/Seedling_3.png",
-      priority = "extra-high",
-      width = 64,
-      height = 64,
-      scale = 0.5,
-      shift = {0.3, 0},
-    },
-    {
-      filename = ICONPATH .. "mips/Seedling_4.png",
-      priority = "extra-high",
-      width = 64,
-      height = 64,
-      scale = 0.5,
-      shift = {-0.3, -0.7},
-    },
-    {
-      filename = ICONPATH .. "mips/Seedling_5.png",
-      priority = "extra-high",
-      width = 64,
-      height = 64,
-      scale = 0.5,
-      shift = {0.2, -0.1},
-    },
-    {
-      filename = ICONPATH .. "mips/Seedling_6.png",
-      priority = "extra-high",
-      width = 64,
-      height = 64,
-      scale = 0.5,
-      shift = {0.2, -0.2},
-    },
-    {
-      filename = ICONPATH .. "mips/Seedling_7.png",
-      priority = "extra-high",
-      width = 64,
-      height = 64,
-      scale = 0.5,
-      shift = {-0.2, -0.7},
-    },
-    {
-      filename = ICONPATH .. "mips/Seedling_8.png",
-      priority = "extra-high",
-      width = 64,
-      height = 64,
-      scale = 0.5,
-      shift = {-0.2, -0.6},
-    },
-    {
-      filename = ICONPATH .. "mips/Seedling_9.png",
-      priority = "extra-high",
-      width = 64,
-      height = 64,
-      scale = 0.5,
-      shift = {0.3, 0},
-    },
+--~ function seedling_pictures_diverse()
+local seedling_pictures_diverse = {}
+
+local function make_entry(img, shift)
+  seedling_pictures_diverse[#seedling_pictures_diverse + 1] = {
+    filename = ICONPATH .. "mips/Seedling_" .. img .. ".png",
+    priority = "extra-high",
+    width = 64,
+    height = 64,
+    scale = 0.5,
+    shift = shift or {0, -0.3},
   }
-  end
+end
+
+-- Construct the layers for seedlings
+-- The first 9 layers all have the same shift value
+for i = 1, 9 do
+  make_entry(i)
+end
+
+-- The next 9 layers use different shift values
+local image_shift = {
+  { 0.4, -0.4}, -- 1
+  {-0.4, -0.5}, -- 2
+  { 0.3,  0.0}, -- 3
+  {-0.3, -0.7}, -- 4
+  { 0.2, -0.1}, -- 5
+  { 0.2, -0.2}, -- 6
+  {-0.2, -0.7}, -- 7
+  {-0.2, -0.6}, -- 8
+  { 0.3,  0.0}, -- 9
+}
+for i = 1, 9 do
+  make_entry(i, image_shift[i])
+end
 
 
 data:extend({
@@ -181,6 +73,13 @@ data:extend({
     localised_description = {"entity-description.seedling"},
     icon = ICONPATH .. "Seedling.png",
     icon_size = 64,
+    BI_add_icon = true,
+    --~ icons = {
+      --~ {
+        --~ icon = ICONPATH .. "Seedling.png",
+        --~ icon_size = 64,
+      --~ }
+    --~ },
     order = "x[bi]-a[bi-seedling]",
     flags = {"placeable-neutral", "placeable-player", "player-creation", "breaths-air"},
     create_ghost_on_death = false,
@@ -199,7 +98,7 @@ data:extend({
     selection_box = {{-0.5, -0.5}, {0.5, 0.5}},
     subgroup = "trees",
     vehicle_impact_sound = sounds.car_wood_impact,
-    pictures = seedling_pictures_diverse(),
+    pictures = seedling_pictures_diverse,
   },
 
   ------- Seedling - Dummy for Seed Bomb
@@ -210,6 +109,13 @@ data:extend({
     localised_description = {"entity-description.seedling"},
     icon = ICONPATH .. "Seedling.png",
     icon_size = 64,
+    BI_add_icon = true,
+    --~ icons = {
+      --~ {
+        --~ icon = ICONPATH .. "Seedling.png",
+        --~ icon_size = 64,
+      --~ }
+    --~ },
     order = "x[bi]-a[bi-seedling]",
     flags = {"placeable-neutral", "placeable-player", "player-creation", "breaths-air"},
     create_ghost_on_death = false,
@@ -228,7 +134,7 @@ data:extend({
     selection_box = {{-0.5, -0.5}, {0.5, 0.5}},
     subgroup = "trees",
     vehicle_impact_sound = sounds.car_wood_impact,
-    pictures = seedling_pictures_diverse(),
+    pictures = seedling_pictures_diverse,
   },
 
   {
@@ -238,6 +144,13 @@ data:extend({
     localised_description = {"entity-description.seedling"},
     icon = ICONPATH .. "Seedling.png",
     icon_size = 64,
+    BI_add_icon = true,
+    --~ icons = {
+      --~ {
+        --~ icon = ICONPATH .. "Seedling.png",
+        --~ icon_size = 64,
+      --~ }
+    --~ },
     order = "x[bi]-a[bi-seedling]",
     flags = {"placeable-neutral", "placeable-player", "player-creation", "breaths-air"},
     create_ghost_on_death = false,
@@ -256,7 +169,7 @@ data:extend({
     selection_box = {{-0.5, -0.5}, {0.5, 0.5}},
     subgroup = "trees",
     vehicle_impact_sound = sounds.car_wood_impact,
-    pictures = seedling_pictures_diverse(),
+    pictures = seedling_pictures_diverse,
   },
 
 
@@ -266,6 +179,13 @@ data:extend({
     name = "bi-bio-farm",
     icon = ICONPATH .. "entity/Bio_Farm_Icon.png",
     icon_size = 64,
+    BI_add_icon = true,
+    --~ icons = {
+      --~ {
+        --~ icon = ICONPATH .. "Bio_Farm_Icon.png",
+        --~ icon_size = 64,
+      --~ }
+    --~ },
     flags = {"placeable-neutral", "placeable-player", "player-creation"},
     minable = {hardness = 0.2, mining_time = 0.5, result = "bi-bio-farm"},
     max_health = 250,
@@ -291,49 +211,74 @@ data:extend({
       },
       off_when_no_fluid_recipe = true
     },
+
     collision_box = {{-4.2, -4.2}, {4.2, 4.2}},
     selection_box = {{-4.5, -4.5}, {4.5, 4.5}},
+
     animation = {
       layers = {
         {
-          filename = ENTITYPATH .. "bio_farm.png",
+          filename = ENTITYPATH .. "biofarm/bio_farm.png",
           priority = "high",
           width = 304,
           height = 400,
           shift = {0, -1.5},
           scale = 1,
-          frame_count = 1,
           hr_version = {
-            filename = ENTITYPATH .. "hr_bio_farm.png",
+            filename = ENTITYPATH .. "biofarm/hr_bio_farm.png",
             priority = "high",
             width = 608,
             height = 800,
             shift = {0, -1.5},
             scale = 0.5,
-            frame_count = 1,
           }
         },
         {
-          filename = ENTITYPATH .. "bio_farm_shadow.png",
+          filename = ENTITYPATH .. "biofarm/bio_farm_shadow.png",
           priority = "high",
           width = 400,
           height = 400,
           shift = {1.5, -1.5},
           scale = 1,
-          frame_count = 1,
           draw_as_shadow = true,
           hr_version = {
-            filename = ENTITYPATH .. "hr_bio_farm_shadow.png",
+            filename = ENTITYPATH .. "biofarm/hr_bio_farm_shadow.png",
             priority = "high",
             width = 800,
             height = 800,
             shift = {1.5, -1.5},
             scale = 0.5,
-            frame_count = 1,
             draw_as_shadow = true,
           }
         },
       }
+    },
+    working_visualisations = {
+      {
+        draw_as_light = true,
+        effect = "flicker",
+        apply_recipe_tint = "primary",
+        animation = {
+          layers = {
+            {
+              filename = ENTITYPATH .. "biofarm/bio_farm_light.png",
+              width = 400,
+              height = 400,
+              scale = 1,
+              shift = {0, -1.5},
+              blend_mode = "additive",
+              hr_version = {
+                filename = ENTITYPATH .. "biofarm/hr_bio_farm_light.png",
+                width = 800,
+                height = 800,
+                scale = 0.5,
+                shift = {0, -1.5},
+                blend_mode = "additive",
+              }
+            },
+          },
+        },
+      },
     },
     crafting_categories = {"biofarm-mod-farm"},
     crafting_speed = 1,
@@ -345,8 +290,10 @@ data:extend({
     },
     energy_usage = "100kW",
     ingredient_count = 3,
-    open_sound = { filename = "__base__/sound/machine-open.ogg", volume = 0.85 },
-    close_sound = { filename = "__base__/sound/machine-close.ogg", volume = 0.75 },
+    --~ open_sound = { filename = "__base__/sound/machine-open.ogg", volume = 0.85 },
+    --~ close_sound = { filename = "__base__/sound/machine-close.ogg", volume = 0.75 },
+    open_sound = sounds.open_sound,
+    close_sound = sounds.close_sound,
     working_sound = {
       sound = { { filename = "__Bio_Industries__/sound/BI_sawmill.ogg", volume = 0.6 } },
       apparent_volume = 1,
@@ -358,48 +305,58 @@ data:extend({
     allowed_effects = {"consumption", "speed", "productivity", "pollution"},
   },
 
-------- Bio Farm Lamp
---[[  {
-    type = "lamp",
-    name = "bi-bio-farm-light",
-    icon = ICONPATH .. "entity/Bio_Farm_Lamp.png",
-    icon_size = 64,
-    flags = {"not-deconstructable", "not-on-map", "placeable-off-grid", "not-repairable", "not-blueprintable"},
-    selectable_in_game = false,
-    max_health = 1,
-    collision_box = {{0, 0}, {0, 0}},
-    --collision_mask = {},
-    energy_source = {
-      type = "void",
-      render_no_network_icon = false,
-      render_no_power_icon = false,
-      usage_priority = "lamp"
-    },
-    energy_usage_per_tick = "100kW",
-    light = {intensity = 1, size = 45},
-    picture_off = {
-      filename = ICONPATH .. "empty.png",
-      priority = "low",
-      width = 1,
-      height = 1,
-      axially_symmetrical = false,
-      direction_count = 1,
-    },
-    picture_on = {
-      filename = ICONPATH .. "empty.png",
-      priority = "low",
-      width = 1,
-      height = 1,
-      axially_symmetrical = false,
-      direction_count = 1,
-    },
-  },]]--
+--~ ------- Bio Farm Lamp
+  --~ {
+    --~ type = "lamp",
+    --~ name = "bi-bio-farm-light",
+    --~ icon = ICONPATH .. "Bio_Farm_Lamp.png",
+    --~ icon_size = 64,
+    --~ icons = {
+      --~ {
+        --~ icon = ICONPATH .. "Bio_Farm_Lamp.png",
+        --~ icon_size = 64,
+      --~ }
+    --~ },
+    --~ flags = {"not-deconstructable", "not-on-map", "placeable-off-grid", "not-repairable", "not-blueprintable"},
+    --~ selectable_in_game = false,
+    --~ max_health = 1,
+    --~ collision_box = {{-0.0, -0.0}, {0.0, 0.0}},
+    --~ collision_mask = {},
+    --~ energy_source = {
+      --~ type = "void",
+      --~ render_no_network_icon = false,
+      --~ render_no_power_icon = false,
+      --~ usage_priority = "lamp"
+    --~ },
+    --~ energy_usage_per_tick = "100kW",
+    --~ light = {intensity = 1, size = 45},
+    --~ picture_off = {
+      --~ filename = ENTITYPATH .. "Bio_Farm_Idle.png",
+      --~ priority = "low",
+      --~ width = 1,
+      --~ height = 1,
+      --~ frame_count = 1,
+      --~ axially_symmetrical = false,
+      --~ direction_count = 1,
+      --~ shift = {0.75, 0},
+    --~ },
+    --~ picture_on = {
+      --~ filename = ENTITYPATH .. "Bio_Farm_Working.png",
+      --~ priority = "low",
+      --~ width = 1,
+      --~ height = 1,
+      --~ frame_count = 1,
+      --~ axially_symmetrical = false,
+      --~ direction_count = 1,
+      --~ shift = {0.75, 0},
+    --~ },
+  --~ },
 })
 
   ------- Bio Farm Hidden Electric Pole
   --~ {
     --~ type = "electric-pole",
-    --~ name = "bi-bio-farm-electric-pole",
+    --~ name = "bi-bio-farm-hidden-pole",
     --~ icon = ICONPATH .. "Bio_Farm_Cabeling.png",
     --~ icon_size = 64,
     --~ icons = {
@@ -452,78 +409,89 @@ data:extend({
       --~ priority = "low"
     --~ },
   --~ },
-local hidden_pole = table.deepcopy(data.raw["electric-pole"]["small-electric-pole"])
-BioInd.show("data.raw[\"electric-pole\"][\"small-electric-pole\"]", data.raw["electric-pole"]["small-electric-pole"])
-hidden_pole.name = "bi-bio-farm-electric-pole"
-hidden_pole.icon = BioInd.is_debug and hidden_pole.icon or ICONPATH .. "entity/Bio_Farm_Cabeling.png"
-hidden_pole.icon_size = BioInd.is_debug and hidden_pole.icon_size or 64
-hidden_pole.flags = {"not-deconstructable", "not-on-map", "placeable-off-grid", "not-repairable", "not-blueprintable"}
-hidden_pole.selectable_in_game = false
-hidden_pole.draw_copper_wires = BioInd.is_debug
-hidden_pole.max_health = 1
-hidden_pole.resistances = {{type = "fire", percent = 100}}
-hidden_pole.collision_box = {{0, 0}, {0, 0}}
-hidden_pole.collision_mask = {}
-hidden_pole.selection_box = {{0, 0}, {0, 0}}
-hidden_pole.maximum_wire_distance = 10
-hidden_pole.supply_area_distance = 5
-hidden_pole.pictures = BioInd.is_debug and hidden_pole.pictures or {
-  filename = ICONPATH .. "empty.png",
-  priority = "low",
-  width = 1,
-  height = 1,
-  frame_count = 1,
-  axially_symmetrical = false,
-  direction_count = 1,
-  shift = {0.75, 0},
-}
-hidden_pole.connection_points = BioInd.is_debug and hidden_pole.connection_points or {
-  {
-    shadow = {},
-    wire = {}
-  },
-}
-hidden_pole.radius_visualisation_picture = BioInd.is_debug and
-                                            hidden_pole.radius_visualisation_picture or {
-                                              filename = ICONPATH .. "empty.png",
-                                              width = 1,
-                                              height = 1,
-                                              priority = "low"
-                                            }
-hidden_pole.dying_explosion = nil
-hidden_pole.fast_replaceable_group = nil
-hidden_pole.minable = nil
-hidden_pole.open_sound = nil
-hidden_pole.vehicle_impact_sound = nil
-hidden_pole.water_reflection = nil
+--~ local hidden_pole = table.deepcopy(data.raw["electric-pole"]["small-electric-pole"])
+--~ BioInd.show("data.raw[\"electric-pole\"][\"small-electric-pole\"]", data.raw["electric-pole"]["small-electric-pole"])
+--~ hidden_pole.name = "bi-bio-farm-hidden-pole"
+--~ hidden_pole.icon = BioInd.is_debug and hidden_pole.icon or ICONPATH .. "Bio_Farm_Cabeling.png"
+--~ hidden_pole.icon_size = BioInd.is_debug and hidden_pole.icon_size or 64
+--~ hidden_pole.icons = BioInd.is_debug and hidden_pole.icons or {
+  --~ {
+    --~ icon = ICONPATH .. "Bio_Farm_Cabeling.png",
+    --~ icon_size = 64,
+  --~ }
+--~ }
+--~ hidden_pole.flags = {"not-deconstructable", "not-on-map", "placeable-off-grid", "not-repairable", "not-blueprintable"}
+--~ hidden_pole.selectable_in_game = false
+--~ hidden_pole.draw_copper_wires = BioInd.is_debug
+--~ hidden_pole.max_health = 1
+--~ hidden_pole.resistances = {{type = "fire", percent = 100}}
+--~ hidden_pole.collision_box = {{-0, -0}, {0, 0}}
+--~ hidden_pole.collision_mask = {}
+--~ hidden_pole.maximum_wire_distance = 10
+--~ hidden_pole.supply_area_distance = 5
+--~ hidden_pole.pictures = BioInd.is_debug and hidden_pole.pictures or {
+  --~ filename = ICONPATH .. "empty.png",
+  --~ priority = "low",
+  --~ width = 1,
+  --~ height = 1,
+  --~ frame_count = 1,
+  --~ axially_symmetrical = false,
+  --~ direction_count = 1,
+  --~ shift = {0.75, 0},
+--~ }
+--~ hidden_pole.connection_points = BioInd.is_debug and hidden_pole.connection_points or {
+  --~ {
+    --~ shadow = {},
+    --~ wire = {}
+  --~ },
+--~ }
+--~ hidden_pole.radius_visualisation_picture = BioInd.is_debug and
+                                            --~ hidden_pole.radius_visualisation_picture or {
+                                              --~ filename = ICONPATH .. "empty.png",
+                                              --~ width = 1,
+                                              --~ height = 1,
+                                              --~ priority = "low"
+                                            --~ }
+--~ hidden_pole.dying_explosion = nil
+--~ hidden_pole.fast_replaceable_group = nil
+--~ hidden_pole.minable = nil
+--~ hidden_pole.open_sound = nil
+--~ hidden_pole.vehicle_impact_sound = nil
+--~ hidden_pole.water_reflection = nil
 
-data:extend({hidden_pole})
+--~ data:extend({hidden_pole})
 
 data:extend({
-  ------- Bio Farm Solar Panel
-  {
-    type = "solar-panel",
-    name = "bi-bio-farm-solar-panel",
-    icon = ICONPATH .. "entity/Bio_Farm_Solar.png",
-    icon_size = 64,
-    flags = {"not-deconstructable", "not-on-map", "placeable-off-grid", "not-repairable", "not-blueprintable"},
-    selectable_in_game = false,
-    max_health = 1,
-    resistances = {{type = "fire", percent = 100}},
-    collision_box = {{-0, -0}, {0, 0}},
-    collision_mask = {},
-    energy_source = {
-      type = "electric",
-      usage_priority = "solar"
-    },
-    picture = {
-      filename = ICONPATH .. "empty.png",
-      priority = "low",
-      width = 1,
-      height = 1,
-    },
-    production = "100kW"
-  },
+  --~ ------- Bio Farm Solar Panel
+  --~ {
+    --~ type = "solar-panel",
+    --~ name = "bi-bio-farm-hidden-panel",
+    --~ icon = ICONPATH .. "Bio_Farm_Solar.png",
+    --~ icon_size = 64,
+    --~ icons = {
+      --~ {
+        --~ icon = ICONPATH .. "Bio_Farm_Solar.png",
+        --~ icon_size = 64,
+      --~ }
+    --~ },
+    --~ flags = {"not-deconstructable", "not-on-map", "placeable-off-grid", "not-repairable", "not-blueprintable"},
+    --~ selectable_in_game = false,
+    --~ max_health = 1,
+    --~ resistances = {{type = "fire", percent = 100}},
+    --~ collision_box = {{-0, -0}, {0, 0}},
+    --~ collision_mask = {},
+    --~ energy_source = {
+      --~ type = "electric",
+      --~ usage_priority = "solar"
+    --~ },
+    --~ picture = {
+      --~ filename = ICONPATH .. "empty.png",
+      --~ priority = "low",
+      --~ width = 1,
+      --~ height = 1,
+    --~ },
+    --~ production = "100kW"
+  --~ },
 
   ------ Greenhouse
   {
@@ -531,6 +499,13 @@ data:extend({
     name = "bi-bio-greenhouse",
     icon = ICONPATH .. "entity/bio_greenhouse.png",
     icon_size = 64,
+    BI_add_icon = true,
+    --~ icons = {
+      --~ {
+        --~ icon = ICONPATH .. "bio_greenhouse.png",
+        --~ icon_size = 64,
+      --~ }
+    --~ },
     flags = {"placeable-neutral", "placeable-player", "player-creation"},
     minable = {hardness = 0.2, mining_time = 0.25, result = "bi-bio-greenhouse"},
     collision_box = {{-1.2, -1.2}, {1.2, 1.2}},
@@ -544,7 +519,7 @@ data:extend({
       type = "electric",
       usage_priority = "primary-input",
       drain = "15kW",
-      emissions_per_minute = -6, -- the "-" means it Absorbs pollution.
+      emissions_per_minute = -6, -- Negative value means it absorbs pollution!
     },
     energy_usage = "50kW",
     ingredient_count = 3,
@@ -592,32 +567,7 @@ data:extend({
             shift = {0, -0.5},
           }
         },
-        {
-          filename = BioInd.modRoot .. "/graphics/entities/bio_greenhouse/bio_greenhouse_light_anim.png",
-          width = 96,
-          height = 128,
-          frame_count = 10,
-          line_length = 10,
-          repeat_count = 1,
-          animation_speed = 0.08,
-          scale = 1,
-          shift = {0, -0.5},
-          draw_as_glow = true,
-          blend_mode = multiplicative,
-          hr_version = {
-            filename = BioInd.modRoot .. "/graphics/entities/bio_greenhouse/hr_bio_greenhouse_light_anim.png",
-            width = 192,
-            height = 256,
-            frame_count = 10,
-            line_length = 10,
-            repeat_count = 1,
-            animation_speed = 0.08,
-            scale = 0.5,
-            shift = {0, -0.5},
-            draw_as_glow = true,
-            blend_mode = multiplicative,
-          }
-        },
+        
         {
           filename = BioInd.modRoot .. "/graphics/entities/bio_greenhouse/bio_greenhouse_shadow.png",
           width = 128,
@@ -644,58 +594,43 @@ data:extend({
         },
       },
     },
-    idle_animation = {
-      layers = {
-        {
-          filename = BioInd.modRoot .. "/graphics/entities/bio_greenhouse/bio_greenhouse.png",
-          width = 96,
-          height = 128,
-          frame_count = 1,
-          line_length = 1,
-          repeat_count = 10,
-          animation_speed = 0.05,
-          scale = 1,
-          shift = {0, -0.5},
-          hr_version = {
-            filename = BioInd.modRoot .. "/graphics/entities/bio_greenhouse/hr_bio_greenhouse.png",
-            width = 192,
-            height = 256,
-            frame_count = 1,
-            line_length = 1,
-            repeat_count = 10,
-            animation_speed = 0.05,
-            scale = 0.5,
-            shift = {0, -0.5},
-          }
-        },
-        {
-          filename = BioInd.modRoot .. "/graphics/entities/bio_greenhouse/bio_greenhouse_shadow.png",
-          width = 128,
-          height = 64,
-          frame_count = 1,
-          line_length = 1,
-          repeat_count = 10,
-          animation_speed = 0.05,
-          scale = 1,
-          shift = {0.5, 0.5},
-          draw_as_shadow = true,
-          hr_version = {
-            filename = BioInd.modRoot .. "/graphics/entities/bio_greenhouse/hr_bio_greenhouse_shadow.png",
-            width = 256,
-            height = 128,
-            frame_count = 1,
-            line_length = 1,
-            repeat_count = 10,
-            animation_speed = 0.05,
-            scale = 0.5,
-            shift = {0.5, 0.5},
-            draw_as_shadow = true,
-          }
+    working_visualisations = {
+      {
+        draw_as_light = true,
+        effect = "flicker",
+        apply_recipe_tint = "primary",
+        animation = {
+          layers = {
+            {
+              filename = BioInd.modRoot .. "/graphics/entities/bio_greenhouse/bio_greenhouse_light_anim.png",
+              width = 96,
+              height = 128,
+              frame_count = 10,
+              line_length = 10,
+              repeat_count = 1,
+              animation_speed = 0.08,
+              scale = 1,
+              shift = {0, -0.5},
+              hr_version = {
+                filename = BioInd.modRoot .. "/graphics/entities/bio_greenhouse/hr_bio_greenhouse_light_anim.png",
+                width = 192,
+                height = 256,
+                frame_count = 10,
+                line_length = 10,
+                repeat_count = 1,
+                animation_speed = 0.08,
+                scale = 0.5,
+                shift = {0, -0.5},
+              }
+            },
+          },
         },
       },
     },
-    open_sound = { filename = "__base__/sound/machine-open.ogg", volume = 0.85 },
-    close_sound = { filename = "__base__/sound/machine-close.ogg", volume = 0.75 },
+    --~ open_sound = { filename = "__base__/sound/machine-open.ogg", volume = 0.85 },
+    --~ close_sound = { filename = "__base__/sound/machine-close.ogg", volume = 0.75 },
+    open_sound = sounds.open_sound,
+    close_sound = sounds.close_sound,
     vehicle_impact_sound = sounds.generic_impact,
   },
 
@@ -705,6 +640,16 @@ data:extend({
     name = "bi-cokery",
     icon = ICONPATH .. "entity/cokery.png",
     icon_size = 64,
+    BI_add_icon = true,
+    --~ icons = {
+      --~ {
+        --~ icon = ICONPATH .. "cokery.png",
+        --~ icon_size = 64,
+      --~ }
+    --~ },
+    -- This is necessary for "Space Exploration" (if not true, the entity can only be
+    -- placed on Nauvis)!
+    se_allow_in_space = true,
     flags = {"placeable-neutral", "placeable-player", "player-creation"},
     order = "a[cokery]",
     minable = {hardness = 0.2, mining_time = 0.5, result = "bi-cokery"},
@@ -767,7 +712,6 @@ data:extend({
         },
       },
     },
-
     idle_animation = {
       layers = {
         {
@@ -829,16 +773,7 @@ data:extend({
     },
     energy_usage = "180kW",
     crafting_speed = 2,
-    ingredient_count = 1,
-    open_sound = { filename = "__base__/sound/machine-open.ogg", volume = 0.85 },
-    close_sound = { filename = "__base__/sound/machine-close.ogg", volume = 0.75 },
-    working_sound = {
-      sound = {
-        filename = "__base__/sound/electric-furnace.ogg",
-        volume = 0.9,
-      },
-      max_sounds_per_type = 3,
-    },
+    ingredient_count = 1
   },
 
   -- STONECRUSHER
@@ -847,6 +782,10 @@ data:extend({
     name = "bi-stone-crusher",
     icon = ICONPATH .. "entity/stone_crusher.png",
     icon_size = 64,
+    BI_add_icon = true,
+    -- This is necessary for "Space Exploration" (if not true, the entity can only be
+    -- placed on Nauvis)!
+    se_allow_in_space = true,
     flags = {"placeable-neutral", "player-creation"},
     minable = {hardness = 0.2, mining_time = 0.5, result = "bi-stone-crusher"},
     max_health = 100,
@@ -862,7 +801,6 @@ data:extend({
     },
     collision_box = {{-0.8, -0.8}, {0.8, 0.8}},
     selection_box = {{-1.0, -1.0}, {1.0, 1.0}},
-
     animation = {
       layers = {
         {
@@ -971,8 +909,6 @@ data:extend({
         },
       }
     },
-
-
     crafting_categories = {"biofarm-mod-crushing"},
     result_inventory_size = 1,
     source_inventory_size = 1,
@@ -1286,54 +1222,73 @@ data:extend({
     }
   },
 
-  ---     Arboretum
-  --- Radar Arboretum
-  {
-    type = "radar",
-    name = "bi-arboretum-radar",
-    localised_name = {"entity-name.bi-arboretum"},
-    localised_description = {"entity-description.bi-arboretum"},
-    icon = ICONPATH .. "entity/Arboretum_Icon.png",
-    icon_size = 64,
-    flags = {"placeable-player", "player-creation", "not-deconstructable"},
-    order = "y[bi]-a[bi-arboretum]",
-    minable = nil,
-    max_health = 250,
-    corpse = "big-remnants",
-    dying_explosion = "medium-explosion",
-    resistances = {
-      {
-        type = "fire",
-        percent = 70
-      }
-    },
+  --~ ---     Arboretum
+  --~ --- Radar Arboretum
+  --~ {
+    --~ type = "radar",
+    --~ name = "bi-arboretum-hidden-radar",
+    --~ localised_name = {"entity-name.bi-arboretum"},
+    --~ localised_description = {"entity-description.bi-arboretum"},
+    --~ icon = ICONPATH .. "Arboretum_Icon.png",
+    --~ icon_size = 64,
+    --~ icons = {
+      --~ {
+        --~ icon = ICONPATH .. "Arboretum_Icon.png",
+        --~ icon_size = 64,
+      --~ }
+    --~ },
+    --~ flags = {"placeable-player", "player-creation", "not-deconstructable"},
+    --~ order = "y[bi]-a[bi-arboretum]",
+    --~ minable = nil,
+    --~ max_health = 250,
+    --~ corpse = "big-remnants",
+    --~ dying_explosion = "medium-explosion",
+    --~ resistances = {
+      --~ {
+        --~ type = "fire",
+        --~ percent = 70
+      --~ }
+    --~ },
+    --~ collision_box = {{-0.70, -0.70}, {0.70, 0.70}},
+    --~ selection_box = {{-0.75, -0.75}, {0.75, 0.75}},
 
-    energy_per_sector = "2MJ",
-    max_distance_of_nearby_sector_revealed = 2,
-    max_distance_of_sector_revealed = 5,
-    energy_per_nearby_scan = "200kW",
-    energy_source = {
-      type = "electric",
-      usage_priority = "secondary-input",
-      emissions_per_minute = 0, -- the "-" means it Absorbs pollution.
-      render_no_network_icon = false,
-      render_no_power_icon = false,
-    },
-
-    energy_usage = "150kW",
-    pictures = {
-      layers = {
-        {
-          filename = "__core__/graphics/empty.png",
-          frame_count = 1,
-          width = 1,
-          height = 1,
-          priority = "high",
-          direction_count = 1,
-        },
-      }
-    },
-  },
+    --~ energy_per_sector = "2MJ",
+    --~ max_distance_of_nearby_sector_revealed = 2,
+    --~ max_distance_of_sector_revealed = 5,
+    --~ energy_per_nearby_scan = "200kW",
+    --~ energy_source = {
+      --~ type = "electric",
+      --~ usage_priority = "secondary-input",
+      --~ emissions_per_minute = 0,
+    --~ },
+    --~ energy_usage = "150kW",
+    --~ pictures = {
+      --~ layers = {
+        --~ {
+          --~ filename = "__base__/graphics/entity/radar/radar.png",
+          --~ priority = "extra-high",
+          --~ width = 98,
+          --~ height = 128,
+          --~ apply_projection = false,
+          --~ direction_count = 64,
+          --~ line_length = 8,
+          --~ shift = util.by_pixel(1, -16),
+          --~ scale = 0.5,
+          --~ hr_version = {
+            --~ filename = "__base__/graphics/entity/radar/hr-radar.png",
+            --~ priority = "extra-high",
+            --~ width = 196,
+            --~ height = 254,
+            --~ apply_projection = false,
+            --~ direction_count = 64,
+            --~ line_length = 8,
+            --~ shift = util.by_pixel(1, -16),
+            --~ scale = 0.25
+          --~ }
+        --~ },
+      --~ }
+    --~ },
+  --~ },
 
 
   ---- Arboretum Area Overlay
@@ -1344,9 +1299,18 @@ data:extend({
     localised_description = {"entity-description.bi-arboretum"},
     icon = ICONPATH .. "entity/Arboretum_Icon.png",
     icon_size = 64,
-    flags = {"not-deconstructable", "not-on-map", "not-repairable", "placeable-neutral", "placeable-player", "player-creation"},
-    open_sound = { filename = "__base__/sound/machine-open.ogg", volume = 0.85 },
-    close_sound = { filename = "__base__/sound/machine-close.ogg", volume = 0.75 },
+    BI_add_icon = true,
+    --~ icons = {
+      --~ {
+        --~ icon = ICONPATH .. "entity/Arboretum_Icon.png",
+        --~ icon_size = 64,
+      --~ }
+    --~ },
+    flags = {"not-deconstructable", "not-on-map", "placeable-off-grid", "not-repairable"},
+    --~ open_sound = { filename = "__base__/sound/machine-open.ogg", volume = 0.85 },
+    --~ close_sound = { filename = "__base__/sound/machine-close.ogg", volume = 0.75 },
+    open_sound = sounds.open_sound,
+    close_sound = sounds.close_sound,
     max_health = 250,
     corpse = "big-remnants",
     dying_explosion = "medium-explosion",
@@ -1365,7 +1329,6 @@ data:extend({
       action ={}
     },
     folding_speed = 0.08,
-
     folding_animation = {
       filename = "__core__/graphics/empty.png",
       frame_count = 1,
@@ -1377,7 +1340,7 @@ data:extend({
     folded_animation = {
       layers = {
         {
-          filename = ENTITYPATH .. "arboretum.png",
+          filename = ENTITYPATH .. "biofarm/arboretum.png",
           priority = "low",
           width = 280,
           height = 320,
@@ -1386,7 +1349,7 @@ data:extend({
           scale = 1,
           shift = {0, 0},
           hr_version ={
-            filename = ENTITYPATH .. "hr_arboretum.png",
+            filename = ENTITYPATH .. "biofarm/hr_arboretum.png",
             priority = "low",
             width = 560,
             height = 640,
@@ -1397,7 +1360,7 @@ data:extend({
           }
         },
         {
-          filename = ENTITYPATH .. "arboretum_shadow.png",
+          filename = ENTITYPATH .. "biofarm/arboretum_shadow.png",
           priority = "low",
           width = 280,
           height = 320,
@@ -1407,7 +1370,7 @@ data:extend({
           shift = {2, 0},
           draw_as_shadow = true,
           hr_version ={
-            filename = ENTITYPATH .. "hr_arboretum_shadow.png",
+            filename = ENTITYPATH .. "biofarm/hr_arboretum_shadow.png",
             priority = "low",
             width = 560,
             height = 640,
@@ -1415,7 +1378,7 @@ data:extend({
             direction_count = 1,
             scale = 0.5,
             shift = {2, 0},
-            draw_as_shadow = true,            
+            draw_as_shadow = true,
           }
         },
       }
@@ -1430,8 +1393,15 @@ data:extend({
     name = "bi-arboretum",
     icon = ICONPATH .. "entity/Arboretum_Icon.png",
     icon_size = 64,
+    BI_add_icon = true,
+    --~ icons = {
+      --~ {
+        --~ icon = ICONPATH .. "entity/Arboretum_Icon.png",
+        --~ icon_size = 64,
+      --~ }
+    --~ },
     flags = {"placeable-neutral", "placeable-player", "player-creation"},
-    placeable_by = {item = "bi-arboretum-area", count = 1}, -- Fixes that entity couldn't be blueprinted
+    placeable_by = {item ="bi-arboretum-area", count = 1}, -- Fixes that entity couldn't be blueprinted
     minable = {hardness = 0.2, mining_time = 0.5, result = "bi-arboretum-area"},
     max_health = 250,
     corpse = "big-remnants",
@@ -1462,7 +1432,7 @@ data:extend({
     animation = {
       layers = {
         {
-          filename = ENTITYPATH .. "arboretum.png",
+          filename = ENTITYPATH .. "biofarm/arboretum.png",
           priority = "low",
           width = 280,
           height = 320,
@@ -1470,7 +1440,7 @@ data:extend({
           scale = 1,
           shift = {0, 0},
           hr_version ={
-            filename = ENTITYPATH .. "hr_arboretum.png",
+            filename = ENTITYPATH .. "biofarm/hr_arboretum.png",
             priority = "low",
             width = 560,
             height = 640,
@@ -1480,7 +1450,7 @@ data:extend({
           }
         },
         {
-          filename = ENTITYPATH .. "arboretum_shadow.png",
+          filename = ENTITYPATH .. "biofarm/arboretum_shadow.png",
           priority = "low",
           width = 280,
           height = 320,
@@ -1489,19 +1459,43 @@ data:extend({
           shift = {2, 0},
           draw_as_shadow = true,
           hr_version ={
-            filename = ENTITYPATH .. "hr_arboretum_shadow.png",
+            filename = ENTITYPATH .. "biofarm/hr_arboretum_shadow.png",
             priority = "low",
             width = 560,
             height = 640,
             frame_count = 1,
             scale = 0.5,
             shift = {2, 0},
-            draw_as_shadow = true,            
+            draw_as_shadow = true,
           }
         },
       }
     },
-
+    working_visualisations = {
+      {
+        draw_as_light = true,
+        effect = "flicker",
+        apply_recipe_tint = "primary",
+        animation = {
+          layers = {
+            {
+              filename = ENTITYPATH .. "biofarm/arboretum_light.png",
+              width = 280,
+              height = 320,
+              scale = 1,
+              shift = {0, 0},
+              hr_version = {
+                filename = ENTITYPATH .. "biofarm/hr_arboretum_light.png",
+                width = 560,
+                height = 640,
+                scale = 0.5,
+                shift = {0, 0},
+              }
+            },
+          },
+        },
+      },
+    },
     crafting_categories = {"bi-arboretum"},
     crafting_speed = 0.000000000001,
     energy_source = {
@@ -1511,19 +1505,19 @@ data:extend({
     },
     energy_usage = "150kW",
     ingredient_count = 3,
-    open_sound = { filename = "__base__/sound/machine-open.ogg", volume = 0.85 },
-    close_sound = { filename = "__base__/sound/machine-close.ogg", volume = 0.75 },
+    --~ open_sound = { filename = "__base__/sound/machine-open.ogg", volume = 0.85 },
+    --~ close_sound = { filename = "__base__/sound/machine-close.ogg", volume = 0.75 },
+    open_sound = sounds.open_sound,
+    close_sound = sounds.close_sound,
     vehicle_impact_sound = sounds.generic_impact,
     module_specification = {},
   },
 })
 
-local my_pole_1 = util.table.deepcopy(data.raw["electric-pole"]["bi-bio-farm-electric-pole"])
-my_pole_1.name = "bi-hidden-power-pole"
---~ my_pole_1.draw_copper_wires = false
---~ my_pole_1.draw_copper_wires = BioInd.is_debug
+--~ local my_pole_1 = util.table.deepcopy(data.raw["electric-pole"]["bi-bio-farm-hidden-pole"])
+--~ my_pole_1.name = "bi-hidden-power-pole"
 --~ my_pole_1.pictures = BioInd.is_debug and data.raw["electric-pole"]["small-electric-pole"].pictures  or my_pole_1.pictures
-data:extend({my_pole_1})
+--~ data:extend({my_pole_1})
 
 --[[
 local my_seedling = util.table.deepcopy(data.raw.tree["tree-01"])

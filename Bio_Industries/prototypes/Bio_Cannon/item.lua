@@ -12,6 +12,14 @@ if BI.Settings.Bio_Cannon then
       localised_description = {"entity-description.bi-bio-cannon"},
       icon = ICONPATH .. "entity/biocannon_icon.png",
       icon_size = 64,
+      --~ icon_mipmaps = 1,
+      BI_add_icon = true,
+      --~ icons = {
+        --~ {
+          --~ icon = ICONPATH .. "entity/biocannon_icon.png",
+          --~ icon_size = 64,
+        --~ }
+      --~ },
       subgroup = "defensive-structure",
       order = "x[turret]-x[gun-turret]",
       place_result = "bi-bio-cannon-area",

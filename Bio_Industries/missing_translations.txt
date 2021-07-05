@@ -1,0 +1,229 @@
+  11.655 Script @__Bio_Industries__/common.lua:210: Added "icons" property to data.raw["item"]["fertilizer"]: {{icon = "__Bio_Industries__/graphics/icons/fertilizer.png", icon_size = 64}}
+  11.659 Script @__Bio_Industries__/common.lua:210: se-delivery-cannon-chest (se-delivery-cannon-chest) can be built in space!
+  11.659 Script @__Bio_Industries__/common.lua:210: bi-stone-crusher (bi-stone-crusher) can be built in space!
+  11.659 Script @__Bio_Industries__/common.lua:210: bi-solar-boiler (bi-solar-boiler) can be built in space!
+  11.659 Script @__Bio_Industries__/common.lua:210: bi-bio-boiler (bi-bio-boiler) can be built in space!
+  11.659 Script @__Bio_Industries__/common.lua:210: se-energy-transmitter-chamber (se-energy-transmitter-chamber) can be built in space!
+  11.659 Script @__Bio_Industries__/common.lua:210: bi-large-substation (bi-large-substation) can be built in space!
+  11.659 Script @__Bio_Industries__/common.lua:210: bi-cokery (bi-cokery) can be built in space!
+  11.659 Script @__Bio_Industries__/common.lua:210: se-lifesupport-facility (se-lifesupport-facility) can be built in space!
+  11.660 Script @__Bio_Industries__/common.lua:210: se-fuel-refinery (se-fuel-refinery) can be built in space!
+  11.660 Script @__Bio_Industries__/common.lua:210: se-delivery-cannon (se-delivery-cannon) can be built in space!
+  11.660 Script @__Bio_Industries__/common.lua:210: se-delivery-cannon-weapon (se-delivery-cannon-weapon) can be built in space!
+  11.660 Script @__Bio_Industries__/common.lua:210: se-electric-boiler (se-electric-boiler) can be built in space!
+  11.660 Script @__Bio_Industries__/common.lua:210: se-energy-transmitter-emitter (se-energy-transmitter-emitter) can be built in space!
+  11.660 Script @__Bio_Industries__/common.lua:210: se-energy-transmitter-injector (se-energy-transmitter-injector) can be built in space!
+  11.660 Script @__Bio_Industries__/common.lua:210: se-nexus (se-nexus) can be built in space!
+  11.660 Script @__Bio_Industries__/common.lua:210: bi-bio-solar-farm (bi-bio-solar-farm) can be built in space!
+  11.660 Script @__Bio_Industries__/common.lua:210: bi-bio-accumulator (bi-bio-accumulator) can be built in space!
+  11.660 Script @__Bio_Industries__/common.lua:210: se-space-probe-rocket-silo (se-space-probe-rocket-silo) can be built in space!
+  11.660 Script @__Bio_Industries__/common.lua:210: se-condenser-turbine-tank (se-condenser-turbine-tank) can be built in space!
+  11.660 Script @__Bio_Industries__/common.lua:210: se-big-turbine-tank (se-big-turbine-tank) can be built in space!
+  11.660 Script @__Bio_Industries__/common.lua:210: se-wide-beacon (se-wide-beacon) can be built in space!
+  11.660 Script @__Bio_Industries__/common.lua:210: se-wide-beacon-2 (se-wide-beacon-2) can be built in space!
+  11.660 Script @__Bio_Industries__/common.lua:210: se-energy-transmitter-injector-reactor (se-energy-transmitter-injector-reactor) can be built in space!
+  11.660 Script @__Bio_Industries__/common.lua:210: se-linked-container (se-linked-container) can be built in space!
+  11.660 Script @__Bio_Industries__/common.lua:210: se-spaceship-clamp-place (se-spaceship-clamp-place) can be built in space!
+  12.008 Loading mod space-exploration 0.5.33 (data-final-fixes.lua)
+  12.095 Script @__space-exploration__/data_util.lua:1029: rocket-silo space-exploration.collision_mask_spaceship
+  12.095 Script @__space-exploration__/data_util.lua:1029: se-rocket-launch-pad-silo space-exploration.collision_mask_spaceship
+  12.095 Script @__space-exploration__/data_util.lua:1029: se-space-probe-rocket-silo space-exploration.collision_mask_land
+  12.095 Script @__space-exploration__/data_util.lua:1029: beacon space-exploration.collision_mask_space_platform
+  12.095 Script @__space-exploration__/data_util.lua:1029: creative-mod_super-beacon space-exploration.collision_mask_space_platform
+  12.095 Script @__space-exploration__/data_util.lua:1029: assembling-machine-1 space-exploration.collision_mask_space_platform
+  12.095 Script @__space-exploration__/data_util.lua:1029: assembling-machine-2 space-exploration.collision_mask_space_platform
+  12.095 Script @__space-exploration__/data_util.lua:1029: assembling-machine-3 space-exploration.collision_mask_space_platform
+  12.095 Script @__space-exploration__/data_util.lua:1029: oil-refinery space-exploration.collision_mask_space_platform
+  12.095 Script @__space-exploration__/data_util.lua:1029: chemical-plant space-exploration.collision_mask_space_platform
+  12.095 Script @__space-exploration__/data_util.lua:1029: centrifuge space-exploration.collision_mask_space_platform
+  12.095 Script @__space-exploration__/data_util.lua:1029: burner-assembling-machine space-exploration.collision_mask_space_platform
+  12.095 Script @__space-exploration__/data_util.lua:1029: fuel-processor space-exploration.collision_mask_space_platform
+  12.095 Script @__space-exploration__/data_util.lua:1029: industrial-furnace space-exploration.collision_mask_space_platform
+  12.095 Script @__space-exploration__/data_util.lua:1029: creative-mod_fluid-source space-exploration.collision_mask_space_platform
+  12.095 Script @__space-exploration__/data_util.lua:1029: creative-mod_energy-void space-exploration.collision_mask_space_platform
+  12.095 Script @__space-exploration__/data_util.lua:1029: bi-bio-farm space-exploration.collision_mask_space_platform
+  12.095 Script @__space-exploration__/data_util.lua:1029: bi-bio-greenhouse space-exploration.collision_mask_space_platform
+  12.095 Script @__space-exploration__/data_util.lua:1029: bi-arboretum space-exploration.collision_mask_space_platform
+  12.095 Script @__space-exploration__/data_util.lua:1029: bi-bio-garden space-exploration.collision_mask_space_platform
+  12.095 Script @__space-exploration__/data_util.lua:1029: bi-bio-garden-large space-exploration.collision_mask_space_platform
+  12.095 Script @__space-exploration__/data_util.lua:1029: bi-bio-garden-huge space-exploration.collision_mask_space_platform
+  12.095 Script @__space-exploration__/data_util.lua:1029: bi-bio-reactor space-exploration.collision_mask_space_platform
+  12.095 Script @__space-exploration__/data_util.lua:1029: se-space-astrometrics-laboratory space-exploration.collision_mask_land
+  12.095 Script @__space-exploration__/data_util.lua:1029: se-space-gravimetrics-laboratory space-exploration.collision_mask_land
+  12.095 Script @__space-exploration__/data_util.lua:1029: se-core-miner space-exploration.collision_mask_space_platform
+  12.095 Script @__space-exploration__/data_util.lua:1029: se-space-decontamination-facility space-exploration.collision_mask_land
+  12.097 Script @__space-exploration__/data_util.lua:1029: se-space-genetics-laboratory space-exploration.collision_mask_land
+  12.097 Script @__space-exploration__/data_util.lua:1029: se-space-growth-facility space-exploration.collision_mask_land
+  12.097 Script @__space-exploration__/data_util.lua:1029: se-space-laser-laboratory space-exploration.collision_mask_land
+  12.097 Script @__space-exploration__/data_util.lua:1029: se-space-radiation-laboratory space-exploration.collision_mask_land
+  12.098 Script @__space-exploration__/data_util.lua:1029: se-space-thermodynamics-laboratory space-exploration.collision_mask_land
+  12.098 Script @__space-exploration__/data_util.lua:1029: se-space-mechanical-laboratory space-exploration.collision_mask_land
+  12.099 Script @__space-exploration__/data_util.lua:1029: se-pulveriser space-exploration.collision_mask_space_platform
+  12.099 Script @__space-exploration__/data_util.lua:1029: se-space-particle-accelerator space-exploration.collision_mask_land
+  12.099 Script @__space-exploration__/data_util.lua:1029: se-space-particle-collider space-exploration.collision_mask_land
+  12.099 Script @__space-exploration__/data_util.lua:1029: se-space-material-fabricator space-exploration.collision_mask_land
+  12.099 Script @__space-exploration__/data_util.lua:1029: se-space-biochemical-laboratory space-exploration.collision_mask_land
+  12.100 Script @__space-exploration__/data_util.lua:1029: se-space-electromagnetics-laboratory space-exploration.collision_mask_land
+  12.100 Script @__space-exploration__/data_util.lua:1029: se-space-hypercooler space-exploration.collision_mask_land
+  12.101 Script @__space-exploration__/data_util.lua:1029: se-space-assembling-machine space-exploration.collision_mask_land
+  12.102 Script @__space-exploration__/data_util.lua:1029: se-space-manufactory space-exploration.collision_mask_land
+  12.103 Script @__space-exploration__/data_util.lua:1029: se-space-plasma-generator space-exploration.collision_mask_land
+  12.103 Script @__space-exploration__/data_util.lua:1029: se-space-radiator space-exploration.collision_mask_land
+  12.103 Script @__space-exploration__/data_util.lua:1029: se-space-radiator-2 space-exploration.collision_mask_land
+  12.103 Script @__space-exploration__/data_util.lua:1029: se-space-supercomputer-1 space-exploration.collision_mask_land
+  12.104 Script @__space-exploration__/data_util.lua:1029: se-space-supercomputer-2 space-exploration.collision_mask_land
+  12.104 Script @__space-exploration__/data_util.lua:1029: se-space-supercomputer-3 space-exploration.collision_mask_land
+  12.104 Script @__space-exploration__/data_util.lua:1029: se-space-supercomputer-4 space-exploration.collision_mask_land
+  12.105 Script @__space-exploration__/data_util.lua:1029: se-space-telescope space-exploration.collision_mask_land
+  12.105 Script @__space-exploration__/data_util.lua:1029: se-space-telescope-xray space-exploration.collision_mask_land
+  12.105 Script @__space-exploration__/data_util.lua:1029: se-space-telescope-gammaray space-exploration.collision_mask_land
+  12.105 Script @__space-exploration__/data_util.lua:1029: se-space-telescope-microwave space-exploration.collision_mask_land
+  12.105 Script @__space-exploration__/data_util.lua:1029: se-space-telescope-radio space-exploration.collision_mask_land
+  12.105 Script @__space-exploration__/data_util.lua:1029: se-delivery-cannon space-exploration.collision_mask_spaceship
+  12.105 Script @__space-exploration__/data_util.lua:1029: se-delivery-cannon-weapon space-exploration.collision_mask_spaceship
+  12.105 Script @__space-exploration__/data_util.lua:1029: se-energy-transmitter-emitter space-exploration.collision_mask_spaceship
+  12.105 Script @__space-exploration__/data_util.lua:1029: se-energy-transmitter-injector space-exploration.collision_mask_spaceship
+  12.105 Script @__space-exploration__/data_util.lua:1029: se-nexus space-exploration.collision_mask_land
+  12.105 Script @__space-exploration__/data_util.lua:1029: se-space-decontamination-facility-grounded space-exploration.collision_mask_land
+  12.105 Script @__space-exploration__/data_util.lua:1029: se-space-laser-laboratory-grounded space-exploration.collision_mask_land
+  12.105 Script @__space-exploration__/data_util.lua:1029: se-space-radiation-laboratory-grounded space-exploration.collision_mask_land
+  12.105 Script @__space-exploration__/data_util.lua:1029: se-space-thermodynamics-laboratory-grounded space-exploration.collision_mask_land
+  12.105 Script @__space-exploration__/data_util.lua:1029: se-space-mechanical-laboratory-grounded space-exploration.collision_mask_land
+  12.105 Script @__space-exploration__/data_util.lua:1029: se-space-particle-accelerator-grounded space-exploration.collision_mask_land
+  12.105 Script @__space-exploration__/data_util.lua:1029: se-space-biochemical-laboratory-grounded space-exploration.collision_mask_land
+  12.105 Script @__space-exploration__/data_util.lua:1029: se-space-hypercooler-grounded space-exploration.collision_mask_land
+  12.105 Script @__space-exploration__/data_util.lua:1029: se-space-assembling-machine-grounded space-exploration.collision_mask_land
+  12.105 Script @__space-exploration__/data_util.lua:1029: se-space-manufactory-grounded space-exploration.collision_mask_land
+  12.105 Script @__space-exploration__/data_util.lua:1029: se-space-radiator-grounded space-exploration.collision_mask_land
+  12.105 Script @__space-exploration__/data_util.lua:1029: se-space-radiator-2-grounded space-exploration.collision_mask_land
+  12.105 Script @__space-exploration__/data_util.lua:1029: se-space-supercomputer-1-grounded space-exploration.collision_mask_land
+  12.105 Script @__space-exploration__/data_util.lua:1029: se-space-supercomputer-2-grounded space-exploration.collision_mask_land
+  12.105 Script @__space-exploration__/data_util.lua:1029: se-space-supercomputer-3-grounded space-exploration.collision_mask_land
+  12.105 Script @__space-exploration__/data_util.lua:1029: se-space-supercomputer-4-grounded space-exploration.collision_mask_land
+  12.105 Script @__space-exploration__/data_util.lua:1029: stone-furnace space-exploration.collision_mask_space_platform
+  12.105 Script @__space-exploration__/data_util.lua:1029: electric-furnace space-exploration.collision_mask_space_platform
+  12.105 Script @__space-exploration__/data_util.lua:1029: steel-furnace space-exploration.collision_mask_space_platform
+  12.105 Script @__space-exploration__/data_util.lua:1029: se-spaceship-rocket-engine space-exploration.collision_mask_land
+  12.105 Script @__space-exploration__/data_util.lua:1029: se-spaceship-antimatter-engine space-exploration.collision_mask_land
+  12.105 Script @__space-exploration__/data_util.lua:1029: biter-spawner space-exploration.collision_mask_space_platform
+  12.105 Script @__space-exploration__/data_util.lua:1029: spitter-spawner space-exploration.collision_mask_space_platform
+  12.105 Script @__space-exploration__/data_util.lua:1029: creative-mod_enemy-object_biter-spawner space-exploration.collision_mask_space_platform
+  12.106 Script @__space-exploration__/data_util.lua:1029: creative-mod_enemy-object_spitter-spawner space-exploration.collision_mask_space_platform
+  12.106 Script @__space-exploration__/data_util.lua:1029: lab space-exploration.collision_mask_space_platform
+  12.106 Script @__space-exploration__/data_util.lua:1029: burner-lab space-exploration.collision_mask_space_platform
+  12.106 Script @__space-exploration__/data_util.lua:1029: creative-mod_creative-lab space-exploration.collision_mask_space_platform
+  12.106 Script @__space-exploration__/data_util.lua:1029: creative-mod_void-lab space-exploration.collision_mask_space_platform
+  12.106 Script @__space-exploration__/data_util.lua:1029: se-space-science-lab space-exploration.collision_mask_land
+  12.106 Script @__space-exploration__/data_util.lua:1029: market space-exploration.collision_mask_space_platform
+  12.106 Script @__space-exploration__/data_util.lua:1029: offshore-pump space-exploration.collision_mask_space_platform
+  12.106 Script @__space-exploration__/data_util.lua:1029: pipe space-exploration.collision_mask_space_platform
+  12.106 Script @__space-exploration__/data_util.lua:1029: bi-wood-pipe space-exploration.collision_mask_space_platform
+  12.106 Script @__space-exploration__/data_util.lua:1029: pipe-to-ground space-exploration.collision_mask_space_platform
+  12.106 Script @__space-exploration__/data_util.lua:1029: bi-wood-pipe-to-ground space-exploration.collision_mask_space_platform
+  12.106 Script @__space-exploration__/data_util.lua:1029: curved-rail space-exploration.collision_mask_space_platform
+  12.106 Script @__space-exploration__/data_util.lua:1029: bi-curved-rail-wood space-exploration.collision_mask_space_platform
+  12.106 Script @__space-exploration__/data_util.lua:1029: bi-curved-rail-wood-bridge space-exploration.collision_mask_space_platform
+  12.106 Script @__space-exploration__/data_util.lua:1029: bi-curved-rail-power space-exploration.collision_mask_space_platform
+  12.106 Script @__space-exploration__/data_util.lua:1029: straight-rail space-exploration.collision_mask_space_platform
+  12.106 Script @__space-exploration__/data_util.lua:1029: bi-straight-rail-wood space-exploration.collision_mask_space_platform
+  12.106 Script @__space-exploration__/data_util.lua:1029: bi-straight-rail-wood-bridge space-exploration.collision_mask_space_platform
+  12.106 Script @__space-exploration__/data_util.lua:1029: bi-straight-rail-power space-exploration.collision_mask_space_platform
+  12.106 Script @__space-exploration__/data_util.lua:1029: creative-mod_fluid-void space-exploration.collision_mask_space_platform
+  12.106 Script @__space-exploration__/data_util.lua:1029: creative-mod_super-boiler space-exploration.collision_mask_space_platform
+  12.106 Script @__space-exploration__/data_util.lua:1029: creative-mod_super-cooler space-exploration.collision_mask_space_platform
+  12.106 Script @__space-exploration__/data_util.lua:1029: creative-mod_configurable-super-boiler space-exploration.collision_mask_space_platform
+  12.106 Script @__space-exploration__/data_util.lua:1029: se-spaceship-rocket-booster-tank space-exploration.collision_mask_land
+  12.106 Script @__space-exploration__/data_util.lua:1029: se-spaceship-antimatter-booster-tank space-exploration.collision_mask_land
+  12.106 Script @__space-exploration__/data_util.lua:1029: splitter space-exploration.collision_mask_space_platform
+  12.106 Script @__space-exploration__/data_util.lua:1029: fast-splitter space-exploration.collision_mask_space_platform
+  12.106 Script @__space-exploration__/data_util.lua:1029: express-splitter space-exploration.collision_mask_space_platform
+  12.106 Script @__space-exploration__/data_util.lua:1029: transport-belt space-exploration.collision_mask_space_platform
+  12.106 Script @__space-exploration__/data_util.lua:1029: fast-transport-belt space-exploration.collision_mask_space_platform
+  12.106 Script @__space-exploration__/data_util.lua:1029: express-transport-belt space-exploration.collision_mask_space_platform
+  12.106 Script @__space-exploration__/data_util.lua:1029: underground-belt space-exploration.collision_mask_space_platform
+  12.106 Script @__space-exploration__/data_util.lua:1029: fast-underground-belt space-exploration.collision_mask_space_platform
+  12.106 Script @__space-exploration__/data_util.lua:1029: express-underground-belt space-exploration.collision_mask_space_platform
+  12.108 Script @__space-exploration__/data_util.lua:1029: small-worm-turret space-exploration.collision_mask_space_platform
+  12.108 Script @__space-exploration__/data_util.lua:1029: medium-worm-turret space-exploration.collision_mask_space_platform
+  12.108 Script @__space-exploration__/data_util.lua:1029: big-worm-turret space-exploration.collision_mask_space_platform
+  12.108 Script @__space-exploration__/data_util.lua:1029: behemoth-worm-turret space-exploration.collision_mask_space_platform
+  12.108 Script @__space-exploration__/data_util.lua:1029: creative-mod_enemy-object_small-worm-turret space-exploration.collision_mask_space_platform
+  12.108 Script @__space-exploration__/data_util.lua:1029: creative-mod_enemy-object_medium-worm-turret space-exploration.collision_mask_space_platform
+  12.108 Script @__space-exploration__/data_util.lua:1029: creative-mod_enemy-object_big-worm-turret space-exploration.collision_mask_space_platform
+  12.108 Script @__space-exploration__/data_util.lua:1029: creative-mod_enemy-object_behemoth-worm-turret space-exploration.collision_mask_space_platform
+  12.108 Script @__space-exploration__/data_util.lua:1029: flamethrower-turret space-exploration.collision_mask_space_platform
+  12.108 Script @__space-exploration__/data_util.lua:1029: se-spaceship-console space-exploration.collision_mask_land
+  12.116 Script @__space-exploration__/prototypes/phase-3/resources.lua:25: Resource has control: iron-ore: iron-ore
+  12.117 Script @__space-exploration__/prototypes/phase-3/resources.lua:43: Resource can place: iron-ore
+  12.118 Script @__space-exploration__/prototypes/phase-3/resources.lua:25: Resource has control: copper-ore: copper-ore
+  12.118 Script @__space-exploration__/prototypes/phase-3/resources.lua:43: Resource can place: copper-ore
+  12.119 Script @__space-exploration__/prototypes/phase-3/resources.lua:25: Resource has control: coal: coal
+  12.119 Script @__space-exploration__/prototypes/phase-3/resources.lua:43: Resource can place: coal
+  12.121 Script @__space-exploration__/prototypes/phase-3/resources.lua:25: Resource has control: stone: stone
+  12.121 Script @__space-exploration__/prototypes/phase-3/resources.lua:43: Resource can place: stone
+  12.123 Script @__space-exploration__/prototypes/phase-3/resources.lua:25: Resource has control: uranium-ore: uranium-ore
+  12.123 Script @__space-exploration__/prototypes/phase-3/resources.lua:43: Resource can place: uranium-ore
+  12.124 Script @__space-exploration__/prototypes/phase-3/resources.lua:25: Resource has control: crude-oil: crude-oil
+  12.124 Script @__space-exploration__/prototypes/phase-3/resources.lua:43: Resource can place: crude-oil
+  12.125 Script @__space-exploration__/prototypes/phase-3/resources.lua:25: Resource has control: se-water-ice: se-water-ice
+  12.126 Script @__space-exploration__/prototypes/phase-3/resources.lua:43: Resource can place: se-water-ice
+  12.127 Script @__space-exploration__/prototypes/phase-3/resources.lua:25: Resource has control: se-methane-ice: se-methane-ice
+  12.127 Script @__space-exploration__/prototypes/phase-3/resources.lua:43: Resource can place: se-methane-ice
+  12.129 Script @__space-exploration__/prototypes/phase-3/resources.lua:25: Resource has control: se-beryllium-ore: se-beryllium-ice
+  12.129 Script @__space-exploration__/prototypes/phase-3/resources.lua:43: Resource can place: se-beryllium-ore
+  12.130 Script @__space-exploration__/prototypes/phase-3/resources.lua:25: Resource has control: se-cryonite: se-cryonite
+  12.130 Script @__space-exploration__/prototypes/phase-3/resources.lua:43: Resource can place: se-cryonite
+  12.131 Script @__space-exploration__/prototypes/phase-3/resources.lua:25: Resource has control: se-holmium-ore: se-holmium-ore
+  12.132 Script @__space-exploration__/prototypes/phase-3/resources.lua:43: Resource can place: se-holmium-ore
+  12.133 Script @__space-exploration__/prototypes/phase-3/resources.lua:25: Resource has control: se-iridium-ore: se-iridium-ore
+  12.133 Script @__space-exploration__/prototypes/phase-3/resources.lua:43: Resource can place: se-iridium-ore
+  12.135 Script @__space-exploration__/prototypes/phase-3/resources.lua:25: Resource has control: se-naquium-ore: se-naquium-ore
+  12.135 Script @__space-exploration__/prototypes/phase-3/resources.lua:43: Resource can place: se-naquium-ore
+  12.136 Script @__space-exploration__/prototypes/phase-3/resources.lua:25: Resource has control: se-vulcanite: se-vulcanite
+  12.136 Script @__space-exploration__/prototypes/phase-3/resources.lua:43: Resource can place: se-vulcanite
+  12.138 Script @__space-exploration__/prototypes/phase-3/resources.lua:25: Resource has control: se-vitamelange: se-vitamelange
+  12.138 Script @__space-exploration__/prototypes/phase-3/resources.lua:43: Resource can place: se-vitamelange
+  12.139 Script @__space-exploration__/prototypes/phase-3/resources.lua:16: Resource detected as infinite: creative-mod_infinite-iron-ore
+  12.139 Script @__space-exploration__/prototypes/phase-3/resources.lua:22: Resource has no control: creative-mod_infinite-iron-ore
+  12.139 Script @__space-exploration__/prototypes/phase-3/resources.lua:41: Resource cannot place: creative-mod_infinite-iron-ore
+  12.139 Script @__space-exploration__/prototypes/phase-3/resources.lua:16: Resource detected as infinite: creative-mod_infinite-copper-ore
+  12.139 Script @__space-exploration__/prototypes/phase-3/resources.lua:22: Resource has no control: creative-mod_infinite-copper-ore
+  12.139 Script @__space-exploration__/prototypes/phase-3/resources.lua:41: Resource cannot place: creative-mod_infinite-copper-ore
+  12.139 Script @__space-exploration__/prototypes/phase-3/resources.lua:16: Resource detected as infinite: creative-mod_infinite-coal
+  12.139 Script @__space-exploration__/prototypes/phase-3/resources.lua:22: Resource has no control: creative-mod_infinite-coal
+  12.139 Script @__space-exploration__/prototypes/phase-3/resources.lua:41: Resource cannot place: creative-mod_infinite-coal
+  12.139 Script @__space-exploration__/prototypes/phase-3/resources.lua:16: Resource detected as infinite: creative-mod_infinite-stone
+  12.139 Script @__space-exploration__/prototypes/phase-3/resources.lua:22: Resource has no control: creative-mod_infinite-stone
+  12.139 Script @__space-exploration__/prototypes/phase-3/resources.lua:41: Resource cannot place: creative-mod_infinite-stone
+  12.139 Script @__space-exploration__/prototypes/phase-3/resources.lua:16: Resource detected as infinite: creative-mod_infinite-uranium-ore
+  12.139 Script @__space-exploration__/prototypes/phase-3/resources.lua:22: Resource has no control: creative-mod_infinite-uranium-ore
+  12.139 Script @__space-exploration__/prototypes/phase-3/resources.lua:41: Resource cannot place: creative-mod_infinite-uranium-ore
+  12.139 Script @__space-exploration__/prototypes/phase-3/resources.lua:16: Resource detected as infinite: creative-mod_infinite-se-water-ice
+  12.139 Script @__space-exploration__/prototypes/phase-3/resources.lua:22: Resource has no control: creative-mod_infinite-se-water-ice
+  12.139 Script @__space-exploration__/prototypes/phase-3/resources.lua:41: Resource cannot place: creative-mod_infinite-se-water-ice
+  12.139 Script @__space-exploration__/prototypes/phase-3/resources.lua:16: Resource detected as infinite: creative-mod_infinite-se-methane-ice
+  12.139 Script @__space-exploration__/prototypes/phase-3/resources.lua:22: Resource has no control: creative-mod_infinite-se-methane-ice
+  12.139 Script @__space-exploration__/prototypes/phase-3/resources.lua:41: Resource cannot place: creative-mod_infinite-se-methane-ice
+  12.139 Script @__space-exploration__/prototypes/phase-3/resources.lua:16: Resource detected as infinite: creative-mod_infinite-se-beryllium-ore
+  12.139 Script @__space-exploration__/prototypes/phase-3/resources.lua:22: Resource has no control: creative-mod_infinite-se-beryllium-ore
+  12.139 Script @__space-exploration__/prototypes/phase-3/resources.lua:41: Resource cannot place: creative-mod_infinite-se-beryllium-ore
+  12.139 Script @__space-exploration__/prototypes/phase-3/resources.lua:16: Resource detected as infinite: creative-mod_infinite-se-cryonite
+  12.139 Script @__space-exploration__/prototypes/phase-3/resources.lua:22: Resource has no control: creative-mod_infinite-se-cryonite
+  12.139 Script @__space-exploration__/prototypes/phase-3/resources.lua:41: Resource cannot place: creative-mod_infinite-se-cryonite
+  12.139 Script @__space-exploration__/prototypes/phase-3/resources.lua:16: Resource detected as infinite: creative-mod_infinite-se-holmium-ore
+  12.139 Script @__space-exploration__/prototypes/phase-3/resources.lua:22: Resource has no control: creative-mod_infinite-se-holmium-ore
+  12.139 Script @__space-exploration__/prototypes/phase-3/resources.lua:41: Resource cannot place: creative-mod_infinite-se-holmium-ore
+  12.139 Script @__space-exploration__/prototypes/phase-3/resources.lua:16: Resource detected as infinite: creative-mod_infinite-se-iridium-ore
+  12.139 Script @__space-exploration__/prototypes/phase-3/resources.lua:22: Resource has no control: creative-mod_infinite-se-iridium-ore
+  12.139 Script @__space-exploration__/prototypes/phase-3/resources.lua:41: Resource cannot place: creative-mod_infinite-se-iridium-ore
+  12.139 Script @__space-exploration__/prototypes/phase-3/resources.lua:16: Resource detected as infinite: creative-mod_infinite-se-naquium-ore
+  12.139 Script @__space-exploration__/prototypes/phase-3/resources.lua:22: Resource has no control: creative-mod_infinite-se-naquium-ore
+  12.139 Script @__space-exploration__/prototypes/phase-3/resources.lua:41: Resource cannot place: creative-mod_infinite-se-naquium-ore
+  12.139 Script @__space-exploration__/prototypes/phase-3/resources.lua:16: Resource detected as infinite: creative-mod_infinite-se-vulcanite
+  12.139 Script @__space-exploration__/prototypes/phase-3/resources.lua:22: Resource has no control: creative-mod_infinite-se-vulcanite
+  12.139 Script @__space-exploration__/prototypes/phase-3/resources.lua:41: Resource cannot place: creative-mod_infinite-se-vulcanite
+  12.139 Script @__space-exploration__/prototypes/phase-3/resources.lua:16: Resource detected as infinite: creative-mod_infinite-se-vitamelange
+  12.139 Script @__space-exploration__/prototypes/phase-3/resources.lua:22: Resource has no control: creative-mod_infinite-se-vitamelange
+  12.139 Script @__space-exploration__/prototypes/phase-3/resources.lua:41: Resource cannot place: creative-mod_infinite-se-vitamelange
+  12.517 Loading mod space-exploration-postprocess 0.5.10 (data-final-fixes.lua)
+  12.565 Script @__space-exploration-postprocess__/prototypes/phase-4/space-science-final.lua:93: No space science source was found. Replace it.

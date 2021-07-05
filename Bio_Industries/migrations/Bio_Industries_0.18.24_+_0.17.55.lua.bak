@@ -17,7 +17,7 @@ for s, surface in pairs(game.surfaces) do
 --log("neighbours of connector " .. connector.unit_number .. ": " .. serpent.block(neighbours))
     for p, pole in pairs(neighbours) do
       -- Disconnect hidden power-rail poles from connector
-      if pole.name == "bi-rail-hidden-power-pole" then
+      if pole.name == "bi-power-rail-hidden-pole" then
         connector.disconnect_neighbour(pole)
 --log("Disconnected " .. pole.name .. " " .. pole.unit_number)
       end
@@ -42,7 +42,7 @@ for r, rail in pairs(global.bi_power_rail_table) do
       -- Create Hidden Power Pole
       local track = rail.base
       local new_pole = track.surface.create_entity({
-        name = "bi-rail-hidden-power-pole",
+        name = "bi-power-rail-hidden-pole",
         position = track.position,
         force = track.force
       })
@@ -87,7 +87,7 @@ BioInd.writeDebug("Looking for rails in %s direction", {direction})
         rail_direction = defines.rail_direction[side],
         rail_connection_direction = defines.rail_connection_direction[direction]
       }
-BioInd.writeDebug("Rail %s of %s (%g): (%g)", {direction, rail_track.name, rail_track.unit_number,neighbour and neighbour.name or "nil", neighbour and neighbour.unit_number or "nil"})
+BioInd.writeDebug("Rail %s of %s (%s): (%s)", {direction, rail_track.name, rail_track.unit_number,neighbour and neighbour.name or "nil", neighbour and neighbour.unit_number or "nil"})
 --log("Rail " .. direction .. " of " ..
                   --~ rail_track.name .. " (" .. rail_track.unit_number .. "): " ..
                   --~ serpent.line(neighbour and neighbour.name) ..

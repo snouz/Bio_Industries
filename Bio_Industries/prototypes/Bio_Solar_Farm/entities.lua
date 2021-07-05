@@ -2,8 +2,8 @@ local BioInd = require('common')('Bio_Industries')
 require ("util")
 
 local ICONPATH = BioInd.modRoot .. "/graphics/icons/"
-local ENTITYPATH = "__Bio_Industries__/graphics/entities/bio_solar_farm/"
-
+local ENTITYPATH = BioInd.modRoot .. "/graphics/entities/bio_solar_farm/"
+local SNDPATH = "__base__/sound/"
 --~ local BIGICONS = BioInd.check_base_version("0.18.0")
 
 
@@ -24,7 +24,7 @@ end
 sounds.walking_sound = {}
 for i = 1, 11 do
   sounds.walking_sound[i] = {
-    filename = "__base__/sound/walking/concrete-" .. (i < 10 and "0" or "")  .. i ..".ogg",
+    filename = SNDPATH .. "walking/concrete-" .. (i < 10 and "0" or "")  .. i ..".ogg",
     volume = 1.2
   }
 end
@@ -36,6 +36,16 @@ data:extend({
     name = "bi-bio-solar-farm",
     icon = ICONPATH .. "entity/Bio_Solar_Farm_Icon.png",
     icon_size = 64,
+    BI_add_icon = true,
+    --~ icons = {
+      --~ {
+        --~ icon = ICONPATH .. "Bio_Solar_Farm_Icon.png",
+        --~ icon_size = 64,
+      --~ }
+    --~ },
+    -- This is necessary for "Space Exploration" (if not true, the entity can only be
+    -- placed on Nauvis)!
+    se_allow_in_space = true,
     flags = {"placeable-neutral", "player-creation"},
     minable = {hardness = 0.25, mining_time = 0.5, result = "bi-bio-solar-farm"},
     max_health = 600,
@@ -57,38 +67,19 @@ data:extend({
       direction_count = 1,
       --scale = 3/2,
       shift = {0.30, 0},
-	  hr_version = {
+        hr_version = {
         filename = ENTITYPATH .. "hr_Bio_Solar_Farm_On.png",
         priority = "low",
         width = 624,
         height = 578,
-		scale = 0.5,
-		frame_count = 1,
-		direction_count = 1,
-		shift = {0.30, 0},
+        scale = 0.5,
+        frame_count = 1,
+        direction_count = 1,
+        shift = {0.30, 0},
       }
     },
     production = "3600kW"
   },
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
   ---- BI Accumulator
@@ -97,6 +88,16 @@ data:extend({
     name = "bi-bio-accumulator",
     icon = ICONPATH .. "entity/bi_LargeAccumulator.png",
     icon_size = 64,
+    BI_add_icon = true,
+    --~ icons = {
+      --~ {
+        --~ icon = ICONPATH .. "bi_LargeAccumulator.png",
+        --~ icon_size = 64,
+      --~ }
+    --~ },
+    -- This is necessary for "Space Exploration" (if not true, the entity can only be
+    -- placed on Nauvis)!
+    se_allow_in_space = true,
     flags = {"placeable-neutral", "player-creation"},
     minable = {hardness = 0.2, mining_time = 0.5, result = "bi-bio-accumulator"},
     max_health = 500,
@@ -113,222 +114,218 @@ data:extend({
       output_flow_limit = "20MW"
     },
     picture = {
-	layers = {
-	{
-      filename = ENTITYPATH .. "bi_large_accumulator.png",
-      priority = "extra-high",
-      width = 154,
-      height = 181,
-	  scale = 1,
-      --shift = {0.75, -0.5},
-	  hr_version = {
-        filename = ENTITYPATH .. "hr_bi_large_accumulator.png",
-        priority = "extra-high",
-        width = 307,
-        height = 362,
-		scale = 0.5,
-		shift = {0, -0.6},
-      }
-	 },
-	 {
-		  filename = ENTITYPATH .. "bi_large_accumulator_shadow.png",
-		  priority = "extra-high",
-		  width = 192,
-		  height = 136,
-		  frame_count = 1,
-		  line_length = 1,
-		  repeat_count = 24,
-		  shift = {1, 0},
-		  scale = 1,
-		  draw_as_shadow = true,
-		  hr_version = {
-			  filename = ENTITYPATH .. "hr_bi_large_accumulator_shadow.png",
-			  priority = "extra-high",
-			  width = 384,
-			  height = 272,
-			  frame_count = 1,
-			  line_length = 1,
-			  repeat_count = 24,
-			  shift = {1, 0},
-			  scale = 0.5,
-			  draw_as_shadow = true,
-		  }
-		},
-	 },
-    },
-	
-	
-	
-    charge_animation = {
-	layers = {
-		{
-		  filename = ENTITYPATH .. "bi_large_accumulator.png",
-		  priority = "high",
-		  width = 154,
-		  height = 181,
-		  frame_count = 1,
-		  line_length = 1,
-		  repeat_count = 24,
-		  animation_speed = 0.4,
-		  shift = {0, -0.6},
-		  scale = 1,
-		  hr_version = {
-			filename = ENTITYPATH .. "hr_bi_large_accumulator.png",
-			priority = "high",
-			width = 307,
-			height = 362,
-			frame_count = 1,
-			line_length = 1,
-			repeat_count = 24,
-			scale = 0.5,
-			animation_speed = 0.4,
-			shift = {0, -0.6},
-		  }
-		},
-		{
-		  filename = ENTITYPATH .. "bi_large_accumulator_anim_charge.png",
-		  priority = "extra-high",
-		  width = 154,
+      layers = {
+        {
+          filename = ENTITYPATH .. "bi_large_accumulator.png",
+          priority = "extra-high",
+          width = 154,
           height = 181,
-		  line_length = 6,
-		  frame_count = 12,
-		  repeat_count = 2,
-		  draw_as_glow = true,
-		  shift = {0, -0.6},
-		  scale = 1,
-		  animation_speed = 0.3,
-		  hr_version = {
-			  filename = ENTITYPATH .. "hr_bi_large_accumulator_anim_charge.png",
-			  priority = "extra-high",
-			  width = 307,
-			  height = 362,
-			  line_length = 6,
-			  frame_count = 12,
-			  repeat_count = 2,
-			  draw_as_glow = true,
-			  shift = {0, -0.6},
-			  scale = 0.5,
-			  animation_speed = 0.3,
-		  }
-		},
-		{
-		  filename = ENTITYPATH .. "bi_large_accumulator_shadow.png",
-		  priority = "extra-high",
-		  width = 192,
-		  height = 136,
-		  frame_count = 1,
-		  line_length = 1,
-		  repeat_count = 24,
-		  shift = {1, 0},
-		  scale = 1,
-		  animation_speed = 0.3,
-		  draw_as_shadow = true,
-		  hr_version = {
-			  filename = ENTITYPATH .. "hr_bi_large_accumulator_shadow.png",
-			  priority = "extra-high",
-			  width = 384,
-			  height = 272,
-			  frame_count = 1,
-			  line_length = 1,
-			  repeat_count = 24,
-			  shift = {1, 0},
-			  scale = 0.5,
-			  animation_speed = 0.3,
-			  draw_as_shadow = true,
-		  }
-		},
-	},
-	
-	},
+          scale = 1,
+          --shift = {0.75, -0.5},
+          hr_version = {
+            filename = ENTITYPATH .. "hr_bi_large_accumulator.png",
+            priority = "extra-high",
+            width = 307,
+            height = 362,
+            scale = 0.5,
+            shift = {0, -0.6},
+          }
+        },
+        {
+          filename = ENTITYPATH .. "bi_large_accumulator_shadow.png",
+          priority = "extra-high",
+          width = 192,
+          height = 136,
+          frame_count = 1,
+          line_length = 1,
+          repeat_count = 24,
+          shift = {1, 0},
+          scale = 1,
+          draw_as_shadow = true,
+          hr_version = {
+            filename = ENTITYPATH .. "hr_bi_large_accumulator_shadow.png",
+            priority = "extra-high",
+            width = 384,
+            height = 272,
+            frame_count = 1,
+            line_length = 1,
+            repeat_count = 24,
+            shift = {1, 0},
+            scale = 0.5,
+            draw_as_shadow = true,
+          }
+        },
+      },
+    },
+    charge_animation = {
+      layers = {
+        {
+          filename = ENTITYPATH .. "bi_large_accumulator.png",
+          priority = "high",
+          width = 154,
+          height = 181,
+          frame_count = 1,
+          line_length = 1,
+          repeat_count = 24,
+          animation_speed = 0.4,
+          shift = {0, -0.6},
+          scale = 1,
+          hr_version = {
+            filename = ENTITYPATH .. "hr_bi_large_accumulator.png",
+            priority = "high",
+            width = 307,
+            height = 362,
+            frame_count = 1,
+            line_length = 1,
+            repeat_count = 24,
+            scale = 0.5,
+            animation_speed = 0.4,
+            shift = {0, -0.6},
+          }
+        },
+        {
+          filename = ENTITYPATH .. "bi_large_accumulator_anim_charge.png",
+          priority = "extra-high",
+          width = 154,
+          height = 181,
+          line_length = 6,
+          frame_count = 12,
+          repeat_count = 2,
+          draw_as_glow = true,
+          shift = {0, -0.6},
+          scale = 1,
+          animation_speed = 0.3,
+          hr_version = {
+            filename = ENTITYPATH .. "hr_bi_large_accumulator_anim_charge.png",
+            priority = "extra-high",
+            width = 307,
+            height = 362,
+            line_length = 6,
+            frame_count = 12,
+            repeat_count = 2,
+            draw_as_glow = true,
+            shift = {0, -0.6},
+            scale = 0.5,
+            animation_speed = 0.3,
+          }
+        },
+        {
+          filename = ENTITYPATH .. "bi_large_accumulator_shadow.png",
+          priority = "extra-high",
+          width = 192,
+          height = 136,
+          frame_count = 1,
+          line_length = 1,
+          repeat_count = 24,
+          shift = {1, 0},
+          scale = 1,
+          animation_speed = 0.3,
+          draw_as_shadow = true,
+          hr_version = {
+            filename = ENTITYPATH .. "hr_bi_large_accumulator_shadow.png",
+            priority = "extra-high",
+            width = 384,
+            height = 272,
+            frame_count = 1,
+            line_length = 1,
+            repeat_count = 24,
+            shift = {1, 0},
+            scale = 0.5,
+            animation_speed = 0.3,
+            draw_as_shadow = true,
+          }
+        },
+      },
+    },
     charge_cooldown = 30,
     charge_light = {intensity = 0.3, size = 7, color = {r = 1.0, g = 1.0, b = 1.0}},
     discharge_animation = {
-    layers = {
-		{
-		  filename = ENTITYPATH .. "bi_large_accumulator.png",
-		  priority = "high",
-		  width = 154,
-		  height = 181,
-		  frame_count = 1,
-		  line_length = 1,
-		  repeat_count = 24,
-		  animation_speed = 0.4,
-		  scale = 1,
-		  hr_version = {
-			filename = ENTITYPATH .. "hr_bi_large_accumulator.png",
-			priority = "high",
-			width = 307,
-			height = 362,
-			frame_count = 1,
-			line_length = 1,
-			repeat_count = 24,
-			animation_speed = 0.4,
-			scale = 0.5,
-			shift = {0, -0.6},
-		  }
-		},
-		{
-		  filename = ENTITYPATH .. "bi_large_accumulator_anim_discharge.png",
-		  priority = "extra-high",
-		  width = 154,
-		  height = 181,
-		  line_length = 6,
-		  frame_count = 24,
-		  draw_as_glow = true,
-		  shift = {0, -0.6},
-		  scale = 1,
-		  animation_speed = 0.4,
-		  hr_version = {
-			  filename = ENTITYPATH .. "hr_bi_large_accumulator_anim_discharge.png",
-			  priority = "extra-high",
-			  width = 307,
-			  height = 362,
-			  line_length = 6,
-			  frame_count = 24,
-			  draw_as_glow = true,
-			  shift = {0, -0.6},
-			  scale = 0.5,
-			  animation_speed = 0.4,
-		  }
-		},
-		{
-		  filename = ENTITYPATH .. "bi_large_accumulator_shadow.png",
-		  priority = "extra-high",
-		  width = 192,
-		  height = 136,
-		  frame_count = 1,
-		  line_length = 1,
-		  repeat_count = 24,
-		  animation_speed = 0.4,
-		  shift = {1, 0},
-		  scale = 1,
-		  draw_as_shadow = true,
-		  hr_version = {
-			  filename = ENTITYPATH .. "hr_bi_large_accumulator_shadow.png",
-			  priority = "extra-high",
-			  width = 384,
-			  height = 272,
-			  frame_count = 1,
-			  line_length = 1,
-			  repeat_count = 24,
-			  animation_speed = 0.4,
-			  shift = {1, 0},
-			  scale = 0.5,
-			  draw_as_shadow = true,
-		  }
-		},
-	},
+      layers = {
+        {
+          filename = ENTITYPATH .. "bi_large_accumulator.png",
+          priority = "high",
+          width = 154,
+          height = 181,
+          frame_count = 1,
+          line_length = 1,
+          repeat_count = 24,
+          animation_speed = 0.4,
+          scale = 1,
+          hr_version = {
+            filename = ENTITYPATH .. "hr_bi_large_accumulator.png",
+            priority = "high",
+            width = 307,
+            height = 362,
+            frame_count = 1,
+            line_length = 1,
+            repeat_count = 24,
+            animation_speed = 0.4,
+            scale = 0.5,
+            shift = {0, -0.6},
+          }
+        },
+        {
+          filename = ENTITYPATH .. "bi_large_accumulator_anim_discharge.png",
+          priority = "extra-high",
+          width = 154,
+          height = 181,
+          line_length = 6,
+          frame_count = 24,
+          draw_as_glow = true,
+          shift = {0, -0.6},
+          scale = 1,
+          animation_speed = 0.4,
+          hr_version = {
+            filename = ENTITYPATH .. "hr_bi_large_accumulator_anim_discharge.png",
+            priority = "extra-high",
+            width = 307,
+            height = 362,
+            line_length = 6,
+            frame_count = 24,
+            draw_as_glow = true,
+            shift = {0, -0.6},
+            scale = 0.5,
+            animation_speed = 0.4,
+          }
+        },
+        {
+          filename = ENTITYPATH .. "bi_large_accumulator_shadow.png",
+          priority = "extra-high",
+          width = 192,
+          height = 136,
+          frame_count = 1,
+          line_length = 1,
+          repeat_count = 24,
+          animation_speed = 0.4,
+          shift = {1, 0},
+          scale = 1,
+          draw_as_shadow = true,
+          hr_version = {
+            filename = ENTITYPATH .. "hr_bi_large_accumulator_shadow.png",
+            priority = "extra-high",
+            width = 384,
+            height = 272,
+            frame_count = 1,
+            line_length = 1,
+            repeat_count = 24,
+            animation_speed = 0.4,
+            shift = {1, 0},
+            scale = 0.5,
+            draw_as_shadow = true,
+          }
+        },
+      },
     },
     discharge_cooldown = 60,
     discharge_light = {intensity = 0.7, size = 7, color = {r = 1.0, g = 1.0, b = 1.0}},
     vehicle_impact_sound = sounds.generic_impact,
     working_sound = {
       sound = {
-        filename = "__base__/sound/accumulator-working.ogg",
+        filename = SNDPATH .. "accumulator-working.ogg",
         volume = 1
       },
       idle_sound = {
-        filename = "__base__/sound/accumulator-idle.ogg",
+        filename = SNDPATH .. "accumulator-idle.ogg",
         volume = 0.4
       },
       max_sounds_per_type = 5
@@ -383,6 +380,16 @@ data:extend({
     localised_description = {"entity-description.bi-large-substation"},
     icon = ICONPATH .. "entity/bi_LargeSubstation_icon.png",
     icon_size = 64,
+    BI_add_icon = true,
+    --~ icons = {
+      --~ {
+        --~ icon = ICONPATH .. "bi_LargeSubstation_icon.png",
+        --~ icon_size = 64,
+      --~ }
+    --~ },
+    -- This is necessary for "Space Exploration" (if not true, the entity can only be
+    -- placed on Nauvis)!
+    se_allow_in_space = true,
     flags = {"placeable-neutral", "player-creation"},
     minable = {hardness = 0.2, mining_time = 0.5, result = "bi-large-substation"},
     max_health = 600,
@@ -399,7 +406,9 @@ data:extend({
     selection_box = {{-2.5, -2.5}, {2.5, 2.5}},
     drawing_box = {{-2.5, -5}, {2.5, 2.5}},
     maximum_wire_distance = 25,
-    supply_area_distance = 50,
+    -- Changed for 0.18.34/1.1.4
+    --~ supply_area_distance = 50,
+    supply_area_distance = 50.5,
     pictures = {
       layers = {
         {
@@ -423,7 +432,7 @@ data:extend({
     },
     vehicle_impact_sound = sounds.generic_impact,
     working_sound = {
-      sound = { filename = "__base__/sound/substation.ogg" },
+      sound = { filename = SNDPATH .. "substation.ogg" },
       apparent_volume = 1.8,
       audible_distance_modifier = 0.5,
       probability = 1 / (3 * 60) -- average pause between the sound is 3 seconds
@@ -453,7 +462,7 @@ data:extend({
   },
 
 
-  ---- Solar Floor
+  ---- Solar / Musk Floor
   {
     type = "tile",
     name = "bi-solar-mat",
@@ -461,9 +470,16 @@ data:extend({
     localised_description = {"entity-description.bi-solar-mat"},
     icon = ICONPATH .. "entity/solar-mat.png",
     icon_size = 64,
+    BI_add_icon = true,
+    --~ icons = {
+      --~ {
+        --~ icon = ICONPATH .. "solar-mat.png",
+        --~ icon_size = 64,
+      --~ }
+    --~ },
     needs_correction = false,
     minable = {hardness = 0.1, mining_time = 0.25, result = "bi-solar-mat"},
-    mined_sound = { filename = "__base__/sound/deconstruct-bricks.ogg" },
+    mined_sound = { filename = SNDPATH .. "deconstruct-bricks.ogg" },
     --collision_mask = {"ground-tile", "not-colliding-with-itself"},
     collision_mask = {"ground-tile"},
     collision_box = {{-0.5, -0.5}, {0.5, 0.5}},
@@ -471,8 +487,7 @@ data:extend({
     layer = 67,
     decorative_removal_probability = 1,
     variants = {
-      main =
-      {
+      main = {
         {
           picture = "__base__/graphics/terrain/concrete/concrete-dummy.png",
           count = 1,
@@ -493,124 +508,102 @@ data:extend({
       },
 
 
-      inner_corner =
-      {
+      inner_corner = {
         picture = "__Bio_Industries__/graphics/entities/solarfloor/solarfloor_inner-corner.png",
         count = 1,
-        hr_version =
-        {
+        hr_version = {
           picture = "__Bio_Industries__/graphics/entities/solarfloor/hr_solarfloor_inner-corner.png",
           count = 1,
           scale = 0.5,
         }
       },
-      inner_corner_mask =
-      {
+      inner_corner_mask = {
         picture = "__Bio_Industries__/graphics/entities/solarfloor/solarfloor_inner-corner-mask.png",
         count = 1,
-        hr_version =
-        {
+        hr_version = {
           picture = "__Bio_Industries__/graphics/entities/solarfloor/hr_solarfloor_inner-corner-mask.png",
           count = 1,
           scale = 0.5,
         }
       },
-      outer_corner =
-      {
+      outer_corner = {
         picture = "__Bio_Industries__/graphics/entities/solarfloor/solarfloor_outer-corner.png",
         count = 1,
-        hr_version =
-        {
+        hr_version = {
           picture = "__Bio_Industries__/graphics/entities/solarfloor/hr_solarfloor_outer-corner.png",
           count = 1,
           scale = 0.5,
         }
       },
-      outer_corner_mask =
-      {
+      outer_corner_mask = {
         picture = "__Bio_Industries__/graphics/entities/solarfloor/solarfloor_outer-corner-mask.png",
         count = 1,
-        hr_version =
-        {
+        hr_version = {
           picture = "__Bio_Industries__/graphics/entities/solarfloor/hr_solarfloor_outer-corner-mask.png",
           count = 1,
           scale = 0.5,
         }
       },
 
-      side =
-      {
+      side = {
         picture = "__Bio_Industries__/graphics/entities/solarfloor/solarfloor_side.png",
         count = 1,
-        hr_version =
-        {
+        hr_version = {
           picture = "__Bio_Industries__/graphics/entities/solarfloor/hr_solarfloor_side.png",
           count = 1,
           scale = 0.5,
         }
       },
-      side_mask =
-      {
+      side_mask = {
         picture = "__Bio_Industries__/graphics/entities/solarfloor/solarfloor_side-mask.png",
         count = 1,
-        hr_version =
-        {
+        hr_version = {
           picture = "__Bio_Industries__/graphics/entities/solarfloor/hr_solarfloor_side-mask.png",
           count = 1,
           scale = 0.5,
         }
       },
-      u_transition =
-      {
+      u_transition = {
         picture = "__Bio_Industries__/graphics/entities/solarfloor/solarfloor_u.png",
         count = 1,
-        hr_version =
-        {
+        hr_version = {
           picture = "__Bio_Industries__/graphics/entities/solarfloor/hr_solarfloor_u.png",
           count = 1,
           scale = 0.5,
         }
       },
-      u_transition_mask =
-      {
+      u_transition_mask = {
         picture = "__Bio_Industries__/graphics/entities/solarfloor/solarfloor_u-mask.png",
         count = 1,
-        hr_version =
-        {
+        hr_version = {
           picture = "__Bio_Industries__/graphics/entities/solarfloor/hr_solarfloor_u-mask.png",
           count = 1,
           scale = 0.5,
         }
       },
 
-      o_transition =
-      {
+      o_transition = {
         picture = "__Bio_Industries__/graphics/entities/solarfloor/solarfloor_o.png",
         count = 1,
-        hr_version =
-        {
+        hr_version = {
           picture = "__Bio_Industries__/graphics/entities/solarfloor/hr_solarfloor_o.png",
           count = 1,
           scale = 0.5,
         }
       },
-      o_transition_mask =
-      {
+      o_transition_mask = {
         picture = "__Bio_Industries__/graphics/entities/solarfloor/solarfloor_o-mask.png",
         count = 1,
-        hr_version =
-        {
+        hr_version = {
           picture = "__Bio_Industries__/graphics/entities/solarfloor/hr_solarfloor_o-mask.png",
           count = 1,
           scale = 0.5,
         }
       },
-      material_background =
-      {
+      material_background = {
         picture = "__Bio_Industries__/graphics/entities/solarfloor/solarfloor.png",
         count = 1,
-        hr_version =
-        {
+        hr_version = {
           picture = "__Bio_Industries__/graphics/entities/solarfloor/hr_solarfloor.png",
           count = 1,
           scale = 0.5,
@@ -624,11 +617,133 @@ data:extend({
   },
 })
 
-   ------- Hidden Electric pole for Solar Mat
-local hidden_pole = table.deepcopy(data.raw["electric-pole"]["small-electric-pole"])
+--~ ------- Hidden Electric pole for Solar Mat
+--~ local hidden_pole = table.deepcopy(data.raw["electric-pole"]["small-electric-pole"])
 --~ {
-    --~ type = "electric-pole",
-    --~ name = "bi-musk-mat-pole",
+--     type = "electric-pole",
+--     name = "bi-musk-mat-hidden-pole",
+--     icon = ICONPATH .. "solar-mat.png",
+--     icon_size = 64,
+--     icons = {
+--       {
+--         icon = ICONPATH .. "solar-mat.png",
+--         icon_size = 64,
+--       }
+--     },
+--     flags = {"not-blueprintable", "not-deconstructable", "placeable-off-grid", "not-on-map", "not-repairable"},
+--     selectable_in_game = false,
+--     draw_copper_wires = false,
+--     max_health = 10,
+--     resistances = {{type = "fire", percent = 100}},
+--     collision_mask = {"ground-tile"},
+--     collision_box = {{-0.0, -0.0}, {0.0, 0.0}},
+--     selection_box = {{0, 0}, {0, 0}},
+--     maximum_wire_distance = 1,
+--     supply_area_distance = 3,
+--     pictures = {
+--       filename = ICONPATH .. "empty.png",
+--       filename = "__base__/graphics/icons/small-electric-pole.png",
+--       filename = BioInd.is_debug and
+--         "__base__/graphics/icons/small-electric-pole.png" or
+--         ICONPATH .. "empty.png",
+--       priority = "low",
+--       width = 1,
+--       height = 1,
+--       frame_count = 1,
+--       axially_symmetrical = false,
+--       direction_count = 4,
+--       shift = {0.75, 0},
+--     },
+--     connection_points = {
+--       {
+--         shadow = {
+--
+--         },
+--         wire = {
+--           copper_wire = {-0, -0},
+--         }
+--       },
+--       {
+--         shadow = {
+--
+--         },
+--         wire = {
+--           copper_wire = {-0, -0},
+--         }
+--       },
+--       {
+--         shadow = {
+--
+--         },
+--         wire = {
+--           copper_wire = {-0, -0},
+--         }
+--       },
+--       {
+--         shadow = {
+--
+--         },
+--         wire = {
+--           copper_wire = {-0, -0},
+--         }
+--       }
+--     },
+--
+--     radius_visualisation_picture = {
+--       filename = ICONPATH .. "empty.png",
+--       width = 1,
+--       height = 1,
+--       priority = "low"
+--     },
+--   },
+--~ hidden_pole.name = "bi-musk-mat-hidden-pole"
+--~ hidden_pole.icon = ICONPATH .. "solar-mat.png"
+--~ hidden_pole.icon_size = 64
+--~ hidden_pole.icons = {
+  --~ {
+    --~ icon = ICONPATH .. "solar-mat.png",
+    --~ icon_size = 64,
+  --~ }
+--~ }
+--~ hidden_pole.flags = {"not-blueprintable", "not-deconstructable", "placeable-off-grid", "not-on-map", "not-repairable"}
+--~ hidden_pole.selectable_in_game = false
+--~ hidden_pole.draw_copper_wires = BioInd.is_debug
+--~ hidden_pole.max_health = 10
+--~ hidden_pole.resistances = {{type = "fire", percent = 100}}
+--~ hidden_pole.collision_mask = {"ground-tile"}
+--~ hidden_pole.collision_box = {{-0.0, -0.0}, {0.0, 0.0}}
+--~ hidden_pole.selection_box = {{0, 0}, {0, 0}}
+--~ hidden_pole.maximum_wire_distance = 1
+--~ hidden_pole.supply_area_distance = 3
+--~ hidden_pole.pictures = BioInd.is_debug and hidden_pole.pictures or {
+  --~ filename = ICONPATH .. "empty.png",
+  --~ priority = "low",
+  --~ width = 1,
+  --~ height = 1,
+  --~ frame_count = 1,
+  --~ axially_symmetrical = false,
+  --~ direction_count = 1,
+  --~ shift = {0.75, 0},
+--~ }
+--~ hidden_pole.connection_points = BioInd.is_debug and hidden_pole.connection_points or {
+  --~ {
+    --~ shadow = {},
+    --~ wire = { copper_wire = {-0, -0} }
+  --~ },
+--~ }
+--~ hidden_pole.radius_visualisation_picture = {
+  --~ filename = ICONPATH .. "empty.png",
+  --~ width = 1,
+  --~ height = 1,
+  --~ priority = "low"
+--~ }
+--~ data:extend({hidden_pole})
+
+data:extend({
+  --~ ------- Hidden Solar Panel for Solar Mat
+  --~ {
+    --~ type = "solar-panel",
+    --~ name = "bi-musk-mat-hidden-panel",
     --~ icon = ICONPATH .. "solar-mat.png",
     --~ icon_size = 64,
     --~ icons = {
@@ -639,231 +754,89 @@ local hidden_pole = table.deepcopy(data.raw["electric-pole"]["small-electric-pol
     --~ },
     --~ flags = {"not-blueprintable", "not-deconstructable", "placeable-off-grid", "not-on-map", "not-repairable"},
     --~ selectable_in_game = false,
-    --~ draw_copper_wires = false,
-    --~ max_health = 10,
+    --~ max_health = 1,
     --~ resistances = {{type = "fire", percent = 100}},
     --~ collision_mask = {"ground-tile"},
     --~ collision_box = {{-0.0, -0.0}, {0.0, 0.0}},
     --~ selection_box = {{0, 0}, {0, 0}},
-    --~ maximum_wire_distance = 1,
-    --~ supply_area_distance = 3,
-    --~ pictures = {
-      --~ filename = ICONPATH .. "empty.png",
-      --~ filename = "__base__/graphics/icons/small-electric-pole.png",
-      --~ filename = BioInd.is_debug and
-        --~ "__base__/graphics/icons/small-electric-pole.png" or
-        --~ ICONPATH .. "empty.png",
+    --~ energy_source = {
+      --~ type = "electric",
+      --~ usage_priority = "solar"
+    --~ },
+    --~ picture = {
+      --~ -- filename = ICONPATH .. "empty.png",
+      --~ filename = "__base__/graphics/icons/solar-panel.png",
       --~ priority = "low",
       --~ width = 1,
       --~ height = 1,
-      --~ frame_count = 1,
-      --~ axially_symmetrical = false,
-      --~ direction_count = 4,
-      --~ shift = {0.75, 0},
     --~ },
-    --~ connection_points = {
-      --~ {
-        --~ shadow = {
+    --~ production = "10kW"
+  --~ },
 
-        --~ },
-        --~ wire = {
-          --~ copper_wire = {-0, -0},
-        --~ }
-      --~ },
-      --~ {
-        --~ shadow = {
 
-        --~ },
-        --~ wire = {
-          --~ copper_wire = {-0, -0},
-        --~ }
-      --~ },
+ --~ ------- Solar Panel for Solar Plant / Boiler
+  --~ {
+    --~ type = "solar-panel",
+    --~ name = "bi-solar-boiler-hidden-panel",
+    --~ localised_name = {"entity-name.bi-solar-boiler"},
+    --~ localised_description = {"entity-description.bi-solar-boiler"},
+    --~ icon = ICONPATH .. "Bio_Solar_Boiler_Panel_Icon.png",
+    --~ icon_size = 64,
+    --~ icons = {
       --~ {
-        --~ shadow = {
-
-        --~ },
-        --~ wire = {
-          --~ copper_wire = {-0, -0},
-        --~ }
-      --~ },
-      --~ {
-        --~ shadow = {
-
-        --~ },
-        --~ wire = {
-          --~ copper_wire = {-0, -0},
-        --~ }
+        --~ icon = ICONPATH .. "Bio_Solar_Boiler_Panel_Icon.png",
+        --~ icon_size = 64,
       --~ }
     --~ },
-
-    --~ radius_visualisation_picture = {
-      --~ filename = ICONPATH .. "empty.png",
-      --~ width = 1,
-      --~ height = 1,
-      --~ priority = "low"
+    --~ flags = {"not-blueprintable", "not-deconstructable", "placeable-off-grid", "not-on-map", "not-repairable"},
+    --~ max_health = 400,
+    --~ render_no_power_icon = true,
+    --~ resistances = {{type = "fire", percent = 100}},
+    --~ -- collision_box = {{-4.2, -4.2}, {4.2, 4.2}},
+    --~ -- selection_box = {{-1.2, -1.2}, {1.2, 1.2}},
+    --~ collision_box = {{0, 0}, {0, 0}},
+    --~ selection_box = {{0, 0}, {0, 0}},
+--~ collision_mask = {},
+    --~ energy_source = {
+      --~ type = "electric",
+      --~ usage_priority = "solar"
     --~ },
-  --~ },
-hidden_pole.name = "bi-musk-mat-pole"
-hidden_pole.icon = ICONPATH .. "entity/solar-mat.png"
-hidden_pole.icon_size = 64
-hidden_pole.icons = {
-  {
-    icon = ICONPATH .. "entity/solar-mat.png",
-    icon_size = 64,
-  }
-}
-hidden_pole.flags = {"not-blueprintable", "not-deconstructable", "placeable-off-grid", "not-on-map", "not-repairable"}
-hidden_pole.selectable_in_game = false
-hidden_pole.draw_copper_wires = BioInd.is_debug
-hidden_pole.max_health = 10
-hidden_pole.resistances = {{type = "fire", percent = 100}}
-hidden_pole.collision_mask = {"ground-tile"}
-hidden_pole.collision_box = {{-0.0, -0.0}, {0.0, 0.0}}
-hidden_pole.selection_box = {{0, 0}, {0, 0}}
-hidden_pole.maximum_wire_distance = 1
-hidden_pole.supply_area_distance = 3
-hidden_pole.pictures = BioInd.is_debug and hidden_pole.pictures or {
-  filename = ICONPATH .. "empty.png",
-  --~ filename = "__base__/graphics/icons/small-electric-pole.png",
-  --~ filename = BioInd.is_debug and
-    --~ "__base__/graphics/icons/small-electric-pole.png" or
-    --~ ICONPATH .. "empty.png",
-  priority = "low",
-  width = 1,
-  height = 1,
-  frame_count = 1,
-  axially_symmetrical = false,
-  direction_count = 1,
-  shift = {0.75, 0},
-}
-hidden_pole.connection_points = BioInd.is_debug and hidden_pole.connection_points or {
-  {
-    shadow = {},
-    wire = { copper_wire = {-0, -0} }
-  },
-}
-hidden_pole.radius_visualisation_picture = {
-  filename = ICONPATH .. "empty.png",
-  width = 1,
-  height = 1,
-  priority = "low"
-}
-data:extend({hidden_pole})
-
-data:extend({
-  ------- Hidden Solar Panel for Solar Mat
-  {
-    type = "solar-panel",
-    name = "bi-musk-mat-solar-panel",
-    icon = ICONPATH .. "entity/solar-mat.png",
-    icon_size = 64,
-    flags = {"not-blueprintable", "not-deconstructable", "placeable-off-grid", "not-on-map", "not-repairable"},
-    selectable_in_game = false,
-    max_health = 1,
-    resistances = {{type = "fire", percent = 100}},
-    collision_mask = {"ground-tile"},
-    collision_box = {{-0.0, -0.0}, {0.0, 0.0}},
-    selection_box = {{0, 0}, {0, 0}},
-    energy_source = {
-      type = "electric",
-      usage_priority = "solar"
-    },
-    picture = {
+    --~ -- picture = {
+      --~ -- filename = ENTITYPATH .. "Bio_Solar_Boiler.png",
+      --~ -- priority = "low",
+      --~ -- width = 288,
+      --~ -- height = 288,
+      --~ -- hr_version = {
+        --~ -- filename = ENTITYPATH .. "Bio_Solar_Boiler.png",
+        --~ -- priority = "low",
+        --~ -- width = 288,
+        --~ -- height = 288,
+      --~ -- }
+    --~ -- },
+    --~ picture = {
       --~ filename = ICONPATH .. "empty.png",
-      filename = "__base__/graphics/icons/solar-panel.png",
-      priority = "low",
-      width = 1,
-      height = 1,
-    },
-    production = "10kW"
-  },
+      --~ priority = "low",
+      --~ size = 1,
+    --~ },
 
-
- ------- Solar Panel for Solar Plant / Boiler
-  {
-    type = "solar-panel",
-    name = "bi-solar-boiler-panel",
-    localised_name = {"entity-name.bi-solar-boiler"},
-    localised_description = {"entity-description.bi-solar-boiler"},
-    icon = ICONPATH .. "entity/Bio_Solar_Boiler_Icon.png",
-    icon_size = 64,
-    flags = {"not-blueprintable", "not-deconstructable", "placeable-off-grid", "not-on-map", "not-repairable"},
-    max_health = 400,
-    render_no_power_icon = true,
-    resistances = {{type = "fire", percent = 100}},
-    collision_box = {{-4.2, -4.2}, {4.2, 4.2}},
-    --selection_box = {{-1.2, -1.2}, {1.2, 1.2}},
-    energy_source = {
-      type = "electric",
-      usage_priority = "solar"
-    },
-    picture = {filename = ICONPATH .. "empty.png", width = 32, height = 32},
-    --[[picture = {
-      layers = {
-        {
-          filename = ENTITYPATH .. "Bio_Solar_Boiler.png",
-          priority = "low",
-          width = 288,
-          height = 288,
-          hr_version = {
-            filename = ENTITYPATH .. "hr_Bio_Solar_Boiler.png",
-            priority = "low",
-            width = 576,
-            height = 576,
-    		    scale = 0.5,
-          }
-        },
-        {
-          filename = ENTITYPATH .. "Bio_Solar_Boiler_shadow.png",
-          priority = "high",
-          width = 288,
-          height = 288,
-          draw_as_shadow = true,
-          hr_version = {
-            filename = ENTITYPATH .. "hr_Bio_Solar_Boiler_shadow.png",
-            priority = "high",
-            width = 576,
-            height = 576,
-            scale = 0.5,
-            draw_as_shadow = true,
-          },
-        },
-      },
-    },
-    overlay = {
-      layers = {
-        {
-          filename = ENTITYPATH .. "Bio_Solar_Boiler.png",
-          priority = "low",
-          width = 288,
-          height = 288,
-          hr_version = {
-            filename = ENTITYPATH .. "hr_Bio_Solar_Boiler.png",
-            priority = "low",
-            width = 576,
-            height = 576,
-            scale = 0.5,
-          }
-        },
-        {
-          filename = ENTITYPATH .. "Bio_Solar_Boiler_shadow.png",
-          priority = "high",
-          width = 288,
-          height = 288,
-          draw_as_shadow = true,
-          hr_version = {
-            filename = ENTITYPATH .. "hr_Bio_Solar_Boiler_shadow.png",
-            priority = "high",
-            width = 576,
-            height = 576,
-            scale = 0.5,
-            draw_as_shadow = true,
-          },
-        },
-      }
-    }, ]]--
-    production = "1.8MW"
-  },
+    --~ overlay = {
+        --~ layers = {
+          --~ {
+            --~ filename = ENTITYPATH .. "Bio_Solar_Boiler.png",
+            --~ priority = "high",
+            --~ width = 288,
+            --~ height = 288,
+            --~ hr_version = {
+            --~ filename = ENTITYPATH .. "Bio_Solar_Boiler.png",
+            --~ priority = "high",
+            --~ width = 288,
+            --~ height = 288,
+          --~ }
+        --~ },
+      --~ }
+    --~ },
+    --~ production = "1.8MW"
+  --~ },
 
 
   ------- Boiler for Solar Plant / Boiler
@@ -872,6 +845,16 @@ data:extend({
     name = "bi-solar-boiler",
     icon = ICONPATH .. "entity/Bio_Solar_Boiler_Icon.png",
     icon_size = 64,
+    BI_add_icon = true,
+    --~ icons = {
+      --~ {
+        --~ icon = ICONPATH .. "Bio_Solar_Boiler_Boiler_Icon.png",
+        --~ icon_size = 64,
+      --~ }
+    --~ },
+    -- This is necessary for "Space Exploration" (if not true, the entity can only be
+    -- placed on Nauvis)!
+    se_allow_in_space = true,
     flags = {"placeable-neutral", "player-creation"},
     minable = {hardness = 0.2, mining_time = 1, result = "bi-solar-boiler"},
     max_health = 400,
@@ -902,7 +885,7 @@ data:extend({
       pipe_covers = pipecoverspictures(),
       pipe_connections = {
         {type = "input-output", position = {5, 0}},
-        {type = "input-output", position = {-5, 0}},
+                {type = "input-output", position = {-5, 0}},
       },
       production_type = "input-output",
       filter = "water"
@@ -928,15 +911,15 @@ data:extend({
     },
     working_sound = {
       sound = {
-        filename = "__base__/sound/boiler.ogg",
+        filename = SNDPATH .. "boiler.ogg",
         volume = 0.9
       },
       max_sounds_per_type = 3
     },
     structure = {
-      --[[north = {filename = ICONPATH .. "empty.png", width = 32, height = 32}, 
-      east = {filename = ICONPATH .. "empty.png", width = 32, height = 32}, 
-      south = {filename = ICONPATH .. "empty.png", width = 32, height = 32}, 
+      --[[north = {filename = ICONPATH .. "empty.png", width = 32, height = 32},
+      east = {filename = ICONPATH .. "empty.png", width = 32, height = 32},
+      south = {filename = ICONPATH .. "empty.png", width = 32, height = 32},
       west = {filename = ICONPATH .. "empty.png", width = 32, height = 32},]]--
       north = {
         layers = {

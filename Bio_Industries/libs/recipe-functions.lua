@@ -4,6 +4,7 @@ if not thxbob.lib.recipe then thxbob.lib.recipe = {} end
 
 
 function thxbob.lib.recipe.replace_ingredient(recipe, old, new)
+  local retval = false
   if data.raw.recipe[recipe] and thxbob.lib.item.get_type(new) then
 
     local amount = 0
@@ -29,7 +30,7 @@ function thxbob.lib.recipe.replace_ingredient(recipe, old, new)
       end
     end
 
-    local retval = false
+    --~ local retval = false
     if data.raw.recipe[recipe].normal then
       amount = 0
       for i, ingredient in pairs(data.raw.recipe[recipe].normal.ingredients) do
@@ -72,7 +73,7 @@ function thxbob.lib.recipe.replace_ingredient(recipe, old, new)
       end
     end
 
-    return retval
+    --~ return retval
   else
     if not data.raw.recipe[recipe] then
       BioInd.writeDebug("Recipe %s does not exist.", {recipe})
@@ -80,8 +81,10 @@ function thxbob.lib.recipe.replace_ingredient(recipe, old, new)
     if not thxbob.lib.item.get_type(new) then
       BioInd.writeDebug("Ingredient %s does not exist.", {new})
     end
-    return false
+    --~ return false
   end
+
+  return retval
 end
 
 
@@ -237,6 +240,8 @@ function thxbob.lib.recipe.set_result(recipe, item)
 end
 
 function thxbob.lib.recipe.remove_result(recipe, item)
+local f_name = "remove_result"
+BioInd.writeDebug("Entered function %s(%s, %s)", {f_name, recipe, item})
   if data.raw.recipe[recipe] then
 
     if data.raw.recipe[recipe].expensive then

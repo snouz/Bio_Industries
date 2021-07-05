@@ -3,20 +3,8 @@ local coal_processing = require("prototypes.Bio_Farm.coal_processing")
 
 local ICONPATH = BioInd.modRoot .. "/graphics/technology/"
 
-
-
-
-
-
 ---- Bio Farm
 data:extend({
-  
-
-
-
-      
-
-
   {
     type = "technology",
     name = "bi-tech-coal-processing-1",
@@ -24,6 +12,13 @@ data:extend({
     localised_description = {"technology-description.bi-tech-coal-processing-1"},
     icon = ICONPATH .. "bi-tech-coal-processing-1.png",
     icon_size = 256,
+    BI_add_icon = true,
+    --~ icons = {
+      --~ {
+        --~ icon = ICONPATH .. "Coal_128.png",
+        --~ icon_size = 128,
+      --~ }
+    --~ },
     effects = coal_processing[1],
     prerequisites = {"advanced-material-processing", "bi-tech-ash"},
     unit = {
@@ -34,7 +29,8 @@ data:extend({
       },
       time = 30
     },
-    upgrade = false,
+    --~ upgrade = false,
+    upgrade = true,
   },
 
   {
@@ -44,6 +40,13 @@ data:extend({
     localised_description = {"technology-description.bi-tech-coal-processing-2"},
     icon = ICONPATH .. "bi-tech-coal-processing-2.png",
     icon_size = 256,
+    BI_add_icon = true,
+    --~ icons = {
+      --~ {
+        --~ icon = ICONPATH .. "Coal_128.png",
+        --~ icon_size = 128,
+      --~ }
+    --~ },
     --~ effects = {
       --~ {
         --~ type = "unlock-recipe",
@@ -75,7 +78,8 @@ data:extend({
       },
       time = 35
     },
-    upgrade = false,
+    -- Changed for 0.18.34/1.1.4 (Fixes that tech is not listed among researched techs.)
+    upgrade = true,
   },
 
   {
@@ -85,6 +89,13 @@ data:extend({
     localised_description = {"technology-description.bi-tech-coal-processing-3"},
     icon = ICONPATH .. "bi-tech-coal-processing-3.png",
     icon_size = 256,
+    BI_add_icon = true,
+    --~ icons = {
+      --~ {
+        --~ icon = ICONPATH .. "Coal_128.png",
+        --~ icon_size = 128,
+      --~ }
+    --~ },
    --~ effects = {
       --~ {
         --~ type = "unlock-recipe",
@@ -108,9 +119,9 @@ data:extend({
       },
       time = 40
     },
-    upgrade = false,
+    -- Changed for 0.18.34/1.1.4 (Fixes that tech is not listed among researched techs.)
+    upgrade = true,
   },
-
 
 
 
@@ -126,6 +137,7 @@ data:extend({
       localised_description = {"technology-description.bi-tech-explosive-planting-1"},
       icon = ICONPATH .. "bi-tech-explosive-planting-1.png",
       icon_size = 256,
+      BI_add_icon = true,
       effects = {
         {
           type = "unlock-recipe",
@@ -141,10 +153,11 @@ data:extend({
         },
         time = 30,
       },
-      upgrade = false,
+      --~ upgrade = false,
+      upgrade = true,
     },
-          
-      
+
+
     {
       type = "technology",
       name = "bi-tech-explosive-planting-2",
@@ -152,6 +165,7 @@ data:extend({
       localised_description = {"technology-description.bi-tech-explosive-planting-2"},
       icon = ICONPATH .. "bi-tech-explosive-planting-2.png",
       icon_size = 256,
+      BI_add_icon = true,
       effects = {
         {
           type = "unlock-recipe",
@@ -167,8 +181,9 @@ data:extend({
         },
         time = 30,
       },
-      upgrade = false,
-    },    
+      --~ upgrade = false,
+      upgrade = true,
+    },
     {
       type = "technology",
       name = "bi-tech-explosive-planting-3",
@@ -176,6 +191,7 @@ data:extend({
       localised_description = {"technology-description.bi-tech-explosive-planting-3"},
       icon = ICONPATH .. "bi-tech-explosive-planting-3.png",
       icon_size = 256,
+      BI_add_icon = true,
       effects = {
         {
           type = "unlock-recipe",
@@ -192,8 +208,10 @@ data:extend({
         },
         time = 30,
       },
-      upgrade = false,
-    },    
+      --~ upgrade = false,
+      upgrade = true,
+    },
+
 
 
 
@@ -217,6 +235,7 @@ data:extend({
       localised_description = {"technology-description.bi-tech-bio-farming-1"},
     icon_size = 256,
     icon = ICONPATH .. "bi-tech-bio-farming-1.png",
+    BI_add_icon = true,
     effects = {
       {
         type = "unlock-recipe",
@@ -248,6 +267,7 @@ data:extend({
       localised_description = {"technology-description.bi-tech-bio-farming-2"},
       icon = ICONPATH .. "bi-tech-bio-farming-2.png",
       icon_size = 256,
+      BI_add_icon = true,
       effects = {
         {
           type = "unlock-recipe",
@@ -271,15 +291,17 @@ data:extend({
         },
         time = 30,
       },
-      upgrade = false,
-    },    
+      --~ upgrade = false,
+      upgrade = true,
+    },
     {
       type = "technology",
       name = "bi-tech-bio-farming-3",
-      localised_name = {"technology-name.bi-tech-bio-farming-"},
-      localised_description = {"technology-description.bi-tech-bio-farming-"},
+      localised_name = {"technology-name.bi-tech-bio-farming-3"},
+      localised_description = {"technology-description.bi-tech-bio-farming-3"},
       icon = ICONPATH .. "bi-tech-bio-farming-3.png",
       icon_size = 256,
+      BI_add_icon = true,
       effects = {
         {
           type = "unlock-recipe",
@@ -303,8 +325,9 @@ data:extend({
         },
         time = 30,
       },
-      upgrade = false,
-    },    
+      --~ upgrade = false,
+      upgrade = true,
+    },
     {
       type = "technology",
       name = "bi-tech-bio-farming-4",
@@ -312,6 +335,7 @@ data:extend({
       localised_description = {"technology-description.bi-tech-bio-farming-4"},
       icon = ICONPATH .. "bi-tech-bio-farming-4.png",
       icon_size = 256,
+      BI_add_icon = true,
       effects = {
         {
           type = "unlock-recipe",
@@ -336,8 +360,9 @@ data:extend({
         },
         time = 30,
       },
-      upgrade = false,
-    },    
+      --~ upgrade = false,
+      upgrade = true,
+    },
 
 
 
@@ -349,6 +374,7 @@ data:extend({
       localised_description = {"technology-description.bi-tech-timber"},
       icon = ICONPATH .. "bi-tech-timber.png",
       icon_size = 256,
+      BI_add_icon = true,
       effects = {
         {
           type = "unlock-recipe",
@@ -372,8 +398,9 @@ data:extend({
         },
         time = 30,
       },
-      upgrade = false,
-    },    
+      --~ upgrade = false,
+      upgrade = true,
+    },
     {
       type = "technology",
       name = "bi-tech-resin-extraction",
@@ -381,6 +408,7 @@ data:extend({
       localised_description = {"technology-description.bi-tech-resin-extraction"},
       icon = ICONPATH .. "bi-tech-resin-extraction.png",
       icon_size = 256,
+      BI_add_icon = true,
       effects = {
         {
           type = "unlock-recipe",
@@ -403,8 +431,9 @@ data:extend({
         },
         time = 30,
       },
-      upgrade = false,
-    },    
+      --~ upgrade = false,
+      upgrade = true,
+    },
     {
       type = "technology",
       name = "bi-tech-ash",
@@ -412,6 +441,7 @@ data:extend({
       localised_description = {"technology-description.bi-tech-ash"},
       icon = ICONPATH .. "bi-tech-ash.png",
       icon_size = 256,
+      BI_add_icon = true,
       effects = {
         {
           type = "unlock-recipe",
@@ -426,7 +456,10 @@ data:extend({
           recipe = "bi-ash-2"
         },
       },
-      prerequisites = {"bi-tech-timber", "steel-processing"},
+      -- Technology prerequisite 'steel-processing' on 'bi-tech-ash' is redundant
+      -- as 'bi-tech-timber' already contains it in its prerequisite tree.
+      --~ prerequisites = {"bi-tech-timber", "steel-processing"},
+      prerequisites = {"bi-tech-timber"},
       unit = {
         count = 70,
         ingredients = {
@@ -434,14 +467,15 @@ data:extend({
         },
         time = 30,
       },
-      upgrade = false,
-    },    
+      --~ upgrade = false,
+      upgrade = true,
+    },
 
 
 
 
 
-    
+
 
 
     {
@@ -451,6 +485,7 @@ data:extend({
       localised_description = {"technology-description.bi-terraforming-1"},
       icon = ICONPATH .. "bi-terraforming-1.png",
       icon_size = 256,
+      BI_add_icon = true,
       effects = {
         {
           type = "unlock-recipe",
@@ -469,8 +504,9 @@ data:extend({
         },
         time = 30,
       },
-      upgrade = false,
-    },    
+      --~ upgrade = false,
+      upgrade = true,
+    },
     {
       type = "technology",
       name = "bi-terraforming-2",
@@ -478,6 +514,7 @@ data:extend({
       localised_description = {"technology-description.bi-terraforming-2"},
       icon = ICONPATH .. "bi-terraforming-2.png",
       icon_size = 256,
+      BI_add_icon = true,
       effects = {
         {
           type = "unlock-recipe",
@@ -497,8 +534,9 @@ data:extend({
         },
         time = 30,
       },
-      upgrade = false,
-    },    
+      --~ upgrade = false,
+      upgrade = true,
+    },
     {
       type = "technology",
       name = "bi-terraforming-3",
@@ -506,6 +544,7 @@ data:extend({
       localised_description = {"technology-description.bi-terraforming-3"},
       icon = ICONPATH .. "bi-terraforming-3.png",
       icon_size = 256,
+      BI_add_icon = true,
       effects = {
         {
           type = "unlock-recipe",
@@ -525,7 +564,8 @@ data:extend({
         },
         time = 30,
       },
-      upgrade = false,
+      --~ upgrade = false,
+      upgrade = true,
     },
 
 
@@ -536,8 +576,9 @@ data:extend({
       name = "bi-tech-fertilizer",
       localised_name = {"technology-name.bi-tech-fertilizer"},
       localised_description = {"technology-description.bi-tech-fertilizer"},
-      icon_size = 256,
       icon = ICONPATH .. "bi-tech-fertilizer.png",
+      icon_size = 256,
+      BI_add_icon = true,
       effects = {
         {
           type = "unlock-recipe",
@@ -567,7 +608,7 @@ data:extend({
 
 
 
-    
+
 
     {
       type = "technology",
@@ -576,6 +617,7 @@ data:extend({
       localised_description = {"technology-description.bi-tech-garden-1"},
       icon = ICONPATH .. "bi-tech-garden-1.png",
       icon_size = 256,
+      BI_add_icon = true,
       effects = {
         {
           type = "unlock-recipe",
@@ -591,7 +633,8 @@ data:extend({
         },
         time = 30,
       },
-      upgrade = false,
+      --~ upgrade = false,
+      upgrade = true,
     },
     {
       type = "technology",
@@ -600,6 +643,7 @@ data:extend({
       localised_description = {"technology-description.bi-tech-garden-2"},
       icon = ICONPATH .. "bi-tech-garden-2.png",
       icon_size = 256,
+      BI_add_icon = true,
       effects = {
         {
           type = "unlock-recipe",
@@ -616,7 +660,8 @@ data:extend({
         },
         time = 30,
       },
-      upgrade = false,
+      --~ upgrade = false,
+      upgrade = true,
     },
     {
       type = "technology",
@@ -625,6 +670,7 @@ data:extend({
       localised_description = {"technology-description.bi-tech-garden-3"},
       icon = ICONPATH .. "bi-tech-garden-3.png",
       icon_size = 256,
+      BI_add_icon = true,
       effects = {
         {
           type = "unlock-recipe",
@@ -642,7 +688,8 @@ data:extend({
         },
         time = 30,
       },
-      upgrade = false,
+      --~ upgrade = false,
+      upgrade = true,
     },
 
 
@@ -655,6 +702,7 @@ data:extend({
       localised_description = {"technology-description.bi-tech-depollution-1"},
       icon = ICONPATH .. "bi-tech-depollution-1.png",
       icon_size = 256,
+      BI_add_icon = true,
       effects = {
         {
           type = "unlock-recipe",
@@ -670,7 +718,8 @@ data:extend({
         },
         time = 30,
       },
-      upgrade = false,
+      --~ upgrade = false,
+      upgrade = true,
     },
 
     {
@@ -680,6 +729,7 @@ data:extend({
       localised_description = {"technology-description.bi-tech-depollution-2"},
       icon = ICONPATH .. "bi-tech-depollution-2.png",
       icon_size = 256,
+      BI_add_icon = true,
       effects = {
         {
           type = "unlock-recipe",
@@ -696,7 +746,8 @@ data:extend({
         },
         time = 30,
       },
-      upgrade = false,
+      --~ upgrade = false,
+      upgrade = true,
     },
 
 
@@ -723,6 +774,7 @@ data:extend({
       localised_description = {"technology-description.bi-tech-biomass"},
       icon = ICONPATH .. "bi-tech-biomass.png",
       icon_size = 256,
+      BI_add_icon = true,
       effects = {
         {
           type = "unlock-recipe",
@@ -743,11 +795,12 @@ data:extend({
         },
         time = 30,
       },
-      upgrade = false,
+      --~ upgrade = false,
+      upgrade = true,
     },
 
 
-    
+
     {
       type = "technology",
       name = "bi-tech-advanced-fertilizers",
@@ -755,6 +808,7 @@ data:extend({
       localised_description = {"technology-description.bi-tech-advanced-fertilizers"},
       icon = ICONPATH .. "bi-tech-advanced-fertilizers.png",
       icon_size = 256,
+      BI_add_icon = true,
       effects = {
         {
           type = "unlock-recipe",
@@ -771,12 +825,13 @@ data:extend({
         },
         time = 30,
       },
-      upgrade = false,
+      --~ upgrade = false,
+      upgrade = true,
     },
 
 
 
-    
+
     {
       type = "technology",
       name = "bi-tech-stone-crushing-1",
@@ -784,6 +839,7 @@ data:extend({
       localised_description = {"technology-description.bi-tech-stone-crushing-1"},
       icon = ICONPATH .. "bi-tech-stone-crushing-1.png",
       icon_size = 256,
+      BI_add_icon = true,
       effects = {
         {
           type = "unlock-recipe",
@@ -802,7 +858,8 @@ data:extend({
         },
         time = 30,
       },
-      upgrade = false,
+      --~ upgrade = false,
+      upgrade = true,
     },
 
 
@@ -813,6 +870,7 @@ data:extend({
       localised_description = {"technology-description.bi-tech-stone-crushing-2"},
       icon = ICONPATH .. "bi-tech-stone-crushing-2.png",
       icon_size = 256,
+      BI_add_icon = true,
       effects = {
         {
           type = "unlock-recipe",
@@ -840,7 +898,8 @@ data:extend({
         },
         time = 30,
       },
-      upgrade = false,
+      --~ upgrade = false,
+      upgrade = true,
     },
 
 
@@ -856,6 +915,7 @@ data:extend({
       localised_description = {"technology-description.bi-tech-rail-bridge"},
       icon = ICONPATH .. "bi-tech-rail-bridge.png",
       icon_size = 256,
+      BI_add_icon = true,
       effects = {
         {
           type = "unlock-recipe",
@@ -871,7 +931,8 @@ data:extend({
         },
         time = 30,
       },
-      upgrade = false,
+      --~ upgrade = false,
+      upgrade = true,
     },
 
     {
@@ -881,6 +942,7 @@ data:extend({
       localised_description = {"technology-description.bi-tech-concrete-rails"},
       icon = ICONPATH .. "bi-tech-concrete-rails.png",
       icon_size = 256,
+      BI_add_icon = true,
       effects = {
         {
           type = "unlock-recipe",
@@ -900,7 +962,8 @@ data:extend({
         },
         time = 30,
       },
-      upgrade = false,
+      --~ upgrade = false,
+      upgrade = true,
     },
 
     {
@@ -910,6 +973,7 @@ data:extend({
       localised_description = {"technology-description.bi-tech-power-conducting-rails"},
       icon = ICONPATH .. "bi-tech-power-conducting-rails.png",
       icon_size = 256,
+      BI_add_icon = true,
       effects = {
         {
           type = "unlock-recipe",
@@ -929,8 +993,166 @@ data:extend({
         },
         time = 30,
       },
+      --~ upgrade = false,
+      upgrade = true,
+    },
+
+
+
+
+
+
+
+
+
+
+{
+      type = "technology",
+      name = "bi-tech-wooden-pole-1",
+      localised_name = {"technology-name.bi-tech-wooden-pole-1"},
+      localised_description = {"technology-description.bi-tech-wooden-pole-1"},
+      icon = ICONPATH .. "bi-tech-wooden-pole-1.png",
+      icon_size = 256,
+      effects = {
+        {
+          type = "unlock-recipe",
+          recipe = "bi-wooden-pole-big"
+        },
+      },
+      prerequisites = {"bi-tech-timber"},
+      unit = {
+        count = 100,
+        ingredients = {
+          {"automation-science-pack", 1},
+          {"logistic-science-pack", 1},
+        },
+        time = 30,
+      },
       upgrade = false,
     },
+
+
+
+    {
+      type = "technology",
+      name = "bi-tech-wooden-pole-2",
+      localised_name = {"technology-name.bi-tech-wooden-pole-2"},
+      localised_description = {"technology-description.bi-tech-wooden-pole-2"},
+      icon = ICONPATH .. "bi-tech-wooden-pole-2.png",
+      icon_size = 256,
+      effects = {
+        {
+          type = "unlock-recipe",
+          recipe = "bi-wooden-pole-huge"
+        },
+      },
+      prerequisites = {"electric-energy-distribution-2", "bi-tech-wooden-pole-1"},
+      unit = {
+        count = 110,
+        ingredients = {
+          {"automation-science-pack", 1},
+          {"logistic-science-pack", 1},
+          {"chemical-science-pack", 1},
+        },
+        time = 30,
+      },
+      upgrade = false,
+    },
+
+
+
+
+
+
+
+
+
+    {
+      type = "technology",
+      name = "bi-tech-wooden-storage-1",
+      localised_name = {"technology-name.bi-tech-wooden-storage-1"},
+      localised_description = {"technology-description.bi-tech-wooden-storage-1"},
+      icon = ICONPATH .. "bi-tech-wooden-storage-1.png",
+      icon_size = 256,
+      effects = {
+        {
+          type = "unlock-recipe",
+          recipe = "bi-wooden-chest-large"
+        },
+      },
+      prerequisites = {"bi-tech-timber", "logistics"},
+      unit = {
+        count = 30,
+        ingredients = {
+          {"automation-science-pack", 1},
+          {"logistic-science-pack", 1},
+        },
+        time = 30,
+      },
+      upgrade = false,
+    },
+
+
+
+    {
+      type = "technology",
+      name = "bi-tech-wooden-storage-2",
+      localised_name = {"technology-name.bi-tech-wooden-storage-2"},
+      localised_description = {"technology-description.bi-tech-wooden-storage-2"},
+      icon = ICONPATH .. "bi-tech-wooden-storage-2.png",
+      icon_size = 256,
+      effects = {
+        {
+          type = "unlock-recipe",
+          recipe = "bi-wooden-chest-huge"
+        },
+      },
+      prerequisites = {"bi-tech-wooden-storage-1", "logistics-2"},
+      unit = {
+        count = 100,
+        ingredients = {
+          {"automation-science-pack", 1},
+          {"logistic-science-pack", 1},
+        },
+        time = 30,
+      },
+      upgrade = false,
+    },
+
+
+    
+    {
+      type = "technology",
+      name = "bi-tech-wooden-storage-3",
+      localised_name = {"technology-name.bi-tech-wooden-storage-3"},
+      localised_description = {"technology-description.bi-tech-wooden-storage-3"},
+      icon = ICONPATH .. "bi-tech-wooden-storage-3.png",
+      icon_size = 256,
+      effects = {
+        {
+          type = "unlock-recipe",
+          recipe = "bi-wooden-chest-giga"
+        },
+      },
+      prerequisites = {"bi-tech-wooden-storage-2", "logistics-3", "concrete"},
+      unit = {
+        count = 150,
+        ingredients = {
+          {"automation-science-pack", 1},
+          {"logistic-science-pack", 1},
+          {"chemical-science-pack", 1},
+          {"production-science-pack", 1},
+        },
+        time = 30,
+      },
+      upgrade = false,
+    },
+
+
+
+
+
+    
 })
 
 
@@ -946,6 +1168,7 @@ data:extend({
       localised_description = {"technology-description.bi-tech-biomass-reprocessing-1"},
       icon = ICONPATH .. "bi-tech-biomass-reprocessing-1.png",
       icon_size = 256,
+      BI_add_icon = true,
       effects = {
         {
           type = "unlock-recipe",
@@ -962,7 +1185,8 @@ data:extend({
         },
         time = 30,
       },
-      upgrade = false,
+      --~ upgrade = false,
+      upgrade = true,
     },
 
     {
@@ -972,6 +1196,7 @@ data:extend({
       localised_description = {"technology-description.bi-tech-biomass-reprocessing-2"},
       icon = ICONPATH .. "bi-tech-biomass-reprocessing-2.png",
       icon_size = 256,
+      BI_add_icon = true,
       effects = {
         {
           type = "unlock-recipe",
@@ -989,7 +1214,8 @@ data:extend({
         },
         time = 30,
       },
-      upgrade = false,
+      --~ upgrade = false,
+      upgrade = true,
     },
 
     {
@@ -999,6 +1225,7 @@ data:extend({
       localised_description = {"technology-description.bi-tech-biomass-conversion"},
       icon = ICONPATH .. "bi-tech-biomass-conversion.png",
       icon_size = 256,
+      BI_add_icon = true,
       effects = {
         {
           type = "unlock-recipe",
@@ -1023,7 +1250,8 @@ data:extend({
         },
         time = 30,
       },
-      upgrade = false,
+      --~ upgrade = false,
+      upgrade = true,
     },
 
 
@@ -1034,6 +1262,7 @@ data:extend({
       localised_description = {"technology-description.bi-tech-cellulose-1"},
       icon = ICONPATH .. "bi-tech-cellulose-1.png",
       icon_size = 256,
+      BI_add_icon = true,
       effects = {
         {
           type = "unlock-recipe",
@@ -1054,7 +1283,8 @@ data:extend({
         },
         time = 30,
       },
-      upgrade = false,
+      --~ upgrade = false,
+      upgrade = true,
     },
 
     {
@@ -1064,6 +1294,7 @@ data:extend({
       localised_description = {"technology-description.bi-tech-cellulose-2"},
       icon = ICONPATH .. "bi-tech-cellulose-2.png",
       icon_size = 256,
+      BI_add_icon = true,
       effects = {
         {
           type = "unlock-recipe",
@@ -1089,7 +1320,8 @@ data:extend({
         },
         time = 30,
       },
-      upgrade = false,
+      --~ upgrade = false,
+      upgrade = true,
     },
 
 
@@ -1100,6 +1332,7 @@ data:extend({
       localised_description = {"technology-description.bi-tech-bio-plastics"},
       icon = ICONPATH .. "bi-tech-bio-plastics.png",
       icon_size = 256,
+      BI_add_icon = true,
       effects = {
         {
           type = "unlock-recipe",
@@ -1110,7 +1343,10 @@ data:extend({
           recipe = "bi-plastic-1"
         },
       },
-      prerequisites = {"bi-tech-cellulose-1", "advanced-oil-processing", "plastics"},
+      -- Technology prerequisite 'plastics' on 'bi-tech-bio-plastics' is redundant
+      -- as 'advanced-oil-processing' already contains it in its prerequisite tree.
+      --~ prerequisites = {"bi-tech-cellulose-1", "advanced-oil-processing", "plastics"},
+      prerequisites = {"bi-tech-cellulose-1", "advanced-oil-processing"},
       unit = {
         count = 175,
         ingredients = {
@@ -1121,7 +1357,8 @@ data:extend({
         },
         time = 30,
       },
-      upgrade = false,
+      --~ upgrade = false,
+      upgrade = true,
     },
 
 
@@ -1132,6 +1369,7 @@ data:extend({
       localised_description = {"technology-description.bi-tech-bio-boiler"},
       icon = ICONPATH .. "bi-tech-bio-boiler.png",
       icon_size = 256,
+      BI_add_icon = true,
       effects = {
         {
           type = "unlock-recipe",
@@ -1148,15 +1386,16 @@ data:extend({
         },
         time = 30,
       },
-      upgrade = false,
+      --~ upgrade = false,
+      upgrade = true,
     },
 
 })
-end 
+end
 
 
 
-if BI.Settings.BI_Solar_Additions and not data.raw.technology["bob-solar-energy-2"] and not data.raw.technology["bob-solar-energy-3"] then 
+if BI.Settings.BI_Solar_Additions and not data.raw.technology["bob-solar-energy-2"] and not data.raw.technology["bob-solar-energy-3"] then
 
 data:extend({
 
@@ -1167,6 +1406,7 @@ data:extend({
       localised_description = {"technology-description.bi-tech-electric-energy-super-accumulators"},
       icon = ICONPATH .. "bi-tech-electric-energy-super-accumulators.png",
       icon_size = 256,
+      BI_add_icon = true,
       effects = {
         {
           type = "unlock-recipe",
@@ -1183,7 +1423,8 @@ data:extend({
         },
         time = 30,
       },
-      upgrade = false,
+      --~ upgrade = false,
+      upgrade = true,
     },
 
     {
@@ -1193,10 +1434,12 @@ data:extend({
       localised_description = {"technology-description.bi-tech-steamsolar-combination"},
       icon = ICONPATH .. "bi-tech-steamsolar-combination.png",
       icon_size = 256,
+      BI_add_icon = true,
       effects = {
         {
           type = "unlock-recipe",
-          recipe = "bi-solar-boiler-panel"
+          --~ recipe = "bi-solar-boiler-panel"
+          recipe = "bi-solar-boiler"
         },
       },
       prerequisites = {"solar-energy", "fluid-handling"},
@@ -1208,7 +1451,8 @@ data:extend({
         },
         time = 30,
       },
-      upgrade = false,
+      --~ upgrade = false,
+      upgrade = true,
     },
 
     {
@@ -1218,6 +1462,7 @@ data:extend({
       localised_description = {"technology-description.bi-tech-musk-floor"},
       icon = ICONPATH .. "bi-tech-musk-floor.png",
       icon_size = 256,
+      BI_add_icon = true,
       effects = {
         {
           type = "unlock-recipe",
@@ -1235,7 +1480,8 @@ data:extend({
         },
         time = 30,
       },
-      upgrade = false,
+      --~ upgrade = false,
+      upgrade = true,
     },
 
     {
@@ -1245,6 +1491,7 @@ data:extend({
       localised_description = {"technology-description.bi-tech-super-solar-panels"},
       icon = ICONPATH .. "bi-tech-super-solar-panels.png",
       icon_size = 256,
+      BI_add_icon = true,
       effects = {
         {
           type = "unlock-recipe",
@@ -1261,10 +1508,11 @@ data:extend({
         },
         time = 30,
       },
-      upgrade = false,
+      --~ upgrade = false,
+      upgrade = true,
     },
 
-    
+
     {
       type = "technology",
       name = "bi-tech-huge-substation",
@@ -1272,6 +1520,7 @@ data:extend({
       localised_description = {"technology-description.bi-tech-huge-substation"},
       icon = ICONPATH .. "bi-tech-huge-substation.png",
       icon_size = 256,
+      BI_add_icon = true,
       effects = {
         {
           type = "unlock-recipe",
@@ -1289,8 +1538,56 @@ data:extend({
         },
         time = 30,
       },
-      upgrade = false,
+      --~ upgrade = false,
+      upgrade = true,
     },
 
 })
-end 
+end
+
+
+
+
+
+
+if BI.Settings.Bio_Cannon then
+
+  data:extend({
+    {
+      type = "technology",
+      name = "bi-tech-bio-cannon",
+      icon = ICONPATH .. "bi-tech-bio_cannon.png",
+      icon_size = 256,
+      BI_add_icon = true,
+      effects = {
+        {
+          type = "unlock-recipe",
+          recipe = "bi-bio-cannon"
+        },
+        {
+          type = "unlock-recipe",
+          recipe = "bi-bio-cannon-proto-ammo"
+        },
+        {
+          type = "unlock-recipe",
+          recipe = "bi-bio-cannon-basic-ammo"
+        },
+        {
+          type = "unlock-recipe",
+          recipe = "bi-bio-cannon-poison-ammo"
+        },
+
+      },
+      prerequisites = {"military-2"},
+      unit = {
+        count = 300,
+        ingredients = {
+          {"automation-science-pack", 1},
+          {"logistic-science-pack", 1},
+          {"military-science-pack", 1},
+        },
+        time = 30,
+      }
+    },
+  })
+end

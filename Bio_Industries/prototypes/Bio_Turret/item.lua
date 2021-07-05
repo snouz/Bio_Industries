@@ -10,6 +10,13 @@ data:extend({
     name = "bi-dart-turret",
     icon = ICONPATH .. "entity/bio_turret_icon.png",
     icon_size = 64,
+    BI_add_icon = true,
+    --~ icons = {
+      --~ {
+        --~ icon = ICONPATH .. "bio_turret_icon.png",
+        --~ icon_size = 64,
+      --~ }
+    --~ },
     subgroup = "defensive-structure",
     order = "aa[turret]-a[gun-turret]",
     place_result = "bi-dart-turret",

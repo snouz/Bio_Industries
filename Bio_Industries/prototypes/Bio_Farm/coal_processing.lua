@@ -25,7 +25,6 @@ return {
       --~ type = "unlock-recipe",
       --~ recipe = "bi-stone-brick"
     --~ },
-    
   },
 
   -- "bi-tech-coal-processing-2"

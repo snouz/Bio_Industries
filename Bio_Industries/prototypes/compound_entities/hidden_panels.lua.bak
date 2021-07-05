@@ -101,14 +101,10 @@ for panel_name, locale_name in pairs(BI.hidden_entities.types[h_key] or {}) do
   elseif c_entities["bi-bio-farm"] and
           panel_name == c_entities["bi-bio-farm"].hidden[h_key].name then
 
-    --panel.icon = ICONPATH .. "entity/biofarm_solarpanel.png"
-    --panel.icon_size = 64
-    --panel.icon_mipmaps = 3
-    --panel.BI_add_icon = true
-    panel.icons = { 
-      { icon = ICONPATH .. "entity/biofarm.png", icon_size = 64, icon_mipmaps = 4, scale = 1, shift = {0, 0} },
-      { icon = "__base__/graphics/icons/solar-panel.png", icon_size = 64, icon_mipmaps = 4, scale = 0.5, shift = {16, 16} },
-    }
+    panel.icon = ICONPATH .. "entity/biofarm_solarpanel.png"
+    panel.icon_size = 64
+    panel.icon_mipmaps = 3
+    panel.BI_add_icon = true
     panel.production = "100kW"
     BioInd.show("Adjusted properties of", panel_name)
 

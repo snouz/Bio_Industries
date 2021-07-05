@@ -88,14 +88,10 @@ BioInd.show("locale_name", locale_name)
 
     radar.localised_name = {"entity-name." .. radar.name}
 
-    --radar.icon = ICONPATH .. "entity/terraformer_radar.png"
-    --radar.icon_size = 64
-    --radar.icon_mipmaps = 3
-    --radar.BI_add_icon = true
-    radar.icons = { 
-      { icon = ICONPATH .. "entity/biofarm.png", icon_size = 64, icon_mipmaps = 4, scale = 1, shift = {0, 0} },
-      { icon = "__base__/graphics/icons/radar.png", icon_size = 64, icon_mipmaps = 4, scale = 0.5, shift = {16, 16} },
-    }
+    radar.icon = ICONPATH .. "entity/terraformer_radar.png"
+    radar.icon_size = 64
+    radar.icon_mipmaps = 3
+    radar.BI_add_icon = true
 
     -- We want to be able to see the scanning progress of this radar!
     for f, flag in pairs(radar.flags) do

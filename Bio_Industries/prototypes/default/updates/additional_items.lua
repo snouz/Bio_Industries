@@ -1,4 +1,4 @@
---~ BI.entered_file()
+--~ BioInd.entered_file()
 
 --~ BI.additional_items = BI.additional_items or {}
 
@@ -36,4 +36,4 @@
 --~ ------------------------------------------------------------------------------------
 --~ --                                    END OF FILE                                 --
 --~ ------------------------------------------------------------------------------------
---~ BI.entered_file("leave")
+--~ BioInd.entered_file("leave")

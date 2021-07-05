@@ -4,7 +4,7 @@
 --  control stage to combine the compound entities and pass on any optional data  --
 --  that may be required by the scripts.
 ------------------------------------------------------------------------------------
-log("Entered file" .. debug.getinfo(1).source)
+log("Entered file " .. debug.getinfo(1).source)
 require("util")
 
 -- During the data stage, we want to remove compound entities (or some of their
@@ -301,6 +301,6 @@ end
 ------------------------------------------------------------------------------------
 --                                    END OF FILE
 ------------------------------------------------------------------------------------
-log("Leaving file" .. debug.getinfo(1).source)
+log("Leaving file " .. debug.getinfo(1).source)
 
 return ret

@@ -1,4 +1,4 @@
-BI.entered_file()
+BioInd.entered_file()
 
 -- Remnants must be loaded before the corresponding entities!
 require("prototypes.default.entity_remnants")
@@ -405,7 +405,7 @@ BI.default_entities.bio_farm = {
 }
 
 -- Bio nursery (Greenhouse)
-BI.default_entities.bio_greenhous = {
+BI.default_entities.bio_greenhouse = {
   type = "assembling-machine",
   name = "bi-bio-greenhouse",
   icon = ICONPATH .. "entity/greenhouse.png",
@@ -1039,4 +1039,4 @@ end
 ------------------------------------------------------------------------------------
 --                                    END OF FILE                                 --
 ------------------------------------------------------------------------------------
-BI.entered_file("leave")
+BioInd.entered_file("leave")

@@ -22,6 +22,7 @@ function thxbob.lib.result_check(object)
 BioInd.show("Entered function result_check", object)
   if object then
     object.results = object.results or {}
+BioInd.show("object.results", object.results)
 
     if object.result then
       local item = thxbob.lib.item.basic_item({name = object.result})
@@ -31,7 +32,7 @@ BioInd.show("item", item)
         object.result_count = nil
       end
 
-BioInd.show("object.result", object.result)
+BioInd.show("object.results", object.results)
       thxbob.lib.item.add_new(object.results, item)
 BioInd.show("object.results after add_new", object.results)
 

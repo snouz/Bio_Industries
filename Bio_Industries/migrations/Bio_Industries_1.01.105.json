@@ -1,0 +1,12 @@
+{
+  "recipe":
+  [
+    ["bi-sulfur-angels",                "bi-sulfur"]
+  ],
+
+  "technology":
+  [
+    ["bi-tech-bio-cannon",              "bi-tech-bio-cannon-1"]
+  ]
+
+}

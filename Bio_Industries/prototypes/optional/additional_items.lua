@@ -1,7 +1,7 @@
 ------------------------------------------------------------------------------------
 --                     Data for items that depend on settings.                    --
 ------------------------------------------------------------------------------------
-BI.entered_file()
+BioInd.entered_file()
 
 BI.additional_items = BI.additional_items or {}
 
@@ -138,6 +138,36 @@ BI.additional_items.Bio_Cannon.bio_cannon_poison_ammo = {
   subgroup = "ammo",
   order = "z[Bio_Cannon_Ammo]-c[Poison]",
   stack_size = 50,
+}
+
+
+-- Poison artillery shell
+BI.additional_items.Bio_Cannon.poison_artillery_shell = {
+  type = "ammo",
+  name = "bi-poison-artillery-shell",
+  icon = ICONPATH .. "weapon/artillery-shell-poison.png",
+  icon_size = 64, icon_mipmaps = 3,
+  BI_add_icon = true,
+  ammo_type = {
+    category = "artillery-shell",
+    target_type = "direction",
+    action = {
+      {
+        type = "direct",
+        action_delivery = {
+          type = "artillery",
+          projectile = "bi-poison-artillery-projectile",
+          starting_speed = 1,
+          direction_deviation = 0.8,
+          range_deviation = 0.8,
+          max_range = 90
+        }
+      }
+    }
+  },
+  subgroup = "ammo",
+  order = "d[explosive-cannon-shell]-d[artillery]-[bi-poison]",
+  stack_size = 1,
 }
 
 
@@ -399,6 +429,40 @@ BI.additional_items.BI_Rubber.resin = {
   --~ order = "a[bi]-a-b[bi-resin]",
   order = "a[bi]-a-bb[bi-resin]",
   stack_size = 200
+}
+
+-- Rubber
+BI.additional_items.BI_Rubber.rubber = {
+  type = "item",
+  name = "rubber",
+  localised_name = {"item-name.bi-rubber"},
+  localised_description = {"item-description.bi-rubber"},
+  icon = ICONPATH .. "rubber.png",
+  icon_size = 64, icon_mipmaps = 3,
+  BI_add_icon = true,
+  subgroup = "raw-material",
+  --~ order = "a[bi]-a-b[bi-resin]",
+  order = "a[bi]-a-bb[bi-rubber]",
+  stack_size = 100
+}
+
+-- Rubber mat
+BI.additional_items.BI_Rubber.rubber_mat = {
+  type = "item",
+  name = "bi-rubber-mat",
+  localised_name = {"entity-name.bi-rubber-mat"},
+  localised_description = {"entity-description.bi-rubber-mat"},
+  icon = ICONPATH .. "entity/rubber-mat.png",
+  icon_size = 64, icon_mipmaps = 3,
+  BI_add_icon = true,
+  subgroup = "defensive-structure",
+  order = "a-a[stone-wall]-a[bi-rubber-mat]",
+  stack_size = 400,
+  place_as_tile = {
+    result = "bi-rubber-mat",
+    condition_size = 4,
+    condition = { "water-tile" }
+  }
 }
 
 

@@ -1,7 +1,7 @@
 ------------------------------------------------------------------------------------
 --                   Data for recipes that depend on a setting.                   --
 ------------------------------------------------------------------------------------
-BI.entered_file()
+BioInd.entered_file()
 
 BI.additional_recipes = BI.additional_recipes or {}
 
@@ -333,7 +333,8 @@ BI.additional_recipes.BI_Bio_Fuel.bio_mass_conversion_1 = {
   icon = ICONPATH .. "bio_conversion_1.png",
   icon_size = 64, icon_mipmaps = 3,
   BI_add_icon = true,
-  category = "oil-processing",
+  --~ category = "oil-processing",
+  category = "biofarm-mod-bioreactor",
   enabled = false,
   always_show_made_in = true,
   allow_decomposition = false,
@@ -369,7 +370,8 @@ BI.additional_recipes.BI_Bio_Fuel.bio_mass_conversion_2 = {
   icon = ICONPATH .. "bio_conversion_2.png",
   icon_size = 64, icon_mipmaps = 3,
   BI_add_icon = true,
-  category = "oil-processing",
+  --~ category = "oil-processing",
+  category = "biofarm-mod-bioreactor",
   enabled = false,
   always_show_made_in = true,
   allow_decomposition = false,
@@ -399,7 +401,8 @@ BI.additional_recipes.BI_Bio_Fuel.bio_mass_conversion_3 = {
   icon = ICONPATH .. "bio_conversion_3.png",
   icon_size = 64, icon_mipmaps = 3,
   BI_add_icon = true,
-  category = "oil-processing",
+  --~ category = "oil-processing",
+  category = "biofarm-mod-bioreactor",
   enabled = false,
   always_show_made_in = true,
   allow_decomposition = false,
@@ -433,7 +436,8 @@ BI.additional_recipes.BI_Bio_Fuel.bio_mass_conversion_4 = {
   icon = ICONPATH .. "bio_conversion_4.png",
   icon_size = 64, icon_mipmaps = 3,
   BI_add_icon = true,
-  category = "oil-processing",
+  --~ category = "oil-processing",
+  category = "biofarm-mod-bioreactor",
   enabled = false,
   always_show_made_in = true,
   allow_decomposition = false,
@@ -498,7 +502,8 @@ BI.additional_recipes.BI_Bio_Fuel.bio_acid = {
   icon = ICONPATH .. "bio_sulfturic_acid.png",
   icon_size = 64, icon_mipmaps = 3,
   BI_add_icon = true,
-  category = "chemistry",
+  --~ category = "chemistry",
+  category = "biofarm-mod-bioreactor",
   energy_required = 10,
   ingredients = {
     {type = "fluid", name = "water", amount = 90},
@@ -1039,7 +1044,7 @@ BI.additional_recipes.BI_Darts.wooden_fence = {
   always_show_made_in = false,        -- Changed for 0.18.34/1.1.4
   allow_decomposition = true,         -- Changed for 0.18.34/1.1.4
   subgroup = "defensive-structure",
-  order = "a-a[stone-wall]-a[wooden-fence]",
+  order = "a-a[stone-wall]-aa[wooden-fence]",
   -- This is a custom property for use by "Krastorio 2" (it will change
   -- ingredients/results; used for wood/wood pulp)
   mod = "Bio_Industries",
@@ -1099,7 +1104,8 @@ BI.additional_recipes.BI_Darts.dart_magazine_standard = {
   icon = ICONPATH .. "weapon/dart_2_standard.png",
   icon_size = 64, icon_mipmaps = 3,
   BI_add_icon = true,
-  BI_add_to_tech = {"military"},
+  --~ BI_add_to_tech = {"military"},
+  BI_add_to_tech = {"bi-tech-darts-1"},
   normal = {
     enabled = false,
     energy_required = 5,
@@ -1145,7 +1151,7 @@ BI.additional_recipes.BI_Darts.dart_magazine_enhanced = {
   icon_size = 64, icon_mipmaps = 3,
   BI_add_icon = true,
   --~ BI_add_to_tech = {"military-2"},
-  BI_add_to_tech = {"plastics"},
+  BI_add_to_tech = {"bi-tech-darts-2"},
   normal = {
     enabled = false,
     energy_required = 6,
@@ -1190,7 +1196,8 @@ BI.additional_recipes.BI_Darts.dart_magazine_poison = {
   icon = ICONPATH .. "weapon/dart_4_poison.png",
   icon_size = 64, icon_mipmaps = 3,
   BI_add_icon = true,
-  BI_add_to_tech = {"military-3"},
+  --~ BI_add_to_tech = {"military-3"},
+  BI_add_to_tech = {"bi-tech-darts-3"},
   normal = {
     enabled = false,
     energy_required = 8,
@@ -1853,6 +1860,68 @@ BI.additional_recipes.BI_Rubber.wood_from_pulp = {
   allow_as_intermediate = false,
 }
 
+-- Rubber
+BI.additional_recipes.BI_Rubber.rubber = {
+  type = "recipe",
+  name = "bi-rubber",
+  icon = ICONPATH .. "rubber.png",
+  icon_size = 64, icon_mipmaps = 3,
+  BI_add_icon = true,
+  subgroup = "bio-bio-farm-raw",
+  order = "a[bi]-a-c[bi-4-rubber]",
+  enabled = false,
+  --~ --  always_show_made_in = true,
+  --~ --  allow_decomposition = false,
+  --~ --  allow_as_intermediate = false,
+  energy_required = 1.5,
+  ingredients = {
+     {type = "item", name = "resin", amount = 3},
+  },
+  result = "rubber",
+  result_count = 1,
+  --~ allow_as_intermediate = true,           -- Added for 0.18.34/1.1.4
+  always_show_made_in = false,        -- Added for 0.18.34/1.1.4
+  allow_decomposition = false,        -- Added for 0.18.34/1.1.4
+  -- This is a custom property for use by "Krastorio 2" (it will change
+  -- ingredients/results; used for wood/wood pulp)
+  mod = "Bio_Industries",
+  -- Custom property that allows to automatically add our recipes to tech unlocks.
+  BI_add_to_tech = {"bi-tech-rubber-production"},
+  allow_as_intermediate = false,
+}
+
+-- Rubber mat
+BI.additional_recipes.BI_Rubber.rubber_mat = {
+  type = "recipe",
+  name = "bi-rubber-mat",
+  icon = ICONPATH .. "entity/rubber-mat.png",
+  icon_size = 64, icon_mipmaps = 3,
+  BI_add_icon = true,
+  subgroup = "defensive-structure",
+  order = "a-a[stone-wall]-ab[rubber-mat]",
+  enabled = false,
+  --~ --  always_show_made_in = true,
+  --~ --  allow_decomposition = false,
+  --~ --  allow_as_intermediate = false,
+  energy_required = 1.5,
+  ingredients = {
+     {type = "item", name = "resin", amount = 4},
+     {type = "item", name = "concrete", amount = 1},
+     {type = "item", name = "rubber", amount = 3},
+  },
+  result = "bi-rubber-mat",
+  result_count = 1,
+  --~ allow_as_intermediate = true,           -- Added for 0.18.34/1.1.4
+  always_show_made_in = false,        -- Added for 0.18.34/1.1.4
+  allow_decomposition = false,        -- Added for 0.18.34/1.1.4
+  -- This is a custom property for use by "Krastorio 2" (it will change
+  -- ingredients/results; used for wood/wood pulp)
+  mod = "Bio_Industries",
+  -- Custom property that allows to automatically add our recipes to tech unlocks.
+  BI_add_to_tech = {"bi-tech-rubber-mat"},
+  allow_as_intermediate = false,
+}
+
 
 ------------------------------------------------------------------------------------
 --                           Enable: Bio solar additions                          --
@@ -2160,7 +2229,8 @@ BI.additional_recipes.BI_Stone_Crushing.crushed_stone_4 = {
   allow_decomposition = true,         -- Changed for 0.18.34/1.1.4
   allow_as_intermediate = false,
   -- Custom property that allows to automatically add our recipes to tech unlocks.
-  BI_add_to_tech = {"bi-tech-stone-crushing-2"},
+  --~ BI_add_to_tech = {"bi-tech-stone-crushing-2"},
+  BI_add_to_tech = {"bi-tech-stone-crushing-3"},
 }
 
 -- Crushed stone from refined hazard concrete --
@@ -2186,7 +2256,37 @@ BI.additional_recipes.BI_Stone_Crushing.crushed_stone_5 = {
   allow_decomposition = true,         -- Changed for 0.18.34/1.1.4
   allow_as_intermediate = false,
   -- Custom property that allows to automatically add our recipes to tech unlocks.
-  BI_add_to_tech = {"bi-tech-stone-crushing-2"},
+  --~ BI_add_to_tech = {"bi-tech-stone-crushing-2"},
+  BI_add_to_tech = {"bi-tech-stone-crushing-3"},
+}
+
+
+-- Crushed stone from refined hazard concrete --
+BI.additional_recipes.BI_Stone_Crushing.crushed_stone_6 = {
+  type = "recipe",
+  name = "bi-crushed-stone-6",
+  --localised_description = {"recipe-description.bi-crushed-stone"},
+  icon = ICONPATH .. "crushed-stone-refined-hazard-concrete.png",
+  icon_size = 64, icon_mipmaps = 3,
+  BI_add_icon = true,
+  category = "biofarm-mod-crushing",
+  subgroup = "bio-stone-crusher",
+  order = "a[bi]-a-z[bi-9-stone-crushed-5]",
+  energy_required = 1.5,    -- Increased crafting time
+  ingredients = {{"stone-brick", 1}},
+  result = "stone-crushed",
+  --~ result_count = 4,
+  result_count = 3,
+  enabled = false,
+  --~ always_show_made_in = true,
+  --~ allow_decomposition = false,
+  --~ allow_as_intermediate = false,
+  always_show_made_in = true,        -- Changed for 0.18.34/1.1.4
+  allow_decomposition = true,         -- Changed for 0.18.34/1.1.4
+  allow_as_intermediate = false,
+  -- Custom property that allows to automatically add our recipes to tech unlocks.
+  --~ BI_add_to_tech = {"bi-tech-stone-crushing-2"},
+  BI_add_to_tech = {"bi-tech-stone-crushing-1"},
 }
 
  -- Stone brick
@@ -2822,7 +2922,7 @@ BI.additional_recipes.Bio_Cannon.bio_cannon = {
   subgroup = "defensive-structure",
   order = "b[turret]-e[bi-prototype-artillery-turret]",
   -- Custom property that allows to automatically add our recipes to tech unlocks.
-  BI_add_to_tech = {"bi-tech-bio-cannon"},
+  BI_add_to_tech = {"bi-tech-bio-cannon-1"},
 }
 
 -- Prototype Ammo
@@ -2845,7 +2945,8 @@ BI.additional_recipes.Bio_Cannon.bio_cannon_proto_ammo = {
   always_show_made_in = false,      -- Added for 0.18.34/1.1.4
   allow_decomposition = true,       -- Added for 0.18.34/1.1.4
   -- Custom property that allows to automatically add our recipes to tech unlocks.
-  BI_add_to_tech = {"bi-tech-bio-cannon"},
+  --~ BI_add_to_tech = {"bi-tech-bio-cannon"},
+  BI_add_to_tech = {"bi-tech-bio-cannon-1"},
 }
 
 -- Basic Ammo
@@ -2868,7 +2969,8 @@ BI.additional_recipes.Bio_Cannon.bio_cannon_basic_ammo = {
   always_show_made_in = false,      -- Added for 0.18.34/1.1.4
   allow_decomposition = true,       -- Added for 0.18.34/1.1.4
   -- Custom property that allows to automatically add our recipes to tech unlocks.
-  BI_add_to_tech = {"bi-tech-bio-cannon"},
+  --~ BI_add_to_tech = {"bi-tech-bio-cannon"},
+  BI_add_to_tech = {"bi-tech-bio-cannon-2"},
 }
 
 -- Poison Ammo
@@ -2892,7 +2994,32 @@ BI.additional_recipes.Bio_Cannon.bio_cannon_poison_ammo = {
   always_show_made_in = false,      -- Added for 0.18.34/1.1.4
   allow_decomposition = true,       -- Added for 0.18.34/1.1.4
   -- Custom property that allows to automatically add our recipes to tech unlocks.
-  BI_add_to_tech = {"bi-tech-bio-cannon"},
+  --~ BI_add_to_tech = {"bi-tech-bio-cannon"},
+  BI_add_to_tech = {"bi-tech-bio-cannon-3"},
+}
+
+-- Poison artillery shell
+BI.additional_recipes.Bio_Cannon.poison_artillery_shell = {
+  type = "recipe",
+  name = "bi-poison-artillery-shell",
+  --localised_name = {"item-name.bi-bio-cannon-poison-ammo"},
+  --localised_description = {"item-description.bi-bio-cannon-poison-ammo"},
+  enabled = false,
+  energy_required = 8,
+  ingredients = {
+    {"artillery-shell", 1},
+    {"poison-capsule", 5},
+  },
+  result = "bi-poison-artillery-shell",
+  result_count = 1,
+  subgroup = "ammo",
+  order = "d[explosive-cannon-shell]-d[artillery]-[bi-poison]",
+  allow_as_intermediate = true,    -- Added for 0.18.34/1.1.4
+  always_show_made_in = false,      -- Added for 0.18.34/1.1.4
+  allow_decomposition = true,       -- Added for 0.18.34/1.1.4
+  -- Custom property that allows to automatically add our recipes to tech unlocks.
+  --~ BI_add_to_tech = {"bi-tech-bio-cannon"},
+  BI_add_to_tech = {"artillery"},
 }
 
 
@@ -3010,4 +3137,4 @@ BioInd.writeDebug("Read data for optional recipes.")
 ------------------------------------------------------------------------------------
 --                                    END OF FILE                                 --
 ------------------------------------------------------------------------------------
-BI.entered_file("leave")
+BioInd.entered_file("leave")

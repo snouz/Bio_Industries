@@ -1,4 +1,4 @@
-BI.entered_file()
+BioInd.entered_file()
 
 BI.default_fluids = BI.default_fluids or {}
 
@@ -56,4 +56,4 @@ BioInd.create_stuff(BI.default_fluids)
 ------------------------------------------------------------------------------------
 --                                    END OF FILE                                 --
 ------------------------------------------------------------------------------------
-BI.entered_file("leave")
+BioInd.entered_file("leave")

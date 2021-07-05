@@ -1,7 +1,7 @@
 ------------------------------------------------------------------------------------
 --             Data for remnants of entities that depend on a setting.            --
 ------------------------------------------------------------------------------------
-BI.entered_file()
+BioInd.entered_file()
 
 BI.additional_remnants = BI.additional_remnants or {}
 
@@ -929,4 +929,4 @@ BioInd.writeDebug("Read data for optional remnants.")
 ------------------------------------------------------------------------------------
 --                                    END OF FILE                                 --
 ------------------------------------------------------------------------------------
-BI.entered_file("leave")
+BioInd.entered_file("leave")

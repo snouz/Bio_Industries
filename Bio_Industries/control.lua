@@ -365,25 +365,8 @@ BioInd.show("new_item", new_item)
     add_item("debris", {"bi-dart-magazine-enhanced", 2})
     add_item("ship", {"bi-dart-magazine-poison", 1})
 
-
-    --~ for w, what in ipairs({"created", "respawn"}) do
-      --~ list = {}
-      --~ for item, amount in pairs(remote.call("freeplay", "get_" .. what .. "_items")) do
-
-        --~ if weapons[item] and item ~= new_gun then
-          --~ list[new_gun[1]] = new_gun[2]
-  --~ BioInd.writeDebug("Replaced weapon: %s", {item})
-        --~ elseif ammo[item] and item ~= new_ammo then
-          --~ list[new_ammo[1]] = new_ammo[2]
-  --~ BioInd.writeDebug("Rplaced ammo: %s", {item})
-        --~ else
-  --~ BioInd.writeDebug("Keep: %s", {item})
-          --~ list[item] = amount
-        --~ end
-      --~ end
-  --~ BioInd.writeDebug("New list for %s items: %s", {what, list})
-      --~ remote.call("freeplay", "set_" .. what .. "_items", list)
-    --~ end
+    --~ -- Disable the pistol
+    --~ local recipes =
   end
 end
 

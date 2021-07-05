@@ -1,4 +1,4 @@
-BI.entered_file()
+BioInd.entered_file()
 
 BI.default_techs = BI.default_techs or {}
 
@@ -36,6 +36,7 @@ BI.default_techs.bio_farming_1 = {
       --~ recipe = "bi-seedling-1"
     --~ },
   },
+  order = "[bio-farming]-a-[bio-farming-1]",
   prerequisites = {"optics"},
   unit = {
     count = 25,
@@ -69,6 +70,7 @@ BI.default_techs.bio_farming_2 = {
       --~ recipe = "bi-logs-2"
     --~ },
   },
+  order = "[bio-farming]-a-[bio-farming-2]",
   prerequisites = {"bi-tech-ash"},
   unit = {
     count = 150,
@@ -105,6 +107,7 @@ BI.default_techs.bio_farming_3 = {
       --~ recipe = "bi-logs-3"
     --~ },
   },
+  order = "[bio-farming]-a-[bio-farming-3]",
   prerequisites = {"bi-tech-bio-farming-2", "bi-tech-fertilizer"},
   unit = {
     count = 250,
@@ -141,6 +144,7 @@ BI.default_techs.bio_farming_4 = {
       --~ recipe = "bi-logs-4"
     --~ },
   },
+  order = "[bio-farming]-a-[bio-farming-4]",
   prerequisites = {"bi-tech-bio-farming-3", "bi-tech-advanced-fertilizers"},
   unit = {
     count = 250,
@@ -182,6 +186,7 @@ BI.default_techs.timber = {
     --~ },
 
   },
+  order = "[bio-farming]-b-[timber]",
   prerequisites = {"bi-tech-bio-farming-1", "bi-tech-stone-crushing-1"},
   unit = {
     count = 50,
@@ -223,6 +228,7 @@ BI.default_techs.ash = {
   -- Technology prerequisite 'steel-processing' on 'bi-tech-ash' is redundant
   -- as 'bi-tech-timber' already contains it in its prerequisite tree.
   --~ prerequisites = {"bi-tech-timber", "steel-processing"},
+  order = "[bio-farming]-c-[ash]",
   prerequisites = {"bi-tech-timber"},
   unit = {
     count = 70,
@@ -261,6 +267,7 @@ BI.default_techs.fertilizer = {
       --~ recipe = "bi-fertilizer-1"
     --~ },
   },
+  order = "[bi-fertilizer]-a-[fertilizer]",
   --~ prerequisites = {"fluid-handling","bi-tech-bio-farming-1"},
   prerequisites = {"fluid-handling", "bi-tech-ash"},
   unit = {
@@ -295,6 +302,7 @@ BI.default_techs.biomass = {
       --~ recipe = "bi-biomass-1"
     --~ },
   },
+  order = "[bi-biomass]-a-[biomass]",
   prerequisites = {"bi-tech-fertilizer"},
   unit = {
     count = 200,
@@ -327,6 +335,7 @@ BI.default_techs.advanced_fertilizers = {
       --~ recipe = "bi-adv-fertilizer-2"
     --~ },
   },
+  order = "[bi-fertilizer]-b-[advanced-fertilizer]",
   prerequisites = {"bi-tech-biomass"},
   unit = {
     count = 225,
@@ -351,4 +360,4 @@ BioInd.create_stuff(BI.default_techs)
 ------------------------------------------------------------------------------------
 --                                    END OF FILE                                 --
 ------------------------------------------------------------------------------------
-BI.entered_file("leave")
+BioInd.entered_file("leave")

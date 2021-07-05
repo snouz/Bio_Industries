@@ -29,7 +29,7 @@ Date: 2021-03-?
   Changes:
     - Made the mod more modular: "Coal processing", "Early wooden defenses", "Explosive planting", "Bio gardens", "Resin extraction", "Stone crushing", "Terraforming", "Wood products", and "Wooden rails" are now also optional.
     - Re-organized mod recipes in a cleaner, more logical way.
-    - Re-ordered items in the logistic request window to put them in vanilla categories 
+    - Re-ordered items in the logistic request window to put them in vanilla categories
     - "Bio fuel conversion" numbers inverted.
     - Removed the "made in" section of recipes that are done in assembling machine
     - Simplified recipe information (result in title, removed "made in" for handmade recipes, removed some descriptions)
@@ -38,12 +38,35 @@ Date: 2021-03-?
     - Changes if "Early wooden defenses" are enabled: Pistol will be replaced with the dart rifle; firearm magazines will be locked behind "Military 1"; stone walls and gun turrets will be locked behind "Military 2"; darts will get bonus effects from "Physical projectile damage" and "Weapon shooting speed" research (levels 1-4); bonus turret effects of "Physical projectile damage" (levels 1-3) will be removed from gun turrets.
     - Made the terraformer accept water from all 8 pipes instead of turning it, makes the water pass through. Only newly built ones.
 
-  Compatibility
+    - Biofuel conversion recipes will now be made in the bio-reactor. That fixes an issue with IR2, which assigns a fixed recipe to the oil refinery, so there was no way to craft our recipes.
+    - Added new techs "Rubber production" (new item "rubber" will be used in some recipes) and "Rubber-coated concrete" (new item and tile).
+    - Bio Cannon:
+      - Tier 1 unlocks only the cannon and basic ammo. Cost reduced to 75 automation/logistics/military science packs.
+      - Tier 2 unlocks default ammo. Cost: 150 automation/logistics/military science packs.
+      - Tier 3 unlocks poison ammo. Cost: 175 automation/logistics/military/chemical science packs.
+      - Replaced tier 1 with tier 3 in prerequisites of "Artillery".
+      - Added new ammo "Poison artillery shell" to unlocks of "Artillery". (The purpose of prototype artillery is to experiment with artillery turrets/ammo and use the result for making the real stuff.)
+    - Stone crushing:
+      - Tier 1: Added new recipe "stone brick --> crushed stone".
+      - Tier 2: Removed unlocks for "refined concrete/hazard concrete --> crushed stone".
+      - Tier 3: New tier, unlocks "refined concrete/hazard concrete --> crushed stone".
+    - Early wooden defenses:
+      - Added new tech "Piercing darts" (prerequisites: "Resin extraction" + "Automation", costs: 100 automation science packs)
+      - Added new tech "Enhanced piercing darts" (prerequisites: "Piercing darts" + "Plastics", costs: 225 automation/logistic science packs)
+      - Added new tech "Poison darts" (prerequisites: "Enhanced piercing darts" + "Military 3", costs: 120 automation/logistics/military/chemical science packs).
+      - Increased costs of "Military science" (120 automation science packs, 30s).
+      - Increased costs of "Physical projectile damage 1" (150 automation science packs, 30s).
+      - Increased costs of "Heavy armor" (150 automation science packs, 30s).
+      - Increased costs of "Modular armor" (150 automation/logistic science packs, 30s).
+    - Rubber/Stone crushing/Recipe tweaks: Make "Refined concrete" a separate research, and replace concrete with refined concrete in recipes for artillery turret, centrifuge, nuclear reactor, and the rocket silo.
+    - If the setting "Enable: Rubber products" is active, we shuffle around some of the vanilla techs. That doesn't work well with "Industrial Revolution 2" because of circular tech dependencies, so the setting (and our Resin/Rubber techs) won't be available if IR2 is active as well!
+
+  Compatibility:
     - Added support for "Deadlock's Stacking Beltboxes & Compact Loaders" and "Deadlock's Crating Machine".
     - Added support for Brevven's "Silica & Silicon".
     - Updated compatibility icons.
 
-  Optimization
+  Optimization:
     - Major code and file structure cleanup and factori(o)sation.
     - Made graphics and sounds a separate mod to avoid redownloads.
     - Added icon mipmaps.
@@ -70,7 +93,8 @@ Date: 2021-03-?
     - Bigger trees give more wood (https://forums.factorio.com/viewtopic.php?f=16&t=95205)
     - Don't plant lying trees
 
-    - Add setting to toggle rails!
+    - Recipe tweaks: New tech for "Refined concrete", replace concrete with refined concrete (or even hazard concrete) in recipes for centrifuge, nuclear reactor and rocket silo, possibly artillery turret
+    - Tar
 
 ---------------------------------------------------------------------------------------------------
 Version: 1.1.10

@@ -3,11 +3,15 @@
 --                        (BI.Settings.BI_Coal_Processing)                        --
 ------------------------------------------------------------------------------------
 local setting = "BI_Coal_Processing"
-if not BI.Settings[setting] then
-  BI.nothing_to_do("*")
+if (not BI.Settings[setting]) or BioInd.check_mods({
+  -- These mods provide their own coal processing techs -- use them instead of ours!
+  "pycoalprocessing",
+  "pyrawores",
+}) then
+  BioInd.nothing_to_do("*")
   return
 else
-  BI.entered_file()
+  BioInd.entered_file()
 end
 
 
@@ -18,14 +22,14 @@ end
 ------------------------------------------------------------------------------------
 --                               Create technologies                              --
 ------------------------------------------------------------------------------------
---~ for t_name, tech in pairs(BI.additional_techs[setting] or {}) do
-  --~ data:extend({tech})
-  --~ BioInd.created_msg(tech)
---~ end
+-- for t_name, tech in pairs(BI.additional_techs[setting] or {}) do
+  -- data:extend({tech})
+  -- BioInd.created_msg(tech)
+--end
 BioInd.create_stuff(BI.additional_techs[setting])
 
 
 ------------------------------------------------------------------------------------
 --                                    END OF FILE                                 --
 ------------------------------------------------------------------------------------
-BI.entered_file("leave")
+BioInd.entered_file("leave")

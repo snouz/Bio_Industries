@@ -2,11 +2,11 @@
 --                             Industrial Revolution 2                            --
 ------------------------------------------------------------------------------------
 local mod_name = "IndustrialRevolution"
-if not BI.check_mods(mod_name) then
-  BI.nothing_to_do("*")
+if not BioInd.check_mods(mod_name) then
+  BioInd.nothing_to_do("*")
   return
 else
-  BI.entered_file()
+  BioInd.entered_file()
 end
 
 
@@ -103,13 +103,16 @@ local crushing = {
   ["bi-crushed-stone-3"] = "grinding-2",
   ["bi-crushed-stone-4"] = "grinding-3",
   ["bi-crushed-stone-5"] = "grinding-3",
+  ["bi-crushed-stone-6"] = "grinding-1",
 }
 
 for r_name, r_category in pairs(crushing) do
+BioInd.writeDebug("r_name: %s\tr_category: %s", {r_name, r_category})
+BioInd.show("category", category)
   recipe = recipes[r_name]
   if recipe then
     -- Change category
-    recipe.category = category
+    recipe.category = r_category
     BioInd.modified_msg("category", recipe)
 
     -- Change localization
@@ -122,7 +125,7 @@ for r_name, r_category in pairs(crushing) do
     BioInd.modified_msg("localization", recipe)
 
     -- Add unlock
-    thxbob.lib.tech.add_recipe_unlock("ir2-" .. category, r_name)
+    thxbob.lib.tech.add_recipe_unlock("ir2-" .. r_category, recipe.name)
     BioInd.modified_msg("unlock", recipe)
   end
 end
@@ -144,4 +147,4 @@ end
 ------------------------------------------------------------------------------------
 --                                    END OF FILE
 ------------------------------------------------------------------------------------
-BI.entered_file("leave")
+BioInd.entered_file("leave")

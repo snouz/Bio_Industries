@@ -1,14 +1,14 @@
 ------------------------------------------------------------------------------------
 --   Deadlock's Stacking Beltboxes & Compact Loaders/Deadlock's Crating Machine   --
 ------------------------------------------------------------------------------------
-if not BI.check_mods({
+if not BioInd.check_mods({
   "deadlock-beltboxes-loaders",
   "DeadlockCrating",
 }) then
-  BI.nothing_to_do("*")
+  BioInd.nothing_to_do("*")
   return
 else
-  BI.entered_file()
+  BioInd.entered_file()
 end
 
 
@@ -343,4 +343,4 @@ end
 ----------------------------------------        --------------------------------------------
 --                                    END OF FILE
 ------------------------------------------------------------------------------------
-BI.entered_file("leave")
+BioInd.entered_file("leave")

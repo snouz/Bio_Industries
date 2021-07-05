@@ -2,11 +2,11 @@
 --                                   Krastorio 2                                  --
 ------------------------------------------------------------------------------------
 local mod_name = "Krastorio2"
-if not BI.check_mods(mod_name) then
-  BI.nothing_to_do("*")
+if not BioInd.check_mods(mod_name) then
+  BioInd.nothing_to_do("*")
   return
 else
-  BI.entered_file()
+  BioInd.entered_file()
 end
 
 
@@ -44,4 +44,4 @@ end
 ------------------------------------------------------------------------------------
 --                                    END OF FILE
 ------------------------------------------------------------------------------------
-BI.entered_file("leave")
+BioInd.entered_file("leave")

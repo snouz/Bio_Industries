@@ -1,4 +1,4 @@
-BI.entered_file()
+BioInd.entered_file()
 
 
 ------------------------------------------------------------------------------------
@@ -389,6 +389,8 @@ require("prototypes.mod_compatibility.final_fixes.fixes_mod5dim")
    --~ end
 --~ end
 
+-- Industrial Revolution
+require("prototypes.mod_compatibility.final_fixes.fixes_modIndustrialRevolution")
 
 
 ------------------------------------------------------------------------------------
@@ -518,6 +520,7 @@ require("prototypes.mod_compatibility.final_fixes.fixes_modAlienBiomes")
   --~ condition = { "water-tile" }
 --~ }
 
+-- Moved to data-updates.lua (Py mods)
 if mods["pycoalprocessing"] and BI.Settings.BI_Bio_Fuel then
     -- Bio_Fuel/recipe.lua:30:      {type = "item", name = "bi-ash", amount = 15}
     thxbob.lib.recipe.remove_result ("bi-basic-gas-processing", "bi-ash")
@@ -563,48 +566,73 @@ BioInd.BI_add_unlocks()
 ------------------------------------------------------------------------------------
 local techs = data.raw.technology
 
-local function check_prerequisites(technology)
-  --~ BioInd.entered_function()
-  tech = techs[technology.name]
+--~ local function check_prerequisites(technology)
+  -- BioInd.entered_function()
+  --~ tech = techs[technology.name]
 
-  if tech then
-    local removed = false
-    for p, prerequisite in pairs(tech.prerequisites or {}) do
-      -- If prerequisite tech doesn't exist, remove it from the list!
-      if not techs[prerequisite] then
-        tech.prerequisites[p] = nil
-        removed = true
-        BioInd.writeDebug("Removed \"%s\" from prerequisites of %s \"%s\"!",
-                          {prerequisite, tech.type, tech.name})
-      end
-    end
-    if not removed then
-      BioInd.writeDebug("All prerequisites of %s \"%s\" exist.", {tech.type, tech.name})
-    end
-  else
-    BioInd.writeDebug("Technology \"%s\" doesn't exist!", {technology.name})
-  end
-  --~ BioInd.entered_function("leave")
-end
+  --~ if tech then
+    --~ local removed = false
+    -- for p, prerequisite in pairs(tech.prerequisites or {}) do
+      -- -- If prerequisite tech doesn't exist, remove it from the list!
+      -- if not techs[prerequisite] then
+        -- tech.prerequisites[p] = nil
+        -- removed = true
+        -- BioInd.writeDebug("Removed \"%s\" from prerequisites of %s \"%s\"!",
+                          -- {prerequisite, tech.type, tech.name})
+      -- end
+    -- end
+    --~ if tech.prerequisites then
+      --~ for p = #tech.prerequisites in pairs(tech.prerequisites or {}) do
+        --~ -- If prerequisite tech doesn't exist, remove it from the list!
+        --~ if not techs[prerequisite] then
+          --~ tech.prerequisites[p] = nil
+          --~ removed = true
+          --~ BioInd.writeDebug("Removed \"%s\" from prerequisites of %s \"%s\"!",
+                            --~ {prerequisite, tech.type, tech.name})
+        --~ end
+      --~ end
+      --~ if not removed then
+        --~ BioInd.writeDebug("All prerequisites of %s \"%s\" exist.", {tech.type, tech.name})
+      --~ end
+    --~ else
+      --~ BioInd.writeDebug("%s \"%s\" has no prerequisites.", {tech.type, tech.name})
+  --~ else
+    --~ BioInd.writeDebug("Technology \"%s\" doesn't exist!", {technology.name})
+  --~ end
+  -- BioInd.entered_function("leave")
+--~ end
 
+--~ -- Check default techs
+--~ BioInd.writeDebug("Looking for missing prerequisites of default technologies:")
+--~ for t, tech in pairs(BI.default_techs) do
+  --~ check_prerequisites(tech)
+--~ end
+
+--~ -- Check optional techs
+--~ for s, setting in pairs(BI.additional_techs) do
+--~ BioInd.writeDebug("Looking for missing prerequisites of technologies depending on setting %s:", {s})
+  --~ for t, tech in pairs(setting) do
+    --~ check_prerequisites(tech)
+  --~ end
+--~ end
 -- Check default techs
 BioInd.writeDebug("Looking for missing prerequisites of default technologies:")
 for t, tech in pairs(BI.default_techs) do
-  check_prerequisites(tech)
+  thxbob.lib.tech.remove_obsolete_prerequisites(tech.name)
 end
 
 -- Check optional techs
 for s, setting in pairs(BI.additional_techs) do
 BioInd.writeDebug("Looking for missing prerequisites of technologies depending on setting %s:", {s})
   for t, tech in pairs(setting) do
-    check_prerequisites(tech)
+    thxbob.lib.tech.remove_obsolete_prerequisites(tech)
   end
 end
 
-BioInd.show("Icons of Item group", BI.default_item_group.bio_industries.icons)
 
+--~ BioInd.show("ir2-steam-power", data.raw.technology["ir2-steam-power"])
 
 ------------------------------------------------------------------------------------
 --                                    END OF FILE                                 --
 ------------------------------------------------------------------------------------
-BI.entered_file("leave")
+BioInd.entered_file("leave")

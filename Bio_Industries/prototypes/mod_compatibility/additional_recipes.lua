@@ -1,7 +1,7 @@
 ------------------------------------------------------------------------------------
 --    Data for some recipes that will be needed if one of several mods is used.   --
 ------------------------------------------------------------------------------------
-BI.entered_file()
+BioInd.entered_file()
 
 --~ local BioInd = require(['"]common['"])(["']Bio_Industries['"])
 local ICONPATH = BioInd.iconpath
@@ -183,9 +183,12 @@ BI.additional_recipes.press_wood = {
   category = "electronics",
   energy_required = 1,
   enabled = false,
-  always_show_made_in = true,
+  --~ always_show_made_in = true,
+  --~ allow_decomposition = false,
+  --~ allow_as_intermediate = false,
+  always_show_made_in = false,
   allow_decomposition = false,
-  allow_as_intermediate = false,
+  allow_as_intermediate = true,
   ingredients = {
     {type = "item", name = "bi-woodpulp", amount = 3},
     {type = "item", name = "resin", amount = 1},
@@ -203,4 +206,4 @@ BioInd.writeDebug("Read data for additional recipes (dependent on other mods).")
 ------------------------------------------------------------------------------------
 --                                    END OF FILE                                 --
 ------------------------------------------------------------------------------------
-BI.entered_file("leave")
+BioInd.entered_file("leave")

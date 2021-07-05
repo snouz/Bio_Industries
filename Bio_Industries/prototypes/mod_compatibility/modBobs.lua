@@ -1,17 +1,17 @@
 ------------------------------------------------------------------------------------
 --                                   Bob's mods                                   --
 ------------------------------------------------------------------------------------
---~ BI.writeDebug(BI.entered_msg, {debug.getinfo(1).source})
+--~ BioInd.writeDebug(BI.entered_msg, {debug.getinfo(1).source})
 
-if not BI.check_mods({
+if not BioInd.check_mods({
   --~ "bobpower",
   "bobelectronics",
   --~ "bobplates",
 }) then
-  BI.nothing_to_do("*")
+  BioInd.nothing_to_do("*")
   return
 else
-  BI.entered_file()
+  BioInd.entered_file()
 end
 
 
@@ -57,4 +57,4 @@ end
 ------------------------------------------------------------------------------------
 --                                    END OF FILE                                 --
 ------------------------------------------------------------------------------------
-BI.entered_file("leave")
+BioInd.entered_file("leave")

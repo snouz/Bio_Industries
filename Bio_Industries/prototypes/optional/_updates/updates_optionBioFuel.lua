@@ -5,10 +5,10 @@
 local setting = "BI_Bio_Fuel"
 --~ -- We only want to do this when the setting is not active!
 --~ if BI.Settings[setting] then
-  --~ BI.nothing_to_do("*")
+  --~ BioInd.nothing_to_do("*")
   --~ return
 --~ else
-  BI.entered_file()
+  BioInd.entered_file()
 --~ end
 
 
@@ -44,6 +44,8 @@ BioInd.writeDebug("Check if we must create Basic gas processing recipe")
       items[BI.additional_items.BI_Rubber.resin.name] then
 
     BioInd.create_stuff(BI.additional_recipes.BI_Bio_Fuel.basic_gas_processing)
+  else
+    BioInd.nothing_to_do("")
   end
 end
 
@@ -80,4 +82,4 @@ end
 ------------------------------------------------------------------------------------
 --                                    END OF FILE                                 --
 ------------------------------------------------------------------------------------
-BI.entered_file("leave")
+BioInd.entered_file("leave")

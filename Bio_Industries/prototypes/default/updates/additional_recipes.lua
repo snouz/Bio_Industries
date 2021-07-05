@@ -1,4 +1,4 @@
-BI.entered_file()
+BioInd.entered_file()
 
 BI.additional_recipes = BI.additional_recipes or {}
 
@@ -111,4 +111,4 @@ BioInd.writeDebug("Read data for additional recipes.")
 ------------------------------------------------------------------------------------
 --                                    END OF FILE                                 --
 ------------------------------------------------------------------------------------
-BI.entered_file("leave")
+BioInd.entered_file("leave")

@@ -1,7 +1,7 @@
 ------------------------------------------------------------------------------------
 --                Data for ammo-categories that depend on settings.               --
 ------------------------------------------------------------------------------------
-BI.entered_file()
+BioInd.entered_file()
 
 BI.additional_categories = BI.additional_categories or {}
 
@@ -70,4 +70,4 @@ BioInd.writeDebug("Read data for optional categories (ammo).")
 ------------------------------------------------------------------------------------
 --                                    END OF FILE                                 --
 ------------------------------------------------------------------------------------
-BI.entered_file("leave")
+BioInd.entered_file("leave")

@@ -2,11 +2,11 @@
 --                                   Krastorio 2                                  --
 ------------------------------------------------------------------------------------
 local mod_name = "Krastorio2"
-if not BI.check_mods(mod_name) then
-  BI.nothing_to_do("*")
+if not BioInd.check_mods(mod_name) then
+  BioInd.nothing_to_do("*")
   return
 else
-  BI.entered_file()
+  BioInd.entered_file()
 end
 
 local ICONPATH = BioInd.iconpath .. "mod_krastorio/"
@@ -51,16 +51,15 @@ end
 -- Our alternative recipe for Production science packs will break the balance if  --
 -- Krastorio is active, so we remove it again!                                    --
 ------------------------------------------------------------------------------------
-local psp = BI.additional_recipes.BI_Game_Tweaks_Production_Science.production_science_pack
-recipe = recipes[psp]
+recipe = recipes[BI.additional_recipes.BI_Game_Tweaks_Production_Science.production_science_pack]
 
 if recipe then
   recipe = nil
-  BioInd.writeDebug("Removed %s \"%s\"!", {psp.type, psp.name})
+  BioInd.writeDebug("Removed %s \"%s\"!", {recipe.type, recipe.name})
 end
 
 
 ------------------------------------------------------------------------------------
 --                                    END OF FILE                                 --
 ------------------------------------------------------------------------------------
-BI.entered_file("leave")
+BioInd.entered_file("leave")

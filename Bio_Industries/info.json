@@ -1,6 +1,6 @@
 {
   "name": "Bio_Industries",
-  "version": "1.1.105",
+  "version": "1.1.106",
   "factorio_version": "1.1",
   "title": "Bio Industries",
   "author": "TheSAguy",
@@ -20,6 +20,7 @@
     "(?) Transport_Drones",
     "(?) bobelectronics",
     "(?) bobplates",
-    "(?) deadlock-beltboxes-loaders"
+    "(?) deadlock-beltboxes-loaders",
+    "(?) DeadlockCrating"
   ]
 }

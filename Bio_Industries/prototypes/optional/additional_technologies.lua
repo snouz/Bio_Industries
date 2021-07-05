@@ -1,7 +1,7 @@
 ------------------------------------------------------------------------------------
 --                  Data for some techs that depend on a setting.                 --
 ------------------------------------------------------------------------------------
-BI.entered_file()
+BioInd.entered_file()
 
 BI.additional_techs = BI.additional_techs or {}
 
@@ -17,8 +17,15 @@ for s, setting in pairs({
   "BI_Terraforming",
   "BI_Wood_Products",
   "Bio_Cannon",
+  "BI_Darts",
 }) do
   BI.additional_techs[setting] = BI.additional_techs[setting] or {}
+end
+
+for t, trigger in pairs({
+  "BI_Trigger_Concrete",
+}) do
+  BI.additional_techs[trigger] = BI.additional_techs[trigger] or {}
 end
 
 ------------------------------------------------------------------------------------
@@ -26,7 +33,7 @@ end
 
 
 local ICONPATH = BioInd.techiconpath
-
+local techs = data.raw.technology
 
 ------------------------------------------------------------------------------------
 --                           Enable: Bio fuel production                          --
@@ -47,6 +54,7 @@ BI.additional_techs.BI_Bio_Fuel.biomass_processing_1 = {
       --~ -- recipe = "bi-biomass-2"
     --~ -- },
   },
+  order = "[bi-bio-fuel]-[biomass]-a-[biomass-reprocessing-1]",
   prerequisites = {"bi-tech-biomass"},
   unit = {
     count = 250,
@@ -76,6 +84,7 @@ BI.additional_techs.BI_Bio_Fuel.biomass_processing_2 = {
       --~ -- recipe = "bi-biomass-3"
     --~ -- },
   },
+  order = "[bi-bio-fuel]-[biomass]-a-[biomass-reprocessing-2]",
   prerequisites = {"bi-tech-biomass-reprocessing-1"},
   unit = {
     count = 175,
@@ -114,6 +123,7 @@ BI.additional_techs.BI_Bio_Fuel.biomass_conversion = {
       --~ -- recipe = "bi-biomass-conversion-3"
     --~ -- },
   },
+  order = "[bi-bio-fuel]-[biomass]-b-[biomass-conversion]",
   prerequisites = {"bi-tech-biomass", "lubricant"},
   unit = {
     count = 300,
@@ -148,6 +158,7 @@ BI.additional_techs.BI_Bio_Fuel.cellulose_1 = {
       --~ -- recipe = "bi-acid"
     --~ -- },
   },
+  order = "[bi-bio-fuel]-[cellulose-1]",
   prerequisites = {"bi-tech-biomass", "sulfur-processing"},
   unit = {
     count = 250,
@@ -185,6 +196,7 @@ BI.additional_techs.BI_Bio_Fuel.cellulose_2 = {
       --~ -- recipe = "bi-battery"
     --~ -- },
   },
+  order = "[bi-bio-fuel]-[cellulose-2]",
   prerequisites = {"bi-tech-cellulose-1", "plastics", "battery"},
   unit = {
     count = 250,
@@ -223,6 +235,7 @@ BI.additional_techs.BI_Bio_Fuel.bio_plastics = {
   -- Technology prerequisite 'plastics' on 'bi-tech-bio-plastics' is redundant
   -- as 'advanced-oil-processing' already contains it in its prerequisite tree.
   --~ -- prerequisites = {"bi-tech-cellulose-1", "advanced-oil-processing", "plastics"},
+  order = "[bi-bio-fuel]-[plastics]",
   prerequisites = {"bi-tech-cellulose-1", "advanced-oil-processing"},
   unit = {
     count = 175,
@@ -253,6 +266,7 @@ BI.additional_techs.BI_Bio_Fuel.bio_boiler = {
       --~ -- recipe = "bi-bio-boiler"
     --~ -- },
   },
+  order = "[bi-bio-boiler]",
   prerequisites = {"concrete"},
   unit = {
     count = 120,
@@ -287,6 +301,7 @@ BI.additional_techs.BI_Bio_Garden.garden_1 = {
       --~ --  recipe = "bi-bio-garden"
     --~ --  },
   },
+  order = "[bi-bio-garden]-a-[garden-1]",
   --~ prerequisites = {"bi-tech-fertilizer", "bi-tech-stone-crushing-1"},
   prerequisites = {"bi-tech-fertilizer"},
   unit = {
@@ -316,6 +331,7 @@ BI.additional_techs.BI_Bio_Garden.garden_2 = {
       --~ --  recipe = "bi-bio-garden-large"
     --~ --  },
   },
+  order = "[bi-bio-garden]-a-[garden-2]",
   prerequisites = {"bi-tech-garden-1"},
   unit = {
     count = 200,
@@ -345,6 +361,7 @@ BI.additional_techs.BI_Bio_Garden.garden_3 = {
       --~ --  recipe = "bi-bio-garden-huge"
     --~ --  },
   },
+  order = "[bi-bio-garden]-a-[garden-3]",
   prerequisites = {"bi-tech-garden-2"},
   unit = {
     count = 270,
@@ -375,6 +392,7 @@ BI.additional_techs.BI_Bio_Garden.depollution_1 = {
       --~ --  recipe = "bi-purified-air-1"
     --~ --  },
   },
+  order = "[bi-bio-garden]-b-[depollution-1]",
   prerequisites = {"bi-tech-garden-1"},
   unit = {
     count = 200,
@@ -403,6 +421,7 @@ BI.additional_techs.BI_Bio_Garden.depollution_2 = {
       --~ --  recipe = "bi-purified-air-2"
     --~ --  },
   },
+  order = "[bi-bio-garden]-b-[depollution-3]",
   prerequisites = {"bi-tech-depollution-1", "bi-tech-advanced-fertilizers"},
   unit = {
     count = 250,
@@ -445,6 +464,7 @@ BI.additional_techs.BI_Coal_Processing.coal_processing_1 = {
       --~ recipe = "bi-wood-fuel-brick"
     --~ },
   },
+  order = "[bi-coal-processing]-[bi-coal-processing-1]",
   prerequisites = {"advanced-material-processing", "bi-tech-ash"},
   unit = {
     count = 150,
@@ -485,6 +505,7 @@ BI.additional_techs.BI_Coal_Processing.coal_processing_2 = {
                 --~ recipe = "bi-stone-brick"
               --~ },
   },
+  order = "[bi-coal-processing]-[bi-coal-processing-2]",
   prerequisites = {"bi-tech-coal-processing-1", "chemical-science-pack"},
   unit = {
     count = 150,
@@ -517,6 +538,7 @@ BI.additional_techs.BI_Coal_Processing.coal_processing_3 = {
                 --~ recipe = "bi-coke-coal"
               --~ },
   },
+  order = "[bi-coal-processing]-[bi-coal-processing-3]",
   prerequisites = {"bi-tech-coal-processing-2", "production-science-pack"},
   unit = {
     count = 250,
@@ -551,6 +573,7 @@ BI.additional_techs.BI_Explosive_Planting.explosive_planting_1 = {
       --~ recipe = "bi-seed-bomb-basic"
     --~ },
   },
+  order = "[bi-explosive-planting]-[bi-explosive-planting-1]",
   prerequisites = {"bi-tech-bio-farming-1", "rocketry"},
   unit = {
     count = 40,
@@ -578,6 +601,7 @@ BI.additional_techs.BI_Explosive_Planting.explosive_planting_2 = {
       --~ recipe = "bi-seed-bomb-standard"
     --~ },
   },
+  order = "[bi-explosive-planting]-[bi-explosive-planting-2]",
   prerequisites = {"bi-tech-explosive-planting-1", "bi-tech-fertilizer",},
   unit = {
     count = 200,
@@ -606,6 +630,7 @@ BI.additional_techs.BI_Explosive_Planting.explosive_planting_3 = {
       --~ recipe = "bi-seed-bomb-advanced"
     --~ },
   },
+  order = "[bi-explosive-planting]-[bi-explosive-planting-3]",
   prerequisites = {"bi-tech-explosive-planting-2", "bi-tech-advanced-fertilizers"},
   unit = {
     count = 200,
@@ -640,6 +665,7 @@ BI.additional_techs.BI_Rails.rail_bridge = {
       --~ recipe = "bi-rail-wood-bridge"
     --~ },
   },
+  order = "[bi-rails]-b-[wooden-bridge]",
   prerequisites = {"railway"},
   unit = {
     count = 150,
@@ -672,6 +698,7 @@ BI.additional_techs.BI_Rails.concrete_rails = {
       --~ recipe = "bi-rail-wood-to-concrete"
     --~ },
   },
+  order = "[bi-rails]-a-[concrete-rails]",
   prerequisites = {"concrete", "railway"},
   unit = {
     count = 150,
@@ -704,6 +731,7 @@ BI.additional_techs.BI_Rails.power_conducting_rails = {
       --~ recipe = "bi-power-to-rail-pole"
     --~ },
   },
+  order = "[bi-rails]-a-[powered-rails]",
   prerequisites = {"bi-tech-concrete-rails", "electric-energy-distribution-1"},
   unit = {
     count = 200,
@@ -725,8 +753,8 @@ BI.additional_techs.BI_Rails.power_conducting_rails = {
 BI.additional_techs.BI_Rubber.resin_extraction = {
   type = "technology",
   name = "bi-tech-resin-extraction",
-  localised_name = {"technology-name.bi-tech-resin-extraction"},
-  localised_description = {"technology-description.bi-tech-resin-extraction"},
+  --~ localised_name = {"technology-name.bi-tech-resin-extraction"},
+  --~ localised_description = {"technology-description.bi-tech-resin-extraction"},
   icon = ICONPATH .. "bi-tech-resin-extraction.png",
   icon_size = 256, icon_mipmaps = 4,
   BI_add_icon = true,
@@ -744,6 +772,7 @@ BI.additional_techs.BI_Rubber.resin_extraction = {
       --~ --  recipe = "bi-wood-from-pulp"
     --~ --  },
   },
+  order = "[bi-rubber]-a-[resin-extraction]",
   prerequisites = {"bi-tech-timber"},
   unit = {
     count = 75,
@@ -751,6 +780,64 @@ BI.additional_techs.BI_Rubber.resin_extraction = {
       {"automation-science-pack", 1},
     },
     time = 30,
+  },
+  --~ --  upgrade = false,
+  upgrade = true,
+}
+
+
+BI.additional_techs.BI_Rubber.rubber_production = {
+  type = "technology",
+  name = "bi-tech-rubber-production",
+  --~ localised_name = {"technology-name.bi-tech-resin-extraction"},
+  --~ localised_description = {"technology-description.bi-tech-resin-extraction"},
+  icon = ICONPATH .. "bi-tech-rubber-production.png",
+  icon_size = 256, icon_mipmaps = 4,
+  BI_add_icon = true,
+  effects = {
+    --~ --  {
+      --~ --  type = "unlock-recipe",
+      --~ --  recipe = "bi-rubber"
+    --~ --  },
+  },
+  order = "[bi-rubber]-b-[rubber-production]",
+  prerequisites = {"bi-tech-resin-extraction"},
+  unit = {
+    count = 100,
+    ingredients = {
+      {"automation-science-pack", 1},
+    },
+    time = 30,
+  },
+  --~ --  upgrade = false,
+  upgrade = true,
+}
+
+
+BI.additional_techs.BI_Rubber.rubber_mat = {
+  type = "technology",
+  name = "bi-tech-rubber-mat",
+  --~ localised_name = {"technology-name.bi-tech-rubber-mat"},
+  --~ localised_description = {"technology-description.bi-tech-rubber-mat"},
+  icon = ICONPATH .. "bi-tech-rubber-mat.png",
+  icon_size = 256, icon_mipmaps = 4,
+  BI_add_icon = true,
+  effects = {
+    --~ --  {
+      --~ --  type = "unlock-recipe",
+      --~ --  recipe = "bi-rubber-mat"
+    --~ --  },
+  },
+  --~ prerequisites = {"military", "bi-tech-rubber-production", "concrete"},
+  order = "[bi-rubber]-c-[rubber-mat]",
+  prerequisites = {"military", "concrete"},
+  unit = {
+    count = 150,
+    ingredients = {
+      {"automation-science-pack", 1},
+      {"logistic-science-pack", 1},
+    },
+    time = 50,
   },
   --~ --  upgrade = false,
   upgrade = true,
@@ -776,6 +863,7 @@ BI.additional_techs.BI_Solar_Additions.super_accumulators = {
       --~ -- recipe = "bi-bio-accumulator"
     --~ -- },
   },
+  order = "[bi-solar-additions]-a-[distribution]-a-[accumulator]",
   prerequisites = {"electric-energy-accumulators","concrete", "electric-energy-distribution-2"},
   unit = {
     count = 250,
@@ -806,6 +894,7 @@ BI.additional_techs.BI_Solar_Additions.steamsolar_combination = {
       --~ -- recipe = "bi-solar-boiler"
     --~ -- },
   },
+  order = "[bi-solar-additions]-b-[production]-a-[solar-boiler]",
   prerequisites = {"solar-energy", "fluid-handling"},
   unit = {
     count = 225,
@@ -834,6 +923,7 @@ BI.additional_techs.BI_Solar_Additions.musk_floor = {
       --~ -- recipe = "bi-solar-mat"
     --~ -- },
   },
+  order = "[bi-solar-additions]-b-[production]-c-[musk-floor]",
   prerequisites = {"solar-energy", "advanced-electronics"},
   unit = {
     count = 300,
@@ -864,6 +954,7 @@ BI.additional_techs.BI_Solar_Additions.super_solar_panels = {
       --~ -- recipe = "bi-bio-solar-farm"
     --~ -- },
   },
+  order = "[bi-solar-additions]-b-[production]-b-[solar-farm]",
   prerequisites = {"solar-energy"},
   unit = {
     count = 350,
@@ -894,6 +985,7 @@ BI.additional_techs.BI_Solar_Additions.huge_substation = {
       --~ -- recipe = "bi-huge-substation"
     --~ -- },
   },
+  order = "[bi-solar-additions]-a-[distribution]-b-[substation]",
   prerequisites = {"electric-energy-distribution-2", "concrete"},
   unit = {
     count = 325,
@@ -933,6 +1025,7 @@ BI.additional_techs.BI_Stone_Crushing.stone_crushing_1 = {
       -- recipe = "bi-crushed-stone-1"
     -- },
   },
+  order = "[bi-stone-crushing]-a-[bi-stone-crushing-1]",
   prerequisites = {"steel-processing"},
   unit = {
     count = 75,
@@ -973,9 +1066,44 @@ BI.additional_techs.BI_Stone_Crushing.stone_crushing_2 = {
       -- recipe = "bi-crushed-stone-5"
     -- },
   },
+  order = "[bi-stone-crushing]-a-[bi-stone-crushing-2]",
   prerequisites = {"bi-tech-stone-crushing-1", "concrete"},
   unit = {
-    count = 75,
+    count = 150,
+    ingredients = {
+      {"automation-science-pack", 1},
+      {"logistic-science-pack", 1},
+    },
+    time = 30,
+  },
+  -- upgrade = false,
+  upgrade = true,
+}
+
+
+-- Stone crushing 3 (crushed stone from refined concrete)
+BI.additional_techs.BI_Stone_Crushing.stone_crushing_3 = {
+  type = "technology",
+  name = "bi-tech-stone-crushing-3",
+  localised_name = {"technology-name.bi-tech-stone-crushing-3"},
+  localised_description = {"technology-description.bi-tech-stone-crushing-3"},
+  icon = ICONPATH .. "bi-tech-stone-crushing-3.png",
+  icon_size = 256, icon_mipmaps = 4,
+  BI_add_icon = true,
+  effects = {
+    -- {
+      -- type = "unlock-recipe",
+      -- recipe = "bi-crushed-stone-4"
+    -- },
+    -- {
+      -- type = "unlock-recipe",
+      -- recipe = "bi-crushed-stone-5"
+    -- },
+  },
+  order = "[bi-stone-crushing]-a-[bi-stone-crushing-3]",
+  prerequisites = {"bi-tech-stone-crushing-2"},
+  unit = {
+    count = 200,
     ingredients = {
       {"automation-science-pack", 1},
       {"logistic-science-pack", 1},
@@ -1010,6 +1138,7 @@ BI.additional_techs.BI_Terraforming.terraforming_1 = {
       --~ --  recipe = "bi-arboretum-r1"
     --~ --  },
   },
+  order = "[bi-terraforming]-a-[bi-terraforming-1]",
   prerequisites = {"bi-tech-bio-farming-1", "automation-2"},
   unit = {
     count = 50,
@@ -1041,6 +1170,7 @@ BI.additional_techs.BI_Terraforming.terraforming_2 = {
       --~ --  recipe = "bi-arboretum-r4"
     --~ --  },
   },
+  order = "[bi-terraforming]-a-[bi-terraforming-2]",
   prerequisites = {"bi-terraforming-1", "bi-tech-fertilizer"},
   unit = {
     count = 150,
@@ -1073,6 +1203,7 @@ BI.additional_techs.BI_Terraforming.terraforming_3 = {
       --~ --  recipe = "bi-arboretum-r5"
     --~ --  },
   },
+  order = "[bi-terraforming]-a-[bi-terraforming-3]",
   prerequisites = {"bi-terraforming-2", "bi-tech-advanced-fertilizers"},
   unit = {
     count = 200,
@@ -1105,6 +1236,7 @@ BI.additional_techs.BI_Wood_Products.wooden_storage_1 = {
       --~ -- recipe = "bi-wooden-chest-large"
     --~ -- },
   },
+  order = "[wooden-storage]-a-[wooden-storage-1]",
   prerequisites = {"bi-tech-timber", "logistics"},
   unit = {
     count = 30,
@@ -1132,6 +1264,7 @@ BI.additional_techs.BI_Wood_Products.wooden_storage_2 = {
       --~ -- recipe = "bi-wooden-chest-huge"
     --~ -- },
   },
+  order = "[wooden-storage]-a-[wooden-storage-2]",
   prerequisites = {"bi-tech-wooden-storage-1", "logistics-2"},
   unit = {
     count = 100,
@@ -1159,6 +1292,7 @@ BI.additional_techs.BI_Wood_Products.wooden_storage_3 = {
       --~ -- recipe = "bi-wooden-chest-giga"
     --~ -- },
   },
+  order = "[wooden-storage]-a-[wooden-storage-3]",
   prerequisites = {"bi-tech-wooden-storage-2", "logistics-3", "concrete"},
   unit = {
     count = 150,
@@ -1187,6 +1321,7 @@ BI.additional_techs.BI_Wood_Products.wooden_pole_1 = {
       --~ recipe = "bi-wooden-pole-big"
     --~ },
   },
+  order = "[wooden-pole]-a-[wooden-pole-1]",
   prerequisites = {"bi-tech-timber"},
   unit = {
     count = 100,
@@ -1213,6 +1348,7 @@ BI.additional_techs.BI_Wood_Products.wooden_pole_2 = {
       --~ recipe = "bi-wooden-pole-huge"
     --~ },
   },
+  order = "[wooden-pole]-a-[wooden-pole-2]",
   prerequisites = {"electric-energy-distribution-2", "bi-tech-wooden-pole-1"},
   unit = {
     count = 110,
@@ -1231,10 +1367,12 @@ BI.additional_techs.BI_Wood_Products.wooden_pole_2 = {
 --                           Enable: Prototype artillery                          --
 --                            (BI.Settings.Bio_Cannon)                            --
 ------------------------------------------------------------------------------------
-BI.additional_techs.Bio_Cannon.bio_cannon = {
+BI.additional_techs.Bio_Cannon.bio_cannon_1 = {
   type = "technology",
-  name = "bi-tech-bio-cannon",
-  icon = ICONPATH .. "bi-tech-bio_cannon.png",
+  name = "bi-tech-bio-cannon-1",
+  localised_name = {"technology-name.bi-tech-bio-cannon-1"},
+  localised_description = {"technology-description.bi-tech-bio-cannon-1"},
+  icon = ICONPATH .. "bi-tech-bio-cannon-1.png",
   icon_size = 256, icon_mipmaps = 4,
   BI_add_icon = true,
   effects = {
@@ -1246,19 +1384,45 @@ BI.additional_techs.Bio_Cannon.bio_cannon = {
       --~ type = "unlock-recipe",
       --~ recipe = "bi-bio-cannon-proto-ammo"
     --~ },
+
+  },
+  order = "[bio-ammo]-ab-[bio-cannon-1]",
+  --~ prerequisites = {"military-2"},
+  prerequisites = {"military-science-pack"},
+  unit = {
+    --~ count = 300,
+    count = 75,
+    ingredients = {
+      {"automation-science-pack", 1},
+      {"logistic-science-pack", 1},
+      {"military-science-pack", 1},
+    },
+    --~ time = 30,
+    time = 20,
+  }
+}
+
+
+BI.additional_techs.Bio_Cannon.bio_cannon_2 = {
+  type = "technology",
+  name = "bi-tech-bio-cannon-2",
+  localised_name = {"technology-name.bi-tech-bio-cannon-2"},
+  localised_description = {"technology-description.bi-tech-bio-cannon-2"},
+  icon = ICONPATH .. "bi-tech-bio-cannon-2.png",
+  icon_size = 256, icon_mipmaps = 4,
+  BI_add_icon = true,
+  effects = {
     --~ {
       --~ type = "unlock-recipe",
       --~ recipe = "bi-bio-cannon-basic-ammo"
     --~ },
-    --~ {
-      --~ type = "unlock-recipe",
-      --~ recipe = "bi-bio-cannon-poison-ammo"
-    --~ },
 
   },
-  prerequisites = {"military-2"},
+  order = "[bio-ammo]-ab-[bio-cannon-2]",
+  prerequisites = {"bi-tech-bio-cannon-1", "rocketry"},
   unit = {
-    count = 300,
+    --~ count = 300,
+    count = 150,
     ingredients = {
       {"automation-science-pack", 1},
       {"logistic-science-pack", 1},
@@ -1269,10 +1433,167 @@ BI.additional_techs.Bio_Cannon.bio_cannon = {
 }
 
 
+BI.additional_techs.Bio_Cannon.bio_cannon_3 = {
+  type = "technology",
+  name = "bi-tech-bio-cannon-3",
+  localised_name = {"technology-name.bi-tech-bio-cannon-3"},
+  localised_description = {"technology-description.bi-tech-bio-cannon-3"},
+  icon = ICONPATH .. "bi-tech-bio-cannon-3.png",
+  icon_size = 256, icon_mipmaps = 4,
+  BI_add_icon = true,
+  effects = {
+    --~ {
+      --~ type = "unlock-recipe",
+      --~ recipe = "bi-bio-cannon-poison-ammo"
+    --~ },
+  },
+  order = "[bio-ammo]-ab-[bio-cannon-3]",
+  prerequisites = {"bi-tech-bio-cannon-2", "military-3"},
+  unit = {
+    --~ count = 300,
+    count = 175,
+    ingredients = {
+      {"automation-science-pack", 1},
+      {"logistic-science-pack", 1},
+      {"military-science-pack", 1},
+      {"chemical-science-pack", 1},
+    },
+    --~ time = 30,
+    time = 40,
+  }
+}
+
+
+------------------------------------------------------------------------------------
+--                          Enable: Early wooden defenses                         --
+--                             (BI.Settings.BI_Darts)                             --
+------------------------------------------------------------------------------------
+-- Piercing darts
+BI.additional_techs.BI_Darts.piercing_darts = {
+  type = "technology",
+  name = "bi-tech-darts-1",
+  localised_name = {"technology-name.bi-tech-darts-1"},
+  localised_description = {"technology-description.bi-tech-darts-1"},
+  icon = ICONPATH .. "bi-tech-darts-1.png",
+  icon_size = 256, icon_mipmaps = 4,
+  BI_add_icon = true,
+  effects = {
+    --~ {
+      --~ type = "unlock-recipe",
+      --~ recipe = "bi-dart-magazine-standard"
+    --~ },
+  },
+  order = "[bio-ammo]-aa-[darts-1]",
+  prerequisites = {"bi-tech-resin-extraction", "automation"},
+  unit = {
+    count = 100,
+    ingredients = {
+      {"automation-science-pack", 1},
+    },
+    time = 30,
+    --~ time = 25,
+  }
+}
+
+-- Enhanced darts
+BI.additional_techs.BI_Darts.enhanced_darts = {
+  type = "technology",
+  name = "bi-tech-darts-2",
+  localised_name = {"technology-name.bi-tech-darts-2"},
+  localised_description = {"technology-description.bi-tech-darts-2"},
+  icon = ICONPATH .. "bi-tech-darts-2.png",
+  icon_size = 256, icon_mipmaps = 4,
+  BI_add_icon = true,
+  effects = {
+    --~ {
+      --~ type = "unlock-recipe",
+      --~ recipe = "bi-dart-magazine-enhanced"
+    --~ },
+  },
+  order = "[bio-ammo]-aa-[darts-2]",
+  prerequisites = {"bi-tech-darts-1", "plastics"},
+  unit = {
+    count = 225,
+    ingredients = {
+      {"automation-science-pack", 1},
+      {"logistic-science-pack", 1},
+    },
+    time = 30,
+  }
+}
+
+-- Poison darts
+BI.additional_techs.BI_Darts.poison_darts = {
+  type = "technology",
+  name = "bi-tech-darts-3",
+  localised_name = {"technology-name.bi-tech-darts-3"},
+  localised_description = {"technology-description.bi-tech-darts-3"},
+  icon = ICONPATH .. "bi-tech-darts-3.png",
+  icon_size = 256, icon_mipmaps = 4,
+  BI_add_icon = true,
+  effects = {
+    --~ {
+      --~ type = "unlock-recipe",
+      --~ recipe = "bi-dart-magazine-poison"
+    --~ },
+  },
+  order = "[bio-ammo]-aa-[darts-3]",
+  prerequisites = {"bi-tech-darts-2", "military-3"},
+  unit = {
+    count = 120,
+    ingredients = {
+      {"automation-science-pack", 1},
+      {"logistic-science-pack", 1},
+      {"military-science-pack", 1},
+      {"chemical-science-pack", 1},
+    },
+    time = 30,
+  }
+}
+
+
+------------------------------------------------------------------------------------
+--                     Trigger: Make tech for Refined concrete                    --
+--                        (BI.Triggers.BI_Trigger_Concrete)                       --
+------------------------------------------------------------------------------------
+-- Refined concrete
+BI.additional_techs.BI_Trigger_Concrete.refined_concrete = {
+  type = "technology",
+  name = "bi-tech-refined-concrete",
+  localised_name = {"technology-name.bi-tech-refined-concrete"},
+  localised_description = {"technology-description.bi-tech-refined-concrete"},
+  icon = ICONPATH .. "bi-tech-refined-concrete.png",
+  icon_size = 256, icon_mipmaps = 4,
+  BI_add_icon = true,
+  effects = {
+    --~ {
+      --~ type = "unlock-recipe",
+      --~ recipe = "refined-concrete"
+    --~ },
+    --~ {
+      --~ type = "unlock-recipe",
+      --~ recipe = "refined-hazard-concrete"
+    --~ },
+  },
+  order = techs["concrete"] and techs["concrete"].order .. "-[bi-refined-concrete]" or
+                                "c-c-c-[bi-refined-concrete]",
+  prerequisites = {"concrete"},
+  unit = {
+    count = 150,
+    ingredients = {
+      {"automation-science-pack", 1},
+      {"logistic-science-pack", 1},
+    },
+    time = 30,
+  }
+}
+
+
+
 BioInd.writeDebug("Read data for optional technologies.")
 
 
 ------------------------------------------------------------------------------------
 --                                    END OF FILE                                 --
 ------------------------------------------------------------------------------------
-BI.entered_file("leave")
+BioInd.entered_file("leave")

@@ -2,11 +2,11 @@
 --                                   Krastorio 2                                  --
 ------------------------------------------------------------------------------------
 local mod_name = "Krastorio2"
-if not BI.check_mods(mod_name) then
-  BI.nothing_to_do("*")
+if not BioInd.check_mods(mod_name) then
+  BioInd.nothing_to_do("*")
   return
 else
-  BI.entered_file()
+  BioInd.entered_file()
 end
 
 
@@ -15,16 +15,17 @@ end
 
 
 local recipes = data.raw.recipe
-
+local recipe
 
 ------------------------------------------------------------------------------------
 --       Replace liquid air with oxygen in Algae Biomass conversion 2 and 3       --
 ------------------------------------------------------------------------------------
 if data.raw.fluid["oxygen"] then
-  for r, recipe in ipairs({"bi-biomass-2", "bi-biomass-3"}) do
-    if recipes[recipe] then
+  for r, r_name in ipairs({"bi-biomass-2", "bi-biomass-3"}) do
+    recipe = recipes[r_name]
+    if recipe then
       -- Change ingredients
-      thxbob.lib.recipe.replace_ingredient(recipe, "liquid-air", "oxygen")
+      thxbob.lib.recipe.replace_ingredient(recipe.name, "liquid-air", "oxygen")
       BioInd.modified_msg("ingredients", recipe)
     end
   end
@@ -34,4 +35,4 @@ end
 ------------------------------------------------------------------------------------
 --                                    END OF FILE                                 --
 ------------------------------------------------------------------------------------
-BI.entered_file("leave")
+BioInd.entered_file("leave")

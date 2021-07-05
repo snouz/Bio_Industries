@@ -1,17 +1,17 @@
 ------------------------------------------------------------------------------------
 --                                   Bob's mods                                   --
 ------------------------------------------------------------------------------------
-if not BI.check_mods({
+if not BioInd.check_mods({
   "bobpower",
   "bobelectronics",
   "bobplates",
   "bobrevamp",
   "bobgreenhouse",
 }) then
-  BI.nothing_to_do("*")
+  BioInd.nothing_to_do("*")
   return
 else
-  BI.entered_file()
+  BioInd.entered_file()
 end
 
 
@@ -320,4 +320,4 @@ end
 ------------------------------------------------------------------------------------
 --                                    END OF FILE                                 --
 ------------------------------------------------------------------------------------
-BI.entered_file("leave")
+BioInd.entered_file("leave")

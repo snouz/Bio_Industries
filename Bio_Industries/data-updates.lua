@@ -1,4 +1,4 @@
-BI.entered_file()
+BioInd.entered_file()
 
 
 ------------------------------------------------------------------------------------
@@ -39,6 +39,65 @@ require("prototypes.default.updates.liquid_air_+_nitrogen")
 require("prototypes.default.updates.alien_artifact")
 
 
+------------------------------------------------------------------------------------
+--                     Add resistances to our hidden entities                     --
+------------------------------------------------------------------------------------
+require("prototypes.compound_entities.updates.resistances")
+
+
+------------------------------------------------------------------------------------
+--    Use alternative descriptions for stone crusher if our sand recipe exists!   --
+------------------------------------------------------------------------------------
+require("prototypes.default.updates.sand_stonecrusher")
+--~ --if recipes[BI.additional_recipes.sand.name] then
+  --~ --recipe = recipes["bi-stone-crusher"]
+  --~ --if recipe then
+    --~ --for _, t in ipairs({"furnace", "item", "recipe"}) do
+      --~ --data.raw[t][recipe.name].localised_description = {
+        --~ --"entity-description." .. recipe.name .. "-sand"
+      --~ --}
+      --~ --BioInd.modified_msg("localization", data.raw[t][recipe.name])
+    --~ --end
+  --~ --end
+--~ --end
+
+
+------------------------------------------------------------------------------------
+--                        Enable "Productivity" in recipes                        --
+------------------------------------------------------------------------------------
+require("prototypes.default.updates.productivity")
+--~ for recipe, r in pairs(recipes) do
+  --~ for p, pattern in ipairs({
+    --~ "bi%-acid",
+    --~ "bi%-basic%-gas%-processing",
+    --~ "bi%-battery",
+    --~ "bi%-biomass%-%d",
+    --~ "bi%-biomass%-conversion%-%d",
+    --~ "bi%-cellulose%-%d",
+    --~ "bi%-crushed%-stone%-%d",
+    --~ "bi%-liquid%-air",
+    --~ "bi%-logs%-%d",
+    --~ "bi%-nitrogen",
+    --~ "bi%-plastic%-%d",
+    --~ "bi%-press%-wood",
+    --~ "bi%-production%-science%-pack",
+    --~ "bi%-resin%-pulp",
+    --~ "bi%-resin%-wood",
+    --~ "bi%-seed%-%d",
+    --~ "bi%-seedling%-%d",
+    --~ "bi%-stone%-brick",
+    --~ "bi%-sulfur",
+    --~ "bi%-sulfur%-angels",
+    --~ "bi%-wood%-from%-pulp",
+    --~ "bi%-woodpulp",
+  --~ }) do
+    --~ if recipe:match(pattern) then
+      --~ BI_Functions.lib.allow_productivity(recipe)
+      --~ break
+    --~ end
+  --~ end
+--~ end
+
 
 
 
@@ -61,6 +120,13 @@ require("prototypes.optional._updates.updates_optionCannon")
 --                            (BI.Settings.BI_Bio_Fuel)                           --
 ------------------------------------------------------------------------------------
 require("prototypes.optional._updates.updates_optionBioFuel")
+
+
+--~ ------------------------------------------------------------------------------------
+--~ --                             Enable: Coal processing                            --
+--~ --                        (BI.Settings.BI_Coal_Processing)                        --
+--~ ------------------------------------------------------------------------------------
+--~ require("prototypes.optional._updates.updates_optionCoalProcessing")
 
 
 ------------------------------------------------------------------------------------
@@ -116,7 +182,11 @@ require("prototypes.optional._updates.updates_tweaksEasyBioGardens")
 require("prototypes.optional._updates.updates_tweaksRecipeTweaks")
 
 
-
+------------------------------------------------------------------------------------
+--                     Trigger: Make tech for Refined concrete                    --
+--                        (BI.Triggers.BI_Trigger_Concrete)                       --
+------------------------------------------------------------------------------------
+require("prototypes.optional._updates.updates_triggerConcrete")
 
 
 ------------------------------------------------------------------------------------
@@ -197,46 +267,27 @@ require("prototypes.mod_compatibility.updates.updates_modSimpleSilicon")
 ------------------------------------------------------------------------------------
 
 
-------------------------------------------------------------------------------------
---                        Enable "Productivity" in recipes                        --
-------------------------------------------------------------------------------------
-for recipe, r in pairs(recipes) do
-  for p, pattern in ipairs({
-    "bi%-acid",
-    "bi%-basic%-gas%-processing",
-    "bi%-battery",
-    "bi%-biomass%-%d",
-    "bi%-biomass%-conversion%-%d",
-    "bi%-cellulose%-%d",
-    "bi%-crushed%-stone%-%d",
-    "bi%-liquid%-air",
-    "bi%-logs%-%d",
-    "bi%-nitrogen",
-    "bi%-plastic%-%d",
-    "bi%-press%-wood",
-    "bi%-production%-science%-pack",
-    "bi%-resin%-pulp",
-    "bi%-resin%-wood",
-    "bi%-seed%-%d",
-    "bi%-seedling%-%d",
-    "bi%-stone%-brick",
-    "bi%-sulfur",
-    "bi%-sulfur%-angels",
-    "bi%-wood%-from%-pulp",
-    "bi%-woodpulp",
-  }) do
-    if recipe:match(pattern) then
-      BI_Functions.lib.allow_productivity(recipe)
-      break
-    end
-  end
-end
+--~ ------------------------------------------------------------------------------------
+--~ --                     Add resistances to our hidden entities                     --
+--~ ------------------------------------------------------------------------------------
+--~ require("prototypes.compound_entities.updates.resistances")
 
 
-------------------------------------------------------------------------------------
---                     Add resistances to our hidden entities                     --
-------------------------------------------------------------------------------------
-require("prototypes.compound_entities.updates.resistances")
+--~ ------------------------------------------------------------------------------------
+--~ --    Use alternative descriptions for stone crusher if our sand recipe exists!   --
+--~ ------------------------------------------------------------------------------------
+--~ require("prototypes.default.updates.sand_stonecrusher")
+--if recipes[BI.additional_recipes.sand.name] then
+  --recipe = recipes["bi-stone-crusher"]
+  --if recipe then
+    --for _, t in ipairs({"furnace", "item", "recipe"}) do
+      --data.raw[t][recipe.name].localised_description = {
+        --"entity-description." .. recipe.name .. "-sand"
+      --}
+      --BioInd.modified_msg("localization", data.raw[t][recipe.name])
+    --end
+  --end
+--end
 
 
 --~ ------------------------------------------------------------------------------------
@@ -315,22 +366,6 @@ require("prototypes.compound_entities.updates.resistances")
 
 
 
-------------------------------------------------------------------------------------
---    Use alternative descriptions for stone crusher if our sand recipe exists!   --
-------------------------------------------------------------------------------------
-if recipes[BI.additional_recipes.sand.name] then
-  recipe = recipes["bi-stone-crusher"]
-  if recipe then
-    for _, t in ipairs({"furnace", "item", "recipe"}) do
-      data.raw[t][recipe.name].localised_description = {
-        "entity-description." .. recipe.name .. "-sand"
-      }
-      BioInd.modified_msg("localization", data.raw[t][recipe.name])
-    end
-  end
-end
-
-
 
 ------------------------------------------------------------------------------------
 --                           Add icons to our prototypes                          --
@@ -347,4 +382,4 @@ BioInd.BI_add_unlocks()
 ------------------------------------------------------------------------------------
 --                                    END OF FILE                                 --
 ------------------------------------------------------------------------------------
-BI.entered_file("leave")
+BioInd.entered_file("leave")

@@ -1200,14 +1200,14 @@ common.writeDebug("Rail %s of %s (%s): %s (%s)", {direction, base.name, base.uni
     common.entered_function()
 
     for r, recipe in pairs(data.raw.recipe) do
-      --~ common.writeDebug("Checking recipe %s", {recipe.name})
 
       -- There may be several techs that unlock a recipe!
       for t, tech in pairs(recipe.BI_add_to_tech or {}) do
         thxbob.lib.tech.add_recipe_unlock(tech, recipe.name)
-        common.writeDebug("Added unlock for recipe \"%s\" to tech \"%s\".",
-                          {recipe.name, tech})
-        --~ common.modified_msg("unlock", recipe, "Added")
+        --~ common.writeDebug("Added unlock for recipe \"%s\" to tech \"%s\".",
+                          --~ {recipe.name, tech})
+        common.modified_msg("unlock for recipe " .. r, data.raw.technology[tech], "Added")
+common.show("Technology " .. tech, data.raw.technology[tech])
       end
       recipe.BI_add_to_tech = nil
     end
@@ -1244,21 +1244,17 @@ common.writeDebug("Rail %s of %s (%s): %s (%s)", {direction, base.name, base.uni
   ------------------------------------------------------------------------------------
   common.create_stuff = function(create_list)
     --~ common.entered_function()
-  --~ common.show("table_size(create_list)", table_size(create_list))
 
     common.check_args (create_list, "table")
 
     -- We want to extend single items as well as complete arrays!
-  --~ common.show("create_list.type", create_list.type)
-  --~ common.show("create_list.name", create_list.name)
     create_list = (create_list.type and create_list.name) and {create_list} or create_list
 
     local ret = {}
 
     for entry, entry_data in pairs(create_list) do
---~ common.writeDebug("Entry: %s\tData:s %s", {entry, entry_data and entry_data.name or "nil"})
       if not (data.raw[entry_data.type] and data.raw[entry_data.type][entry_data.name]) then
-        data:extend({entry_data})
+        data:extend({ table.deepcopy(entry_data) })
         BioInd.created_msg(entry_data)
       end
       ret[#ret + 1] = data.raw[entry_data.type] and

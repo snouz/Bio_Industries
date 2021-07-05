@@ -1,4 +1,4 @@
-BI.entered_file()
+BioInd.entered_file()
 
 BI.default_recipes = BI.default_recipes or {}
 
@@ -693,4 +693,4 @@ BioInd.create_stuff(BI.default_recipes)
 ------------------------------------------------------------------------------------
 --                                    END OF FILE                                 --
 ------------------------------------------------------------------------------------
-BI.entered_file("leave")
+BioInd.entered_file("leave")

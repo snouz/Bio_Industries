@@ -4,19 +4,19 @@
 ------------------------------------------------------------------------------------
 local setting = "BI_Solar_Additions"
 if not BI.Settings[setting] then
-  BI.nothing_to_do("*")
+  BioInd.nothing_to_do("*")
   return
 else
-  BI.entered_file()
+  BioInd.entered_file()
 end
 
 --~ if not BI.Settings.BI_Solar_Additions then
 if not BI.Settings[setting] or
     (data.raw.technology["bob-solar-energy-2"] and data.raw.technology["bob-solar-energy-3"]) then
-  BI.nothing_to_do("*")
+  BioInd.nothing_to_do("*")
   return
 else
-  BI.entered_file()
+  BioInd.entered_file()
 end
 
 
@@ -37,4 +37,4 @@ BioInd.create_stuff(BI.additional_techs[setting])
 ------------------------------------------------------------------------------------
 --                                    END OF FILE                                 --
 ------------------------------------------------------------------------------------
-BI.entered_file("leave")
+BioInd.entered_file("leave")

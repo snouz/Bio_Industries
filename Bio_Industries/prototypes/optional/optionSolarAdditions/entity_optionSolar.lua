@@ -4,10 +4,10 @@
 ------------------------------------------------------------------------------------
 local setting = "BI_Solar_Additions"
 if not BI.Settings[setting] then
-  BI.nothing_to_do("*")
+  BioInd.nothing_to_do("*")
   return
 else
-  BI.entered_file()
+  BioInd.entered_file()
 end
 
 BI.additional_entities = BI.additional_entities or {}
@@ -680,7 +680,7 @@ BI.additional_entities[setting].solar_mat = {
   walking_sound = sounds.walking_sound,
   map_color = {r = 109, g = 110, b = 149},
   pollution_absorption_per_second = 0,
-  vehicle_friction_modifier = dirt_vehicle_speed_modifer
+  vehicle_friction_modifier = 0.8
 }
 
 
@@ -788,4 +788,4 @@ end
 ------------------------------------------------------------------------------------
 --                                    END OF FILE                                 --
 ------------------------------------------------------------------------------------
-BI.entered_file("leave")
+BioInd.entered_file("leave")

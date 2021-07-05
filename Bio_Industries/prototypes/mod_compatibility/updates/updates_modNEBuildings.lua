@@ -2,12 +2,11 @@
 --                           Natural Evolution Buildings                          --
 ------------------------------------------------------------------------------------
 local mod_name = "Natural_Evolution_Buildings"
--- Don't duplicate what NE does!
-if BI.check_mods(mod_name) then
-  BI.nothing_to_do("*")
+if not BioInd.check_mods(mod_name) then
+  BioInd.nothing_to_do("*")
   return
 else
-  BI.entered_file()
+  BioInd.entered_file()
 end
 
 
@@ -21,8 +20,6 @@ local recipes = data.raw.recipe
 local turrets = data.raw["ammo-turret"]
 
 
-
-
 ------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------
 --                                  Tech bonuses                                  --
@@ -33,54 +30,54 @@ local turrets = data.raw["ammo-turret"]
 -- settings "Enable: Early wooden defenses" (Dart turret) or "Enable: Prototype
 -- artillery" (Bio cannon) have been disabled.
 
-------------------------------------------------------------------------------------
---                                   Dart turret                                  --
-------------------------------------------------------------------------------------
-local turret_attack, ammo_damage, gun_speed
-turret = "bi-dart-turret"
+--~ ------------------------------------------------------------------------------------
+--~ --                                   Dart turret                                  --
+--~ ------------------------------------------------------------------------------------
+--~ local turret_attack, ammo_damage, gun_speed
+--~ turret = "bi-dart-turret"
 
-if turrets[turret] then
-  map = {
-    --Level     turret-attack   ammo-damage     gun-speed
-      [1]          =      {0.1,           0.1,            0.1},
-      [2]          =      {0.1,           0.1,            0.2},
-      [3]          =      {0.2,           0.2,            0.2},
-      [4]          =      {0.2,           0.2,            0.2},
-      [5]          =      {0.2,           0.2,            0.2},
-      [6]          =      {0.4,           0.4,            0.4},
-      [7]          =      {0.7,           0.4,               },
-  }
+--~ if turrets[turret] then
+  --~ map = {
+    --~ --Level     turret-attack   ammo-damage     gun-speed
+      --~ [1]          =      {0.1,           0.1,            0.1},
+      --~ [2]          =      {0.1,           0.1,            0.2},
+      --~ [3]          =      {0.2,           0.2,            0.2},
+      --~ [4]          =      {0.2,           0.2,            0.2},
+      --~ [5]          =      {0.2,           0.2,            0.2},
+      --~ [6]          =      {0.4,           0.4,            0.4},
+      --~ [7]          =      {0.7,           0.4,               },
+  --~ }
 
-  for level, bonus in ipairs(map) do
-    turret_attack, ammo_damage, gun_speed = table.unpack(bonus)
-BioInd.writeDebug("turret_attack: %s\tammo_damage: %s\tgun_speed: %s", {
-  turret_attack, ammo_damage, gun_speed or "nil"
-})
-    -- Turret attack bonus
-    if turret_attack then
-BioInd.show("tech", techs["physical-projectile-damage-" .. level])
-      table.insert(techs["physical-projectile-damage-" .. level].effects, {
-        type = "turret-attack", turret_id = turret, modifier = turret_attack
-      })
-      BioInd.modified_msg("turret-attack bonus", turrets[turret])
-    end
+  --~ for level, bonus in ipairs(map) do
+    --~ turret_attack, ammo_damage, gun_speed = table.unpack(bonus)
+--~ BioInd.writeDebug("turret_attack: %s\tammo_damage: %s\tgun_speed: %s", {
+  --~ turret_attack, ammo_damage, gun_speed or "nil"
+--~ })
+    --~ -- Turret attack bonus
+    --~ if turret_attack then
+--~ BioInd.show("tech", techs["physical-projectile-damage-" .. level])
+      --~ table.insert(techs["physical-projectile-damage-" .. level].effects, {
+        --~ type = "turret-attack", turret_id = turret, modifier = turret_attack
+      --~ })
+      --~ BioInd.modified_msg("turret-attack bonus", turrets[turret])
+    --~ end
 
-    -- Ammo damage modifier
-    if ammo_damage then
-      table.insert(techs["physical-projectile-damage-" .. level].effects, {
-        type = "ammo-damage", ammo_category = "Bio_Turret_Ammo", modifier = ammo_damage
-      })
-      BioInd.modified_msg("ammo-damage bonus", turrets[turret])
-    end
+    --~ -- Ammo damage modifier
+    --~ if ammo_damage then
+      --~ table.insert(techs["physical-projectile-damage-" .. level].effects, {
+        --~ type = "ammo-damage", ammo_category = "Bio_Turret_Ammo", modifier = ammo_damage
+      --~ })
+      --~ BioInd.modified_msg("ammo-damage bonus", turrets[turret])
+    --~ end
 
-    -- Shooting speed modifier
-    if gun_speed then
-      table.insert(techs["weapon-shooting-speed-" .. level].effects, {
-        type = "gun-speed", ammo_category = "Bio_Turret_Ammo", modifier = gun_speed
-      })
-      BioInd.modified_msg("shooting-speed bonus", turrets[turret])
-    end
-  end
+    --~ -- Shooting speed modifier
+    --~ if gun_speed then
+      --~ table.insert(techs["weapon-shooting-speed-" .. level].effects, {
+        --~ type = "gun-speed", ammo_category = "Bio_Turret_Ammo", modifier = gun_speed
+      --~ })
+      --~ BioInd.modified_msg("shooting-speed bonus", turrets[turret])
+    --~ end
+  --~ end
   --~ -- Turret attack modifier
   --~ bonus = "turret-attack"
   --~ for level, modifier in pairs({
@@ -137,46 +134,46 @@ BioInd.show("tech", techs["physical-projectile-damage-" .. level])
     --~ BioInd.modified_msg("effects (Bio cannon)", tech)
   --~ end
 --~ end
-end
+--~ end
 
-------------------------------------------------------------------------------------
---                                   Bio Cannon                                   --
-------------------------------------------------------------------------------------
-turret = "bi-bio-cannon"
-if turrets[turret] then
-  map = {
-    --Level             ammo-damage     gun-speed
-      [5]          =      {0.9,           0.8},
-      [6]          =      {1.3,           1.5},
-      [7]          =      {1.0,              },
-  }
-  for level, bonus in ipairs(map) do
-    ammo_damage, gun_speed = table.unpack(bonus)
+--~ ------------------------------------------------------------------------------------
+--~ --                                   Bio Cannon                                   --
+--~ ------------------------------------------------------------------------------------
+--~ turret = "bi-bio-cannon"
+--~ if turrets[turret] then
+  --~ map = {
+    --~ --Level             ammo-damage     gun-speed
+      --~ [5]          =      {0.9,           0.8},
+      --~ [6]          =      {1.3,           1.5},
+      --~ [7]          =      {1.0,              },
+  --~ }
+  --~ for level, bonus in ipairs(map) do
+    --~ ammo_damage, gun_speed = table.unpack(bonus)
 
-    -- Ammo damage modifier
-    if ammo_damage then
-      table.insert(techs["physical-projectile-damage-" .. level].effects, {
-        type = "ammo-damage", ammo_category = "Bio_Cannon_Ammo", modifier = ammo_damage
-      })
-      BioInd.modified_msg("ammo-damage bonus", turrets[turret])
-    end
+    --~ -- Ammo damage modifier
+    --~ if ammo_damage then
+      --~ table.insert(techs["physical-projectile-damage-" .. level].effects, {
+        --~ type = "ammo-damage", ammo_category = "Bio_Cannon_Ammo", modifier = ammo_damage
+      --~ })
+      --~ BioInd.modified_msg("ammo-damage bonus", turrets[turret])
+    --~ end
 
-    -- Shooting speed modifier
-    if gun_speed then
-      table.insert(techs["weapon-shooting-speed-" .. level].effects, {
-        type = "gun-speed", ammo_category = "Bio_Cannon_Ammo", modifier = gun_speed
-      })
-      BioInd.modified_msg("shooting-speed bonus", turrets[turret])
-    end
-  end
+    --~ -- Shooting speed modifier
+    --~ if gun_speed then
+      --~ table.insert(techs["weapon-shooting-speed-" .. level].effects, {
+        --~ type = "gun-speed", ammo_category = "Bio_Cannon_Ammo", modifier = gun_speed
+      --~ })
+      --~ BioInd.modified_msg("shooting-speed bonus", turrets[turret])
+    --~ end
+  --~ end
 
-  -- Artillery shell speed
-  table.insert(data.raw.technology["artillery-shell-speed-1"].effects, {
-    type = "gun-speed",
-    ammo_category = "Bio_Cannon_Ammo",
-    modifier = 1
-  })
-end
+  --~ -- Artillery shell speed
+  --~ table.insert(data.raw.technology["artillery-shell-speed-1"].effects, {
+    --~ type = "gun-speed",
+    --~ ammo_category = "Bio_Cannon_Ammo",
+    --~ modifier = 1
+  --~ })
+--~ end
 
 --~ if turrets["bi-bio-cannon"] then
 
@@ -218,15 +215,14 @@ end
   --~ end
 --~ end
 
-------------------------------------------------------------------------------------
---              Add prototype artillery to prerequisites of artillery             --
-------------------------------------------------------------------------------------
-tech = techs["artillery"]
-if tech then
-  thxbob.lib.tech.add_prerequisite(tech.name, "bi-tech-bio-cannon")
-  --~ BioInd.writeDebug("Changed prerequisites of tech \"%s\".", {tech.name})
-  BioInd.modified_msg("prerequisites", tech)
-end
+--~ ------------------------------------------------------------------------------------
+--~ --              Add prototype artillery to prerequisites of artillery             --
+--~ ------------------------------------------------------------------------------------
+--~ tech = techs["artillery"]
+--~ if tech and techs["bi-tech-bio-cannon-3"] then
+  --~ thxbob.lib.tech.add_prerequisite(tech.name, "bi-tech-bio-cannon-3")
+  --~ BioInd.modified_msg("prerequisites", tech)
+--~ end
 
 ------------------------------------------------------------------------------------
 --          Add Mk3 recipe for wood, using NE' Enhanced nutrient solution         --
@@ -247,4 +243,4 @@ end
 ------------------------------------------------------------------------------------
 --                                    END OF FILE                                 --
 ------------------------------------------------------------------------------------
-BI.entered_file("leave")
+BioInd.entered_file("leave")

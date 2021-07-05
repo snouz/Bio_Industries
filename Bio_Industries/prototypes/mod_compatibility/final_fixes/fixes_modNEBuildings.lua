@@ -3,11 +3,11 @@
 ------------------------------------------------------------------------------------
 local mod_name = "Natural_Evolution_Buildings"
 -- Don't duplicate what NE does!
-if BI.check_mods(mod_name) or not data.raw.gun["bi-dart-rifle"] then
-  BI.nothing_to_do("*")
+if BioInd.check_mods(mod_name) or not data.raw.gun["bi-dart-rifle"] then
+  BioInd.nothing_to_do("*")
   return
 else
-  BI.entered_file()
+  BioInd.entered_file()
 end
 
 
@@ -26,6 +26,7 @@ local ammos = data.raw.ammo
 --                         Hide the recipe for the pistol                         --
 ------------------------------------------------------------------------------------
 recipe = recipes["pistol"]
+BioInd.show("Pistol", recipe)
 if recipe then
   recipe.enabled = false
   BioInd.modified_msg("enabled", recipe)
@@ -96,4 +97,4 @@ end
 ------------------------------------------------------------------------------------
 --                                    END OF FILE                                 --
 ------------------------------------------------------------------------------------
-BI.entered_file("leave")
+BioInd.entered_file("leave")

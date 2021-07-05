@@ -1,4 +1,4 @@
-BI.entered_file()
+BioInd.entered_file()
 
 BI.additional_fluids = BI.additional_fluids or {}
 
@@ -80,4 +80,4 @@ BioInd.writeDebug("Read data for additional fluids.")
 ------------------------------------------------------------------------------------
 --                                    END OF FILE                                 --
 ------------------------------------------------------------------------------------
-BI.entered_file("leave")
+BioInd.entered_file("leave")

@@ -4,10 +4,10 @@
 ------------------------------------------------------------------------------------
 local setting = "BI_Coal_Processing"
 if not BI.Settings[setting] then
-  BI.nothing_to_do("*")
+  BioInd.nothing_to_do("*")
   return
 else
-  BI.entered_file()
+  BioInd.entered_file()
 end
 
 
@@ -22,10 +22,16 @@ end
   --~ data:extend({r_data})
   --~ BioInd.created_msg(r_data)
 --~ end
+for r, r_data in pairs(BI.additional_recipes[setting] or {}) do
+  BioInd.show(r_data.name, r_data)
+end
 BioInd.create_stuff(BI.additional_recipes[setting])
 
+for r, r_data in pairs(BI.additional_recipes[setting] or {}) do
+  BioInd.show(r_data.name, r_data)
+end
 
 ------------------------------------------------------------------------------------
 --                                    END OF FILE                                 --
 ------------------------------------------------------------------------------------
-BI.entered_file("leave")
+BioInd.entered_file("leave")

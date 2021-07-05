@@ -21,21 +21,20 @@ BI_Functions.lib = BI_Functions.lib or {}
 thxbob = thxbob or {}
 thxbob.lib = thxbob.lib or {}
 
--- We don't want to require common.lua unnecessarily. Let's copy the function
--- that checks if required mods are active, so it's available in all other files!
-BI.check_mods = BioInd.check_mods
-
--- Let's also copy some output functions!
-BI.writeDebug = BioInd.writeDebug
-BI.entered_function =  BioInd.entered_function
-BI.entered_file = BioInd.entered_file
-BI.nothing_to_do = BioInd.nothing_to_do
-
 -- Populate BI.Settings with the setting values
 BioInd.get_startup_settings()
 for k, v in pairs(BI.Settings) do
   BioInd.writeDebug("Setting %s: %s", {k, v})
 end
+
+-- Set triggers depending on multiple settings/mods
+BI.Triggers = {
+  -- Create new tech "Refined concrete"?
+  BI_Trigger_Concrete = BI.Settings.BI_Game_Tweaks_Recipe or
+                        BI.Settings.BI_Rubber or
+                        BI.Settings.BI_Stone_Crushing,
+}
+
 
 ------------------------------------------------------------------------------------
 --                                 Auxiliary files                                --
@@ -156,6 +155,7 @@ require("prototypes.optional.optionBioGardens.technology_optionGarden")
 ------------------------------------------------------------------------------------
 require("prototypes.optional.optionCoalProcessing.item_optionCoalProcessing")
 require("prototypes.optional.optionCoalProcessing.recipe_optionCoalProcessing")
+--~ -- Moved to data-updates.lua! We'll first check if alternative techs already exist.
 require("prototypes.optional.optionCoalProcessing.technology_optionCoalProcessing")
 
 
@@ -167,6 +167,7 @@ require("prototypes.optional.optionDarts.categories_optionDarts")
 require("prototypes.optional.optionDarts.entity_optionDarts")
 require("prototypes.optional.optionDarts.item_optionDarts")
 require("prototypes.optional.optionDarts.recipe_optionDarts")
+require("prototypes.optional.optionDarts.technology_optionDarts")
 
 
 ------------------------------------------------------------------------------------
@@ -273,6 +274,11 @@ require("prototypes.optional.tweaksEasyBioGardens")
 require("prototypes.optional.tweaksSciencePack")
 
 
+------------------------------------------------------------------------------------
+--                     Trigger: Make tech for Refined concrete                    --
+--                        (BI.Triggers.BI_Trigger_Concrete)                       --
+------------------------------------------------------------------------------------
+require("prototypes.optional.triggerConcrete")
 
 
 ------------------------------------------------------------------------------------
@@ -327,11 +333,21 @@ require("prototypes.mod_compatibility.modDectorio")
 
 
 ------------------------------------------------------------------------------------
+--                             Industrial Revolution 2                            --
+------------------------------------------------------------------------------------
+require("prototypes.mod_compatibility.modIndustrialRevolution")
+
+
+------------------------------------------------------------------------------------
 --                                   Krastorio 2                                  --
 ------------------------------------------------------------------------------------
 require("prototypes.mod_compatibility.modKrastorio2")
 
 
+--~ ------------------------------------------------------------------------------------
+--~ --                                 Pyanodon's mods                                --
+--~ ------------------------------------------------------------------------------------
+--~ require("prototypes.mod_compatibility.modPyanodon")
 
 
 
@@ -340,7 +356,7 @@ require("prototypes.mod_compatibility.modKrastorio2")
 --  ALL BASE ENTITIES EXIST -- NOW CREATE THE HIDDEN PARTS OF COMPOUND ENTITIES!  --
 ------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------
--- Let's make
+-- Let's remove all unnecessary entities from the list of compound entities!
 
 --~ BioInd.compound_entities = compound_entities.get_HE_list()
 --~ BioInd.compound_entities = require("prototypes.compound_entities.main_list").get_HE_list()
@@ -358,6 +374,7 @@ require("prototypes.compound_entities.hidden_entities")
 --                        FINAL ADJUSTMENTS FOR THIS STAGE                        --
 ------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------
+
 
 
 ------------------------------------------------------------------------------------

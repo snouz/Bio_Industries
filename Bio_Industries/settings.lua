@@ -82,15 +82,13 @@ setting_list.BI_Explosive_Planting = {
     order = "a[enable]-c[BI_Explosive_Planting]",
 }
 
-setting_list.BI_Rubber = {
-    type = "bool-setting",
-    name = "BI_Rubber",
-    setting_type = "startup",
-    default_value = true,
-    order = "a[enable]-c[BI_Rubber]",
-}
-
-
+--~ setting_list.BI_Rubber = {
+    --~ type = "bool-setting",
+    --~ name = "BI_Rubber",
+    --~ setting_type = "startup",
+    --~ default_value = true,
+    --~ order = "a[enable]-c[BI_Rubber]",
+--~ }
 
 setting_list.BI_Bio_Fuel = {
     type = "bool-setting",
@@ -218,6 +216,13 @@ if not (mods["IndustrialRevolution"] or mods["aai-industry"]) then
       setting_type = "startup",
       default_value = true,
       order = "a[enable]-c[BI_Disassemble]",
+  }
+  setting_list.BI_Rubber = {
+      type = "bool-setting",
+      name = "BI_Rubber",
+      setting_type = "startup",
+      default_value = true,
+      order = "a[enable]-c[BI_Rubber]",
   }
 end
 

@@ -4,10 +4,10 @@
 ------------------------------------------------------------------------------------
 local setting = "Bio_Cannon"
 if not BI.Settings[setting] then
-  BI.nothing_to_do("*")
+  BioInd.nothing_to_do("*")
   return
 else
-  BI.entered_file()
+  BioInd.entered_file()
 end
 
 BI.additional_entities = BI.additional_entities or {}
@@ -676,7 +676,6 @@ BI.additional_entities[setting].ne_napalm_small = {
         }
       }
     },
-
   },
   animation = {
     filename = "__core__/graphics/empty.png",
@@ -726,6 +725,68 @@ BI.additional_entities[setting].bio_cannon_explosion = {
 }
 
 
+-- Poison artillery shell
+BI.additional_entities[setting].poison_artillery_shell = table.deepcopy(
+                              data.raw["artillery-projectile"]["artillery-projectile"])
+local poison_shell = BI.additional_entities[setting].poison_artillery_shell
+if poison_shell then
+  poison_shell.name = "bi-poison-artillery-projectile"
+  poison_shell.picture.filename = PROJECTILEPATH .. "hr-shell-poison.png"
+  poison_shell.chart_picture.filename = PROJECTILEPATH .. "poison-artillery-shoot-map-visualization.png"
+
+  if poison_shell.action and
+      poison_shell.action.action_delivery and
+      poison_shell.action.action_delivery.target_effects then
+
+    local check, effect_index
+    local poison_damage_amount = 300
+
+check = true
+    -- Really! This is a nested property.
+    for e, effect in pairs(poison_shell.action.action_delivery.target_effects) do
+      if effect.action and
+          effect.action.action_delivery and
+          effect.action.action_delivery.target_effects then
+BioInd.writeDebug("Found target effects!")
+        for t, target_effect in pairs(effect.action.action_delivery.target_effects) do
+BioInd.writeDebug("t: %s\teffect: %s", {t, target_effect})
+          if target_effect.damage and
+              target_effect.damage.type == "poison" and
+              target_effect.damage.amount < poison_damage_amount then
+            target_effect.damage.amount = poison_damage_amount
+            BioInd.modified_msg("damage.amount (poison)", poison_shell)
+            check = false
+            break
+          end
+        end
+        if check then
+          table.insert(effect.action.action_delivery.target_effects, {
+            type = "damage",
+            damage = {
+              amount = poison_damage_amount,
+              type = "poison"
+            },
+          })
+          BioInd.modified_msg("poison damage", poison_shell, "Added")
+        end
+
+      end
+    end
+
+    --~ if check then
+      --~ table.insert(poison_shell.action.action_delivery.target_effects[check].action.action_delivery.target_effects, {
+        --~ type = "damage",
+        --~ damage = {
+          --~ amount = poison_damage_amount,
+          --~ type = "poison"
+        --~ },
+      --~ })
+      --~ BioInd.modified_msg("poison damage", poison_shell, "Added")
+    --~ end
+  end
+end
+
+
 ------------------------------------------------------------------------------------
 --                          Create entities and remnants                          --
 ------------------------------------------------------------------------------------
@@ -743,4 +804,4 @@ end
 ------------------------------------------------------------------------------------
 --                                    END OF FILE                                 --
 ------------------------------------------------------------------------------------
-BI.entered_file("leave")
+BioInd.entered_file("leave")

@@ -1,7 +1,7 @@
 ------------------------------------------------------------------------------------
 --    Data for some recipes that will be needed if one of several mods is used.   --
 ------------------------------------------------------------------------------------
-BI.entered_file()
+BioInd.entered_file()
 
 --~ local BioInd = require(['"]common['"])(["']Bio_Industries['"])
 local ICONPATH = BioInd.iconpath
@@ -201,4 +201,4 @@ BioInd.writeDebug("Read data for additional entities (dependent on other mods)."
 ------------------------------------------------------------------------------------
 --                                    END OF FILE                                 --
 ------------------------------------------------------------------------------------
-BI.entered_file("leave")
+BioInd.entered_file("leave")

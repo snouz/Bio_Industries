@@ -2,14 +2,14 @@
 --                                    Dectorio                                    --
 ------------------------------------------------------------------------------------
 local mod_name = "Dectorio"
---~ if not BI.check_mods(mod_name) then
-  --~ BI.nothing_to_do("*")
+--~ if not BioInd.check_mods(mod_name) then
+  --~ BioInd.nothing_to_do("*")
   --~ return
 --~ else
-  --~ BI.entered_file()
+  --~ BioInd.entered_file()
 --~ end
 
-BI.entered_file()
+BioInd.entered_file()
 
 
 ------------------------------------------------------------------------------------
@@ -21,7 +21,7 @@ local SNDPATH = "__Dectorio__/sound/"
 local items = data.raw.item
 local tiles = data.raw.tile
 
-local sounds = BI.check_mods(mod_name) and {} or nil
+local sounds = BioInd.check_mods(mod_name) and {} or nil
 
 -- Dectorio exists, so sounds exist and we can modify it
 if sounds then
@@ -67,4 +67,4 @@ end
 ------------------------------------------------------------------------------------
 --                                    END OF FILE                                 --
 ------------------------------------------------------------------------------------
-BI.entered_file("leave")
+BioInd.entered_file("leave")

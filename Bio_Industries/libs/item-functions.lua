@@ -31,6 +31,8 @@ end
 
 
 function thxbob.lib.item.basic_item(inputs)
+BioInd.entered_function()
+BioInd.show("Inputs", inputs)
   local item = {}
 
   if inputs.name then
@@ -38,6 +40,7 @@ function thxbob.lib.item.basic_item(inputs)
   else
     item.name = inputs[1]
   end
+BioInd.show("item.name", item.name)
 
   if inputs.amount then
     item.amount = inputs.amount
@@ -49,12 +52,15 @@ function thxbob.lib.item.basic_item(inputs)
   if not item.amount then
     item.amount = 1
   end
+BioInd.show("item.amount", item.amount)
 
   if inputs.type then
     item.type = inputs.type
   else
     item.type = thxbob.lib.item.get_basic_type(item.name)
   end
+BioInd.show("item.type", item.type)
+
 
   if item.type == "item" then
     if item.amount > 0 and item.amount < 1 then
@@ -63,7 +69,7 @@ function thxbob.lib.item.basic_item(inputs)
       item.amount = math.floor(item.amount)
     end
   end
-
+BioInd.show("item", item)
   return item
 end
 

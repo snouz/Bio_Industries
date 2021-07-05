@@ -1,4 +1,4 @@
-BI.entered_file()
+BioInd.entered_file()
 
 --~ local BioInd = require(['"]common['"])(["']Bio_Industries['"])
 
@@ -733,4 +733,4 @@ BioInd.writeDebug("Read data for additional remnants (dependent on other mods)."
 ------------------------------------------------------------------------------------
 --                                    END OF FILE                                 --
 ------------------------------------------------------------------------------------
-BI.entered_file("leave")
+BioInd.entered_file("leave")

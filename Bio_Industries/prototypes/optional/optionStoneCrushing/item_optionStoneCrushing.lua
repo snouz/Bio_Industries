@@ -4,10 +4,10 @@
 ------------------------------------------------------------------------------------
 local setting = "BI_Stone_Crushing"
 if not BI.Settings[setting] then
-  BI.nothing_to_do("*")
+  BioInd.nothing_to_do("*")
   return
 else
-  BI.entered_file()
+  BioInd.entered_file()
 end
 
 
@@ -18,14 +18,16 @@ end
 ------------------------------------------------------------------------------------
 --                                  Create items                                  --
 ------------------------------------------------------------------------------------
---~ for i, i_data in pairs(BI.additional_items[setting] or {}) do
-  --~ data:extend({i_data})
-  --~ BioInd.created_msg(i_data)
---~ end
-BioInd.create_stuff(BI.additional_items[setting])
+for i, i_data in pairs(BI.additional_items[setting] or {}) do
+  -- We don't want to create crushed stone yet! There may be mods that provide
+  -- alternatives (e.g. IR2: gravel)
+  if i_data.name  ~= BI.additional_items.BI_Stone_Crushing.crushed_stone.name then
+    BioInd.create_stuff(i_data)
+  end
+end
 
 
 ------------------------------------------------------------------------------------
 --                                    END OF FILE                                 --
 ------------------------------------------------------------------------------------
-BI.entered_file("leave")
+BioInd.entered_file("leave")

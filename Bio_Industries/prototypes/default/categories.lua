@@ -1,4 +1,4 @@
-BI.entered_file()
+BioInd.entered_file()
 
 BI.default_item_group           = BI.default_item_group or {}
 BI.default_item_subgroup        = BI.default_item_subgroup or {}
@@ -283,4 +283,4 @@ BioInd.create_stuff(BI.default_recipe_categories)
 ------------------------------------------------------------------------------------
 --                                    END OF FILE                                 --
 ------------------------------------------------------------------------------------
-BI.entered_file("leave")
+BioInd.entered_file("leave")

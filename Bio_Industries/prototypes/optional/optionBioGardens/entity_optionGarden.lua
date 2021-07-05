@@ -4,10 +4,10 @@
 ------------------------------------------------------------------------------------
 local setting = "BI_Bio_Garden"
 if not BI.Settings[setting] then
-  BI.nothing_to_do("*")
+  BioInd.nothing_to_do("*")
   return
 else
-  BI.entered_file()
+  BioInd.entered_file()
 end
 
 BI.additional_entities = BI.additional_entities or {}
@@ -560,4 +560,4 @@ end
 ------------------------------------------------------------------------------------
 --                                    END OF FILE                                 --
 ------------------------------------------------------------------------------------
-BI.entered_file("leave")
+BioInd.entered_file("leave")

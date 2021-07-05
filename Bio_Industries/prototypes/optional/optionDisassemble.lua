@@ -4,10 +4,10 @@
 ------------------------------------------------------------------------------------
 local setting = "BI_Disassemble"
 if not BI.Settings[setting] then
-  BI.nothing_to_do("*")
+  BioInd.nothing_to_do("*")
   return
 else
-  BI.entered_file()
+  BioInd.entered_file()
 end
 
 
@@ -37,4 +37,4 @@ BioInd.create_stuff(BI.additional_recipes[setting])
 ------------------------------------------------------------------------------------
 --                                    END OF FILE                                 --
 ------------------------------------------------------------------------------------
-BI.entered_file("leave")
+BioInd.entered_file("leave")

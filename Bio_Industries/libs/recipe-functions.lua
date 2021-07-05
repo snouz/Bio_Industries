@@ -142,15 +142,28 @@ function thxbob.lib.recipe.add_new_ingredient(recipe, item)
 end
 
 function thxbob.lib.recipe.add_ingredient(recipe, item)
-  if data.raw.recipe[recipe] and thxbob.lib.item.get_type(thxbob.lib.item.basic_item(item).name) then
+BioInd.entered_function()
+BioInd.show("Recipe", recipe)
+BioInd.show("Item", item)
 
+local test = thxbob.lib.item.basic_item(item)
+BioInd.show("basic_item", test)
+local test = thxbob.lib.item.get_type(test.name)
+BioInd.show("type", test)
+
+
+  if data.raw.recipe[recipe] and thxbob.lib.item.get_type(thxbob.lib.item.basic_item(item).name) then
+BioInd.writeDebug("Found recipe %s and item %s", {recipe, item})
     if data.raw.recipe[recipe].expensive then
+BioInd.writeDebug("Expensive mode")
       thxbob.lib.item.add(data.raw.recipe[recipe].expensive.ingredients, thxbob.lib.item.basic_item(item))
     end
     if data.raw.recipe[recipe].normal then
+BioInd.writeDebug("Normal mode")
       thxbob.lib.item.add(data.raw.recipe[recipe].normal.ingredients, thxbob.lib.item.basic_item(item))
     end
     if data.raw.recipe[recipe].ingredients then
+BioInd.writeDebug("No-difficulty mode")
       thxbob.lib.item.add(data.raw.recipe[recipe].ingredients, thxbob.lib.item.basic_item(item))
     end
 

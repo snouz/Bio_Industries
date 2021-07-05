@@ -45,6 +45,14 @@ BI.additional_categories.BI_Bio_Fuel.bio_fuel_other = {
   order = "f"
 }
 
+-- Item subgroup for Bio boiler
+BI.additional_categories.BI_Bio_Fuel.energy_solar_panel = {
+  type = "item-subgroup",
+  name = "bio-energy-solar-panel",
+  group = "production",
+  order = "b-c"
+}
+
 
 ------------------------------------------------------------------------------------
 --                               Enable: Bio gardens                              --
@@ -76,13 +84,13 @@ BI.additional_categories.BI_Disassemble.disassemble = {
 --                           Enable: Bio solar additions                          --
 --                        (BI.Settings.BI_Solar_Additions)                        --
 ------------------------------------------------------------------------------------
--- Item subgroup for solar entities
-BI.additional_categories.BI_Solar_Additions.solar_entity = {
-  type = "item-subgroup",
-  name = "bio-bio-solar-entity",
-  group = "bio-industries",
-  order = "a-solar",
-}
+--~ -- Item subgroup for solar entities
+--~ BI.additional_categories.BI_Solar_Additions.solar_entity = {
+  --~ type = "item-subgroup",
+  --~ name = "bio-bio-solar-entity",
+  --~ group = "bio-industries",
+  --~ order = "a-solar",
+--~ }
 
 -- Item subgroup for Solar panel
 BI.additional_categories.BI_Solar_Additions.energy_solar_panel = {

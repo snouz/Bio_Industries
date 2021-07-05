@@ -26,8 +26,8 @@ local recipe, tech, entity_data, gun, old, new, amount
 ------------------------------------------------------------------------------------
 --                  Lock shotgun and shotgun shells behind techs                  --
 ------------------------------------------------------------------------------------
-entity_data = BI.additional_entities.BI_Darts.dart_rifle
-gun = data.raw[entity_data.type][entity_data.name]
+entity_data = BI.additional_entities.BI_Darts and BI.additional_entities.BI_Darts.dart_rifle
+gun = entity_data and data.raw[entity_data.type][entity_data.name]
 
 if gun then
   -- IR makes the shotgun available right from the start. Lock it behind "Military 1".

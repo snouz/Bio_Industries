@@ -8,6 +8,7 @@ BI.additional_categories = BI.additional_categories or {}
 local settings = {
   "BI_Darts",
   "Bio_Cannon",
+  "BI_Explosive_Planting",
 }
 for s, setting in pairs(settings) do
   BI.additional_categories[setting] = BI.additional_categories[setting] or {}
@@ -62,7 +63,15 @@ BI.additional_categories.Bio_Cannon.cannon_ammo = {
   --~ group = "combat",
   --~ order = "b-[bi-ammo]"
 --~ }
-BI.additional_categories.Bio_Cannon.ammo = BI.additional_categories.BI_Darts.ammo
+BI.additional_categories.Bio_Cannon.ammo = table.deepcopy(BI.additional_categories.BI_Darts.ammo)
+
+
+------------------------------------------------------------------------------------
+--                               Enable: Seed bombs                               --
+--                       (BI.Settings.BI_Explosive_Planting)                      --
+------------------------------------------------------------------------------------
+-- Explosive planting 1
+BI.additional_categories.BI_Explosive_Planting.ammo = table.deepcopy(BI.additional_categories.BI_Darts.ammo)
 
 
 

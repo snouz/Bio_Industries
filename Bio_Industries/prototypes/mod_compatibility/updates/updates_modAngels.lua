@@ -30,7 +30,7 @@ local recipes = data.raw.recipe
 --                               Solar boiler/plant                               --
 ------------------------------------------------------------------------------------
 -- Angel's Petrochemical Processing ("angelspetrochem")
-if items["angels-electric-boiler"] then
+if items["angels-electric-boiler"] and BI.Settings.BI_Solar_Additions then
   --~ recipe = recipes["bi-solar-boiler"]
   recipe = recipes[BI.additional_recipes.BI_Solar_Additions.solar_boiler.name]
   if recipe then
@@ -89,15 +89,16 @@ end
 --                           Update icons of Wood bricks                          --
 ------------------------------------------------------------------------------------
 -- Angel's Bio Processing ("angelsbioprocessing")
-item = items["wood-bricks"]
+--~ item = items["wood-bricks"]
+item = items[BI.default_items.wood_bricks.name]
 if mods["angelsbioprocessing"] and item then
-  BioInd.BI_change_icon(recipes["bi-wood-fuel-brick"],
+  --~ BioInd.BI_change_icon(recipes["bi-wood-fuel-brick"],
+  BioInd.BI_change_icon(recipes[BI.default_recipes.wood_fuel_brick.name],
                         "__angelsbioprocessing__/graphics/icons/wood-bricks.png", 32)
 
   BioInd.BI_change_icon(item,
                         "__angelsbioprocessing__/graphics/icons/wood-bricks.png", 32)
 end
-
 
 ------------------------------------------------------------------------------------
 --                   Add fertilizer recipe with Sodium hydroxide                  --
@@ -177,7 +178,7 @@ end
 --       Replace icons for biomass-conversion-2 and bi_basic_gas_processing       --
 ------------------------------------------------------------------------------------
 -- Angel's Petrochemical Processing ("angelspetrochem")
-if mods["angelspetrochem"] then
+if mods["angelspetrochem"] and BI.Settings.BI_Bio_Fuel then
   -- Biomass conversion
   --~ recipe = recipes["bi-biomass-conversion-2"]
   recipe = recipes[BI.additional_recipes.BI_Bio_Fuel.bio_mass_conversion_petroleum.name]
@@ -209,7 +210,7 @@ end
 --        Replace Water with Sulfuric waste water in "biomass conversion-1"       --
 ------------------------------------------------------------------------------------
 -- Angel's Refining ("angelsrefining")
-if fluids["water-yellow-waste"] then
+if fluids["water-yellow-waste"] and BI.Settings.BI_Bio_Fuel then
   -- Replace water with water-yellow-waste in Algae Biomass conversion 1
   --~ recipe = recipes["bi-biomass-conversion-1"]
   recipe = recipes[BI.additional_recipes.BI_Bio_Fuel.bio_mass_conversion_crude_oil.name]
@@ -244,55 +245,58 @@ end
 --                          Replace Angels Charcoal Icon                          --
 ------------------------------------------------------------------------------------
 -- Angel's Bio Processing ("angelsbioprocessing")
---~ recipe = recipes["wood-charcoal"]
-recipe = recipes[BI.additional_recipes.BI_Coal_Processing.charcoal_1.name]
-if recipe then
-  -- Change icon
-  BioInd.BI_change_icon(recipe, ICONPATH .. "charcoal_pellets.png")
+if mods["angelsbioprocessing"] and BI.Settings.BI_Coal_Processing then
+  recipe = recipes[BI.additional_recipes.BI_Coal_Processing.charcoal_1.name]
+  if recipe then
+    -- Change icon
+    BioInd.BI_change_icon(recipe, ICONPATH .. "charcoal_pellets.png")
 
-  -- Change category
-  recipe.category = "biofarm-mod-smelting"
-  BioInd.modified_msg("category", recipe)
+    -- Change category
+    recipe.category = "biofarm-mod-smelting"
+    BioInd.modified_msg("category", recipe)
+  end
+
+  item = items[BI.additional_items.BI_Coal_Processing.wood_charcoal.name]
+  if item then
+    -- Change icon
+    BioInd.BI_change_icon(item, ICONPATH .. "charcoal_pellets.png")
+
+    -- Change fuel emission multiplier
+    item.fuel_emissions_multiplier = 1.05
+    BioInd.modified_msg("fuel_emissions_multiplier", item)
+  end
 end
-
-item = items["wood-charcoal"]
-if item then
-  -- Change icon
-  BioInd.BI_change_icon(item, ICONPATH .. "charcoal_pellets.png")
-
-  -- Change fuel emission multiplier
-  item.fuel_emissions_multiplier = 1.05
-  BioInd.modified_msg("fuel_emissions_multiplier", item)
-end
-
 
 ------------------------------------------------------------------------------------
 --                        Replace Angel's Pellet coke icon                        --
 ------------------------------------------------------------------------------------
 -- Angel's Petrochemical Processing ("angelspetrochem")
-item = items["pellet-coke"]
-if mods["angelspetrochem"] and item then
-  -- Change icon
-  BioInd.BI_change_icon(item, "__angelspetrochem__/graphics/icons/pellet-coke.png", 32)
+if mods["angelspetrochem"] and BI.Settings.BI_Coal_Processing then
 
-  -- Change speed boosts
-  item.fuel_acceleration_multiplier = 1.1
-  BioInd.modified_msg("fuel_acceleration_multiplier", item)
+  item = items[BI.additional_items.BI_Coal_Processing.pellet_coke.name]
+  if item then
+    -- Change icon
+    BioInd.BI_change_icon(item, "__angelspetrochem__/graphics/icons/pellet-coke.png", 32)
 
-  item.fuel_top_speed_multiplier = 1.2
-  BioInd.modified_msg("fuel_top_speed_multiplier", item)
+    -- Change speed boosts
+    item.fuel_acceleration_multiplier = 1.1
+    BioInd.modified_msg("fuel_acceleration_multiplier", item)
 
-  --~ recipe = recipes["pellet-coke"]
-  recipe = recipes[BI.additional_recipes.BI_Coal_Processing.pellet_coke.name]
-  if recipe then
-    -- Change category
-    recipe.category = "biofarm-mod-smelting"
-    BioInd.modified_msg("category", recipe)
+    item.fuel_top_speed_multiplier = 1.2
+    BioInd.modified_msg("fuel_top_speed_multiplier", item)
 
-    -- Change unlock
-    thxbob.lib.tech.remove_recipe_unlock("angels-coal-processing-2", recipe.name)
-    thxbob.lib.tech.add_recipe_unlock("angels-coal-cracking", recipe.name)
-    BioInd.modified_msg("unlock", recipe)
+    --~ recipe = recipes["pellet-coke"]
+    recipe = recipes[BI.additional_recipes.BI_Coal_Processing.pellet_coke.name]
+    if recipe then
+      -- Change category
+      recipe.category = "biofarm-mod-smelting"
+      BioInd.modified_msg("category", recipe)
+
+      -- Change unlock
+      thxbob.lib.tech.remove_recipe_unlock("angels-coal-processing-2", recipe.name)
+      thxbob.lib.tech.add_recipe_unlock("angels-coal-cracking", recipe.name)
+      BioInd.modified_msg("unlock", recipe)
+    end
   end
 end
 

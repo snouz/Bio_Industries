@@ -18,7 +18,7 @@ end
 local ENTITYPATH = BioInd.entitypath
 local ICONPATH = BioInd.iconpath
 
-local entity
+local entity, recipe
 
 
 ------------------------------------------------------------------------------------
@@ -179,6 +179,9 @@ end
 entity = data.raw["rail-planner"]["rail"]
 entity.order = "a[train-system]-a[rail1]"
 BioInd.modified_msg("order", entity)
+recipe = data.raw.recipe["rail"]
+recipe.order = "a[train-system]-a[rail1]"
+BioInd.modified_msg("order", recipe)
 
 
 ------------------------------------------------------------------------------------

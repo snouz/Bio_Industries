@@ -1628,10 +1628,13 @@ BI.additional_recipes.BI_Rails.rail_wood = {
   normal = {
     enabled = false,
     ingredients = {
+      --~ {"stone", 1},
+      --~ {"steel-plate", 1},
+      --~ {"iron-stick", 1},
+      --~ {"wood", 6},
       {"stone", 1},
-      {"steel-plate", 1},
-      {"iron-stick", 1},
-      {"wood", 6},
+      {"iron-stick", 6},
+      {"wood", 8},
     },
     result = "bi-rail-wood",
     result_count = 2,
@@ -1643,10 +1646,13 @@ BI.additional_recipes.BI_Rails.rail_wood = {
   expensive = {
     enabled = false,
     ingredients = {
-      {"wood", 6},
+      --~ {"stone", 1},
+      --~ {"steel-plate", 1},
+      --~ {"iron-stick", 1},
+      --~ {"wood", 6},
       {"stone", 1},
-      {"steel-plate", 1},
-      {"iron-stick", 1},
+      {"iron-stick", 6},
+      {"wood", 8},
     },
     result = "bi-rail-wood",
     result_count = 1,
@@ -1680,9 +1686,12 @@ BI.additional_recipes.BI_Rails.rail_wood_to_concrete = {
   normal = {
     enabled = false,
     ingredients = {
+      --~ {"bi-rail-wood", 3},
+      --~ {"stone-brick", 10},
       {"bi-rail-wood", 3},
       {"stone-brick", 10},
-    },
+      {"steel-plate", 2},
+   },
     result = "rail",
     result_count = 2,
     requester_paste_multiplier = 4,
@@ -1693,8 +1702,11 @@ BI.additional_recipes.BI_Rails.rail_wood_to_concrete = {
   expensive = {
     enabled = false,
     ingredients = {
-      {"bi-rail-wood", 2},
+      --~ {"bi-rail-wood", 2},
+      --~ {"stone-brick", 10},
+      {"bi-rail-wood", 3},
       {"stone-brick", 10},
+      {"steel-plate", 2},
     },
     result = "rail",
     result_count = 1,

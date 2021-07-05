@@ -26,6 +26,12 @@ thxbob.lib.tech.remove_recipe_unlock("railway", "rail")
 data.raw.recipe.rail.BI_add_to_tech = {"bi-tech-concrete-rails"}
 
 
+------------------------------------------------------------------------------------
+--       Add more steel plates to recipe of vanilla rails (concrete rails)!       --
+------------------------------------------------------------------------------------
+thxbob.lib.recipe.add_ingredient("rail", {type = item, name = "steel-plate", amount = 1.5})
+
+
 
 ------------------------------------------------------------------------------------
 -- "Transport drones" ruins rails by removing object-layer from their collision   --

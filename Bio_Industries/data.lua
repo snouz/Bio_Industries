@@ -239,6 +239,7 @@ require("prototypes.optional.optionDisassemble")
 --                               Enable: Seed bombs                               --
 --                       (BI.Settings.BI_Explosive_Planting)                      --
 ------------------------------------------------------------------------------------
+require("prototypes.optional.optionSeedBombs.categories_optionSeedBombs")
 require("prototypes.optional.optionSeedBombs.entity_optionSeedBombs")
 require("prototypes.optional.optionSeedBombs.item_optionSeedBombs")
 require("prototypes.optional.optionSeedBombs.recipe_optionSeedBombs")
@@ -269,6 +270,7 @@ require("prototypes.optional.optionRubber.technology_optionRubber")
 --                           Enable: Bio solar additions                          --
 --                        (BI.Settings.BI_Solar_Additions)                        --
 ------------------------------------------------------------------------------------
+require("prototypes.optional.optionSolarAdditions.categories_optionSolar")
 require("prototypes.optional.optionSolarAdditions.entity_optionSolar")
 require("prototypes.optional.optionSolarAdditions.item_optionSolar")
 require("prototypes.optional.optionSolarAdditions.recipe_optionSolar")

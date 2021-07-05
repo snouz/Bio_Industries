@@ -28,6 +28,7 @@ local filters = {}
 ------------------------------------------------------------------------------------
 filters["Default"]              = require("prototypes.fuel_values.filtersDefault")
 
+filters["5dim"]                 = require("prototypes.fuel_values.filters5dim")
 filters["Angels"]               = require("prototypes.fuel_values.filtersAngels")
 filters["BioTech"]              = require("prototypes.fuel_values.filtersBioTech")
 filters["Bobs"]                 = require("prototypes.fuel_values.filtersBobs")

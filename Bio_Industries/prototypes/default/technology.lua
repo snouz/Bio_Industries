@@ -303,7 +303,7 @@ BI.default_techs.biomass = {
     --~ },
   },
   order = "[bi-biomass]-a-[biomass]",
-  prerequisites = {"bi-tech-fertilizer"},
+  prerequisites = {"chemical-science-pack", "bi-tech-fertilizer"},
   unit = {
     count = 200,
     ingredients = {

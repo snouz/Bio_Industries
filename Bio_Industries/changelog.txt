@@ -46,7 +46,7 @@ Date: 2021-03-?
       - Tier 2 unlocks default ammo (medium precision). Cost: 150 automation/logistics/military science packs.
       - Tier 3 unlocks poison ammo (almost perfect precision). Cost: 175 automation/logistics/military/chemical science packs.
       - Replaced tier 1 with tier 3 in prerequisites of "Artillery".
-      - The purpose of prototype artillery is to experiment with artillery turrets/ammo and use the result for making the real stuff.Added new ammo "Poison artillery shell" to unlocks of "Artillery". () Ammo and recipe will only be created if no other mod provides ".*poison-artillery-shell.*"!
+      - The purpose of prototype artillery is to experiment with artillery turrets/ammo and use the result for making the real stuff.Added new ammo "Poison artillery shell" to unlocks of "Artillery". (Ammo and recipe will only be created if no other mod provides ".*poison-artillery-shell.*"!)
     - Stone crushing:
       - Tier 1: Added new recipe "stone brick --> crushed stone".
       - Tier 2: Removed unlocks for "refined concrete/hazard concrete --> crushed stone".
@@ -64,7 +64,7 @@ Date: 2021-03-?
     - If IR2 is not active we'll allow for Bio-fuel conversion recipes to be made in the bio reactor as well as the vanilla oil-refinery.
     - Added setting "Game tweaks: Fuel values". This will add a fuel value to all items that contain wood or items made with wood etc. in their production chain (e.g. "wood" --> "woodpulp" --> "cellulose" --> "plastic bar" --> "advanced circuit" --> "stack inserter"), based on the fuel value of wood.
     - Added additional dependency on "Pyanodons Petroleum Handling". (For now, the optional dependency on "Pyanodons Coal Processing" has to be removed for this to work!)
-
+    - Removed steel plates from recipe for wooden rails, and increased amount of iron sticks and wood. Also added more steel plates to the vanilla rail recipe. This fixes that wooden rails couldn't be used early in a game with IR2. (https://mods.factorio.com/mod/Bio_Industries/discussion/600a5cca5f9fe9c9952b0b8a)
 
   Modding:
     - Migrated some recipes ("bi-sulfur-angels", "bi-crushed-stone-X", "bi-biomass-conversion-X", "bi-acid") and technologies ("bi-tech-bio-cannon", "bi-tech-advanced-fertilizers")
@@ -104,6 +104,7 @@ Date: 2021-03-?
     - Don't plant lying trees
 
     - Tar
+    - Fertilizer blueprints/ghosts (https://mods.factorio.com/mod/Bio_Industries/discussion/60ab5f9eb639ef1bb52cfbcc)
 
 ---------------------------------------------------------------------------------------------------
 Version: 1.1.10

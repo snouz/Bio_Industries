@@ -3,6 +3,15 @@
 ------------------------------------------------------------------------------------
 BioInd.entered_file()
 
+
+BI.additional_entities = BI.additional_entities or {}
+BI.additional_entities.mod_compatibility = BI.additional_entities.mod_compatibility or {}
+
+
+------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
+
+
 --~ local BioInd = require(['"]common['"])(["']Bio_Industries['"])
 local ICONPATH = BioInd.iconpath
 local SNDPATH = "__base__/sound/"
@@ -23,11 +32,6 @@ sounds.mined_sound = {
   volume = 1
 }
 
-BI.additional_entities = BI.additional_entities or {}
-BI.additional_entities.mod_compatibility = BI.additional_entities.mod_compatibility or {}
-
-------------------------------------------------------------------------------------
-------------------------------------------------------------------------------------
 
 ------------------------------------------------------------------------------------
 --                                  Wooden floor                                  --

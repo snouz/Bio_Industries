@@ -5,12 +5,16 @@ BioInd.entered_file()
 
 --~ local BioInd = require(['"]common['"])(["']Bio_Industries['"])
 local ICONPATH = BioInd.iconpath
+local items = data.raw.item
 
 BI.additional_recipes = BI.additional_recipes or {}
 BI.additional_recipes.mod_compatibility = BI.additional_recipes.mod_compatibility or {}
 
+
 ------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------
+
+
 
 ------------------------------------------------------------------------------------
 --          General recipe for sand (will be adjusted later if necessary)         --

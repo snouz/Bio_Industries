@@ -173,7 +173,8 @@ BI.additional_techs.BI_Bio_Fuel.cellulose_1 = {
     --~ -- },
   },
   order = "[bi-bio-fuel]-[cellulose-1]",
-  prerequisites = {"bi-tech-biomass", "sulfur-processing"},
+  --~ prerequisites = {"bi-tech-biomass", "sulfur-processing"},
+  prerequisites = {"bi-tech-biomass"},
   unit = {
     count = 250,
     ingredients = {
@@ -211,7 +212,8 @@ BI.additional_techs.BI_Bio_Fuel.cellulose_2 = {
     --~ -- },
   },
   order = "[bi-bio-fuel]-[cellulose-2]",
-  prerequisites = {"bi-tech-cellulose-1", "plastics", "battery"},
+  --~ prerequisites = {"bi-tech-cellulose-1", "plastics", "battery"},
+  prerequisites = {"bi-tech-cellulose-1", "battery"},
   unit = {
     count = 250,
     ingredients = {

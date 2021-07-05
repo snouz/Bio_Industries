@@ -65,7 +65,7 @@ local techs = data.raw.technology
 ------------------------------------------------------------------------------------
 -- Bob's Electronics mod ("bobelectronics")
 item = "tinned-copper-cable"
-if items[item] then
+if items[item] and BI.additional_entities.BI_Wood_Products then
   --~ recipe = recipes["bi-wooden-pole-huge"]
   recipe = recipes[BI.additional_entities.BI_Wood_Products.huge_pole.name]
   if recipe then
@@ -91,9 +91,9 @@ end
 ------------------------------------------------------------------------------------
 -- Bob's Power mod ("bobpower")
 item = "solar-panel-large"
-if items[item] then
+if items[item] and BI.additional_recipes.BI_Solar_Additions then
   --~ recipe = recipes["bi-bio-solar-farm"]
-  recipe = recipes[BI.additional_recipes.BI_Solar_Additions.solar_farm.name]
+  recipe =  recipes[BI.additional_recipes.BI_Solar_Additions.solar_farm.name]
   if recipe then
     -- Change ingredients
     --~ thxbob.lib.recipe.remove_ingredient(recipe.name, "solar-panel")
@@ -116,7 +116,7 @@ end
 ------------------------------------------------------------------------------------
 -- Bob's Power mod ("bobpower")
 item = "substation-3"
-if items[item] then
+if items[item] and BI.additional_recipes.BI_Solar_Additions then
   --~ recipe = recipes["bi-huge-substation"]
   recipe = recipes[BI.additional_recipes.BI_Solar_Additions.huge_substation.name]
   if recipe then
@@ -142,7 +142,7 @@ end
 ------------------------------------------------------------------------------------
 -- Bob's Power mod ("bobpower")
 --~ item =
-if items["large-accumulator-2"] then
+if items["large-accumulator-2"] and BI.additional_recipes.BI_Solar_Additions then
   recipe = recipes[BI.additional_recipes.BI_Solar_Additions.huge_accumulator.name]
   if recipe then
     -- Change ingredients
@@ -158,7 +158,7 @@ end
 
 -- Bob's Metals, Chemicals and Intermediates mod ("bobplates")
 item = "aluminium-plate"
-if items[item] then
+if items[item] and BI.additional_recipes.BI_Solar_Additions then
   recipe = recipes[BI.additional_recipes.BI_Solar_Additions.huge_accumulator.name]
   if recipe then
     -- Change ingredients
@@ -183,7 +183,7 @@ end
 ------------------------------------------------------------------------------------
 -- Bob's Metals, Chemicals and Intermediates mod ("bobplates")
 item = "aluminium-plate"
-if items[item] then
+if items[item] and BI.additional_recipes.BI_Solar_Additions then
   --~ recipe = recipes["bi-solar-mat"]
   recipe = recipes[BI.additional_recipes.BI_Solar_Additions.solar_mat.name]
   if recipe then
@@ -205,7 +205,7 @@ end
 
 -- Bob's Metals, Chemicals and Intermediates mod ("bobplates")
 item = "silicon-wafer"
-if items[item] then
+if items[item] and BI.additional_recipes.BI_Solar_Additions then
   --~ recipe = recipes["bi-solar-mat"]
   recipe = recipes[BI.additional_recipes.BI_Solar_Additions.solar_mat.name]
   if recipe then
@@ -310,7 +310,7 @@ end
 ------------------------------------------------------------------------------------
 -- Bob's Metals, Chemicals and Intermediates mod ("bobplates")
 item = "glass"
-if items[item]  then
+if items[item] then
   --~ recipe = recipes["bi-bio-farm"]
   recipe = recipes[BI.default_recipes.bio_farm.name]
   if recipe then
@@ -329,7 +329,7 @@ end
 
 -- This tech depends on settings, so it may not exist!
 tech = "solid-fuel"
-if techs[tech] then
+if techs[tech] and BI.additional_recipes.BI_Coal_Processing then
   --~ recipe = recipes["bi-solid-fuel"]
   recipe = recipes[BI.additional_recipes.BI_Coal_Processing.solid_fuel.name]
   if recipe then

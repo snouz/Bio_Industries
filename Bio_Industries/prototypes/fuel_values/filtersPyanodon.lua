@@ -11,7 +11,8 @@ if not BioInd.check_mods({
   "pyrawores",
 }) then
   BioInd.nothing_to_do("*")
-  return
+  -- require("file") will return true unless the file returns a value ~= nil
+  return {}
 else
   BioInd.entered_file()
 end

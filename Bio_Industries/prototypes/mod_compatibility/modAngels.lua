@@ -29,7 +29,11 @@ local recipes = data.raw.recipe
 -- Angel's Refining ("angelsrefining")
 if fluids["water-purified"] and
     fluids["water-yellow-waste"] and
-    fluids["water-mineralized"] then
+    fluids["water-mineralized"] and
+    BI.additional_items.BI_Coal_Processing and
+      items[BI.additional_items.BI_Coal_Processing.wood_charcoal.name] and
+     BI.additional_items.BI_Stone_Crushing and
+      items[BI.additional_items.BI_Stone_Crushing.crushed_stone.name] then
 
   BioInd.create_stuff(BI.additional_recipes.mod_compatibility.sulfuric_waste)
 end

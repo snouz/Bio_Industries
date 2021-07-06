@@ -17,7 +17,7 @@ end
 ------------------------------------------------------------------------------------
 
 
-local ICONPATH = BioInd.iconpath .. "mod_bobangels/"
+local ICONPATH = BioInd.iconpath
 local icon_map
 
 local recipe, item, entity, ingredients, addit
@@ -51,11 +51,11 @@ end
 -- Angel's Petrochemical Processing ("angelspetrochem")
 if items["solid-carbon"] and BI.Settings["BI_Coal_Processing"] then
   -- Change recipe icons
-  icon_map = {
-    ["bi-coke-coal"]            = "pellet_coke_1",
-    ["bi-pellet-coke"]          = "pellet_coke_c",
-    ["bi-pellet-coke-2"]        = "pellet_coke_a",
-  }
+  --icon_map = {
+  --  ["bi-coke-coal"]            = "pellet_coke_1",
+  --  ["bi-pellet-coke"]          = "pellet_coke_c",
+  --  ["bi-pellet-coke-2"]        = "pellet_coke_a",
+  --}
 
   for r, r_data in ipairs({
     BI.additional_recipes.BI_Coal_Processing.coke_coal,
@@ -63,7 +63,7 @@ if items["solid-carbon"] and BI.Settings["BI_Coal_Processing"] then
     BI.additional_recipes.mod_compatibility.pellet_coke_2
   }) do
     recipe = recipes[r_data.name] or BioInd.create_stuff(r_data)[1]
-    BioInd.BI_change_icon(recipes[recipe.name], ICONPATH .. icon_map[recipe.name] .. ".png")
+    --BioInd.BI_change_icon(recipes[recipe.name], ICONPATH .. icon_map[recipe.name] .. ".png")
   end
 
   -- Add ingredient to "bi-pellet-coke-2"
@@ -192,7 +192,7 @@ if mods["angelspetrochem"] and BI.Settings.BI_Bio_Fuel then
   recipe = recipes[BI.additional_recipes.BI_Bio_Fuel.bio_mass_conversion_petroleum.name]
   if recipe then
     -- Change icon
-    BioInd.BI_change_icon(recipe, ICONPATH .. "bio_conversion_2_angels.png")
+    --BioInd.BI_change_icon(recipe, ICONPATH .. "bio_conversion_2_angels.png")
 
     -- Change localization
     --~ recipe.localised_name = {"recipe-name." .. recipe.name .. "-methane"}
@@ -234,16 +234,16 @@ if mods["angelspetrochem"] and BI.Settings.BI_Bio_Fuel then
 
   -- Basic gas processing
   --~ recipe = recipes["bi-basic-gas-processing"]
-  recipe = recipes[BI.additional_recipes.BI_Bio_Fuel.basic_gas_processing.name]
-  if recipe then
-    BioInd.BI_change_icon(recipe, ICONPATH .. "bi_basic_gas_processing_angels.png")
-  end
+  --recipe = recipes[BI.additional_recipes.BI_Bio_Fuel.basic_gas_processing.name]
+  --if recipe then
+  --  BioInd.BI_change_icon(recipe, ICONPATH .. "bi_basic_gas_processing_angels.png")
+  --end
 
   -- Wood gasification (Petroleum --> Methane)
-  recipe = recipes[BI.additional_recipes.BI_Wood_Gasification.wood_gasification.name]
-  if recipe then
-    BioInd.BI_change_icon(recipe, ICONPATH .. "wood-gasification-angels.png")
-  end
+  --recipe = recipes[BI.additional_recipes.BI_Wood_Gasification.wood_gasification.name]
+  --if recipe then
+  --  BioInd.BI_change_icon(recipe, ICONPATH .. "wood-gasification-angels.png")
+  --end
 end
 
 
@@ -265,7 +265,7 @@ if fluids["water-yellow-waste"] and BI.Settings.BI_Bio_Fuel then
     })
     BioInd.modified_msg("results", recipe)
 
-    BioInd.BI_change_icon(recipe, ICONPATH .. "bio-conversion-1-angels.png")
+    --BioInd.BI_change_icon(recipe, ICONPATH .. "bio-conversion-1-angels.png")
 
     --~ -- Change recipe localizations
     --~ recipe.localised_description = {
@@ -289,8 +289,7 @@ if mods["angelsbioprocessing"] and BI.Settings.BI_Coal_Processing then
   recipe = recipes[BI.additional_recipes.BI_Coal_Processing.charcoal_1.name]
   if recipe then
     -- Change icon
-    BioInd.BI_change_icon(recipe, ICONPATH .. "charcoal_pellets.png")
-    --recipe.icons = BioInd.make_icons({it1 = "charcoal", it2 = "pellets", it3 = "", shift1_1 = 0 , shift1_2 = 0, shift2_1 = 0, shift2_2 = 0})
+    --BioInd.BI_change_icon(recipe, ICONPATH .. "charcoal_pellets.png")
 
     -- Change category
     recipe.category = "biofarm-mod-smelting"
@@ -300,7 +299,7 @@ if mods["angelsbioprocessing"] and BI.Settings.BI_Coal_Processing then
   item = items[BI.additional_items.BI_Coal_Processing.wood_charcoal.name]
   if item then
     -- Change icon
-    BioInd.BI_change_icon(item, ICONPATH .. "charcoal_pellets.png")
+    --BioInd.BI_change_icon(item, ICONPATH .. "charcoal.png")
 
     -- Change fuel emission multiplier
     item.fuel_emissions_multiplier = 1.05

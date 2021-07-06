@@ -18,7 +18,7 @@ end
 ------------------------------------------------------------------------------------
 
 
-local ICONPATH = BioInd.iconpath .. "mod_py/"
+local ICONPATH = BioInd.iconpath
 
 local recipe, item, tech, tech_level
 

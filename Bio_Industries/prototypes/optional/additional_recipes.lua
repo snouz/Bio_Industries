@@ -109,9 +109,9 @@ BI.additional_recipes.BI_Bio_Fuel.bio_boiler = {
 BI.additional_recipes.BI_Bio_Fuel.basic_gas_processing = {
   type = "recipe",
   name = "bi-basic-gas-processing",
-  icon = ICONPATH .. "basic_gas_processing.png",
-  icon_size = 64, icon_mipmaps = 3,
-  BI_add_icon = true,
+  --icon = ICONPATH .. "basic_gas_processing.png",
+  --icon_size = 64, icon_mipmaps = 3,
+  --BI_add_icon = true,
   category = "chemistry",
   enabled = false,
   energy_required = 5,

@@ -253,8 +253,59 @@ end
 
 
 ------------- SNOUZ ICON UPDATES
+-- ash
+if data.raw.recipe["bi-seed-2"] then data.raw.recipe["bi-seed-2"].icons = BioInd.make_icons({it1 = "seed", it2 = "ash", it3 = "", shift1_1 = 0 , shift1_2 = 0, shift2_1 = 0, shift2_2 = 0}) end
+if data.raw.recipe["bi-seedling-2"] then data.raw.recipe["bi-seedling-2"].icons = BioInd.make_icons({it1 = "seedling", it2 = "ash", it3 = "", shift1_1 = 0 , shift1_2 = 0, shift2_1 = 0, shift2_2 = 0}) end
+if data.raw.recipe["bi-logs-2"] then 
+  data.raw.recipe["bi-logs-2"].icons = BioInd.make_icons({it1 = "woodpulp", it2 = "ash", it3 = "", shift1_1 = 0 , shift1_2 = 0, shift2_1 = 0, shift2_2 = 0})
+  data.raw.recipe["bi-logs-2"].icons[1].icon = BioInd.iconpath .. "wood_woodpulp.png"
+end
+if data.raw.recipe["bi-ash-1"] then data.raw.recipe["bi-ash-1"].icons = BioInd.make_icons({it1 = "ash", it2 = "woodpulp", it3 = "", shift1_1 = 0 , shift1_2 = 0, shift2_1 = 0, shift2_2 = 0}) end
+if data.raw.recipe["bi-ash-2"] then data.raw.recipe["bi-ash-2"].icons = BioInd.make_icons({it1 = "ash", it2 = "wood", it3 = "", shift1_1 = 0 , shift1_2 = 0, shift2_1 = 0, shift2_2 = 0}) end
+if data.raw.recipe["bi-stone-brick"] then data.raw.recipe["bi-stone-brick"].icons = BioInd.make_icons({it1 = "stone-brick", it2 = "ash", it3 = "crushed-stone", shift1_1 = 0 , shift1_2 = 0, shift2_1 = 0, shift2_2 = 0}) end
+if data.raw.recipe["bi-biomass-3"] then
+  if data.raw.item.ash then data.raw.recipe["bi-biomass-3"].icons[3].icon = data.raw.item.ash.icon end
+  if data.raw.item["bi-ash"] then data.raw.recipe["bi-biomass-3"].icons[3].icon = data.raw.item["bi-ash"].icon end
+end
+if data.raw.recipe["bi-sulfur"] then data.raw.recipe["bi-sulfur"].icons = BioInd.make_icons({it1 = "sulfur", it2 = "ash", it3 = "sulfuric-acid", shift1_1 = 0 , shift1_2 = 0, shift2_1 = 0, shift2_2 = 0}) end
+
 if data.raw.recipe["bi-press-wood"] then data.raw.recipe["bi-press-wood"].icons = BioInd.make_icons({it1 = "wooden-board", it2 = "woodpulp", it3 = "resin", shift1_1 = 0 , shift1_2 = 0, shift2_1 = 0, shift2_2 = 0}) end
 if data.raw.recipe["bi-fertilizer-2"] then data.raw.recipe["bi-fertilizer-2"].icons = BioInd.make_icons({it1 = "fertilizer", it2 = "sodium-hydroxide", it3 = "", shift1_1 = 0 , shift1_2 = 0, shift2_1 = 0, shift2_2 = 0}) end
+if data.raw.recipe["bi-wood-fuel-brick"] then data.raw.recipe["bi-wood-fuel-brick"].icons = BioInd.make_icons({it1 = "wood-bricks", it2 = "", it3 = "", shift1_1 = 0 , shift1_2 = 0, shift2_1 = 0, shift2_2 = 0}) end
+if mods["angelsrefining"] then if data.raw.recipe["bi-sand"] then data.raw.recipe["bi-sand"].icons = BioInd.make_icons({it1 = "solid-sand", it2 = "stone-crushed", it3 = "", shift1_1 = 0 , shift1_2 = 0, shift2_1 = 0, shift2_2 = 0}) end end
+if mods["angelspetrochem"] then if data.raw.recipe["bi-basic-gas-processing"] then data.raw.recipe["bi-basic-gas-processing"].icons = BioInd.make_icons({it1 = "gas-methane", it2 = "coal", it3 = "resin", shift1_1 = 0 , shift1_2 = 0, shift2_1 = 0, shift2_2 = 0}) end end
+
+
+
+
+if data.raw.recipe["bi-crushed-stone-stone"] then data.raw.recipe["bi-crushed-stone-stone"].icons = BioInd.make_icons({it1 = "stone-crushed", it2 = "stone", it3 = "", shift1_1 = 0 , shift1_2 = 0, shift2_1 = 0, shift2_2 = 0}) end
+if data.raw.recipe["bi-crushed-stone-stone-brick"] then data.raw.recipe["bi-crushed-stone-stone-brick"].icons = BioInd.make_icons({it1 = "stone-crushed", it2 = "stone-brick", it3 = "", shift1_1 = 0 , shift1_2 = 0, shift2_1 = 0, shift2_2 = 0}) end
+if data.raw.recipe["bi-crushed-stone-concrete"] then data.raw.recipe["bi-crushed-stone-concrete"].icons = BioInd.make_icons({it1 = "stone-crushed", it2 = "concrete", it3 = "", shift1_1 = 0 , shift1_2 = 0, shift2_1 = 0, shift2_2 = 0}) end
+if data.raw.recipe["bi-crushed-stone-hazard-concrete"] then data.raw.recipe["bi-crushed-stone-hazard-concrete"].icons = BioInd.make_icons({it1 = "stone-crushed", it2 = "hazard-concrete", it3 = "", shift1_1 = 0 , shift1_2 = 0, shift2_1 = 0, shift2_2 = 0}) end
+if data.raw.recipe["bi-crushed-stone-refined-concrete"] then data.raw.recipe["bi-crushed-stone-refined-concrete"].icons = BioInd.make_icons({it1 = "stone-crushed", it2 = "refined-concrete", it3 = "", shift1_1 = 0 , shift1_2 = 0, shift2_1 = 0, shift2_2 = 0}) end
+if data.raw.recipe["bi-crushed-stone-refined-hazard-concrete"] then data.raw.recipe["bi-crushed-stone-refined-hazard-concrete"].icons = BioInd.make_icons({it1 = "stone-crushed", it2 = "hazard-concrete", it3 = "", shift1_1 = 0 , shift1_2 = 0, shift2_1 = 0, shift2_2 = 0}) end
+if data.raw.recipe["bi-rubber"] then data.raw.recipe["bi-rubber"].icons = BioInd.make_icons({it1 = "rubber", it2 = "", it3 = "", shift1_1 = 0 , shift1_2 = 0, shift2_1 = 0, shift2_2 = 0}) end
+if data.raw.recipe["bi-pellet-coke-2"] then data.raw.recipe["bi-pellet-coke-2"].icons = BioInd.make_icons({it1 = "pellet-coke", it2 = data.raw.recipe["bi-pellet-coke-2"].ingredients[1].name, it3 = "", shift1_1 = 0 , shift1_2 = 0, shift2_1 = 0, shift2_2 = 0}) end
+--if data.raw.recipe[""] then data.raw.recipe[""].icons = BioInd.make_icons({it1 = "", it2 = "", it3 = "", shift1_1 = 0 , shift1_2 = 0, shift2_1 = 0, shift2_2 = 0}) end
+--if data.raw.recipe[""] then data.raw.recipe[""].icons = BioInd.make_icons({it1 = "", it2 = "", it3 = "", shift1_1 = 0 , shift1_2 = 0, shift2_1 = 0, shift2_2 = 0}) end
+--if data.raw.recipe[""] then data.raw.recipe[""].icons = BioInd.make_icons({it1 = "", it2 = "", it3 = "", shift1_1 = 0 , shift1_2 = 0, shift2_1 = 0, shift2_2 = 0}) end
+--if data.raw.recipe[""] then data.raw.recipe[""].icons = BioInd.make_icons({it1 = "", it2 = "", it3 = "", shift1_1 = 0 , shift1_2 = 0, shift2_1 = 0, shift2_2 = 0}) end
+--if data.raw.recipe[""] then data.raw.recipe[""].icons = BioInd.make_icons({it1 = "", it2 = "", it3 = "", shift1_1 = 0 , shift1_2 = 0, shift2_1 = 0, shift2_2 = 0}) end
+--if data.raw.recipe[""] then data.raw.recipe[""].icons = BioInd.make_icons({it1 = "", it2 = "", it3 = "", shift1_1 = 0 , shift1_2 = 0, shift2_1 = 0, shift2_2 = 0}) end
+--if data.raw.recipe[""] then data.raw.recipe[""].icons = BioInd.make_icons({it1 = "", it2 = "", it3 = "", shift1_1 = 0 , shift1_2 = 0, shift2_1 = 0, shift2_2 = 0}) end
+--if data.raw.recipe[""] then data.raw.recipe[""].icons = BioInd.make_icons({it1 = "", it2 = "", it3 = "", shift1_1 = 0 , shift1_2 = 0, shift2_1 = 0, shift2_2 = 0}) end
+--if data.raw.recipe[""] then data.raw.recipe[""].icons = BioInd.make_icons({it1 = "", it2 = "", it3 = "", shift1_1 = 0 , shift1_2 = 0, shift2_1 = 0, shift2_2 = 0}) end
+--if data.raw.recipe[""] then data.raw.recipe[""].icons = BioInd.make_icons({it1 = "", it2 = "", it3 = "", shift1_1 = 0 , shift1_2 = 0, shift2_1 = 0, shift2_2 = 0}) end
+--if data.raw.recipe[""] then data.raw.recipe[""].icons = BioInd.make_icons({it1 = "", it2 = "", it3 = "", shift1_1 = 0 , shift1_2 = 0, shift2_1 = 0, shift2_2 = 0}) end
+--if data.raw.recipe[""] then data.raw.recipe[""].icons = BioInd.make_icons({it1 = "", it2 = "", it3 = "", shift1_1 = 0 , shift1_2 = 0, shift2_1 = 0, shift2_2 = 0}) end
+--if data.raw.recipe[""] then data.raw.recipe[""].icons = BioInd.make_icons({it1 = "", it2 = "", it3 = "", shift1_1 = 0 , shift1_2 = 0, shift2_1 = 0, shift2_2 = 0}) end
+--if data.raw.recipe[""] then data.raw.recipe[""].icons = BioInd.make_icons({it1 = "", it2 = "", it3 = "", shift1_1 = 0 , shift1_2 = 0, shift2_1 = 0, shift2_2 = 0}) end
+--if data.raw.recipe[""] then data.raw.recipe[""].icons = BioInd.make_icons({it1 = "", it2 = "", it3 = "", shift1_1 = 0 , shift1_2 = 0, shift2_1 = 0, shift2_2 = 0}) end
+--if data.raw.recipe[""] then data.raw.recipe[""].icons = BioInd.make_icons({it1 = "", it2 = "", it3 = "", shift1_1 = 0 , shift1_2 = 0, shift2_1 = 0, shift2_2 = 0}) end
+--if data.raw.recipe[""] then data.raw.recipe[""].icons = BioInd.make_icons({it1 = "", it2 = "", it3 = "", shift1_1 = 0 , shift1_2 = 0, shift2_1 = 0, shift2_2 = 0}) end
+--if data.raw.recipe[""] then data.raw.recipe[""].icons = BioInd.make_icons({it1 = "", it2 = "", it3 = "", shift1_1 = 0 , shift1_2 = 0, shift2_1 = 0, shift2_2 = 0}) end
+--if data.raw.recipe[""] then data.raw.recipe[""].icons = BioInd.make_icons({it1 = "", it2 = "", it3 = "", shift1_1 = 0 , shift1_2 = 0, shift2_1 = 0, shift2_2 = 0}) end
+--if data.raw.recipe[""] then data.raw.recipe[""].icons = BioInd.make_icons({it1 = "", it2 = "", it3 = "", shift1_1 = 0 , shift1_2 = 0, shift2_1 = 0, shift2_2 = 0}) end
 
 
 

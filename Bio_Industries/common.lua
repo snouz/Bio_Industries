@@ -1376,11 +1376,12 @@ common.writeDebug("Rail %s of %s (%s): %s (%s)", {direction, base.name, base.uni
 
 
 
-  -- snouz -- declare at least 2 item names as arg 1 & 2. Icon will be item1, item2 top right and (optional) item3 top left. Shifts will fine tune the position of items2&3
+  -- snouz -- arguments need at least it1 = "item". it2, it3, shifts are optional.
   common.make_icons = function(args)
     common.entered_function()
 
     local main_item = args.it1 or nil
+    --local ref_item = nil
     local ingredient1 = args.it2 or nil
     local ingredient2 = args.it3 or nil
     local shift1_1 = args.shift1_1 or 0
@@ -1388,19 +1389,24 @@ common.writeDebug("Rail %s of %s (%s): %s (%s)", {direction, base.name, base.uni
     local shift2_1 = args.shift2_1 or 0
     local shift2_2 = args.shift2_2 or 0
 
+    local icontable = {{icon = common.iconpath .. "empty64.png", icon_size = 64, icon_mipmaps = 0, scale = 1, shift = {0,0}}}
+
     local function make_layer(item, scale, shift)
       if item then
         -- The value of item1 from common.make_icons can be used in make_layer!
-        scale = scale or 1
-        scale = scale * (main_item.icon_size / item.icon_size)
+        --local ic_size1 = ref_item.icon_size or 64
+        local ic_size2 = item.icon_size or 64
+        local scale = scale * (64 / ic_size2) or 1
+        scale = scale -- * (ic_size1 / ic_size2)
 
         -- item1, shift1_1 and shift1_2 from common.make_icons are used here!
-        shift = shift or { (main_item.icon_size + shift1_1)/4, (-main_item.icon_size + shift1_2)/4 }
-        return { icon = item.icon, icon_size = item.icon_size, icon_mipmaps = item.icon_mipmaps, scale = scale, shift = shift }
+        shift = shift -- {(shift[1] * (ic_size1/64)), (shift[2] * (ic_size1/64))}
+        return { icon = item.icon, icon_size = ic_size2, icon_mipmaps = item.icon_mipmaps, scale = scale, shift = shift }
       end
     end
 
-    if main_item then
+
+    if main_item then               -- main_item is a name
       local _type
       -- main_item must exist, and either main_item or "bi-" .. main_item is of a valid item type
       _type = main_item and thxbob.lib.item.get_type(main_item) or  thxbob.lib.item.get_type("bi-" .. main_item)
@@ -1412,40 +1418,66 @@ common.writeDebug("Rail %s of %s (%s): %s (%s)", {direction, base.name, base.uni
         main_item = nil
       end
     end
-    
-    if ingredient1 then
-      _type = ingredient1 and thxbob.lib.item.get_type(ingredient1) or thxbob.lib.item.get_type("bi-" .. ingredient1)
-      if _type then
-        ingredient1 = _type and data.raw[_type][ingredient1] or data.raw[_type]["bi-" .. ingredient1]
-      else
-        ingredient1 = nil
-      end
-    end
 
-    if ingredient2 then
-      _type = ingredient2 and thxbob.lib.item.get_type(ingredient2) or thxbob.lib.item.get_type("bi-" .. ingredient2)
-      if _type then
-        ingredient2 = _type and data.raw[_type][ingredient2] or data.raw[_type]["bi-" .. ingredient2]
-      else
-        ingredient2 = nil
-      end
-    end
-
-    if main_item then
-      if ingredient1 then
-        if ingredient2 then
-          return { make_layer(main_item, 1, {0,0}), make_layer(ingredient1, 0.5), make_layer(ingredient2, 0.5, { (-main_item.icon_size + shift1_1)/4, (-main_item.icon_size + shift1_2)/4 } ) }
-        else
-          return { make_layer(main_item, 1, {0,0}), make_layer(ingredient1, 0.5) }
+    if main_item then                -- main_item is an item
+      --ref_item = main_item
+      if not main_item.icon and main_item.icons then
+        --ref_item = main_item.icons[1]
+        
+        --local lay1 = main_item.icons[1].scale or 1
+        for i=1,#main_item.icons do
+          local layer = {}
+          local layershift = main_item.icons[i].shift or {0,0}
+          local relativescale = (64 / (main_item.icons[1].icon_size * main_item.icons[1].scale))
+          layer.icon = main_item.icons[i].icon
+          layer.icon_size = main_item.icons[i].icon_size
+          layer.icon_mipmaps = main_item.icons[i].icon_mipmaps
+          layer.shift = {(layershift[1] * relativescale), (layershift[2] * relativescale)}
+          --layer.scale = main_item.icons[i].scale or 1
+          layer.scale = main_item.icons[i].scale or 1
+          layer.scale = (layer.scale * relativescale)
+          --layer.scale = (layer.scale * 2)
+          if main_item.icons[i].tint then layer.tint = main_item.icons[i].tint end
+          --layer.scale = 1
+          table.insert(icontable, layer)
         end
       else
-        return { make_layer(main_item, 1, {0,0}) }
+        table.insert(icontable, {icon = main_item.icon, icon_size = main_item.icon_size, icon_mipmaps = main_item.icon_mipmaps, scale = (64 / main_item.icon_size)})
       end
-    else
-      return {{icon = "__core__/graphics/empty.png", icon_size = 1, icon_mipmaps = 0}}
+
+
+      if ingredient1 then
+        _type = ingredient1 and thxbob.lib.item.get_type(ingredient1) or thxbob.lib.item.get_type("bi-" .. ingredient1)
+        if _type then
+          ingredient1 = _type and data.raw[_type][ingredient1] or data.raw[_type]["bi-" .. ingredient1]
+        else
+          ingredient1 = nil
+        end
+      end
+
+      if ingredient1 then 
+        table.insert(icontable, make_layer(ingredient1, 0.5, {(16 + shift1_1),(-16 + shift1_2)}))
+      end
+
+      if ingredient2 then
+        _type = ingredient2 and thxbob.lib.item.get_type(ingredient2) or thxbob.lib.item.get_type("bi-" .. ingredient2)
+        if _type then
+          ingredient2 = _type and data.raw[_type][ingredient2] or data.raw[_type]["bi-" .. ingredient2]
+        else
+          ingredient2 = nil
+        end
+      end
+
+      if ingredient2 then 
+        table.insert(icontable, make_layer(ingredient2, 0.5, {(-16 + shift2_1),(-16 + shift2_2)}))
+      end
     end
 
+
+    
+
     common.entered_function("leave")
+    return icontable
   end
 
   ------------------------------------------------------------------------------------

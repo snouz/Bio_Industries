@@ -1481,18 +1481,21 @@ common.writeDebug("Rail %s of %s (%s): %s (%s)", {direction, base.name, base.uni
     table.insert(it, {ite = args.it4} or {})
     table.insert(it, {ite = args.it5} or {})
     table.insert(it, {ite = args.it6} or {})
+    table.insert(it, {ite = args.it7} or {})
     table.insert(it[1], {sca = args.sc1} or {sca = 1})
     table.insert(it[2], {sca = args.sc2} or {sca = 1})
     table.insert(it[3], {sca = args.sc3} or {sca = 1})
     table.insert(it[4], {sca = args.sc4} or {sca = 1})
     table.insert(it[5], {sca = args.sc5} or {sca = 1})
     table.insert(it[6], {sca = args.sc6} or {sca = 1})
+    table.insert(it[7], {sca = args.sc7} or {sca = 1})
     table.insert(it[1], {shi = args.sh1} or {shi = {0,0}})
     table.insert(it[2], {shi = args.sh2} or {shi = {0,0}})
     table.insert(it[3], {shi = args.sh3} or {shi = {0,0}})
     table.insert(it[4], {shi = args.sh4} or {shi = {0,0}})
     table.insert(it[5], {shi = args.sh5} or {shi = {0,0}})
     table.insert(it[6], {shi = args.sh6} or {shi = {0,0}})
+    table.insert(it[7], {shi = args.sh7} or {shi = {0,0}})
     local customicon_up = args.custom or nil
     local customicon_down = args.customunder or nil
     local custom_topright = args.custom_topright or nil
@@ -1505,14 +1508,14 @@ common.writeDebug("Rail %s of %s (%s): %s (%s)", {direction, base.name, base.uni
       return _type and (data.raw[_type][it_name] or data.raw[_type]["bi-" .. it_name]) or nil
     end
 
-    if customicon_down then table.insert(icontable, {icon = customicon_down, icon_size = 64, mipmaps = 4}) end
+    if customicon_down then table.insert(icontable, {icon = customicon_down, icon_size = 64, mipmaps = 4, scale = 1, shift = {0,0}}) end
 
     for k=1, #it do
       local _item = it[k].ite or nil
       local _scale = it[k].sca or 1
       local _shift = it[k].shi or {0,0}
 
-      if k==2 then
+      if k==2 or k==7 then
         _scale = (_scale * 0.5)
         _shift = {(_shift[1] + 16),(_shift[2] - 16)}
       end
@@ -1555,8 +1558,8 @@ common.writeDebug("Rail %s of %s (%s): %s (%s)", {direction, base.name, base.uni
         end
       end
     end
-    if customicon_up then table.insert(icontable, {icon = customicon_up, icon_size = 64, mipmaps = 4}) end
-    if custom_topright then table.insert(icontable, {icon = custom_topright, icon_size = 64, mipmaps = 4, shift = {16, -16}}) end
+    if customicon_up then table.insert(icontable, {icon = customicon_up, icon_size = 64, mipmaps = 4, scale = 1, shift = {0,0}}) end
+    if custom_topright then table.insert(icontable, {icon = custom_topright, icon_size = 64, mipmaps = 4, scale = 0.5, shift = {16, -16}}) end
 
     common.entered_function("leave")
     return icontable

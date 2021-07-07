@@ -22,22 +22,22 @@ if data.raw.recipe["bi-seedling-2"] then data.raw.recipe["bi-seedling-2"].icons 
 if data.raw.recipe["bi-seedling-3"] then data.raw.recipe["bi-seedling-3"].icons = BioInd.make_icons({it1 = "seedling", custom_topright = BioInd.iconpath .. "signal/bi_signal_fert.png"}) end
 if data.raw.recipe["bi-seedling-4"] then data.raw.recipe["bi-seedling-4"].icons = BioInd.make_icons({it1 = "seedling", custom_topright = BioInd.iconpath .. "signal/bi_signal_adv_fert.png"}) end
 if data.raw.recipe["bi-logs-1"] then data.raw.recipe["bi-logs-1"].icons = BioInd.make_icons({it4 = "woodpulp", it5 = "wood"}) end
-if data.raw.recipe["bi-logs-2"] then data.raw.recipe["bi-logs-2"].icons = BioInd.make_icons({it4 = "woodpulp", it5 = "wood", it2 = "ash"}) end
+if data.raw.recipe["bi-logs-2"] then data.raw.recipe["bi-logs-2"].icons = BioInd.make_icons({it4 = "woodpulp", it5 = "wood", it7 = "ash"}) end
 if data.raw.recipe["bi-logs-3"] then data.raw.recipe["bi-logs-3"].icons = BioInd.make_icons({it4 = "woodpulp", it5 = "wood", custom_topright = BioInd.iconpath .. "signal/bi_signal_fert.png"}) end
 if data.raw.recipe["bi-logs-4"] then data.raw.recipe["bi-logs-4"].icons = BioInd.make_icons({it4 = "woodpulp", it5 = "wood", custom_topright = BioInd.iconpath .. "signal/bi_signal_adv_fert.png"}) end
 if data.raw.recipe["bi-ash-1"] then data.raw.recipe["bi-ash-1"].icons = BioInd.make_icons({it1 = "ash", it2 = "woodpulp"}) end
 if data.raw.recipe["bi-ash-2"] then data.raw.recipe["bi-ash-2"].icons = BioInd.make_icons({it1 = "ash", it2 = "wood"}) end
 if data.raw.recipe["bi-stone-brick"] then data.raw.recipe["bi-stone-brick"].icons = BioInd.make_icons({it1 = "stone-brick", it2 = "ash", it3 = "stone-crushed"}) end
 if data.raw.recipe["bi-biomass-1"] then data.raw.recipe["bi-biomass-1"].icons = BioInd.make_icons({it1 = "biomass" }) end
-if data.raw.recipe["bi-biomass-2"] then data.raw.recipe["bi-biomass-2"].icons = BioInd.make_icons({it1 = "biomass", customunder = BioInd.iconpath .. "signal/bi_signal_reprocess.png" }) end
-if data.raw.recipe["bi-biomass-3"] then data.raw.recipe["bi-biomass-3"].icons = BioInd.make_icons({it1 = "biomass", customunder = BioInd.iconpath .. "signal/bi_signal_reprocess.png", it2 = "ash" }) end
+if data.raw.recipe["bi-biomass-2"] then data.raw.recipe["bi-biomass-2"].icons = BioInd.make_icons({it1 = "biomass", custom = BioInd.iconpath .. "signal/bi_signal_reprocess.png" }) end
+if data.raw.recipe["bi-biomass-3"] then data.raw.recipe["bi-biomass-3"].icons = BioInd.make_icons({it1 = "biomass", custom = BioInd.iconpath .. "signal/bi_signal_reprocess.png", it2 = "ash" }) end
 if data.raw.recipe["bi-sulfur"] then data.raw.recipe["bi-sulfur"].icons = BioInd.make_icons({it1 = "sulfur", it2 = "ash", it3 = "sulfuric-acid"}) end
 if data.raw.recipe["bi-press-wood"] then data.raw.recipe["bi-press-wood"].icons = BioInd.make_icons({it1 = "wooden-board", it2 = "woodpulp", it3 = "resin"}) end
 if data.raw.recipe["bi-wood-fuel-brick"] then data.raw.recipe["bi-wood-fuel-brick"].icons = BioInd.make_icons({it1 = "wood-bricks"}) end
 if data.raw.recipe["bi-sand"] then data.raw.recipe["bi-sand"].icons = BioInd.make_icons({it1 = "sand", it2 = "stone-crushed"}) end
   if mods["angelsrefining"] then if data.raw.recipe["bi-sand"] then data.raw.recipe["bi-sand"].icons = BioInd.make_icons({it1 = "solid-sand", it2 = "stone-crushed"}) end end
 if data.raw.recipe["bi-basic-gas-processing"] then data.raw.recipe["bi-basic-gas-processing"].icons = BioInd.make_icons({it4 = "ash", it5 = "petroleum-gas", sh4 = {0,-16}, sh5 = {0,16} }) end
-  if mods["angelspetrochem"] then if data.raw.recipe["bi-basic-gas-processing"] then data.raw.recipe["bi-basic-gas-processing"].icons = BioInd.make_icons({it1 = "gas-methane", sc1 = 0.7, it6 = "ash", sc6 = 0.7}) end end
+  if mods["angelspetrochem"] then if data.raw.recipe["bi-basic-gas-processing"] then data.raw.recipe["bi-basic-gas-processing"].icons = BioInd.make_icons({it1 = "gas-methane", sc1 = 0.6, it6 = "ash", sc6 = 0.7}) end end
 if data.raw.recipe["bi-crushed-stone-stone"] then data.raw.recipe["bi-crushed-stone-stone"].icons = BioInd.make_icons({it1 = "stone-crushed", it2 = "stone"}) end
 if data.raw.recipe["bi-crushed-stone-stone-brick"] then data.raw.recipe["bi-crushed-stone-stone-brick"].icons = BioInd.make_icons({it1 = "stone-crushed", it2 = "stone-brick"}) end
 if data.raw.recipe["bi-crushed-stone-concrete"] then data.raw.recipe["bi-crushed-stone-concrete"].icons = BioInd.make_icons({it1 = "stone-crushed", it2 = "concrete"}) end
@@ -45,8 +45,8 @@ if data.raw.recipe["bi-crushed-stone-hazard-concrete"] then data.raw.recipe["bi-
 if data.raw.recipe["bi-crushed-stone-refined-concrete"] then data.raw.recipe["bi-crushed-stone-refined-concrete"].icons = BioInd.make_icons({it1 = "stone-crushed", it2 = "refined-concrete"}) end
 if data.raw.recipe["bi-crushed-stone-refined-hazard-concrete"] then data.raw.recipe["bi-crushed-stone-refined-hazard-concrete"].icons = BioInd.make_icons({it1 = "stone-crushed", it2 = "hazard-concrete"}) end
 if data.raw.recipe["bi-rubber"] then data.raw.recipe["bi-rubber"].icons = BioInd.make_icons({it1 = "rubber"}) end
-if data.raw.recipe["bi-coke-coal"] then data.raw.recipe["bi-coke-coal"].icons = BioInd.make_icons({it1 = "pellet-coke", it2 = data.raw.recipe["bi-coke-coal"].ingredients[1].name}) end
-if data.raw.recipe["bi-pellet-coke"] then data.raw.recipe["bi-pellet-coke"].icons = BioInd.make_icons({it1 = "pellet-coke", it2 = data.raw.recipe["bi-pellet-coke"].ingredients[1].name}) end
+if data.raw.recipe["bi-coke-coal"] then data.raw.recipe["bi-coke-coal"].icons = BioInd.make_icons({it1 = "pellet-coke", it2 = "coal"}) end
+if data.raw.recipe["bi-pellet-coke"] then data.raw.recipe["bi-pellet-coke"].icons = BioInd.make_icons({it1 = "pellet-coke", it2 = "solid-fuel"}) end
 if data.raw.recipe["bi-pellet-coke-2"] then data.raw.recipe["bi-pellet-coke-2"].icons = BioInd.make_icons({it1 = "pellet-coke", it2 = data.raw.recipe["bi-pellet-coke-2"].ingredients[1].name}) end
 if data.raw.recipe["cellulose_1"] then data.raw.recipe["cellulose_1"].icons = BioInd.make_icons({it1 = "cellulose"}) end
 if data.raw.recipe["cellulose_2"] then data.raw.recipe["cellulose_2"].icons = BioInd.make_icons({it1 = "cellulose", it2 = "steam"}) end
@@ -55,16 +55,16 @@ if data.raw.recipe["bi-plastic-1"] then data.raw.recipe["bi-plastic-1"].icons = 
 if data.raw.recipe["bi-plastic-2"] then data.raw.recipe["bi-plastic-2"].icons = BioInd.make_icons({it1 = "plastic-bar", it2 = "cellulose", it3 = "petroleum-gas"}) end
   if mods["angelspetrochem"] then if data.raw.recipe["bi-plastic-2"] then data.raw.recipe["bi-plastic-2"].icons = BioInd.make_icons({it1 = "plastic-bar", it2 = "cellulose", it3 = "gas-methane", sc2 = 0.5, sc3 = 0.5}) end end
 if data.raw.recipe["bi-wood-gasification"] then data.raw.recipe["bi-wood-gasification"].icons = BioInd.make_icons({it5 = "tar", it4 = "petroleum-gas", sc4 = 0.8}) end
-  if mods["angelspetrochem"] then if data.raw.recipe["bi-wood-gasification"] then data.raw.recipe["bi-wood-gasification"].icons = BioInd.make_icons({it5 = "tar", it4 = "gas-methane"}) end end
+  if mods["angelspetrochem"] then if data.raw.recipe["bi-wood-gasification"] then data.raw.recipe["bi-wood-gasification"].icons = BioInd.make_icons({it5 = "tar", sh5 = {-5,0}, it4 = "gas-methane"}) end end
 if data.raw.recipe["solid-fuel-from-tar"] then data.raw.recipe["solid-fuel-from-tar"].icons = BioInd.make_icons({it1 = "solid-fuel", it3 = "tar"}) end
 if data.raw.recipe["bi-solid-fuel"] then data.raw.recipe["bi-solid-fuel"].icons = BioInd.make_icons({it1 = "solid-fuel", it3 = "wood-bricks"}) end
 if data.raw.recipe["bi-biomass-conversion-crude-oil"] then data.raw.recipe["bi-biomass-conversion-crude-oil"].icons = BioInd.make_icons({it1 = "crude-oil", it3 = "biomass", sc3 = 1.4}) end
 if data.raw.recipe["bi-biomass-conversion-petroleum"] then data.raw.recipe["bi-biomass-conversion-petroleum"].icons = BioInd.make_icons({it1 = "petroleum-gas", it3 = "biomass", sc3 = 1.4}) end
-  if mods["angelspetrochem"] then if data.raw.recipe["bi-biomass-conversion-petroleum"] then data.raw.recipe["bi-biomass-conversion-petroleum"].icons = BioInd.make_icons({it1 = "gas-methane", it3 = "biomass", sc3 = 1.4}) end end
+  if mods["angelspetrochem"] then if data.raw.recipe["bi-biomass-conversion-petroleum"] then data.raw.recipe["bi-biomass-conversion-petroleum"].icons = BioInd.make_icons({it1 = "gas-methane", it3 = "biomass", sc1 = 0.7, sc3 = 1.4}) end end
 if data.raw.recipe["bi-biomass-conversion-lubricant"] then data.raw.recipe["bi-biomass-conversion-lubricant"].icons = BioInd.make_icons({it1 = "lubricant", it3 = "biomass", sc3 = 1.4}) end
-  if mods["angelspetrochem"] then if data.raw.recipe["bi-biomass-conversion-lubricant"] then data.raw.recipe["bi-biomass-conversion-lubricant"].icons = BioInd.make_icons({it1 = "lubricant", it3 = "biomass", sc3 = 1.4}) end end
+  if mods["angelspetrochem"] then if data.raw.recipe["bi-biomass-conversion-lubricant"] then data.raw.recipe["bi-biomass-conversion-lubricant"].icons = BioInd.make_icons({it1 = "lubricant", it3 = "biomass", sc1 = 1.3, sh1 = {0,8}, sc3 = 1.4}) end end
 if data.raw.recipe["bi-biomass-conversion-sulfuric-acid"] then data.raw.recipe["bi-biomass-conversion-sulfuric-acid"].icons = BioInd.make_icons({it1 = "sulfuric-acid", it3 = "biomass", sc3 = 1.4}) end
-  if mods["angelspetrochem"] then if data.raw.recipe["bi-biomass-conversion-sulfuric-acid"] then data.raw.recipe["bi-biomass-conversion-sulfuric-acid"].icons = BioInd.make_icons({it1 = "liquid-sulfuric-acid", it3 = "biomass", sc3 = 1.4}) end end
+  if mods["angelspetrochem"] then if data.raw.recipe["bi-biomass-conversion-sulfuric-acid"] then data.raw.recipe["bi-biomass-conversion-sulfuric-acid"].icons = BioInd.make_icons({it1 = "liquid-sulfuric-acid", it3 = "biomass", sc1 = 0.7, sc3 = 1.4}) end end
 if data.raw.recipe["bi-biomass-conversion-light-oil"] then data.raw.recipe["bi-biomass-conversion-light-oil"].icons = BioInd.make_icons({it1 = "light-oil", it3 = "biomass", sc3 = 1.4}) end
   if mods["angelspetrochem"] then if data.raw.recipe["bi-biomass-conversion-light-oil"] then data.raw.recipe["bi-biomass-conversion-light-oil"].icons = BioInd.make_icons({it1 = "liquid-fuel-oil", it3 = "biomass", sc3 = 1.4}) end end
 if data.raw.recipe["bi-charcoal-1"] then data.raw.recipe["bi-charcoal-1"].icons = BioInd.make_icons({it1 = "wood-charcoal", it2 = "woodpulp"}) end

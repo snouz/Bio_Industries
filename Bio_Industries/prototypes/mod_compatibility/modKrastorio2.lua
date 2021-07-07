@@ -32,7 +32,8 @@ if BI.Settings.BI_Stone_Crushing and data.raw.item["sand"] then
     -- Adjust icon
     --BioInd.BI_change_icon(recipe, ICONPATH .. "sand-Krastorio.png")
     --recipe.icons = BioInd.make_icons("sand", "crushed-stone", 0, 0)
-    recipe.icons = BioInd.make_icons({it1 = "sand", it2 = "crushed-stone", shift1_1 = 0 , shift1_2 = 0, shift2_1 = 0, shift2_2 = 0})
+    recipe.icons = {it1 = "sand", it2 = "crushed-stone", shift1_1 = 0 , shift1_2 = 0, shift2_1 = 0, shift2_2 = 0}
+    recipe.BI_add_icon = true
 
     -- Adjust result
     recipe.result = "sand"

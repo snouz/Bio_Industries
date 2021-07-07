@@ -28,7 +28,10 @@ BI.default_recipes.bio_farm = {
     energy_required = 5,
     ingredients = {
       {"bi-bio-greenhouse", 4},
-      {"stone-crushed", 10},
+      -- Removed crushed stone, added stonebrick + wood
+      --~ {"stone-crushed", 10},
+      {"stone-brick", 8},
+      {"wood", 12},
       {"copper-cable", 10},
     },
     result = "bi-bio-farm",
@@ -43,7 +46,10 @@ BI.default_recipes.bio_farm = {
     energy_required = 7.5,
     ingredients = {
       {"bi-bio-greenhouse", 8},
-      {"stone-crushed", 20},
+      -- Removed crushed stone, added stonebrick + wood
+      --~ {"stone-crushed", 20},
+      {"stone-brick", 16},
+      {"wood", 24},
       {"copper-cable", 20},
     },
     result = "bi-bio-farm",

@@ -148,12 +148,14 @@ BI.default_recipes.seed_2 = {
   --icon = ICONPATH .. "tree_seed_ash.png",
   --icon_size = 64, icon_mipmaps = 3,
   --BI_add_icon = true,
-  --icons = { 
+  --icons = {
   --  { icon = ICONPATH .. "tree_seed.png", icon_size = 64, icon_mipmaps = 4, scale = 1, shift = {0, 0} },
   --  { icon = ICONPATH .. "ash.png", icon_size = 64, icon_mipmaps = 4, scale = 0.5, shift = {16, -18} },
   --},
   --icons = BioInd.make_icons("seed", "ash", 0,0),
-  icons = BioInd.make_icons({it1 = "seed", it2 = "ash", shift1_1 = 0 , shift1_2 = 0, shift2_1 = 0, shift2_2 = 0}),
+  --~ icons = BioInd.make_icons({it1 = "seed", it2 = "ash", shift1_1 = 0 , shift1_2 = 0, shift2_1 = 0, shift2_2 = 0}),
+  icons = {it1 = "seed", it2 = "ash", shift1_1 = 0 , shift1_2 = 0, shift2_1 = 0, shift2_2 = 0},
+  BI_add_icon = true,
   category = "biofarm-mod-greenhouse",
   energy_required = 150,
   ingredients = {
@@ -188,7 +190,7 @@ BI.default_recipes.seed_3 = {
   --icon = ICONPATH .. "tree_seed_fert1.png",
   --icon_size = 64, icon_mipmaps = 3,
   --BI_add_icon = true,
-  icons = { 
+  icons = {
     { icon = ICONPATH .. "tree_seed.png", icon_size = 64, icon_mipmaps = 4, scale = 1, shift = {0, 0} },
     { icon = ICONPATH .. "signal/bi_signal_fert.png", icon_size = 64, icon_mipmaps = 4, scale = 0.4, shift = {16, -16} },
   },
@@ -232,7 +234,7 @@ BI.default_recipes.seed_4 = {
   --icon = ICONPATH .. "tree_seed_fert2.png",
   --icon_size = 64, icon_mipmaps = 3,
   --BI_add_icon = true,
-  icons = { 
+  icons = {
     { icon = ICONPATH .. "tree_seed.png", icon_size = 64, icon_mipmaps = 4, scale = 1, shift = {0, 0} },
     { icon = ICONPATH .. "signal/bi_signal_adv_fert.png", icon_size = 64, icon_mipmaps = 4, scale = 0.4, shift = {16, -16} },
   },
@@ -310,12 +312,14 @@ BI.default_recipes.seedling_2 = {
   --icon = ICONPATH .. "seedling_ash.png",
   --icon_size = 64, icon_mipmaps = 3,
   --BI_add_icon = true,
-  --icons = { 
+  --icons = {
   --  { icon = ICONPATH .. "seedling.png", icon_size = 64, icon_mipmaps = 4, scale = 1, shift = {0, 0} },
   --  { icon = ICONPATH .. "ash.png", icon_size = 64, icon_mipmaps = 4, scale = 0.5, shift = {16, -18} },
   --},
   --icons = BioInd.make_icons("seedling", "bi-ash", 0, 0),
-  icons = BioInd.make_icons({it1 = "seedling", it2 = "ash", it3 = "", shift1_1 = 0 , shift1_2 = 0, shift2_1 = 0, shift2_2 = 0}),
+  --~ icons = BioInd.make_icons({it1 = "seedling", it2 = "ash", it3 = "", shift1_1 = 0 , shift1_2 = 0, shift2_1 = 0, shift2_2 = 0}),
+  icons = {it1 = "seedling", it2 = "ash", it3 = "", shift1_1 = 0 , shift1_2 = 0, shift2_1 = 0, shift2_2 = 0},
+  BI_add_icon = true,
   category = "biofarm-mod-greenhouse",
   energy_required = 300,
   ingredients = {
@@ -350,7 +354,7 @@ BI.default_recipes.seedling_3 = {
   --icon = ICONPATH .. "seedling_fert1.png",
   --icon_size = 64, icon_mipmaps = 3,
   --BI_add_icon = true,
-  icons = { 
+  icons = {
     { icon = ICONPATH .. "seedling.png", icon_size = 64, icon_mipmaps = 4, scale = 1, shift = {0, 0} },
     { icon = ICONPATH .. "signal/bi_signal_fert.png", icon_size = 64, icon_mipmaps = 4, scale = 0.4, shift = {16, -16} },
   },
@@ -393,7 +397,7 @@ BI.default_recipes.seedling_4 = {
   --icon = ICONPATH .. "seedling_fert2.png",
   --icon_size = 64, icon_mipmaps = 3,
   --BI_add_icon = true,
-  icons = { 
+  icons = {
     { icon = ICONPATH .. "seedling.png", icon_size = 64, icon_mipmaps = 4, scale = 1, shift = {0, 0} },
     { icon = ICONPATH .. "signal/bi_signal_adv_fert.png", icon_size = 64, icon_mipmaps = 4, scale = 0.4, shift = {16, -16} },
   },
@@ -436,12 +440,14 @@ BI.default_recipes.logs_2 = {
   --icon = ICONPATH .. "wood_woodpulp_ash.png",
   --icon_size = 64, icon_mipmaps = 3,
   --BI_add_icon = true,
-  --icons = { 
+  --icons = {
   --  { icon = ICONPATH .. "wood_woodpulp.png", icon_size = 64, icon_mipmaps = 4, scale = 1, shift = {0, 0} },
   --  { icon = ICONPATH .. "ash.png", icon_size = 64, icon_mipmaps = 4, scale = 0.5, shift = {16, -18} },
   --},
   --icons = BioInd.make_icons("bi-woodpulp", "ash", 0,0),
-  icons = BioInd.make_icons({it1 = "woodpulp", it2 = "ash", it3 = "", shift1_1 = 0 , shift1_2 = 0, shift2_1 = 0, shift2_2 = 0}),
+  --~ icons = BioInd.make_icons({it1 = "woodpulp", it2 = "ash", it3 = "", shift1_1 = 0 , shift1_2 = 0, shift2_1 = 0, shift2_2 = 0}),
+  icons = {it1 = "woodpulp", it2 = "ash", it3 = "", shift1_1 = 0 , shift1_2 = 0, shift2_1 = 0, shift2_2 = 0},
+  BI_add_icon = true,
   category = "biofarm-mod-farm",
   enabled = false,
   always_show_made_in = true,
@@ -475,7 +481,7 @@ BI.default_recipes.logs_3 = {
   --icon = ICONPATH .. "wood_woodpulp_fert1.png",
   --icon_size = 64, icon_mipmaps = 3,
   --BI_add_icon = true,
-  icons = { 
+  icons = {
     { icon = ICONPATH .. "wood_woodpulp.png", icon_size = 64, icon_mipmaps = 4, scale = 1, shift = {0, 0} },
     { icon = ICONPATH .. "signal/bi_signal_fert.png", icon_size = 64, icon_mipmaps = 4, scale = 0.4, shift = {16, -16} },
   },
@@ -518,7 +524,7 @@ BI.default_recipes.logs_4 = {
   --icon = ICONPATH .. "wood_woodpulp_fert2.png",
   --icon_size = 64, icon_mipmaps = 3,
   --BI_add_icon = true,
-  icons = { 
+  icons = {
     { icon = ICONPATH .. "wood_woodpulp.png", icon_size = 64, icon_mipmaps = 4, scale = 1, shift = {0, 0} },
     { icon = ICONPATH .. "signal/bi_signal_adv_fert.png", icon_size = 64, icon_mipmaps = 4, scale = 0.4, shift = {16, -16} },
   },
@@ -564,12 +570,14 @@ BI.default_recipes.ash_1 = {
   --icon = ICONPATH .. "ash_woodpulp.png",
   --icon_size = 64, icon_mipmaps = 3,
   --BI_add_icon = true,
-  --icons = { 
+  --icons = {
   --  { icon = ICONPATH .. "ash.png", icon_size = 64, icon_mipmaps = 4, scale = 1, shift = {0, 0} },
   --  { icon = ICONPATH .. "woodpulp.png", icon_size = 64, icon_mipmaps = 4, scale = 0.5, shift = {16, -17} },
   --},
   --icons = BioInd.make_icons("ash", "bi-woodpulp", 0, -1),
-  icons = BioInd.make_icons({it1 = "ash", it2 = "woodpulp", it3 = "", shift1_1 = 0 , shift1_2 = 0, shift2_1 = 0, shift2_2 = 0}),
+  --~ icons = BioInd.make_icons({it1 = "ash", it2 = "woodpulp", it3 = "", shift1_1 = 0 , shift1_2 = 0, shift2_1 = 0, shift2_2 = 0}),
+  icons = {it1 = "ash", it2 = "woodpulp", it3 = "", shift1_1 = 0 , shift1_2 = 0, shift2_1 = 0, shift2_2 = 0},
+  BI_add_icon = true,
   category = "biofarm-mod-smelting",
   subgroup = "bio-cokery",
   order = "a[bi]-a-c[bi-5-ash-1]",
@@ -599,12 +607,14 @@ BI.default_recipes.ash_2 = {
   --icon = ICONPATH .. "ash_raw-wood.png",
   --icon_size = 64, icon_mipmaps = 3,
   --BI_add_icon = true,
-  --icons = { 
+  --icons = {
   --  { icon = ICONPATH .. "ash.png", icon_size = 64, icon_mipmaps = 4, scale = 1, shift = {0, 0} },
   --  { icon = "__base__/graphics/icons/wood.png", icon_size = 64, icon_mipmaps = 4, scale = 0.5, shift = {17, -15} },
   --},
   --icons = BioInd.make_icons("ash", "wood", 2,1),
-  icons = BioInd.make_icons({it1 = "ash", it2 = "wood", it3 = "", shift1_1 = 0 , shift1_2 = 0, shift2_1 = 0, shift2_2 = 0}),
+  --~ icons = BioInd.make_icons({it1 = "ash", it2 = "wood", it3 = "", shift1_1 = 0 , shift1_2 = 0, shift2_1 = 0, shift2_2 = 0}),
+  icons = {it1 = "ash", it2 = "wood", it3 = "", shift1_1 = 0 , shift1_2 = 0, shift2_1 = 0, shift2_2 = 0},
+  BI_add_icon = true,
   category = "biofarm-mod-smelting",
   subgroup = "bio-cokery",
   order = "a[bi]-a-c[bi-5-ash-2]",

@@ -10,12 +10,6 @@ local recipes = data.raw.recipe
 local items = data.raw.item
 local fluids = data.raw.fluid
 
---~ BI.Triggers.BI_Trigger_Sand = BI.Settings.BI_Stone_Crushing and
-                              --~ recipes[BI.additional_recipes.mod_compatibility.sand.name]
-
---~ BioInd.show("BI.Triggers.BI_Trigger_Sand", BI.Triggers.BI_Trigger_Sand)
---~ BioInd.show("BI.additional_recipes.mod_compatibility.sand.name", BI.additional_recipes.mod_compatibility.sand.name)
---~ BioInd.show("recipes[BI.additional_recipes.mod_compatibility.sand.name]", recipes[BI.additional_recipes.mod_compatibility.sand.name])
 
 
 ------------------------------------------------------------------------------------
@@ -97,11 +91,6 @@ require("prototypes.optional._updates.updates_optionBioFuel")
 require("prototypes.optional._updates.updates_optionDarts")
 
 
---~ ------------------------------------------------------------------------------------
---~ --                              Enable: Wooden rails                              --
---~ --                             (BI.Settings.BI_Rails)                             --
---~ ------------------------------------------------------------------------------------
---~ require("prototypes.optional._updates.updates_optionRails")
 
 
 ------------------------------------------------------------------------------------

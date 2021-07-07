@@ -17,7 +17,7 @@ end
 ------------------------------------------------------------------------------------
 
 
-local ICONPATH = BioInd.iconpath
+local ICONPATH = BioInd.iconpath .. "mod_bobangels/"
 local icon_map
 
 local recipe, item, entity, ingredients, addit
@@ -142,8 +142,8 @@ if item then
 
   -- Change icons
   --BioInd.BI_change_icon(recipe, ICONPATH .. "fertilizer_solid_sodium_hydroxide.png")
-  recipe.icons = BioInd.make_icons({it1 = "fertilizer", it2 = "solid-sodium-hydroxide", it3 = "", shift1_1 = 0 , shift1_2 = 0, shift2_1 = 0, shift2_2 = 0}),
-
+  recipe.icons = BioInd.make_icons({it1 = "fertilizer", it2 = "solid-sodium-hydroxide", it3 = "", shift1_1 = 0 , shift1_2 = 0, shift2_1 = 0, shift2_2 = 0})
+  recipe.BI_add_icon = true
   BioInd.modified_msg("icon", recipe)
 
   -- Add unlock

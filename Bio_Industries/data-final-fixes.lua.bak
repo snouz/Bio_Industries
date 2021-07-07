@@ -2,7 +2,7 @@ BioInd.entered_file()
 
 ------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------
-BioInd.show("Rail recipe at start of data-final-fixes", data.raw.recipe.rail)
+
 
 --~ local BioInd = require(['"]common['"])(["']Bio_Industries['"])
 local ICONPATH = BioInd.iconpath

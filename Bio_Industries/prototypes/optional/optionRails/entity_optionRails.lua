@@ -86,7 +86,7 @@ BI.additional_entities[setting].straight_rail_wood = {
   rail_category = "regular",
   --fast_replaceable_group = "rail",
   --next_upgrade = "straight-rail",
-  pictures = rail_pictures(),
+  pictures = BI_rail_pictures(),
 }
 
 -- Curved wooden rails
@@ -118,7 +118,7 @@ BI.additional_entities[setting].curved_rail_wood = {
   secondary_collision_box = {{-0.65, -2.43}, {0.65, 2.43}},
   selection_box = {{-1.7, -0.8}, {1.7, 0.8}},
   rail_category = "regular",
-  pictures = rail_pictures(),
+  pictures = BI_rail_pictures(),
   placeable_by = { item = "bi-rail-wood", count = 4}
 }
 
@@ -146,7 +146,7 @@ BI.additional_entities[setting].straight_rail_wood_bridge = {
   collision_box = {{-0.7, -0.8}, {0.7, 0.8}},
   selection_box = {{-0.7, -0.8}, {0.7, 0.8}},
   rail_category = "regular",
-  pictures = rail_pictures(),
+  pictures = BI_rail_pictures(),
 }
 
 -- Curved wooden rail bridge
@@ -174,7 +174,7 @@ BI.additional_entities[setting].curved_rail_wood_bridge = {
   secondary_collision_box = {{-0.65, -2.43}, {0.65, 2.43}},
   selection_box = {{-1.7, -0.8}, {1.7, 0.8}},
   rail_category = "regular",
-  pictures = rail_pictures(),
+  pictures = BI_rail_pictures(),
   placeable_by = { item = "bi-rail-wood-bridge", count = 4}
 }
 
@@ -200,7 +200,7 @@ BI.additional_entities[setting].straight_rail_power = {
   collision_box = {{-0.7, -0.8}, {0.7, 0.8}},
   selection_box = {{-0.7, -0.8}, {0.7, 0.8}},
   rail_category = "regular",
-  pictures = rail_pictures(),
+  pictures = BI_rail_pictures(),
 }
 
 -- Power curved Rail
@@ -226,47 +226,51 @@ BI.additional_entities[setting].curved_rail_power = {
   secondary_collision_box = {{-0.65, -2.43}, {0.65, 2.43}},
   selection_box = {{-1.7, -0.8}, {1.7, 0.8}},
   rail_category = "regular",
-  pictures = rail_pictures(),
+  pictures = BI_rail_pictures(),
   placeable_by = { item = "bi-rail-power", count = 4}
 }
 
 -- Power to Rail Pole
 BI.additional_entities[setting].power_to_rail_pole = {
-    type = "electric-pole",
-    name = "bi-power-to-rail-pole",
-    icon = ICONPATH .. "entity/rail_power_connector.png",
-    icon_size = 64,
-    BI_add_icon = true,
-    icon_mipmaps = 4,
-    flags = {"placeable-neutral", "player-creation", "fast-replaceable-no-build-while-moving"},
-    minable = {mining_time = 1, result = "bi-power-to-rail-pole"},
-    max_health = 100,
-    corpse = "medium-electric-pole-remnants",
-    dying_explosion = "medium-electric-pole-explosion",
-    track_coverage_during_build_by_moving = true,
-    fast_replaceable_group = "electric-pole",
-    resistances =
+  type = "electric-pole",
+  name = "bi-power-to-rail-pole",
+  icon = ICONPATH .. "entity/rail_power_connector.png",
+  icon_size = 64,
+  BI_add_icon = true,
+  icon_mipmaps = 4,
+  flags = {"placeable-neutral", "player-creation", "fast-replaceable-no-build-while-moving"},
+  minable = {mining_time = 1, result = "bi-power-to-rail-pole"},
+  max_health = 100,
+  corpse = "medium-electric-pole-remnants",
+  dying_explosion = "medium-electric-pole-explosion",
+  track_coverage_during_build_by_moving = true,
+  fast_replaceable_group = "electric-pole",
+  resistances = {
     {
+      type = "fire",
+      percent = 100
+    }
+  },
+  collision_box = {{-0.15, -0.15}, {0.15, 0.15}},
+  selection_box = {{-0.5, -0.5}, {0.5, 0.5}},
+  damaged_trigger_effect = hit_effects.entity({{-0.2, -2.2},{0.2, 0.2}}),
+  drawing_box = {{-0.5, -2.8}, {0.5, 0.5}},
+  maximum_wire_distance = BioInd.POWER_TO_RAIL_WIRE_DISTANCE,
+  supply_area_distance = 3.5,
+  vehicle_impact_sound = sound_def.generic_impact,
+  open_sound = sound_def.electric_network_open,
+  close_sound = sound_def.electric_network_close,
+  pictures = {
+    layers = {
       {
-        type = "fire",
-        percent = 100
-      }
-    },
-    collision_box = {{-0.15, -0.15}, {0.15, 0.15}},
-    selection_box = {{-0.5, -0.5}, {0.5, 0.5}},
-    damaged_trigger_effect = hit_effects.entity({{-0.2, -2.2},{0.2, 0.2}}),
-    drawing_box = {{-0.5, -2.8}, {0.5, 0.5}},
-    maximum_wire_distance = BioInd.POWER_TO_RAIL_WIRE_DISTANCE,
-    supply_area_distance = 3.5,
-    vehicle_impact_sound = sound_def.generic_impact,
-    open_sound = sound_def.electric_network_open,
-    close_sound = sound_def.electric_network_close,
-    pictures =
-    {
-      layers =
-      {
-        {
-          filename = CNCTRPATH .. "rail_power_connector.png",
+        filename = CNCTRPATH .. "rail_power_connector.png",
+        priority = "extra-high",
+        width = 42,
+        height = 45,
+        direction_count = 1,
+        shift = util.by_pixel(0, -5),
+        hr_version = {
+          filename = CNCTRPATH .. "hr_rail_power_connector.png",
           priority = "extra-high",
           width = 42,
           height = 45,
@@ -304,53 +308,42 @@ BI.additional_entities[setting].power_to_rail_pole = {
           }
         }
       }
-    },
-    connection_points =
-    {
-      {
-        shadow =
-        {
-          copper = util.by_pixel_hr(40, 7),
-          red = util.by_pixel_hr(10.5, 27),
-          green = util.by_pixel_hr(10.5, 27),
-        },
-        wire =
-        {
-          copper = util.by_pixel_hr(8, -39),
-          red = util.by_pixel_hr(0, 7),
-          green = util.by_pixel_hr(0, 7),
-        }
-      },
-    },
-    radius_visualisation_picture =
-    {
-      filename = "__base__/graphics/entity/small-electric-pole/electric-pole-radius-visualization.png",
-      width = 12,
-      height = 12,
-      priority = "extra-high-no-scale"
-    },
-    water_reflection =
-    {
-      pictures =
-      {
-        filename = "__base__/graphics/entity/medium-electric-pole/medium-electric-pole-reflection.png",
-        priority = "extra-high",
-        width = 12,
-        height = 28,
-        shift = util.by_pixel(0, 55),
-        variation_count = 1,
-        scale = 5
-      },
-      rotate = false,
-      orientation_to_variation = false
     }
+  },
+  connection_points = {
+    {
+      shadow = {
+        copper = util.by_pixel_hr(40, 7),
+        red = util.by_pixel_hr(10.5, 27),
+        green = util.by_pixel_hr(10.5, 27),
+      },
+      wire = {
+        copper = util.by_pixel_hr(8, -39),
+        red = util.by_pixel_hr(0, 7),
+        green = util.by_pixel_hr(0, 7),
+      }
+    },
+  },
+  radius_visualisation_picture = {
+    filename = "__base__/graphics/entity/small-electric-pole/electric-pole-radius-visualization.png",
+    width = 12,
+    height = 12,
+    priority = "extra-high-no-scale"
+  },
+  water_reflection = {
+    pictures = {
+      filename = "__base__/graphics/entity/medium-electric-pole/medium-electric-pole-reflection.png",
+      priority = "extra-high",
+      width = 12,
+      height = 28,
+      shift = util.by_pixel(0, 55),
+      variation_count = 1,
+      scale = 5
+    },
+    rotate = false,
+    orientation_to_variation = false
   }
-
-
-
-
-
-
+}
 
 
 
@@ -391,8 +384,8 @@ pole.pictures.layers[1].tint = {r = 0.9, g = 0.87, b = 0.23, a = 0.5}
 
   -- The name patterns of the rail remnants don't match the pattern expected in
   -- make_remnants_for_entity, so we create the remnants this way:
-  BioInd.create_stuff(BI.additional_entities[setting])
-  BioInd.create_stuff(BI.additional_remnants[setting])
+BioInd.create_stuff(BI.additional_entities[setting])
+BioInd.create_stuff(BI.additional_remnants[setting])
 
 
 ------------------------------------------------------------------------------------

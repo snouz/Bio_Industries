@@ -3,7 +3,6 @@ BioInd.entered_file()
 --- @SNOUZ: This file is not about icon updates, but about replacing the ash
 -- item in recipe ingredients/results!
 
-
 ------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------
 

@@ -89,6 +89,10 @@ Date: 2021-07-?
     - Reduced stacksize of charcoal and pellet coke from 400 to 200.
     - Stacksize of BI-items (rails, big/huge wooden poles, poison artillery shells) will be updated to that of the generic items they are based on.
     - Fixed the testing for tiles from Alien Biomes. We can simply look up game.tile_prototypes!
+    - Fixed crash with "King Jo's War Rig Truck" + "Krastorio 2". (https://mods.factorio.com/mod/kj_warrig/discussion/60e1f8ff1ef686b1f36d1a82)
+    - Replaced Crushed stone in recipe producing Biofarms with stonebricks + wood
+    - Removed prerequisite technology "Stone crushing 1" from "Timber". We don't use crushed stone in the recipe anymore, and this would only have worked if Stone crushing was enabled.
+    - Changed ingredients/results of bi-coal-1 (old: 10 charcoal-->12 coal, new: 16 charcoal-->10 coal) and bi-coal-2 (old: 10 charcoal-->16 coal, new: 12 charcoal-->10 coal)
 
   Modding:
     - Migrated some recipes ("bi-sulfur-angels", "bi-crushed-stone-X", "bi-biomass-conversion-X", "bi-acid") and technologies ("bi-tech-bio-cannon", "bi-tech-advanced-fertilizers")

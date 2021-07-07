@@ -187,7 +187,8 @@ BI.default_techs.timber = {
 
   },
   order = "[bio-farming]-b-[timber]",
-  prerequisites = {"bi-tech-bio-farming-1", "bi-tech-stone-crushing-1"},
+  --~ prerequisites = {"bi-tech-bio-farming-1", "bi-tech-stone-crushing-1"},
+  prerequisites = {"bi-tech-bio-farming-1"},
   unit = {
     count = 50,
     ingredients = {

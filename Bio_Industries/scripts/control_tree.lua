@@ -7,9 +7,6 @@ local Event = require('__stdlib__/stdlib/event/event').set_protected_mode(true)
 
 local terrains = require("libs/trees-and-terrains")
 
---~ Bi_Industries = {}
---~ Bi_Industries.fertility = {
-
 local BI_trees = {}
 
 BI_trees.fertility = {
@@ -273,13 +270,10 @@ end
 -- t_base, t_penalty: numbers; seedbomb: Boolean
 local function plant_seed(event, t_base, t_penalty, seedbomb)
   BioInd.entered_function({event, t_base, t_penalty, seedbomb})
-  for a, arg in pairs({
-    {arg = event, type = "table"},
-    {arg = t_base, type = "number"},
-    {arg = t_penalty, type = "number"}
-  }) do
-    BioInd.check_args(arg.arg, arg.type, arg.desc)
-  end
+
+  BioInd.check_args(event, "table")
+  BioInd.check_args(t_base, "number")
+  BioInd.check_args(t_penalty, "number")
 
 BioInd.show("event", event)
 BioInd.show("t_base", t_base)

@@ -213,6 +213,64 @@ BioInd.writeDebug("\n%s\nComplete recipe list: %s\n%s", {sep, recipe_list, sep})
 ------------------------------------------------------------------------------------
 --                 Deadlock's Stacking Beltboxes & Compact Loaders                --
 ------------------------------------------------------------------------------------
+--~ if deadlock_stacking then
+
+  --~ for level, i_data in pairs(stacked_items) do
+    --~ for i, item in ipairs(i_data) do
+      --~ -- Some things (rail-planner, ammo etc.) are considered items although they are
+      --~ -- of another prototype type (but the stack items are of type "item")!
+      --~ stack_name = "deadlock-stack-" .. item.name
+      --~ if data.raw[item.type][item.name] then
+        --~ new_item = items[stack_name]
+
+        --~ -- Create new item if necessary
+        --~ if not new_item then
+        --~ -- deadlock.add_stack(item_name, graphic_path, target_tech, icon_size, item_type, mipmap_levels)
+          --~ deadlock.add_stack(
+            --~ item.name,
+            --~ ICONPATH .. item.name .. "-stacked.png",
+            --~ "deadlock-stacking-" .. level,
+            --~ 64,
+            --~ item.type,
+            --~ 4
+          --~ )
+          --~ new_item = items[stack_name]
+          --~ BioInd.created_msg(new_item)
+        --~ end
+
+
+        --~ -- Localize new item
+        --~ stack_size = deadlock.get_item_stack_density(item.name, item.type)
+        --~ loc_name = item.localised_name or {"item-name." .. item.name}
+        --~ -- Reversed list: Last recipe will be first!
+        --~ src_recipe = recipe_list[item.name][1]
+
+        --~ new_item.localised_name = {"item-name.deadlock-stacking-stack", loc_name, stack_size}
+        --~ BioInd.modified_msg("localization", new_item)
+
+        --~ -- Modify new recipes
+        --~ for r, r_type in ipairs({"stack", "unstack"}) do
+          --~ new_recipe = recipes["deadlock-stacks-" .. r_type .. "-" .. item.name]
+
+          --~ -- Localization
+          --~ new_recipe.localised_name = {"recipe-name.deadlock-stacking-" .. r_type, loc_name}
+          --~ BioInd.modified_msg("localization", new_recipe)
+
+          --~ -- Subgroup
+          --~ new_recipe.subgroup = src_recipe.subgroup
+          --~ BioInd.modified_msg("subgroup", new_recipe)
+
+          --~ -- Order
+          --~ new_recipe.order = src_recipe.order .. "-[deadlock-stacking-" .. r_type .. "]"
+          --~ BioInd.modified_msg("order", new_recipe)
+        --~ end
+      --~ end
+    --~ end
+  --~ end
+--~ end
+
+
+-- Snouz
 if deadlock_stacking then
 
     -- hit the subgroups again to cover any added since data.lua load
@@ -228,7 +286,7 @@ if deadlock_stacking then
       })
     end
   end
-  
+
   for level, i_data in pairs(stacked_items) do
     for i, item in ipairs(i_data) do
       -- Some things (rail-planner, ammo etc.) are considered items although they are
@@ -286,6 +344,7 @@ if deadlock_stacking then
     end
   end
 end
+
 --~ for i, item in pairs(items) do
   --~ if i:match("deadlock") then
     --~ BioInd.writeDebug("Item %s: %s", {i, item.localised_name}, "line")

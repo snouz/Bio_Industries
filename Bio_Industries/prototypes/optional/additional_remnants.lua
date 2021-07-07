@@ -29,6 +29,10 @@ local ICONPATH = BioInd.iconpath
 local REMNANTPATH = BioInd.entitypath .. "remnants/"
 local BASEPATH = "__base__/graphics/icons/"
 
+-- This is just a copy of the vanilla functions for creating the pictures of rails
+-- and their remnants. "King Jo's War Rig Truck" overwrote the global function, so
+-- our graphics wouldn't be found. It's safer to use our own copy!
+require("prototypes.optional.rail_pictures")
 
 ------------------------------------------------------------------------------------
 --                               Enable: Bio gardens                              --
@@ -256,7 +260,6 @@ BI.additional_remnants.BI_Darts.wooden_fence = {
 -- Straight wooden rails
 BI.additional_remnants.BI_Rails.straight_rail_wood = {
   type = "rail-remnants",
-  --~ name = "straight-rail-remnants-wood",
   name = "straight-rail-wood-remnants",
   localised_name = {"entity-name.rail-remnants-wood"},
   localised_description = {"entity_description.rail-remnants-wood"},
@@ -272,8 +275,7 @@ BI.additional_remnants.BI_Rails.straight_rail_wood = {
   tile_width = 2,
   tile_height = 2,
   bending_type = "straight",
-  --pictures = destroyed_rail_pictures_w(),
-  pictures = destroyed_rail_pictures(),
+  pictures = BI_destroyed_rail_pictures(),
   time_before_removed = 60 * 60 * 45,
   time_before_shading_off = 60 * 60 * 1
 }
@@ -297,8 +299,7 @@ BI.additional_remnants.BI_Rails.curved_rail_wood = {
   tile_width = 4,
   tile_height = 8,
   bending_type = "turn",
-  --pictures = destroyed_rail_pictures_w(),
-  pictures = destroyed_rail_pictures(),
+  pictures = BI_destroyed_rail_pictures(),
   time_before_removed = 60 * 60 * 45,
   time_before_shading_off = 60 * 60 * 1
 }
@@ -321,8 +322,7 @@ BI.additional_remnants.BI_Rails.straight_rail_wood_bridge = {
   tile_width = 2,
   tile_height = 2,
   bending_type = "straight",
-  --pictures = destroyed_rail_pictures_w(),
-  pictures = destroyed_rail_pictures(),
+  pictures = BI_destroyed_rail_pictures(),
   time_before_removed = 60 * 60 * 45,
   time_before_shading_off = 60 * 60 * 1
 }
@@ -346,8 +346,7 @@ BI.additional_remnants.BI_Rails.curved_rail_wood_bridge = {
   tile_width = 4,
   tile_height = 8,
   bending_type = "turn",
-  --pictures = destroyed_rail_pictures_w(),
-  pictures = destroyed_rail_pictures(),
+  pictures = BI_destroyed_rail_pictures(),
   time_before_removed = 60 * 60 * 45,
   time_before_shading_off = 60 * 60 * 1
 }

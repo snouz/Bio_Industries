@@ -192,7 +192,7 @@ BI.additional_recipes.BI_Bio_Fuel.cellulose_2 = {
   --icon = ICONPATH .. "cellulose_steam.png",
   --icon_size = 64, icon_mipmaps = 3,
   --BI_add_icon = true,
-  icons = { 
+  icons = {
     { icon = ICONPATH .. "cellulose.png", icon_size = 64, icon_mipmaps = 4, scale = 1, shift = {0, 0} },
     { icon = "__base__/graphics/icons/fluid/steam.png", icon_size = 64, icon_mipmaps = 4, scale = 0.5, shift = {17, -15} },
   },
@@ -236,7 +236,7 @@ BI.additional_recipes.BI_Bio_Fuel.bio_plastic_1 = {
   --icon = ICONPATH .. "bio_plastic_bar_1.png",
   --icon_size = 64, icon_mipmaps = 3,
   --BI_add_icon = true,
-  icons = { 
+  icons = {
     { icon = "__base__/graphics/icons/plastic-bar.png", icon_size = 64, icon_mipmaps = 4, scale = 1, shift = {0, 0} },
     { icon = "__base__/graphics/icons/wood.png", icon_size = 64, icon_mipmaps = 4, scale = 0.5, shift = {17, -15} },
     { icon = "__base__/graphics/icons/fluid/light-oil.png", icon_size = 64, icon_mipmaps = 4, scale = 0.5, shift = {-19, -16} },
@@ -255,6 +255,12 @@ BI.additional_recipes.BI_Bio_Fuel.bio_plastic_1 = {
   },
   results = {
     {type = "item", name = "plastic-bar", amount = 2}
+  },
+  crafting_machine_tint = {
+    primary     = util.color("e3d7aa"),
+    secondary   = util.color("c2b99f"),
+    tertiary    = util.color("d4ac48"),
+    quaternary  = util.color("e0b572")
   },
   --~ show_amount_in_title = false,
   show_amount_in_title = true,
@@ -276,14 +282,10 @@ BI.additional_recipes.BI_Bio_Fuel.bio_plastic_1 = {
   subgroup_5d = "plates-misc",
   --~ subgroup_order_5d = "n-a",
   order_5d = "b-[Bio_Industries]-[plates-misc]-[bi-plastic-1]",
-  crafting_machine_tint = {
-    primary     = util.color("e3d7aa"),
-    secondary   = util.color("c2b99f"),
-    tertiary    = util.color("d4ac48"),
-    quaternary  = util.color("e0b572")
-  },
 }
 
+
+-- WRONG ICON? Wood + Light oil doesn't match ingredients!
 -- Bio plastic 2
 BI.additional_recipes.BI_Bio_Fuel.bio_plastic_2 = {
   type = "recipe",
@@ -293,7 +295,7 @@ BI.additional_recipes.BI_Bio_Fuel.bio_plastic_2 = {
   --icon = ICONPATH .. "bio_plastic_bar_1.png",
   --icon_size = 64, icon_mipmaps = 3,
   --BI_add_icon = true,
-  icons = { 
+  icons = {
     { icon = "__base__/graphics/icons/plastic-bar.png", icon_size = 64, icon_mipmaps = 4, scale = 1, shift = {0, 0} },
     { icon = "__base__/graphics/icons/wood.png", icon_size = 64, icon_mipmaps = 4, scale = 0.5, shift = {17, -15} },
     { icon = "__base__/graphics/icons/fluid/light-oil.png", icon_size = 64, icon_mipmaps = 4, scale = 0.5, shift = {-19, -16} },
@@ -342,7 +344,7 @@ BI.additional_recipes.BI_Bio_Fuel.bio_mass_2 = {
   --icon = ICONPATH .. "fluid_biomass_repro_1.png",
   --icon_size = 64, icon_mipmaps = 3,
   --BI_add_icon = true,
-  icons = { 
+  icons = {
     { icon = ICONPATH .. "fluid_biomass.png", icon_size = 64, icon_mipmaps = 4, scale = 1, shift = {0, 0} },
     { icon = ICONPATH .. "signal/bi_signal_reprocess.png", icon_size = 64, icon_mipmaps = 4, scale = 1, shift = {0, 0} },
   },
@@ -380,7 +382,7 @@ BI.additional_recipes.BI_Bio_Fuel.bio_mass_3 = {
   --icon = ICONPATH .. "fluid_biomass_repro_2.png",
   --icon_size = 64, icon_mipmaps = 3,
   --BI_add_icon = true,
-  icons = { 
+  icons = {
     { icon = ICONPATH .. "fluid_biomass.png", icon_size = 64, icon_mipmaps = 4, scale = 1, shift = {0, 0} },
     { icon = ICONPATH .. "signal/bi_signal_reprocess.png", icon_size = 64, icon_mipmaps = 4, scale = 1, shift = {0, 0} },
     { icon = ICONPATH .. "ash.png", icon_size = 64, icon_mipmaps = 4, scale = 0.5, shift = {18, -19} },
@@ -430,7 +432,7 @@ BI.additional_recipes.BI_Bio_Fuel.bio_mass_conversion_crude_oil = {
   --icon = ICONPATH .. "bio_conversion_1.png",
   --icon_size = 64, icon_mipmaps = 3,
   --BI_add_icon = true,
-  icons = { 
+  icons = {
     { icon = "__base__/graphics/icons/fluid/crude-oil.png", icon_size = 64, icon_mipmaps = 4, scale = 1, shift = {0, 0} },
     { icon = ICONPATH .. "fluid_biomass.png", icon_size = 64, icon_mipmaps = 4, scale = 0.6, shift = {-18, -14} },
   },
@@ -477,7 +479,7 @@ BI.additional_recipes.BI_Bio_Fuel.bio_mass_conversion_petroleum = {
   --icon = ICONPATH .. "bio_conversion_2.png",
   --icon_size = 64, icon_mipmaps = 3,
   --BI_add_icon = true,
-  icons = { 
+  icons = {
     { icon = "__base__/graphics/icons/fluid/petroleum-gas.png", icon_size = 64, icon_mipmaps = 4, scale = 1, shift = {0, 9} },
     { icon = ICONPATH .. "fluid_biomass.png", icon_size = 64, icon_mipmaps = 4, scale = 0.6, shift = {-18, -14} },
   },
@@ -524,7 +526,7 @@ BI.additional_recipes.BI_Bio_Fuel.bio_mass_conversion_lubricant = {
   --icon = ICONPATH .. "bio_conversion_3.png",
   --icon_size = 64, icon_mipmaps = 3,
   --BI_add_icon = true,
-  icons = { 
+  icons = {
     { icon = "__base__/graphics/icons/fluid/lubricant.png", icon_size = 64, icon_mipmaps = 4, scale = 1, shift = {0, 0} },
     { icon = ICONPATH .. "fluid_biomass.png", icon_size = 64, icon_mipmaps = 4, scale = 0.6, shift = {-18, -14} },
   },
@@ -568,7 +570,7 @@ BI.additional_recipes.BI_Bio_Fuel.bio_mass_conversion_sulfuric_acid = {
   --icon = ICONPATH .. "bio_sulfturic_acid.png",
   --icon_size = 64, icon_mipmaps = 3,
   --BI_add_icon = true,
-  icons = { 
+  icons = {
     { icon = "__base__/graphics/icons/fluid/sulfuric-acid.png", icon_size = 64, icon_mipmaps = 4, scale = 1, shift = {0, 7} },
     { icon = ICONPATH .. "fluid_biomass.png", icon_size = 64, icon_mipmaps = 4, scale = 0.6, shift = {-18, -14} },
   },
@@ -626,7 +628,7 @@ BI.additional_recipes.BI_Bio_Fuel.bio_mass_conversion_light_oil = {
   --icon = ICONPATH .. "bio_conversion_4.png",
   --icon_size = 64, icon_mipmaps = 3,
   --BI_add_icon = true,
-  icons = { 
+  icons = {
     { icon = "__base__/graphics/icons/fluid/light-oil.png", icon_size = 64, icon_mipmaps = 4, scale = 1, shift = {0, 0} },
     { icon = ICONPATH .. "fluid_biomass.png", icon_size = 64, icon_mipmaps = 4, scale = 0.6, shift = {-18, -14} },
   },
@@ -660,7 +662,7 @@ BI.additional_recipes.BI_Bio_Fuel.bio_battery = {
   --icon = ICONPATH .. "bio_battery.png",
   --icon_size = 64, icon_mipmaps = 3,
   --BI_add_icon = true,
-  icons = { 
+  icons = {
     { icon = "__base__/graphics/icons/battery.png", icon_size = 64, icon_mipmaps = 4, scale = 1, shift = {0, 0} },
     { icon = ICONPATH .. "fluid_biomass.png", icon_size = 64, icon_mipmaps = 4, scale = 0.6, shift = {-18, -14} },
   },
@@ -708,12 +710,14 @@ BI.additional_recipes.BI_Bio_Fuel.bio_sulfur = {
   --icon = ICONPATH .. "bio_sulfur.png",
   --icon_size = 64, icon_mipmaps = 3,
   --BI_add_icon = true,
-  --icons = { 
+  --icons = {
   --  { icon = "__base__/graphics/icons/sulfur.png", icon_size = 64, icon_mipmaps = 4, scale = 1, shift = {0, 0} },
   --  { icon = ICONPATH .. "ash.png", icon_size = 64, icon_mipmaps = 4, scale = 0.5, shift = {16, -17} },
   --  { icon = "__base__/graphics/icons/fluid/sulfuric-acid.png", icon_size = 64, icon_mipmaps = 4, scale = 0.5, shift = {-16, -16} },
   --},
-  icons = BioInd.make_icons({it1 = "sulfur", it2 = "ash", it3 = "sulfuric-acid", shift1_1 = 0 , shift1_2 = 0, shift2_1 = 0, shift2_2 = 0}),
+  --~ icons = BioInd.make_icons({it1 = "sulfur", it2 = "ash", it3 = "sulfuric-acid", shift1_1 = 0 , shift1_2 = 0, shift2_1 = 0, shift2_2 = 0}),
+  icons = {it1 = "sulfur", it2 = "ash", it3 = "sulfuric-acid", shift1_1 = 0 , shift1_2 = 0, shift2_1 = 0, shift2_2 = 0},
+  BI_add_icon = true,
   category = "chemistry",
   energy_required = 2,
   ingredients = {
@@ -931,7 +935,7 @@ BI.additional_recipes.BI_Coal_Processing.charcoal_1 = {
   --icon = ICONPATH .. "charcoal_woodpulp.png",
   --icon_size = 64, icon_mipmaps = 3,
   --BI_add_icon = true,
-  icons = { 
+  icons = {
     { icon = ICONPATH .. "charcoal.png", icon_size = 64, icon_mipmaps = 4, scale = 1, shift = {0, 0} },
     { icon = ICONPATH .. "woodpulp.png", icon_size = 64, icon_mipmaps = 4, scale = 0.5, shift = {16, -17} },
   },
@@ -961,7 +965,7 @@ BI.additional_recipes.BI_Coal_Processing.charcoal_2 = {
   --icon = ICONPATH .. "charcoal_wood.png",
   --icon_size = 64, icon_mipmaps = 3,
   --BI_add_icon = true,
-  icons = { 
+  icons = {
     { icon = ICONPATH .. "charcoal.png", icon_size = 64, icon_mipmaps = 4, scale = 1, shift = {0, 0} },
     { icon = "__base__/graphics/icons/wood.png", icon_size = 64, icon_mipmaps = 4, scale = 0.5, shift = {17, -15} },
   },
@@ -994,9 +998,11 @@ BI.additional_recipes.BI_Coal_Processing.coal_1 = {
   subgroup = "bio-cokery",
   order = "a[bi]-a-ea[bi-6-coal-1]",
   energy_required = 20,
-  ingredients = {{"wood-charcoal", 10}},
+  --~ ingredients = {{"wood-charcoal", 10}},
+  ingredients = {{"wood-charcoal", 16}},
   result = "coal",
-  result_count = 12,
+  --~ result_count = 12,
+  result_count = 10,
   enabled = false,
   --~ --  always_show_made_in = true,
   --~ --  allow_decomposition = false,
@@ -1015,7 +1021,7 @@ BI.additional_recipes.BI_Coal_Processing.coal_2 = {
   --icon = ICONPATH .. "coal_plus.png",
   --icon_size = 64, icon_mipmaps = 3,
   --BI_add_icon = true,
-  icons = { 
+  icons = {
     { icon = "__base__/graphics/icons/coal-dark-background.png", icon_size = 64, icon_mipmaps = 4, scale = 1, shift = {0, 0} },
     { icon = ICONPATH .. "signal/bi_signal_plus.png", icon_size = 64, icon_mipmaps = 4, scale = 0.45, shift = {18, -18} },
   },
@@ -1023,9 +1029,11 @@ BI.additional_recipes.BI_Coal_Processing.coal_2 = {
   subgroup = "bio-cokery",
   order = "a[bi]-a-eb[bi-6-coal-2]",
   energy_required = 20,
-  ingredients = {{"wood-charcoal", 10}},
+  --~ ingredients = {{"wood-charcoal", 10}},
+  ingredients = {{"wood-charcoal", 12}},
   result = "coal",
-  result_count = 16,
+  --~ result_count = 16,
+  result_count = 10,
   enabled = false,
   --~ --  always_show_made_in = true,
   --~ --  allow_decomposition = false,
@@ -1073,7 +1081,7 @@ BI.additional_recipes.BI_Coal_Processing.pellet_coke = {
   --icon = "__Bio_Industries__/graphics/icons/pellet_coke_c.png",
   --icon_size = 64, icon_mipmaps = 3,
   --BI_add_icon = true,
-  icons = { 
+  icons = {
     { icon = ICONPATH .. "pellet_coke.png", icon_size = 64, icon_mipmaps = 4, scale = 1, shift = {0, 0} },
     { icon = "__base__/graphics/icons/solid-fuel.png", icon_size = 64, icon_mipmaps = 4, scale = 0.5, shift = {17, -15} },
   },
@@ -1101,7 +1109,7 @@ BI.additional_recipes.BI_Coal_Processing.solid_fuel = {
   --icon = ICONPATH .. "bi_solid_fuel_wood_brick.png",
   --icon_size = 64, icon_mipmaps = 3,
   --BI_add_icon = true,
-  icons = { 
+  icons = {
     { icon = "__base__/graphics/icons/solid-fuel.png", icon_size = 64, icon_mipmaps = 4, scale = 1, shift = {0, 0} },
     { icon = ICONPATH .. "fuel_brick.png", icon_size = 64, icon_mipmaps = 4, scale = 0.5, shift = {-16, -19} },
   },
@@ -1501,7 +1509,7 @@ BI.additional_recipes.BI_Disassemble.burner_drill = {
   --icon = ICONPATH .. "disassemble_burner-mining-drill.png",
   --icon_size = 64, icon_mipmaps = 3,
   --BI_add_icon = true,
-  icons = { 
+  icons = {
     { icon = "__base__/graphics/icons/burner-mining-drill.png", icon_size = 64, icon_mipmaps = 4, scale = 1, shift = {0, 0} },
     { icon = ICONPATH .. "signal/bi_signal_deconstruct.png", icon_size = 64, icon_mipmaps = 4, scale = 1, shift = {0, 0} },
   },
@@ -1534,7 +1542,7 @@ BI.additional_recipes.BI_Disassemble.burner_inserter = {
   --icon = ICONPATH .. "disassemble_burner_inserter.png",
   --icon_size = 64, icon_mipmaps = 3,
   --BI_add_icon = true,
-  icons = { 
+  icons = {
     { icon = "__base__/graphics/icons/burner-inserter.png", icon_size = 64, icon_mipmaps = 4, scale = 1, shift = {0, 0} },
     { icon = ICONPATH .. "signal/bi_signal_deconstruct.png", icon_size = 64, icon_mipmaps = 4, scale = 1, shift = {0, 0} },
   },
@@ -1566,7 +1574,7 @@ BI.additional_recipes.BI_Disassemble.long_handed_inserter = {
   --icon = ICONPATH .. "disassemble_long_handed_inserter.png",
   --icon_size = 64, icon_mipmaps = 3,
   --BI_add_icon = true,
-  icons = { 
+  icons = {
     { icon = "__base__/graphics/icons/long-handed-inserter.png", icon_size = 64, icon_mipmaps = 4, scale = 1, shift = {0, 0} },
     { icon = ICONPATH .. "signal/bi_signal_deconstruct.png", icon_size = 64, icon_mipmaps = 4, scale = 1, shift = {0, 0} },
   },
@@ -1600,7 +1608,7 @@ BI.additional_recipes.BI_Disassemble.stone_furnace = {
   --icon = ICONPATH .. "disassemble_stone_furnace.png",
   --icon_size = 64, icon_mipmaps = 3,
   --BI_add_icon = true,
-  icons = { 
+  icons = {
     { icon = "__base__/graphics/icons/stone-furnace.png", icon_size = 64, icon_mipmaps = 4, scale = 1, shift = {0, 0} },
     { icon = ICONPATH .. "signal/bi_signal_deconstruct.png", icon_size = 64, icon_mipmaps = 4, scale = 1, shift = {0, 0} },
   },
@@ -1632,7 +1640,7 @@ BI.additional_recipes.BI_Disassemble.steel_furnace = {
   --icon = ICONPATH .. "disassemble_steel-furnace.png",
   --icon_size = 64, icon_mipmaps = 3,
   --BI_add_icon = true,
-  icons = { 
+  icons = {
     { icon = "__base__/graphics/icons/steel-furnace.png", icon_size = 64, icon_mipmaps = 4, scale = 1, shift = {0, 0} },
     { icon = ICONPATH .. "signal/bi_signal_deconstruct.png", icon_size = 64, icon_mipmaps = 4, scale = 1, shift = {0, 0} },
   },
@@ -1714,7 +1722,7 @@ BI.additional_recipes.BI_Explosive_Planting.seed_bomb_standard = {
   --icon = ICONPATH .. "weapon/seed-bomb-2.png",
   --icon_size = 64, icon_mipmaps = 3,
   --BI_add_icon = true,
-  icons = { 
+  icons = {
     { icon = ICONPATH .. "weapon/seed-bomb-2.png", icon_size = 64, icon_mipmaps = 4, scale = 1, shift = {0, 0} },
     { icon = ICONPATH .. "signal/bi_signal_fert.png", icon_size = 64, icon_mipmaps = 4, scale = 0.4, shift = {16, -16} },
   },
@@ -1764,7 +1772,7 @@ BI.additional_recipes.BI_Explosive_Planting.seed_bomb_advanced = {
   --icon = ICONPATH .. "weapon/seed-bomb-3.png",
   --icon_size = 64, icon_mipmaps = 3,
   --BI_add_icon = true,
-  icons = { 
+  icons = {
     { icon = ICONPATH .. "weapon/seed-bomb-3.png", icon_size = 64, icon_mipmaps = 4, scale = 1, shift = {0, 0} },
     { icon = ICONPATH .. "signal/bi_signal_adv_fert.png", icon_size = 64, icon_mipmaps = 4, scale = 0.4, shift = {16, -16} },
   },
@@ -1882,7 +1890,7 @@ BI.additional_recipes.BI_Rails.rail_wood_to_concrete = {
   --icon = ICONPATH .. "entity/rail-concrete_from_rail-wood.png",
   --icon_size = 64, icon_mipmaps = 3,
   --BI_add_icon = true,
-  icons = { 
+  icons = {
     { icon = ICONPATH .. "entity/rail-concrete.png", icon_size = 64, icon_mipmaps = 4, scale = 1, shift = {0, 0} },
     { icon = ICONPATH .. "entity/rail-wood.png", icon_size = 64, icon_mipmaps = 4, scale = 0.5, shift = {16, -16} },
   },
@@ -2113,12 +2121,14 @@ BI.additional_recipes.BI_Rubber.resin_pulp = {
   --icon = ICONPATH .. "resin_woodpulp.png",
   --icon_size = 64, icon_mipmaps = 3,
   --BI_add_icon = true,
-  --icons = { 
+  --icons = {
   --  { icon = ICONPATH .. "resin.png", icon_size = 64, icon_mipmaps = 4, scale = 1, shift = {0, 0} },
   --  { icon = ICONPATH .. "woodpulp.png", icon_size = 64, icon_mipmaps = 4, scale = 0.5, shift = {16, -17} },
   --},
   --icons = BioInd.make_icons("resin", "woodpulp", 0,-1),
-  icons = BioInd.make_icons({it1 = "resin", it2 = "woodpulp", shift1_1 = 0, shift1_2 = 0, shift2_1 = 0, shift2_2 = 0}),
+  --~ icons = BioInd.make_icons({it1 = "resin", it2 = "woodpulp", shift1_1 = 0, shift1_2 = 0, shift2_1 = 0, shift2_2 = 0}),
+  icons = {it1 = "resin", it2 = "woodpulp", shift1_1 = 0, shift1_2 = 0, shift2_1 = 0, shift2_2 = 0},
+  BI_add_icon = true,
   subgroup = "bio-bio-farm-raw",
   order = "a[bi]-a-ba[bi-2-resin-2-pulp]",
   enabled = false,
@@ -2153,12 +2163,14 @@ BI.additional_recipes.BI_Rubber.resin_wood = {
   --icon = ICONPATH .. "resin_wood.png",
   --icon_size = 64, icon_mipmaps = 3,
   --BI_add_icon = true,
-  --icons = { 
+  --icons = {
   --  { icon = ICONPATH .. "resin.png", icon_size = 64, icon_mipmaps = 4, scale = 1, shift = {0, 0} },
   --  { icon = "__base__/graphics/icons/wood.png", icon_size = 64, icon_mipmaps = 4, scale = 0.5, shift = {17, -15} },
   --},
   --icons = BioInd.make_icons("resin", "wood", 2,1),
-  icons = BioInd.make_icons({it1 = "resin", it2 = "wood", it3 = "", shift1_1 = 0 , shift1_2 = 0, shift2_1 = 0, shift2_2 = 0}),
+  --~ icons = BioInd.make_icons({it1 = "resin", it2 = "wood", it3 = "", shift1_1 = 0 , shift1_2 = 0, shift2_1 = 0, shift2_2 = 0}),
+  icons = {it1 = "resin", it2 = "wood", it3 = "", shift1_1 = 0 , shift1_2 = 0, shift2_1 = 0, shift2_2 = 0},
+  BI_add_icon = true,
   subgroup = "bio-bio-farm-raw",
   --~ --  -- order = "a[bi]-a-aa[bi-2-resin-1-wood]",
   order = "a[bi]-a-bb[bi-2-resin-2-wood]",
@@ -2527,7 +2539,7 @@ BI.additional_recipes.BI_Stone_Crushing.crushed_stone_stone_brick = {
   --icon = ICONPATH .. "crushed-stone-stone-brick.png",
   --icon_size = 64, icon_mipmaps = 3,
   --BI_add_icon = true,
-  icons = { 
+  icons = {
     { icon = ICONPATH .. "crushed-stone.png", icon_size = 64, icon_mipmaps = 4, scale = 1, shift = {0, 0} },
     { icon = "__base__/graphics/icons/stone-brick.png", icon_size = 64, icon_mipmaps = 4, scale = 0.5, shift = {16, -16} },
   },
@@ -2561,7 +2573,7 @@ BI.additional_recipes.BI_Stone_Crushing.crushed_stone_concrete = {
   --icon = ICONPATH .. "crushed-stone-concrete.png",
   --icon_size = 64, icon_mipmaps = 3,
   --BI_add_icon = true,
-  icons = { 
+  icons = {
     { icon = ICONPATH .. "crushed-stone.png", icon_size = 64, icon_mipmaps = 4, scale = 1, shift = {0, 0} },
     { icon = "__base__/graphics/icons/concrete.png", icon_size = 64, icon_mipmaps = 4, scale = 0.5, shift = {16, -16} },
   },
@@ -2597,7 +2609,7 @@ BI.additional_recipes.BI_Stone_Crushing.crushed_stone_hazard_concrete = {
   --icon = ICONPATH .. "crushed-stone-hazard-concrete.png",
   --icon_size = 64, icon_mipmaps = 3,
   --BI_add_icon = true,
-  icons = { 
+  icons = {
     { icon = ICONPATH .. "crushed-stone.png", icon_size = 64, icon_mipmaps = 4, scale = 1, shift = {0, 0} },
     { icon = "__base__/graphics/icons/hazard-concrete.png", icon_size = 64, icon_mipmaps = 4, scale = 0.5, shift = {16, -16} },
   },
@@ -2633,7 +2645,7 @@ BI.additional_recipes.BI_Stone_Crushing.crushed_stone_refined_concrete = {
   --icon = ICONPATH .. "crushed-stone-refined-concrete.png",
   --icon_size = 64, icon_mipmaps = 3,
   --BI_add_icon = true,
-  icons = { 
+  icons = {
     { icon = ICONPATH .. "crushed-stone.png", icon_size = 64, icon_mipmaps = 4, scale = 1, shift = {0, 0} },
     { icon = "__base__/graphics/icons/refined-concrete.png", icon_size = 64, icon_mipmaps = 4, scale = 0.5, shift = {16, -16} },
   },
@@ -2670,7 +2682,7 @@ BI.additional_recipes.BI_Stone_Crushing.crushed_stone_refined_hazard_concrete = 
   --icon = ICONPATH .. "crushed-stone-refined-hazard-concrete.png",
   --icon_size = 64, icon_mipmaps = 3,
   --BI_add_icon = true,
-  icons = { 
+  icons = {
     { icon = ICONPATH .. "crushed-stone.png", icon_size = 64, icon_mipmaps = 4, scale = 1, shift = {0, 0} },
     { icon = "__base__/graphics/icons/refined-hazard-concrete.png", icon_size = 64, icon_mipmaps = 4, scale = 0.5, shift = {16, -16} },
   },
@@ -2700,12 +2712,14 @@ BI.additional_recipes.BI_Stone_Crushing.stone_brick = {
   --icon = ICONPATH .. "bi_stone_brick.png",
   --icon_size = 64, icon_mipmaps = 3,
   --BI_add_icon = true,
-  --icons = { 
+  --icons = {
   --  { icon = "__base__/graphics/icons/stone-brick.png", icon_size = 64, icon_mipmaps = 4, scale = 1, shift = {0, 0} },
   --  { icon = ICONPATH .. "ash.png", icon_size = 64, icon_mipmaps = 4, scale = 0.5, shift = {16, -16} },
   --  { icon = ICONPATH .. "crushed-stone.png", icon_size = 64, icon_mipmaps = 4, scale = 0.5, shift = {-16, -16} },
   --},
-  icons = BioInd.make_icons({it1 = "stone-brick", it2 = "ash", it3 = "crushed-stone", shift1_1 = 0 , shift1_2 = 0, shift2_1 = 0, shift2_2 = 0}),
+  --~ icons = BioInd.make_icons({it1 = "stone-brick", it2 = "ash", it3 = "crushed-stone", shift1_1 = 0 , shift1_2 = 0, shift2_1 = 0, shift2_2 = 0}),
+  icons = {it1 = "stone-brick", it2 = "ash", it3 = "crushed-stone", shift1_1 = 0 , shift1_2 = 0, shift2_1 = 0, shift2_2 = 0},
+  BI_add_icon = true,
   category = "chemistry",
   subgroup = "terrain",
   order = "a[stone-brick]-bi",
@@ -3488,7 +3502,7 @@ BI.additional_recipes.BI_Wood_Gasification.wood_gasification = {
   --icon = ICONPATH .. "diluted_bitumen_from_wood.png",
   --icon_size = 64, icon_mipmaps = 4,
   --BI_add_icon = true,
-  icons = { 
+  icons = {
     { icon = ICONPATH .. "fluid_diluted_bitumen.png", icon_size = 64, icon_mipmaps = 4, scale = 1, shift = {0, 0} },
     { icon = "__base__/graphics/icons/fluid/petroleum-gas.png", icon_size = 64, icon_mipmaps = 4, scale = 0.5, shift = {18, 20} },
     { icon = "__base__/graphics/icons/fluid/petroleum-gas.png", icon_size = 64, icon_mipmaps = 4, scale = 0.5, shift = {-18, 20} },
@@ -3521,7 +3535,7 @@ BI.additional_recipes.BI_Wood_Gasification.solid_fuel = {
   --icon = ICONPATH .. "solid_fuel_from_bitumen.png",
   --icon_size = 64, icon_mipmaps = 4,
   --BI_add_icon = true,
-  icons = { 
+  icons = {
     { icon = "__base__/graphics/icons/solid-fuel.png", icon_size = 64, icon_mipmaps = 4, scale = 1, shift = {0, 0} },
     { icon = ICONPATH .. "fluid_diluted_bitumen.png", icon_size = 64, icon_mipmaps = 4, scale = 0.5, shift = {-18, -16} },
   },
@@ -3531,7 +3545,6 @@ BI.additional_recipes.BI_Wood_Gasification.solid_fuel = {
   results = {
     {type="item", name="solid-fuel", amount=1},
   },
-
   crafting_machine_tint = {
     primary     = util.color("2a3035"),
     secondary   = util.color("242f37"),

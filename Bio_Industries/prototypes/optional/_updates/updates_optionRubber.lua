@@ -79,7 +79,8 @@ end
 -- Fast (red) transport belts
 recipe = recipes["fast-transport-belt"]
 if recipe then
-  thxbob.lib.recipe.add_new_ingredient(recipe.name, {item_data.name, 2})
+  amount = 2
+  thxbob.lib.recipe.add_new_ingredient(recipe.name, {item_data.name, amount})
   BioInd.modified_msg("ingredients", recipe)
 end
 

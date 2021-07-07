@@ -1,17 +1,18 @@
 {
   "name": "Bio_Industries",
-  "version": "1.1.107",
+  "version": "1.1.111",
   "factorio_version": "1.1",
   "title": "Bio Industries",
-  "author": "TheSAguy",
+  "author": "TheSAguy, Pi-C, snouz",
   "contact": "vvwmisc@hotmail.com",
   "homepage": "https://forums.factorio.com/viewtopic.php?f=93&t=17548",
-  "description": "Bio Industries offers 47 researches, 27 buildings and 17 materials. A whole tree-based production chain aimed at absorbing pollution, clean power generation and distribution buildings, wood products (chests, pipes, floor, rails...), early artillery, dart-based defense and alternative bio recipes. Compatible with most mods.",
+  "description": "Bio Industries offers 59 researches, 28 buildings and 19 materials. A whole tree-based production chain aimed at absorbing pollution, clean power generation and distribution buildings, wood products (chests, pipes, floor, rails...), early artillery, dart-based defense and alternative bio recipes. Most parts are de-activable. Compatible with most mods.",
   "dependencies": [
     "base >= 1.1.3",
     "stdlib >= 1.4.6",
-    "Bio_Industries_NE_graphics >= 1.0.2",
-    "? bzsilicon",
+    "Bio_Industries_NE_graphics >= 1.0.6",
+    "(?) 5dim_core",
+    "(?) bzsilicon",
     "(?) BioTech",
     "(?) DeadlockCrating",
     "(?) FARL",
@@ -23,6 +24,8 @@
     "(?) bobelectronics",
     "(?) bobplates",
     "(?) deadlock-beltboxes-loaders",
-    "(?) pypetroleumhandling"
+    "(?) pypetroleumhandling",
+    "(?) reskins-angels",
+    "(?) reskins-bobs"
   ]
 }

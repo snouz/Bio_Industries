@@ -815,8 +815,6 @@ end
 --------------------------------------------------------------------
 local function On_Damage(event)
   BioInd.entered_function({event})
-  local f_name = "On_Damage"
-  BioInd.writeDebug("Entered function %s(%s)", {f_name, event})
   local entity = event.entity
   local final_health = event.final_health
 
@@ -888,13 +886,12 @@ end
 -- Radar completed a sector scan
 local function On_Sector_Scanned(event)
   BioInd.entered_function({event})
-  --~ local f_name = "On_Sector_Scanned"
-  BioInd.writeDebug("Entered function %s(%s)", {f_name, event})
+
 
   ---- Each time a Arboretum-Radar scans a sector  ----
   local arboretum = global.bi_arboretum_radar_table[event.radar.unit_number]
   if arboretum then
-    BI_scripts.arboretumget_arboretum_recipe(global.bi_arboretum_table[arboretum], event)
+    BI_scripts.arboretum.get_arboretum_recipe(global.bi_arboretum_table[arboretum], event)
   end
 
   BioInd.entered_function("leave")
@@ -1188,7 +1185,6 @@ BioInd.show("remove_musk_floor_tiles", remove_musk_floor_tiles)
     solar_mat_removed({surface_index = event.surface_index, tiles = remove_musk_floor_tiles})
   end
 
-  BioInd.show("End of function", f_name)
   BioInd.entered_function("leave")
 end
 

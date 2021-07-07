@@ -2,7 +2,7 @@
 --           Trigger: Sort recipes into item-subgroups from other mods?           --
 --                       (BI.Triggers.BI_Trigger_Subgroups)                       --
 ------------------------------------------------------------------------------------
--- Mods: "5dim_core", "SchallTransportGroup"
+-- Mods: "5dim_core"
 local trigger = "BI_Trigger_Subgroups"
 if not BI.Triggers[trigger] then
   BioInd.nothing_to_do("*")
@@ -41,11 +41,9 @@ local done_list = {}
 --~ end
 
 
-
 ------------------------------------------------------------------------------------
 --                          Add our items to 5D's groups                          --
 ------------------------------------------------------------------------------------
-
 
 ------------------------------------------------------------------------------------
 -- First, we check our own items (recipes making them will inherit the item-subgroup
@@ -80,7 +78,7 @@ local function change_subgroups(items, recipes, mod_handle)
 
       -- Data for vanilla rails (possibly other entities?) are stored in our tables,
       -- but have never been created because we don't overwrite existing things. As
-      -- we want to use the stored group/order data, so we must refer to our table!
+      -- we want to use the stored group/order data, we must refer to our table!
       if item and
           (item[subgroup] or opt_item[subgroup]) and
           (item[order] or opt_item[order]) then
@@ -136,27 +134,6 @@ BioInd.writeDebug("Must add recipe %s to subgroup %s", {recipe.name, item[subgro
     end
   end
 end
-
-
---~ ------------------------------------------------------------------------------------
---~ --                         Add vanilla rails to our tables                        --
---~ ------------------------------------------------------------------------------------
---~ -- "5-DIM New Core" will place the vanilla items into its groups, overwriting any
---~ -- changes that have been made to order their order. Revert this!
-
---~ -- Recipes
---~ recipes.rail.group_5d                           = "trains",
---~ recipes.rail.subgroup_5d                        = "trains-rails",
---~ -- recipes.rail.subgroup_order_5d              = "n-a",
---~ recipes.rail.order_5d                           = "[Bio_Industries]-[rails]-b[concrete]-a[rail]",
---~ BI.additional_recipes.BI_Rails.rail_concrete = items.rail
-
---~ -- Items
---~ items.rail.group_5d                             = "trains",
---~ items.rail.subgroup_5d                          = "trains-rails",
---~ -- items.rail.subgroup_order_5d                = "n-a",
---~ items.rail.order_5d                             = "[Bio_Industries]-[rails]-b[concrete]-a[rail]",
---~ BI.additional_items.BI_Rails = recipes.rail
 
 
 ------------------------------------------------------------------------------------

@@ -191,7 +191,7 @@ function assembler2pipepicturesBioreactor()
       }
     },
     west = {
-      filename = REACTORPATH .. "pipes/bioreactor-pipe-W.png",
+      filename = REACTORPATH .. "pipes/bioreactor-pipe-w.png",
       priority = "extra-high",
       width = 19,
       height = 37,
@@ -897,7 +897,6 @@ BI.default_entities.bio_reactor = {
               shift = {0, -0.5},
             }
           },
-          
         },
       },
     },
@@ -935,8 +934,6 @@ BI.default_entities.bio_reactor = {
         },
       },
     },
-    
-    
   },
   energy_source = {
     type = "electric",

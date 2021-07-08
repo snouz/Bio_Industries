@@ -102,7 +102,7 @@ if data.raw.recipe["bi-mineralized-sulfuric-waste"] then data.raw.recipe["bi-min
 if data.raw.recipe["bi-slag-slurry"] then data.raw.recipe["bi-slag-slurry"].icons = BioInd.make_icons({it1 = "slag-slurry", sh1 = {0,8}, it2 = "water-saline", sc2 = 0.4, it3 = "stone-crushed", sc3 = 0.4}) end
 
 --bobplates
-build_icons("bob-resin-oil", {it1 = "resin", it2 = "heavy-oil"}, "bobplates"
+build_icons("bob-resin-oil", {it1 = "resin", it2 = "heavy-oil"}, "bobplates")
 build_icons("sulfur-2", {it1 = "sulfur", it2 = "sulfur-dioxide", it3 = "hydrogen"}, "bobplates")
 build_icons("sulfur-3", {it1 = "sulfur", it2 = "hydrogen-sulfide", it3 = "oxygen"}, "bobplates")
 build_icons("solid-fuel-from-hydrogen", {it1 = "solid-fuel", it2 = "coal", it3 = "hydrogen"}, "bobplates")

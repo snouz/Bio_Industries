@@ -66,6 +66,14 @@ if data.raw.recipe["bi-crushed-stone-concrete"] then data.raw.recipe["bi-crushed
 if data.raw.recipe["bi-crushed-stone-hazard-concrete"] then data.raw.recipe["bi-crushed-stone-hazard-concrete"].icons = BioInd.make_icons({it1 = "stone-crushed", it2 = "hazard-concrete"}) end
 if data.raw.recipe["bi-crushed-stone-refined-concrete"] then data.raw.recipe["bi-crushed-stone-refined-concrete"].icons = BioInd.make_icons({it1 = "stone-crushed", it2 = "refined-concrete"}) end
 if data.raw.recipe["bi-crushed-stone-refined-hazard-concrete"] then data.raw.recipe["bi-crushed-stone-refined-hazard-concrete"].icons = BioInd.make_icons({it1 = "stone-crushed", it2 = "hazard-concrete"}) end
+if mods["IndustrialRevolution"] then
+  if data.raw.recipe["bi-crushed-stone-stone"] then data.raw.recipe["bi-crushed-stone-stone"].icons = BioInd.make_icons({it1 = "gravel", it2 = "stone"}) end
+  if data.raw.recipe["bi-crushed-stone-stone-brick"] then data.raw.recipe["bi-crushed-stone-stone-brick"].icons = BioInd.make_icons({it1 = "gravel", it2 = "stone-brick"}) end
+  if data.raw.recipe["bi-crushed-stone-concrete"] then data.raw.recipe["bi-crushed-stone-concrete"].icons = BioInd.make_icons({it1 = "gravel", it2 = "concrete"}) end
+  if data.raw.recipe["bi-crushed-stone-hazard-concrete"] then data.raw.recipe["bi-crushed-stone-hazard-concrete"].icons = BioInd.make_icons({it1 = "gravel", it2 = "hazard-concrete"}) end
+  if data.raw.recipe["bi-crushed-stone-refined-concrete"] then data.raw.recipe["bi-crushed-stone-refined-concrete"].icons = BioInd.make_icons({it1 = "gravel", it2 = "refined-concrete"}) end
+  if data.raw.recipe["bi-crushed-stone-refined-hazard-concrete"] then data.raw.recipe["bi-crushed-stone-refined-hazard-concrete"].icons = BioInd.make_icons({it1 = "gravel", it2 = "hazard-concrete"}) end
+end
 if data.raw.recipe["bi-rubber"] then data.raw.recipe["bi-rubber"].icons = BioInd.make_icons({it1 = "rubber", sh1 = {0,8}}) end
 if data.raw.recipe["bi-coke-coal"] then data.raw.recipe["bi-coke-coal"].icons = BioInd.make_icons({it1 = "pellet-coke", it2 = "coal"}) end
 if data.raw.recipe["bi-pellet-coke"] then data.raw.recipe["bi-pellet-coke"].icons = BioInd.make_icons({it1 = "pellet-coke", it2 = "solid-fuel"}) end
@@ -116,6 +124,14 @@ build_icons("solid-resin", {it1 = "resin", it2 = "liquid-resin"}, "angelspetroch
 build_icons("bob-rubber", {it1 = "rubber", it2 = "resin", sh1 = {0,8}}, "angelspetrochem")
 build_icons("solid-rubber", {it1 = "rubber", it2 = "liquid-rubber", sh1 = {0,8}}, "angelspetrochem")
 
+--IndustrialRevolution
+build_icons("bi-coal-1", {it1 = "coal"}, "IndustrialRevolution")
+build_icons("bi-coal-2", {it1 = "coal", custom_topright = BioInd.iconpath .. "signal/bi_signal_plus.png"}, "IndustrialRevolution")
+build_icons("bi-wood-gasification", {it5 = "tar", it4 = "petroleum-gas", it7 = "wood"}, "IndustrialRevolution")
+
+--pycoalprocessing
+build_icons("coaldust-ash", {it1 = "ash"}, "pycoalprocessing")
+build_icons("fluegas-filtration", {it1 = "ash"}, "pycoalprocessing")
 
 --changes recipe position in menu based on installed mod
 --args ("mod that makes the change", "recipe to move", "New Subgroup", "New Order (1987)")
@@ -136,12 +152,15 @@ change_sub("boblogistics", "bi-wood-pipe-to-ground", "pipe-to-ground")
 change_sub("boblogistics", "bi-wooden-chest-large", "", "a[items]-g[bigchests]")
 change_sub("boblogistics", "bi-wooden-chest-huge", "", "a[items]-h[bigchests]")
 change_sub("boblogistics", "bi-wooden-chest-giga", "", "a[items]-i[bigchests]")
+
 change_sub("bobplates", "bob-resin-oil", "bio-bio-farm-raw", "a[bi]-a-bc[resin]")
 change_sub("bobplates", "solid-fuel-from-hydrogen", "fluid-recipes", "b[fluid-chemistry]-h[solid-fuel-from-hydrogen]")
 change_sub("bobplates", "enriched-fuel-from-liquid-fuel", "fluid-recipes", "b[fluid-chemistry]-j[enriched-fuel-from-liquid-fuel]")
 change_sub("bobplates", "sulfur-2", "raw-material", "g[sulfur]-b[bobs]-2")
 change_sub("bobplates", "sulfur-3", "raw-material", "g[sulfur]-b[bobs]-3")
+
 change_sub("bobpower", "bi-bio-boiler", "bob-energy-boiler", "b[steam-power]-a[boiler-1bio]")
+
 change_sub("bobrevamp", "solid-fuel-from-sour-gas", "fluid-recipes", "b[fluid-chemistry]-i[solid-fuel-from-sour-gas]")
 change_sub("bobrevamp", "enriched-fuel-from-hydrazine", "fluid-recipes", "b[fluid-chemistry]-k[enriched-fuel-from-hydrazine]")
 
@@ -149,13 +168,11 @@ change_sub("angelspetrochem", "bi-sulfur", "petrochem-sulfur")
 change_sub("angelspetrochem", "bi-solid-fuel", "petrochem-fuel", "f[bi-solid-fuel]")
 change_sub("angelspetrochem", "solid-fuel-from-tar", "petrochem-fuel", "g[solid-fuel-from-tar]")
 change_sub("angelspetrochem", "enriched-fuel-from-liquid-fuel", "petrochem-fuel", "h[enriched-fuel-from-liquid-fuel]")
-
-
-
 change_sub("angelspetrochem", "bi-plastic-1", "petrochem-solids", "a[plastic]-c")
 change_sub("angelspetrochem", "bi-plastic-2", "petrochem-solids", "a[plastic]-d")
 change_sub("angelspetrochem", "bi-resin-pulp", "petrochem-solids", "b[resin]-c")
 change_sub("angelspetrochem", "bi-resin-wood", "petrochem-solids", "b[resin]-d")
+
 change_sub("angelsindustries", "bi-bio-boiler", "angels-power-steam-boiler", "aaa")
 change_sub("angelsindustries", "bi-wooden-pole-big", "angels-power-poles", "a[small]-b")
 change_sub("angelsindustries", "bi-wooden-pole-huge", "angels-power-poles", "a[small]-c")
@@ -165,6 +182,7 @@ change_sub("angelsindustries", "empty-nuclear-fuel-cell", "angels-power-nuclear-
 change_sub("angelsindustries", "bi-wooden-chest-large", "angels-chests-small-a", "a[chest]-c[bi1]")
 change_sub("angelsindustries", "bi-wooden-chest-huge", "angels-chests-small-a", "a[chest]-c[bi2]")
 change_sub("angelsindustries", "bi-wooden-chest-giga", "angels-chests-small-a", "a[chest]-c[bi3]")
+
 change_sub("Krastorio2", "bi-wooden-chest-huge", "", "a[items]-db[hugechest]")
 change_sub("Krastorio2", "bi-huge-substation", "", "a[energy]-f[huge-substation]")
 change_sub("Krastorio2", "kr-grow-wood-plus", "", "ab[wood]")
@@ -176,6 +194,16 @@ change_sub("Krastorio2", "bi-dart-turret", "vanilla-turrets", "004[dart-turret]"
 change_sub("Krastorio2", "bi-bio-cannon", "vanilla-turrets", "04a[prototype-artillery]")
 change_sub("Krastorio2", "artillery-targeting-remote", "vanilla-turrets", "04b[artillery-targeting-remote]")
 
+change_sub("IndustrialRevolution", "bi-wooden-fence", "ir2-walls", "c1")
+change_sub("IndustrialRevolution", "bi-battery", "ir2-vessels", "bab")
+change_sub("IndustrialRevolution", "bi-plastic-1", "fluid-recipes", "zzza1")
+change_sub("IndustrialRevolution", "bi-plastic-2", "fluid-recipes", "zzza2")
+change_sub("IndustrialRevolution", "bi-solid-fuel", "ir2-fuels", "c1")
+change_sub("IndustrialRevolution", "solid-fuel-from-tar", "ir2-fuels", "c2")
+change_sub("IndustrialRevolution", "bi-sulfur", "fluid-recipes", "z1-la-zz")
+
+
+--change_sub("pycoalprocessing", "bi-sulfur", "fluid-recipes", "z1-la-zz")
 
 --args ("mod that disables recipe", "recipe to remove", "check that this recipe exists before removing")
 local function disable_recipe(_mod, _reciperemoved, _recipecheck)
@@ -198,13 +226,18 @@ end
 disable_recipe("bobplates", "bob-resin-wood", "bi-resin-wood")
 disable_recipe("bobplates", "bob-coal-from-wood", "bi-coal-1")
 disable_recipe("bobplates", "bi-rubber", "bob-rubber")
+
 disable_recipe("angelssmelting", "bi-stone-brick", "stone-brick")
+
 disable_recipe("angelsbioprocessing", "bi-wood-fuel-brick", "wood-bricks")
 disable_recipe("angelsbioprocessing", "bi-charcoal-1", "wood-charcoal")
 disable_recipe("angelsbioprocessing", "bi-charcoal-2", "wood-charcoal")
 disable_recipe("angelsbioprocessing", "bi-resin-pulp", "bio-resin-wood-reprocessing")
 disable_recipe("angelsbioprocessing", "bi-resin-wood", "bio-resin-wood-reprocessing")
+
 disable_recipe("Krastorio2", "bi-liquid-air", "kr-atmospheric-condenser")
+
+disable_recipe("IndustrialRevolution", "bi-production-science-pack", "production-science-pack")
 
 
 --make wood recipe from krastorio 100* slower to encorage using our more complete system

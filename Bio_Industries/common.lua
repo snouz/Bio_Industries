@@ -1482,6 +1482,22 @@ common.writeDebug("Rail %s of %s (%s): %s (%s)", {direction, base.name, base.uni
     table.insert(it, {ite = args.it5} or {})
     table.insert(it, {ite = args.it6} or {})
     table.insert(it, {ite = args.it7} or {})
+    it[1].sca = args.sc1 or 1
+    it[2].sca = args.sc2 or 1
+    it[3].sca = args.sc3 or 1
+    it[4].sca = args.sc4 or 1
+    it[5].sca = args.sc5 or 1
+    it[6].sca = args.sc6 or 1
+    it[7].sca = args.sc7 or 1
+
+    it[1].shi = args.sh1 or {0,0}
+    it[2].shi = args.sh2 or {0,0}
+    it[3].shi = args.sh3 or {0,0}
+    it[4].shi = args.sh4 or {0,0}
+    it[5].shi = args.sh5 or {0,0}
+    it[6].shi = args.sh6 or {0,0}
+    it[7].shi = args.sh7 or {0,0}
+
     table.insert(it[1], {sca = args.sc1} or {sca = 1})
     table.insert(it[2], {sca = args.sc2} or {sca = 1})
     table.insert(it[3], {sca = args.sc3} or {sca = 1})

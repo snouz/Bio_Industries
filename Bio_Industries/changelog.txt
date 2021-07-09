@@ -103,7 +103,7 @@ Date: 2021-07-?
     - Added support / icons for "Deadlock's Stacking Beltboxes & Compact Loaders" and "Deadlock's Crating Machine".
     - Added support for Brevven's "Silica & Silicon".
     - "Pyanodons Petroleum Handling" didn't reckon with changes to their recipes by other mods, so things done by BI would result in a crash for two recipes. Added patches for these recipes that should work once the dependency of "Pyanodons Coal Processing" on BI has been removed.
-    - Removed or moved some recipes around used by boblogistics, bobplates, bobpower, bobrevamp, angels refining, angels petrochem, angels industries, Krastorio 2.
+    - Removed or moved some recipes around used by boblogistics, bobplates, bobpower, bobrevamp, angels refining, angels petrochem, angels industries, Krastorio 2, Industrial Revolution 2.
     - Sometimes, we use our item icon, sometimes the mods ones, but now recipes are coherent.
     - Made Bobgreenhouse incompatible (redundant and breaks the balance of BI).
 

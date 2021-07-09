@@ -1475,43 +1475,13 @@ common.writeDebug("Rail %s of %s (%s): %s (%s)", {direction, base.name, base.uni
     common.entered_function({args})
 
     local it = {}
-    table.insert(it, {ite = args.it1} or {})
-    table.insert(it, {ite = args.it2} or {})
-    table.insert(it, {ite = args.it3} or {})
-    table.insert(it, {ite = args.it4} or {})
-    table.insert(it, {ite = args.it5} or {})
-    table.insert(it, {ite = args.it6} or {})
-    table.insert(it, {ite = args.it7} or {})
-    it[1].sca = args.sc1 or 1
-    it[2].sca = args.sc2 or 1
-    it[3].sca = args.sc3 or 1
-    it[4].sca = args.sc4 or 1
-    it[5].sca = args.sc5 or 1
-    it[6].sca = args.sc6 or 1
-    it[7].sca = args.sc7 or 1
 
-    it[1].shi = args.sh1 or {0,0}
-    it[2].shi = args.sh2 or {0,0}
-    it[3].shi = args.sh3 or {0,0}
-    it[4].shi = args.sh4 or {0,0}
-    it[5].shi = args.sh5 or {0,0}
-    it[6].shi = args.sh6 or {0,0}
-    it[7].shi = args.sh7 or {0,0}
+    for i=1,10 do
+      table.insert(it, {ite = args["it" .. i]} or {})
+      it[i].sca = args["sc" .. i] or 1
+      it[i].shi = args["sh" .. i] or {0,0}
+    end
 
-    table.insert(it[1], {sca = args.sc1} or {sca = 1})
-    table.insert(it[2], {sca = args.sc2} or {sca = 1})
-    table.insert(it[3], {sca = args.sc3} or {sca = 1})
-    table.insert(it[4], {sca = args.sc4} or {sca = 1})
-    table.insert(it[5], {sca = args.sc5} or {sca = 1})
-    table.insert(it[6], {sca = args.sc6} or {sca = 1})
-    table.insert(it[7], {sca = args.sc7} or {sca = 1})
-    table.insert(it[1], {shi = args.sh1} or {shi = {0,0}})
-    table.insert(it[2], {shi = args.sh2} or {shi = {0,0}})
-    table.insert(it[3], {shi = args.sh3} or {shi = {0,0}})
-    table.insert(it[4], {shi = args.sh4} or {shi = {0,0}})
-    table.insert(it[5], {shi = args.sh5} or {shi = {0,0}})
-    table.insert(it[6], {shi = args.sh6} or {shi = {0,0}})
-    table.insert(it[7], {shi = args.sh7} or {shi = {0,0}})
     local customicon_up = args.custom or nil
     local customicon_down = args.customunder or nil
     local custom_topright = args.custom_topright or nil
@@ -1575,7 +1545,7 @@ common.writeDebug("Rail %s of %s (%s): %s (%s)", {direction, base.name, base.uni
       end
     end
     if customicon_up then table.insert(icontable, {icon = customicon_up, icon_size = 64, mipmaps = 4, scale = 1, shift = {0,0}}) end
-    if custom_topright then table.insert(icontable, {icon = custom_topright, icon_size = 64, mipmaps = 4, scale = 0.5, shift = {16, -16}}) end
+    if custom_topright then table.insert(icontable, {icon = custom_topright, icon_size = 64, mipmaps = 4, scale = 0.4, shift = {20, -20}}) end
 
     common.entered_function("leave")
     return icontable

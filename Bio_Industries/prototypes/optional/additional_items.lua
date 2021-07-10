@@ -229,8 +229,13 @@ BI.additional_items.BI_Coal_Processing.wood_charcoal = {
   BI_add_icon = true,
   fuel_value = "6MJ",
   fuel_category = "chemical",
-  subgroup = "raw-material",
-  order = "a[bi]-a-c[charcoal]",
+  --~ subgroup = "raw-material",
+  subgroup = "raw-resource",
+  --~ subgroup = "bio-bio-farm-raw",
+  --~ order = "a[bi]-a-c[charcoal]",
+  order = "b[charcoal]",
+  -- Order for "DeadlockCrating"
+  order_crating = "b[cokery]-a[wood-charcoal]",
   --~ stack_size = 400,
   stack_size = 200,
 }
@@ -247,11 +252,21 @@ BI.additional_items.BI_Coal_Processing.pellet_coke = {
   fuel_category = "chemical",
   fuel_acceleration_multiplier = 1.2,
   fuel_top_speed_multiplier = 1.1,
-  subgroup = "raw-material",
-  order = "a[bi]-a-g[bi-coke-coal]",
+  --~ subgroup = "raw-material",
+  subgroup = "raw-resource",
+  --~ subgroup = "bio-bio-farm-raw",
+  --~ order = "a[bi]-a-g[bi-coke-coal]",
+  order = "c[coke-coal]",
+  -- Order for "DeadlockCrating"
+  order_crating = "b[cokery]-c[pellet-coke]",
   --~ stack_size = 400,
   stack_size = 200,
 }
+
+-- Coal (This won't be created, but we need it for reference)
+BI.additional_items.BI_Coal_Processing.coal = table.deepcopy(data.raw.item.coal)
+  -- Order for "DeadlockCrating"
+BI.additional_items.BI_Coal_Processing.coal.order_crating = "b[cokery]-b[coal]"
 
 
 ------------------------------------------------------------------------------------
@@ -328,8 +343,12 @@ BI.additional_items.BI_Bio_Fuel.cellulose = {
   icon = ICONPATH .. "cellulose.png",
   icon_size = 64, icon_mipmaps = 3,
   BI_add_icon = true,
-  subgroup = "intermediate-product",
-  order = "b[cellulose]",
+  --~ subgroup = "intermediate-product",
+  subgroup = BI.default_item_subgroup.bio_farm_intermediate_product.name,
+  --~ order = "b[cellulose]",
+  order = "x[bi]-a[wood-production]-[products]-c[bi-cellulose]",
+  -- Order for "DeadlockCrating"
+  order_crating = "a[wood-production]-b[products]-c[bi-cellulose]",
   stack_size = 200
 }
 
@@ -505,9 +524,12 @@ BI.additional_items.BI_Rubber.resin = {
   icon = ICONPATH .. "resin.png",
   icon_size = 64, icon_mipmaps = 3,
   BI_add_icon = true,
-  subgroup = "raw-material",
+  --~ subgroup = "raw-material",
+  subgroup = BI.default_item_subgroup.bio_farm_intermediate_product.name,
   --~ order = "a[bi]-a-b[bi-resin]",
-  order = "a[bi]-a-bb[bi-resin]",
+  order = "x[bi]-a[wood-production]-[products]-ba[resin]",
+  -- Order for "DeadlockCrating"
+  order_crating = "a[wood-production]-b[products]-ba[resin]",
   stack_size = 200
 }
 
@@ -520,9 +542,12 @@ BI.additional_items.BI_Rubber.rubber = {
   icon = ICONPATH .. "rubber.png",
   icon_size = 64, icon_mipmaps = 3,
   BI_add_icon = true,
-  subgroup = "raw-material",
-  --~ order = "a[bi]-a-b[bi-resin]",
-  order = "a[bi]-a-bb[bi-rubber]",
+  --~ subgroup = "raw-material",
+  subgroup = BI.default_item_subgroup.bio_farm_intermediate_product.name,
+  --~ order = "a[bi]-a-bb[bi-rubber]",
+  order = "x[bi]-a[wood-production]-[products]-bb[rubber]",
+  -- Order for "DeadlockCrating"
+  order_crating = "a[wood-production]-b[products]-bb[rubber]",
   stack_size = 100
 }
 
@@ -720,7 +745,8 @@ BI.additional_items.BI_Terraforming.arboretum_area = {
   icon_size = 64, icon_mipmaps = 3,
   BI_add_icon = true,
   subgroup = "bio-production-machine",
-  order = "x[bi]-a[bi-arboretum]",
+  --~ order = "x[bi]-a[bi-arboretum]",
+  order = "x[bi]-a[wood-production]-[buildings]-c[bi-arboretum]",
   place_result = "bi-arboretum-area",
   stack_size= 10,
 }
@@ -1106,8 +1132,11 @@ BI.additional_items.BI_Trigger_Crushed_Stone_Create.crushed_stone = {
     --~ --{ size = 64, filename = ICONPATHMIPS.."crush_3.png", scale = 0.2 },
     --~ --{ size = 64, filename = ICONPATHMIPS.."crush_4.png", scale = 0.2 }
   --~ --},
-  subgroup = "raw-material",
+  --~ subgroup = "raw-material",
+  subgroup = BI.default_item_subgroup.bio_farm_intermediate_product.name,
   order = "a[bi]-a-z[stone-crushed]",
+  -- Order for "DeadlockCrating"
+  order_crating = "c[stone-crushing]-[products]-a[stone-crushed]",
   stack_size = 400
 }
 BI.additional_items.BI_Trigger_Crushed_Stone_Create.crushed_stone.pictures = BioInd.add_pix("crush", 4)

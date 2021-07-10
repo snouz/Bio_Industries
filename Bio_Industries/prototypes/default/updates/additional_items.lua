@@ -40,8 +40,12 @@ BI.additional_items.ash = {
   BI_add_icon = true,
   --~ fuel_value = "1MJ",
   --~ fuel_category = "chemical",
-  subgroup = "raw-material",
-  order = "a[bi]-a-b[bi-ash]",
+  --~ subgroup = "raw-material",
+  subgroup = BI.default_item_subgroup.bio_farm_intermediate_product.name,
+  --~ order = "a[bi]-a-b[bi-ash]",
+  order = "x[bi]-a[wood-production]-[growing]-c[bi-ash]",
+  -- Order for "DeadlockCrating"
+  order_crating = "a[wood-production]-a[growing]-c[bi-ash]",
   stack_size = 400
 }
 BI.additional_items.ash.pictures = BioInd.add_pix("ash", 4)

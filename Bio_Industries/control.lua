@@ -1,11 +1,11 @@
-BioInd = require("__" .. script.mod_name .. "__.common")(script.mod_name)
+BioInd = require("__" .. script.mod_name .. "__.common-control")
 BioInd.entered_file()
 
 ------------------------------------------------------------------------------------
 --                          Require files from other mods                         --
 ------------------------------------------------------------------------------------
 -- External
-require ("util")
+--~ require ("util")
 --~ require ("libs/util_ext")
 
 if BioInd.get_startup_setting("BI_Debug_gvv") then
@@ -24,9 +24,12 @@ BI_scripts = {}
 BI_scripts.tree                 = require("scripts.control_tree")
 BI_scripts.arboretum            = require("scripts.control_arboretum")
 BI_scripts.pollution_sensor     = require("scripts.control_sensor")
+BI_scripts.poles                = require("scripts.control_poles")
 
+local init_functions            = require("scripts.init_functions")
 local settings_changed          = require("scripts.settings_changed")
-local BI_startup                = require("scripts.startup_items")
+local set_startup_items         = require("scripts.startup_items")
+
 --~ if BioInd.get_startup_setting("BI_Bio_Cannon") then
   --~ BI_scripts.bio_cannon     = require ("scripts/control_bio_cannon")
 --~ end
@@ -148,6 +151,7 @@ local function get_arboretum_recipes()
 end
 
 
+
 --------------------------------------------------------------------
 local function init()
   BioInd.entered_function()
@@ -158,7 +162,7 @@ local function init()
   ----------------------------------------------------------------------------------
   BioInd.writeDebug("Checking whether we need to change startup items.")
   if BioInd.get_startup_setting("BI_Darts") then
-    BI_startup()
+    set_startup_items()
   end
 
   -- Moved to control.lua of _debug!
@@ -177,7 +181,7 @@ local function init()
   if BioInd.get_startup_setting("BI_Game_Tweaks_Easy_Bio_Gardens") then
     BioInd.writeDebug("Making list for setting \"%s\".",
                       {"mod-setting-name.BI_Game_Tweaks_Easy_Bio_Gardens"})
-    global.mod_settings.garden_pole_connectors = BioInd.get_garden_pole_connectors()
+    global.mod_settings.garden_pole_connectors = BI_scripts.poles.get_garden_pole_connectors()
   else
     global.mod_settings.garden_pole_connectors = nil
   end
@@ -251,18 +255,18 @@ local function init()
     -- Clean up global tables (We can skip this for empty tables!)
     if next(global[compound_tab]) then
       -- Remove invalid entities
-      result = BioInd.clean_global_compounds_table(compound_name)
+      result = init_functions.clean_global_compounds_table(compound_name)
       BioInd.writeDebug("Removed %s invalid entries from global[%s]!",
                         {result, compound_tab})
       -- Restore missing hidden entities
-      result = BioInd.restore_missing_entities(compound_name)
+      result = init_functions.restore_missing_entities(compound_name)
       BioInd.writeDebug("Checked %s compound entities and restored %s missing hidden entries for global[\"%s\"]!", {result.checked, result.restored, compound_tab})
     end
   end
 
   -- Search all surfaces for unregistered compound entities
   BioInd.writeDebug("Looking for unregistered entities.")
-  result = BioInd.find_unregistered_entities()
+  result = init_functions.find_unregistered_entities()
   BioInd.writeDebug("Registered %s forgotten entities!", {result})
 
 
@@ -312,109 +316,6 @@ local function init()
   end
 
 
-  --~ ----------------------------------------------------------------------------------
-  --~ -- If "Early wooden defenses" (setting BI_Darts) is active, set the items players
-  --~ -- get on starting a new game or on respawning!
-  --~ ----------------------------------------------------------------------------------
-  --~ if BioInd.get_startup_setting("BI_Darts") then
-    --~ BioInd.change_startup_items()
-  --~ end
-  --~ if BioInd.get_startup_setting("BI_Darts") and remote.interfaces["freeplay"] then
-
-    --~ local weapons = game.get_filtered_item_prototypes({ {filter = "type", type = "gun"} })
-    --~ local ammo = game.get_filtered_item_prototypes({ {filter = "type", type = "ammo"} })
-
-    --~ local new_gun = {"bi-dart-rifle", 1}
-    --~ local new_ammo = {"bi-dart-magazine-basic", 10}
-
-    --~ local list
-
-    --~ local function replace_item(list_handle, replace_list, new_item)
-      --~ BioInd.entered_function()
---~ BioInd.show("list_handle", list_handle)
---~ BioInd.show("new_item", new_item)
-
-      --~ local new_list = {}
-      --~ local list = remote.call("freeplay", "get_" .. list_handle .. "_items")
-
-      --~ for item, amount in pairs(list or {}) do
-        --~ if (replace_list[item] and item ~= new_item[1]) then
-          --~ new_list[new_item[1]] = new_item[2]
---~ BioInd.writeDebug("Replaced %s", {item})
-        --~ else
---~ BioInd.writeDebug("Keep: %s", {item})
-          --~ new_list[item] = amount
-        --~ end
-      --~ end
---~ BioInd.writeDebug("New list for %s items: %s", {list_handle, new_list})
-      --~ remote.call("freeplay", "set_" .. list_handle .. "_items", new_list)
-      --~ BioInd.entered_function("leave")
-    --~ end
-
-    --~ local function remove_item(list_handle, remove_list, keep_list)
-      --~ BioInd.entered_function()
---~ BioInd.show("list_handle", list_handle)
---~ BioInd.show("remove_list", remove_list)
---~ BioInd.show("keep_list", keep_list)
-      --~ local new_list = {}
-      --~ local list = remote.call("freeplay", "get_" .. list_handle .. "_items")
-
-      --~ for item, amount in pairs(list or {}) do
---~ BioInd.show("item", item)
-        --~ if not remove_list[item] or keep_list[item] then
-          --~ new_list[item] = amount
-  --~ BioInd.writeDebug("Keep %s", {item})
-        --~ else
-  --~ BioInd.writeDebug("Remove %s", {item})
-        --~ end
-      --~ end
-  --~ BioInd.writeDebug("New list: %s", {new_list})
-      --~ remote.call("freeplay", "set_" .. list_handle .. "_items", new_list)
-      --~ BioInd.entered_function("leave")
-    --~ end
-
-    --~ local function add_item(list_handle, new_item)
-      --~ BioInd.entered_function()
---~ BioInd.show("list_handle", list_handle)
---~ BioInd.show("new_item", new_item)
-      --~ local new_list = {}
-      --~ local found = false
-      --~ local list = remote.call("freeplay", "get_" .. list_handle .. "_items")
-
-      --~ for item, amount in pairs(list or {}) do
-        --~ if item == new_item[1] then
-          --~ new_list[item] = (new_list[item] or amount) + new_item[2]
-          --~ found = true
---~ BioInd.writeDebug("Add %s to %s: %s", {new_item[2], new_item[1], new_list[item]})
-        --~ else
---~ BioInd.writeDebug("Keep %s", {item})
-          --~ new_list[item] = amount
-        --~ end
-      --~ end
-
-      --~ if not found then
---~ BioInd.writeDebug("Add %s to list of %s items", {new_item[1], list_handle})
-        --~ new_list[new_item[1]] = new_item[2]
-      --~ end
---~ BioInd.writeDebug("New list: %s", {new_list})
-      --~ remote.call("freeplay", "set_" .. list_handle .. "_items", new_list)
-      --~ BioInd.entered_function("leave")
-    --~ end
-
-    --~ for w, what in ipairs({"created", "respawn"}) do
-      --~ replace_item(what, weapons, new_gun)
-      --~ replace_item(what, ammo, new_ammo)
-    --~ end
-
-    --~ for w, what in ipairs({"ship", "debris"}) do
-      --~ remove_item(what, weapons, {[new_gun[1]]= true})
-      --~ remove_item(what, ammo, {[new_ammo[1]] = true})
-    --~ end
-
-    --~ add_item("debris", {"bi-dart-magazine-standard", 5})
-    --~ add_item("debris", {"bi-dart-magazine-enhanced", 2})
-    --~ add_item("ship", {"bi-dart-magazine-poison", 1})
-  --~ end
   BioInd.entered_function("leave")
 end
 
@@ -722,6 +623,7 @@ BioInd.writeDebug("Removing entry %s from table: %s", {k, v})
     end
   BioInd.entered_function("leave")
 end
+
 
 
 --------------------------------------------------------------------

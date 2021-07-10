@@ -94,6 +94,14 @@ Date: 2021-07-?
     - Removed prerequisite technology "Stone crushing 1" from "Timber". We don't use crushed stone in the recipe anymore, and this would only have worked if Stone crushing was enabled.
     - Changed ingredients/results of bi-coal-1 (old: 10 charcoal-->12 coal, new: 16 charcoal-->10 coal) and bi-coal-2 (old: 10 charcoal-->16 coal, new: 12 charcoal-->10 coal)
 
+    - Fixed that we'd add too many startup items if IR2 was active. (In vanilla, items that are placed in the "ship" and "debris" would be deducted from "created", while IR2 adds everything from "created, "ship", and "debris".)
+    - Added rubber-wood recipes (IR2). Not sure yet if we should keep the special ingredient, or add recipes for seeds/saplings as well -- that would mean to also create items, and to make rubbertrees plantable!
+    - Moved "Scattergun turret", "Weapon shooting speed 1" and "Physical projectile damage 1" behind "Bronze milestone" if IR2 is active.
+    - Improved script for Deadlock Stacking/Crating: speed gain (look for recipes making an item just once instead of multiple times), new item subgroup in the main "Bio Industries" group for crating recipes
+    - Added "order_crating" flag to item definitions.
+    - Changed subgroup of several items so that crating recipes made for items in our own group don't end up in the "Intermediates" group.
+    - Split common.lua to separate things needed only in the data/control stage. Put things that are not really shared between files in the control stage into separate files.
+
   Modding:
     - Migrated some recipes ("bi-sulfur-angels", "bi-crushed-stone-X", "bi-biomass-conversion-X", "bi-acid") and technologies ("bi-tech-bio-cannon", "bi-tech-advanced-fertilizers")
     - If your mod has items that should/shouldn't get a fuel value, you can pass on filters to BI. Please check BI's data.lua for an explanation! (There are already filters for some mods included in BI. If you're not happy with the presets for your mod, either provide a complete list with the filters you want, or overwrite the presets yourselves at runtime following the explanation in BI's data.lua!)
@@ -130,7 +138,6 @@ Date: 2021-07-?
 
     - Activate new Bio-Cannon (0.18.33 version) once "NE Enemies" is updated -- we don't want different versions of the cannon in the game!
 
-    - Make a version of the wooden rail bridge with powered rails. Make version of bridges from other mods (so far "Beautiful Bridge Railway") with powered rails.
     - Bigger trees give more wood (https://forums.factorio.com/viewtopic.php?f=16&t=95205)
     - Don't plant lying trees
 
@@ -139,12 +146,11 @@ Date: 2021-07-?
     - in data-final-fixes we need to check the values of the entities we use as ingredients and adjust the values of our super-sized entities. Can you think of anything else where that would be necessary, or is it just boiler/solar panel/accumulator? Substations?
 
     - Set pollution sensor to  entity.active/entity.operable = "false"!
-    - Use bricks+wood instead of crushed stone for bio farms!
 
     - Make prototypes.default.final_fixes.ash dependent on a trigger?
-    - Rubber wood recipes
     - Concrete/powered rail bridges
     - Power rail connectors
+    - Fix that Musk floor poles can connect to hidden Powerrail poles. (We don't raise an event when Musk floor is placed because that would fire too many events at once. So we need an extra check to see if any neighbour is a hidden rail pole!)
 
 ---------------------------------------------------------------------------------------------------
 Version: 1.1.10

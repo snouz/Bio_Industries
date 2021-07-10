@@ -23,11 +23,13 @@ local recipes = data.raw.recipe
 --~ end
 if items["ash"] then
   BioInd.nothing_to_do()
-  if mods["pycoalprocessing"] then              -- replace py's ash with ours.
-    items["ash"].icon = BioInd.iconpath .. "ash.png"
-    items["ash"].icon_size = 64
-    items["ash"].icon_mipmaps = 4
-  end
+
+  --~ -- Moved to prototypes/mod_compatibility/updates/updates_modPyanodon.lua!
+  --~ if mods["pycoalprocessing"] then              -- replace py's ash with ours.
+    --~ items["ash"].icon = BioInd.iconpath .. "ash.png"
+    --~ items["ash"].icon_size = 64
+    --~ items["ash"].icon_mipmaps = 4
+  --~ end
 else
   BioInd.create_stuff(BI.additional_items.ash)
 end

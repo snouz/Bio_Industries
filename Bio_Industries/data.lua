@@ -1,4 +1,4 @@
-BioInd = require('common')('Bio_Industries')
+BioInd = require('common-data')
 BioInd.entered_file()
 
 
@@ -395,10 +395,11 @@ require("prototypes.triggers.triggerEasyBioGardens")
 ------------------------------------------------------------------------------------
 --            Data of all additional things that depend on another mod            --
 ------------------------------------------------------------------------------------
+require("prototypes.mod_compatibility.additional_categories_item")
 require("prototypes.mod_compatibility.additional_entities")
 require("prototypes.mod_compatibility.additional_recipes")
+require("prototypes.mod_compatibility.additional_recipes_IR2")
 require("prototypes.mod_compatibility.additional_remnants")
-
 
 ------------------------------------------------------------------------------------
 --                                  Alien biomes                                  --
@@ -429,6 +430,11 @@ require("prototypes.mod_compatibility.modBioTech")
 ------------------------------------------------------------------------------------
 require("prototypes.mod_compatibility.modBobs")
 
+
+------------------------------------------------------------------------------------
+--                                Deadlock Crating                                --
+------------------------------------------------------------------------------------
+require("prototypes.mod_compatibility.modDeadlockCrating")
 
 ------------------------------------------------------------------------------------
 --                                    Dectorio                                    --

@@ -294,6 +294,7 @@ end
 function thxbob.lib.item.add_new(list, item_in) --ignores if exists
   local item = thxbob.lib.item.item(item_in)
   local addit = true
+
   for i, object in pairs(list or {}) do
     if item.name == thxbob.lib.item.basic_item(object).name then
       addit = false
@@ -301,6 +302,7 @@ function thxbob.lib.item.add_new(list, item_in) --ignores if exists
     end
   end
   if addit then
+    list = list or {}
     table.insert(list, item)
   end
 end

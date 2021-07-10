@@ -24,7 +24,8 @@ BI.default_items.bio_farm = {
   icon_size = 64,  icon_mipmaps = 3,
   BI_add_icon = true,
   subgroup = "bio-production-machine",
-  order = "x[bi]-ab[bi-bio-farm]",
+  --~ order = "x[bi]-ab[bi-bio-farm]",
+  order = "x[bi]-a[wood-production]-[buildings]-b[bi-bio-farm]",
   place_result = "bi-bio-farm",
   stack_size = 10,
 }
@@ -39,7 +40,8 @@ BI.default_items.bio_greenhouse = {
   icon_size = 64, icon_mipmaps = 3,
   BI_add_icon = true,
   subgroup = "bio-production-machine",
-  order = "x[bi]-aa[bi-bio-greenhouse]",
+  --~ order = "x[bi]-aa[bi-bio-greenhouse]",
+  order = "x[bi]-a[wood-production]-[buildings]-a[bi-bio-greenhouse]",
   place_result = "bi-bio-greenhouse",
   stack_size= 10,
 }
@@ -107,8 +109,12 @@ BI.default_items.seed = {
     --~ --  { size = 64, filename = ICONPATHMIPS.."bio_seed_4.png", scale = 0.25 }
   --~ --  },
   category = "biofarm-mod-greenhouse",
-  subgroup = "raw-material",
-  order = "a-a2[bi-seed]",
+  --~ subgroup = "raw-material",
+  subgroup = BI.default_item_subgroup.bio_farm_intermediate_product.name,
+  --~ order = "a-a2[bi-seed]",
+  order = "x[bi]-a[wood-production]-[growing]-a[bi-seed]",
+  -- Order for "DeadlockCrating"
+  order_crating = "a[wood-production]-a[growing]-a[bi-seed]",
   --fuel_value = "0.5MJ",
   --fuel_category = "chemical",
   stack_size = 800,
@@ -135,8 +141,12 @@ BI.default_items.seedling = {
     --~ --  { size = 64, filename = ICONPATHMIPS.."seedling_8.png", scale = 0.25 },
     --~ --  { size = 64, filename = ICONPATHMIPS.."seedling_9.png", scale = 0.25 }
   --~ --  },
-  subgroup = "raw-material",
-  order = "a-a2[bi-seedling]",
+  --~ subgroup = "raw-material",
+  subgroup = BI.default_item_subgroup.bio_farm_intermediate_product.name,
+  --~ order = "a-a2[bi-seedling]",
+  order = "x[bi]-a[wood-production]-[growing]-b[bi-seedling]",
+  -- Order for "DeadlockCrating"
+  order_crating = "a[wood-production]-a[growing]-b[bi-seedling]",
   place_result = "seedling",
   --fuel_value = "0.5MJ",
   --fuel_category = "chemical",
@@ -170,8 +180,12 @@ BI.default_items.woodpulp = {
   BI_add_icon = true,
   fuel_value = "1MJ",
   fuel_category = "chemical",
-  subgroup = "raw-material",
-  order = "a-b[bi-woodpulp]",
+  --~ subgroup = "raw-material",
+  subgroup = BI.default_item_subgroup.bio_farm_intermediate_product.name,
+  --~ order = "a-b[bi-woodpulp]",
+  order = "x[bi]-a[wood-production]-[products]-aa[bi-woodpulp]",
+  -- Order for "DeadlockCrating"
+  order_crating = "a[wood-production]-b[products]-aa[bi-woodpulp]",
   stack_size = 800
 }
 BI.default_items.woodpulp.pictures = BioInd.add_pix("woodpulp", 4)
@@ -183,8 +197,12 @@ BI.default_items.wood_bricks = {
   icon = ICONPATH .. "fuel_brick.png",
   icon_size = 64, icon_mipmaps = 3,
   BI_add_icon = true,
-  subgroup = "raw-material",
-  order = "a[bi]-a-d[bi-woodbrick]",
+  --~ subgroup = "raw-material",
+  subgroup = BI.default_item_subgroup.bio_farm_intermediate_product.name,
+  --~ order = "a[bi]-a-d[bi-woodbrick]",
+  order = "x[bi]-a[wood-production]-[products]-ab[wood-bricks]",
+  -- Order for "DeadlockCrating"
+  order_crating = "a[wood-production]-b[products]-ab[wood-bricks]",
   fuel_category = "chemical",
   fuel_value = "20MJ",
   stack_size = 200
@@ -199,8 +217,12 @@ BI.default_items.fertilizer = {
   icon = ICONPATH .. "fertilizer.png",
   icon_size = 64, icon_mipmaps = 3,
   BI_add_icon = true,
-  subgroup = "intermediate-product",
-  order = "b[fertilizer]",
+  --~ subgroup = "intermediate-product",
+  subgroup = "bio-bio-farm-intermediate-product",
+  --~ order = "b[fertilizer]",
+  order = "x[bi]-a[wood-production]-[growing]-d1[fertilizer]",
+  -- Order for "DeadlockCrating"
+  order_crating = "a[wood-production]-a[growing]-d1[fertilizer]",
   stack_size = 200,
   -- 0.18.31/1.1.1: Moved to data-final-fixes.lua because we changed the name
   -- from "fertiliser" to "fertilizer" and now PyAlienLife removes place_as_tile!
@@ -220,8 +242,12 @@ BI.default_items.adv_fertilizer = {
   icon = ICONPATH .. "fertilizer_advanced.png",
   icon_size = 64, icon_mipmaps = 3,
   BI_add_icon = true,
-  subgroup = "intermediate-product",
-  order = "b[fertilizer]-b[bi-adv-fertilizer]",
+  --~ subgroup = "intermediate-product",
+  subgroup = "bio-bio-farm-intermediate-product",
+  --~ order = "b[fertilizer]-b[bi-adv-fertilizer]",
+  order = "x[bi]-a[wood-production]-[growing]-d2[bi-adv-fertilizer]",
+  -- Order for "DeadlockCrating"
+  order_crating = "a[wood-production]-a[growing]-d2[bi-adv-fertilizer]",
   stack_size = 200,
   -- 0.18.31/1.1.1: Moved to data-final-fixes.lua because we changed the name
   -- from "bi-adv-fertiliser" to "bi-adv-fertilizer" and now PyAlienLife removes

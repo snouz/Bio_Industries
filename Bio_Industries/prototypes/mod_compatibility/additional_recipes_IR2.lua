@@ -1,409 +1,164 @@
+------------------------------------------------------------------------------------
+--             Data for rubberwood production (Industrial Revolution)             --
+------------------------------------------------------------------------------------
+local mod_name = "IndustrialRevolution"
+if not BioInd.check_mods(mod_name) then
+  BioInd.nothing_to_do("*")
+  return
+else
+  BioInd.entered_file()
+end
 
 
 ------------------------------------------------------------------------------------
---                               Bio farming recipes                              --
 ------------------------------------------------------------------------------------
--- Seeds from water
-BI.default_recipes.seed_1 = {
-  type = "recipe",
-  name = "bi-seed-1",
-  --~ localised_name = {"recipe-name.bi-seed-1"},
-  localised_name = {"recipe-name.bi-seed"},
-  localised_description = {"recipe-description.bi-seed", {"fluid-name.water"}},
-  icon = ICONPATH .. "tree_seed.png",
-  icon_size = 64, icon_mipmaps = 3,
-  BI_add_icon = true,
-  category = "biofarm-mod-greenhouse",
-  energy_required = 200,
-  ingredients = {
-    {type = "fluid", name = "water", amount = 100},
-    {type = "item", name = "wood", amount = 20},
-  },
-  results = {
-    {type = "item", name = "bi-seed", amount = 40},
-  },
-  enabled = false,
-  --~ show_amount_in_title = false,
-  show_amount_in_title = true,
-  always_show_made_in = true,
-  allow_decomposition = false,
-  subgroup = "bio-bio-farm-fluid-1",
-  order = "a[bi]-ssw-a1[bi-seed-1]",
-  -- This is a custom property for use by "Krastorio 2" (it will change
-  -- ingredients/results; used for wood/wood pulp)
-  mod = "Bio_Industries",
-  -- Custom property that allows to automatically add our recipes to tech unlocks.
-  BI_add_to_tech = {"bi-tech-bio-farming-1"},
-}
-
--- Seeds from water & ash
-BI.default_recipes.seed_2 = {
-  type = "recipe",
-  name = "bi-seed-2",
-  --~ localised_name = {"recipe-name.bi-seed-2"},
-  localised_name = {"recipe-name.bi-seed-using", {"item-name.bi-ash"}},
-  icon = ICONPATH .. "tree_seed_ash.png",
-  icon_size = 64, icon_mipmaps = 3,
-  BI_add_icon = true,
-  category = "biofarm-mod-greenhouse",
-  energy_required = 150,
-  ingredients = {
-    {type = "fluid", name = "water", amount = 40},
-    {type = "item", name = "wood", amount = 20},
-    {type = "item", name = "bi-ash", amount = 10},
-  },
-  results = {
-    {type = "item", name = "bi-seed", amount = 50},
-  },
-  --~ show_amount_in_title = false,
-  show_amount_in_title = true,
-  enabled = false,
-  always_show_made_in = true,
-  allow_decomposition = false,
-  subgroup = "bio-bio-farm-fluid-1",
-  order = "a[bi]-ssw-a1[bi-seed-2]",
-  -- This is a custom property for use by "Krastorio 2" (it will change
-  -- ingredients/results; used for wood/wood pulp)
-  mod = "Bio_Industries",
-  -- Custom property that allows to automatically add our recipes to tech unlocks.
-  BI_add_to_tech = {"bi-tech-bio-farming-2"},
-  allow_as_intermediate = false,
-}
-
--- Seeds from water & fertilizer
-BI.default_recipes.seed_3 = {
-  type = "recipe",
-  name = "bi-seed-3",
-  --~ localised_name = {"recipe-name.bi-seed-3"},
-  localised_name = {"recipe-name.bi-seed-using", {"item-name.fertilizer"}},
-  icon = ICONPATH .. "tree_seed_fert1.png",
-  icon_size = 64, icon_mipmaps = 3,
-  BI_add_icon = true,
-  category = "biofarm-mod-greenhouse",
-  energy_required = 100,
-  ingredients = {
-    {type = "fluid", name = "water", amount = 40},
-    {type = "item", name = "wood", amount = 20},
-    {type = "item", name = "fertilizer", amount = 10},
-  },
-  results = {
-    {type = "item", name = "bi-seed", amount = 60},
-  },
-  --~ show_amount_in_title = false,
-  show_amount_in_title = true,
-  enabled = false,
-  always_show_made_in = true,
-  allow_decomposition = false,
-  subgroup = "bio-bio-farm-fluid-1",
-  order = "a[bi]-ssw-a1[bi-seed-3]",
-  -- This is a custom property for use by "Krastorio 2" (it will change
-  -- ingredients/results; used for wood/wood pulp)
-  mod = "Bio_Industries",
-  -- Custom property that allows to automatically add our recipes to tech unlocks.
-  BI_add_to_tech = {"bi-tech-bio-farming-3"},
-  allow_as_intermediate = false,
-  crafting_machine_tint = {
-    primary = { r = 0.43, g = 0.73, b = 0.37, a = 0.60},
-    secondary = { r = 0, g = 0, b = 0, a = 0},
-    tertiary = {r = 0, g = 0, b = 0, a = 0},
-    quaternary = {r = 0, g = 0, b = 0, a = 0}
-  },
-}
-
--- Seeds from water & advanced fertilizer
-BI.default_recipes.seed_4 = {
-  type = "recipe",
-  name = "bi-seed-4",
-  --~ localised_name = {"recipe-name.bi-seed-4"},
-  localised_name = {"recipe-name.bi-seed-using", {"item-name.bi-adv-fertilizer"}},
-  icon = ICONPATH .. "tree_seed_fert2.png",
-  icon_size = 64, icon_mipmaps = 3,
-  BI_add_icon = true,
-  category = "biofarm-mod-greenhouse",
-  energy_required = 50,
-  ingredients = {
-    {type = "item", name = "wood", amount = 20},
-    {type = "item", name = "bi-adv-fertilizer", amount = 10},
-    {type = "fluid", name = "water", amount = 40},
-  },
-  results = {
-    {type = "item", name = "bi-seed", amount = 80},
-  },
-  --~ show_amount_in_title = false,
-  show_amount_in_title = true,
-  enabled = false,
-  always_show_made_in = true,
-  allow_decomposition = false,
-  subgroup = "bio-bio-farm-fluid-1",
-  order = "a[bi]-ssw-a1[bi-seed-4]",
-  -- This is a custom property for use by "Krastorio 2" (it will change
-  -- ingredients/results; used for wood/wood pulp)
-  mod = "Bio_Industries",
-  -- Custom property that allows to automatically add our recipes to tech unlocks.
-  BI_add_to_tech = {"bi-tech-bio-farming-4"},
-  allow_as_intermediate = false,
-  crafting_machine_tint = {
-    primary = { r = 0.73, g = 0.37, b = 0.52, a = 0.60},
-    secondary = {r = 0, g = 0, b = 0, a = 0},
-    tertiary = {r = 0, g = 0, b = 0, a = 0},
-    quaternary = {r = 0, g = 0, b = 0, a = 0}
-  },
-}
 
 
--- Seedlings from water
-BI.default_recipes.seedling_1 = {
-  type = "recipe",
-  name = "bi-seedling-1",
-  --~ localised_name = {"recipe-name.bi-seedling-1"},
-  localised_name = {"recipe-name.bi-seedling"},
-  localised_description = {"recipe-description.bi-seedling", {"fluid-name.water"}},
-  icon = ICONPATH .. "seedling.png",
-  icon_size = 64, icon_mipmaps = 3,
-  BI_add_icon = true,
-  category = "biofarm-mod-greenhouse",
-  energy_required = 400,
-  ingredients = {
-    {type = "item", name = "bi-seed", amount = 20},
-    {type = "fluid", name = "water", amount = 100},
-  },
-  results = {
-    {type = "item", name = "seedling", amount = 40},
-  },
-  enabled = false,
-  --~ show_amount_in_title = false,
-  show_amount_in_title = true,
-  always_show_made_in = true,
-  allow_decomposition = true,
-  subgroup = "bio-bio-farm-fluid-1",
-  order = "b[bi]-ssw-b1[bi-Seedling-1]",
-  -- This is a custom property for use by "Krastorio 2" (it will change
-  -- ingredients/results; used for wood/wood pulp)
-  mod = "Bio_Industries",
-  -- Custom property that allows to automatically add our recipes to tech unlocks.
-  BI_add_to_tech = {"bi-tech-bio-farming-1"},
+BI.additional_recipes = BI.additional_recipes or {}
+BI.additional_recipes.mod_compatibility = BI.additional_recipes.mod_compatibility or {}
+
+
+-- Recipe names
+local rubber                    = "rubberwood"
+local seed, r_seed              = "bi-seed", "bi-" .. rubber .. "-seed"
+local seedling, r_seedling      = "bi-seedling", "bi-" .. rubber .. "-seedling"
+local logs, r_logs              = "bi-logs", "bi-" .. rubber .. "-logs"
+
+-- Items
+local wood, r_wood              = "wood", "rubber-wood"
+local pulp, r_pulp              = "bi-woodpulp", "wood-chips"
+
+local old_tab, new_tab
+local old_key, new_key
+
+local item, amount, loc_name, changed
+
+local replace_map = {
+  --~ [seed]    = r_seed,
+  --~ [seedling]        = r_seedling,
+  [logs]        = r_logs,
+
+  [wood]        = r_wood,
+  [pulp]        = r_pulp,
 }
 
--- Seedlings from water & ash
-BI.default_recipes.seedling_2 = {
-  type = "recipe",
-  name = "bi-seedling-2",
-  --~ localised_name = {"recipe-name.bi-seedling-2"},
-  localised_name = {"recipe-name.bi-seedling-using", {"item-name.bi-ash"}},
-  icon = ICONPATH .. "seedling_ash.png",
-  icon_size = 64, icon_mipmaps = 3,
-  BI_add_icon = true,
-  category = "biofarm-mod-greenhouse",
-  energy_required = 300,
-  ingredients = {
-    {type = "item", name = "bi-seed", amount = 25},
-    {type = "item", name = "bi-ash", amount = 10},
-    {type = "fluid", name = "water", amount = 100},
-  },
-  results = {
-    {type = "item", name = "seedling", amount = 60},
-  },
-  --~ show_amount_in_title = false,
-  show_amount_in_title = true,
-  enabled = false,
-  always_show_made_in = true,
-  allow_decomposition = false,
-  subgroup = "bio-bio-farm-fluid-1",
-  order = "b[bi]-ssw-b1[bi-Seedling-2]",
-  -- This is a custom property for use by "Krastorio 2" (it will change
-  -- ingredients/results; used for wood/wood pulp)
-  mod = "Bio_Industries",
-  -- Custom property that allows to automatically add our recipes to tech unlocks.
-  BI_add_to_tech = {"bi-tech-bio-farming-2"},
-  allow_as_intermediate = false,
-}
+local create = {}
 
--- Seedlings from water & fertilizer
-BI.default_recipes.seedling_3 = {
-  type = "recipe",
-  name = "bi-seedling-3",
-  --~ localised_name = {"recipe-name.bi-seedling-3"},
-  localised_name = {"recipe-name.bi-seedling-using", {"item-name.fertilizer"}},
-  icon = ICONPATH .. "seedling_fert1.png",
-  icon_size = 64, icon_mipmaps = 3,
-  BI_add_icon = true,
-  category = "biofarm-mod-greenhouse",
-  energy_required = 200,
-  ingredients = {
-    {type = "item", name = "bi-seed", amount = 30},
-    {type = "item", name = "fertilizer", amount = 10},
-    {type = "fluid", name = "water", amount = 100},
-  },
-  results = {
-    {type = "item", name = "seedling", amount = 90},
-  },
-  --~ show_amount_in_title = false,
-  show_amount_in_title = true,
-  enabled = false,
-  always_show_made_in = true,
-  subgroup = "bio-bio-farm-fluid-1",
-  order = "b[bi]-ssw-b1[bi-Seedling-3]",
-  -- This is a custom property for use by "Krastorio 2" (it will change
-  -- ingredients/results; used for wood/wood pulp)
-  mod = "Bio_Industries",
-  -- Custom property that allows to automatically add our recipes to tech unlocks.
-  BI_add_to_tech = {"bi-tech-bio-farming-3"},
-  allow_as_intermediate = false,
-  crafting_machine_tint = {
-    primary = {r = 0.43, g = 0.73, b = 0.37, a = 0.60},
-    secondary = {r = 0, g = 0, b = 0, a = 0},
-    tertiary = {r = 0, g = 0, b = 0, a = 0},
-    quaternary = {r = 0, g = 0, b = 0, a = 0}
-  },
-}
+local function get_key_names(name, i)
+  local old = string.format("%s_%s", name, i)
+  local new = old:gsub("^", rubber .. "_")
+BioInd.show("old", old)
+BioInd.show("new", new)
+  return old, new
+end
 
--- Seedlings from water & advanced fertilizer
-BI.default_recipes.seedling_4 = {
-  type = "recipe",
-  name = "bi-seedling-4",
-  --~ localised_name = {"recipe-name.bi-seedling-4"},
-  localised_name = {"recipe-name.bi-seedling-using", {"item-name.bi-adv-fertilizer"}},
-  icon = ICONPATH .. "seedling_fert2.png",
-  icon_size = 64, icon_mipmaps = 3,
-  BI_add_icon = true,
-  category = "biofarm-mod-greenhouse",
-  energy_required = 100,
-  ingredients = {
-    {type = "item", name = "bi-seed", amount = 40},
-    {type = "fluid", name = "water", amount = 100},
-    {type = "item", name = "bi-adv-fertilizer", amount = 10},
-  },
-  results = {
-    {type = "item", name = "seedling", amount = 160},
-  },
-  --~ show_amount_in_title = false,
-  show_amount_in_title = true,
-  enabled = false,
-  always_show_made_in = true,
-  allow_decomposition = false,
-  subgroup = "bio-bio-farm-fluid-1",
-  order = "b[bi]-ssw-b1[bi-Seedling-4]",
-  -- This is a custom property for use by "Krastorio 2" (it will change
-  -- ingredients/results; used for wood/wood pulp)
-  mod = "Bio_Industries",
-  -- Custom property that allows to automatically add our recipes to tech unlocks.
-  BI_add_to_tech = {"bi-tech-bio-farming-4"},
-  allow_as_intermediate = false,
-  crafting_machine_tint = {
-    primary = {r = 0.73, g = 0.37, b = 0.52, a = 0.60},
-    secondary = {r = 0 , g = 0, b = 0, a = 0},
-    tertiary = {r = 0, g = 0, b = 0, a = 0},
-    quaternary = {r = 0, g = 0, b = 0, a = 0}
-  },
-}
 
---- Raw wood from water & ash
-BI.default_recipes.logs_2 = {
-  type = "recipe",
-  name = "bi-logs-2",
-  localised_name = {"recipe-name.bi-logs-using", {"item-name.bi-ash"}},
-  icon = ICONPATH .. "wood_woodpulp_ash.png",
-  icon_size = 64, icon_mipmaps = 3,
-  BI_add_icon = true,
-  category = "biofarm-mod-farm",
-  enabled = false,
-  always_show_made_in = true,
-  allow_decomposition = false,
-  energy_required = 360,
-  ingredients = {
-    {type = "item", name = "seedling", amount = 30},
-    {type = "item", name = "bi-ash", amount = 10},
-    {type = "fluid", name = "water", amount = 100},
-  },
-  results = {
-    {type = "item", name = "wood", amount = 75},
-    {type = "item", name = "bi-woodpulp", amount = 150},
-  },
-  main_product = "",
-  subgroup = "bio-bio-farm-fluid-3",
-  order = "c[bi]-ssw-c1[raw-wood2]",
-  -- This is a custom property for use by "Krastorio 2" (it will change
-  -- ingredients/results; used for wood/wood pulp)
-  mod = "Bio_Industries",
-  -- Custom property that allows to automatically add our recipes to tech unlocks.
-  BI_add_to_tech = {"bi-tech-bio-farming-2"},
-  allow_as_intermediate = false,
-}
+local function replace_string(old, pattern, new)
+  return old:gsub(pattern:gsub("%-", "%%-"), new)
+end
 
---- Raw wood from water & fertilizer
-BI.default_recipes.logs_3 = {
-  type = "recipe",
-  name = "bi-logs-3",
-  localised_name = {"recipe-name.bi-logs-using", {"item-name.fertilizer"}},
-  icon = ICONPATH .. "wood_woodpulp_fert1.png",
-  icon_size = 64, icon_mipmaps = 3,
-  BI_add_icon = true,
-  category = "biofarm-mod-farm",
-  enabled = false,
-  always_show_made_in = true,
-  allow_decomposition = false,
-  energy_required = 300,
-  ingredients = {
-    {type = "item", name = "seedling", amount = 45},
-    {type = "item", name = "fertilizer", amount = 10},
-    {type = "fluid", name = "water", amount = 100},
-  },
-  results = {
-    {type = "item", name = "wood", amount = 135},
-    {type = "item", name = "bi-woodpulp", amount = 270},
-  },
-  main_product = "",
-  subgroup = "bio-bio-farm-fluid-3",
-  order = "c[bi]-ssw-c1[raw-wood3]",
-  -- This is a custom property for use by "Krastorio 2" (it will change
-  -- ingredients/results; used for wood/wood pulp)
-  mod = "Bio_Industries",
-  -- Custom property that allows to automatically add our recipes to tech unlocks.
-  BI_add_to_tech = {"bi-tech-bio-farming-3"},
-  allow_as_intermediate = false,
-  crafting_machine_tint = {
-    primary = {r = 0.43, g = 0.73, b = 0.37, a = 0.60},
-    secondary = {r = 0, g = 0, b = 0, a = 0},
-    tertiary = {r = 0, g = 0, b = 0, a = 0},
-    quaternary = {r = 0, g = 0, b = 0, a = 0}
-  },
-}
+------------------------------------------------------------------------------------
+--                             Initialize new recipes                             --
+------------------------------------------------------------------------------------
 
---- Raw wood from advanced fertilizer
-BI.default_recipes.logs_4 = {
-  type = "recipe",
-  name = "bi-logs-4",
-  localised_name = {"recipe-name.bi-logs-using", {"item-name.bi-adv-fertilizer"}},
-  icon = ICONPATH .. "wood_woodpulp_fert2.png",
-  icon_size = 64, icon_mipmaps = 3,
-  BI_add_icon = true,
-  category = "biofarm-mod-farm",
-  enabled = false,
-  always_show_made_in = true,
-  allow_decomposition = false,
-  energy_required = 100,
-  ingredients = {
-    {type = "item", name = "seedling", amount = 40},
-    {type = "fluid", name = "water", amount = 100},
-    {type = "item", name = "bi-adv-fertilizer", amount = 5},
-  },
-  results = {
-    {type = "item", name = "wood", amount = 160},
-    {type = "item", name = "bi-woodpulp", amount = 320},
-  },
-  main_product = "",
-  subgroup = "bio-bio-farm-fluid-3",
-  order = "c[bi]-ssw-c1[raw-wood4]",
-  -- This is a custom property for use by "Krastorio 2" (it will change
-  -- ingredients/results; used for wood/wood pulp)
-  mod = "Bio_Industries",
-  -- Custom property that allows to automatically add our recipes to tech unlocks.
-  BI_add_to_tech = {"bi-tech-bio-farming-4"},
-  allow_as_intermediate = false,
-  crafting_machine_tint = {
-    primary = {r = 0.73, g = 0.37, b = 0.52, a = 0.60},
-    secondary = {r = 0, g = 0, b = 0, a = 0},
-    tertiary = {r = 0, g =0 , b = 0, a = 0},
-    quaternary = {r = 0, g = 0, b = 0, a = 0}
-  },
-}
+old_tab                         = BI.default_recipes
+new_tab                         = BI.additional_recipes.mod_compatibility
+
+for i = 1, 4 do
+
+  -- BI.default_recipes.seed_x
+  --~ old_key, new_key = get_key_names("seed", i)
+  --~ new_tab[new_key] = table.deepcopy(old_tab[old_key])
+  --~ new_tab[new_key].name = string.format("%s-%s", r_seed, i)
+  --~ new_tab[new_key].localised_name[1] = replace_string(new_tab[new_key].localised_name[1], seed, r_seed)
+  --~ if new_tab[new_key].localised_description then
+    --~ new_tab[new_key].localised_description[1] =
+      --~ replace_string(new_tab[new_key].localised_description[1], seed, r_seed)
+  --~ end
+  --~ create[new_key] = new_tab[new_key]
+  --~ BioInd.modified_msg("", new_tab[new_key], "Initialized")
+
+  -- BI.default_recipes.seedling_x
+  --~ old_key, new_key = get_key_names("seedling", i)
+  --~ new_tab[new_key] = table.deepcopy(old_tab[old_key])
+  --~ new_tab[new_key].name = string.format("%s-%s", r_seedling, i)
+  --~ new_tab[new_key].localised_name[1] = replace_string(new_tab[new_key].localised_name[1],
+                                                      --~ seedling, r_seedling)
+  --~ if new_tab[new_key].localised_description then
+    --~ new_tab[new_key].localised_description[1] =
+      --~ replace_string(new_tab[new_key].localised_description[1], seedling, r_seedling)
+  --~ end
+  --~ create[new_key] = new_tab[new_key]
+  --~ BioInd.modified_msg("", new_tab[new_key], "Initialized")
+
+  --~ BI.default_recipes.logs_x
+  old_key, new_key = get_key_names("logs", i)
+  new_tab[new_key] = table.deepcopy(old_tab[old_key])
+  new_tab[new_key].name = string.format("%s-%s", r_logs, i)
+  new_tab[new_key].localised_name[1] = replace_string(new_tab[new_key].localised_name[1], logs, r_logs)
+  if new_tab[new_key].localised_description then
+    new_tab[new_key].localised_description[1] =
+      replace_string(new_tab[new_key].localised_description[1], logs, r_logs)
+  end
+  -- Really! Somebody must have created Rubber trees by putting rubber into trees! :-D
+  table.insert(new_tab[new_key].ingredients, {
+    type = "item",
+    name = "rubber",
+    amount = 20
+  })
+  create[new_key] = new_tab[new_key]
+  BioInd.modified_msg("", new_tab[new_key], "Initialized")
+end
+
+
+------------------------------------------------------------------------------------
+--                               Adjust new recipes                               --
+------------------------------------------------------------------------------------
+for name, recipe in pairs(create) do
+
+  -- Change order
+  recipe.order = string.format("%s-[%s]", recipe.order, rubber)
+  BioInd.modified_msg("order", recipe)
+
+  -- Remove flag for "Krastorio"
+  recipe.mod = nil
+  BioInd.modified_msg("flag for \"Krastorio\"", recipe, "Removed")
+
+  -- Replace items in ingredients
+  changed = false
+  for i, ingredient in pairs(recipe.ingredients) do
+    item = ingredient.name or ingredient[1]
+    amount = ingredient.amount or ingredient[2]
+
+    if replace_map[item] then
+      recipe.ingredients[i] = {type = "item", name = replace_map[item], amount = amount}
+      changed = true
+    end
+  end
+  if changed then
+    BioInd.modified_msg("ingredients", recipe)
+  end
+
+  -- Replace items in results
+  for r, result in pairs(recipe.results) do
+    item = result.name or result[1]
+    amount = result.amount or result[2]
+
+    if replace_map[item] then
+      recipe.results[r] = {type = "item", name = replace_map[item], amount = amount * 0.75}
+      changed = true
+    end
+  end
+  if changed then
+    BioInd.modified_msg("results", recipe)
+  end
+
+end
+
+BioInd.create_stuff(create)
+
+
+------------------------------------------------------------------------------------
+--                                    END OF FILE                                 --
+------------------------------------------------------------------------------------
+BioInd.entered_file("leave")

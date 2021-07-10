@@ -8,6 +8,7 @@ BioInd.entered_file()
 ----------------------------------------------------------------------------------
 --                               Auxiliary functions                            --
 ----------------------------------------------------------------------------------
+-- Remove items from a dictionary (the format used by the get/set functions)
 local function remove_items(items, remove_lists)
   --~ BioInd.entered_function({items, remove_lists})
   BioInd.entered_function()
@@ -25,7 +26,8 @@ local function remove_items(items, remove_lists)
   return items
 end
 
-
+-- Add items to a dictionary (the format used by the get/set functions).
+-- If the dictionary already contains the item, increase its amount!
 local function add_items(items, new_items)
   --~ BioInd.entered_function({items, new_items})
   BioInd.entered_function()
@@ -44,7 +46,41 @@ local function add_items(items, new_items)
   return items
 end
 
+-- Add new items to a dictionary (the format used by the get/set functions).
+-- Only add items that are not yet in the dictionary!
+local function add_new_items(items, new_items)
+  BioInd.entered_function({items, new_items})
+  for l, list in pairs(new_items or {}) do
 
+    -- Item
+    if list.name and list.amount then
+      items[list.name] = items[list.name] or list.amount
+    -- Arrays of items
+    else
+      items = add_new_items(items, list)
+    end
+  end
+
+  BioInd.entered_function("leave")
+  return items
+end
+
+
+-- Combine two raw lists
+local function combine_raw_lists(list_a, list_b)
+  BioInd.entered_function({list_a, list_b})
+
+  local ret = {}
+  for name, amount in pairs(add_items({}, {list_a, list_b})) do
+    ret[#ret + 1] = {name = name, amount = amount}
+  end
+
+  BioInd.entered_function("leave")
+  return ret
+end
+
+
+-- Get the startup items from the scenario
 local function get_items(what)
   BioInd.entered_function({what})
 BioInd.show("remote.interfaces[\"ir2-world\"]", remote.interfaces["ir2-world"])
@@ -53,7 +89,7 @@ BioInd.show("remote.interfaces[\"ir2-world\"]", remote.interfaces["ir2-world"])
     (remote.interfaces["freeplay"] and remote.call("freeplay", "get_" .. what .. "_items"))
 end
 
-
+-- Set new startup items for the scenario
 local function set_items(items, what)
   BioInd.entered_function({items, what})
 BioInd.show("remote.interfaces[\"ir2-world\"]", remote.interfaces["ir2-world"])
@@ -137,8 +173,15 @@ BioInd.writeDebug("Read data -- checking for remote interfaces now!")
     BioInd.writeDebug("Found remote interfaces of IR2.")
 
     items = remove_items(get_items(), {remove_guns, remove_ammo})
+    -- IR2 doesn't support respawn items
     new_ammo.respawn = nil
-    set_items(add_items(items, {new_gun, new_ammo}))
+    -- Always add items for "created"
+    items = add_items(items, {new_gun, new_ammo.created})
+    -- IR2 lumps items for "created"/"ship"/"debris" together, so we only want to
+    -- add items from "ship"/"debris" that are not in "created" (add_new_items).
+    -- However, we must first merge the "ship" and "debris" lists because they may
+    -- contain identical items which are not in "created" (combine_raw_lists)!
+    set_items(add_new_items(items, {combine_raw_lists(new_ammo.ship, new_ammo.debris)}))
 
   -- Vanilla game
   elseif remote.interfaces["freeplay"] then

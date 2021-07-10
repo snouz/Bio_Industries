@@ -44,7 +44,7 @@ BioInd.writeDebug("item: %s", {item}, "line")
                                       data.raw[item.type][item.name].icon then
               object.icon = data.raw[item.type][item.name].icon
               object.icon_size = data.raw[item.type][item.name].icon_size
-            --~ end
+
             -- Make sure objects also have an icons definition
             elseif not object.icons and data.raw[item.type][item.name] and
                                           data.raw[item.type][item.name].icons and

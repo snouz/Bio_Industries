@@ -47,6 +47,19 @@ if gun then
     BioInd.modified_msg("enabled", recipe)
     recipe.BI_add_to_tech = {"ir2-scattergun-turret"}
   end
+
+  -- Change prerequisites of some techs                       --
+  local prerequisite_map = {
+    ["ir2-scattergun-turret"]           = "ir2-bronze-milestone",
+    ["weapon-shooting-speed-1"]         = "ir2-bronze-milestone",
+    ["physical-projectile-damage-1"]    = "ir2-bronze-milestone",
+
+  }
+  for tech, prerequisite in pairs(prerequisite_map) do
+    thxbob.lib.tech.add_prerequisite(tech, prerequisite)
+    BioInd.modified_msg("prerequisites", data.raw.technology[tech])
+  end
+
 end
 
 

@@ -103,6 +103,16 @@ elseif BI.Settings["BI_Coal_Processing"] then
 end
 
 
+------------------------------------------------------------------------------------
+--                                Replace ash icon                                --
+------------------------------------------------------------------------------------
+if mods["pycoalprocessing"] then
+  items["ash"].icon = BioInd.iconpath .. "ash.png"
+  items["ash"].icon_size = 64
+  items["ash"].icon_mipmaps = 4
+end
+
+
 --[[
 ------------------------------------------------------------------------------------
 --                       Replace icons in different recipes                       --
@@ -170,7 +180,7 @@ if mods[mod_name] then
         thxbob.lib.result_check(recipe.expensive)
         normalize_results(recipe.expensive.results)
       end
-      log(string.format("Changed format of results for recipe  \"%s\".", r_name))
+      BioInd.modified_msg("format of results", recipe)
     end
   end
 end

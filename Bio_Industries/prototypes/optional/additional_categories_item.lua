@@ -1,5 +1,5 @@
 ------------------------------------------------------------------------------------
---                Data for ammo-categories that depend on settings.               --
+--                Data for item-categories that depend on settings.               --
 ------------------------------------------------------------------------------------
 BioInd.entered_file()
 

@@ -101,6 +101,16 @@ Date: 2021-07-?
     - Added "order_crating" flag to item definitions.
     - Changed subgroup of several items so that crating recipes made for items in our own group don't end up in the "Intermediates" group.
     - Split common.lua to separate things needed only in the data/control stage. Put things that are not really shared between files in the control stage into separate files.
+    - Fixed that hidden poles of Musk floor could connect to hidden poles of Powered rails.
+    - Completely reworked the script for pollution detectors.
+    - Removed dependency on Sdtlib.
+    - Fixed that Terraformer item couldn't be used to ghost a terraformer (the item places  the overlay, ghosts could be made from built entities, though).
+    - Made setting for pollution sensors. (They shouldn't be tied to another setting, e.g. Bio Gardens, but they should be optional.)
+    - Added support for "Picker Dollies". Compound entities will be moved completely now. Caveat: Connections of electric poles will be broken if the entities they are connected to are farther away than the pole's max_wire_distance/max_circuit_wire_distance after moving. (Requested feature from Nexela to prevent moving the base entity if hidden components would end up too far away.)
+    - Added optional dependency on IR2 to prevent technology dependency cycles.
+    - Made sure that the properties of huge entities (accumulator, solar farm etc.) are in sync with the amount of the normal entities they are made of.
+    - Fixed a dependency circle when all of Angel's mods were used.
+
 
   Modding:
     - Migrated some recipes ("bi-sulfur-angels", "bi-crushed-stone-X", "bi-biomass-conversion-X", "bi-acid") and technologies ("bi-tech-bio-cannon", "bi-tech-advanced-fertilizers")
@@ -108,7 +118,7 @@ Date: 2021-07-?
 
   Compatibility:
     - Recipe icons are now dynamic based on other mods icons, no need for custom icons.
-    - Added support / icons for "Deadlock's Stacking Beltboxes & Compact Loaders" and "Deadlock's Crating Machine".
+    - Added support/icons for "Deadlock's Stacking Beltboxes & Compact Loaders" and "Deadlock's Crating Machine".
     - Added support for Brevven's "Silica & Silicon".
     - "Pyanodons Petroleum Handling" didn't reckon with changes to their recipes by other mods, so things done by BI would result in a crash for two recipes. Added patches for these recipes that should work once the dependency of "Pyanodons Coal Processing" on BI has been removed.
     - Removed or moved some recipes around used by boblogistics, bobplates, bobpower, bobrevamp, angels refining, angels petrochem, angels industries, Krastorio 2, Industrial Revolution 2.
@@ -130,6 +140,9 @@ Date: 2021-07-?
     - Fixed visual zone for Huge wooden poles
     - Fixed that powered rails and the rail-to-power connectors could not be unlocked if IR2 was active.
 
+  Credit:
+    - The pollution sensor has been inspired by Schorty's "Pollution detector" mod (https://mods.factorio.com/mod/pollution-detector), but has been coded from scratch using a completely different approach (getting pollution per chunk, not per sensor).
+
 
   TODO:
     - Add an alternative way to produce plastic without fluids. (https://mods.factorio.com/mod/Bio_Industries/discussion/5e3f5fadc359e6000d54cfb2)
@@ -145,12 +158,9 @@ Date: 2021-07-?
 
     - in data-final-fixes we need to check the values of the entities we use as ingredients and adjust the values of our super-sized entities. Can you think of anything else where that would be necessary, or is it just boiler/solar panel/accumulator? Substations?
 
-    - Set pollution sensor to  entity.active/entity.operable = "false"!
-
     - Make prototypes.default.final_fixes.ash dependent on a trigger?
     - Concrete/powered rail bridges
     - Power rail connectors
-    - Fix that Musk floor poles can connect to hidden Powerrail poles. (We don't raise an event when Musk floor is placed because that would fire too many events at once. So we need an extra check to see if any neighbour is a hidden rail pole!)
 
 ---------------------------------------------------------------------------------------------------
 Version: 1.1.10

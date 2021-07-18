@@ -1,4 +1,5 @@
-local BioInd = require('__Bio_Industries__/common')('Bio_Industries')
+BioInd.entered_file()
+
 ------------------------------------------------------------------------------------
 -- For some reason, the recipe for bi-biomass-2 was more advanced than the recipe
 -- for bi-biomass-3. This worked because we changed their order whereever they've
@@ -42,4 +43,8 @@ for s, surface in pairs(game.surfaces) do
 
 end
 
-BioInd.writeDebug("End of migration script 0.18.27+0.17.58")
+
+------------------------------------------------------------------------------------
+--                                    END OF FILE                                 --
+------------------------------------------------------------------------------------
+BioInd.entered_file("leave")

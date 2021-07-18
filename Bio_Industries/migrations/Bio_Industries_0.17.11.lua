@@ -1,7 +1,4 @@
-local BioInd = require('__Bio_Industries__/common')('Bio_Industries')
-
---~ game.reload_script()
-
+BioInd.entered_file()
 
 for index, force in pairs(game.forces) do
   local technologies = force.technologies
@@ -20,3 +17,9 @@ for index, force in pairs(game.forces) do
   force.reset_recipes()
   force.reset_technologies()
 end
+
+
+------------------------------------------------------------------------------------
+--                                    END OF FILE                                 --
+------------------------------------------------------------------------------------
+BioInd.entered_file("leave")

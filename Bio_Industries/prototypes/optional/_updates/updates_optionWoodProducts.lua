@@ -245,7 +245,7 @@ BioInd.modified_msg("graphics", upipes["bi-wood-pipe-to-ground"])
 ------------------------------------------------------------------------------------
 item = BI.additional_items.BI_Rubber.resin
 if not items[item.name] then
-  recipe = recipes[BI.additional_recipes.BI_Wood_Products.wooden_chest_large.name]
+  recipe = recipes[BI.additional_recipes.BI_Wood_Products.large_wooden_chest.name]
   thxbob.lib.recipe.remove_ingredient(recipe.name, item.name)
   BioInd.modified_msg("ingredient " .. item.name, recipe, "Removed")
 end

@@ -1,16 +1,20 @@
 ------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
 --                 Handling of compound entities on loading a game                --
+------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------
 BioInd.entered_file()
 
-init_functions = {}
+local init_functions = {}
+
 
 ------------------------------------------------------------------------------------
 --                  Remove all parts of invalid compound entities                 --
 ------------------------------------------------------------------------------------
 init_functions.clean_global_compounds_table = function(entity_name)
   BioInd.entered_function()
-BioInd.writeDebug("Entries in BioInd.compound_entities[%s]: %s", {entity_name, table_size(global.compound_entities[entity_name])})
+BioInd.writeDebug("Entries in BioInd.compound_entities[%s]: %s",
+                  {entity_name, table_size(global.compound_entities[entity_name])})
 
   local entity_table = global.compound_entities[entity_name]
 BioInd.show("entity_table", entity_table and entity_table.tab)
@@ -86,7 +90,6 @@ end
 ------------------------------------------------------------------------------------
 --    Function to find all unregistered compound entities of a particular type    --
 ------------------------------------------------------------------------------------
-
 local register_in_compound_entity_tab = function(compound_name)
   BioInd.entered_function()
 
@@ -172,6 +175,69 @@ init_functions.find_unregistered_entities = function()
   return cnt
 end
 
+
+------------------------------------------------------------------------------------
+--                     Find all unregistered compound entities                    --
+------------------------------------------------------------------------------------
+init_functions.check_compound_entity_tabs = function()
+  BioInd.entered_function()
+  -- Check what global tables we need for compound entities
+  BioInd.writeDebug("Get list of tables for compound entities we need to check.")
+  local compound_entity_tables = {}
+  for compound, compound_data in pairs(global.compound_entities) do
+    -- BioInd.compound_entities contains entries that point to the same table
+    -- (e.g. straight/curved rails, or overlay entities), so we just overwrite
+    -- them to remove duplicates
+    compound_entity_tables[compound_data.tab] = compound
+  end
+  BioInd.show("Must check these tables in global", compound_entity_tables)
+
+  -- Prepare global tables storing data of compound entities
+  BioInd.writeDebug("Setting up tables for compound entities.")
+  local result
+  for compound_tab, compound_name in pairs(compound_entity_tables) do
+    -- Init table
+    global[compound_tab] = global[compound_tab] or {}
+    BioInd.writeDebug("Initialized global[%s] (%s entities stored)",
+                      {compound_name, table_size(global[compound_tab])})
+    -- If this compound entity requires additional tables in global, initialize
+    -- them now!
+    local related_tables = global.compound_entities[compound_name].add_global_tables
+    if related_tables then
+      for t, tab in ipairs(related_tables or {}) do
+        global[tab] = global[tab] or {}
+        BioInd.writeDebug("Initialized global[%s] (%s values)", {tab, table_size(global[tab])})
+      end
+    end
+    -- If this compound entity requires additional values in global, initialize
+    -- them now!
+    local related_vars = global.compound_entities[compound_name].add_global_values
+    if related_vars then
+      for var_name, value in pairs(related_vars or {}) do
+        global[var_name] = global[var_name] or value
+        BioInd.writeDebug("Set global[%s] to %s", {var_name, global[var_name]})
+      end
+    end
+
+    -- Clean up global tables (We can skip this for empty tables!)
+    if next(global[compound_tab]) then
+      -- Remove invalid entities
+      result = init_functions.clean_global_compounds_table(compound_name)
+      BioInd.writeDebug("Removed %s invalid entries from global[%s]!",
+                        {result, compound_tab})
+      -- Restore missing hidden entities
+      result = init_functions.restore_missing_entities(compound_name)
+      BioInd.writeDebug("Checked %s compound entities and restored %s missing hidden entries for global[\"%s\"]!", {result.checked, result.restored, compound_tab})
+    end
+  end
+
+  -- Search all surfaces for unregistered compound entities
+  BioInd.writeDebug("Looking for unregistered entities.")
+  result = init_functions.find_unregistered_entities()
+  BioInd.writeDebug("Registered %s forgotten entities!", {result})
+
+  BioInd.entered_function("leave")
+end
 
 
 ------------------------------------------------------------------------------------

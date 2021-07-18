@@ -113,6 +113,7 @@ end
 BI.additional_entities[setting].solar_farm = {
   type = "solar-panel",
   name = "bi-bio-solar-farm",
+  localised_description = {"entity-description.bi-bio-solar-farm", 60},
   icon = ICONPATH .. "entity/solar-panel-large.png",
   icon_size = 64, icon_mipmaps = 3,
   BI_add_icon = true,
@@ -177,9 +178,10 @@ BI.additional_entities[setting].solar_farm = {
 
 
 -- Huge accumulator
-BI.additional_entities[setting].large_accumulator = {
+BI.additional_entities[setting].huge_accumulator = {
   type = "accumulator",
   name = "bi-bio-accumulator",
+  localised_description = {"entity-description.bi-bio-accumulator", 60},
   icon = ICONPATH .. "entity/accumulator_large.png",
   icon_size = 64, icon_mipmaps = 3,
   BI_add_icon = true,
@@ -773,8 +775,6 @@ BI.additional_entities[setting].solar_boiler = {
 ------------------------------------------------------------------------------------
 for e, e_data in pairs(BI.additional_entities[setting] or {}) do
   -- Entity
-  --~ data:extend({e_data})
-  --~ BioInd.created_msg(e_data)
   BioInd.create_stuff(e_data)
 
   -- Remnants, if they exist

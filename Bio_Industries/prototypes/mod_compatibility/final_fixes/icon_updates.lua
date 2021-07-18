@@ -35,6 +35,61 @@ local function build_icons(_recipe, _icons, _mod)
   end
 end
 
+local stcrorgravel = mods["IndustrialRevolution"] and "gravel" or "stone-crushed"
+
+--~ local mod_recipe_map = {
+  --~ ["Bio_Industries"] = {
+--~ build_icons("bi-seed-1", {it1 = "seed"})
+--~ build_icons("bi-seed-2", {it1 = "seed", it2 = "ash"})
+--~ build_icons("bi-seed-3", {it1 = "seed", custom_topright = BioInd.iconpath .. "signal/bi_signal_fert.png"})
+--~ build_icons("bi-seed-4", {it1 = "seed", custom_topright = BioInd.iconpath .. "signal/bi_signal_adv_fert.png"})
+--~ build_icons("bi-seedling-1", {it1 = "seedling"})
+--~ build_icons("bi-seedling-2", {it1 = "seedling", it2 = "ash"})
+--~ build_icons("bi-seedling-3", {it1 = "seedling", custom_topright = BioInd.iconpath .. "signal/bi_signal_fert.png"})
+--~ build_icons("bi-seedling-4", {it1 = "seedling", custom_topright = BioInd.iconpath .. "signal/bi_signal_adv_fert.png"})
+--~ build_icons("bi-logs-1", {it4 = "woodpulp", it5 = "wood"})
+--~ build_icons("bi-logs-2", {it4 = "woodpulp", it5 = "wood", it7 = "ash"})
+--~ build_icons("bi-logs-3", {it4 = "woodpulp", it5 = "wood", custom_topright = BioInd.iconpath .. "signal/bi_signal_fert.png"})
+--~ build_icons("bi-logs-4", {it4 = "woodpulp", it5 = "wood", custom_topright = BioInd.iconpath .. "signal/bi_signal_adv_fert.png"})
+--~ build_icons("bi-ash-1", {it1 = "ash", it2 = "woodpulp"})
+--~ build_icons("bi-ash-2", {it1 = "ash", it2 = "wood"})
+--~ build_icons("bi-biomass-1", {it1 = "bi-biomass" })
+--~ build_icons("bi-biomass-2", {it1 = "bi-biomass", custom = BioInd.iconpath .. "signal/bi_signal_reprocess.png" })
+--~ build_icons("bi-biomass-3", {it1 = "bi-biomass", custom = BioInd.iconpath .. "signal/bi_signal_reprocess.png", it2 = "ash" })
+--~ build_icons("bi-wood-fuel-brick", {it1 = "wood-bricks"})
+--~ build_icons("bi-rubber", {it1 = "rubber", sh1 = {0,8}})
+--~ build_icons("bi-coke-coal", {it1 = "pellet-coke", it2 = "coal"})
+--~ build_icons("bi-pellet-coke", {it1 = "pellet-coke", it2 = "solid-fuel"})
+--~ build_icons("cellulose_1", {it1 = "cellulose"})
+--~ build_icons("cellulose_2", {it1 = "cellulose", it2 = "steam"})
+--~ build_icons("bi-wood-gasification", {it5 = "tar", it4 = "petroleum-gas", sc4 = 0.8})
+--~ build_icons("bi-biomass-conversion-crude-oil", {it1 = "crude-oil", it3 = "bi-biomass", sc3 = 1.2})
+--~ build_icons("bi-biomass-conversion-petroleum", {it1 = "petroleum-gas", it3 = "bi-biomass", sc3 = 1.2})
+--~ build_icons("bi-biomass-conversion-lubricant", {it1 = "lubricant", it3 = "bi-biomass", sc3 = 1.2})
+--~ build_icons("bi-biomass-conversion-sulfuric-acid", {it1 = "sulfuric-acid", it3 = "bi-biomass", sc3 = 1.2})
+--~ build_icons("bi-biomass-conversion-light-oil", {it1 = "light-oil", it3 = "bi-biomass", sc3 = 1.2})
+--~ build_icons("bi-charcoal-1", {it1 = "wood-charcoal", it2 = "woodpulp"})
+--~ build_icons("bi-charcoal-2", {it1 = "wood-charcoal", it2 = "wood"})
+--~ build_icons("bi-woodpulp", {it1 = "woodpulp"})
+--~ build_icons("bi-fertilizer-1", {it1 = "fertilizer" })
+--~ build_icons("bi-crushed-stone-stone", {it1 = stcrorgravel, it2 = "stone"})
+--~ build_icons("bi-crushed-stone-stone-brick", {it1 = stcrorgravel, it2 = "stone-brick"})
+--~ build_icons("bi-crushed-stone-concrete", {it1 = stcrorgravel, it2 = "concrete"})
+--~ build_icons("bi-crushed-stone-hazard-concrete", {it1 = stcrorgravel, it2 = "hazard-concrete"})
+--~ build_icons("bi-crushed-stone-refined-concrete", {it1 = stcrorgravel, it2 = "refined-concrete"})
+--~ build_icons("bi-crushed-stone-refined-hazard-concrete", {it1 = stcrorgravel, it2 = "hazard-concrete"})
+
+--~ build_icons("bi-stone-brick", {it1 = "stone-brick", it2 = "ash", it3 = "stone-crushed"})
+--~ build_icons("bi-sulfur", {it1 = "sulfur", it2 = "ash", it3 = "sulfuric-acid"})
+--~ build_icons("bi-basic-gas-processing", {it4 = "ash", it5 = "petroleum-gas", sh4 = {0,-16}, sh5 = {0,16} })
+--~ build_icons("bi-plastic-1", {it1 = "plastic-bar", it2 = "light-oil", it3 = "woodpulp"})
+--~ build_icons("bi-plastic-2", {it1 = "plastic-bar", it2 = "cellulose", it3 = "petroleum-gas"})
+--~ build_icons("solid-fuel-from-tar", {it1 = "solid-fuel", it3 = "tar"})
+--~ build_icons("bi-solid-fuel", {it1 = "solid-fuel", it3 = "wood-bricks"})
+--~ build_icons("bi-battery", {it1 = "battery", it3 = "bi-biomass"})
+
+  --~ },
+--~ }
 
 build_icons("bi-seed-1", {it1 = "seed"})
 build_icons("bi-seed-2", {it1 = "seed", it2 = "ash"})
@@ -69,6 +124,7 @@ build_icons("bi-charcoal-1", {it1 = "wood-charcoal", it2 = "woodpulp"})
 build_icons("bi-charcoal-2", {it1 = "wood-charcoal", it2 = "wood"})
 build_icons("bi-woodpulp", {it1 = "woodpulp"})
 build_icons("bi-fertilizer-1", {it1 = "fertilizer" })
+
 local stcrorgravel = mods["IndustrialRevolution"] and "gravel" or "stone-crushed"
 build_icons("bi-crushed-stone-stone", {it1 = stcrorgravel, it2 = "stone"})
 build_icons("bi-crushed-stone-stone-brick", {it1 = stcrorgravel, it2 = "stone-brick"})
@@ -90,7 +146,8 @@ build_icons("bi-battery", {it1 = "battery", it3 = "bi-biomass"})
 build_icons("bi-press-wood", {it1 = "wooden-board", it2 = "woodpulp", it3 = "resin"})
 if data.raw.recipe["bi-sand"] then
   build_icons("bi-sand", {it1 = "sand", it2 = "stone-crushed"})
-  build_icons("bi-sand", {it1 = "solid-sand", it2 = "stone-crushed"}, "angelsrefining")
+  --~ build_icons("bi-sand", {it1 = "solid-sand", it2 = "stone-crushed"}, "angelsrefining")
+  build_icons("bi-sand", {it1 = "solid-sand", it2 = "stone-crushed"}, "angelssmelting")
 end
 if data.raw.recipe["bi-pellet-coke-2"] then build_icons("bi-pellet-coke-2", {it1 = "pellet-coke", it2 = data.raw.recipe["bi-pellet-coke-2"].ingredients[1].name}) end
 if data.raw.recipe["bi-fertilizer-2"] then build_icons("bi-fertilizer-2", {it1 = "fertilizer", it2 = data.raw.recipe["bi-fertilizer-2"].ingredients[2].name }) end
@@ -133,6 +190,8 @@ build_icons("bi-wood-gasification", {it5 = "tar", it4 = "petroleum-gas", it7 = "
 build_icons("coaldust-ash", {it1 = "ash"}, "pycoalprocessing")
 build_icons("fluegas-filtration", {it1 = "ash"}, "pycoalprocessing")
 
+
+--~ -- Moved to group_updates.lua!
 --changes recipe position in menu based on installed mod
 --args ("mod that makes the change", "recipe to move", "New Subgroup", "New Order (1987)")
 local function change_sub(_mod, _recipe, _subgroup, _order)
@@ -173,7 +232,8 @@ change_sub("angelspetrochem", "bi-plastic-2", "petrochem-solids", "a[plastic]-d"
 change_sub("angelspetrochem", "bi-resin-pulp", "petrochem-solids", "b[resin]-c")
 change_sub("angelspetrochem", "bi-resin-wood", "petrochem-solids", "b[resin]-d")
 
-change_sub("angelsindustries", "bi-bio-boiler", "angels-power-steam-boiler", "aaa")
+--~ -- change_sub("angelsindustries", "bi-bio-boiler", "angels-power-steam-boiler", "aaa")
+change_sub("angelsindustries", "bi-bio-boiler", "angels-power-steam", "aaa")
 change_sub("angelsindustries", "bi-wooden-pole-big", "angels-power-poles", "a[small]-b")
 change_sub("angelsindustries", "bi-wooden-pole-huge", "angels-power-poles", "a[small]-c")
 change_sub("angelsindustries", "bi-battery", "angels-batteries", "aa")
@@ -182,6 +242,11 @@ change_sub("angelsindustries", "empty-nuclear-fuel-cell", "angels-power-nuclear-
 change_sub("angelsindustries", "bi-wooden-chest-large", "angels-chests-small-a", "a[chest]-c[bi1]")
 change_sub("angelsindustries", "bi-wooden-chest-huge", "angels-chests-small-a", "a[chest]-c[bi2]")
 change_sub("angelsindustries", "bi-wooden-chest-giga", "angels-chests-small-a", "a[chest]-c[bi3]")
+
+-- change_sub("angelsexploration", BI.additional_recipes.BI_Darts.dart_rifle, "angels-chests-small-a", "a[chest]-c[bi3]")
+
+
+
 
 change_sub("Krastorio2", "bi-wooden-chest-huge", "", "a[items]-db[hugechest]")
 change_sub("Krastorio2", "bi-huge-substation", "", "a[energy]-f[huge-substation]")
@@ -202,27 +267,30 @@ change_sub("IndustrialRevolution", "bi-solid-fuel", "ir2-fuels", "c1")
 change_sub("IndustrialRevolution", "solid-fuel-from-tar", "ir2-fuels", "c2")
 change_sub("IndustrialRevolution", "bi-sulfur", "fluid-recipes", "z1-la-zz")
 
---args ("mod that disables recipe", "recipe to remove", "check that this recipe exists before removing")
+
+--~ ------------------------------------------------------------------------------------
+--~ --                              Disable/hide recipes                              --
+--~ ------------------------------------------------------------------------------------
+--~ --args ("mod that disables recipe", "recipe to remove", "check that this recipe exists before removing")
 local function disable_recipe(_mod, _reciperemoved, _recipecheck)
-  _reciperemoved = data.raw.recipe[_reciperemoved] or nil
+  _reciperemoved = recipes[_reciperemoved]
   if _recipecheck then
-    _recipecheck = data.raw.recipe[_recipecheck] or nil
+    _recipecheck = recipes[_recipecheck]
   else
+      -- This doesn't make sense unless you check for _recipecheck ~= "nocheck" later on!
     _recipecheck = "nocheck"
   end
   if _reciperemoved and _recipecheck then
-    --~ _reciperemoved.enabled = false
-    --~ _reciperemoved.hidden = true
-    --~ if _reciperemoved.normal then
-      --~ _reciperemoved.normal.enabled = false
-      --~ _reciperemoved.normal.hidden = true
-    --~ end
-    --~ if _reciperemoved.expensive then
-      --~ _reciperemoved.expensive.enabled = false
-      --~ _reciperemoved.expensive.hidden = true
-    --~ end
-    thxbob.lib.recipe.set_enabled(_reciperemoved, false)
-    thxbob.lib.recipe.set_hidden(_reciperemoved, true)
+    _reciperemoved.enabled = false
+    _reciperemoved.hidden = true
+    if _reciperemoved.normal then
+      _reciperemoved.normal.enabled = false
+      _reciperemoved.normal.hidden = true
+    end
+    if _reciperemoved.expensive then
+      _reciperemoved.expensive.enabled = false
+      _reciperemoved.expensive.hidden = true
+    end
   end
 end
 
@@ -240,10 +308,51 @@ disable_recipe("angelsbioprocessing", "bi-resin-wood", "bio-resin-wood-reprocess
 
 disable_recipe("Krastorio2", "bi-liquid-air", "kr-atmospheric-condenser")
 
+--~ -- This can be removed, the setting is off when IR2 is active!
 disable_recipe("IndustrialRevolution", "bi-production-science-pack", "production-science-pack")
 
 
+local mod_hide_recipe_map = {
+  -- Check mods[mod_name] once for all recipes!
+  ["bobplates"] = {
+    ["bob-resin-wood"] = "bi-resin-wood",
+    ["bob-coal-from-wood"] = "bi-coal-1",
+    ["bi-rubber"] = "bob-rubber",
+  },
+  ["angelssmelting"] = {
+    ["bi-stone-brick"] = "stone-brick",
+  },
+  ["angelsbioprocessing"] = {
+    ["bi-wood-fuel-brick"] = "wood-bricks",
+    ["bi-charcoal-1"] =  "wood-charcoal",
+    ["bi-charcoal-2"] = "wood-charcoal",
+    ["bi-resin-pulp"] =  "bio-resin-wood-reprocessing",
+    ["bi-resin-wood"] = "bio-resin-wood-reprocessing",
+  },
+  ["Krastorio2"] = {
+    ["bi-liquid-air"] = "kr-atmospheric-condenser",
+  },
+  -- Obsolete, I turned off the setting if IR2 is active!
+  --~ ["IndustrialRevolution"] = {
+    --~ ["bi-production-science-pack"], "production-science-pack"}
+  --~ },
+}
+for mod_name, mod_data in pairs(mod_hide_recipe_map) do
+  if mods[mod_name] then
+    for remove_recipe, check_recipe in pairs(mod_data) do
+      if recipes[remove_recipe] and recipes[check_recipe] then
+        -- Finally, a usecase for my auto-generated functions!
+        thxbob.lib.recipe.set_enabled(remove_recipe, false)
+        thxbob.lib.recipe.set_hidden(remove_recipe, true)
+      end
+    end
+  end
+end
 
+
+
+
+-- This belongs into mod_compatibility.final_fixes.fixes_modKrastorio2!
 --make wood recipe from krastorio 100* slower to encorage using our more complete system
 if mods["Krastorio2"] then
   if recipes["kr-grow-wood-plus"] then

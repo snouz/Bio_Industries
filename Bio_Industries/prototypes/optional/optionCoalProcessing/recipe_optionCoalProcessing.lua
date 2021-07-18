@@ -18,14 +18,8 @@ end
 ------------------------------------------------------------------------------------
 --                                 Create recipes                                 --
 ------------------------------------------------------------------------------------
-for r, r_data in pairs(BI.additional_recipes[setting] or {}) do
-  BioInd.show(r_data.name, r_data)
-end
 BioInd.create_stuff(BI.additional_recipes[setting])
 
-for r, r_data in pairs(BI.additional_recipes[setting] or {}) do
-  BioInd.show(r_data.name, r_data)
-end
 
 ------------------------------------------------------------------------------------
 --                                    END OF FILE                                 --

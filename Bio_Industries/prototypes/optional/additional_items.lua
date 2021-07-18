@@ -13,6 +13,7 @@ local settings = {
   "BI_Explosive_Planting",
   "BI_Rails",
   "BI_Rubber",
+  "BI_Pollution_Detector",
   "BI_Power_Production",
   "BI_Stone_Crushing",
   "BI_Terraforming",
@@ -73,7 +74,7 @@ BI.additional_items.Bio_Cannon.bio_cannon_ammo_proto = {
   icon_size = 64, icon_mipmaps = 3,
   BI_add_icon = true,
   ammo_type = {
-    category = "Bio_Cannon_Ammo",
+    category = BI.additional_categories.Bio_Cannon.cannon_ammo.name,
     target_type = "direction",
     action = {
       {
@@ -110,7 +111,7 @@ BI.additional_items.Bio_Cannon.bio_cannon_ammo_basic = {
   icon_size = 64, icon_mipmaps = 3,
   BI_add_icon = true,
   ammo_type = {
-    category = "Bio_Cannon_Ammo",
+    category = BI.additional_categories.Bio_Cannon.cannon_ammo.name,
     target_type = "direction",
     action = {
       {
@@ -149,7 +150,7 @@ BI.additional_items.Bio_Cannon.bio_cannon_ammo_poison = {
   icon_size = 64, icon_mipmaps = 3,
   BI_add_icon = true,
   ammo_type = {
-    category = "Bio_Cannon_Ammo",
+    category = BI.additional_categories.Bio_Cannon.cannon_ammo.name,
     target_type = "direction",
     action = {
       {
@@ -364,7 +365,7 @@ BI.additional_items.BI_Bio_Garden.bio_garden = {
   icon = ICONPATH .. "entity/garden_3x3.png",
   icon_size = 64, icon_mipmaps = 3,
   BI_add_icon = true,
-  subgroup = "bio-production-machine",
+  subgroup = BI.default_item_subgroup.biofarm.name,
   order = "x[bi]-b[bi-bio-garden1]",
   place_result = "bi-bio-garden",
   stack_size = 10
@@ -377,7 +378,7 @@ BI.additional_items.BI_Bio_Garden.bio_garden_large = {
   icon = ICONPATH .. "entity/garden_9x9.png",
   icon_size = 64, icon_mipmaps = 3,
   BI_add_icon = true,
-  subgroup = "bio-production-machine",
+  subgroup = BI.default_item_subgroup.biofarm.name,
   order = "x[bi]-b[bi-bio-garden2]",
   place_result = "bi-bio-garden-large",
   stack_size = 10
@@ -390,7 +391,7 @@ BI.additional_items.BI_Bio_Garden.bio_garden_huge = {
   icon = ICONPATH .. "entity/garden_27x27.png",
   icon_size = 64, icon_mipmaps = 3,
   BI_add_icon = true,
-  subgroup = "bio-production-machine",
+  subgroup = BI.default_item_subgroup.biofarm.name,
   order = "x[bi]-b[bi-bio-garden3]",
   place_result = "bi-bio-garden-huge",
   stack_size = 10
@@ -585,7 +586,7 @@ BI.additional_items.BI_Power_Production.solar_farm = {
   type = "item",
   name = "bi-bio-solar-farm",
   localised_name = {"entity-name.bi-bio-solar-farm"},
-  localised_description = {"entity-description.bi-bio-solar-farm"},
+  --~ localised_description = {"entity-description.bi-bio-solar-farm"},
   icon = ICONPATH .. "entity/solar-panel-large.png",
   icon_size = 64, icon_mipmaps = 3,
   BI_add_icon = true,
@@ -631,7 +632,7 @@ BI.additional_items.BI_Power_Production.huge_accumulator = {
   type = "item",
   name = "bi-bio-accumulator",
   localised_name = {"entity-name.bi-bio-accumulator"},
-  localised_description = {"entity-description.bi-bio-accumulator"},
+  --~ localised_description = {"entity-description.bi-bio-accumulator"},
   icon = ICONPATH .. "entity/accumulator_large.png",
   icon_size = 64, icon_mipmaps = 3,
   BI_add_icon = true,
@@ -652,7 +653,7 @@ BI.additional_items.BI_Power_Production.huge_substation = {
   type = "item",
   name = "bi-huge-substation",
   localised_name = {"entity-name.bi-huge-substation"},
-  localised_description = {"entity-description.bi-huge-substation"},
+  --~ localised_description = {"entity-description.bi-huge-substation"},
   icon = ICONPATH .. "entity/substation_large.png",
   icon_size = 64, icon_mipmaps = 3,
   BI_add_icon = true,
@@ -673,7 +674,7 @@ BI.additional_items.BI_Power_Production.solar_boiler = {
   type = "item",
   name = "bi-solar-boiler",
   localised_name = {"entity-name.bi-solar-boiler"},
-  localised_description = {"entity-description.bi-solar-boiler"},
+  --~ localised_description = {"entity-description.bi-solar-boiler"},
   icon = ICONPATH .. "entity/solar-boiler.png",
   icon_size = 64, icon_mipmaps = 3,
   BI_add_icon = true,
@@ -703,7 +704,7 @@ BI.additional_items.BI_Stone_Crushing.stone_crusher = {
   icon = ICONPATH .. "entity/stone_crusher.png",
   icon_size = 64, icon_mipmaps = 3,
   BI_add_icon = true,
-  subgroup = "bio-production-machine",
+  subgroup = BI.default_item_subgroup.biofarm.name,
   order = "x[bi]-c[bi-stone-crusher]",
   place_result = "bi-stone-crusher",
   stack_size = 10
@@ -744,7 +745,7 @@ BI.additional_items.BI_Terraforming.arboretum_area = {
   icon = ICONPATH .. "entity/terraformer.png",
   icon_size = 64, icon_mipmaps = 3,
   BI_add_icon = true,
-  subgroup = "bio-production-machine",
+  subgroup = BI.default_item_subgroup.biofarm.name,
   --~ order = "x[bi]-a[bi-arboretum]",
   order = "x[bi]-a[wood-production]-[buildings]-c[bi-arboretum]",
   place_result = "bi-arboretum-area",
@@ -1105,6 +1106,31 @@ BI.additional_items.BI_Rails.rail_concrete.group_5d = "trains"
 BI.additional_items.BI_Rails.rail_concrete.subgroup_5d = "trains-rails"
 -- BI.additional_items.BI_Rails.rail_concrete.subgroup_order_5d = "n-a"
 BI.additional_items.BI_Rails.rail_concrete.order_5d = "[Bio_Industries]-[rails]-b[concrete]-a[rail]"
+
+
+------------------------------------------------------------------------------------
+--                          Enable: BI_Pollution_Detector                         --
+--                       (BI.Settings.BI_Pollution_Detector)                      --
+------------------------------------------------------------------------------------
+-- Pollution sensor
+BI.additional_items.BI_Pollution_Detector.pollution_sensor = {
+  type = "item",
+  name = "bi-pollution-sensor",
+  icon = ICONPATH .. "entity/pollution_sensor.png",
+  icon_size = 64, icon_mipmaps = 3,
+  BI_add_icon = true,
+  subgroup = "circuit-network",
+  order = "c[combinators]-cb[pollution-detector]",
+  place_result = "bi-pollution-sensor",
+  stack_size = 50,
+  -- Group/subgroup if "5Dim's mod - New Core" is used
+  group_5d = "logistic",
+  subgroup_5d = "logistic-comb",
+--  subgroup_order_5d = "n-a",
+  order_5d = "d-[Bio_Industries]-[combinators]-[bi-pollution-sensor]",
+}
+
+
 
 
 ------------------------------------------------------------------------------------

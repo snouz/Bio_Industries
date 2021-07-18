@@ -63,6 +63,8 @@ require("prototypes.default.updates.productivity")
 
 
 
+
+
 ------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------
 --                    OPTIONAL -- THINGS DEPENDENT ON A SETTING                   --
@@ -143,6 +145,7 @@ require("prototypes.triggers._updates.updates_triggerRubberWoodgas")
 require("prototypes.triggers._updates.updates_triggerStoneCrushingReplace")
 require("prototypes.triggers._updates.updates_triggerSubgroups")
 require("prototypes.triggers._updates.updates_triggerWoodfloor")
+require("prototypes.triggers.triggerSand")
 
 
 --~ ------------------------------------------------------------------------------------
@@ -240,6 +243,11 @@ require("prototypes.mod_compatibility.updates.updates_modBZSilicon")
 ------------------------------------------------------------------------------------
 require("prototypes.mod_compatibility.updates.updates_modSimpleSilicon")
 
+
+------------------------------------------------------------------------------------
+--     Yuoki Industries: Allow our stone-crushing recipes in Yuoki's crushers     --
+------------------------------------------------------------------------------------
+require("prototypes.mod_compatibility.updates.updates_modYuokiIndustries")
 
 
 ------------------------------------------------------------------------------------

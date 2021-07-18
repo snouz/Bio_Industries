@@ -72,6 +72,7 @@ BioInd.writeDebug("Removed %g tree prototypes. Number of trees to ignore now: %g
 ------------------------------------------------------------------------------------
 require("prototypes.optional._final_fixes.fixes_optionBioFuel")
 require("prototypes.optional._final_fixes.fixes_optionDarts")
+require("prototypes.optional._final_fixes.fixes_optionPowerProduction")
 require("prototypes.optional._final_fixes.fixes_optionRails")
 require("prototypes.optional._final_fixes.fixes_tweaksBots")
 require("prototypes.optional._final_fixes.fixes_tweaksEmissionsMultiplier")
@@ -140,6 +141,7 @@ require("prototypes.triggers._final_fixes.fixes_triggerSubgroups")
 
 ------------- SNOUZ ICON UPDATES
 require("prototypes.mod_compatibility.final_fixes.icon_updates")
+--~ require("prototypes.mod_compatibility.final_fixes.group_updates")
 
 ------------------------------------------------------------------------------------
 --                           Add icons to our prototypes                          --
@@ -258,12 +260,12 @@ end
 ------------- SNOUZ ICON UPDATES
 -- Moved to prototypes/mod_compatibility/final_fixes/icon_updates.lua
 
+
 ------------------------------------------------------------------------------------
 --                                  TESTING AREA                                  --
 ------------------------------------------------------------------------------------
-for res, r in pairs(data.raw.resource) do
-BioInd.show("Resource", res)
-end
+
+
 
 
 ------------------------------------------------------------------------------------

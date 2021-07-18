@@ -1,17 +1,28 @@
-BioInd.entered_file()
-
----Arboretum Stuff
+------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
+--                                 ARBORETUM STUFF                                --
+------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
+if BioInd.get_startup_setting("BI_Terraforming") then
+  BioInd.entered_file()
+else
+  BioInd.nothing_to_do("*")
+  return
+end
 
 local BI_arboretum = {}
 
---~ local Event = require('__stdlib__/stdlib/event/event').set_protected_mode(true)
-local Event = require('__stdlib__/stdlib/event/event').set_protected_mode(false)
+
+------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
+--                             Local variables/tables                             --
+------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
 
 -- If a recipe with NORMAL FERTILIZER is used, don't fertilize tiles set have "true"
 -- set! (Fertile tiles set to true in this table can't be made more fertile with
 -- normal fertilizer, and nothing should grow on the other tiles.)
 local Terrain_Check_1 = {
-  --~ ["landfill"] = true,
   ["grass-1"] = true,                   -- Fertility: 100%
   ["grass-3"] = true,                   -- Fertility: 85%
   ["vegetation-green-grass-1"] = true,  -- Fertility: 100%
@@ -22,21 +33,27 @@ local Terrain_Check_1 = {
 -- (Fertile tiles in this table can't be made more fertile, and nothing should grow on the
 --  the other tiles!)
 local Terrain_Check_2 = {
-  --~ ["landfill"] = true,
   ["grass-1"] = true,                   -- Fertility: 100%
   ["vegetation-green-grass-1"] = true,  -- Fertility: 100%
 }
 
 local plant_radius = 75
---~ local plant_radius = 25
 
 -- Different tiles are used if AlienBiomes is active
 local AB, terrain_name_g1, terrain_name_g3
 
--- OmniFluid replaces all fluids with items, so the arboretum won't have a fluidbox!
---~ local OmniFluid
 
 
+------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
+--                                 Local functions                                --
+------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
+
+
+------------------------------------------------------------------------------------
+--                               Get random position                              --
+------------------------------------------------------------------------------------
 local function get_new_position(pos)
   pos = BioInd.normalize_position(pos) or BioInd.arg_err("nil", position)
   local xxx = math.random(-plant_radius, plant_radius)
@@ -46,6 +63,10 @@ local function get_new_position(pos)
 end
 
 
+
+------------------------------------------------------------------------------------
+--         Make sure all ingredients required by the recipe are available         --
+------------------------------------------------------------------------------------
 -- Check that all ingredients are available!
 local function check_ingredients(arboretum)
   BioInd.entered_function({arboretum})
@@ -70,6 +91,10 @@ local function check_ingredients(arboretum)
 end
 
 
+
+------------------------------------------------------------------------------------
+--          Actually deduct the ingredients from inventories/fluid boxes          --
+------------------------------------------------------------------------------------
 local function consume_ingredients(arboretum, need)
   BioInd.entered_function({arboretum, need})
   local inventory = arboretum.get_inventory(defines.inventory.assembling_machine_input)
@@ -89,6 +114,11 @@ BioInd.show("Fluid contents", arboretum.get_fluid_contents() or "nil")
 end
 
 
+
+------------------------------------------------------------------------------------
+--                    If fertilizer was used, change the ground                   --
+------------------------------------------------------------------------------------
+
 local function set_tile(current, target, surface, position)
   BioInd.entered_function({current, target, surface, position})
   if current ~= target then
@@ -103,7 +133,19 @@ local function set_tile(current, target, surface, position)
   BioInd.entered_function("leave")
 end
 
-BI_arboretum.get_arboretum_recipe = function(ArboretumTable, event)
+
+
+
+------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
+--                       Functions visible from other files                       --
+------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
+
+------------------------------------------------------------------------------------
+--         Check the arboretum recipe and plant trees/fertilize the ground        --
+------------------------------------------------------------------------------------
+BI_arboretum.check_arboretum = function(ArboretumTable, event)
   BioInd.entered_function({ArboretumTable, event})
   if not ArboretumTable then
     BioInd.writeDebug("%s is not a valid ArboretumTable. Leaving immediately!")
@@ -111,7 +153,6 @@ BI_arboretum.get_arboretum_recipe = function(ArboretumTable, event)
   end
 
   local arboretum = ArboretumTable.base
-  --~ local new_position, currentTilename, can_be_placed
   local new_position, currentTilename
   local pos, surface, Inventory, stack
 

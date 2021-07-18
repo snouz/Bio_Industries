@@ -18,10 +18,6 @@ end
 ------------------------------------------------------------------------------------
 --                                 Create recipes                                 --
 ------------------------------------------------------------------------------------
---~ for r, r_data in pairs(BI.additional_recipes[setting] or {}) do
-  --~ data:extend({r_data})
-  --~ BioInd.created_msg(r_data)
---~ end
 BioInd.create_stuff(BI.additional_recipes[setting])
 
 

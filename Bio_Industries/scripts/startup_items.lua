@@ -1,6 +1,8 @@
 ----------------------------------------------------------------------------------
--- If "Early wooden defenses" (setting BI_Darts) is active, set the items players
--- get on starting a new game or on respawning!
+----------------------------------------------------------------------------------
+--    If "Early wooden defenses" (setting BI_Darts) is active, set the items    --
+--    players get on starting a new game or on respawning!                      --
+----------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------
 BioInd.entered_file()
 
@@ -83,7 +85,7 @@ end
 -- Get the startup items from the scenario
 local function get_items(what)
   BioInd.entered_function({what})
-BioInd.show("remote.interfaces[\"ir2-world\"]", remote.interfaces["ir2-world"])
+
   return
     (remote.interfaces["ir2-world"] and remote.call("ir2-world", "get-crate-items")) or
     (remote.interfaces["freeplay"] and remote.call("freeplay", "get_" .. what .. "_items"))
@@ -92,18 +94,17 @@ end
 -- Set new startup items for the scenario
 local function set_items(items, what)
   BioInd.entered_function({items, what})
-BioInd.show("remote.interfaces[\"ir2-world\"]", remote.interfaces["ir2-world"])
+
   return
     (remote.interfaces["ir2-world"] and remote.call("ir2-world", "set-crate-items", items)) or
     (remote.interfaces["freeplay"] and remote.call("freeplay", "set_" .. what .. "_items", items))
 end
 
 
-----------------------------------------------------------------------------------
--- If "Early wooden defenses" (setting BI_Darts) is active, set the items players
--- get on starting a new game or on respawning!
-----------------------------------------------------------------------------------
---~ BioInd.change_startup_items = function()
+------------------------------------------------------------------------------------
+-- If "Early wooden defenses" (setting BI_Darts) is active, set the items players --
+-- get on starting a new game or on respawning!                                   --
+------------------------------------------------------------------------------------
 local change_startup_items = function()
   BioInd.entered_function()
 
@@ -149,7 +150,7 @@ BioInd.show(l, list)
   for ammo, a in pairs(k) do
     keep_ammo[#keep_ammo + 1] = ammo
   end
-BioInd.show("keep_ammo", keep_ammo)
+--~ BioInd.show("keep_ammo", keep_ammo)
 
   -- All available weapons except new_gun
   local remove_guns = game.get_filtered_item_prototypes({
@@ -166,7 +167,7 @@ BioInd.show("keep_ammo", keep_ammo)
 
   ----------------------------------------------------------------------------------
   -- Replace stuff!
-BioInd.writeDebug("Read data -- checking for remote interfaces now!")
+--~ BioInd.writeDebug("Read data -- checking for remote interfaces now!")
 
   -- Industrial Revolution 2
   if remote.interfaces["ir2-world"] then

@@ -353,31 +353,31 @@ BI.default_techs.advanced_fertilizer = {
 }
 
 
-------------------------------------------------------------------------------------
---                                Pollution sensor                                --
-------------------------------------------------------------------------------------
-BI.default_techs.pollution_sensor = {
-  type = "technology",
-  name = "bi-tech-pollution-sensor",
-  localised_name = {"technology-name.bi-tech-pollution-sensor"},
-  localised_description = {"technology-description.bi-tech-pollution-sensor"},
-  icon = ICONPATH .. "bi-tech-pollution-sensor.png",
-  icon_size = 256, icon_mipmaps = 4,
-  BI_add_icon = true,
-  effects = {
-  },
-  order = "[bi-pollution]-b-[pollution-sensor]",
-  prerequisites = {"advanced-electronics", "circuit-network"},
-  unit = {
-    count = 120,
-    ingredients = {
-      {"automation-science-pack", 1},
-      {"logistic-science-pack", 1},
-    },
-    time = 30,
-  },
-  upgrade = false,
-}
+--~ ------------------------------------------------------------------------------------
+--~ --                                Pollution sensor                                --
+--~ ------------------------------------------------------------------------------------
+--~ BI.default_techs.pollution_sensor = {
+  --~ type = "technology",
+  --~ name = "bi-tech-pollution-sensor",
+  --~ localised_name = {"technology-name.bi-tech-pollution-sensor"},
+  --~ localised_description = {"technology-description.bi-tech-pollution-sensor"},
+  --~ icon = ICONPATH .. "bi-tech-pollution-sensor.png",
+  --~ icon_size = 256, icon_mipmaps = 4,
+  --~ BI_add_icon = true,
+  --~ effects = {
+  --~ },
+  --~ order = "[bi-pollution]-b-[pollution-sensor]",
+  --~ prerequisites = {"advanced-electronics", "circuit-network"},
+  --~ unit = {
+    --~ count = 120,
+    --~ ingredients = {
+      --~ {"automation-science-pack", 1},
+      --~ {"logistic-science-pack", 1},
+    --~ },
+    --~ time = 30,
+  --~ },
+  --~ upgrade = false,
+--~ }
 
 
 ------------------------------------------------------------------------------------

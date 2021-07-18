@@ -1,17 +1,17 @@
-BioInd.entered_file()
+------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------
 --       If startup settings have been changed, we need to check some stuff.      --
 ------------------------------------------------------------------------------------
---~ local BioInd = require("__" .. script.mod_name .. "__.common")(script.mod_name)
-
-
+------------------------------------------------------------------------------------
+BioInd.entered_file()
 
 
 local settings_changed = {}
 
-
--- Remove all Musk-floor tiles if BI_Power_Production has been turned off since the
--- last time the game was saved!
+------------------------------------------------------------------------------------
+--  Remove all Musk-floor tiles if BI_Power_Production has been turned off since  --
+--  the last time the game was saved!                                             --
+------------------------------------------------------------------------------------
 local function check_musk_floor()
   BioInd.entered_function()
   local last = global.mod_settings.BI_Power_Production
@@ -55,7 +55,9 @@ local function check_musk_floor()
 end
 
 
--- Adjust the force of hidden poles on Musk floor!
+------------------------------------------------------------------------------------
+--                 Adjust the force of hidden poles on Musk floor                 --
+------------------------------------------------------------------------------------
 settings_changed.musk_floor = function()
   -- We only need to run this if Musk floor is used in the game!
   if check_musk_floor() then
@@ -139,6 +141,9 @@ BioInd.writeDebug("Destroying pole number %g", {i})
 end
 
 
+------------------------------------------------------------------------------------
+--    If the "Easy Bio-gardens" setting is enabled, we need to add hidden poles   --
+------------------------------------------------------------------------------------
 settings_changed.bio_garden = function()
   BioInd.entered_function()
 
@@ -277,7 +282,6 @@ BioInd.show("global.compound_entities", global.compound_entities)
 
   BioInd.entered_function("leave")
 end
-
 
 
 ------------------------------------------------------------------------------------

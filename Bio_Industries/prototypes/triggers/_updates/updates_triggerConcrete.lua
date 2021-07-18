@@ -19,6 +19,8 @@ local techs = data.raw.technology
 local recipes = data.raw.recipe
 local items = data.raw.item
 local tech, prerequisite, recipe, item, old, new
+local ingredients, hazard, amount, amount_a
+
 
 
 ------------------------------------------------------------------------------------
@@ -52,17 +54,74 @@ end
 
 
 ------------------------------------------------------------------------------------
---             Replace concrete with refined concrete in some recipes.            --
+--        Replace concrete with refined (hazard) concrete in some recipes.        --
 ------------------------------------------------------------------------------------
 old = "concrete"
 new = "refined-concrete"
+hazard = "refined-hazard-concrete"
 
 for r, recipe in ipairs({
   "artillery-turret", "centrifuge", "nuclear-reactor", "rocket-silo"}) do
 
   if recipes[recipe] then
-    thxbob.lib.recipe.replace_ingredient(recipe, old, new)
-    BioInd.modified_msg("ingredient " .. old, recipes[recipe], "Replaced")
+    for d, difficulty in pairs({"normal", "expensive"}) do
+      ingredients = BI_Functions.lib.get_difficulty_recipe_ingredients(recipe, difficulty)
+
+      amount = ingredients[old] and ingredients[old].amount
+      if amount then
+        amount_a = math.floor(amount * 0.9)
+        if amount_a == 0 then
+          amount_a = 1
+        end
+        if amount ~= amount_a then
+          -- Remove old ingredient
+          thxbob.lib.recipe.remove_difficulty_ingredient(recipe, difficulty, old)
+          -- Replace with 90% new ingredient …
+          thxbob.lib.recipe.add_difficulty_ingredient(recipe, difficulty, {new, amount_a})
+          -- … and 10% new hazard variety
+          thxbob.lib.recipe.add_difficulty_ingredient(recipe, difficulty, {hazard, amount - amount_a})
+  BioInd.writeDebug("Replaced %s in ingredients for difficulty %s of %s: %s",
+                    {old, difficulty, recipe, recipes[recipe][difficulty].ingredients})
+        end
+      end
+    end
+  end
+end
+
+
+------------------------------------------------------------------------------------
+--       Add hazard concrete to ingredients of some recipes using concrete.       --
+------------------------------------------------------------------------------------
+old = "concrete"
+hazard = "hazard-concrete"
+
+for r, recipe in ipairs({
+  BI.additional_recipes.BI_Bio_Fuel.bio_boiler.name,
+  BI.additional_recipes.BI_Power_Production.huge_accumulator.name,
+  BI.additional_recipes.BI_Power_Production.huge_substation.name,
+  BI.additional_recipes.BI_Power_Production.solar_farm.name,
+  BI.additional_recipes.Bio_Cannon.bio_cannon.name,
+}) do
+
+  if recipes[recipe] then
+    for d, difficulty in pairs({"normal", "expensive"}) do
+      ingredients = BI_Functions.lib.get_difficulty_recipe_ingredients(recipe, difficulty)
+
+      amount = ingredients[old] and ingredients[old].amount
+      if amount then
+        amount_a = math.floor(amount * 0.9)
+        amount_a = (amount_a == 0) and 1 or amount_a
+
+        if amount ~= amount_a then
+          -- Set amount of old ingredient to 90% …
+          thxbob.lib.recipe.set_difficulty_ingredient(recipe, difficulty, {old, amount_a})
+          -- … and replace the 10% with the hazard variety
+          thxbob.lib.recipe.add_difficulty_ingredient(recipe, difficulty, {hazard, amount - amount_a})
+BioInd.writeDebug("Replaced %s in ingredients for difficulty %s of %s: %s",
+                  {old, difficulty, recipe, recipes[recipe][difficulty].ingredients})
+        end
+      end
+    end
   end
 end
 

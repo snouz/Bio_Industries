@@ -252,7 +252,8 @@ for pole_name, locale_name in pairs(BI.hidden_entities.types[h_key] or {}) do
     pole.icon_size = 64
     pole.icon_mipmaps = 3
     pole.maximum_wire_distance = 1
-    pole.supply_area_distance = 3
+    --~ pole.supply_area_distance = 3
+    pole.supply_area_distance = 1
     BioInd.show("Adjusted properties of", pole_name)
   end
 

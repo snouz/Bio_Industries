@@ -30,7 +30,7 @@ BI.additional_recipes.liquid_air = {
   always_show_made_in = true,
   allow_decomposition = false,
   allow_as_intermediate = false,
-  subgroup = "bio-bio-farm-intermediate-product",
+  subgroup = BI.default_item_subgroup.bio_farm_intermediate_product.name,
   order = "aa",
   -- Custom property that allows to automatically add our recipes to tech unlocks.
   BI_add_to_tech = {"bi-tech-fertilizer"},
@@ -63,7 +63,7 @@ BI.additional_recipes.nitrogen = {
   allow_decomposition = false,
   allow_as_intermediate = false,
   --main_product= "nitrogen",
-  subgroup = "bio-bio-farm-intermediate-product",
+  subgroup = BI.default_item_subgroup.bio_farm_intermediate_product.name,
   order = "ab",
   -- Custom property that allows to automatically add our recipes to tech unlocks.
   BI_add_to_tech = {"bi-tech-fertilizer"},
@@ -113,7 +113,7 @@ BI.additional_recipes.adv_fertilizer_2 = {
   allow_as_intermediate = true,       -- Changed for 0.18.34/1.1.4
   always_show_made_in = true,         -- Changed for 0.18.34/1.1.4
   allow_decomposition = true,         -- Changed for 0.18.34/1.1.4
-  subgroup = "bio-bio-farm-intermediate-product",
+  subgroup = BI.default_item_subgroup.bio_farm_intermediate_product.name,
   order = "b[bi-fertilizer]-b[bi-adv-fertilizer-2]",
 }
 

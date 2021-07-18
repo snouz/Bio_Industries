@@ -72,14 +72,6 @@ setting_list.BI_Terraforming = {
   order = "a[enable]-c-[planting]-[BI_Terraforming]",
 }
 
-setting_list.BI_Rails = {
-  type = "bool-setting",
-  name = "BI_Rails",
-  setting_type = "startup",
-  default_value = true,
-  order = "a[enable]-d-[production]-[BI_Rails]",
-}
-
 
 setting_list.BI_Power_Production = {
   type = "bool-setting",
@@ -90,6 +82,15 @@ setting_list.BI_Power_Production = {
 }
 
 
+setting_list.BI_Rails = {
+  type = "bool-setting",
+  name = "BI_Rails",
+  setting_type = "startup",
+  default_value = true,
+  order = "a[enable]-d-[production]-[BI_Rails]",
+}
+
+
 -- Chests, pipes, poles
 setting_list.BI_Wood_Products = {
   type = "bool-setting",
@@ -97,6 +98,15 @@ setting_list.BI_Wood_Products = {
   setting_type = "startup",
   default_value = true,
   order = "a[enable]-d-[production]-[BI_Wood_Products]",
+}
+
+
+setting_list.BI_Pollution_Detector = {
+  type = "bool-setting",
+  name = "BI_Pollution_Detector",
+  setting_type = "startup",
+  default_value = true,
+  order = "a[enable]-e-[utility]-[BI_Pollution_Detector]",
 }
 
 
@@ -230,9 +240,8 @@ if not (mods["IndustrialRevolution"] or mods["aai-industry"]) then
   }
 end
 
--- Krastorio 2 (Our alternative recipe for Production science packs will break the balance
--- if Krastorio is active)
-if not mods["Krastorio2"] then
+-- Krastorio 2 + Industrial Revolution
+if not (mods["Krastorio2"] or mods["IndustrialRevolution"]) then
   setting_list.BI_Game_Tweaks_Production_Science = {
     type = "bool-setting",
     name = "BI_Game_Tweaks_Production_Science",

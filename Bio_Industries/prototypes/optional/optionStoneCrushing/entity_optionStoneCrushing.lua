@@ -179,7 +179,7 @@ BI.additional_entities[setting].stone_crusher = {
       },
     }
   },
-  crafting_categories = {"biofarm-mod-crushing"},
+  crafting_categories = {BI.additional_categories.BI_Stone_Crushing.crushing.name},
   result_inventory_size = 1,
   source_inventory_size = 1,
   crafting_speed = 1,
@@ -201,8 +201,6 @@ BI.additional_entities[setting].stone_crusher = {
 ------------------------------------------------------------------------------------
 for e, e_data in pairs(BI.additional_entities[setting] or {}) do
   -- Entity
-  --~ data:extend({e_data})
-  --~ BioInd.created_msg(e_data)
   BioInd.create_stuff(e_data)
 
   -- Remnants, if they exist

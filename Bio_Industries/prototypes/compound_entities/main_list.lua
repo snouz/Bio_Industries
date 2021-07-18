@@ -5,7 +5,7 @@
 --  that may be required by the scripts.
 ------------------------------------------------------------------------------------
 log("Entered file " .. debug.getinfo(1).source)
-require("util")
+--~ require("util")
 
 -- During the data stage, we want to remove compound entities (or some of their
 -- hidden entities) that have been disabled via startup setting, so that we don't

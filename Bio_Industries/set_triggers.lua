@@ -50,6 +50,11 @@ BI.Triggers = {
   -- Do we have early access to glass?
   BI_Trigger_Glass_bobs           = BioInd.check_mods({"bobplates", "bobores", "and"}) and
                                     BioInd.get_startup_setting("bobmods-ores-enablequartz"),
+
+  -- Do we need a recipe for sand?
+  BI_Trigger_Sand                 = BI.Settings.BI_Stone_Crushing and BioInd.check_mods({
+                                      "aai-industry", "angelssmelting", "BioTech",
+                                      "Krastorio2", "pycoalprocessing"})
 }
 
 -- Convert triggers to Boolean values!

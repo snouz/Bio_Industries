@@ -1,14 +1,21 @@
---~ local BioInd = require("__" .. script.mod_name .. "__.common")(script.mod_name)
+------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
+--                               TREE GROWING STUFF                               --
+------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
 BioInd.entered_file()
 
-
--- All tree Growing stuff
-local Event = require('__stdlib__/stdlib/event/event').set_protected_mode(true)
 
 local terrains = require("libs/trees-and-terrains")
 
 local BI_trees = {}
 
+
+------------------------------------------------------------------------------------
+--                                Tile definitions                                --
+------------------------------------------------------------------------------------
+
+-- Tiles with a fertility value
 BI_trees.fertility = {
   ["vegetation-green-grass-1"] = 100,
   ["grass-1"] =  100,
@@ -224,6 +231,28 @@ BI_trees.fertility = {
   ["landfill"] = 1,
 }
 
+
+-- Nothing will grow on tiles with a name matching these patterns. If fertilzer
+-- is used on them, it will be refunded.
+local tile_patterns = {
+  ".*concrete.*",
+  ".*stone%-path.*",
+  "^bi%-solar%-mat$",
+  "^bi%-wood%-floor$",
+}
+
+
+
+------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
+--                               Local functions                                  --
+------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
+
+
+------------------------------------------------------------------------------------
+--                               Get tile fertility                               --
+------------------------------------------------------------------------------------
 local function get_tile_fertility(surface, position)
   surface = BioInd.is_surface(surface) or BioInd.arg_err(surface or "nil", "surface")
   position = BioInd.normalize_position(position) or BioInd.arg_err(position or "nil", "position")
@@ -235,6 +264,9 @@ local function get_tile_fertility(surface, position)
 end
 
 
+------------------------------------------------------------------------------------
+--                                  Plant a tree                                  --
+------------------------------------------------------------------------------------
 local function plant_tree(tabl, tree, create_entity)
   BioInd.entered_function({tabl, tree, create_entity})
   BioInd.check_args(tabl, "table")
@@ -267,6 +299,10 @@ local function plant_tree(tabl, tree, create_entity)
   BioInd.entered_function("leave")
 end
 
+
+------------------------------------------------------------------------------------
+--                                Plant a tree seed                               --
+------------------------------------------------------------------------------------
 -- t_base, t_penalty: numbers; seedbomb: Boolean
 local function plant_seed(event, t_base, t_penalty, seedbomb)
   BioInd.entered_function({event, t_base, t_penalty, seedbomb})
@@ -303,6 +339,10 @@ BioInd.show("seedbomb", seedbomb)
   BioInd.entered_function("leave")
 end
 
+
+------------------------------------------------------------------------------------
+--                                 Growing chance                                 --
+------------------------------------------------------------------------------------
 local function sum_weight(tabl)
   BioInd.entered_function()
 
@@ -317,6 +357,10 @@ local function sum_weight(tabl)
   return sum
 end
 
+
+------------------------------------------------------------------------------------
+--                     Decide what tree will grow from a seed                     --
+------------------------------------------------------------------------------------
 local function tree_from_max_index_tabl(max_index, tabl)
   BioInd.entered_function({max_index})
   BioInd.check_args(max_index, "number")
@@ -360,6 +404,9 @@ BioInd.writeDebug("Found %s in table terrains. trees_table: %s\tmax_index: %s", 
 end
 
 
+------------------------------------------------------------------------------------
+--                               Tree growing stages                              --
+------------------------------------------------------------------------------------
 -- Settings used for the different grow stages
 local stage_settings = {
   [1] = {
@@ -376,6 +423,7 @@ local stage_settings = {
   },
 }
 
+-- First stage
 local function Grow_tree_first_stage(first_stage_table, event)
   BioInd.entered_function({event})
   BioInd.check_args(first_stage_table, "table")
@@ -396,6 +444,7 @@ BioInd.writeDebug("tree: %s\ttree2: %s\ttree3: %s", {tree or "nil", tree2 or "ni
   local fertility, key = f.fertility, f.key
 BioInd.show("fertility", fertility)
 BioInd.show("key", key)
+
   -- Random value. Tree will grow if this value is smaller than the 'Fertility' value
   local growth_chance = math.random(100)
 
@@ -494,6 +543,8 @@ BioInd.writeDebug("stage_1_tree_name: %s", {stage_1_tree_name})
   BioInd.entered_function("leave")
 end
 
+
+-- Last stage
 local function Grow_tree_last_stage(last_stage_table)
   BioInd.entered_function()
   BioInd.check_args(last_stage_table, "table")
@@ -537,6 +588,7 @@ local function Grow_tree_last_stage(last_stage_table)
 end
 
 
+-- Other stages
 local function Grow_tree_stage(stage_table, stage)
   BioInd.entered_function({stage_table, stage})
   BioInd.check_args(stage_table, "table")
@@ -563,9 +615,7 @@ local function Grow_tree_stage(stage_table, stage)
                       BioInd.arg_err(stage_table.position or "nil", "position")
 
 
-
     local tree = tree_name and surface.find_entity(tree_name, position)
-
     if tree then
       tree.destroy()
 
@@ -622,59 +672,158 @@ local function Grow_tree_stage(stage_table, stage)
 end
 
 
----- Growing Tree
---Event.register(-12, function(event)
-Event.register(defines.events.on_tick, function(event)
-  if global.bi.tree_growing_stage_1 == nil then
-    for i = 1, 4 do
-      global.bi["tree_growing_stage_" .. i] = {}
+
+------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
+--                       Functions visible from other files                       --
+------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
+
+
+------------------------------------------------------------------------------------
+--       Generate a look-up table with the names of the trees we care about       --
+------------------------------------------------------------------------------------
+BI_trees.get_bi_trees = function()
+  BioInd.entered_function()
+
+  local list = {}
+
+  local trees = game.get_filtered_entity_prototypes({{filter = "type", type = "tree"}})
+  for tree_name, tree in pairs(trees) do
+    if tree_name:match("^bio%-tree%-.+%-%d$") then
+BioInd.show("Found matching tree", tree_name)
+      list[tree_name] = true
     end
   end
 
-  while next(global.bi.tree_growing) do
-    -- Table entries are sorted by "time", so we can stop if the first entry's
-    -- "time" refers to a tick in the future!
-    if event.tick < global.bi.tree_growing[1].time then
-      --~ BioInd.writeDebug("Still growing")
-      break
-    end
---~ BioInd.writeDebug("Not growing! Calling Grow_tree_stage_0")
-    Grow_tree_first_stage(global.bi.tree_growing[1], event)
-    table.remove(global.bi.tree_growing, 1)
---~ BioInd.writeDebug("global.bi.tree_growing: %s", {global.bi.tree_growing}, "line")
-  end
+  BioInd.entered_function("leave")
+  return list
+end
 
-  for stage = 1, 4 do
-    local stage_table = global.bi["tree_growing_stage_" .. stage]
-    while next(stage_table) do
-      if event.tick < stage_table[1].time then
-        break
+
+------------------------------------------------------------------------------------
+--      Generate dictionary with the names of tiles that can't be fertilized      --
+------------------------------------------------------------------------------------
+local tile_patterns = {
+  ".*concrete.*",
+  ".*stone%-path.*",
+  "^bi%-solar%-mat$",
+  "^bi%-wood%-floor$",
+}
+
+BI_trees.get_fixed_tiles = function()
+  BioInd.entered_function()
+
+  local list = {}
+
+  for tile_name, tile in pairs(game.tile_prototypes) do
+    for p, pattern in ipairs(tile_patterns) do
+      if tile_name:match(pattern) then
+BioInd.show("Found matching tile", tile_name)
+        -- If a tile is minable and fertilizer is used on it, we must deduct the mined
+        -- tiles from the player/robot again!
+        list[tile_name] = tile.mineable_properties.products or true
       end
-      Grow_tree_stage(stage_table[1], stage)
-      table.remove(stage_table, 1)
     end
   end
-end)
+BioInd.show("Forbidden tiles", list)
+
+  BioInd.entered_function("leave")
+  return list
+end
 
 
-
+------------------------------------------------------------------------------------
+--                             Manually planted seeds                             --
+------------------------------------------------------------------------------------
 BI_trees.seed_planted = function(event)
   BioInd.entered_function({event})
   plant_seed(event, 1000, 4000, false)
   BioInd.entered_function({event}, "leave")
 end
 
+
+------------------------------------------------------------------------------------
+--                             Planted with seedbombs                             --
+------------------------------------------------------------------------------------
 BI_trees.seed_planted_trigger = function(event)
   BioInd.entered_function({event})
   plant_seed(event, 2000, 6000, true)
   BioInd.entered_function({event}, "leave")
 end
 
+
+------------------------------------------------------------------------------------
+--                              Planted by arboretum                              --
+------------------------------------------------------------------------------------
 BI_trees.seed_planted_arboretum = function(event, entity)
   BioInd.entered_function({event, entity})
   event.created_entity = entity
   plant_seed(event, 2000, 6000, false)
   BioInd.entered_function({event}, "leave")
+end
+
+
+------------------------------------------------------------------------------------
+--                            Remove trees from tables                            --
+------------------------------------------------------------------------------------
+BI_trees.remove_plants = function(entity_position, tabl)
+  BioInd.entered_function({entity_position, tabl})
+
+    local e = BioInd.normalize_position(entity_position)
+    if not e then
+      BioInd.arg_err(entity_position or "nil", "position")
+    end
+    BioInd.check_args(tabl, "table")
+
+    local pos
+
+    for k, v in pairs(tabl or {}) do
+      pos = BioInd.normalize_position(v.position)
+      if pos and pos.x == e.x and pos.y == e.y then
+BioInd.writeDebug("Removing entry %s from table: %s", {k, v})
+        table.remove(tabl, k)
+        break
+      end
+    end
+  BioInd.entered_function("leave")
+end
+
+
+------------------------------------------------------------------------------------
+--      Check if any seedlings/trees will transition to next stage this tick      --
+------------------------------------------------------------------------------------
+---- Growing Tree
+BI_trees.check_tree_growing = function(event)
+  BioInd.entered_function({event})
+
+  -- Seedlings making transition to first tree stage
+  while next(global.bi.tree_growing) do
+    -- Stop if the first tree's "time" is in the future! (Table sorted by tree.time)
+    if event.tick < global.bi.tree_growing[1].time then
+      -- BioInd.writeDebug("Still growing")
+      break
+    end
+-- BioInd.writeDebug("Check if seedling will die or become a tree!")
+    Grow_tree_first_stage(global.bi.tree_growing[1], event)
+    table.remove(global.bi.tree_growing, 1)
+-- BioInd.writeDebug("global.bi.tree_growing: %s", {global.bi.tree_growing}, "line")
+  end
+
+  -- Trees growing through the different stages
+  for stage = 1, 4 do
+    local stage_table = global.bi["tree_growing_stage_" .. stage]
+    while next(stage_table) do
+      -- Stop if the first tree's "time" is in the future! (Table sorted by tree.time)
+      if event.tick < stage_table[1].time then
+        break
+      end
+      -- Transition to next growing stage or final tree
+      Grow_tree_stage(stage_table[1], stage)
+      table.remove(stage_table, 1)
+    end
+  end
+  BioInd.entered_function("leave")
 end
 
 

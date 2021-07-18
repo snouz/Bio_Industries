@@ -1,29 +1,56 @@
+------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
+--             Common functions and definitions for the control stage             --
+------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
 log("Entered file " .. debug.getinfo(1).source)
 
 local common = require("common")()
 
 
 
---~ ------------------------------------------------------------------------------------
---~ -- List of compound entities
---~ -- Key:       name of the base entity
---~ -- tab:       name of the global table where data of these entity are stored
---~ -- hidden:    table containing the hidden entities needed by this entity
---~ --            (Key:   name under which the hidden entity will be stored in the table;
---~ --             Value: name of the entity that should be placed)
---~ common.compound_entities = compound_entities.get_HE_list("complete")
---~ log("compound entities: " .. serpent.block(common.compound_entities))
---~ -- Map the short handles of hidden entities (e.g. "pole") to real prototype types
---~ -- (e.g. "electric-pole")
---~ common.HE_map = compound_entities.HE_map
---~ -- Reverse lookup
---~ common.HE_map_reverse = compound_entities.HE_map_reverse
+------------------------------------------------------------------------------------
+--        Make look-up list for event names (used for debugging functions)        --
+------------------------------------------------------------------------------------
+common.event_names = {}
+for name, id in pairs(defines.events) do
+  common.event_names[id] = name
+end
+common.event_names["on_init"] = "on_init"
+common.event_names["on_load"] = "on_load"
+common.event_names["on_configuration_changed"] = "on_configuration_changed"
 
---~ -- We can't store Musk floor with the compound_entities because it has no unit_number
---~ -- but must be identified by its position. So let's store the names of its hidden
---~ -- entities for later use!
---~ common.musk_floor_pole_name = "bi-musk-mat-hidden-pole"
---~ common.musk_floor_panel_name = "bi-musk-mat-hidden-panel"
+
+------------------------------------------------------------------------------------
+--      List of default event handlers and events they should be attached to      --
+------------------------------------------------------------------------------------
+common.events = {
+  On_Tick = defines.events.on_tick,
+
+  On_Built = {
+    defines.events.on_built_entity,
+    defines.events.on_robot_built_entity,
+    defines.events.script_raised_built,
+    defines.events.script_raised_revive
+  },
+
+  On_Pre_Remove= {
+    defines.events.on_pre_player_mined_item,
+    defines.events.on_robot_pre_mined,
+    defines.events.on_player_mined_entity,
+    defines.events.on_robot_mined_entity,
+  },
+
+  On_Death = {
+    defines.events.on_entity_died,
+    defines.events.script_raised_destroy
+  },
+}
+
+------------------------------------------------------------------------------------
+--              Do we need to create a special force for Musk floor?              --
+------------------------------------------------------------------------------------
+common.UseMuskForce = not common.get_startup_setting("BI_Game_Tweaks_Show_musk_floor_in_mapview")
 
 
 ------------------------------------------------------------------------------------
@@ -182,8 +209,8 @@ end
 
 
 ------------------------------------------------------------------------------------
---                                    END OF FILE
+--                                    END OF FILE                                 --
 ------------------------------------------------------------------------------------
-log("Leaving file " .. debug.getinfo(1).source)
-
+--~ common.entered_file("leave")
+  log("Leaving file " .. debug.getinfo(1).source)
 return common

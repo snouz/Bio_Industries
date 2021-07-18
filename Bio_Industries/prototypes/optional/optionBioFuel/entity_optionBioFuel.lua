@@ -41,7 +41,7 @@ BI.additional_entities[setting].bio_boiler = {
   type = "boiler",
   name = "bi-bio-boiler",
   localised_name = {"entity-name.bi-bio-boiler"},
-  localised_description = {"entity-description.bi-bio-boiler"},
+  localised_description = {"entity-description.bi-bio-boiler", 4, 2},
   icon = ICONPATH .. "entity/bio_boiler.png",
   icon_size = 64, icon_mipmaps = 3,
   BI_add_icon = true,

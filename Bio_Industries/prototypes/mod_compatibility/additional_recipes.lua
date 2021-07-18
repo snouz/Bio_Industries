@@ -16,40 +16,40 @@ BI.additional_recipes.mod_compatibility = BI.additional_recipes.mod_compatibilit
 
 
 
-------------------------------------------------------------------------------------
---                General recipe for sand (will be adjusted later)                --
-------------------------------------------------------------------------------------
--- Angel's Refining ("angelsrefining"),
--- BioTech ("BioTech"),
--- Krastorio2 ("Krastorio2")
-BI.additional_recipes.mod_compatibility.sand = {
-  type = "recipe",
-  name = "bi-sand",
-  --icon = ICONPATH .. "mod_aai/sand-aai.png",
-  --icon_size = 64, icon_mipmaps = 3,
-  --BI_add_icon = true,
-  --~ icons = BioInd.make_icons({it1 = "sand", it2 = "crushed-stone", shift1_1=0 , shift1_2=0}),
-  icons = {it1 = "sand", it2 = "crushed-stone", shift1_1=0 , shift1_2=0},
-  BI_add_icon = true,
-  BI_add_to_tech = {"bi-tech-stone-crushing-1"},
-  category = "biofarm-mod-crushing",
-  --~ subgroup = "bio-bio-farm-raw",
-  subgroup = "bio-stone-crusher",
-  --~ order = "a[bi]-a-z[bi-9-sand]",
-  order = "a[bi]-a-z[bi-9-stone-crushed-sand-1]",
-  energy_required = 1,
-  ingredients = {{"stone-crushed", 2}},
-  --~ result = "sand",
-  --~ result_count = 5,
-  main_product = "",
-  enabled = false,
-  --~ always_show_made_in = true,
-  --~ allow_decomposition = false,
-  --~ allow_as_intermediate = false,
-  allow_as_intermediate = true,     -- Changed for 0.18.34/1.1.4
-  always_show_made_in = true,       -- Changed for 0.18.34/1.1.4
-  allow_decomposition = true,               -- Changed for 0.18.34/1.1.4
-}
+--~ ------------------------------------------------------------------------------------
+--~ --                General recipe for sand (will be adjusted later)                --
+--~ ------------------------------------------------------------------------------------
+--~ -- Angel's Smelting ("angelssmelting"),
+--~ -- BioTech ("BioTech"),
+--~ -- Krastorio2 ("Krastorio2")
+--~ BI.additional_recipes.mod_compatibility.sand = {
+  --~ type = "recipe",
+  --~ name = "bi-sand",
+  --~ --icon = ICONPATH .. "mod_aai/sand-aai.png",
+  --~ --icon_size = 64, icon_mipmaps = 3,
+  --~ --BI_add_icon = true,
+  --icons = BioInd.make_icons({it1 = "sand", it2 = "crushed-stone", shift1_1=0 , shift1_2=0}),
+  --~ icons = {it1 = "sand", it2 = "crushed-stone", shift1_1=0 , shift1_2=0},
+  --~ BI_add_icon = true,
+  --~ BI_add_to_tech = {"bi-tech-stone-crushing-1"},
+  --~ category = BI.additional_categories.BI_Stone_Crushing.crushing.name,
+  --subgroup = "bio-bio-farm-raw",
+  --~ subgroup = BI.additional_categories.BI_Stone_Crushing.stone_crusher.name,
+  --order = "a[bi]-a-z[bi-9-sand]",
+  --~ order = "a[bi]-a-z[bi-9-stone-crushed-sand-1]",
+  --~ energy_required = 1,
+  --~ ingredients = {{"stone-crushed", 2}},
+  --result = "sand",
+  --result_count = 5,
+  --~ main_product = "",
+  --~ enabled = false,
+  --always_show_made_in = true,
+  --allow_decomposition = false,
+  --allow_as_intermediate = false,
+  --~ allow_as_intermediate = true,     -- Changed for 0.18.34/1.1.4
+  --~ always_show_made_in = true,       -- Changed for 0.18.34/1.1.4
+  --~ allow_decomposition = true,               -- Changed for 0.18.34/1.1.4
+--~ }
 
 
 ------------------------------------------------------------------------------------
@@ -87,7 +87,7 @@ BI.additional_recipes.mod_compatibility.fertilizer_2 = {
   allow_as_intermediate = true,       -- Changed for 0.18.34/1.1.4
   always_show_made_in = true,         -- Changed for 0.18.34/1.1.4
   allow_decomposition = true,         -- Changed for 0.18.34/1.1.4
-  subgroup = "bio-bio-farm-intermediate-product",
+  subgroup = BI.default_item_subgroup.bio_farm_intermediate_product.name,
   order = "b[bi-fertilizer]",
 }
 
@@ -105,8 +105,8 @@ BI.additional_recipes.mod_compatibility.pellet_coke_2 = {
   --icon_size = 64, icon_mipmaps = 3,
   --BI_add_icon = true,
   BI_add_to_tech = {"bi-tech-coal-processing-2"},
-  category = "biofarm-mod-smelting",
-  subgroup = "bio-cokery",
+  category = BI.default_recipe_categories.smelting.name,
+  subgroup = BI.default_item_subgroup.cokery.name,
   order = "a[bi]-a-g[bi-coke-coal]-2",
   energy_required = 4,
   ingredients = {},
@@ -222,6 +222,7 @@ BI.additional_recipes.mod_compatibility.press_wood = {
   -- ingredients/results; used for wood/wood pulp)
   mod = "Bio_Industries",
 }
+
 
 
 -- Status report

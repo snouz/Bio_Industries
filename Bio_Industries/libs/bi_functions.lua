@@ -350,8 +350,8 @@ BioInd.entered_function()
             -- Average minimum/maximum temperatures
             i_data.min_max_cnt = (i_data.min_max_cnt > 0) and (1/i_data.min_max_cnt) or 1
 
-            i_data.minimum_temperature = i_data.minimum_temperature * i_data.min_max_count
-            i_data.maximum_temperature = i_data.maximum_temperature * i_data.min_max_count
+            i_data.minimum_temperature = i_data.minimum_temperature * i_data.min_max_cnt
+            i_data.maximum_temperature = i_data.maximum_temperature * i_data.min_max_cnt
 
             -- No temperature yet, keep minumum/maximum temperature?
             if not i_data.temperature then

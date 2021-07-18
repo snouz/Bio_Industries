@@ -1,4 +1,4 @@
---~ local BioInd = require('common')('Bio_Industries')
+BioInd.entered_file()
 
 local terrains = {}
 
@@ -20075,4 +20075,8 @@ terrains["red-desert-1"] = {
   }
 }
 
+------------------------------------------------------------------------------------
+--                                    END OF FILE                                 --
+------------------------------------------------------------------------------------
+BioInd.entered_file("leave")
 return terrains

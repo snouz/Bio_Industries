@@ -23,7 +23,7 @@ BI.default_items.bio_farm = {
   icon = ICONPATH .. "entity/biofarm.png",
   icon_size = 64,  icon_mipmaps = 3,
   BI_add_icon = true,
-  subgroup = "bio-production-machine",
+  subgroup = BI.default_item_subgroup.biofarm.name,
   --~ order = "x[bi]-ab[bi-bio-farm]",
   order = "x[bi]-a[wood-production]-[buildings]-b[bi-bio-farm]",
   place_result = "bi-bio-farm",
@@ -39,7 +39,7 @@ BI.default_items.bio_greenhouse = {
   icon = ICONPATH .. "entity/greenhouse.png",
   icon_size = 64, icon_mipmaps = 3,
   BI_add_icon = true,
-  subgroup = "bio-production-machine",
+  subgroup = BI.default_item_subgroup.biofarm.name,
   --~ order = "x[bi]-aa[bi-bio-greenhouse]",
   order = "x[bi]-a[wood-production]-[buildings]-a[bi-bio-greenhouse]",
   place_result = "bi-bio-greenhouse",
@@ -53,7 +53,7 @@ BI.default_items.bio_reactor = {
   icon = ICONPATH .. "entity/bioreactor.png",
   icon_size = 64, icon_mipmaps = 3,
   BI_add_icon = true,
-  subgroup = "bio-production-machine",
+  subgroup = BI.default_item_subgroup.biofarm.name,
   order = "z[bi]-a[bi-bio-reactor]",
   place_result = "bi-bio-reactor",
   stack_size = 10
@@ -66,29 +66,29 @@ BI.default_items.cokery = {
   icon = ICONPATH .. "entity/cokery.png",
   icon_size = 64, icon_mipmaps = 3,
   BI_add_icon = true,
-  subgroup = "bio-production-machine",
+  subgroup = BI.default_item_subgroup.biofarm.name,
   order = "x[bi]-b[bi-cokery]",
   place_result = "bi-cokery",
   stack_size = 10
 }
 
--- Pollution sensor
-BI.default_items.pollution_sensor = {
-  type = "item",
-  name = "bi-pollution-sensor",
-  icon = ICONPATH .. "entity/pollution_sensor.png",
-  icon_size = 64, icon_mipmaps = 3,
-  BI_add_icon = true,
-  subgroup = "circuit-network",
-  order = "c[combinators]-cb[pollution-detector]",
-  place_result = "bi-pollution-sensor",
-  stack_size = 50,
-  -- Group/subgroup if "5Dim's mod - New Core" is used
-  group_5d = "logistic",
-  subgroup_5d = "logistic-comb",
-  --~ subgroup_order_5d = "n-a",
-  order_5d = "d-[Bio_Industries]-[combinators]-[bi-pollution-sensor]",
-}
+--~ -- Pollution sensor
+--~ BI.default_items.pollution_sensor = {
+  --~ type = "item",
+  --~ name = "bi-pollution-sensor",
+  --~ icon = ICONPATH .. "entity/pollution_sensor.png",
+  --~ icon_size = 64, icon_mipmaps = 3,
+  --~ BI_add_icon = true,
+  --~ subgroup = "circuit-network",
+  --~ order = "c[combinators]-cb[pollution-detector]",
+  --~ place_result = "bi-pollution-sensor",
+  --~ stack_size = 50,
+  --~ -- Group/subgroup if "5Dim's mod - New Core" is used
+  --~ group_5d = "logistic",
+  --~ subgroup_5d = "logistic-comb",
+--~ --  subgroup_order_5d = "n-a",
+  --~ order_5d = "d-[Bio_Industries]-[combinators]-[bi-pollution-sensor]",
+--~ }
 
 
 ------------------------------------------------------------------------------------
@@ -108,7 +108,7 @@ BI.default_items.seed = {
     --~ --  { size = 64, filename = ICONPATHMIPS.."bio_seed_3.png", scale = 0.25 },
     --~ --  { size = 64, filename = ICONPATHMIPS.."bio_seed_4.png", scale = 0.25 }
   --~ --  },
-  category = "biofarm-mod-greenhouse",
+  category = BI.default_recipe_categories.greenhouse.name,
   --~ subgroup = "raw-material",
   subgroup = BI.default_item_subgroup.bio_farm_intermediate_product.name,
   --~ order = "a-a2[bi-seed]",
@@ -218,7 +218,7 @@ BI.default_items.fertilizer = {
   icon_size = 64, icon_mipmaps = 3,
   BI_add_icon = true,
   --~ subgroup = "intermediate-product",
-  subgroup = "bio-bio-farm-intermediate-product",
+  subgroup = BI.default_item_subgroup.bio_farm_intermediate_product.name,
   --~ order = "b[fertilizer]",
   order = "x[bi]-a[wood-production]-[growing]-d1[fertilizer]",
   -- Order for "DeadlockCrating"
@@ -243,7 +243,7 @@ BI.default_items.adv_fertilizer = {
   icon_size = 64, icon_mipmaps = 3,
   BI_add_icon = true,
   --~ subgroup = "intermediate-product",
-  subgroup = "bio-bio-farm-intermediate-product",
+  subgroup = BI.default_item_subgroup.bio_farm_intermediate_product.name,
   --~ order = "b[fertilizer]-b[bi-adv-fertilizer]",
   order = "x[bi]-a[wood-production]-[growing]-d2[bi-adv-fertilizer]",
   -- Order for "DeadlockCrating"

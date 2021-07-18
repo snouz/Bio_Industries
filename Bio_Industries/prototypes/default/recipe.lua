@@ -22,7 +22,7 @@ BI.default_recipes.logs_1 = {
 -- I need this icon for the rubber wood recipe! :-)
   icon_size = 64, icon_mipmaps = 3,
   BI_add_icon = true,
-  category = "biofarm-mod-farm",
+  category = BI.default_recipe_categories.farm.name,
   enabled = false,
   always_show_made_in = true,
   allow_decomposition = false,
@@ -36,7 +36,7 @@ BI.default_recipes.logs_1 = {
     {type = "item", name = "bi-woodpulp", amount = 80},
   },
   main_product = "",
-  subgroup = "bio-bio-farm-fluid-3",
+  subgroup = BI.default_item_subgroup.biofarm_fluid_3.name,
   order = "c[bi]-ssw-c1[raw-wood1]",
   -- This is a custom property for use by "Krastorio 2" (it will change
   -- ingredients/results; used for wood/wood pulp)
@@ -53,7 +53,7 @@ BI.default_recipes.woodpulp = {
   --icon = ICONPATH .. "woodpulp.png",
   --icon_size = 64, icon_mipmaps = 3,
   BI_add_icon = true,
-  subgroup = "bio-bio-farm-raw",
+  subgroup = BI.default_item_subgroup.bio_farm_raw.name,
   order = "a[bi]-a-a[bi-1-woodpulp]",
   enabled = false,
   --~ always_show_made_in = true,
@@ -83,7 +83,7 @@ BI.default_recipes.wood_fuel_brick = {
   icon = ICONPATH .. "fuel_brick.png",
   icon_size = 64, icon_mipmaps = 3,
   BI_add_icon = true,
-  subgroup = "bio-bio-farm-raw",
+  subgroup = BI.default_item_subgroup.bio_farm_raw.name,
   order = "a[bi]-a-bx[bi-4-woodbrick]",
   energy_required = 2,
   ingredients = {{"bi-woodpulp", 24}},
@@ -117,7 +117,7 @@ BI.default_recipes.seed_1 = {
   icon = ICONPATH .. "tree_seed.png",
   icon_size = 64, icon_mipmaps = 3,
   BI_add_icon = true,
-  category = "biofarm-mod-greenhouse",
+  category = BI.default_recipe_categories.greenhouse.name,
   energy_required = 200,
   ingredients = {
     {type = "fluid", name = "water", amount = 100},
@@ -131,7 +131,7 @@ BI.default_recipes.seed_1 = {
   show_amount_in_title = true,
   always_show_made_in = true,
   allow_decomposition = false,
-  subgroup = "bio-bio-farm-fluid-1",
+  subgroup = BI.default_item_subgroup.biofarm_fluid_1.name,
   order = "a[bi]-ssw-a1[bi-seed-1]",
   -- This is a custom property for use by "Krastorio 2" (it will change
   -- ingredients/results; used for wood/wood pulp)
@@ -157,7 +157,7 @@ BI.default_recipes.seed_2 = {
   --~ icons = BioInd.make_icons({it1 = "seed", it2 = "ash", shift1_1 = 0 , shift1_2 = 0, shift2_1 = 0, shift2_2 = 0}),
   icons = {it1 = "seed", it2 = "ash", shift1_1 = 0 , shift1_2 = 0, shift2_1 = 0, shift2_2 = 0},
   BI_add_icon = true,
-  category = "biofarm-mod-greenhouse",
+  category = BI.default_recipe_categories.greenhouse.name,
   energy_required = 150,
   ingredients = {
     {type = "fluid", name = "water", amount = 40},
@@ -172,7 +172,7 @@ BI.default_recipes.seed_2 = {
   enabled = false,
   always_show_made_in = true,
   allow_decomposition = false,
-  subgroup = "bio-bio-farm-fluid-1",
+  subgroup = BI.default_item_subgroup.biofarm_fluid_1.name,
   order = "a[bi]-ssw-a1[bi-seed-2]",
   -- This is a custom property for use by "Krastorio 2" (it will change
   -- ingredients/results; used for wood/wood pulp)
@@ -195,7 +195,7 @@ BI.default_recipes.seed_3 = {
     { icon = ICONPATH .. "tree_seed.png", icon_size = 64, icon_mipmaps = 4, scale = 1, shift = {0, 0} },
     { icon = ICONPATH .. "signal/bi_signal_fert.png", icon_size = 64, icon_mipmaps = 4, scale = 0.4, shift = {16, -16} },
   },
-  category = "biofarm-mod-greenhouse",
+  category = BI.default_recipe_categories.greenhouse.name,
   energy_required = 100,
   ingredients = {
     {type = "fluid", name = "water", amount = 40},
@@ -210,7 +210,7 @@ BI.default_recipes.seed_3 = {
   enabled = false,
   always_show_made_in = true,
   allow_decomposition = false,
-  subgroup = "bio-bio-farm-fluid-1",
+  subgroup = BI.default_item_subgroup.biofarm_fluid_1.name,
   order = "a[bi]-ssw-a1[bi-seed-3]",
   -- This is a custom property for use by "Krastorio 2" (it will change
   -- ingredients/results; used for wood/wood pulp)
@@ -239,7 +239,7 @@ BI.default_recipes.seed_4 = {
     { icon = ICONPATH .. "tree_seed.png", icon_size = 64, icon_mipmaps = 4, scale = 1, shift = {0, 0} },
     { icon = ICONPATH .. "signal/bi_signal_adv_fert.png", icon_size = 64, icon_mipmaps = 4, scale = 0.4, shift = {16, -16} },
   },
-  category = "biofarm-mod-greenhouse",
+  category = BI.default_recipe_categories.greenhouse.name,
   energy_required = 50,
   ingredients = {
     {type = "item", name = "wood", amount = 20},
@@ -254,7 +254,7 @@ BI.default_recipes.seed_4 = {
   enabled = false,
   always_show_made_in = true,
   allow_decomposition = false,
-  subgroup = "bio-bio-farm-fluid-1",
+  subgroup = BI.default_item_subgroup.biofarm_fluid_1.name,
   order = "a[bi]-ssw-a1[bi-seed-4]",
   -- This is a custom property for use by "Krastorio 2" (it will change
   -- ingredients/results; used for wood/wood pulp)
@@ -281,7 +281,7 @@ BI.default_recipes.seedling_1 = {
   icon = ICONPATH .. "seedling.png",
   icon_size = 64, icon_mipmaps = 3,
   BI_add_icon = true,
-  category = "biofarm-mod-greenhouse",
+  category = BI.default_recipe_categories.greenhouse.name,
   energy_required = 400,
   ingredients = {
     {type = "item", name = "bi-seed", amount = 20},
@@ -295,7 +295,7 @@ BI.default_recipes.seedling_1 = {
   show_amount_in_title = true,
   always_show_made_in = true,
   allow_decomposition = true,
-  subgroup = "bio-bio-farm-fluid-1",
+  subgroup = BI.default_item_subgroup.biofarm_fluid_1.name,
   order = "b[bi]-ssw-b1[bi-Seedling-1]",
   -- This is a custom property for use by "Krastorio 2" (it will change
   -- ingredients/results; used for wood/wood pulp)
@@ -321,7 +321,7 @@ BI.default_recipes.seedling_2 = {
   --~ icons = BioInd.make_icons({it1 = "seedling", it2 = "ash", it3 = "", shift1_1 = 0 , shift1_2 = 0, shift2_1 = 0, shift2_2 = 0}),
   icons = {it1 = "seedling", it2 = "ash", it3 = "", shift1_1 = 0 , shift1_2 = 0, shift2_1 = 0, shift2_2 = 0},
   BI_add_icon = true,
-  category = "biofarm-mod-greenhouse",
+  category = BI.default_recipe_categories.greenhouse.name,
   energy_required = 300,
   ingredients = {
     {type = "item", name = "bi-seed", amount = 25},
@@ -336,7 +336,7 @@ BI.default_recipes.seedling_2 = {
   enabled = false,
   always_show_made_in = true,
   allow_decomposition = false,
-  subgroup = "bio-bio-farm-fluid-1",
+  subgroup = BI.default_item_subgroup.biofarm_fluid_1.name,
   order = "b[bi]-ssw-b1[bi-Seedling-2]",
   -- This is a custom property for use by "Krastorio 2" (it will change
   -- ingredients/results; used for wood/wood pulp)
@@ -359,7 +359,7 @@ BI.default_recipes.seedling_3 = {
     { icon = ICONPATH .. "seedling.png", icon_size = 64, icon_mipmaps = 4, scale = 1, shift = {0, 0} },
     { icon = ICONPATH .. "signal/bi_signal_fert.png", icon_size = 64, icon_mipmaps = 4, scale = 0.4, shift = {16, -16} },
   },
-  category = "biofarm-mod-greenhouse",
+  category = BI.default_recipe_categories.greenhouse.name,
   energy_required = 200,
   ingredients = {
     {type = "item", name = "bi-seed", amount = 30},
@@ -373,7 +373,7 @@ BI.default_recipes.seedling_3 = {
   show_amount_in_title = true,
   enabled = false,
   always_show_made_in = true,
-  subgroup = "bio-bio-farm-fluid-1",
+  subgroup = BI.default_item_subgroup.biofarm_fluid_1.name,
   order = "b[bi]-ssw-b1[bi-Seedling-3]",
   -- This is a custom property for use by "Krastorio 2" (it will change
   -- ingredients/results; used for wood/wood pulp)
@@ -402,7 +402,7 @@ BI.default_recipes.seedling_4 = {
     { icon = ICONPATH .. "seedling.png", icon_size = 64, icon_mipmaps = 4, scale = 1, shift = {0, 0} },
     { icon = ICONPATH .. "signal/bi_signal_adv_fert.png", icon_size = 64, icon_mipmaps = 4, scale = 0.4, shift = {16, -16} },
   },
-  category = "biofarm-mod-greenhouse",
+  category = BI.default_recipe_categories.greenhouse.name,
   energy_required = 100,
   ingredients = {
     {type = "item", name = "bi-seed", amount = 40},
@@ -417,7 +417,7 @@ BI.default_recipes.seedling_4 = {
   enabled = false,
   always_show_made_in = true,
   allow_decomposition = false,
-  subgroup = "bio-bio-farm-fluid-1",
+  subgroup = BI.default_item_subgroup.biofarm_fluid_1.name,
   order = "b[bi]-ssw-b1[bi-Seedling-4]",
   -- This is a custom property for use by "Krastorio 2" (it will change
   -- ingredients/results; used for wood/wood pulp)
@@ -449,7 +449,7 @@ BI.default_recipes.logs_2 = {
   --~ icons = BioInd.make_icons({it1 = "woodpulp", it2 = "ash", it3 = "", shift1_1 = 0 , shift1_2 = 0, shift2_1 = 0, shift2_2 = 0}),
   icons = {it1 = "woodpulp", it2 = "ash", it3 = "", shift1_1 = 0 , shift1_2 = 0, shift2_1 = 0, shift2_2 = 0},
   BI_add_icon = true,
-  category = "biofarm-mod-farm",
+  category = BI.default_recipe_categories.farm.name,
   enabled = false,
   always_show_made_in = true,
   allow_decomposition = false,
@@ -464,7 +464,7 @@ BI.default_recipes.logs_2 = {
     {type = "item", name = "bi-woodpulp", amount = 150},
   },
   main_product = "",
-  subgroup = "bio-bio-farm-fluid-3",
+  subgroup = BI.default_item_subgroup.biofarm_fluid_3.name,
   order = "c[bi]-ssw-c1[raw-wood2]",
   -- This is a custom property for use by "Krastorio 2" (it will change
   -- ingredients/results; used for wood/wood pulp)
@@ -486,7 +486,7 @@ BI.default_recipes.logs_3 = {
     { icon = ICONPATH .. "wood_woodpulp.png", icon_size = 64, icon_mipmaps = 4, scale = 1, shift = {0, 0} },
     { icon = ICONPATH .. "signal/bi_signal_fert.png", icon_size = 64, icon_mipmaps = 4, scale = 0.4, shift = {16, -16} },
   },
-  category = "biofarm-mod-farm",
+  category = BI.default_recipe_categories.farm.name,
   enabled = false,
   always_show_made_in = true,
   allow_decomposition = false,
@@ -501,7 +501,7 @@ BI.default_recipes.logs_3 = {
     {type = "item", name = "bi-woodpulp", amount = 270},
   },
   main_product = "",
-  subgroup = "bio-bio-farm-fluid-3",
+  subgroup = BI.default_item_subgroup.biofarm_fluid_3.name,
   order = "c[bi]-ssw-c1[raw-wood3]",
   -- This is a custom property for use by "Krastorio 2" (it will change
   -- ingredients/results; used for wood/wood pulp)
@@ -529,7 +529,7 @@ BI.default_recipes.logs_4 = {
     { icon = ICONPATH .. "wood_woodpulp.png", icon_size = 64, icon_mipmaps = 4, scale = 1, shift = {0, 0} },
     { icon = ICONPATH .. "signal/bi_signal_adv_fert.png", icon_size = 64, icon_mipmaps = 4, scale = 0.4, shift = {16, -16} },
   },
-  category = "biofarm-mod-farm",
+  category = BI.default_recipe_categories.farm.name,
   enabled = false,
   always_show_made_in = true,
   allow_decomposition = false,
@@ -544,7 +544,7 @@ BI.default_recipes.logs_4 = {
     {type = "item", name = "bi-woodpulp", amount = 320},
   },
   main_product = "",
-  subgroup = "bio-bio-farm-fluid-3",
+  subgroup = BI.default_item_subgroup.biofarm_fluid_3.name,
   order = "c[bi]-ssw-c1[raw-wood4]",
   -- This is a custom property for use by "Krastorio 2" (it will change
   -- ingredients/results; used for wood/wood pulp)
@@ -579,8 +579,8 @@ BI.default_recipes.ash_1 = {
   --~ icons = BioInd.make_icons({it1 = "ash", it2 = "woodpulp", it3 = "", shift1_1 = 0 , shift1_2 = 0, shift2_1 = 0, shift2_2 = 0}),
   icons = {it1 = "ash", it2 = "woodpulp", it3 = "", shift1_1 = 0 , shift1_2 = 0, shift2_1 = 0, shift2_2 = 0},
   BI_add_icon = true,
-  category = "biofarm-mod-smelting",
-  subgroup = "bio-cokery",
+  category = BI.default_recipe_categories.smelting.name,
+  subgroup = BI.default_item_subgroup.cokery.name,
   order = "a[bi]-a-c[bi-5-ash-1]",
   enabled = false,
   --~ always_show_made_in = true,
@@ -616,8 +616,8 @@ BI.default_recipes.ash_2 = {
   --~ icons = BioInd.make_icons({it1 = "ash", it2 = "wood", it3 = "", shift1_1 = 0 , shift1_2 = 0, shift2_1 = 0, shift2_2 = 0}),
   icons = {it1 = "ash", it2 = "wood", it3 = "", shift1_1 = 0 , shift1_2 = 0, shift2_1 = 0, shift2_2 = 0},
   BI_add_icon = true,
-  category = "biofarm-mod-smelting",
-  subgroup = "bio-cokery",
+  category = BI.default_recipe_categories.smelting.name,
+  subgroup = BI.default_item_subgroup.cokery.name,
   order = "a[bi]-a-c[bi-5-ash-2]",
   enabled = false,
   --~ always_show_made_in = true,
@@ -651,7 +651,7 @@ BI.default_recipes.biomass_1 = {
   icon = ICONPATH .. "fluid_biomass.png",
   icon_size = 64, icon_mipmaps = 3,
   BI_add_icon = true,
-  category = "biofarm-mod-bioreactor",
+  category = BI.default_recipe_categories.bioreactor.name,
   energy_required = 10,
   ingredients = {
     {type = "fluid", name = "water", amount = 100},
@@ -664,7 +664,7 @@ BI.default_recipes.biomass_1 = {
   enabled = false,
   always_show_made_in = true,
   allow_decomposition = true,
-  subgroup = "bio-bio-fuel-fluid",
+  subgroup = BI.default_item_subgroup.bio_fuel_fluid.name,
   order = "a-[biomass]-a-[bi-biomass-1]",
   crafting_machine_tint = { primary = util.color("43f436") },
   -- Custom property that allows to automatically add our recipes to tech unlocks.
@@ -703,7 +703,7 @@ BI.default_recipes.fertilizer_1 = {
   allow_as_intermediate = true,       -- Changed for 0.18.34/1.1.4
   always_show_made_in = true,         -- Changed for 0.18.34/1.1.4
   allow_decomposition = true,         -- Changed for 0.18.34/1.1.4
-  subgroup = "bio-bio-farm-intermediate-product",
+  subgroup = BI.default_item_subgroup.bio_farm_intermediate_product.name,
   order = "b[bi-fertilizer]",
   -- Custom property that allows to automatically add our recipes to tech unlocks.
   BI_add_to_tech = {"bi-tech-fertilizer"},
@@ -744,7 +744,7 @@ BI.default_recipes.adv_fertilizer_1 = {
   allow_as_intermediate = true,       -- Changed for 0.18.34/1.1.4
   always_show_made_in = true,         -- Changed for 0.18.34/1.1.4
   allow_decomposition = true,         -- Changed for 0.18.34/1.1.4
-  subgroup = "bio-bio-farm-intermediate-product",
+  subgroup = BI.default_item_subgroup.bio_farm_intermediate_product.name,
   order = "b[bi-fertilizer]-b[bi-adv-fertilizer-1]",
   -- This is a custom property for use by "Krastorio 2" (it will change
   -- ingredients/results; used for wood/wood pulp)

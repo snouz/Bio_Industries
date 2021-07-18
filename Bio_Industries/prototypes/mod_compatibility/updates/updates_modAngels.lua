@@ -292,7 +292,7 @@ if mods["angelsbioprocessing"] and BI.Settings.BI_Coal_Processing then
     --BioInd.BI_change_icon(recipe, ICONPATH .. "charcoal_pellets.png")
 
     -- Change category
-    recipe.category = "biofarm-mod-smelting"
+    recipe.category = BI.default_recipe_categories.smelting.name
     BioInd.modified_msg("category", recipe)
   end
 
@@ -328,7 +328,7 @@ if mods["angelspetrochem"] and BI.Settings.BI_Coal_Processing then
     recipe = recipes[BI.additional_recipes.BI_Coal_Processing.pellet_coke.name]
     if recipe then
       -- Change category
-      recipe.category = "biofarm-mod-smelting"
+      recipe.category = BI.default_recipe_categories.smelting.name
       BioInd.modified_msg("category", recipe)
 
       -- Change unlock

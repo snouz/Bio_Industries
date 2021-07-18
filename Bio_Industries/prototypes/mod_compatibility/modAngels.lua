@@ -2,8 +2,10 @@
 --                                  Angel's mods                                  --
 ------------------------------------------------------------------------------------
 if not BioInd.check_mods({
+  "angelsbioprocessing",
   "angelspetrochem",
-  "angelsrefining"
+  "angelsrefining",
+  "angelssmelting",
 }) then
   BioInd.nothing_to_do("*")
   return
@@ -34,7 +36,14 @@ if fluids["water-purified"] and
      BI.additional_items.BI_Trigger_Crushed_Stone_Create and
       items[BI.additional_items.BI_Trigger_Crushed_Stone_Create.crushed_stone.name] then
 
+  -- "angelsbioprocessing" will move the unlock of "water-mineralized" from
+  -- the "water-treatment" tech to "bio-processing-green", so we must move our recipe
+  -- to the next tier of "water-treatment" to prevent dependency circles!
+  if mods["angelsbioprocessing"] then
+    BI.additional_recipes.mod_compatibility.sulfuric_waste.BI_add_to_tech = {"water-treatment-2"}
+  end
   BioInd.create_stuff(BI.additional_recipes.mod_compatibility.sulfuric_waste)
+
 end
 
 ------------------------------------------------------------------------------------
@@ -45,27 +54,27 @@ if fluids["water-saline"] and fluids["slag-slurry"] then
   BioInd.create_stuff(BI.additional_recipes.mod_compatibility.slag_slurry)
 end
 
-------------------------------------------------------------------------------------
---             Add recipe for sand from crushed stone if there is sand            --
-------------------------------------------------------------------------------------
--- Angel's Refining ("angelsrefining")
-if BI.Settings.BI_Stone_Crushing and items["solid-sand"] then
-  -- Make sure our sand recipe exists
+--~ ------------------------------------------------------------------------------------
+--~ --             Add recipe for sand from crushed stone if there is sand            --
+--~ ------------------------------------------------------------------------------------
+--~ -- Angel's Smelting ("angelssmelting")
+--~ if BI.Settings.BI_Stone_Crushing and items["solid-sand"] then
+  --~ -- Make sure our sand recipe exists
 
-  recipe = recipes[BI.additional_recipes.mod_compatibility.sand.name] or
-            BioInd.create_stuff(BI.additional_recipes.mod_compatibility.sand)[1]
+  --~ recipe = recipes[BI.additional_recipes.mod_compatibility.sand.name] or
+            --~ BioInd.create_stuff(BI.additional_recipes.mod_compatibility.sand)[1]
 
-  if recipe then
-    -- Adjust result
-    recipe.result = "solid-sand"
-    recipe.result_count = 5
-    BioInd.modified_msg("result", recipe)
+  --~ if recipe then
+    --~ -- Adjust result
+    --~ recipe.result = "solid-sand"
+    --~ recipe.result_count = 5
+    --~ BioInd.modified_msg("result", recipe)
 
-    -- Adjust localization
-    recipe.localised_name = {"recipe-name.bi-sand", {"item-name.solid-sand"}}
-    BioInd.modified_msg("localization", recipe)
-  end
-end
+    --~ -- Adjust localization
+    --~ recipe.localised_name = {"recipe-name.bi-sand", {"item-name.solid-sand"}}
+    --~ BioInd.modified_msg("localization", recipe)
+  --~ end
+--~ end
 
 
 ------------------------------------------------------------------------------------

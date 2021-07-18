@@ -30,13 +30,13 @@ refinery = data.raw["assembling-machine"]["oil-refinery"]
 if refinery then
   addit = true
   for c, category in ipairs(refinery.crafting_categories) do
-    if category == "biofarm-mod-bioreactor" then
+    if category == BI.default_recipe_categories.bioreactor.name then
       addit = false
       break
     end
   end
   if addit then
-    table.insert(refinery.crafting_categories, "biofarm-mod-bioreactor")
+    table.insert(refinery.crafting_categories, BI.default_recipe_categories.bioreactor.name)
     BioInd.modified_msg("crafting_categories", refinery)
   end
 end

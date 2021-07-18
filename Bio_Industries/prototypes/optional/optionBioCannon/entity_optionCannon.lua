@@ -323,7 +323,7 @@ BI.additional_entities[setting].bio_cannon_area = {
   inventory_size = 1,
   attack_parameters = {
     type = "projectile",
-    ammo_category = "Bio_Cannon_Ammo",
+    ammo_category = BI.additional_categories.Bio_Cannon.cannon_ammo.name,
     cooldown = 2,
     range = 90,
     min_range = 20,
@@ -381,7 +381,7 @@ BI.additional_entities[setting].bio_cannon = {
   attack_parameters = {
     type = "projectile",
     --~ ammo_category = "artillery-shell",
-    ammo_category = "Bio_Cannon_Ammo",
+    ammo_category = BI.additional_categories.Bio_Cannon.cannon_ammo.name,
     cooldown = 2,
     range = 0,
     projectile_creation_distance = 1.8,
@@ -998,9 +998,11 @@ BI.additional_entities[setting].poison_cloud = {
 ------------------------------------------------------------------------------------
 for e, e_data in pairs(BI.additional_entities[setting] or {}) do
   -- Don't create the Poison artillery shell yet -- other mods may have created one!
-  --~ if e_data.name ~= BI.additional_entities[setting].poison_artillery_shell.name and
-      --~ e_data.name ~= BI.additional_entities[setting].poison_cloud then
-  if e_data.name ~= BI.additional_entities[setting].poison_artillery_shell.name then
+  if e_data.name ~= BI.additional_entities[setting].poison_artillery_shell.name and
+      e_data.name ~= BI.additional_entities[setting].poison_cloud and
+  -- Don't create the Napalm projectile -- this will be done by NE!
+      e_data.name ~= BI.additional_entities[setting].ne_napalm_small then
+  --~ if e_data.name ~= BI.additional_entities[setting].poison_artillery_shell.name then
     BioInd.create_stuff(e_data)
 
     -- Remnants, if they exist

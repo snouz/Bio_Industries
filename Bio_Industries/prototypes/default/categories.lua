@@ -219,11 +219,11 @@ BI.default_item_subgroup.bio_fuel_fluid = {
 --                                Recipe categories                               --
 ------------------------------------------------------------------------------------
 
--- Terraformer (Arboretum)
-BI.default_recipe_categories.arboretum = {
-  type = "recipe-category",
-  name = "bi-arboretum"
-}
+--~ -- Terraformer (Arboretum)
+--~ BI.default_recipe_categories.arboretum = {
+  --~ type = "recipe-category",
+  --~ name = "bi-arboretum"
+--~ }
 
 -- Bio farm
 BI.default_recipe_categories.farm = {
@@ -243,17 +243,17 @@ BI.default_recipe_categories.greenhouse = {
   name = "biofarm-mod-greenhouse"
 }
 
--- Depollution
-BI.default_recipe_categories.clean_air = {
-  type = "recipe-category",
-  name = "clean-air"
-}
+--~ -- Depollution
+--~ BI.default_recipe_categories.clean_air = {
+  --~ type = "recipe-category",
+  --~ name = "clean-air"
+--~ }
 
--- Crushing
-BI.default_recipe_categories.crushing = {
-  type = "recipe-category",
-  name = "biofarm-mod-crushing"
-}
+--~ -- Crushing
+--~ BI.default_recipe_categories.crushing = {
+  --~ type = "recipe-category",
+  --~ name = "biofarm-mod-crushing"
+--~ }
 
 -- Smelting
 BI.default_recipe_categories.smelting = {

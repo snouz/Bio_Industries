@@ -95,7 +95,7 @@ BI.additional_entities[setting].dart_magazine_basic = {
   icon_size = 64, icon_mipmaps = 3,
   BI_add_icon = true,
   ammo_type = {
-    category = "Bio_Turret_Ammo",
+    category = BI.additional_categories.BI_Darts.turret_ammo.name,
     action = {
       type = "direct",
       action_delivery = {
@@ -132,7 +132,7 @@ BI.additional_entities[setting].dart_magazine_standard = {
   icon_size = 64, icon_mipmaps = 3,
   BI_add_icon = true,
   ammo_type = {
-    category = "Bio_Turret_Ammo",
+    category = BI.additional_categories.BI_Darts.turret_ammo.name,
     action = {
       type = "direct",
       action_delivery = {
@@ -152,7 +152,7 @@ BI.additional_entities[setting].dart_magazine_standard = {
           },
           {
             type = "damage",
-            damage = { amount = 2 , type = "bob-pierce"}
+            damage = { amount = 2 , type = BI.additional_categories.BI_Darts.bob_pierce.name}
           },
         }
       }
@@ -174,7 +174,7 @@ BI.additional_entities[setting].dart_magazine_enhanced = {
   icon_size = 64, icon_mipmaps = 3,
   BI_add_icon = true,
   ammo_type = {
-    category = "Bio_Turret_Ammo",
+    category = BI.additional_categories.BI_Darts.turret_ammo.name,
     action = {
       type = "direct",
       action_delivery = {
@@ -194,7 +194,7 @@ BI.additional_entities[setting].dart_magazine_enhanced = {
           },
           {
             type = "damage",
-            damage = { amount = 2 , type = "bob-pierce"}
+            damage = { amount = 2 , type = BI.additional_categories.BI_Darts.bob_pierce.name}
           },
           {
             type = "damage",
@@ -220,7 +220,7 @@ BI.additional_entities[setting].dart_magazine_poison = {
   icon_size = 64, icon_mipmaps = 3,
   BI_add_icon = true,
   ammo_type = {
-    category = "Bio_Turret_Ammo",
+    category = BI.additional_categories.BI_Darts.turret_ammo.name,
     action = {
     type = "direct",
     action_delivery = {
@@ -240,7 +240,7 @@ BI.additional_entities[setting].dart_magazine_poison = {
           },
           {
             type = "damage",
-            damage = { amount = 2 , type = "bob-pierce"}
+            damage = { amount = 2 , type = BI.additional_categories.BI_Darts.bob_pierce.name}
           },
           {
             type = "damage",
@@ -294,7 +294,7 @@ BI.additional_entities[setting].dart_turret = {
   vehicle_impact_sound = sounds.car_wood_impact,
   attack_parameters = {
     type = "projectile",
-    ammo_category = "Bio_Turret_Ammo",
+    ammo_category = BI.additional_categories.BI_Darts.turret_ammo.name,
     cooldown = 3.6,  -- cooldown = 6 -- darkfrei: means cooldown 6/60 sec or 10 shoots at second; = 60 is one shoot/sec
     projectile_creation_distance = 1.41,
     projectile_center = {-0.0625, 0.55},
@@ -333,7 +333,7 @@ BI.additional_entities[setting].dart_rifle = {
   order = "a[basic-clips]-ab[submachine-gun]",
   attack_parameters = {
     type = "projectile",
-    ammo_category = "Bio_Turret_Ammo",
+    ammo_category = BI.additional_categories.BI_Darts.turret_ammo.name,
     cooldown = 5,
     movement_slow_down_factor = 0.5,
     --shell_particle = {},
@@ -651,8 +651,6 @@ BI.additional_entities[setting].wooden_fence = {
 ------------------------------------------------------------------------------------
 for e, e_data in pairs(BI.additional_entities[setting] or {}) do
   -- Entity
-  --~ data:extend({e_data})
-  --~ BioInd.created_msg(e_data)
   BioInd.create_stuff(e_data)
 
   -- Remnants, if they exist

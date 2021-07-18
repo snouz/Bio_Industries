@@ -18,10 +18,6 @@ end
 ------------------------------------------------------------------------------------
 --                                  Create items                                  --
 ------------------------------------------------------------------------------------
---~ for i, i_data in pairs(BI.additional_items[setting] or {}) do
-  --~ data:extend({i_data})
-  --~ BioInd.created_msg(i_data)
---~ end
 BioInd.create_stuff(BI.additional_items[setting])
 
 ------------------------------------------------------------------------------------

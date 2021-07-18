@@ -7,7 +7,7 @@ end
 
 
 ---Bio Cannon Stuff
-local Event = require('__stdlib__/stdlib/event/event').set_protected_mode(true)
+--~ local Event = require('__stdlib__/stdlib/event/event').set_protected_mode(true)
 
 
 ----- Bio Cannon Stuff
@@ -124,28 +124,28 @@ end
 
 
 
-Event.register(defines.events.on_tick, function(event)
-  if global.bi_bio_cannon_table ~= nil then
-    if global.Bio_Cannon_Counter == 0 or global.Bio_Cannon_Counter == nil then
-      global.Bio_Cannon_Counter = 60
-      for b, bio_cannon in pairs(global.bi_bio_cannon_table) do
---~ BioInd.writeDebug("Checking cannon %s (%g)", {b, bio_cannon.base.unit_number})
+--~ Event.register(defines.events.on_tick, function(event)
+  --~ if global.bi_bio_cannon_table ~= nil then
+    --~ if global.Bio_Cannon_Counter == 0 or global.Bio_Cannon_Counter == nil then
+      --~ global.Bio_Cannon_Counter = 60
+      --~ for b, bio_cannon in pairs(global.bi_bio_cannon_table) do
+--~ -- BioInd.writeDebug("Checking cannon %s (%g)", {b, bio_cannon.base.unit_number})
 
-        if bio_cannon.base and bio_cannon.base.valid and
-            bio_cannon.radar and bio_cannon.radar.valid then
+        --~ if bio_cannon.base and bio_cannon.base.valid and
+            --~ bio_cannon.radar and bio_cannon.radar.valid then
 
-          bio_cannon.delay = bio_cannon.delay - 1
+          --~ bio_cannon.delay = bio_cannon.delay - 1
 
-          if bio_cannon.delay <= 0 then
-            Bio_Cannon_Check(bio_cannon.base)
-          end
-        end
-      end
-    else
-      global.Bio_Cannon_Counter = global.Bio_Cannon_Counter - 1
-    end
-  end
-end)
+          --~ if bio_cannon.delay <= 0 then
+            --~ Bio_Cannon_Check(bio_cannon.base)
+          --~ end
+        --~ end
+      --~ end
+    --~ else
+      --~ global.Bio_Cannon_Counter = global.Bio_Cannon_Counter - 1
+    --~ end
+  --~ end
+--~ end)
 
 
 ------------------------------------------------------------------------------------

@@ -40,7 +40,9 @@ if turret then
     -- Ammo damage modifier
     if ammo_damage then
       table.insert(techs["physical-projectile-damage-" .. level].effects, {
-        type = "ammo-damage", ammo_category = "Bio_Cannon_Ammo", modifier = ammo_damage
+        type = "ammo-damage",
+        ammo_category = BI.additional_categories.Bio_Cannon.cannon_ammo.name,
+        modifier = ammo_damage
       })
       BioInd.modified_msg("ammo-damage bonus", turret)
     end
@@ -48,7 +50,9 @@ if turret then
     -- Shooting speed modifier
     if gun_speed then
       table.insert(techs["weapon-shooting-speed-" .. level].effects, {
-        type = "gun-speed", ammo_category = "Bio_Cannon_Ammo", modifier = gun_speed
+        type = "gun-speed",
+        ammo_category = BI.additional_categories.Bio_Cannon.cannon_ammo.name,
+        modifier = gun_speed
       })
       BioInd.modified_msg("shooting-speed bonus", turret)
     end
@@ -59,7 +63,7 @@ if turret then
   --~ table.insert(data.raw.technology["artillery-shell-speed-1"].effects, {
   table.insert(tech.effects, {
     type = "gun-speed",
-    ammo_category = "Bio_Cannon_Ammo",
+    ammo_category = BI.additional_categories.Bio_Cannon.cannon_ammo.name,
     modifier = 1
   })
   --~ BioInd.modified_msg("shooting-speed bonus", turret)
@@ -92,7 +96,7 @@ BioInd.writeDebug("Found poison artillery shell: %s -- nothing to do!", {a})
 end
 
 if addit then
-  --~ BioInd.create_stuff(BI.additional_entities[setting].poison_cloud)
+  BioInd.create_stuff(BI.additional_entities[setting].poison_cloud)
   BioInd.create_stuff(BI.additional_entities[setting].poison_artillery_shell)
   BioInd.create_stuff(BI.additional_items[setting].poison_artillery_shell)
   BioInd.create_stuff(BI.additional_recipes[setting].poison_artillery_shell)

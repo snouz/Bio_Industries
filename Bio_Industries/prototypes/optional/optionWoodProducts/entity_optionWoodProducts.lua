@@ -929,8 +929,6 @@ BI.additional_entities[setting].wood_pipe_to_ground = {
 ------------------------------------------------------------------------------------
 for e, e_data in pairs(BI.additional_entities[setting] or {}) do
   -- Entity
-  --~ data:extend({e_data})
-  --~ BioInd.created_msg(e_data)
   BioInd.create_stuff(e_data)
 
   -- Remnants, if they exist

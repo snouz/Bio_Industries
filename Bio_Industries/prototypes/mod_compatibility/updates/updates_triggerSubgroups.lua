@@ -3,7 +3,7 @@
 --    (Just creating the missing item-subgroups here, we'll add things later.)    --
 --                       (BI.Triggers.BI_Trigger_Subgroups)                       --
 ------------------------------------------------------------------------------------
--- Mods: "5dim_core", "SchallTransportGroup"
+-- Mods: "5dim_core",
 local trigger = "BI_Trigger_Subgroups"
 if not BI.Triggers[trigger] then
   BioInd.nothing_to_do("*")

@@ -1,6 +1,9 @@
+------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
+--               Control connections of poles from compound entities              --
+------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
 BioInd.entered_file()
-
----Connect poles
 
 local BI_poles = {}
 
@@ -158,6 +161,111 @@ BioInd.writeDebug("Rail %s of %s (%s): %s (%s)", {direction, base.name, base.uni
 
   BioInd.entered_function("leave")
 end
+
+
+------------------------------------------------------------------------------------
+--                Make sure hidden poles of are wired up correctly!               --
+------------------------------------------------------------------------------------
+BI_poles.connect_poles = function(pole, base)
+  BioInd.entered_function({BioInd.argprint(pole), BioInd.argprint(base)})
+
+  local entities = BioInd.compound_entities
+  -- The hidden entities are listed with a common handle ("pole", "panel" etc.). We
+  -- can get it from the reverse-lookup list via the entity type!
+  local h_key = BioInd.HE_map_reverse[pole.type]
+  BioInd.show("h_key", h_key or "nil")
+
+  -- Make sure hidden poles of the Bio gardens are connected correctly!
+  if pole.name == entities["bi-bio-garden"].hidden[h_key].name and base then
+BioInd.writeDebug("Bio garden!")
+    BI_poles.connect_garden_pole(base, pole)
+    BioInd.writeDebug("Connected %s (%s)", {pole.name, pole.unit_number or "nil"})
+
+  -- Make sure hidden poles for powered rails are connected correctly!
+  elseif pole.name == entities["bi-straight-rail-power"].hidden[h_key].name and base then
+BioInd.writeDebug("Powered rail!")
+    BI_poles.connect_power_rail(base, pole)
+    BioInd.writeDebug("Connected %s", {BioInd.print_name_id(pole)})
+
+  -- Do nothing for rail-to-power connectors
+  elseif pole.name == "bi-power-to-rail-pole" then
+    BioInd.writeDebug("Nothing to do for %s", {BioInd.print_name_id(pole)})
+
+  -- Some other pole has been placed -- check if we need to break connections!
+  else
+BioInd.writeDebug("Must disconnect?")
+    local musk_floor_neighbours = {}
+    for n, neighbour in ipairs(pole.neighbours["copper"] or {}) do
+      -- Disconnect other poles from hidden poles on powered rails
+      if neighbour.name == entities["bi-straight-rail-power"].hidden[h_key].name then
+        pole.disconnect_neighbour(neighbour)
+        BioInd.writeDebug("Disconnected %s from %s",
+                          {BioInd.print_name_id(pole), BioInd.print_name_id(neighbour)})
+      -- Find neighbours that are hidden poles from Musk floor
+      elseif neighbour.name == BioInd.musk_floor_pole_name then
+        musk_floor_neighbours[#musk_floor_neighbours + 1] = neighbour
+      end
+    end
+    -- If there is more than one Musk-floor neighbour, cut excess connections
+BioInd.show("Musk floor neighbours", musk_floor_neighbours)
+    if #musk_floor_neighbours > 1 then
+      for n = 2, #musk_floor_neighbours do
+        pole.disconnect_neighbour(musk_floor_neighbours[n])
+BioInd.writeDebug("Broke connection with %s", {BioInd.argprint(musk_floor_neighbours[n])})
+      end
+    end
+  end
+BioInd.entered_function("leave")
+end
+
+
+------------------------------------------------------------------------------------
+--  If a compound entity is moved (Picker Dollies!), cut connections that exceed  --
+--  the poles' wire reach!                                                        --
+------------------------------------------------------------------------------------
+BI_poles.disconnect_faraway = function(compound)
+  BioInd.entered_function({data})
+
+  if compound and compound.base and compound.base.valid then
+    local data = global.compound_entities[compound.base.name]
+    local pole, max_distance, wire_reach, circuit_wire_reach
+
+    for h_key, h_data in pairs(data and data.hidden or {}) do
+      if h_data.type == "electric-pole" then
+        wire_reach = h_data.max_wire_distance or 0
+        circuit_wire_reach = h_data.max_circuit_wire_distance or 0
+
+        if compound[h_key] and compound[h_key].valid then
+          pole = compound[h_key]
+BioInd.show("pole neighbours", pole.neighbours)
+
+          for wire, w_neighbours in pairs(pole.neighbours) do
+            max_distance = (wire == "copper") and wire_reach or circuit_wire_reach
+            BioInd.writeDebug("Checking neighbours for %s wire (max_distance: %s)",
+                              {wire, max_distance})
+            for n, neighbour in pairs(w_neighbours) do
+              if util.distance(pole.position, neighbour.position) > max_distance then
+                if wire == "copper" then
+                  pole.disconnect_neighbour(neighbour)
+                else
+                  pole.disconnect_neighbour({
+                    wire = defines.wire_type[wire],
+                    target_entity = neighbour
+                  })
+                end
+                BioInd.writeDebug("Disconnected  %s wire from %s (%s tiles away)", {
+                  wire, BioInd.argprint(neighbour), util.distance(pole.position, neighbour.position)
+                })
+              end
+            end
+          end
+        end
+      end
+    end
+  end
+  BioInd.entered_function("leave")
+end
+
 
 
 ------------------------------------------------------------------------------------

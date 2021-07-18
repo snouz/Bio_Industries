@@ -110,7 +110,11 @@ local prerequisite_map = {
 for tech, prerequisite in pairs(prerequisite_map) do
   thxbob.lib.tech.add_prerequisite(tech, prerequisite)
   BioInd.modified_msg("prerequisites", data.raw.technology[tech])
+
+thxbob.lib.tech.remove_prerequisite(prerequisite, tech)
+  BioInd.modified_msg("prerequisites", data.raw.technology[prerequisite])
 end
+
 
 ------------------------------------------------------------------------------------
 --                       Adjust research costs of some techs                      --

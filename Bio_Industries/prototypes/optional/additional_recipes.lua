@@ -14,6 +14,7 @@ local settings = {
   "BI_Explosive_Planting",
   "BI_Rails",
   "BI_Rubber",
+  "BI_Pollution_Detector",
   "BI_Power_Production",
   "BI_Stone_Crushing",
   "BI_Terraforming",
@@ -28,6 +29,7 @@ end
 
 local triggers = {
   "BI_Trigger_Easy_Bio_Gardens",
+  "BI_Trigger_Sand",
 }
 for t, trigger in pairs(triggers) do
   BI.additional_recipes[trigger] = BI.additional_recipes[trigger] or {}
@@ -69,9 +71,10 @@ BI.additional_recipes.BI_Bio_Fuel.bio_boiler = {
     enabled = false,
     energy_required = 10,
     ingredients = {
-      {"boiler", 1},
+      {"boiler", 4},
+      {"pipe", 5},
       {"steel-plate", 5},
-      {"concrete", 5},
+      {"concrete", 8},
     },
     result = "bi-bio-boiler",
     result_count = 1,
@@ -83,9 +86,10 @@ BI.additional_recipes.BI_Bio_Fuel.bio_boiler = {
     enabled = false,
     energy_required = 15,
     ingredients = {
-      {"boiler", 2},
-      {"steel-plate", 5},
-      {"concrete", 5},
+      {"boiler", 4},
+      {"pipe", 10},
+      {"steel-plate", 10},
+      {"concrete", 12},
     },
     result = "bi-bio-boiler",
     result_count = 1,
@@ -166,7 +170,7 @@ BI.additional_recipes.BI_Bio_Fuel.cellulose_1 = {
   enabled = false,
   always_show_made_in = true,
   allow_decomposition = false,
-  subgroup = "bio-bio-farm-raw",
+  subgroup = BI.default_item_subgroup.bio_farm_raw.name,
   order = "z[bi-cellulose-1]",
   --~ -- subgroup = "intermediate-product",
   --~ -- order = "b[cellulose-1]",
@@ -209,7 +213,7 @@ BI.additional_recipes.BI_Bio_Fuel.cellulose_2 = {
   enabled = false,
   always_show_made_in = true,
   allow_decomposition = false,
-  subgroup = "bio-bio-farm-raw",
+  subgroup = BI.default_item_subgroup.bio_farm_raw.name,
   order = "z[bi-cellulose-2]",
   --~ -- subgroup = "intermediate-product",
   --~ -- order = "b[cellulose-2]",
@@ -348,7 +352,7 @@ BI.additional_recipes.BI_Bio_Fuel.bio_mass_2 = {
     { icon = ICONPATH .. "fluid_biomass.png", icon_size = 64, icon_mipmaps = 4, scale = 1, shift = {0, 0} },
     { icon = ICONPATH .. "signal/bi_signal_reprocess.png", icon_size = 64, icon_mipmaps = 4, scale = 1, shift = {0, 0} },
   },
-  category = "biofarm-mod-bioreactor",
+  category = BI.default_recipe_categories.bioreactor.name,
   energy_required = 60,
   ingredients = {
     {type = "fluid", name = "water", amount = 90},
@@ -364,7 +368,7 @@ BI.additional_recipes.BI_Bio_Fuel.bio_mass_2 = {
   allow_decomposition = false,
   --~ -- subgroup = "bio-bio-fuel-fluid",
   --~ -- order = "x[oil-processing]-z3[bi-biomass]"
-  subgroup = "bio-bio-fuel-fluid",
+  subgroup = BI.default_item_subgroup.bio_fuel_fluid.name,
   order = "a-[biomass]-a-[bi-biomass-2]",
   allow_as_intermediate = false,
   -- Custom property that allows to automatically add our recipes to tech unlocks.
@@ -387,7 +391,7 @@ BI.additional_recipes.BI_Bio_Fuel.bio_mass_3 = {
     { icon = ICONPATH .. "signal/bi_signal_reprocess.png", icon_size = 64, icon_mipmaps = 4, scale = 1, shift = {0, 0} },
     { icon = ICONPATH .. "ash.png", icon_size = 64, icon_mipmaps = 4, scale = 0.5, shift = {18, -19} },
   },
-  category = "biofarm-mod-bioreactor",
+  category = BI.default_recipe_categories.bioreactor.name,
   energy_required = 10,
   ingredients = {
     {type = "fluid", name = "water", amount = 90},
@@ -404,7 +408,7 @@ BI.additional_recipes.BI_Bio_Fuel.bio_mass_3 = {
   allow_decomposition = false,
   --~ -- subgroup = "bio-bio-fuel-fluid",
   --~ -- order = "x[oil-processing]-z2[bi-biomass]"
-  subgroup = "bio-bio-fuel-fluid",
+  subgroup = BI.default_item_subgroup.bio_fuel_fluid.name,
   order = "a-[biomass]-a-[bi-biomass-3]",
   allow_as_intermediate = false,
   -- Custom property that allows to automatically add our recipes to tech unlocks.
@@ -437,7 +441,7 @@ BI.additional_recipes.BI_Bio_Fuel.bio_mass_conversion_crude_oil = {
     { icon = ICONPATH .. "fluid_biomass.png", icon_size = 64, icon_mipmaps = 4, scale = 0.6, shift = {-18, -14} },
   },
   --~ category = "oil-processing",
-  category = "biofarm-mod-bioreactor",
+  category = BI.default_recipe_categories.bioreactor.name,
   enabled = false,
   always_show_made_in = true,
   allow_decomposition = false,
@@ -452,7 +456,7 @@ BI.additional_recipes.BI_Bio_Fuel.bio_mass_conversion_crude_oil = {
     {type = "fluid", name = "water", amount = 50},
   },
   main_product = "",
-  subgroup = "bio-bio-fuel-fluid",
+  subgroup = BI.default_item_subgroup.bio_fuel_fluid.name,
   order = "a-[biomass]-b-[conversion]-1-[crude-oil]",
   allow_as_intermediate = false,
   -- Custom property that allows to automatically add our recipes to tech unlocks.
@@ -484,7 +488,7 @@ BI.additional_recipes.BI_Bio_Fuel.bio_mass_conversion_petroleum = {
     { icon = ICONPATH .. "fluid_biomass.png", icon_size = 64, icon_mipmaps = 4, scale = 0.6, shift = {-18, -14} },
   },
   --~ category = "oil-processing",
-  category = "biofarm-mod-bioreactor",
+  category = BI.default_recipe_categories.bioreactor.name,
   enabled = false,
   always_show_made_in = true,
   allow_decomposition = false,
@@ -497,7 +501,7 @@ BI.additional_recipes.BI_Bio_Fuel.bio_mass_conversion_petroleum = {
     {type = "fluid", name = "petroleum-gas", amount = 20}
   },
   main_product = "",
-  subgroup = "bio-bio-fuel-fluid",
+  subgroup = BI.default_item_subgroup.bio_fuel_fluid.name,
   order = "a-[biomass]-b-[conversion]-2-[petroleum-gas]",
   allow_as_intermediate = false,
   -- Custom property that allows to automatically add our recipes to tech unlocks.
@@ -531,7 +535,7 @@ BI.additional_recipes.BI_Bio_Fuel.bio_mass_conversion_lubricant = {
     { icon = ICONPATH .. "fluid_biomass.png", icon_size = 64, icon_mipmaps = 4, scale = 0.6, shift = {-18, -14} },
   },
   --~ category = "oil-processing",
-  category = "biofarm-mod-bioreactor",
+  category = BI.default_recipe_categories.bioreactor.name,
   enabled = false,
   always_show_made_in = true,
   allow_decomposition = false,
@@ -545,7 +549,7 @@ BI.additional_recipes.BI_Bio_Fuel.bio_mass_conversion_lubricant = {
   },
   main_product = "",
   crafting_machine_tint = { primary = util.color("64de41") },
-  subgroup = "bio-bio-fuel-fluid",
+  subgroup = BI.default_item_subgroup.bio_fuel_fluid.name,
   order = "a-[biomass]-b-[conversion]-3-[lubricant]",
   allow_as_intermediate = false,
   -- Custom property that allows to automatically add our recipes to tech unlocks.
@@ -575,7 +579,7 @@ BI.additional_recipes.BI_Bio_Fuel.bio_mass_conversion_sulfuric_acid = {
     { icon = ICONPATH .. "fluid_biomass.png", icon_size = 64, icon_mipmaps = 4, scale = 0.6, shift = {-18, -14} },
   },
   --~ category = "chemistry",
-  category = "biofarm-mod-bioreactor",
+  category = BI.default_recipe_categories.bioreactor.name,
   energy_required = 10,
   ingredients = {
     {type = "fluid", name = "water", amount = 90},
@@ -595,7 +599,7 @@ BI.additional_recipes.BI_Bio_Fuel.bio_mass_conversion_sulfuric_acid = {
     tertiary    = util.color("85b87d"),
     quaternary  = util.color("b9ba8a")
   },
-  subgroup = "bio-bio-fuel-fluid",
+  subgroup = BI.default_item_subgroup.bio_fuel_fluid.name,
   --~ -- subgroup = "fluid-recipes",
   order = "a-[biomass]-b-[conversion]-4-[sulfuric-acid]",
   --~ -- order = "a",
@@ -633,7 +637,7 @@ BI.additional_recipes.BI_Bio_Fuel.bio_mass_conversion_light_oil = {
     { icon = ICONPATH .. "fluid_biomass.png", icon_size = 64, icon_mipmaps = 4, scale = 0.6, shift = {-18, -14} },
   },
   --~ category = "oil-processing",
-  category = "biofarm-mod-bioreactor",
+  category = BI.default_recipe_categories.bioreactor.name,
   enabled = false,
   always_show_made_in = true,
   allow_decomposition = false,
@@ -648,7 +652,7 @@ BI.additional_recipes.BI_Bio_Fuel.bio_mass_conversion_light_oil = {
   },
   main_product = "",
   crafting_machine_tint = { primary = util.color("efd544") },
-  subgroup = "bio-bio-fuel-fluid",
+  subgroup = BI.default_item_subgroup.bio_fuel_fluid.name,
   order = "a-[biomass]-b-[conversion]-5-[light-oil]",
   allow_as_intermediate = false,
   -- Custom property that allows to automatically add our recipes to tech unlocks.
@@ -860,7 +864,7 @@ BI.additional_recipes.BI_Bio_Garden.purified_air_1 = {
   icon_size = 64, icon_mipmaps = 3,
   BI_add_icon = true,
   order = "zzz-clean-air",
-  category = "clean-air",
+  category = BI.additional_categories.BI_Bio_Garden.clean_air.name,
   subgroup = "bio-bio-gardens-fluid",
   order = "bi-purified-air-1",
   enabled = false,
@@ -896,7 +900,7 @@ BI.additional_recipes.BI_Bio_Garden.purified_air_2 = {
   icon_size = 64, icon_mipmaps = 3,
   BI_add_icon = true,
   order = "zzz-clean-air2",
-  category = "clean-air",
+  category = BI.additional_categories.BI_Bio_Garden.clean_air.name,
   subgroup = "bio-bio-gardens-fluid",
   order = "bi-purified-air-2",
   enabled = false,
@@ -939,8 +943,8 @@ BI.additional_recipes.BI_Coal_Processing.charcoal_1 = {
     { icon = ICONPATH .. "charcoal.png", icon_size = 64, icon_mipmaps = 4, scale = 1, shift = {0, 0} },
     { icon = ICONPATH .. "woodpulp.png", icon_size = 64, icon_mipmaps = 4, scale = 0.5, shift = {16, -17} },
   },
-  category = "biofarm-mod-smelting",
-  subgroup = "bio-cokery",
+  category = BI.default_recipe_categories.smelting.name,
+  subgroup = BI.default_item_subgroup.cokery.name,
   order = "a[bi]-a-d[bi-6-charcoal-1]",
   energy_required = 15,
   ingredients = {{"bi-woodpulp", 24}},
@@ -969,9 +973,9 @@ BI.additional_recipes.BI_Coal_Processing.charcoal_2 = {
     { icon = ICONPATH .. "charcoal.png", icon_size = 64, icon_mipmaps = 4, scale = 1, shift = {0, 0} },
     { icon = "__base__/graphics/icons/wood.png", icon_size = 64, icon_mipmaps = 4, scale = 0.5, shift = {17, -15} },
   },
-  subgroup = "bio-cokery",
+  subgroup = BI.default_item_subgroup.cokery.name,
   order = "a[bi]-a-d[bi-6-charcoal-2]",
-  category = "biofarm-mod-smelting",
+  category = BI.default_recipe_categories.smelting.name,
   energy_required = 20,
   ingredients = {{"wood", 20}},
   result = "wood-charcoal",
@@ -994,8 +998,8 @@ BI.additional_recipes.BI_Coal_Processing.coal_1 = {
   icon = "__base__/graphics/icons/coal-dark-background.png",
   icon_size = 64, icon_mipmaps = 3,
   BI_add_icon = true,
-  category = "biofarm-mod-smelting",
-  subgroup = "bio-cokery",
+  category = BI.default_recipe_categories.smelting.name,
+  subgroup = BI.default_item_subgroup.cokery.name,
   order = "a[bi]-a-ea[bi-6-coal-1]",
   energy_required = 20,
   --~ ingredients = {{"wood-charcoal", 10}},
@@ -1025,8 +1029,8 @@ BI.additional_recipes.BI_Coal_Processing.coal_2 = {
     { icon = "__base__/graphics/icons/coal-dark-background.png", icon_size = 64, icon_mipmaps = 4, scale = 1, shift = {0, 0} },
     { icon = ICONPATH .. "signal/bi_signal_plus.png", icon_size = 64, icon_mipmaps = 4, scale = 0.45, shift = {18, -18} },
   },
-  category = "biofarm-mod-smelting",
-  subgroup = "bio-cokery",
+  category = BI.default_recipe_categories.smelting.name,
+  subgroup = BI.default_item_subgroup.cokery.name,
   order = "a[bi]-a-eb[bi-6-coal-2]",
   energy_required = 20,
   --~ ingredients = {{"wood-charcoal", 10}},
@@ -1054,8 +1058,8 @@ BI.additional_recipes.BI_Coal_Processing.coke_coal = {
   icon = ICONPATH .. "pellet_coke.png",
   icon_size = 64, icon_mipmaps = 3,
   BI_add_icon = true,
-  category = "biofarm-mod-smelting",
-  subgroup = "bio-cokery",
+  category = BI.default_recipe_categories.smelting.name,
+  subgroup = BI.default_item_subgroup.cokery.name,
   order = "a[bi]-a-g[bi-8-coke-coal]-1",
   energy_required = 20,
   ingredients = {{"coal", 12}},
@@ -1085,8 +1089,8 @@ BI.additional_recipes.BI_Coal_Processing.pellet_coke = {
     { icon = ICONPATH .. "pellet_coke.png", icon_size = 64, icon_mipmaps = 4, scale = 1, shift = {0, 0} },
     { icon = "__base__/graphics/icons/solid-fuel.png", icon_size = 64, icon_mipmaps = 4, scale = 0.5, shift = {17, -15} },
   },
-  category = "biofarm-mod-smelting",
-  subgroup = "bio-cokery",
+  category = BI.default_recipe_categories.smelting.name,
+  subgroup = BI.default_item_subgroup.cokery.name,
   order = "a[bi]-a-g[bi-8-coke-coal]-3",
   energy_required = 6,
   ingredients = {{"solid-fuel", 5}},
@@ -1114,7 +1118,7 @@ BI.additional_recipes.BI_Coal_Processing.solid_fuel = {
     { icon = ICONPATH .. "fuel_brick.png", icon_size = 64, icon_mipmaps = 4, scale = 0.5, shift = {-16, -19} },
   },
   subgroup = "fluid-recipes",
-  order = "b[fluid-chemistry]-f[solid-fuel-from-wood-brick]",
+  order = "b[fluid-chemistry]-c[solid-fuel-from-wood-brick]",
   category = "chemistry",
   energy_required = 2,
   ingredients = {{"wood-bricks", 3}},
@@ -1330,7 +1334,7 @@ BI.additional_recipes.BI_Darts.dart_magazine_basic = {
   allow_as_intermediate = false,      -- Added for 0.18.34/1.1.4
   always_show_made_in = false,        -- Changed for 0.18.34/1.1.4
   allow_decomposition = true,         -- Changed for 0.18.34/1.1.4
-  subgroup = "bi-ammo",
+  subgroup = BI.additional_categories.BI_Darts.ammo.name,
   order = "[bio-ammo]-a-[darts]-1",
   -- This is a custom property for use by "Krastorio 2" (it will change
   -- ingredients/results; used for wood/wood pulp)
@@ -1384,7 +1388,7 @@ BI.additional_recipes.BI_Darts.dart_magazine_standard = {
   allow_as_intermediate = false,      -- Added for 0.18.34/1.1.4
   always_show_made_in = false,        -- Changed for 0.18.34/1.1.4
   allow_decomposition = true,         -- Changed for 0.18.34/1.1.4
-  subgroup = "bi-ammo",
+  subgroup = BI.additional_categories.BI_Darts.ammo.name,
   order = "[bio-ammo]-a-[darts]-2",
   -- Group/subgroup if "5Dim's mod - New Core" is used
   group_5d = "equipment",
@@ -1435,7 +1439,7 @@ BI.additional_recipes.BI_Darts.dart_magazine_enhanced = {
   allow_as_intermediate = false,      -- Added for 0.18.34/1.1.4
   always_show_made_in = false,        -- Changed for 0.18.34/1.1.4
   allow_decomposition = true,         -- Changed for 0.18.34/1.1.4
-  subgroup = "bi-ammo",
+  subgroup = BI.additional_categories.BI_Darts.ammo.name,
   order = "[bio-ammo]-a-[darts]-3",
   -- Group/subgroup if "5Dim's mod - New Core" is used
   group_5d = "equipment",
@@ -1486,7 +1490,7 @@ BI.additional_recipes.BI_Darts.dart_magazine_poison = {
   allow_as_intermediate = false,      -- Added for 0.18.34/1.1.4
   always_show_made_in = false,        -- Changed for 0.18.34/1.1.4
   allow_decomposition = true,         -- Changed for 0.18.34/1.1.4
-  subgroup = "bi-ammo",
+  subgroup = BI.additional_categories.BI_Darts.ammo.name,
   order = "[bio-ammo]-a-[darts]-4",
   -- Group/subgroup if "5Dim's mod - New Core" is used
   group_5d = "equipment",
@@ -1723,8 +1727,20 @@ BI.additional_recipes.BI_Explosive_Planting.seed_bomb_standard = {
   --icon_size = 64, icon_mipmaps = 3,
   --BI_add_icon = true,
   icons = {
-    { icon = ICONPATH .. "weapon/seed-bomb-2.png", icon_size = 64, icon_mipmaps = 4, scale = 1, shift = {0, 0} },
-    { icon = ICONPATH .. "signal/bi_signal_fert.png", icon_size = 64, icon_mipmaps = 4, scale = 0.4, shift = {16, -16} },
+    {
+      icon = ICONPATH .. "weapon/seed-bomb-2.png",
+      icon_size = 64,
+      icon_mipmaps = 4,
+      scale = 1,
+      shift = {0, 0}
+    },
+    {
+      icon = ICONPATH .. "signal/bi_signal_fert.png",
+      icon_size = 64,
+      icon_mipmaps = 4,
+      scale = 0.4,
+      shift = {16, -16}
+    },
   },
   normal = {
     enabled = false,
@@ -2129,7 +2145,7 @@ BI.additional_recipes.BI_Rubber.resin_pulp = {
   --~ icons = BioInd.make_icons({it1 = "resin", it2 = "woodpulp", shift1_1 = 0, shift1_2 = 0, shift2_1 = 0, shift2_2 = 0}),
   icons = {it1 = "resin", it2 = "woodpulp", shift1_1 = 0, shift1_2 = 0, shift2_1 = 0, shift2_2 = 0},
   BI_add_icon = true,
-  subgroup = "bio-bio-farm-raw",
+  subgroup = BI.default_item_subgroup.bio_farm_raw.name,
   order = "a[bi]-a-ba[bi-2-resin-2-pulp]",
   enabled = false,
   --~ --  always_show_made_in = true,
@@ -2171,7 +2187,7 @@ BI.additional_recipes.BI_Rubber.resin_wood = {
   --~ icons = BioInd.make_icons({it1 = "resin", it2 = "wood", it3 = "", shift1_1 = 0 , shift1_2 = 0, shift2_1 = 0, shift2_2 = 0}),
   icons = {it1 = "resin", it2 = "wood", it3 = "", shift1_1 = 0 , shift1_2 = 0, shift2_1 = 0, shift2_2 = 0},
   BI_add_icon = true,
-  subgroup = "bio-bio-farm-raw",
+  subgroup = BI.default_item_subgroup.bio_farm_raw.name,
   --~ --  -- order = "a[bi]-a-aa[bi-2-resin-1-wood]",
   order = "a[bi]-a-bb[bi-2-resin-2-wood]",
   enabled = false,
@@ -2202,7 +2218,7 @@ BI.additional_recipes.BI_Rubber.wood_from_pulp = {
   icon = "__base__/graphics/icons/wood.png",
   icon_size = 64, icon_mipmaps = 3,
   BI_add_icon = true,
-  subgroup = "bio-bio-farm-raw",
+  subgroup = BI.default_item_subgroup.bio_farm_raw.name,
   order = "a[bi]-a-c[bi-3-wood_from_pulp]",
   enabled = false,
   --~ --  always_show_made_in = true,
@@ -2233,7 +2249,7 @@ BI.additional_recipes.BI_Rubber.rubber = {
   icon = ICONPATH .. "rubber.png",
   icon_size = 64, icon_mipmaps = 3,
   BI_add_icon = true,
-  subgroup = "bio-bio-farm-raw",
+  subgroup = BI.default_item_subgroup.bio_farm_raw.name,
   order = "a[bi]-a-c[bi-4-rubber]",
   enabled = false,
   --~ --  always_show_made_in = true,
@@ -2305,7 +2321,7 @@ BI.additional_recipes.BI_Power_Production.solar_farm = {
   enabled = false,
   energy_required = 60,
   ingredients = {
-    {"solar-panel", 50},
+    {"solar-panel", 60},
     {"medium-electric-pole", 25},
     {"concrete", 400},
   },
@@ -2395,7 +2411,7 @@ BI.additional_recipes.BI_Power_Production.huge_accumulator = {
   energy_required = 60,
   enabled = false,
   ingredients = {
-    {"accumulator", 50},
+    {"accumulator", 60},
     {"copper-cable", 50},
     {"concrete", 200},
   },
@@ -2484,7 +2500,7 @@ BI.additional_recipes.BI_Stone_Crushing.stone_crusher = {
     always_show_made_in = false,        -- Added for 0.18.34/1.1.4
     allow_decomposition = true,         -- Added for 0.18.34/1.1.4
   },
-  subgroup = "bio-stone-crusher",
+  subgroup = BI.additional_categories.BI_Stone_Crushing.stone_crusher.name,
   order = "a[bi]",
   --~ -- always_show_made_in = true,
   --~ -- allow_decomposition = false,
@@ -2507,7 +2523,7 @@ BI.additional_recipes.BI_Stone_Crushing.crushed_stone_stone = {
   icon = ICONPATH .. "crushed-stone.png",
   icon_size = 64, icon_mipmaps = 3,
   BI_add_icon = true,
-  category = "biofarm-mod-crushing",
+  category = BI.additional_categories.BI_Stone_Crushing.crushing.name,
   subgroup = "bio-stone-crusher",
   order = "a[bi]-a-z[bi-9-stone-crushed-1]",
   energy_required = 1.5,
@@ -2543,7 +2559,7 @@ BI.additional_recipes.BI_Stone_Crushing.crushed_stone_stone_brick = {
     { icon = ICONPATH .. "crushed-stone.png", icon_size = 64, icon_mipmaps = 4, scale = 1, shift = {0, 0} },
     { icon = "__base__/graphics/icons/stone-brick.png", icon_size = 64, icon_mipmaps = 4, scale = 0.5, shift = {16, -16} },
   },
-  category = "biofarm-mod-crushing",
+  category = BI.additional_categories.BI_Stone_Crushing.crushing.name,
   subgroup = "bio-stone-crusher",
   order = "a[bi]-a-z[bi-9-stone-crushed-2-stone-brick]",
   energy_required = 1.5,    -- Increased crafting time
@@ -2577,7 +2593,7 @@ BI.additional_recipes.BI_Stone_Crushing.crushed_stone_concrete = {
     { icon = ICONPATH .. "crushed-stone.png", icon_size = 64, icon_mipmaps = 4, scale = 1, shift = {0, 0} },
     { icon = "__base__/graphics/icons/concrete.png", icon_size = 64, icon_mipmaps = 4, scale = 0.5, shift = {16, -16} },
   },
-  category = "biofarm-mod-crushing",
+  category = BI.additional_categories.BI_Stone_Crushing.crushing.name,
   subgroup = "bio-stone-crusher",
   order = "a[bi]-a-z[bi-9-stone-crushed-3-concrete]",
   energy_required = 2.5,  -- Increased crafting time
@@ -2613,7 +2629,7 @@ BI.additional_recipes.BI_Stone_Crushing.crushed_stone_hazard_concrete = {
     { icon = ICONPATH .. "crushed-stone.png", icon_size = 64, icon_mipmaps = 4, scale = 1, shift = {0, 0} },
     { icon = "__base__/graphics/icons/hazard-concrete.png", icon_size = 64, icon_mipmaps = 4, scale = 0.5, shift = {16, -16} },
   },
-  category = "biofarm-mod-crushing",
+  category = BI.additional_categories.BI_Stone_Crushing.crushing.name,
   subgroup = "bio-stone-crusher",
   order = "a[bi]-a-z[bi-9-stone-crushed-4-hazard-concrete]",
   energy_required = 2.5,  -- Increased crafting time
@@ -2649,7 +2665,7 @@ BI.additional_recipes.BI_Stone_Crushing.crushed_stone_refined_concrete = {
     { icon = ICONPATH .. "crushed-stone.png", icon_size = 64, icon_mipmaps = 4, scale = 1, shift = {0, 0} },
     { icon = "__base__/graphics/icons/refined-concrete.png", icon_size = 64, icon_mipmaps = 4, scale = 0.5, shift = {16, -16} },
   },
-  category = "biofarm-mod-crushing",
+  category = BI.additional_categories.BI_Stone_Crushing.crushing.name,
   subgroup = "bio-stone-crusher",
   order = "a[bi]-a-z[bi-9-stone-crushed-5-refined-concrete]",
   energy_required = 5,    -- Increased crafting time
@@ -2686,7 +2702,7 @@ BI.additional_recipes.BI_Stone_Crushing.crushed_stone_refined_hazard_concrete = 
     { icon = ICONPATH .. "crushed-stone.png", icon_size = 64, icon_mipmaps = 4, scale = 1, shift = {0, 0} },
     { icon = "__base__/graphics/icons/refined-hazard-concrete.png", icon_size = 64, icon_mipmaps = 4, scale = 0.5, shift = {16, -16} },
   },
-  category = "biofarm-mod-crushing",
+  category = BI.additional_categories.BI_Stone_Crushing.crushing.name,
   subgroup = "bio-stone-crusher",
   order = "a[bi]-a-z[bi-9-stone-crushed-6-refined-hazard-concrete]",
   energy_required = 5,    -- Increased crafting time
@@ -2816,7 +2832,7 @@ BI.additional_recipes.BI_Terraforming.arboretum_r1 = {
   icon = ICONPATH .. "change_plant.png",
   icon_size = 64, icon_mipmaps = 3,
   BI_add_icon = true,
-  category = "bi-arboretum",
+  category = BI.additional_categories.BI_Terraforming.arboretum.name,
   energy_required = 10000,
   ingredients = {
     {type = "item", name = "seedling", amount = 1},
@@ -2846,7 +2862,7 @@ BI.additional_recipes.BI_Terraforming.arboretum_r2 = {
   icon = ICONPATH .. "change_fert_1.png",
   icon_size = 64, icon_mipmaps = 3,
   BI_add_icon = true,
-  category = "bi-arboretum",
+  category = BI.additional_categories.BI_Terraforming.arboretum.name,
   energy_required = 10000,
   ingredients = {
     {type = "item", name = "fertilizer", amount = 1},
@@ -2882,7 +2898,7 @@ BI.additional_recipes.BI_Terraforming.arboretum_r3 = {
   icon = ICONPATH .. "change_fert_2.png",
   icon_size = 64, icon_mipmaps = 3,
   BI_add_icon = true,
-  category = "bi-arboretum",
+  category = BI.additional_categories.BI_Terraforming.arboretum.name,
   energy_required = 10000,
   ingredients = {
     {type = "item", name = "bi-adv-fertilizer", amount = 1},
@@ -2918,7 +2934,7 @@ BI.additional_recipes.BI_Terraforming.arboretum_r4 = {
   icon = ICONPATH .. "change_fert_plant_1.png",
   icon_size = 64, icon_mipmaps = 3,
   BI_add_icon = true,
-  category = "bi-arboretum",
+  category = BI.additional_categories.BI_Terraforming.arboretum.name,
   energy_required = 10000,
   ingredients = {
     {type = "item", name = "seedling", amount = 1},
@@ -2955,7 +2971,7 @@ BI.additional_recipes.BI_Terraforming.arboretum_r5 = {
   icon = ICONPATH .. "change_fert_plant_2.png",
   icon_size = 64, icon_mipmaps = 3,
   BI_add_icon = true,
-  category = "bi-arboretum",
+  category = BI.additional_categories.BI_Terraforming.arboretum.name,
   energy_required = 10000,
   ingredients = {
     {type = "item", name = "seedling", amount = 1},
@@ -2985,11 +3001,65 @@ BI.additional_recipes.BI_Terraforming.arboretum_r5 = {
 
 
 ------------------------------------------------------------------------------------
+--                          Enable: BI_Pollution_Detector                         --
+--                       (BI.Settings.BI_Pollution_Detector)                      --
+------------------------------------------------------------------------------------
+-- Pollution sensor
+BI.additional_recipes.BI_Pollution_Detector.pollution_sensor = {
+  type = "recipe",
+  name = "bi-pollution-sensor",
+  localised_name = {"entity-name.bi-pollution-sensor"},
+  -- localised_description = {"entity-description.bi-bio-reactor"},
+  icon = ICONPATH .. "entity/pollution_sensor.png",
+  icon_size = 64, icon_mipmaps = 4,
+  BI_add_icon = true,
+  normal = {
+    enabled = false,
+    energy_required = 1,
+    ingredients =
+    {
+      {"constant-combinator", 1},
+      {"advanced-circuit", 5}
+    },
+    result = "bi-pollution-sensor",
+    result_count = 1,
+    allow_as_intermediate = false,    -- Added for 0.18.34/1.1.4
+    always_show_made_in = false,      -- Added for 0.18.34/1.1.4
+    allow_decomposition = true,       -- Added for 0.18.34/1.1.4
+  },
+  expensive = {
+    enabled = false,
+    energy_required = 30,
+    ingredients =
+    {
+      {"constant-combinator", 2},
+      {"advanced-circuit", 6}
+    },
+    result = "bi-pollution-sensor",
+    result_count = 1,
+    allow_as_intermediate = false,    -- Added for 0.18.34/1.1.4
+    always_show_made_in = false,      -- Added for 0.18.34/1.1.4
+    allow_decomposition = true,       -- Added for 0.18.34/1.1.4
+  },
+  subgroup = "circuit-network",
+  order = "c[combinators]-c[constant-combinator2]",
+  -- always_show_made_in = true,
+  -- allow_decomposition = false,
+  allow_as_intermediate = false,      -- Changed for 0.18.34/1.1.4
+  always_show_made_in = false,        -- Changed for 0.18.34/1.1.4
+  allow_decomposition = true,         -- Changed for 0.18.34/1.1.4  },
+  -- Custom property that allows to automatically add our recipes to tech unlocks.
+  BI_add_to_tech = {"bi-tech-pollution-sensor"},
+}
+
+
+
+------------------------------------------------------------------------------------
 --                              Enable: Wood products                             --
 --                         (BI.Settings.BI_Wood_Products)                         --
 ------------------------------------------------------------------------------------
 -- Large wooden chest
-BI.additional_recipes.BI_Wood_Products.wooden_chest_large = {
+BI.additional_recipes.BI_Wood_Products.large_wooden_chest = {
   type = "recipe",
   name = "bi-wooden-chest-large",
   localised_name = {"entity-name.bi-wooden-chest-large"},
@@ -3038,7 +3108,7 @@ BI.additional_recipes.BI_Wood_Products.wooden_chest_large = {
 
 
 -- Huge wooden chest
-BI.additional_recipes.BI_Wood_Products.wooden_chest_huge = {
+BI.additional_recipes.BI_Wood_Products.huge_wooden_chest = {
   type = "recipe",
   name = "bi-wooden-chest-huge",
   localised_name = {"entity-name.bi-wooden-chest-huge"},
@@ -3087,7 +3157,7 @@ BI.additional_recipes.BI_Wood_Products.wooden_chest_huge = {
 
 
 -- Gigantic wooden chest
-BI.additional_recipes.BI_Wood_Products.wooden_chest_giga = {
+BI.additional_recipes.BI_Wood_Products.giga_wooden_chest = {
   type = "recipe",
   name = "bi-wooden-chest-giga",
   localised_name = {"entity-name.bi-wooden-chest-giga"},
@@ -3486,7 +3556,7 @@ BI.additional_recipes.BI_Wood_Gasification.wood_gasification = {
   type = "recipe",
   name = "bi-wood-gasification",
   category = "chemistry",
-  subgroup = "bio-bio-fuel-fluid",
+  subgroup = BI.default_item_subgroup.bio_fuel_fluid.name,
   order = "z[bi-wood-gasification]",
   enabled = false,
   energy_required = 5,
@@ -3552,7 +3622,7 @@ BI.additional_recipes.BI_Wood_Gasification.solid_fuel = {
     quaternary  = util.color("6c859c")
   },
   subgroup = "fluid-recipes",
-  order = "b[fluid-chemistry]-g[solid-fuel-from-tar]",
+  order = "b[fluid-chemistry]-c[solid-fuel-from-tar]",
   always_show_products = true,
   always_show_made_in = true,
   allow_decomposition = false,
@@ -3626,7 +3696,7 @@ BI.additional_recipes.BI_Trigger_Easy_Bio_Gardens.fertilizer_fluid = {
   always_show_made_in = true,
   allow_decomposition = false,
   allow_as_intermediate = false,
-  subgroup = "bio-bio-farm-intermediate-product",
+  subgroup = BI.default_item_subgroup.bio_farm_intermediate_product.name,
   order = "b[bi-fertilizer]-b[bi-fertilizer-fluid-1]",
   -- This will be added in optionsEasyBioGardens.lua!
   --~ crafting_machine_tint = {
@@ -3672,7 +3742,7 @@ BI.additional_recipes.BI_Trigger_Easy_Bio_Gardens.adv_fertilizer_fluid = {
   always_show_made_in = true,
   allow_decomposition = false,
   allow_as_intermediate = false,
-  subgroup = "bio-bio-farm-intermediate-product",
+  subgroup = BI.default_item_subgroup.bio_farm_intermediate_product.name,
   order = "b[bi-fertilizer]-b[bi-fertilizer-fluid-2]",
   -- This will be added in optionsEasyBioGardens.lua!
   --~ crafting_machine_tint = {
@@ -3691,6 +3761,43 @@ BI.additional_recipes.BI_Trigger_Easy_Bio_Gardens.adv_fertilizer_fluid = {
   -- Custom property that allows to automatically add our recipes to tech unlocks.
   BI_add_to_tech = {"bi-tech-advanced-fertilizer"},
 }
+
+
+------------------------------------------------------------------------------------
+--                General recipe for sand (will be adjusted later)                --
+------------------------------------------------------------------------------------
+-- Angel's Smelting ("angelssmelting"),
+-- BioTech ("BioTech"),
+-- Krastorio2 ("Krastorio2")
+BI.additional_recipes.BI_Trigger_Sand.sand = {
+  type = "recipe",
+  name = "bi-sand",
+  --icon = ICONPATH .. "mod_aai/sand-aai.png",
+  --icon_size = 64, icon_mipmaps = 3,
+  --BI_add_icon = true,
+  --~ --icons = BioInd.make_icons({it1 = "sand", it2 = "crushed-stone", shift1_1=0 , shift1_2=0}),
+  icons = {it1 = "sand", it2 = "crushed-stone", shift1_1=0 , shift1_2=0},
+  BI_add_icon = true,
+  BI_add_to_tech = {"bi-tech-stone-crushing-1"},
+  category = BI.additional_categories.BI_Stone_Crushing.crushing.name,
+  --~ --subgroup = "bio-bio-farm-raw",
+  subgroup = BI.additional_categories.BI_Stone_Crushing.stone_crusher.name,
+  --~ --order = "a[bi]-a-z[bi-9-sand]",
+  order = "a[bi]-a-z[bi-9-stone-crushed-sand-1]",
+  energy_required = 1,
+  ingredients = {{"stone-crushed", 2}},
+  --~ --result = "sand",
+  --~ --result_count = 5,
+  main_product = "",
+  enabled = false,
+  --~ --always_show_made_in = true,
+  --~ --allow_decomposition = false,
+  --~ --allow_as_intermediate = false,
+  allow_as_intermediate = true,     -- Changed for 0.18.34/1.1.4
+  always_show_made_in = true,       -- Changed for 0.18.34/1.1.4
+  allow_decomposition = true,               -- Changed for 0.18.34/1.1.4
+}
+
 
 
 -- Status report

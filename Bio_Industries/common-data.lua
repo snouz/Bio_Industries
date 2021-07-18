@@ -1,11 +1,12 @@
+------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
+--               Common functions and definitions for the data stage              --
+------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
 log("Entered file " .. debug.getinfo(1).source)
 
-
---~ local common = {}
 local common = require("common")('Bio_Industries')
 
-log(serpent.block(common))
---~ error("Break!")
 ------------------------------------------------------------------------------------
 -- Set pathnames
 common.graphicsmod = "__Bio_Industries_NE_graphics__"
@@ -29,12 +30,12 @@ common.difficulties = {"", "normal", "expensive"}
 common.RAIL_BRIDGE_MASK = {"floor-layer", "object-layer", "consider-tile-transitions"}
 --~ common.RAIL_BRIDGE_MASK = {"object-layer", "consider-tile-transitions"}
 
---~ -- "Transport Drones" removes "object-layer" from rails, so if bridges have only
---~ -- {"object-layer"}, their collision mask will be empty, and they can be built even
---~ -- over cliffs. So we need to add another layer to bridges ("floor-layer").
---~ -- As of Factorio 1.1.0, rails need to have "rail-layer" in their mask. This will work
---~ -- alright, but isn't available in earlier versions of Factorio, so we will use
---~ -- "floor-layer" there instead.
+-- "Transport Drones" removes "object-layer" from rails, so if bridges have only
+-- {"object-layer"}, their collision mask will be empty, and they can be built even
+-- over cliffs. So we need to add another layer to bridges ("floor-layer").
+-- As of Factorio 1.1.0, rails need to have "rail-layer" in their mask. This will work
+-- alright, but isn't available in earlier versions of Factorio, so we will use
+-- "floor-layer" there instead.
 common.RAIL_BRIDGE_MASK = {"object-layer", "rail-layer", "consider-tile-transitions"}
 
 
@@ -50,61 +51,6 @@ table.insert(common.RAIL_MASK, "water-tile")
 -- Set maximum_wire_distance of Power-to-rail connectors
 common.POWER_TO_RAIL_WIRE_DISTANCE = 4
 
-
-
---~ ------------------------------------------------------------------------------------
---~ -- Get the value of a startup setting
---~ common.get_startup_setting = function(setting_name)
-  --~ return settings and settings.startup[setting_name] and settings.startup[setting_name].value
---~ end
-
---~ ------------------------------------------------------------------------------------
---~ -- Get values of all startup settings
---~ common.get_startup_settings = function()
-  --~ for var, name in pairs({
-    --~ BI_Bio_Fuel                               = "BI_Bio_Fuel",
-    --~ BI_Bio_Garden                             = "BI_Bio_Garden",
-    --~ BI_Coal_Processing                        = "BI_Coal_Processing",
-    --~ BI_Darts                                  = "BI_Darts",
-    --~ BI_Disassemble                            = "BI_Disassemble",
-    --~ BI_Explosive_Planting                     = "BI_Explosive_Planting",
-    --~ BI_Rails                                  = "BI_Rails",
-    --~ BI_Rubber                                 = "BI_Rubber",
-    --~ BI_Power_Production                       = "BI_Power_Production",
-    --~ BI_Stone_Crushing                         = "BI_Stone_Crushing",
-    --~ BI_Terraforming                           = "BI_Terraforming",
-    --~ BI_Wood_Gasification                      = "BI_Wood_Gasification",
-    --~ BI_Wood_Products                          = "BI_Wood_Products",
-    --~ Bio_Cannon                                = "BI_Bio_Cannon",
-    --~ BI_Game_Tweaks_Bot                        = "BI_Game_Tweaks_Bot",
-    --~ BI_Game_Tweaks_Easy_Bio_Gardens           = "BI_Game_Tweaks_Easy_Bio_Gardens",
-    --~ BI_Game_Tweaks_Emissions_Multiplier       = "BI_Game_Tweaks_Emissions_Multiplier",
-    --~ BI_Game_Tweaks_Fuel_Values                = "BI_Game_Tweaks_Fuel_Values",
-    --~ BI_Game_Tweaks_Player                     = "BI_Game_Tweaks_Player",
-    --~ BI_Game_Tweaks_Production_Science         = "BI_Game_Tweaks_Production_Science",
-    --~ BI_Game_Tweaks_Recipe                     = "BI_Game_Tweaks_Recipe",
-    --~ BI_Game_Tweaks_Small_Tree_Collisionbox    = "BI_Game_Tweaks_Small_Tree_Collisionbox",
-    --~ BI_Game_Tweaks_Stack_Size                 = "BI_Game_Tweaks_Stack_Size",
-    --~ BI_Game_Tweaks_Tree                       = "BI_Game_Tweaks_Tree",
-    --~ BI_Debug_To_Game                          = "BI_Debug_To_Game",
-    --~ BI_Debug_To_Log                           = "BI_Debug_To_Log",
-  --~ }) do
-    --~ BI.Settings[var] = common.get_startup_setting(name)
-  --~ end
---~ end
-
-
---~ ------------------------------------------------------------------------------------
---~ -- There may be trees for which we don't want to create variations. These patterns
---~ -- are used to build a list of trees we want to ignore.
---~ common.tree_ignore_name_patterns        = {
-  --~ -- Ignore our own trees
-  --~ "bio%-tree%-.+%-%d",
-  --~ -- Tree prototypes created by "Robot Tree Farm" or "Tral's Robot Tree Farm"
-  --~ "rtf%-.+%-%d+",
-  --~ -- Tree prototypes created by "Industrial Revolution 2"
-  --~ ".*%-*ir2%-.+",
---~ }
 
 
 ------------------------------------------------------------------------------------
@@ -150,11 +96,10 @@ common.check_mods = function(modlist, mode)
 end
 
 
+
 ------------------------------------------------------------------------------------
 --                                  MOD SPECIFIC                                  --
 ------------------------------------------------------------------------------------
-
-
 
 
 ------------------------------------------------------------------------------------
@@ -197,96 +142,9 @@ common.BI_add_icons = function()
   common.entered_function("leave")
 end
 
---[[
+
+
 common.make_icons = function(args)
-    common.entered_function({args})
-
-    local it = {}
-
-    for i=1,10 do
-      table.insert(it, {ite = args["it" .. i]} or {})
-      it[i].sca = args["sc" .. i] or 1
-      it[i].shi = args["sh" .. i] or {0,0}
-    end
-
-    local customicon_up = args.custom or nil
-    local customicon_down = args.customunder or nil
-    local custom_topright = args.custom_topright or nil
-
-    local icontable = {}
-    local emptylayer = {icon = common.iconpath .. "empty64.png", icon_size = 64, icon_mipmaps = 0, shift = {0,0}} --scale = 1,
-    --local icontable = {}
-    --icon
-    local function transform_item(it_name)
-      local _type
-      _type = it_name and (thxbob.lib.item.get_type(it_name) or thxbob.lib.item.get_type("bi-" .. it_name)) or nil
-      return _type and (data.raw[_type][it_name] or data.raw[_type]["bi-" .. it_name]) or nil
-    end
-
-    if customicon_down then table.insert(icontable, {icon = customicon_down, icon_size = 64, mipmaps = 4,shift = {0,0}}) end
-
-    for k=1, #it do
-      local _item = it[k].ite or nil
-      local _scale = it[k].sca or 1
-      local _shift = it[k].shi or {0,0}
-
-      if k==2 or k==7 then
-        _scale = (_scale * 0.5)
-        _shift = {(_shift[1] + 16),(_shift[2] - 16)}
-      end
-      if k==3 then
-        _scale = (_scale * 0.5)
-        _shift = {(_shift[1] - 16),(_shift[2] - 16)}
-      end
-      if k==4 then
-        _scale = (_scale * 0.75)
-        _shift = {(_shift[1] + 10),(_shift[2])}
-      end
-      if k==5 then
-        _scale = (_scale * 0.75)
-        _shift = {(_shift[1] - 10),(_shift[2])}
-      end
-      if k==6 then
-        _scale = (_scale * 0.5)
-        _shift = {(_shift[1] - 16),(_shift[2] + 16)}
-      end
-
-      _item = _item and transform_item(_item)
-      if _item then
-        if not _item.icon and _item.icons then
-          table.insert(icontable, emptylayer)
-          for i=1,#_item.icons do
-            local layer = {}
-            local layershift = _item.icons[i].shift or {0,0}
-            local relativescale = (64 / ((_item.icons[1].icon_size or 1) * (_item.icons[1].scale or 1)))
-            local layerscale = _item.icons[i].scale or 1
-            layer.icon = _item.icons[i].icon
-            layer.icon_size = _item.icons[i].icon_size
-            layer.icon_mipmaps = _item.icons[i].icon_mipmaps
-            layer.shift = {(((layershift[1] * relativescale) * _scale)+ _shift[1]), (((layershift[2] * relativescale) * _scale) + _shift[2])}
-            --layer.scale = _item.icons[i].scale or 1
-            layer.scale = ((layerscale * relativescale) * _scale)
-            if _item.icons[i].tint then layer.tint = _item.icons[i].tint end
-            table.insert(icontable, layer)
-          end
-        else
-          if ((64 / _item.icon_size) * _scale) == 1 then
-            table.insert(icontable, {icon = _item.icon, icon_size = _item.icon_size, icon_mipmaps = _item.icon_mipmaps, shift = _shift})
-          else
-            table.insert(icontable, {icon = _item.icon, icon_size = _item.icon_size, icon_mipmaps = _item.icon_mipmaps, scale = ((64 / _item.icon_size) * _scale), shift = _shift})
-          end
-        end
-      end
-    end
-    if customicon_up then table.insert(icontable, {icon = customicon_up, icon_size = 64, mipmaps = 4, scale = 1, shift = {0,0}}) end
-    if custom_topright then table.insert(icontable, {icon = custom_topright, icon_size = 64, mipmaps = 4, scale = 0.4, shift = {20, -20}}) end
-
-    common.entered_function("leave")
-    return icontable
-  end
-]]
-
-  common.make_icons = function(args)
     common.entered_function({args})
 
     local it = {}
@@ -373,6 +231,7 @@ common.make_icons = function(args)
     common.entered_function("leave")
     return icontable
   end
+
 
 
 ------------------------------------------------------------------------------------
@@ -492,7 +351,7 @@ common.create_stuff = function(create_list)
   for entry, entry_data in pairs(create_list) do
     if not (data.raw[entry_data.type] and data.raw[entry_data.type][entry_data.name]) then
       data:extend({ table.deepcopy(entry_data) })
-      BioInd.created_msg(entry_data)
+      common.created_msg(entry_data)
     end
     ret[#ret + 1] = data.raw[entry_data.type] and
                     data.raw[entry_data.type][entry_data.name]
@@ -504,6 +363,6 @@ end
 ------------------------------------------------------------------------------------
 --                                    END OF FILE                                 --
 ------------------------------------------------------------------------------------
-log("Leaving file " .. debug.getinfo(1).source)
+common.entered_file("leave")
 
 return common

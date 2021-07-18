@@ -13,7 +13,7 @@ BI.additional_categories.mod_compatibility = BI.additional_categories.mod_compat
 
 
 ------------------------------------------------------------------------------------
---                General recipe for sand (will be adjusted later)                --
+--                                 Crating recipes                                --
 ------------------------------------------------------------------------------------
 -- DeadlockCrating ("DeadlockCrating"),
 BI.additional_categories.mod_compatibility.crating = {

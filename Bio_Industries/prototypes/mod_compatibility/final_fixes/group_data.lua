@@ -1,0 +1,332 @@
+--local group_data = {
+  --["boblogistics"] = {
+    --items = {},
+  --},
+  --["bobplates"] = {
+    --items = {},
+    --},
+    --recipes = {
+      --["bob-resin-oil"] = {
+        --group = BI.default_item_group.bio_industries.name,
+        --subgroup = BI.default_item_subgroup.bio_farm_raw.name,
+        --order = "a[bi]-a-bc[resin]"
+      --},
+      --["solid-fuel-from-hydrogen"] = {
+        --subgroup = "fluid-recipes",
+        --order = "b[fluid-chemistry]-h[solid-fuel-from-hydrogen]"
+      --},
+      --["enriched-fuel-from-liquid-fuel"] = {
+        --subgroup = "fluid-recipes",
+        --order = "b[fluid-chemistry]-j[enriched-fuel-from-liquid-fuel]"
+      --},
+      --["sulfur-2"] = {
+        --subgroup = "raw-material",
+        --order = "g[sulfur]-b[bobs]-2"
+      --},
+      --["sulfur-3"] = {
+        --subgroup = "raw-material",
+        --order = "g[sulfur]-b[bobs]-3"
+      --},
+    --}
+  --},
+  --["bobpower"] = {
+  --},
+  --["bobrevamp"] = {
+    --recipes = {
+      --["solid-fuel-from-sour-gas"] = {
+        --subgroup = "fluid-recipes",
+        ----~ order = "b[fluid-chemistry]-i[solid-fuel-from-sour-gas]"
+        --order = "b[fluid-chemistry]-c[solid-fuel-from-sour-gas]"
+      --},
+      --["enriched-fuel-from-hydrazine"] = {
+        --subgroup = "fluid-recipes",
+        --order = "b[fluid-chemistry]-k[enriched-fuel-from-hydrazine]"
+      --},
+    --},
+  --},
+  --["angelspetrochem"] = {
+    --recipes = {},
+  --},
+  --["angelsindustries"] = {
+    --items = {},
+    --recipes = {},
+  --},
+  --["angelsexploration"] = {
+    --items = {},
+    --recipes = {}
+  --},
+  --["Krastorio2"] = {
+    --items = {
+      --["stone-wall"] = {subgroup = "defensive-structure", order = "a[wooden-fence]"},
+      --["gate"] = {subgroup = "defensive-structure", order = "c[gate]"},
+      --["artillery-targeting-remote"] = {subgroup = "vanilla-turrets", order = "04b[artillery-targeting-remote]"},
+    --},
+    --recipes = {
+      --["kr-grow-wood-plus"] = {order = "ab[wood]"},
+    --},
+  --},
+  --["IndustrialRevolution"] = {
+    --items = {},
+    --recipes = {}
+  --}
+--}
+
+--return group_data
+
+----~ local group_data = {
+
+  ----~ ["boblogistics"] = {
+    ----~ items = {
+      ----~ [BI.additional_items.BI_Wood_Products.wood_pipe.name] = {group = "bob-logistics", subgroup = "pipe"},
+      ----~ [BI.additional_items.BI_Wood_Products.wood_pipe_to_ground.name] = {
+        ----~ group = "bob-logistics",
+        ----~ subgroup = "pipe-to-ground"
+      ----~ },
+      ----~ [BI.additional_items.BI_Wood_Products.large_wooden_chest.name] = {order = "a[items]-g[bigchests]"},
+      ----~ [BI.additional_items.BI_Wood_Products.huge_wooden_chest.name] = {order = "a[items]-h[bigchests]"},
+      ----~ [BI.additional_items.BI_Wood_Products.giga_wooden_chest.name] = {order = "a[items]-i[bigchests]"},
+    ----~ },
+  ----~ },
+  ----~ ["bobplates"] = {
+    ----~ items = {
+      ----~ [BI.additional_items.BI_Rubber.resin.name] = {
+        ----~ subgroup = BI.default_item_subgroup.bio_farm_intermediate_product.name,
+        ----~ order = "x[bi]-a[wood-production]-[products]-ba[resin]",
+      ----~ },
+    ----~ },
+    ----~ recipes = {
+      ----~ ["bob-resin-oil"] = {
+        ----~ group = BI.default_item_group.bio_industries.name,
+        ----~ subgroup = BI.default_item_subgroup.bio_farm_raw.name,
+        ----~ order = "a[bi]-a-bc[resin]"
+      ----~ },
+      ----~ ["solid-fuel-from-hydrogen"] = {
+        ----~ subgroup = "fluid-recipes",
+        ----~ order = "b[fluid-chemistry]-h[solid-fuel-from-hydrogen]"
+      ----~ },
+      ----~ ["enriched-fuel-from-liquid-fuel"] = {
+        ----~ subgroup = "fluid-recipes",
+        ----~ order = "b[fluid-chemistry]-j[enriched-fuel-from-liquid-fuel]"
+      ----~ },
+      ----~ ["sulfur-2"] = {
+        ----~ subgroup = "raw-material",
+        ----~ order = "g[sulfur]-b[bobs]-2"
+      ----~ },
+      ----~ ["sulfur-3"] = {
+        ----~ subgroup = "raw-material",
+        ----~ order = "g[sulfur]-b[bobs]-3"
+      ----~ },
+    ----~ }
+  ----~ },
+  ----~ ["bobpower"] = {
+    ----~ recipes = {
+      ----~ [BI.additional_recipes.BI_Bio_Fuel.bio_boiler.name] = {subgroup = "bob-energy-boiler", order = "b[steam-power]-a[boiler-1bio]"},
+    ----~ },
+  ----~ },
+  ----~ ["bobrevamp"] = {
+    ----~ recipes = {
+      ----~ ["solid-fuel-from-sour-gas"] = {
+        ----~ subgroup = "fluid-recipes",
+        ----~ --order = "b[fluid-chemistry]-i[solid-fuel-from-sour-gas]"
+        ----~ order = "b[fluid-chemistry]-c[solid-fuel-from-sour-gas]"
+      ----~ },
+      ----~ ["enriched-fuel-from-hydrazine"] = {
+        ----~ subgroup = "fluid-recipes",
+        ----~ order = "b[fluid-chemistry]-k[enriched-fuel-from-hydrazine]"
+      ----~ },
+    ----~ },
+  ----~ },
+  ----~ ["angelspetrochem"] = {
+    ----~ recipes = {
+      ----~ [BI.additional_recipes.BI_Bio_Fuel.bio_sulfur.name] = {subgroup = "petrochem-sulfur"},
+      ----~ [BI.additional_recipes.BI_Coal_Processing.solid_fuel.name] = {
+        ----~ subgroup = "petrochem-fuel",
+        ----~ order = "f[bi-solid-fuel]"
+      ----~ },
+      ----~ [BI.additional_recipes.BI_Wood_Gasification.solid_fuel.name]  = {
+        ----~ subgroup = "petrochem-fuel",
+        ----~ order = "g[solid-fuel-from-tar]"
+      ----~ },
+      ----~ ["enriched-fuel-from-liquid-fuel"] = {subgroup = "petrochem-fuel", order = "h[enriched-fuel-from-liquid-fuel]"},
+      ----~ [BI.additional_recipes.BI_Bio_Fuel.bio_plastic_1.name] = {
+        ----~ subgroup = "petrochem-solids",
+        ----~ order = "a[plastic]-c"
+      ----~ },
+      ----~ [BI.additional_recipes.BI_Bio_Fuel.bio_plastic_2.name] = {
+        ----~ subgroup = "petrochem-solids",
+        ----~ order = "a[plastic]-d"
+      ----~ },
+      ----~ [BI.additional_recipes.BI_Rubber.resin_pulp.name] = {subgroup = "petrochem-solids", order = "b[resin]-c"},
+      ----~ [BI.additional_recipes.BI_Rubber.resin_wood.name] = {subgroup = "petrochem-solids", order = "b[resin]-d"},
+    ----~ },
+  ----~ },
+  ----~ ["angelsindustries"] = {
+    ----~ items = {
+      ----~ [BI.additional_items.BI_Bio_Fuel.bio_boiler.name] = {subgroup = "angels-power-steam", order = "aaa"},
+      ----~ [BI.additional_items.BI_Wood_Products.big_pole.name] = {subgroup = "angels-power-poles", order = "a[small]-b"},
+      ----~ [BI.additional_items.BI_Wood_Products.huge_pole.name] = {subgroup = "angels-power-poles", order = "a[small]-c"},
+      ----~ [BI.additional_items.BI_Power_Production.huge_substation.name] = {
+        ----~ subgroup = "angels-power-poles", order = "d[substation]-a[BI-huge-substation]"},
+
+      ----~ [BI.additional_items.BI_Power_Production.solar_farm.name] = {
+        ----~ subgroup = "angels-power-solar", order = "a[solar-panel]-a[BI-solar-farm]"},
+      ----~ [BI.additional_items.BI_Power_Production.solar_mat.name] = {
+        ----~ subgroup = "angels-power-solar", order = "a[solar-panel]-b[BI-solar-mat]"},
+      ----~ [BI.additional_items.BI_Power_Production.solar_boiler.name] = {
+        ----~ subgroup = "angels-power-solar", order = "a[solar-panel]-c[BI-solar-boiler]"},
+
+      ----~ [BI.additional_items.BI_Power_Production.huge_accumulator.name] = {
+        ----~ subgroup = "angels-power-solar", order = "b[accumulator]-a[BI-huge-accumulator]"},
+
+      ----~ [BI.additional_items.BI_Wood_Products.large_wooden_chest.name] = {
+        ----~ subgroup = "angels-chests-small-a", order = "a[chest]-c[bi1]"},
+      ----~ [BI.additional_items.BI_Wood_Products.huge_wooden_chest.name] = {
+        ----~ subgroup = "angels-chests-small-a", order = "a[chest]-c[bi2]"},
+      ----~ [BI.additional_items.BI_Wood_Products.giga_wooden_chest.name] = {
+        ----~ subgroup = "angels-chests-small-a", order = "a[chest]-c[bi3]"},
+
+      ----~ [BI.additional_items.BI_Darts.dart_turret.name] = {
+        ----~ subgroup = "defensive-structure", order = "aa[turret]-a[gun-turret]"},
+      ----~ [BI.additional_items.Bio_Cannon.bio_cannon.name] = {
+        ----~ subgroup = "defensive-structure", order = "b[turret]-d[artillery-turret]-[BI-bio-cannon]"},
+    ----~ },
+    ----~ recipes = {
+      ----~ [BI.additional_recipes.BI_Bio_Fuel.bio_boiler.name] = {subgroup = "angels-power-steam", order = "aaa"},
+      ----~ [BI.additional_recipes.BI_Wood_Products.big_pole.name] = {
+        ----~ subgroup = "angels-power-poles", order = "a[small]-b"},
+      ----~ [BI.additional_recipes.BI_Wood_Products.huge_pole.name] = {
+        ----~ subgroup = "angels-power-poles", order = "a[small]-c"},
+      ----~ [BI.additional_recipes.BI_Power_Production.huge_substation.name] = {
+        ----~ subgroup = "angels-power-poles", order = "d[substation]-a[BI-huge-substation]"},
+
+      ----~ [BI.additional_recipes.BI_Power_Production.solar_farm.name] = {
+        ----~ subgroup = "angels-power-solar", order = "a[solar-panel]-a[BI-solar-farm]"},
+      ----~ [BI.additional_recipes.BI_Power_Production.solar_mat.name] = {
+        ----~ subgroup = "angels-power-solar", order = "a[solar-panel]-b[BI-solar-mat]"},
+      ----~ [BI.additional_recipes.BI_Power_Production.solar_boiler.name] = {
+        ----~ subgroup = "angels-power-solar", order = "a[solar-panel]-c[BI-solar-boiler]"},
+
+      ----~ [BI.additional_recipes.BI_Power_Production.huge_accumulator.name] = {
+        ----~ subgroup = "angels-power-solar", order = "b[accumulator]-a[BI-huge-accumulator]"},
+
+      ----~ [BI.additional_recipes.BI_Wood_Products.large_wooden_chest.name] = {
+        ----~ subgroup = "angels-chests-small-a", order = "a[chest]-c[bi1]"},
+      ----~ [BI.additional_recipes.BI_Wood_Products.huge_wooden_chest.name] = {
+        ----~ subgroup = "angels-chests-small-a", order = "a[chest]-c[bi2]"},
+      ----~ [BI.additional_recipes.BI_Wood_Products.giga_wooden_chest.name] = {
+        ----~ subgroup = "angels-chests-small-a", order = "a[chest]-c[bi3]"},
+
+      ----~ [BI.additional_recipes.BI_Darts.dart_turret.name] = {
+        ----~ subgroup = "defensive-structure", order = "aa[turret]-a[gun-turret]"},
+      ----~ [BI.additional_recipes.Bio_Cannon.bio_cannon.name] = {
+        ----~ subgroup = "defensive-structure", order = "b[turret]-d[artillery-turret]-[BI-bio-cannon]"},
+
+      ----~ [BI.additional_recipes.BI_Rubber.rubber_mat.name] = {
+        ----~ subgroup = "defensive-structure", order = "a-a[stone-wall]-a[bi-rubber-mat]"},
+
+      ----~ [BI.additional_recipes.BI_Bio_Fuel.bio_battery.name] = {subgroup = "angels-batteries", order = "aa"},
+      ----~ [BI.additional_recipes.mod_compatibility.press_wood.name] = {subgroup = "angels-board", order = "z[bob]-aa"},
+      ----~ ["empty-nuclear-fuel-cell"] = {subgroup = "angels-power-nuclear-fuel-cell", order = "a[uranium]-1a"},
+    ----~ },
+  ----~ },
+  ----~ ["angelsexploration"] = {
+    ----~ items = {
+      ----~ [BI.additional_entities.BI_Darts.dart_rifle.name] = {
+        ----~ group = "angels-exploration", group_order = "a-a",
+        ----~ subgroup = "angels-physical-a", order = "a[gun]-a[BI-darts]"},
+      ----~ [BI.additional_items.BI_Darts.dart_turret.name] = {
+        ----~ group = "angels-exploration", group_order = "a-a",
+        ----~ subgroup = "angels-physical-a", order = "b[turret]-a[BI-darts]"},
+
+      ----~ [BI.additional_entities.BI_Darts.dart_magazine_basic.name] = {
+        ----~ group = "angels-exploration", group_order = "a-a",
+        ----~ subgroup = "angels-physical-a", order = "c[ammo]-a[BI-basic-darts]"},
+      ----~ [BI.additional_entities.BI_Darts.dart_magazine_standard.name] = {
+        ----~ group = "angels-exploration", group_order = "a-a",
+        ----~ subgroup = "angels-physical-a", order = "c[ammo]-b[BI-standard-darts]"},
+      ----~ [BI.additional_entities.BI_Darts.dart_magazine_enhanced.name] = {
+        ----~ group = "angels-exploration", group_order = "a-a",
+        ----~ subgroup = "angels-physical-a", order = "c[ammo]-c[BI-enhanced-darts]"},
+      ----~ [BI.additional_entities.BI_Darts.dart_magazine_poison.name] = {
+        ----~ group = "angels-exploration", group_order = "a-a",
+        ----~ subgroup = "angels-physical-a", order = "c[ammo]-d[BI-poison-darts]"},
+
+
+      ----~ [BI.additional_items.Bio_Cannon.bio_cannon.name] = {
+        ----~ group = "angels-exploration", group_order = "f-1a",
+        ----~ subgroup = "angels-prototype-artillery", order = "b[turret]-d[artillery-turret]-[BI-bio-cannon]"},
+
+      ----~ [BI.additional_recipes.BI_Rubber.rubber_mat.name] = {
+        ----~ subgroup = "angels-exploration-walls", order = "a[BI]-a[rubber-mat]"},
+      ----~ [BI.additional_items.BI_Darts.wooden_fence.name] = {
+        ----~ subgroup = "angels-exploration-walls", order = "a[BI]-b[wooden-fence]"},
+
+    ----~ },
+    ----~ recipes = {
+      ----~ [BI.additional_recipes.BI_Darts.dart_rifle.name] = {
+        ----~ group = "angels-exploration", group_order = "a-a",
+        ----~ subgroup = "angels-physical-a", order = "a[gun]-a[BI-darts]"},
+      ----~ [BI.additional_recipes.BI_Darts.dart_turret.name] = {
+        ----~ group = "angels-exploration", group_order = "a-a",
+        ----~ subgroup = "angels-physical-a", order = "b[turret]-a[BI-darts]"},
+
+      ----~ [BI.additional_recipes.BI_Darts.dart_magazine_basic.name] = {
+        ----~ group = "angels-exploration", group_order = "a-a",
+        ----~ subgroup = "angels-physical-a", order = "c[ammo]-a[BI-basic-darts]"},
+      ----~ [BI.additional_recipes.BI_Darts.dart_magazine_standard.name] = {
+        ----~ group = "angels-exploration", group_order = "a-a",
+        ----~ subgroup = "angels-physical-a", order = "c[ammo]-b[BI-standard-darts]"},
+      ----~ [BI.additional_recipes.BI_Darts.dart_magazine_enhanced.name] = {
+        ----~ group = "angels-exploration", group_order = "a-a",
+        ----~ subgroup = "angels-physical-a", order = "c[ammo]-c[BI-enhanced-darts]"},
+      ----~ [BI.additional_recipes.BI_Darts.dart_magazine_poison.name] = {
+        ----~ group = "angels-exploration", group_order = "a-a",
+        ----~ subgroup = "angels-physical-a", order = "c[ammo]-d[BI-poison-darts]"},
+
+
+      ----~ [BI.additional_recipes.Bio_Cannon.bio_cannon.name] = {
+        ----~ group = "angels-exploration", group_order = "f-1a",
+        ----~ subgroup = "angels-prototype-artillery", order = "b[turret]-d[artillery-turret]-[BI-bio-cannon]"},
+
+      ----~ [BI.additional_recipes.BI_Rubber.rubber_mat.name] = {
+        ----~ subgroup = "angels-exploration-walls", order = "a[BI]-a[rubber-mat]"},
+      ----~ [BI.additional_recipes.BI_Darts.wooden_fence.name] = {
+        ----~ subgroup = "angels-exploration-walls", order = "a[BI]-b[wooden-fence]"},
+    ----~ }
+  ----~ },
+  ----~ ["Krastorio2"] = {
+    ----~ items = {
+      ----~ [BI.additional_items.BI_Wood_Products.huge_wooden_chest.name] = {order = "a[items]-db[hugechest]"},
+      ----~ [BI.additional_items.BI_Power_Production.huge_substation.name] = {order = "a[energy]-f[huge-substation]"},
+      ----~ [BI.additional_items.BI_Darts.wooden_fence.name] = {
+        ----~ subgroup = "defensive-structure",
+        ----~ order = "a[wooden-fence]"
+      ----~ },
+      ----~ ["stone-wall"] = {subgroup = "defensive-structure", order = "a[wooden-fence]"},
+      ----~ ["gate"] = {subgroup = "defensive-structure", order = "c[gate]"},
+      ----~ [BI.additional_items.BI_Rubber.rubber_mat.name] = {subgroup = "defensive-structure", order = "d[rubber-mat]"},
+      ----~ [BI.additional_items.BI_Darts.dart_turret.name] =  {subgroup = "vanilla-turrets", order = "004[dart-turret]"},
+      ----~ [BI.additional_items.Bio_Cannon.bio_cannon.name] = {
+        ----~ subgroup = "vanilla-turrets",
+        ----~ order = "04a[prototype-artillery]"
+      ----~ },
+      ----~ ["artillery-targeting-remote"] = {subgroup = "vanilla-turrets", order = "04b[artillery-targeting-remote]"},
+    ----~ },
+    ----~ recipes = {
+      ----~ ["kr-grow-wood-plus"] = {order = "ab[wood]"},
+    ----~ },
+  ----~ },
+  ----~ ["IndustrialRevolution"] = {
+    ----~ items = {
+      ----~ [BI.additional_items.BI_Darts.wooden_fence.name] = {subgroup = "ir2-walls", order = "c1"},
+    ----~ },
+    ----~ recipes = {
+      ----~ [BI.additional_recipes.BI_Bio_Fuel.bio_battery.name] = {subgroup = "ir2-vessels", order = "bab"},
+      ----~ [BI.additional_recipes.BI_Bio_Fuel.bio_plastic_1.name] = {subgroup = "fluid-recipes", order = "zzza1"},
+      ----~ [BI.additional_recipes.BI_Bio_Fuel.bio_plastic_2.name] = {subgroup = "fluid-recipes", order = "zzza2"},
+      ----~ [BI.additional_recipes.BI_Coal_Processing.solid_fuel.name] = {subgroup = "ir2-fuels", order = "c1"},
+      ----~ [BI.additional_recipes.BI_Wood_Gasification.solid_fuel.name] = {subgroup = "ir2-fuels", order = "c2"},
+      ----~ [BI.additional_recipes.BI_Bio_Fuel.bio_sulfur.name] = {subgroup = "fluid-recipes", order = "z1-la-zz"},
+    ----~ }
+  ----~ }
+----~ }

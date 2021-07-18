@@ -166,7 +166,8 @@ BI.additional_entities[setting].arboretum_area = {
   icon = ICONPATH .. "entity/terraformer.png",
   icon_size = 64, icon_mipmaps = 3,
   BI_add_icon = true,
-  flags = {"not-deconstructable", "not-on-map", "not-repairable"},
+  --~ flags = {"not-deconstructable", "not-on-map", "not-repairable"},
+  flags = {"not-deconstructable", "not-on-map", "not-repairable", "player-creation"},
   --~ --  open_sound = { filename = "__base__/sound/machine-open.ogg", volume = 0.85 },
   --~ --  close_sound = { filename = "__base__/sound/machine-close.ogg", volume = 0.75 },
   open_sound = sounds.open_sound,
@@ -463,7 +464,7 @@ BI.additional_entities[setting].arboretum = {
       },
     },
   },
-  crafting_categories = {"bi-arboretum"},
+  crafting_categories = {BI.additional_categories.BI_Terraforming.arboretum.name},
   crafting_speed = 0.000000000001,
   --crafting_speed = 1,
   energy_source = {
@@ -481,14 +482,11 @@ BI.additional_entities[setting].arboretum = {
   module_specification = {},
 }
 
-
 ------------------------------------------------------------------------------------
 --                          Create entities and remnants                          --
 ------------------------------------------------------------------------------------
 for e, e_data in pairs(BI.additional_entities[setting] or {}) do
   -- Entity
-  --~ data:extend({e_data})
-  --~ BioInd.created_msg(e_data)
   BioInd.create_stuff(e_data)
 
   -- Remnants, if they exist

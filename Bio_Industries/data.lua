@@ -106,6 +106,7 @@ BI_FuelItem_Filters = {}
 --   }
 -- end
 
+
 ------------------------------------------------------------------------------------
 --                                 Auxiliary files                                --
 ------------------------------------------------------------------------------------
@@ -185,6 +186,7 @@ require("prototypes.default.technology")
 ------------------------------------------------------------------------------------
 require("prototypes.optional.additional_categories_ammo")
 require("prototypes.optional.additional_categories_item")
+require("prototypes.optional.additional_categories_recipe")
 require("prototypes.optional.additional_fluids")
 require("prototypes.optional.additional_items")
 require("prototypes.optional.additional_recipes")
@@ -254,6 +256,27 @@ require("prototypes.optional.optionDisassemble")
 
 
 ------------------------------------------------------------------------------------
+--                          Enable: BI_Pollution_Detector                         --
+--                       (BI.Settings.BI_Pollution_Detector)                      --
+------------------------------------------------------------------------------------
+require("prototypes.optional.optionPollutionSensor.entity_optionPollution")
+require("prototypes.optional.optionPollutionSensor.item_optionPollution")
+require("prototypes.optional.optionPollutionSensor.recipe_optionPollution")
+require("prototypes.optional.optionPollutionSensor.technology_optionPollution")
+
+
+------------------------------------------------------------------------------------
+--                  Enable: Bio power production and distribution                 --
+--                        (BI.Settings.BI_Power_Production)                       --
+------------------------------------------------------------------------------------
+require("prototypes.optional.optionPowerProduction.categories_optionPower")
+require("prototypes.optional.optionPowerProduction.entity_optionPower")
+require("prototypes.optional.optionPowerProduction.item_optionPower")
+require("prototypes.optional.optionPowerProduction.recipe_optionPower")
+require("prototypes.optional.optionPowerProduction.technology_optionPower")
+
+
+------------------------------------------------------------------------------------
 --                               Enable: Seed bombs                               --
 --                       (BI.Settings.BI_Explosive_Planting)                      --
 ------------------------------------------------------------------------------------
@@ -282,17 +305,6 @@ require("prototypes.optional.optionRubber.entity_optionRubber")
 require("prototypes.optional.optionRubber.item_optionRubber")
 require("prototypes.optional.optionRubber.recipe_optionRubber")
 require("prototypes.optional.optionRubber.technology_optionRubber")
-
-
-------------------------------------------------------------------------------------
---                  Enable: Bio power production and distribution                 --
---                        (BI.Settings.BI_Power_Production)                       --
-------------------------------------------------------------------------------------
-require("prototypes.optional.optionPowerProduction.categories_optionPower")
-require("prototypes.optional.optionPowerProduction.entity_optionPower")
-require("prototypes.optional.optionPowerProduction.item_optionPower")
-require("prototypes.optional.optionPowerProduction.recipe_optionPower")
-require("prototypes.optional.optionPowerProduction.technology_optionPower")
 
 
 ------------------------------------------------------------------------------------

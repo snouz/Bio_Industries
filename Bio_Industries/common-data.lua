@@ -197,9 +197,8 @@ common.BI_add_icons = function()
   common.entered_function("leave")
 end
 
-
-
-  common.make_icons = function(args)
+--[[
+common.make_icons = function(args)
     common.entered_function({args})
 
     local it = {}
@@ -214,15 +213,17 @@ end
     local customicon_down = args.customunder or nil
     local custom_topright = args.custom_topright or nil
 
-    local icontable = {{icon = common.iconpath .. "empty64.png", icon_size = 64, icon_mipmaps = 0, scale = 1, shift = {0,0}}}
-
+    local icontable = {}
+    local emptylayer = {icon = common.iconpath .. "empty64.png", icon_size = 64, icon_mipmaps = 0, shift = {0,0}} --scale = 1,
+    --local icontable = {}
+    --icon
     local function transform_item(it_name)
       local _type
       _type = it_name and (thxbob.lib.item.get_type(it_name) or thxbob.lib.item.get_type("bi-" .. it_name)) or nil
       return _type and (data.raw[_type][it_name] or data.raw[_type]["bi-" .. it_name]) or nil
     end
 
-    if customicon_down then table.insert(icontable, {icon = customicon_down, icon_size = 64, mipmaps = 4, scale = 1, shift = {0,0}}) end
+    if customicon_down then table.insert(icontable, {icon = customicon_down, icon_size = 64, mipmaps = 4,shift = {0,0}}) end
 
     for k=1, #it do
       local _item = it[k].ite or nil
@@ -253,6 +254,7 @@ end
       _item = _item and transform_item(_item)
       if _item then
         if not _item.icon and _item.icons then
+          table.insert(icontable, emptylayer)
           for i=1,#_item.icons do
             local layer = {}
             local layershift = _item.icons[i].shift or {0,0}
@@ -268,12 +270,105 @@ end
             table.insert(icontable, layer)
           end
         else
-          table.insert(icontable, {icon = _item.icon, icon_size = _item.icon_size, icon_mipmaps = _item.icon_mipmaps, scale = ((64 / _item.icon_size) * _scale), shift = _shift})
+          if ((64 / _item.icon_size) * _scale) == 1 then
+            table.insert(icontable, {icon = _item.icon, icon_size = _item.icon_size, icon_mipmaps = _item.icon_mipmaps, shift = _shift})
+          else
+            table.insert(icontable, {icon = _item.icon, icon_size = _item.icon_size, icon_mipmaps = _item.icon_mipmaps, scale = ((64 / _item.icon_size) * _scale), shift = _shift})
+          end
         end
       end
     end
     if customicon_up then table.insert(icontable, {icon = customicon_up, icon_size = 64, mipmaps = 4, scale = 1, shift = {0,0}}) end
     if custom_topright then table.insert(icontable, {icon = custom_topright, icon_size = 64, mipmaps = 4, scale = 0.4, shift = {20, -20}}) end
+
+    common.entered_function("leave")
+    return icontable
+  end
+]]
+
+  common.make_icons = function(args)
+    common.entered_function({args})
+
+    local it = {}
+
+    for i=1,10 do
+      table.insert(it, {ite = args["it" .. i]} or {})
+      it[i].sca = args["sc" .. i] or 1
+      it[i].shi = args["sh" .. i] or {0,0}
+    end
+
+    local customicon_up = args.custom or nil
+    local customicon_down = args.customunder or nil
+    local custom_topright = args.custom_topright or nil
+
+    local icontable = {}
+    local emptylayer = {icon = common.iconpath .. "empty64.png", icon_size = 64, icon_mipmaps = 0, shift = {0,0}} --scale = 1,
+    --local icontable = {}
+    --icon
+    local function transform_item(it_name)
+      local _type
+      _type = it_name and (thxbob.lib.item.get_type(it_name) or thxbob.lib.item.get_type("bi-" .. it_name)) or nil
+      return _type and (data.raw[_type][it_name] or data.raw[_type]["bi-" .. it_name]) or nil
+    end
+
+    if customicon_down then table.insert(icontable, {icon = customicon_down, icon_size = 64, mipmaps = 4,shift = {0,0}}) end
+
+    for k=1, #it do
+      local _item = it[k].ite or nil
+      local _scale = it[k].sca or 1
+      local _shift = it[k].shi or {0,0}
+
+      if k==2 or k==7 then
+        _scale = (_scale * 0.5)
+        _shift = {(_shift[1] + 8),(_shift[2] - 8)}
+      end
+      if k==3 then
+        _scale = (_scale * 0.5)
+        _shift = {(_shift[1] - 8),(_shift[2] - 8)}
+      end
+      if k==4 then
+        _scale = (_scale * 0.75)
+        _shift = {(_shift[1] + 5),(_shift[2])}
+      end
+      if k==5 then
+        _scale = (_scale * 0.75)
+        _shift = {(_shift[1] - 5),(_shift[2])}
+      end
+      if k==6 then
+        _scale = (_scale * 0.5)
+        _shift = {(_shift[1] - 5),(_shift[2] + 5)}
+      end
+
+      _item = _item and transform_item(_item)
+      if _item then
+        if not _item.icon and _item.icons then
+          table.insert(icontable, emptylayer)
+          for i=1,#_item.icons do
+            local layer = {}
+            local layershift = _item.icons[i].shift or {0,0}
+            local relativescale = (32 / ((_item.icons[1].icon_size or 1) * (_item.icons[1].scale or 1)))
+            local layerscale = _item.icons[i].scale or 1
+            layer.icon = _item.icons[i].icon
+            layer.icon_size = _item.icons[i].icon_size
+            layer.icon_mipmaps = _item.icons[i].icon_mipmaps
+            layer.shift = {(((layershift[1] * relativescale) * _scale)+ _shift[1]), (((layershift[2] * relativescale) * _scale) + _shift[2])}
+            --layer.scale = _item.icons[i].scale or 1
+            layer.scale = ((layerscale * relativescale) * _scale)
+            if _item.icons[i].tint then layer.tint = _item.icons[i].tint end
+            table.insert(icontable, layer)
+          end
+        else
+          if ((32 / _item.icon_size) * _scale) == 1 then
+            table.insert(icontable, {icon = _item.icon, icon_size = _item.icon_size, icon_mipmaps = _item.icon_mipmaps, shift = _shift})
+          else
+            table.insert(icontable, {icon = _item.icon, icon_size = _item.icon_size, icon_mipmaps = _item.icon_mipmaps, scale = ((32 / _item.icon_size) * _scale), shift = _shift})
+          end
+        end
+      end
+    end
+    scalefirstlayer = icontable[1].scale or 1
+    if customicon_up then table.insert(icontable, {icon = customicon_up, icon_size = 64, mipmaps = 4, scale = scalefirstlayer, shift = {0,0}}) end
+    if custom_topright then table.insert(icontable, {icon = custom_topright, icon_size = 64, mipmaps = 4, scale = (scalefirstlayer * 0.4), shift = {20, -20}}) end
 
     common.entered_function("leave")
     return icontable

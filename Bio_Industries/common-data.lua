@@ -224,9 +224,12 @@ common.make_icons = function(args)
         end
       end
     end
-    scalefirstlayer = icontable[1].scale or 1
+    --rescale first layer
+    icontable[1].scale = (32 / icontable[1].icon_size)
+    scalefirstlayer = icontable[1].scale or 0.5
     if customicon_up then table.insert(icontable, {icon = customicon_up, icon_size = 64, mipmaps = 4, scale = scalefirstlayer, shift = {0,0}}) end
-    if custom_topright then table.insert(icontable, {icon = custom_topright, icon_size = 64, mipmaps = 4, scale = (scalefirstlayer * 0.4), shift = {20, -20}}) end
+    if custom_topright then table.insert(icontable, {icon = custom_topright, icon_size = 64, mipmaps = 4, scale = (scalefirstlayer * 0.4), shift = {10, -10}}) end
+
 
     common.entered_function("leave")
     return icontable

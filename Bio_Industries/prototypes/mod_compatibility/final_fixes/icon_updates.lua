@@ -35,7 +35,7 @@ local function build_icons(_recipe, _icons, _mod)
   end
 end
 
-local stcrorgravel = mods["IndustrialRevolution"] and "gravel" or "stone-crushed"
+--local stcrorgravel = mods["IndustrialRevolution"] and "gravel" or "stone-crushed"
 
 --~ local mod_recipe_map = {
   --~ ["Bio_Industries"] = {
@@ -109,11 +109,11 @@ build_icons("bi-biomass-1", {it1 = "bi-biomass" })
 build_icons("bi-biomass-2", {it1 = "bi-biomass", custom = BioInd.iconpath .. "signal/bi_signal_reprocess.png" })
 build_icons("bi-biomass-3", {it1 = "bi-biomass", custom = BioInd.iconpath .. "signal/bi_signal_reprocess.png", it2 = "ash" })
 build_icons("bi-wood-fuel-brick", {it1 = "wood-bricks"})
-build_icons("bi-rubber", {it1 = "rubber", sh1 = {0,8}})
+build_icons("bi-rubber", {it1 = "rubber", sh1 = {0,4}})
 build_icons("bi-coke-coal", {it1 = "pellet-coke", it2 = "coal"})
 build_icons("bi-pellet-coke", {it1 = "pellet-coke", it2 = "solid-fuel"})
-build_icons("cellulose_1", {it1 = "cellulose"})
-build_icons("cellulose_2", {it1 = "cellulose", it2 = "steam"})
+build_icons("bi-cellulose-1", {it1 = "cellulose"})
+build_icons("bi-cellulose-2", {it1 = "cellulose", it2 = "steam"})
 build_icons("bi-wood-gasification", {it5 = "tar", it4 = "petroleum-gas", sc4 = 0.8})
 build_icons("bi-biomass-conversion-crude-oil", {it1 = "crude-oil", it3 = "bi-biomass", sc3 = 1.2})
 build_icons("bi-biomass-conversion-petroleum", {it1 = "petroleum-gas", it3 = "bi-biomass", sc3 = 1.2})
@@ -135,7 +135,7 @@ build_icons("bi-crushed-stone-refined-hazard-concrete", {it1 = stcrorgravel, it2
 
 build_icons("bi-stone-brick", {it1 = "stone-brick", it2 = "ash", it3 = "stone-crushed"})
 build_icons("bi-sulfur", {it1 = "sulfur", it2 = "ash", it3 = "sulfuric-acid"})
-build_icons("bi-basic-gas-processing", {it4 = "ash", it5 = "petroleum-gas", sh4 = {0,-16}, sh5 = {0,16} })
+build_icons("bi-basic-gas-processing", {it4 = "ash", it5 = "petroleum-gas", sh4 = {0,-8}, sh5 = {0,8} })
 build_icons("bi-plastic-1", {it1 = "plastic-bar", it2 = "light-oil", it3 = "woodpulp"})
 build_icons("bi-plastic-2", {it1 = "plastic-bar", it2 = "cellulose", it3 = "petroleum-gas"})
 build_icons("solid-fuel-from-tar", {it1 = "solid-fuel", it3 = "tar"})
@@ -151,8 +151,8 @@ if data.raw.recipe["bi-sand"] then
 end
 if data.raw.recipe["bi-pellet-coke-2"] then build_icons("bi-pellet-coke-2", {it1 = "pellet-coke", it2 = data.raw.recipe["bi-pellet-coke-2"].ingredients[1].name}) end
 if data.raw.recipe["bi-fertilizer-2"] then build_icons("bi-fertilizer-2", {it1 = "fertilizer", it2 = data.raw.recipe["bi-fertilizer-2"].ingredients[2].name }) end
-build_icons("bi-mineralized-sulfuric-waste", {it1 = "water-mineralized", it6 = "water-yellow-waste", sc6 = 0.5, sh6 = {-4,4}})
-build_icons("bi-slag-slurry", {it1 = "slag-slurry", sh1 = {0,8}, it2 = "water-saline", sc2 = 0.4, it3 = "stone-crushed", sc3 = 0.4})
+build_icons("bi-mineralized-sulfuric-waste", {it1 = "water-mineralized", it6 = "water-yellow-waste", sc6 = 0.5, sh6 = {-2,2}})
+build_icons("bi-slag-slurry", {it1 = "slag-slurry", sh1 = {0,4}, it2 = "water-saline", sc2 = 0.4, it3 = "stone-crushed", sc3 = 0.4})
 
 --bobplates
 build_icons("bob-resin-oil", {it1 = "resin", it2 = "heavy-oil"}, "bobplates")
@@ -164,22 +164,22 @@ build_icons("solid-fuel-from-hydrogen", {it1 = "solid-fuel", it2 = "coal", it3 =
 build_icons("solid-fuel-from-sour-gas", {it1 = "solid-fuel", it3 = "sour-gas"}, "bobrevamp")
 
 --angelpetrochem
-build_icons("bi-basic-gas-processing", {it1 = "gas-methane", sc1 = 0.9, it6 = "ash", sc6 = 0.7, sh6 = {-7,7}}, "angelspetrochem")
+build_icons("bi-basic-gas-processing", {it1 = "gas-methane", sc1 = 0.9, it6 = "ash", sc6 = 0.7, sh6 = {-3.5,3.5}}, "angelspetrochem")
 build_icons("bi-plastic-1", {it1 = "plastic-bar", it2 = "liquid-fuel-oil", it3 = "woodpulp", sc2 = 0.8, sc3 = 0.8}, "angelspetrochem")
 build_icons("bi-plastic-2", {it1 = "plastic-bar", it2 = "cellulose", it3 = "gas-methane", sc2 = 0.8, sc3 = 0.8}, "angelspetrochem")
-build_icons("bi-wood-gasification", {it5 = "tar", sh5 = {-5,0}, it4 = "gas-methane"}, "angelspetrochem")
-build_icons("bi-biomass-conversion-crude-oil", {it1 = "crude-oil", it3 = "bi-biomass", sc3 = 1.2, it6 = "water-yellow-waste", sc6 = 0.7, sh = {-5,5}}, "angelspetrochem")
+build_icons("bi-wood-gasification", {it5 = "tar", sh5 = {-2.5,0}, it4 = "gas-methane"}, "angelspetrochem")
+build_icons("bi-biomass-conversion-crude-oil", {it1 = "crude-oil", it3 = "bi-biomass", sc3 = 1.2, it6 = "water-yellow-waste", sc6 = 0.7, sh6 = {-2.5,2.5}}, "angelspetrochem")
 build_icons("bi-biomass-conversion-petroleum", {it1 = "gas-methane", it3 = "bi-biomass", sc1 = 0.9, sc3 = 1.2}, "angelspetrochem")
-build_icons("bi-biomass-conversion-lubricant", {it1 = "lubricant", it3 = "bi-biomass", sc1 = 1.3, sh1 = {0,8}, sc3 = 1.2}, "angelspetrochem")
+build_icons("bi-biomass-conversion-lubricant", {it1 = "lubricant", it3 = "bi-biomass", sc1 = 1.3, sh1 = {0,4}, sc3 = 1.2}, "angelspetrochem")
 build_icons("bi-biomass-conversion-sulfuric-acid", {it1 = "liquid-sulfuric-acid", it3 = "bi-biomass", sc1 = 0.9, sc3 = 1.2}, "angelspetrochem")
-build_icons("bi-biomass-conversion-light-oil", {it1 = "liquid-fuel-oil", it3 = "bi-biomass", sc3 = 1.2, it6 = "cellulose", sc6 = 0.7, sh = {-5,5}}, "angelspetrochem")
+build_icons("bi-biomass-conversion-light-oil", {it1 = "liquid-fuel-oil", it3 = "bi-biomass", sc3 = 1.2, it6 = "cellulose", sc6 = 0.7, sh6 = {-2.5,2.5}}, "angelspetrochem")
 build_icons("bi-sulfur", {it1 = "sulfur", it2 = "ash", it3 = "liquid-sulfuric-acid", sc3 = 0.6}, "angelspetrochem")
-build_icons("bi-solid-fuel", {it1 = "solid-fuel", it6 = "wood-bricks", sc6 = 0.7, sh6 = {-8,8}}, "angelspetrochem")
-build_icons("solid-fuel-from-tar", {it1 = "solid-fuel", it6 = "tar", sc6 = 0.7, sh6 = {-8,8}}, "angelspetrochem")
-build_icons("enriched-fuel-from-liquid-fuel", {it1 = "enriched-fuel", it6 = "liquid-fuel", sc6 = 0.7, sh6 = {-8,8}}, "angelspetrochem")
+build_icons("bi-solid-fuel", {it1 = "solid-fuel", it6 = "wood-bricks", sc6 = 0.7, sh6 = {-4,4}}, "angelspetrochem")
+build_icons("solid-fuel-from-tar", {it1 = "solid-fuel", it6 = "tar", sc6 = 0.7, sh6 = {-4,4}}, "angelspetrochem")
+build_icons("enriched-fuel-from-liquid-fuel", {it1 = "enriched-fuel", it6 = "liquid-fuel", sc6 = 0.7, sh6 = {-4,4}}, "angelspetrochem")
 build_icons("solid-resin", {it1 = "resin", it2 = "liquid-resin"}, "angelspetrochem")
-build_icons("bob-rubber", {it1 = "rubber", it2 = "resin", sh1 = {0,8}}, "angelspetrochem")
-build_icons("solid-rubber", {it1 = "rubber", it2 = "liquid-rubber", sh1 = {0,8}}, "angelspetrochem")
+build_icons("bob-rubber", {it1 = "rubber", it2 = "resin", sh1 = {0,4}}, "angelspetrochem")
+build_icons("solid-rubber", {it1 = "rubber", it2 = "liquid-rubber", sh1 = {0,4}}, "angelspetrochem")
 
 --IndustrialRevolution
 build_icons("bi-coal-1", {it1 = "coal"}, "IndustrialRevolution")

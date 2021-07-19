@@ -196,10 +196,11 @@ BI.additional_recipes.BI_Bio_Fuel.cellulose_2 = {
   --icon = ICONPATH .. "cellulose_steam.png",
   --icon_size = 64, icon_mipmaps = 3,
   --BI_add_icon = true,
-  icons = {
-    { icon = ICONPATH .. "cellulose.png", icon_size = 64, icon_mipmaps = 4, scale = 1, shift = {0, 0} },
-    { icon = "__base__/graphics/icons/fluid/steam.png", icon_size = 64, icon_mipmaps = 4, scale = 0.5, shift = {17, -15} },
-  },
+  --icons = {
+  --  { icon = ICONPATH .. "cellulose.png", icon_size = 64, icon_mipmaps = 4, scale = 1, shift = {0, 0} },
+  --  { icon = "__base__/graphics/icons/fluid/steam.png", icon_size = 64, icon_mipmaps = 4, scale = 0.5, shift = {17, -15} },
+  --},
+  icons = BioInd.make_icons({it1 = "bi-cellulose", it2 = "steam"}),
   category = "chemistry",
   energy_required = 5,
   ingredients = {
@@ -995,7 +996,7 @@ BI.additional_recipes.BI_Coal_Processing.charcoal_2 = {
 BI.additional_recipes.BI_Coal_Processing.coal_1 = {
   type = "recipe",
   name = "bi-coal-1",
-  icon = "__base__/graphics/icons/coal-dark-background.png",
+  icon = "__base__/graphics/icons/coal.png",
   icon_size = 64, icon_mipmaps = 3,
   BI_add_icon = true,
   category = BI.default_recipe_categories.smelting.name,
@@ -1025,10 +1026,11 @@ BI.additional_recipes.BI_Coal_Processing.coal_2 = {
   --icon = ICONPATH .. "coal_plus.png",
   --icon_size = 64, icon_mipmaps = 3,
   --BI_add_icon = true,
-  icons = {
-    { icon = "__base__/graphics/icons/coal-dark-background.png", icon_size = 64, icon_mipmaps = 4, scale = 1, shift = {0, 0} },
-    { icon = ICONPATH .. "signal/bi_signal_plus.png", icon_size = 64, icon_mipmaps = 4, scale = 0.45, shift = {18, -18} },
-  },
+  --icons = {
+  --  { icon = "__base__/graphics/icons/coal-dark-background.png", icon_size = 64, icon_mipmaps = 4, scale = 1, shift = {0, 0} },
+  --  { icon = ICONPATH .. "signal/bi_signal_plus.png", icon_size = 64, icon_mipmaps = 4, scale = 0.45, shift = {18, -18} },
+  --},
+  icons = BioInd.make_icons({it1 = "coal", custom_topright = BioInd.iconpath .. "signal/bi_signal_plus.png"}),
   category = BI.default_recipe_categories.smelting.name,
   subgroup = BI.default_item_subgroup.cokery.name,
   order = "a[bi]-a-eb[bi-6-coal-2]",

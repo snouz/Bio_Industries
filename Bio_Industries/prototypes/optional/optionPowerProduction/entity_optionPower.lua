@@ -339,6 +339,7 @@ BI.additional_entities[setting].huge_accumulator = {
         repeat_count = 24,
         animation_speed = 0.4,
         scale = 1,
+        shift = {0, -0.6},
         hr_version = {
           filename = ENTITYPATH .. "large_accumulator/hr_bi_large_accumulator.png",
           priority = "high",

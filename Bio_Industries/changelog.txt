@@ -111,6 +111,8 @@ Date: 2021-07-?
     - Made sure that the properties of huge entities (accumulator, solar farm etc.) are in sync with the amount of the normal entities they are made of.
     - Fixed a dependency circle when all of Angel's mods were used.
 
+    - Red/yellow/green wires aren't drawn on top of each other between big poles.
+
 
   Modding:
     - Migrated some recipes ("bi-sulfur-angels", "bi-crushed-stone-X", "bi-biomass-conversion-X", "bi-acid") and technologies ("bi-tech-bio-cannon", "bi-tech-advanced-fertilizers")

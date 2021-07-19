@@ -18,6 +18,7 @@ Date: 2021-07-?
     - Buildings position and scale adjusted.
     - New textures and shapes for tiles (Musk floor, Wood floor).
     - New custom remnants for every building.
+    - Fixed wooden pipe-to-ground covers being iron.
     - Unique visuals for all 59 technologies.
     - Added an HD and SD version to all buildings.
     - Added correct, engine-understood shadows to all buildings (no more shadows overlapping).

@@ -27,7 +27,6 @@
     ["bi-biomass-conversion-2",         "bi-biomass-conversion-petroleum"],
     ["bi-biomass-conversion-3",         "bi-biomass-conversion-lubricant"],
     ["bi-biomass-conversion-4",         "bi-biomass-conversion-light-oil"],
-    ["bi-acid",                         "bi-biomass-conversion-sulfuric-acid"],
 
     ["bi-bio-cannon-basic-ammo",        "bi-bio-cannon-ammo-basic"],
     ["bi-bio-cannon-poison-ammo",       "bi-bio-cannon-ammo-poison"],

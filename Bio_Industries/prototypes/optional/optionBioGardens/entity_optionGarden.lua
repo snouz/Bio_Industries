@@ -350,7 +350,7 @@ BI.additional_entities[setting].bio_garden_huge = {
   corpse = "bi-bio-garden-huge-remnant",
   collision_box = {{-13.3, -13.3}, {13.3, 13.3}},
   selection_box = {{-13.5, -13.5}, {13.5, 13.5}},
-  --scale_entity_info_icon = true,
+  scale_entity_info_icon = true,
   fluid_boxes = {
     {
       production_type = "input",

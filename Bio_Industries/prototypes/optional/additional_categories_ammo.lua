@@ -65,6 +65,11 @@ BI.additional_categories.Bio_Cannon.cannon_ammo = {
 --~ }
 BI.additional_categories.Bio_Cannon.ammo = table.deepcopy(BI.additional_categories.BI_Darts.ammo)
 
+BI.additional_categories.Bio_Cannon.trigger_target = {
+  type = "trigger-target-type",
+  name = "Bio_Cannon_Ammo"
+}
+
 
 ------------------------------------------------------------------------------------
 --                               Enable: Seed bombs                               --

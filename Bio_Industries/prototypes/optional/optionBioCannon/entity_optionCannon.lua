@@ -299,46 +299,46 @@ end
 --                                   Bio cannon                                   --
 ------------------------------------------------------------------------------------
 -- Bio Cannon Artillery Range Overlay
-BI.additional_entities[setting].bio_cannon_area = {
-  type = "ammo-turret",
-  name = "bi-bio-cannon-area",
-  localised_name = {"entity-name.bi-bio-cannon"},
-  localised_description = {"entity-description.bi-bio-cannon"},
-  icon = ICONPATH .. "entity/biocannon_icon.png",
-  icon_size = 64, icon_mipmaps = 3,
-  BI_add_icon = true,
-  flags = {"placeable-neutral", "placeable-player", "player-creation"},
-  --~ open_sound = { filename = "__base__/sound/machine-open.ogg", volume = 0.85 },
-  --~ close_sound = { filename = "__base__/sound/machine-close.ogg", volume = 0.75 },
-  open_sound = sounds.open_sound,
-  close_sound = sounds.close_sound,
-  max_health = 900,
-  corpse = "bi-bio-cannon-remnant",
-  dying_explosion = "massive-explosion",
-  automated_ammo_count = 10,
-  resistances = {},
-  collision_box = {{-4.25, -4.25}, {4.25, 4.25}},
-  selection_box = {{-4.5, -4.5}, {4.5, 4.5}},
-  order = "i[items][Bio_Cannon]",
-  inventory_size = 1,
-  attack_parameters = {
-    type = "projectile",
-    ammo_category = BI.additional_categories.Bio_Cannon.cannon_ammo.name,
-    cooldown = 2,
-    range = 90,
-    min_range = 20,
-    projectile_creation_distance = 1.8,
-    action ={}
-  },
-  folding_speed = 0.05,
-  preparing_animation = preparing_animation(),
-  prepared_animation = prepared_animation(),
-  --attacking_animation = attacking_animation(),
-  folding_animation = folding_animation(),
-  folded_animation = folded_animation(),
-  call_for_help_radius = 40,
-  alert_icon_shift = {0, -0.5},
-}
+--~ BI.additional_entities[setting].bio_cannon_area = {
+  --~ type = "ammo-turret",
+  --~ name = "bi-bio-cannon-area",
+  --~ localised_name = {"entity-name.bi-bio-cannon"},
+  --~ localised_description = {"entity-description.bi-bio-cannon"},
+  --~ icon = ICONPATH .. "entity/biocannon_icon.png",
+  --~ icon_size = 64, icon_mipmaps = 3,
+  --~ BI_add_icon = true,
+  --~ flags = {"placeable-neutral", "placeable-player", "player-creation"},
+  --~ -- open_sound = { filename = "__base__/sound/machine-open.ogg", volume = 0.85 },
+  --~ -- close_sound = { filename = "__base__/sound/machine-close.ogg", volume = 0.75 },
+  --~ open_sound = sounds.open_sound,
+  --~ close_sound = sounds.close_sound,
+  --~ max_health = 900,
+  --~ corpse = "bi-bio-cannon-remnant",
+  --~ dying_explosion = "massive-explosion",
+  --~ automated_ammo_count = 10,
+  --~ resistances = {},
+  --~ collision_box = {{-4.25, -4.25}, {4.25, 4.25}},
+  --~ selection_box = {{-4.5, -4.5}, {4.5, 4.5}},
+  --~ order = "i[items][Bio_Cannon]",
+  --~ inventory_size = 1,
+  --~ attack_parameters = {
+    --~ type = "projectile",
+    --~ ammo_category = BI.additional_categories.Bio_Cannon.cannon_ammo.name,
+    --~ cooldown = 2,
+    --~ range = 90,
+    --~ min_range = 20,
+    --~ projectile_creation_distance = 1.8,
+    --~ action ={}
+  --~ },
+  --~ folding_speed = 0.05,
+  --~ preparing_animation = preparing_animation(),
+  --~ prepared_animation = prepared_animation(),
+  --~ --attacking_animation = attacking_animation(),
+  --~ folding_animation = folding_animation(),
+  --~ folded_animation = folded_animation(),
+  --~ call_for_help_radius = 40,
+  --~ alert_icon_shift = {0, -0.5},
+--~ }
 
 -- Bio Cannon Artillery
 BI.additional_entities[setting].bio_cannon = {
@@ -348,12 +348,14 @@ BI.additional_entities[setting].bio_cannon = {
   icon_size = 64, icon_mipmaps = 3,
   BI_add_icon = true,
   flags = {"placeable-neutral", "placeable-player", "player-creation"},
-  placeable_by = {item = "bi-bio-cannon-area", count = 1},-- makes cannon blueprintable
+  --~ placeable_by = {item = "bi-bio-cannon-area", count = 1},-- makes cannon blueprintable
+  placeable_by = {item = "bi-bio-cannon", count = 1},-- makes cannon blueprintable
   --~ open_sound = { filename = "__base__/sound/machine-open.ogg", volume = 0.85 },
   --~ close_sound = { filename = "__base__/sound/machine-close.ogg", volume = 0.75 },
   open_sound = sounds.open_sound,
   close_sound = sounds.close_sound,
-  minable = {mining_time = 10, result = "bi-bio-cannon-area"},
+  --~ minable = {mining_time = 10, result = "bi-bio-cannon-area"},
+  minable = {mining_time = 10, result = "bi-bio-cannon"},
   max_health = 900,
   corpse = "bi-bio-cannon-remnant",
   dying_explosion = "massive-explosion",
@@ -376,17 +378,23 @@ BI.additional_entities[setting].bio_cannon = {
   selection_box = {{-4.5, -4.5}, {4.5, 4.5}},
   order = "i[items][Bio_Cannon]",
   inventory_size = 1,
-  prepare_range = 90,
+  --~ prepare_range = 90,
+  prepare_range = 120,
   preparing_speed = 0.012,
   attack_parameters = {
     type = "projectile",
     --~ ammo_category = "artillery-shell",
     ammo_category = BI.additional_categories.Bio_Cannon.cannon_ammo.name,
-    cooldown = 2,
-    range = 0,
+    --~ cooldown = 2,
+    --~ range = 90,
+    cooldown = 300,
+    warmup = 300,
+    range = 120,
+    min_range = 20,
     projectile_creation_distance = 1.8,
     action ={}
   },
+  attack_target_mask = { BI.additional_categories.Bio_Cannon.trigger_target.name },
   folding_speed = 0.01,
 
   preparing_animation = preparing_animation(),
@@ -408,9 +416,12 @@ BI.additional_entities[setting].bio_cannon_ammo_proto = {
   name = "bi-bio-cannon-ammo-proto",
   flags = {"not-on-map"},
   acceleration = 0.0004,
+  direction_only = true,
+  --~ speed_modifier = 0.5,
   action = {
     {
       type = "area",
+      trigger_target_mask = { BI.additional_categories.Bio_Cannon.trigger_target.name },
       radius = 2,
       action_delivery = {
         type = "instant",
@@ -424,7 +435,7 @@ BI.additional_entities[setting].bio_cannon_ammo_proto = {
             entity_name = "small-scorchmark",
             check_buildability = true
           },
-        }
+        },
       }
     },
   },
@@ -470,6 +481,7 @@ BI.additional_entities[setting].bio_cannon_ammo_basic = {
   action = {
     {
       type = "area",
+      trigger_target_mask = { BI.additional_categories.Bio_Cannon.trigger_target.name },
       radius = 8,
       action_delivery = {
         type = "instant",
@@ -487,6 +499,7 @@ BI.additional_entities[setting].bio_cannon_ammo_basic = {
     },
     {
       type = "direct",
+      trigger_target_mask = { BI.additional_categories.Bio_Cannon.trigger_target.name },
       action_delivery = {
         type = "instant",
         target_effects = {
@@ -558,6 +571,7 @@ BI.additional_entities[setting].bio_cannon_ammo_poison = {
   action = {
     {
       type = "area",
+      trigger_target_mask = { BI.additional_categories.Bio_Cannon.trigger_target.name },
       radius = 12,
       action_delivery = {
         type = "instant",
@@ -579,6 +593,7 @@ BI.additional_entities[setting].bio_cannon_ammo_poison = {
     },
     {
       type = "direct",
+      trigger_target_mask = { BI.additional_categories.Bio_Cannon.trigger_target.name },
       action_delivery = {
         type = "instant",
         target_effects = {
@@ -609,6 +624,7 @@ BI.additional_entities[setting].bio_cannon_ammo_poison = {
       }
     },
     {
+      trigger_target_mask = { BI.additional_categories.Bio_Cannon.trigger_target.name },
       action_delivery = {
         target_effects = {
           {
@@ -661,6 +677,7 @@ BI.additional_entities[setting].ne_napalm_small = {
   acceleration = 0,
   action = {
     {
+      trigger_target_mask = { BI.additional_categories.Bio_Cannon.trigger_target.name },
       type = "direct",
       action_delivery = {
         type = "instant",
@@ -999,7 +1016,8 @@ BI.additional_entities[setting].poison_cloud = {
 for e, e_data in pairs(BI.additional_entities[setting] or {}) do
   -- Don't create the Poison artillery shell yet -- other mods may have created one!
   if e_data.name ~= BI.additional_entities[setting].poison_artillery_shell.name and
-      e_data.name ~= BI.additional_entities[setting].poison_cloud and
+      -- Poison cloud is used by Prototype poison ammo and the Poison artillery shell!
+      --~ e_data.name ~= BI.additional_entities[setting].poison_cloud and
   -- Don't create the Napalm projectile -- this will be done by NE!
       e_data.name ~= BI.additional_entities[setting].ne_napalm_small then
   --~ if e_data.name ~= BI.additional_entities[setting].poison_artillery_shell.name then

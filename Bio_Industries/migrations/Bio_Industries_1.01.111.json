@@ -1,0 +1,7 @@
+{
+  "recipe":
+  [
+    ["bi-adv-fertilizer-1", "bi-adv-fertilizer-2"],
+    ["bi-adv-fertilizer-2", "bi-adv-fertilizer-1"]
+  ]
+}

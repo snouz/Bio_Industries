@@ -45,9 +45,27 @@ local ICONPATHMIPS = BioInd.iconpath .. "mips/"
 --                            (BI.Settings.Bio_Cannon)                            --
 ------------------------------------------------------------------------------------
 -- Bio Cannon/Hive Buster Turret
+--~ BI.additional_items.Bio_Cannon.bio_cannon = {
+  --~ type = "item",
+  --~ name = "bi-bio-cannon-area",
+  --~ localised_name = {"entity-name.bi-bio-cannon"},
+  --~ localised_description = {"entity-description.bi-bio-cannon"},
+  --~ icon = ICONPATH .. "entity/biocannon_icon.png",
+  --~ icon_size = 64, icon_mipmaps = 3,
+  --~ BI_add_icon = true,
+  --~ subgroup = "defensive-structure",
+  --~ order = "x[turret]-x[gun-turret]",
+  --~ place_result = "bi-bio-cannon-area",
+  --~ stack_size = 1,
+  --~ -- Group/subgroup if "5Dim's mod - New Core" is used
+  --~ group_5d = "defense",
+  --~ subgroup_5d = "defense-proto-artillery",
+  --~ subgroup_order_5d = "n-a",
+  --~ order_5d = "[Bio_Industries]-[proto-artillery]",
+--~ }
 BI.additional_items.Bio_Cannon.bio_cannon = {
   type = "item",
-  name = "bi-bio-cannon-area",
+  name = "bi-bio-cannon",
   localised_name = {"entity-name.bi-bio-cannon"},
   localised_description = {"entity-description.bi-bio-cannon"},
   icon = ICONPATH .. "entity/biocannon_icon.png",
@@ -55,7 +73,7 @@ BI.additional_items.Bio_Cannon.bio_cannon = {
   BI_add_icon = true,
   subgroup = "defensive-structure",
   order = "x[turret]-x[gun-turret]",
-  place_result = "bi-bio-cannon-area",
+  place_result = "bi-bio-cannon",
   stack_size = 1,
   -- Group/subgroup if "5Dim's mod - New Core" is used
   group_5d = "defense",
@@ -74,19 +92,28 @@ BI.additional_items.Bio_Cannon.bio_cannon_ammo_proto = {
   icon_size = 64, icon_mipmaps = 3,
   BI_add_icon = true,
   ammo_type = {
-    category = BI.additional_categories.Bio_Cannon.cannon_ammo.name,
-    target_type = "direction",
-    action = {
-      {
-        type = "direct",
-        action_delivery = {
-          type = "projectile",
-          projectile = "bi-bio-cannon-ammo-proto",
-          --~ starting_speed = 1,
-          starting_speed = 0.2,
-          direction_deviation = 0.8,
-          range_deviation = 0.8,
-          max_range = 90
+    {
+      category = BI.additional_categories.Bio_Cannon.cannon_ammo.name,
+      source_type = "turret",
+      target_type = "direction",
+      --~ range_modifier = 0.75,
+      action = {
+        {
+          type = "direct",
+          trigger_target_mask = { BI.additional_categories.Bio_Cannon.trigger_target.name },
+          filter_enabled = true,
+          action_delivery = {
+            type = "projectile",
+            projectile = "bi-bio-cannon-ammo-proto",
+            starting_speed = 0.2,
+            direction_deviation = 0.5,
+            max_range = 90,
+            min_range = 20,
+            source_effects = {
+              type = "script",
+              effect_id = "BI_cannon-ammo-proto_create_pollution",
+            },
+          }
         }
       }
     }
@@ -111,24 +138,28 @@ BI.additional_items.Bio_Cannon.bio_cannon_ammo_basic = {
   icon_size = 64, icon_mipmaps = 3,
   BI_add_icon = true,
   ammo_type = {
-    category = BI.additional_categories.Bio_Cannon.cannon_ammo.name,
-    target_type = "direction",
-    action = {
-      {
-        type = "direct",
-        action_delivery = {
-          type = "projectile",
-          projectile = "bi-bio-cannon-ammo-basic",
-          --~ starting_speed = 1,
-          --~ direction_deviation = 0.8,
-          --~ range_deviation = 0.8,
-          starting_speed = 0.4,
-          direction_deviation = 0.4,
-          range_deviation = 0.4,
-          max_range = 90
+    {
+      category = BI.additional_categories.Bio_Cannon.cannon_ammo.name,
+      source_type = "turret",
+      target_type = "direction",
+      action = {
+        {
+          type = "direct",
+          action_delivery = {
+            type = "projectile",
+            projectile = "bi-bio-cannon-ammo-basic",
+            starting_speed = 0.4,
+            direction_deviation = 0.25,
+            --~ max_range = 90
+            max_range = 105,
+            source_effects = {
+              type = "script",
+              effect_id = "BI_cannon-ammo-basic_create_pollution",
+            },
+          }
         }
       }
-    }
+    },
   },
   subgroup = "ammo",
   order = "z[Bio_Cannon_Ammo]-b[Basic]",
@@ -159,12 +190,14 @@ BI.additional_items.Bio_Cannon.bio_cannon_ammo_poison = {
           type = "projectile",
           projectile = "bi-bio-cannon-ammo-poison",
           --~ starting_speed = 1,
-          --~ direction_deviation = 0.8,
-          --~ range_deviation = 0.8,
           starting_speed = 0.8,
-          direction_deviation = 0.2,
-          range_deviation = 0.2,
-          max_range = 90
+          --~ max_range = 90
+          direction_deviation = 0,
+          max_range = 120,
+          target_effects = {
+            type = "script",
+            effect_id = "BI_cannon-ammo-poison_create_pollution",
+          }
         }
       }
     }

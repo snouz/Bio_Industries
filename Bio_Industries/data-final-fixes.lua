@@ -71,6 +71,7 @@ BioInd.writeDebug("Removed %g tree prototypes. Number of trees to ignore now: %g
 ------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------
 require("prototypes.optional._final_fixes.fixes_optionBioFuel")
+require("prototypes.optional._final_fixes.fixes_optionCannon")
 require("prototypes.optional._final_fixes.fixes_optionDarts")
 require("prototypes.optional._final_fixes.fixes_optionPowerProduction")
 require("prototypes.optional._final_fixes.fixes_optionRails")

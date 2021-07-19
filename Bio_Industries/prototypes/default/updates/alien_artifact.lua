@@ -10,16 +10,14 @@ end
 ------------------------------------------------------------------------------------
 
 
-local items = data.raw.item
 
 
 ------------------------------------------------------------------------------------
 --         If the Alien Artifact is in the game, use it for some recipes!         --
 ------------------------------------------------------------------------------------
---~ if items["alien-artifact"] then
-  --- Alternative recipe for advanced fertilizer
-  BioInd.create_stuff(BI.additional_recipes.adv_fertilizer_2)
---~ end
+-- Alternative recipe for advanced fertilizer
+BioInd.create_stuff(BI.additional_recipes.adv_fertilizer_2)
+
 
 
 ------------------------------------------------------------------------------------

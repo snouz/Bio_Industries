@@ -113,6 +113,8 @@ Date: 2021-07-?
 
     - Red/yellow/green wires aren't drawn on top of each other between big poles.
 
+    - Fixed icons for the rubber-wood recipes.
+    - Made Bio-cannon reliant on trigger target masks instead of controlling it per script.
 
   Modding:
     - Migrated some recipes ("bi-sulfur-angels", "bi-crushed-stone-X", "bi-biomass-conversion-X", "bi-acid") and technologies ("bi-tech-bio-cannon", "bi-tech-advanced-fertilizers")
@@ -150,8 +152,6 @@ Date: 2021-07-?
     - Add an alternative way to produce plastic without fluids. (https://mods.factorio.com/mod/Bio_Industries/discussion/5e3f5fadc359e6000d54cfb2)
     - Make algae grow on water to contain pollution there. (https://mods.factorio.com/mod/Bio_Industries/discussion/5f07bed0b6dcd7af988b9fb0)
     - Just an idea: Wood harvesters like they used to be in <https://mods.factorio.com/mod/WoodHarvester>. Could harvest (only) fully grown trees planted by terraformers, and output "trees" that would have to be processed by a sawmill to make wood and wood pulp. Bio farms would also output "trees". The current bio farms already look a bit like a sawmill, so use the current pix for it and get new ones for the bio farm! This would also solve a problem with the German translation: A "Baumschule" is a tree nursery -- it's just for growing trees, not for processing them!
-
-    - Activate new Bio-Cannon (0.18.33 version) once "NE Enemies" is updated -- we don't want different versions of the cannon in the game!
 
     - Bigger trees give more wood (https://forums.factorio.com/viewtopic.php?f=16&t=95205)
     - Don't plant lying trees

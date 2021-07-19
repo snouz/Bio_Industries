@@ -36,7 +36,7 @@ BI_scripts = {
 local event_handlers    = require("scripts.event_handlers")
 
 -- This will only be run if the Cannon is active. We may want to remove this later!
-require("scripts/control_bio_cannon")
+--~ require("scripts/control_bio_cannon")
 
 
 ---************** Used for Testing -----

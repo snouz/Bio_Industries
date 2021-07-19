@@ -83,6 +83,8 @@ BI.additional_recipes.nitrogen = {
 BI.additional_recipes.adv_fertilizer_2 = {
   type = "recipe",
   name = "bi-adv-fertilizer-2",
+  localised_name = {"recipe-name.bi-adv-fertilizer"},
+  localised_description = {"recipe-description.bi-adv-fertilizer"},
   --~ icon = ICONPATH .. "advanced_fertilizer_64.png",
   icon = ICONPATH .. "fertilizer_advanced.png",
   icon_size = 64, icon_mipmaps = 3,
@@ -115,6 +117,13 @@ BI.additional_recipes.adv_fertilizer_2 = {
   allow_decomposition = true,         -- Changed for 0.18.34/1.1.4
   subgroup = BI.default_item_subgroup.bio_farm_intermediate_product.name,
   order = "b[bi-fertilizer]-b[bi-adv-fertilizer-2]",
+  crafting_machine_tint = {
+    primary = util.color("FF528E"),
+    secondary = util.color("EB75BF"),
+    tertiary = util.color("EB737C"),
+    quaternary = util.color("FF7CF1")
+  },
+  BI_add_to_tech = {"bi-tech-advanced-fertilizer"},
 }
 
 

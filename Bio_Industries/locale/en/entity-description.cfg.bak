@@ -1,102 +1,61 @@
 [entity-description]
-
 ## Production
-bi-arboretum=__ENTITY__bi-arboretum__s change the surrounding terrain with fertilizer and/or plant trees.
+bi-arboretum=__ENTITY__bi-arboretum__s change the surrounding terrain with fertilizer or plant trees.
 bi-bio-farm=__ENTITY__bi-bio-farm__s are where __ENTITY__seedling__s grow into trees that are processed to __ITEM__wood__ and __ITEM__bi-woodpulp__. An integrated solar panel provides some of the energy during the day.
-bi-bio-garden=The __ENTITY__bi-bio-garden__ scrubs pollution from the air.
-bi-bio-garden-large=The __ENTITY__bi-bio-garden-large__ is like 9 __ENTITY__bi-bio-garden__s, but uses less fertilizer and cleans more air.
-bi-bio-garden-huge=The __ENTITY__bi-bio-garden-huge__ is like 9 __ENTITY__bi-bio-garden-large__s, but uses less fertilizer and cleans more air.
-bi-bio-greenhouse=Just the right place to grow __ITEM__bi-seed__s and __ENTITY__seedling__s.
-bi-bio-reactor=__ENTITY__bi-bio-reactor__s produce and process __1__.
-bi-cokery=The __ENTITY__bi-cokery__ processes __ITEM__wood__ and __ITEM__bi-woodpulp__ into ash and various fuels.
-bi-stone-crusher=__ENTITY__bi-stone-crusher__s can crush __ITEM__stone__, __ITEM__stone-brick__s, __ITEM__concrete__ etc.
+bi-bio-garden=The __ENTITY__bi-bio-garden__ scrubs 20 units of pollution from the air.
+bi-bio-garden-large=MISSING TEXT!
+bi-bio-garden-huge=MISSING TEXT!
+bi-bio-greenhouse=Just the right place to grow __ITEM__bi-seed__s and __ENTITY__seedling__s!
+seedling=Plant it in the ground!
 
-# snouz:
-# bi-pollution-sensor=Returns a signal of pollution particles in a chunk.
-bi-pollution-sensor=The __ENTITY__bi-pollution-sensor__ outputs a signal of the pollution in a chunk.
+bi-bio-reactor=__ENTITY__bi-bio-reactor__ are used to produce and process biomass.
+bi-cokery=__ITEM__wood__ and __ITEM__bi-woodpulp__ are refined to __ITEM__wood-charcoal__ and other fuels in the __ENTITY__bi-cokery__.
+bi-stone-crusher=These machines crush __ITEM__stone__ and __ITEM__concrete__ in all forms.
 
-seedling=
 
 ## Power
-bi-bio-accumulator=Each __ENTITY__bi-bio-accumulator__ stores as much energy as __1__  __2__s.
+bi-bio-accumulator=__ENTITY__bi-bio-accumulator__ that can store very large amounts of energy. Sometimes, size really does matter …
+bi-bio-boiler=The __ENTITY__bi-bio-boiler__ is as efficient as a normal __ENTITY__boiler__, but produces 75% less pollution!
+bi-bio-solar-farm=The __ENTITY__bi-bio-solar-farm__ is a huge __ENTITY__solar-panel__ that generates a lot of power on minimal space.
+bi-large-substation=This __ENTITY__bi-large-substation__ can power stuff in a large area.
+bi-solar-boiler=This __ENTITY__bi-solar-boiler__ uses solar energy to generate electricity and steam.
+bi-solar-mat=This special pavement contains solar panels. Each tile will generate 10kW of electricity while increasing your speed. (Thanks, Elon Musk!)
 
-# snouz:
-# bi-bio-boiler=Twice as fast as a normal __ENTITY__boiler__ while polluting half as much.
-# bi-bio-boiler=__ENTITY__bi-bio-boiler__s are twice as powerful as a normal __ENTITY__boiler__s and pollute half as much.
-#~ bi-bio-boiler=[color=yellow][font=default-semibold]Faster and cleaner than normal __ENTITY__boiler__s![/font][/color]
-bi-bio-boiler=Each __ENTITY__bi-bio-boiler__ generates as much steam as __1__ __ENTITY__boiler__s, but consumes and pollutes only as much as __2__.
-
-# snouz:
-# bi-bio-solar-farm=Equivalent of 60 __ENTITY__solar-panel__s on a 9x9 space.
-#bi-bio-solar-farm=The __ENTITY__bi-bio-solar-farm__ is a huge __ENTITY__solar-panel__ that generates 60 times the power on minimal space.
-bi-bio-solar-farm=Each __ENTITY__bi-bio-solar-farm__ replaces __1__ __2__s.
-
-# snouz:
-# bi-huge-substation=Distributes power in a 50 tiles radius.
-#bi-huge-substation=The __ENTITY__bi-huge-substation__ can power buildings in a vast area.
-bi-huge-substation=The __ENTITY__bi-huge-substation__ distributes power in a wide area.
-
-# snouz:
-# bi-solar-boiler=Generates steam using solar energy during the day and electricity during the night.
-#bi-solar-boiler=This __ENTITY__bi-solar-boiler__ generates steam by using solar energy during the day and electricity during the night.
-bi-solar-boiler=__ENTITY__bi-solar-boiler__s generate steam using solar energy during the day and electricity during the night.
-
-# snouz:
-# bi-solar-mat=__ENTITY__solar-panel__ in the form of pavement (10kW/tile) that also accelerates players.
-#bi-solar-mat=This special pavement contains solar panels. Each tile will generate 10kW of electricity while increasing your speed.
-bi-solar-mat=[color=yellow][font=default-semibold]Generates 10kW per tile.[/font][/color]
-
-
-bi-bio-solar-farm-hidden-pole=Each __ENTITY__bi-bio-solar-farm__ is on a separate power network that can be [color=yellow][font=default-semibold]merged with other power networks[/font][/color] by wiring the connector. It will be connected to [color=yellow][font=default-semibold]additional power networks[/font][/color] (unless there also is a __ITEM__copper-cable__ connection) if it is within their supply area. The power will be split evenly between [color=yellow][font=default-semibold]all networks[/font][/color] -- even those that don't consume anything!
 
 ## Weaponry
-bi-bio-cannon=[color=yellow][font=default-semibold]No manual targeting! Can only fire prototype ammo![/font][/color]
-
-# snouz:
-# bi-dart-turret=Darts are cheaper and weaker than bullets, but are cheaper and fire at a higher rate and range.
-# bi-dart-turret=Darts are cheaper and less powerful than bullets, but the __ENTITY__bi-dart-turret__ fires at a higher rate and range.
-bi-dart-turret=Darts are cheaper and weaker than bullets, but will be fired at a higher rate and range.
+bi-bio-cannon=Can ONLY fire at spawners and worms! (Range: 90)\nThis prototype isn't capable of manual targeting.
+bi-dart-turret=These turrets are immediately available and protect you from enemy attacks at a minimal cost. Of course, the darts inflict less damage than bullets, but __ENTITY__bi-dart-turret__s have a higher range and can fire at a higher speed than normal __ENTITY__gun-turret__s.
 
 
 ## Rail stuff
-# snouz:
-# bi-power-to-rail-pole=Connects __ENTITY__bi-rail-power__s to a power grid.
-#bi-power-to-rail-pole=Connects your __ENTITY__bi-rail-power__ to a power grid.
-bi-power-to-rail-pole=[color=yellow][font=default-semibold]Use this to connect [item=bi-rail-power] to a power grid!![/font][/color]
+bi-power-to-rail-pole=Connect your __ENTITY__bi-rail-power__ to the power grid!\nATTENTION: When you place a __ENTITY__bi-power-to-rail-pole__ in reach of two __ENTITY__bi-rail-power__ that are running parallel or crossing each other, you will connect these power grids!
+bi-rail-power=Rails that also conducts electricity. Connect them to a power grid with a __ENTITY__bi-power-to-rail-pole__!
+bi-rail-wood-bridge=A wooden bridge with rails.\nNote: You can't walk on this!
+bi-rail-wood=Wooden rails
+rail-remnants-wood-bridge=Remnants of a wooden bridge
+rail-remnants-wood=Remnants of wooden rails
 
-
-# snouz:
-# bi-rail-power=Also conducts electricity when connected to a power grid with a __ENTITY__bi-power-to-rail-pole__.
-# bi-rail-power=Rails that also conduct electricity. Connect them to a power grid with a __ENTITY__bi-power-to-rail-pole__.
-bi-rail-power=[color=yellow][font=default-semibold]These rails conduct electricity when connected to a power grid with [item=bi-power-to-rail-pole].[/font][/color]
-
-# snouz:
-# bi-rail-wood-bridge=Rail that goes on water.\n[color=yellow][font=default-semibold]Can only be crossed by trains.[/font][/color]
-#bi-rail-wood-bridge=[color=yellow][font=default-semibold]Can only be crossed by trains![/font][/color]
-bi-rail-wood-bridge=These rails can bridge water.\n[color=yellow][font=default-semibold]Can only be crossed by trains![/font][/color]
-
-bi-rail-wood=
 
 ## Miscallenous wooden products
+#~ bi-wood-pipe-to-ground=__ENTITY__pipe-to-ground__ made of __ITEM__wood__ and Copper
+#~ bi-wood-pipe=__ENTITY__pipe__ made of __ITEM__wood__ and Copper
+#~ bi-wooden-chest-giga=A HUGE wooden chest
+#~ bi-wooden-chest-huge=A very large wooden chest
+#~ bi-wooden-chest-large=A medium wooden chest
+#~ bi-wooden-fence=A __ENTITY__bi-wooden-fence__ is cheap to make. It won't help you much against strong enemies, but will keep early enemies out so you can concentrate on starting your factory.
+#~ bi-wooden-pole-big=__ENTITY__bi-wooden-pole-big__s will be automatically healed if you use "Natural Evolution Enemies".
+#~ bi-wooden-pole-bigger=__ENTITY__bi-wooden-pole-bigger__s will be automatically healed if you use "Natural Evolution Enemies".
+#~ bi-wooden-pole-huge=__ENTITY__bi-wooden-pole-huge__s span vast distances (64 tiles) with __ITEM__copper-cable__, __ITEM__green-wire__, or __ITEM__red-wire__.
 bi-wood-pipe-to-ground=
 bi-wood-pipe=
-bi-wooden-chest-large=[color=yellow][font=default-semibold]Size: 2 x 2[/font][/color]
-bi-wooden-chest-huge=[color=yellow][font=default-semibold]Size: 3 x 3[/font][/color]
-bi-wooden-chest-giga=[color=yellow][font=default-semibold]Size: 6 x 6[/font][/color]
+bi-wooden-chest-giga=
+bi-wooden-chest-huge=
+bi-wooden-chest-large=
 bi-wooden-fence=
 bi-wooden-pole-big=
 bi-wooden-pole-bigger=
 bi-wooden-pole-huge=
-bi-wooden-chest=
-
-# snouz:
-# bi-rubber-mat=__ITEM__bi-rubber__-coated __ITEM__concrete__ will slow down enemies.
-#bi-rubber-mat=Use __ITEM__bi-rubber__-coated __ITEM__concrete__ to slow down approaching enemies so your turrets have more time to attack them.
-bi-rubber-mat=Slow down your enemies!\n[color=yellow][font=default-semibold]Careful: You're not immune to it![/font][/color]
-
 
 
 ## Compatibility with other mods
-
-
-#~ bi-stone-crusher-sand=__ENTITY__bi-stone-crusher__ crush __ITEM__stone__, __ITEM__stone-brick__s and __ITEM__concrete__, and also turn __ITEM__stone-crushed__ into __ITEM__sand__.
+bi-stone-crusher-sand=These machines produce __ITEM__stone-crushed__ from __ITEM__stone__ and __ITEM__concrete__ in all forms. They can also refine __ITEM__stone-crushed__ to __ITEM__sand__.

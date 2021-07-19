@@ -186,6 +186,12 @@ build_icons("bi-coal-1", {it1 = "coal"}, "IndustrialRevolution")
 build_icons("bi-coal-2", {it1 = "coal", custom_topright = BioInd.iconpath .. "signal/bi_signal_plus.png"}, "IndustrialRevolution")
 build_icons("bi-wood-gasification", {it5 = "tar", it4 = "petroleum-gas", it7 = "wood"}, "IndustrialRevolution")
 
+
+build_icons("bi-rubberwood-logs-1", {it4 = "wood-chips", it5 = "rubber-wood"})
+build_icons("bi-rubberwood-logs-2", {it4 = "wood-chips", it5 = "rubber-wood", it7 = "ash"})
+build_icons("bi-rubberwood-logs-3", {it4 = "wood-chips", it5 = "rubber-wood", custom_topright = BioInd.iconpath .. "signal/bi_signal_fert.png"})
+build_icons("bi-rubberwood-logs-4", {it4 = "wood-chips", it5 = "rubber-wood", custom_topright = BioInd.iconpath .. "signal/bi_signal_adv_fert.png"})
+
 --pycoalprocessing
 build_icons("coaldust-ash", {it1 = "ash"}, "pycoalprocessing")
 build_icons("fluegas-filtration", {it1 = "ash"}, "pycoalprocessing")

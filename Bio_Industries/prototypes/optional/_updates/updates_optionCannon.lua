@@ -96,7 +96,8 @@ BioInd.writeDebug("Found poison artillery shell: %s -- nothing to do!", {a})
 end
 
 if addit then
-  BioInd.create_stuff(BI.additional_entities[setting].poison_cloud)
+  -- Already created (also required by Prototype poison ammo)
+  --~ BioInd.create_stuff(BI.additional_entities[setting].poison_cloud)
   BioInd.create_stuff(BI.additional_entities[setting].poison_artillery_shell)
   BioInd.create_stuff(BI.additional_items[setting].poison_artillery_shell)
   BioInd.create_stuff(BI.additional_recipes[setting].poison_artillery_shell)

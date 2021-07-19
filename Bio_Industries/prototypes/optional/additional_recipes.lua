@@ -3412,7 +3412,8 @@ BI.additional_recipes.Bio_Cannon.bio_cannon = {
       {"steel-plate", 80},
       {"electric-engine-unit", 5},
     },
-    result = "bi-bio-cannon-area",
+    --~ result = "bi-bio-cannon-area",
+    result = "bi-bio-cannon",
     result_count = 1,
     allow_as_intermediate = false,  -- Added for 0.18.34/1.1.4
     always_show_made_in = false,    -- Added for 0.18.34/1.1.4
@@ -3427,7 +3428,8 @@ BI.additional_recipes.Bio_Cannon.bio_cannon = {
       {"steel-plate", 120},
       {"electric-engine-unit", 15},
     },
-    result = "bi-bio-cannon-area",
+    --~ result = "bi-bio-cannon-area",
+    result = "bi-bio-cannon",
     result_count = 1,
     allow_as_intermediate = false,  -- Added for 0.18.34/1.1.4
     always_show_made_in = false,    -- Added for 0.18.34/1.1.4

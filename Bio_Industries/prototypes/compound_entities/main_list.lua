@@ -208,9 +208,21 @@ ret.compound_entities = {
         --~ type = ret.HE_map.radar,
       },
     },
-    add_global_values = { Bio_Cannon_Counter = 0 },
+    --~ add_global_values = { Bio_Cannon_Counter = 0 },
+    --~ optional = {delay = 0},
+    --~ new_base_name = "bi-bio-cannon",
+    add_global_values = { Bio_Cannon_Fired = {
+        base_pollution = 100,
+        base_unit_count = 100,
+        base_unit_search_distance = 500,
+        modifiers = {
+          ["BI_cannon-ammo-proto_create_pollution"] = 0.5,
+          ["BI_cannon-ammo-basic_create_pollution"] = 0.75,
+          ["BI_cannon-ammo-poison_create_pollution"] = 1,
+        },
+      }
+    },
     optional = {delay = 0},
-    new_base_name = "bi-bio-cannon",
   },
 }
 
@@ -295,7 +307,7 @@ log(string.format("Removed \"%s\" from list of compound entities!", e_name))
     ["bi-straight-rail-power"] = { name = "bi-curved-rail-power", type = "curved-rail" },
     -- Overlay entities
     ["bi-arboretum"] = { name = "bi-arboretum-area", type = ret.HE_map.ammo_turret },
-    ["bi-bio-cannon"] = { name = "bi-bio-cannon-area", type = ret.HE_map.ammo_turret },
+    --~ ["bi-bio-cannon"] = { name = "bi-bio-cannon-area", type = ret.HE_map.ammo_turret },
   }
   for old, new in pairs(make_copies) do
     if ret.compound_entities[old] then

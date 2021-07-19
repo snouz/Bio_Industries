@@ -24,6 +24,7 @@ local event_handlers = {}
 local AlienBiomes
 
 local function add_optional_events()
+BioInd.entered_function()
 
   -- Musk floor
   if BioInd.get_startup_setting("BI_Power_Production") then
@@ -39,6 +40,12 @@ local function add_optional_events()
 
     BioInd.events.Tile_Changed = defines.events.script_raised_set_tiles
   end
+
+  -- Bio cannon
+  if BioInd.get_startup_setting("BI_Bio_Cannon") then
+    BioInd.events.On_Script_Trigger_Effect = defines.events.on_script_trigger_effect
+  end
+
 
   -- Seedbombs
   if BioInd.get_startup_setting("BI_Explosive_Planting") then
@@ -806,6 +813,44 @@ event_handlers.On_Sector_Scanned = function(event)
     BI_scripts.arboretum.check_arboretum(global.bi_arboretum_table[arboretum], event)
   end
 
+  BioInd.entered_event(event, "leave")
+end
+
+
+------------------------------------------------------------------------------------
+--          Bio cannon has been fired: Create pollution and send enemies!         --
+------------------------------------------------------------------------------------
+event_handlers.On_Script_Trigger_Effect = function(event)
+  BioInd.entered_event(event)
+BioInd.writeDebug("Must create pollution at position of %s (%s: %s)",
+                      {BioInd.argprint(event.source_entity), event.source_entity.surface, event.source_entity.position})
+
+  local data = global.Bio_Cannon_Fired
+  local modifier = event.effect_id and data and data.modifiers[event.effect_id]
+  if modifier then
+    local Bio_Cannon = event.source_entity
+    local unit_count = math.floor(game.forces.enemy.evolution_factor * data.base_unit_count * modifier)
+    local unit_search_distance = data.base_unit_search_distance * modifier
+
+    -- The firing of the Hive Buster will cause pollution
+    Bio_Cannon.surface.pollute(Bio_Cannon.position, data.base_pollution * modifier)
+    BioInd.writeDebug("Must create pollution at position of %s (%s: %s)",
+                      {BioInd.argprint(Bio_Cannon), Bio_Cannon.surface, Bio_Cannon.position})
+
+    -- Send off enemies to retaliate
+    Bio_Cannon.surface.set_multi_command{
+      command = {
+        type = defines.command.attack,
+        target = Bio_Cannon,
+        distraction = defines.distraction.by_enemy
+      },
+      --~ unit_count = math.floor(game.forces.enemy.evolution_factor * data.base_unit_count * modifier),
+      --~ unit_search_distance = data.base_unit_search_distance * modifier
+      unit_count = unit_count,
+      unit_search_distance = unit_search_distance
+    }
+    BioInd.writeDebug("Looking for %s enemies in a radius of %s tiles", {unit_count, unit_search_distance})
+  end
   BioInd.entered_event(event, "leave")
 end
 

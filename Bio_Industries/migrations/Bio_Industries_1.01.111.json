@@ -1,7 +1,22 @@
+
 {
-  "recipe":
+  "entity":
   [
-    ["bi-adv-fertilizer-1", "bi-adv-fertilizer-2"],
-    ["bi-adv-fertilizer-2", "bi-adv-fertilizer-1"]
+    ["bi-large-substation",             "bi-huge-substation"]
+  ],
+
+  "item":
+  [
+    ["bi-large-substation",             "bi-huge-substation"],
+    ["bi-cannon-area",                  "bi-bio-cannon"]
+  ],
+
+ "recipe":
+  [
+    ["bi-adv-fertilizer-1",             "bi-adv-fertilizer-2"],
+    ["bi-adv-fertilizer-2",             "bi-adv-fertilizer-1"],
+    ["bi-large-substation",             "bi-huge-substation"],
+    ["bi-solar-boiler-hidden-panel",    "bi-solar-boiler"],
+    ["bi-acid",                         "bi-biomass-conversion-sulfuric-acid"]
   ]
 }

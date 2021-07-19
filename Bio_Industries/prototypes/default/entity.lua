@@ -315,7 +315,7 @@ BI.default_entities.bio_farm = {
 
   collision_box = {{-4.2, -4.2}, {4.2, 4.2}},
   selection_box = {{-4.5, -4.5}, {4.5, 4.5}},
-
+  scale_entity_info_icon = true,
   animation = {
     layers = {
       {

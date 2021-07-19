@@ -158,19 +158,18 @@ common.make_icons = function(args)
     local customicon_up = args.custom or nil
     local customicon_down = args.customunder or nil
     local custom_topright = args.custom_topright or nil
+    local addbase = args.addbase or nil
 
     local icontable = {}
-    local emptylayer = {icon = common.iconpath .. "empty64.png", icon_size = 64, icon_mipmaps = 0, shift = {0,0}} --scale = 1,
-    --local icontable = {}
-    --icon
+    local emptylayer = {icon = common.iconpath .. "empty64.png", icon_size = 64, icon_mipmaps = 0, shift = {0,0}}
     local function transform_item(it_name)
       local _type
       _type = it_name and (thxbob.lib.item.get_type(it_name) or thxbob.lib.item.get_type("bi-" .. it_name)) or nil
       return _type and (data.raw[_type][it_name] or data.raw[_type]["bi-" .. it_name]) or nil
     end
 
-    if customicon_down then table.insert(icontable, {icon = customicon_down, icon_size = 64, mipmaps = 4,shift = {0,0}}) end
-
+    if addbase then table.insert(icontable, emptylayer) end
+    if customicon_down then table.insert(icontable, {icon = customicon_down, icon_size = 64, mipmaps = 4, shift = {0,0}}) end
     for k=1, #it do
       local _item = it[k].ite or nil
       local _scale = it[k].sca or 1
@@ -196,7 +195,6 @@ common.make_icons = function(args)
         _scale = (_scale * 0.5)
         _shift = {(_shift[1] - 5),(_shift[2] + 5)}
       end
-
       _item = _item and transform_item(_item)
       if _item then
         if not _item.icon and _item.icons then
@@ -215,7 +213,7 @@ common.make_icons = function(args)
             if _item.icons[i].tint then layer.tint = _item.icons[i].tint end
             table.insert(icontable, layer)
           end
-        else
+        elseif _item.icon then
           if ((32 / _item.icon_size) * _scale) == 1 then
             table.insert(icontable, {icon = _item.icon, icon_size = _item.icon_size, icon_mipmaps = _item.icon_mipmaps, shift = _shift})
           else
@@ -225,7 +223,8 @@ common.make_icons = function(args)
       end
     end
     --rescale first layer
-    icontable[1].scale = (32 / icontable[1].icon_size)
+    if not icontable[1] then table.insert(icontable, emptylayer) end
+    icontable[1].scale = (32 / (icontable[1].icon_size or 64))
     scalefirstlayer = icontable[1].scale or 0.5
     if customicon_up then table.insert(icontable, {icon = customicon_up, icon_size = 64, mipmaps = 4, scale = scalefirstlayer, shift = {0,0}}) end
     if custom_topright then table.insert(icontable, {icon = custom_topright, icon_size = 64, mipmaps = 4, scale = (scalefirstlayer * 0.4), shift = {10, -10}}) end

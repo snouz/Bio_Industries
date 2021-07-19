@@ -1515,10 +1515,7 @@ BI.additional_recipes.BI_Disassemble.burner_drill = {
   --icon = ICONPATH .. "disassemble_burner-mining-drill.png",
   --icon_size = 64, icon_mipmaps = 3,
   --BI_add_icon = true,
-  icons = {
-    { icon = "__base__/graphics/icons/burner-mining-drill.png", icon_size = 64, icon_mipmaps = 4, scale = 1, shift = {0, 0} },
-    { icon = ICONPATH .. "signal/bi_signal_deconstruct.png", icon_size = 64, icon_mipmaps = 4, scale = 1, shift = {0, 0} },
-  },
+  icons = BioInd.make_icons({it1 = "burner-mining-drill", custom = ICONPATH .. "signal/bi_signal_deconstruct.png"}),
   category = "advanced-crafting",
   subgroup = "bio-disassemble",
   order = "a[Disassemble]-a[bi-burner-mining-drill-disassemble]",
@@ -1548,10 +1545,7 @@ BI.additional_recipes.BI_Disassemble.burner_inserter = {
   --icon = ICONPATH .. "disassemble_burner_inserter.png",
   --icon_size = 64, icon_mipmaps = 3,
   --BI_add_icon = true,
-  icons = {
-    { icon = "__base__/graphics/icons/burner-inserter.png", icon_size = 64, icon_mipmaps = 4, scale = 1, shift = {0, 0} },
-    { icon = ICONPATH .. "signal/bi_signal_deconstruct.png", icon_size = 64, icon_mipmaps = 4, scale = 1, shift = {0, 0} },
-  },
+  icons = BioInd.make_icons({it1 = "burner-inserter", custom = ICONPATH .. "signal/bi_signal_deconstruct.png"}),
   category = "advanced-crafting",
   subgroup = "bio-disassemble",
   order = "a[Disassemble]-b[bi-burner-inserter-disassemble]",
@@ -1580,10 +1574,7 @@ BI.additional_recipes.BI_Disassemble.long_handed_inserter = {
   --icon = ICONPATH .. "disassemble_long_handed_inserter.png",
   --icon_size = 64, icon_mipmaps = 3,
   --BI_add_icon = true,
-  icons = {
-    { icon = "__base__/graphics/icons/long-handed-inserter.png", icon_size = 64, icon_mipmaps = 4, scale = 1, shift = {0, 0} },
-    { icon = ICONPATH .. "signal/bi_signal_deconstruct.png", icon_size = 64, icon_mipmaps = 4, scale = 1, shift = {0, 0} },
-  },
+  icons = BioInd.make_icons({it1 = "long-handed-inserter", custom = ICONPATH .. "signal/bi_signal_deconstruct.png"}),
   category = "advanced-crafting",
   subgroup = "bio-disassemble",
   order = "a[Disassemble]-c[bi-long-handed-inserter-disassemble]",
@@ -1614,10 +1605,7 @@ BI.additional_recipes.BI_Disassemble.stone_furnace = {
   --icon = ICONPATH .. "disassemble_stone_furnace.png",
   --icon_size = 64, icon_mipmaps = 3,
   --BI_add_icon = true,
-  icons = {
-    { icon = "__base__/graphics/icons/stone-furnace.png", icon_size = 64, icon_mipmaps = 4, scale = 1, shift = {0, 0} },
-    { icon = ICONPATH .. "signal/bi_signal_deconstruct.png", icon_size = 64, icon_mipmaps = 4, scale = 1, shift = {0, 0} },
-  },
+  icons = BioInd.make_icons({it1 = "stone-furnace", custom = ICONPATH .. "signal/bi_signal_deconstruct.png"}),
   category = "advanced-crafting",
   subgroup = "bio-disassemble",
   order = "a[Disassemble]-d[bi-stone-furnace-disassemble]",
@@ -1646,10 +1634,7 @@ BI.additional_recipes.BI_Disassemble.steel_furnace = {
   --icon = ICONPATH .. "disassemble_steel-furnace.png",
   --icon_size = 64, icon_mipmaps = 3,
   --BI_add_icon = true,
-  icons = {
-    { icon = "__base__/graphics/icons/steel-furnace.png", icon_size = 64, icon_mipmaps = 4, scale = 1, shift = {0, 0} },
-    { icon = ICONPATH .. "signal/bi_signal_deconstruct.png", icon_size = 64, icon_mipmaps = 4, scale = 1, shift = {0, 0} },
-  },
+  icons = BioInd.make_icons({it1 = "steel-furnace", custom = ICONPATH .. "signal/bi_signal_deconstruct.png"}),
   category = "advanced-crafting",
   subgroup = "bio-disassemble",
   order = "a[Disassemble]-e[bi-steel-furnace-disassemble]",
@@ -1728,22 +1713,7 @@ BI.additional_recipes.BI_Explosive_Planting.seed_bomb_standard = {
   --icon = ICONPATH .. "weapon/seed-bomb-2.png",
   --icon_size = 64, icon_mipmaps = 3,
   --BI_add_icon = true,
-  icons = {
-    {
-      icon = ICONPATH .. "weapon/seed-bomb-2.png",
-      icon_size = 64,
-      icon_mipmaps = 4,
-      scale = 1,
-      shift = {0, 0}
-    },
-    {
-      icon = ICONPATH .. "signal/bi_signal_fert.png",
-      icon_size = 64,
-      icon_mipmaps = 4,
-      scale = 0.4,
-      shift = {16, -16}
-    },
-  },
+  icons = BioInd.make_icons({it1 = "bi-seed-bomb-standard", custom_topright = ICONPATH .. "signal/bi_signal_fert.png"}),
   normal = {
     enabled = false,
     energy_required = 8,
@@ -1790,10 +1760,7 @@ BI.additional_recipes.BI_Explosive_Planting.seed_bomb_advanced = {
   --icon = ICONPATH .. "weapon/seed-bomb-3.png",
   --icon_size = 64, icon_mipmaps = 3,
   --BI_add_icon = true,
-  icons = {
-    { icon = ICONPATH .. "weapon/seed-bomb-3.png", icon_size = 64, icon_mipmaps = 4, scale = 1, shift = {0, 0} },
-    { icon = ICONPATH .. "signal/bi_signal_adv_fert.png", icon_size = 64, icon_mipmaps = 4, scale = 0.4, shift = {16, -16} },
-  },
+  icons = BioInd.make_icons({it1 = "bi-seed-bomb-advanced", custom_topright = ICONPATH .. "signal/bi_signal_adv_fert.png"}),
   normal = {
     enabled = false,
     energy_required = 8,
@@ -1908,10 +1875,7 @@ BI.additional_recipes.BI_Rails.rail_wood_to_concrete = {
   --icon = ICONPATH .. "entity/rail-concrete_from_rail-wood.png",
   --icon_size = 64, icon_mipmaps = 3,
   --BI_add_icon = true,
-  icons = {
-    { icon = ICONPATH .. "entity/rail-concrete.png", icon_size = 64, icon_mipmaps = 4, scale = 1, shift = {0, 0} },
-    { icon = ICONPATH .. "entity/rail-wood.png", icon_size = 64, icon_mipmaps = 4, scale = 0.5, shift = {16, -16} },
-  },
+  icons = BioInd.make_icons({it1 = "rail", it2 = "bi-rail-wood"}),
   normal = {
     enabled = false,
     ingredients = {

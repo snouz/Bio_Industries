@@ -175,8 +175,8 @@ BI.additional_entities[setting].arboretum_area = {
   max_health = 250,
   corpse = "bi-arboretum-area-remnant",
   dying_explosion = "medium-explosion",
-  collision_box = {{-4.5, -4.5}, {4.5, 4.5}},
-  selection_box = {{-4.5, -4.5}, {4.5, 4.5}},
+  collision_box = {{-4.1, -4.1}, {4.1, 4.1}},
+  selection_box = {{-4.1, -4.1}, {4.1, 4.1}},
   order = "x[bi]-a[bi-arboretum]",
   automated_ammo_count = 1,
   resistances = {},
@@ -328,8 +328,9 @@ BI.additional_entities[setting].arboretum = {
     },
     off_when_no_fluid_recipe = false
   },
-  collision_box = {{-4.2, -4.2}, {4.2, 4.2}},
-  selection_box = {{-4.5, -4.5}, {4.5, 4.5}},
+  collision_box = {{-4.1, -4.1}, {4.1, 4.1}},
+  selection_box = {{-4.1, -4.1}, {4.1, 4.1}},
+  scale_entity_info_icon = true,
   order = "x[bi]-a[bi-arboretum]",
   animation = {
     layers = {

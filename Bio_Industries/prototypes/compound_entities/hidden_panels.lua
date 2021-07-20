@@ -68,10 +68,14 @@ for panel_name, locale_name in pairs(BI.hidden_entities.types[h_key] or {}) do
   if c_entities["bi-solar-boiler"] and
       panel_name == c_entities["bi-solar-boiler"].hidden[h_key].name then
 
-    panel.icon = ICONPATH .. "entity/solar-boiler.png"
-    panel.icon_size = 64
-    panel.icon_mipmaps = 3
-    panel.BI_add_icon = true
+    --panel.icon = ICONPATH .. "entity/solar-boiler.png"
+    --panel.icon_size = 64
+    --panel.icon_mipmaps = 3
+    --panel.BI_add_icon = true
+    panel.icons = {
+      { icon = ICONPATH .. "entity/solar-boiler.png", icon_size = 64, icon_mipmaps = 4, scale = 0.5, shift = {0, 0} },
+      { icon = "__base__/graphics/icons/solar-panel.png", icon_size = 64, icon_mipmaps = 4, scale = 0.25, shift = {8, -8} },
+    }
 
     panel.picture = {}
     --[[panel.picture.layers = BI.add_layer(panel.picture.layers, {
@@ -108,8 +112,8 @@ for panel_name, locale_name in pairs(BI.hidden_entities.types[h_key] or {}) do
     --panel.icon_mipmaps = 3
     --panel.BI_add_icon = true
     panel.icons = { 
-      { icon = ICONPATH .. "entity/biofarm.png", icon_size = 64, icon_mipmaps = 4, scale = 1, shift = {0, 0} },
-      { icon = "__base__/graphics/icons/solar-panel.png", icon_size = 64, icon_mipmaps = 4, scale = 0.5, shift = {16, 16} },
+      { icon = ICONPATH .. "entity/biofarm.png", icon_size = 64, icon_mipmaps = 4, scale = 0.5, shift = {0, 0} },
+      { icon = "__base__/graphics/icons/solar-panel.png", icon_size = 64, icon_mipmaps = 4, scale = 0.25, shift = {8, -8} },
     }
     panel.production = "100kW"
     BioInd.show("Adjusted properties of", panel_name)
@@ -125,10 +129,13 @@ for panel_name, locale_name in pairs(BI.hidden_entities.types[h_key] or {}) do
 
   -- Adjust properties for hidden panel of Musk floor
   elseif panel_name == Musk_name then
-    panel.icon = ICONPATH .. "entity/solar-mat.png"
-    panel.icon_size = 64
-    panel.icon_mipmaps = 3
-    panel.BI_add_icon = true
+    --panel.icon = ICONPATH .. "entity/solar-mat.png"
+    --panel.icon_size = 64
+    --panel.icon_mipmaps = 3
+    --panel.BI_add_icon = true
+    panel.icons = {
+      { icon = ICONPATH .. "entity/solar-mat.png", icon_size = 64, icon_mipmaps = 4, scale = 0.5, shift = {0, 0} },
+    }
     panel.production = "10kW"
     BioInd.show("Adjusted properties of", panel_name)
   end

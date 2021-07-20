@@ -62,10 +62,14 @@ BioInd.show("locale_name", locale_name)
     base = data.raw[base.type][base.name]
 
     if base then
-      radar.icon = ICONPATH .. "entity/biocannon_icon.png"
-      radar.icon_size = 64
-      radar.icon_mipmaps = 3
-      radar.BI_add_icon = true
+      --radar.icon = ICONPATH .. "entity/biocannon_icon.png"
+      --radar.icon_size = 64
+      --radar.icon_mipmaps = 3
+      --radar.BI_add_icon = true
+      radar.icons = {
+        { icon = ICONPATH .. "entity/biocannon_icon.png", icon_size = 64, icon_mipmaps = 4, scale = 0.5, shift = {0, 0} },
+        { icon = "__base__/graphics/icons/radar.png", icon_size = 64, icon_mipmaps = 4, scale = 0.25, shift = {8, -8} },
+      }
 
       radar.energy_per_sector = "22MJ"
       radar.energy_per_nearby_scan = "400kW"
@@ -93,8 +97,8 @@ BioInd.show("locale_name", locale_name)
     --radar.icon_mipmaps = 3
     --radar.BI_add_icon = true
     radar.icons = { 
-      { icon = ICONPATH .. "entity/biofarm.png", icon_size = 64, icon_mipmaps = 4, scale = 1, shift = {0, 0} },
-      { icon = "__base__/graphics/icons/radar.png", icon_size = 64, icon_mipmaps = 4, scale = 0.5, shift = {16, 16} },
+      { icon = ICONPATH .. "entity/terraformer.png", icon_size = 64, icon_mipmaps = 4, scale = 0.5, shift = {0, 0} },
+      { icon = "__base__/graphics/icons/radar.png", icon_size = 64, icon_mipmaps = 4, scale = 0.25, shift = {8, -8} },
     }
 
     -- We want to be able to see the scanning progress of this radar!

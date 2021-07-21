@@ -221,6 +221,7 @@ BI.additional_entities[setting].bio_garden = {
     module_slots = 0
   },
   allowed_effects = {},
+  map_color = util.color("1b6311"),
 }
 
 
@@ -333,6 +334,7 @@ BI.additional_entities[setting].bio_garden_large = {
     module_slots = 0
   },
   allowed_effects = {},
+  map_color = util.color("1b6311"),
 }
 
 
@@ -542,6 +544,7 @@ BI.additional_entities[setting].bio_garden_huge = {
   -- won't be affected by beacons!
   --~ allowed_effects = {"consumption", "speed"},
   allowed_effects = {},
+  map_color = util.color("1b6311"),
 }
 
 

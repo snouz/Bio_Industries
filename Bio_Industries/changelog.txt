@@ -28,6 +28,7 @@ Date: 2021-07-?
     - Removed some useless secondary selection boxes.
     - The color of the bio-reactor's liquid now changes with the recipe.
     - Adjusted fluid colors and chemical plant recipe colors.
+    - Changed map color of some entities (Sappling, Terraformer, Gardens).
     - New mod logo.
     - 9 New signals (for blueprints, circuits, map points...)
 

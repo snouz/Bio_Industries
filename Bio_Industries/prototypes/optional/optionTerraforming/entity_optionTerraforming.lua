@@ -481,6 +481,7 @@ BI.additional_entities[setting].arboretum = {
   close_sound = sounds.close_sound,
   vehicle_impact_sound = sounds.generic_impact,
   module_specification = {},
+  map_color = util.color("1b6311"),
 }
 
 ------------------------------------------------------------------------------------

@@ -1116,12 +1116,12 @@ BI.default_entities.seedling = {
   remains_when_mined = nil,
   emissions_per_second = -0.0006,
   max_health = 5,
-
-  collision_box = {{-0.1, -0.1}, {0.1, 0.1}},
+  collision_box = {{-0.03, -0.03}, {0.1, 0.03}},
   selection_box = {{-0.5, -0.5}, {0.5, 0.5}},
   subgroup = "trees",
   vehicle_impact_sound = sounds.car_wood_impact,
   pictures = seedling_pictures_diverse,
+  map_color = util.color("70b94c55"),
 }
 
 -- Seedling 2 (dummy for seed bomb)
@@ -1146,11 +1146,12 @@ BI.default_entities.seedling_2 = {
   remains_when_mined = nil,
   emissions_per_second = -0.0006,
   max_health = 5,
-  collision_box = {{-0.1, -0.1}, {0.1, 0.1}},
+  collision_box = {{-0.03, -0.03}, {0.03, 0.03}},
   selection_box = {{-0.5, -0.5}, {0.5, 0.5}},
   subgroup = "trees",
   vehicle_impact_sound = sounds.car_wood_impact,
   pictures = seedling_pictures_diverse,
+  map_color = util.color("70b94c55"),
 }
 
 -- Seedling 3 (dummy for seed bomb)
@@ -1175,11 +1176,12 @@ BI.default_entities.seedling_3 = {
   remains_when_mined = nil,
   emissions_per_second = -0.0006,
   max_health = 5,
-  collision_box = {{-0.1, -0.1}, {0.1, 0.1}},
+  collision_box = {{-0.03, -0.03}, {0.03, 0.03}},
   selection_box = {{-0.5, -0.5}, {0.5, 0.5}},
   subgroup = "trees",
   vehicle_impact_sound = sounds.car_wood_impact,
   pictures = seedling_pictures_diverse,
+  map_color = util.color("70b94c55"),
 }
 
 

@@ -162,13 +162,13 @@ function assembler2pipepicturesBioreactor()
     },
     east = {
       filename = REACTORPATH .. "pipes/bioreactor-pipe-e.png",
-      priority = "extra-high",
+      priority = "low",
       width = 20,
       height = 38,
       shift = util.by_pixel(-25, 1),
       hr_version = {
         filename = REACTORPATH .. "pipes/hr_bioreactor-pipe-e.png",
-        priority = "extra-high",
+        priority = "low",
         width = 42,
         height = 76,
         shift = util.by_pixel(-24.5, 1),
@@ -177,13 +177,13 @@ function assembler2pipepicturesBioreactor()
     },
     south = {
       filename = REACTORPATH .. "pipes/bioreactor-pipe-s.png",
-      priority = "extra-high",
+      priority = "low",
       width = 44,
       height = 31,
       shift = util.by_pixel(0, -31.5),
       hr_version = {
         filename = REACTORPATH .. "pipes/hr_bioreactor-pipe-s.png",
-        priority = "extra-high",
+        priority = "low",
         width = 88,
         height = 61,
         shift = util.by_pixel(0, -31.25),
@@ -192,13 +192,13 @@ function assembler2pipepicturesBioreactor()
     },
     west = {
       filename = REACTORPATH .. "pipes/bioreactor-pipe-w.png",
-      priority = "extra-high",
+      priority = "low",
       width = 19,
       height = 37,
       shift = util.by_pixel(25.5, 1.5),
       hr_version = {
         filename = REACTORPATH .. "pipes/hr_bioreactor-pipe-w.png",
-        priority = "extra-high",
+        priority = "low",
         width = 39,
         height = 73,
         shift = util.by_pixel(25.75, 1.25),
@@ -210,7 +210,7 @@ end
 
 
 -- Pipe covers
-function pipecoverspicturesBioreactor()
+--[[function pipecoverspicturesBioreactor()
   return {
     north = {
       filename = "__core__/graphics/empty.png",
@@ -259,7 +259,7 @@ function pipecoverspicturesBioreactor()
     }
   }
 end
-
+]]--
 
 
 ------------------------------------------------------------------------------------
@@ -771,42 +771,52 @@ BI.default_entities.bio_reactor = {
     {
       production_type = "input",
       pipe_picture = assembler2pipepicturesBioreactor(),
-      pipe_covers = pipecoverspicturesBioreactor(),
+      --pipe_covers = pipecoverspicturesBioreactor(),
+      pipe_covers = pipecoverspictures(),
       base_area = 10,
       base_level = -1,
-      pipe_connections = {{ type = "input", position = {0, -2} }}
+      pipe_connections = {{ type = "input", position = {0, -2} }},
+      render_layer = "higher-object-under",
     },
     {
       production_type = "input",
       pipe_picture = assembler2pipepicturesBioreactor(),
-      pipe_covers = pipecoverspicturesBioreactor(),
+      --pipe_covers = pipecoverspicturesBioreactor(),
+      pipe_covers = pipecoverspictures(),
       base_area = 10,
       base_level = -1,
-      pipe_connections = {{ type = "input", position = {2, 0} }}
+      pipe_connections = {{ type = "input", position = {2, 0} }},
+      render_layer = "higher-object-under",
     },
     {
       production_type = "input",
       pipe_picture = assembler2pipepicturesBioreactor(),
-      pipe_covers = pipecoverspicturesBioreactor(),
+      --pipe_covers = pipecoverspicturesBioreactor(),
+      pipe_covers = pipecoverspictures(),
       base_area = 10,
       base_level = -1,
-      pipe_connections = {{ type = "input", position = {0, 2} }}
+      pipe_connections = {{ type = "input", position = {0, 2} }},
+      render_layer = "higher-object-under",
     },
     {
       production_type = "output",
       pipe_picture = assembler2pipepicturesBioreactor(),
-      pipe_covers = pipecoverspicturesBioreactor(),
+      --pipe_covers = pipecoverspicturesBioreactor(),
+      pipe_covers = pipecoverspictures(),
       base_area = 10,
       base_level = 1,
-      pipe_connections = {{ type = "output", position = {-2, -1} }}
+      pipe_connections = {{ type = "output", position = {-2, -1} }},
+      render_layer = "higher-object-under",
     },
     {
       production_type = "output",
       pipe_picture = assembler2pipepicturesBioreactor(),
-      pipe_covers = pipecoverspicturesBioreactor(),
+      --pipe_covers = pipecoverspicturesBioreactor(),
+      pipe_covers = pipecoverspictures(),
       base_area = 10,
       base_level = 1,
-      pipe_connections = {{ type = "output", position = {-2, 1} }}
+      pipe_connections = {{ type = "output", position = {-2, 1} }},
+      render_layer = "higher-object-under",
     },
     off_when_no_fluid_recipe = true,
   },
@@ -875,7 +885,7 @@ BI.default_entities.bio_reactor = {
         layers = {
           {
             filename = REACTORPATH .. "bioreactor_anim.png",
-            priority = "high",
+            priority = "low",
             width = 91,
             height = 128,
             frame_count = 18,
@@ -886,7 +896,7 @@ BI.default_entities.bio_reactor = {
             shift = {0, -0.5},
             hr_version = {
               filename = REACTORPATH .. "hr_bioreactor_anim.png",
-              priority = "high",
+              priority = "low",
               width = 182,
               height = 256,
               frame_count = 18,
@@ -909,7 +919,7 @@ BI.default_entities.bio_reactor = {
         layers = {
           {
             filename = REACTORPATH .. "bioreactor_anim_mask.png",
-            priority = "high",
+            priority = "low",
             width = 91,
             height = 128,
             frame_count = 18,
@@ -920,7 +930,7 @@ BI.default_entities.bio_reactor = {
             shift = {0, -0.5},
             hr_version = {
               filename = REACTORPATH .. "hr_bioreactor_anim_mask.png",
-              priority = "high",
+              priority = "low",
               width = 182,
               height = 256,
               frame_count = 18,

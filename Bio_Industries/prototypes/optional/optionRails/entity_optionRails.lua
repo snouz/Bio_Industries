@@ -269,43 +269,35 @@ BI.additional_entities[setting].power_to_rail_pole = {
         height = 45,
         direction_count = 1,
         shift = util.by_pixel(0, -5),
-        hr_version = {
+        hr_version =
+        {
           filename = CNCTRPATH .. "hr_rail_power_connector.png",
           priority = "extra-high",
-          width = 42,
-          height = 45,
+          width = 84,
+          height = 90,
           direction_count = 1,
           shift = util.by_pixel(0, -5),
-          hr_version =
-          {
-            filename = CNCTRPATH .. "hr_rail_power_connector.png",
-            priority = "extra-high",
-            width = 84,
-            height = 90,
-            direction_count = 1,
-            shift = util.by_pixel(0, -5),
-            scale = 0.5
-          }
-        },
+          scale = 0.5
+        }
+      },
+      {
+        filename = CNCTRPATH .. "rail_power_connector_shadow.png",
+        priority = "extra-high",
+        width = 42,
+        height = 45,
+        direction_count = 1,
+        shift = util.by_pixel(8, -5),
+        draw_as_shadow = true,
+        hr_version =
         {
-          filename = CNCTRPATH .. "rail_power_connector_shadow.png",
+          filename = CNCTRPATH .. "hr_rail_power_connector_shadow.png",
           priority = "extra-high",
-          width = 42,
-          height = 45,
+          width = 84,
+          height = 90,
           direction_count = 1,
           shift = util.by_pixel(8, -5),
           draw_as_shadow = true,
-          hr_version =
-          {
-            filename = CNCTRPATH .. "hr_rail_power_connector_shadow.png",
-            priority = "extra-high",
-            width = 84,
-            height = 90,
-            direction_count = 1,
-            shift = util.by_pixel(8, -5),
-            draw_as_shadow = true,
-            scale = 0.5
-          }
+          scale = 0.5
         }
       }
     }

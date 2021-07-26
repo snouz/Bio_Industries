@@ -505,21 +505,21 @@ BI.additional_entities[setting].huge_substation = {
   vehicle_impact_sound = sounds.generic_impact,
   working_sound = {
     sound = { filename = SNDPATH .. "substation.ogg" },
-    apparent_volume = 1.8,
+    apparent_volume = 1.1,
     audible_distance_modifier = 0.5,
-    probability = 1 / (3 * 60) -- average pause between the sound is 3 seconds
+    probability = 1 / (6 * 60) -- average pause between the sound is 3 seconds
   },
   connection_points = {
     {
       shadow = {
-        copper = {0, 0},
-        green = {0, 0},
-        red = {0, 0}
+        copper = util.by_pixel(29, -24),
+        green = util.by_pixel(42, -26),
+        red = util.by_pixel(16, -5)
       },
       wire = {
-        copper = {-0.08, -1.5},
-        green = {-0.2, -1.4},
-        red = {0, -1.6}
+        copper = util.by_pixel(-3, -54),
+        green = util.by_pixel(11, -57),
+        red = util.by_pixel(-15, -37)
       }
     },
   },

@@ -13,14 +13,14 @@ local init_functions = {}
 ------------------------------------------------------------------------------------
 init_functions.clean_global_compounds_table = function(entity_name)
   BioInd.entered_function()
---~ BioInd.writeDebug("Entries in BioInd.compound_entities[%s]: %s",
-                  --~ {entity_name, table_size(global.compound_entities[entity_name])})
+BioInd.writeDebug("Entries in BioInd.compound_entities[%s]: %s",
+                  {entity_name, table_size(global.compound_entities[entity_name])})
 
-  local entity_table = BioInd.compound_entities and BioInd.compound_entities[entity_name]
+  local entity_table = global.compound_entities[entity_name]
 BioInd.show("entity_table", entity_table and entity_table.tab)
   entity_table = entity_table and entity_table.tab and global[entity_table.tab]
 BioInd.writeDebug("entity_table: %s", {entity_table}, "line")
-  local hidden_entities = BioInd.compound_entities[entity_name].hidden
+  local hidden_entities = global.compound_entities[entity_name].hidden
 BioInd.show("hidden_entities", hidden_entities)
   local removed = 0
   -- Scan the whole table
@@ -51,10 +51,10 @@ end
 ------------------------------------------------------------------------------------
 init_functions.restore_missing_entities = function(entity_name)
   BioInd.entered_function()
---~ BioInd.writeDebug("global.compound_entities[%s]: %s entries",
-                  --~ {entity_name, table_size(global.compound_entities[entity_name])})
+BioInd.writeDebug("global.compound_entities[%s]: %s entries",
+                  {entity_name, table_size(global.compound_entities[entity_name])})
 
-  local check = BioInd.compound_entities[entity_name]
+  local check = global.compound_entities[entity_name]
   local entity_table = check and global[check.tab] or {}
   local hidden_entities = check and check.hidden or {}
 
@@ -95,7 +95,7 @@ local register_in_compound_entity_tab = function(compound_name)
 
   local cnt = 0
   local h_cnt = 0
-  local data = BioInd.compound_entities[compound_name]
+  local data = global.compound_entities[compound_name]
   if not data then
     BioInd.arg_err(compound_name, "name of a compound entity")
   end
@@ -114,7 +114,7 @@ local register_in_compound_entity_tab = function(compound_name)
         -- Create an entry in the global table
         g_tab[base.unit_number] = {base = base}
         -- Add optional data to the table, if there are any
-        BioInd.add_optional_data(base)
+        add_optional_data(base)
 
 
         -- Check if it already has any hidden entities
@@ -166,7 +166,7 @@ init_functions.find_unregistered_entities = function()
   BioInd.entered_function()
 
   local cnt = 0
-  for compound_entity, c in pairs(BioInd.compound_entities) do
+  for compound_entity, c in pairs(global.compound_entities) do
     cnt = cnt + register_in_compound_entity_tab(compound_entity)
   end
 
@@ -184,7 +184,7 @@ init_functions.check_compound_entity_tabs = function()
   -- Check what global tables we need for compound entities
   BioInd.writeDebug("Get list of tables for compound entities we need to check.")
   local compound_entity_tables = {}
-  for compound, compound_data in pairs(BioInd.compound_entities) do
+  for compound, compound_data in pairs(global.compound_entities) do
     -- BioInd.compound_entities contains entries that point to the same table
     -- (e.g. straight/curved rails, or overlay entities), so we just overwrite
     -- them to remove duplicates
@@ -202,8 +202,7 @@ init_functions.check_compound_entity_tabs = function()
                       {compound_name, table_size(global[compound_tab])})
     -- If this compound entity requires additional tables in global, initialize
     -- them now!
-    local related_tables = BioInd.compound_entities and
-                            BioInd.compound_entities[compound_name].add_global_tables
+    local related_tables = global.compound_entities[compound_name].add_global_tables
     if related_tables then
       for t, tab in ipairs(related_tables or {}) do
         global[tab] = global[tab] or {}
@@ -212,7 +211,7 @@ init_functions.check_compound_entity_tabs = function()
     end
     -- If this compound entity requires additional values in global, initialize
     -- them now!
-    local related_vars = BioInd.compound_entities[compound_name].add_global_values
+    local related_vars = global.compound_entities[compound_name].add_global_values
     if related_vars then
       for var_name, value in pairs(related_vars or {}) do
         global[var_name] = global[var_name] or value

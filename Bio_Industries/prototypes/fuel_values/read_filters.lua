@@ -13,7 +13,7 @@ BioInd.entered_file()
 local blacklist_items = {}
 local whitelist_items = {}
 
--- Patterns catch more cases than names, but are slower to use as we've to loop over
+-- Patterns catch more cases than names but are slower to use as we've to loop over
 -- the patterns when searching for a match
 local blacklist_patterns = {}
 local whitelist_patterns = {}

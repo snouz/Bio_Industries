@@ -50,13 +50,12 @@ end
 BI_poles.connect_garden_pole = function(base, new_pole)
   BioInd.entered_function({BioInd.argprint(base), BioInd.argprint(new_pole)})
 
-  local compound_entity = BioInd.compound_entities and BioInd.compound_entities["bi-bio-garden"]
-  local pole = compound_entity and global[compound_entity.tab] and
-                global[compound_entity.tab][base.unit_number] and
+  local compound_entity = global.compound_entities["bi-bio-garden"]
+  local pole = global[compound_entity.tab][base.unit_number] and
                 global[compound_entity.tab][base.unit_number].pole or
                 new_pole
 
-  if pole and pole.valid and compound_entity.hidden and
+  if pole and pole.valid and  compound_entity.hidden and
                               compound_entity.hidden.pole and
                               compound_entity.hidden.pole.name then
     local wire_reach = game.entity_prototypes[compound_entity.hidden.pole.name] and
@@ -179,20 +178,13 @@ BI_poles.connect_poles = function(pole, base)
     BioInd.show("h_key", h_key or "nil")
 
     -- Make sure hidden poles of the Bio gardens are connected correctly!
-    if pole.name == (entities["bi-bio-garden"] and
-                      entities["bi-bio-garden"].hidden and
-                      entities["bi-bio-garden"].hidden and
-                      entities["bi-bio-garden"].hidden[h_key] and
-                      entities["bi-bio-garden"].hidden[h_key].name) and base then
+    if pole.name == entities["bi-bio-garden"].hidden[h_key].name and base then
   BioInd.writeDebug("Bio garden!")
       BI_poles.connect_garden_pole(base, pole)
       BioInd.writeDebug("Connected %s (%s)", {pole.name, pole.unit_number or "nil"})
 
     -- Make sure hidden poles for powered rails are connected correctly!
-    elseif pole.name == (entities["bi-straight-rail-power"] and
-                          entities["bi-straight-rail-power"].hidden and
-                          entities["bi-straight-rail-power"].hidden[h_key] and
-                          entities["bi-straight-rail-power"].hidden[h_key].name) and base then
+    elseif pole.name == entities["bi-straight-rail-power"].hidden[h_key].name and base then
   BioInd.writeDebug("Powered rail!")
       BI_poles.connect_power_rail(base, pole)
       BioInd.writeDebug("Connected %s", {BioInd.print_name_id(pole)})
@@ -207,10 +199,7 @@ BI_poles.connect_poles = function(pole, base)
       local musk_floor_neighbours = {}
       for n, neighbour in ipairs(pole.neighbours["copper"] or {}) do
         -- Disconnect other poles from hidden poles on powered rails
-        if neighbour.name == (entities["bi-straight-rail-power"] and
-                              entities["bi-straight-rail-power"].hidden and
-                              entities["bi-straight-rail-power"].hidden[h_key] and
-                              entities["bi-straight-rail-power"].hidden[h_key].name) then
+        if neighbour.name == entities["bi-straight-rail-power"].hidden[h_key].name then
           pole.disconnect_neighbour(neighbour)
           BioInd.writeDebug("Disconnected %s from %s",
                             {BioInd.print_name_id(pole), BioInd.print_name_id(neighbour)})
@@ -241,7 +230,7 @@ BI_poles.disconnect_faraway = function(compound)
   BioInd.entered_function({data})
 
   if compound and compound.base and compound.base.valid then
-    local data = BioInd.compound_entities and BioInd.compound_entities[compound.base.name]
+    local data = global.compound_entities[compound.base.name]
     local pole, max_distance, wire_reach, circuit_wire_reach
 
     for h_key, h_data in pairs(data and data.hidden or {}) do

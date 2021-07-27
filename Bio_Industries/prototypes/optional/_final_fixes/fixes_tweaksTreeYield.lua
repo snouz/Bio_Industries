@@ -24,7 +24,7 @@ local new_results = {
   }
 }
 
-local ignore_trees = BioInd.get_tree_ignore_list()
+local ignore_trees = BioInd.tree_stuff.get_tree_ignore_list()
 
 for tree_name, tree in pairs(data.raw["tree"] or {}) do
   if tree.minable and not ignore_trees[tree_name] then

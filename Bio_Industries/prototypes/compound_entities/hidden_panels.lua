@@ -43,10 +43,11 @@ h_entity.energy_source = {
 BI.make_hidden_entity_list(h_key)
 
 -- Add entities for Musk floor?
+local Musk_name
 if BI.Settings.BI_Power_Production then
   -- Musk floor is not an entity, but a tile, so we don't have a compound-entity table
   -- for it and must add it manually!
-  local Musk_name = BioInd.musk_floor_panel_name
+  Musk_name = BioInd.musk_floor_panel_name
   BI.hidden_entities.types[h_key][Musk_name] = "bi-solar-mat"
 end
 
@@ -111,7 +112,7 @@ for panel_name, locale_name in pairs(BI.hidden_entities.types[h_key] or {}) do
     --panel.icon_size = 64
     --panel.icon_mipmaps = 3
     --panel.BI_add_icon = true
-    panel.icons = { 
+    panel.icons = {
       { icon = ICONPATH .. "entity/biofarm.png", icon_size = 64, icon_mipmaps = 4, scale = 0.5, shift = {0, 0} },
       { icon = "__base__/graphics/icons/solar-panel.png", icon_size = 64, icon_mipmaps = 4, scale = 0.25, shift = {8, -8} },
     }

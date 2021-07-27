@@ -507,7 +507,7 @@ BI.additional_entities[setting].huge_substation = {
     sound = { filename = SNDPATH .. "substation.ogg" },
     apparent_volume = 1.1,
     audible_distance_modifier = 0.5,
-    probability = 1 / (6 * 60) -- average pause between the sound is 3 seconds
+    probability = 1 / (6 * 60) -- average pause between the sound is 6 seconds
   },
   connection_points = {
     {

@@ -1,0 +1,40 @@
+  Changes:
+    - Improved script for Deadlock Stacking/Crating: speed gain (look for recipes making an item just once instead of multiple times), new item subgroup in the main "Bio Industries" group for crating recipes
+    - Added "order_crating" flag to item definitions.
+    - Changed subgroup of several items so that crating recipes made for items in our own group don't end up in the "Intermediates" group.
+    - Split common.lua to separate things needed only in the data/control stage. Put things that are not really shared between files in the control stage into separate files.
+    - Completely reworked the script for pollution detectors.
+    - Removed dependency on Sdtlib.
+    - Made setting for pollution sensors. (They shouldn't be tied to another setting, e.g. Bio Gardens, but they should be optional.)
+    - Added support for "Picker Dollies". Compound entities will be moved completely now. Caveat: Connections of electric poles will be broken if the entities they are connected to are farther away than the pole's max_wire_distance/max_circuit_wire_distance after moving. (Requested feature from Nexela to prevent moving the base entity if hidden components would end up too far away.)
+    - Added optional dependency on IR2 to prevent technology dependency cycles.
+    - Made sure that the properties of huge entities (accumulator, solar farm etc.) are in sync with the amount of the normal entities they are made of.
+    - Red/yellow/green wires aren't drawn on top of each other between big poles.
+    - Made Bio-cannon reliant on trigger target masks instead of controlling it per script.
+    - Improved script for Deadlock Stacking/Crating: speed gain (look for recipes making an item just once instead of multiple times), new item subgroup in the main "Bio Industries" group for crating recipes
+
+  Bugfixes:
+    - Fixed icons for the rubber-wood recipes.
+    - Fixed that we'd add too many startup items if IR2 was active. (In vanilla, items that are placed in the "ship" and "debris" would be deducted from "created", while IR2 adds everything from "created, "ship", and "debris".)
+    - Fixed that hidden poles of Musk floor could connect to hidden poles of Powered rails.
+    - Fixed a dependency circle when all of Angel's mods were used.
+    - Fixed icons for the rubber-wood recipes.
+    - Fixed that Terraformer item couldn't be used to ghost a terraformer (the item places  the overlay, ghosts could be made from built entities, though).
+
+
+2021-07-23:
+  Bug fixes:
+    - Fixed that hidden poles of Musk floor would connect to poles farther away than the intended max_wire_distance (definition of a local variable was only valid within an if-then block).
+
+2021-07-25:
+  Changes:
+    - Added resistance against explosion to rails and powered rails connector. Made powered rails immune against fire. (https://mods.factorio.com/mod/Bio_Industries/discussion/60fcd0338bd51d25dcff4190)
+
+2021-07-26
+  Changes:
+    - Added new migration script to remove some tables from global.
+    - @snouz: Removed your last additions to the migration script again. I believe they were only necessary because we always kept the same version number, so on_configuration_changed wouldn't trigger when you continued your game.
+    - Bumped version number to 1.1.112 to enforce running of new migration scripts
+    - Added dependency on "eradicators-library". We may use its event manager functions (similar to those of stdlib) again, but we really want it for the AutoCache function which allows us to recreate some tables when the game is loaded instead of storing them in global (increasing the size of savegame files).
+    - Moved migration of Terraformer radars from 1.1.111 to 1.1.112. We just destroy the radars now, nothing else is necessary here! Missing entities will be restored automatically when the game resumes.
+    - Removed unnecessary files from the menu simulations.

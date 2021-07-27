@@ -21,6 +21,31 @@ common.event_names["on_load"] = "on_load"
 common.event_names["on_configuration_changed"] = "on_configuration_changed"
 
 
+------------------------------------------------------------------------------------
+--      List of default event handlers and events they should be attached to      --
+------------------------------------------------------------------------------------
+common.events = {
+  On_Tick = defines.events.on_tick,
+
+  On_Built = {
+    defines.events.on_built_entity,
+    defines.events.on_robot_built_entity,
+    defines.events.script_raised_built,
+    defines.events.script_raised_revive
+  },
+
+  On_Pre_Remove= {
+    defines.events.on_pre_player_mined_item,
+    defines.events.on_robot_pre_mined,
+    defines.events.on_player_mined_entity,
+    defines.events.on_robot_mined_entity,
+  },
+
+  On_Death = {
+    defines.events.on_entity_died,
+    defines.events.script_raised_destroy
+  },
+}
 
 ------------------------------------------------------------------------------------
 --              Do we need to create a special force for Musk floor?              --
@@ -72,8 +97,10 @@ end
 ------------------------------------------------------------------------------------
 common.is_surface = function(surface)
   local t = type(surface)
-  return (t == "table" and surface.object_name == "LuaSurface" and surface) or
-          ((t == "number" or t == "string") and game.surfaces[surface])
+  surface = (t == "number" or t == "string" and game.surfaces[surface]) or
+            (t == "table" and surface.object_name and
+                              surface.object_name == "LuaSurface" and surface)
+  return surface
 end
 
 
@@ -93,16 +120,15 @@ end
 ------------------------------------------------------------------------------------
 --        Add all optional values for a compound entity to the table entry        --
 ------------------------------------------------------------------------------------
-common.add_optional_data = function(base)
+local add_optional_data = function(base)
   common.entered_function()
 
-  if not (base and base.valid and
-          BioInd.compound_entities and BioInd.compound_entities[base.name]) then
+  if not (base and base.valid and global.compound_entities[base.name]) then
     common.arg_err(base, "base of a compound entity")
   end
 
   -- Add optional values to global table
-  local data = BioInd.compound_entities[base.name]
+  local data = global.compound_entities[base.name]
 common.show("data", data)
   local tab = data.tab
 common.show("tab", tab)
@@ -153,7 +179,7 @@ common.create_entities = function(g_table, base_entity, hidden_entities)
   local data
   for key, tab in pairs(hidden_entities) do
 common.writeDebug("key: %s\tname: %s", {key, tab})
-    data = BioInd.compound_entities[base_entity.name].hidden[key]
+    data = global.compound_entities[base_entity.name].hidden[key]
 common.show("data", data)
     entity = base_entity.surface.create_entity({
       name = data.name,
@@ -175,7 +201,7 @@ common.show("data", data)
   end
 
   -- Add optional values to global table
-  common.add_optional_data(base_entity)
+  add_optional_data(base_entity)
   common.writeDebug("g_table[%s]: %s", {base_entity.unit_number, g_table[base_entity.unit_number]})
 
   common.entered_function("leave")

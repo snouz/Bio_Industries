@@ -158,7 +158,11 @@ if data.raw.recipe["bi-fertilizer-2"] then build_icons("bi-fertilizer-2", {it1 =
 build_icons("bi-mineralized-sulfuric-waste", {it1 = "water-mineralized", it6 = "water-yellow-waste", sc6 = 0.5, sh6 = {-2,2}})
 build_icons("bi-slag-slurry", {it1 = "slag-slurry", sh1 = {0,4}, it2 = "water-saline", sc2 = 0.4, it3 = "stone-crushed", sc3 = 0.4})
 
-if data.raw["solar-panel"]["bi-musk-mat-hidden-panel"] then data.raw["solar-panel"]["bi-musk-mat-hidden-panel"].icons = {{icon = ICONPATH .. "entity/solar-mat.png", icon_size = 64, icon_mipmaps = 4, scale = 0.5, shift = {0, 0}}} end
+if data.raw["solar-panel"][BioInd.musk_floor_panel_name] then 
+  data.raw["solar-panel"][BioInd.musk_floor_panel_name].icons = {
+    {icon = ICONPATH .. "entity/solar-mat.png", icon_size = 64, icon_mipmaps = 4, scale = 0.5, shift = {0, 0}}
+  } 
+end
 
 --bobplates
 build_icons("bob-resin-oil", {it1 = "resin", it2 = "heavy-oil"}, "bobplates")

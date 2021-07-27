@@ -19,6 +19,7 @@ local blacklist_items = {
   -- BI items
   ["bi-arboretum-area"]                 = "item",
   ["bi-bio-cannon-area"]                = "item",
+  ["bi-bio-farm"]                       = "item",
   ["bi-bio-garden"]                     = "item",
   ["bi-bio-garden-huge"]                = "item",
   ["bi-bio-garden-large"]               = "item",

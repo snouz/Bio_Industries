@@ -17,64 +17,39 @@ local event_handlers = {}
 ------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------
 
+-- We can't just check if Alien Biomes is active, because we need to know if
+-- the tiles we need from it exist in the game! To check this, we must call
+-- game.get_tile_prototypes(), but this will crash in script.on_load(). So,
+-- let's just declare the variable here and fill it later.
+local AlienBiomes
 
-------------------------------------------------------------------------------------
---                   Define default and optional event handlers                   --
-------------------------------------------------------------------------------------
-
--- We will always need these events!
-local BI_events = {
-  On_Tick = defines.events.on_tick,
-
-  On_Built = {
-    defines.events.on_built_entity,
-    defines.events.on_robot_built_entity,
-    defines.events.script_raised_built,
-    defines.events.script_raised_revive
-  },
-
-  On_Pre_Remove= {
-    defines.events.on_pre_player_mined_item,
-    defines.events.on_robot_pre_mined,
-    defines.events.on_player_mined_entity,
-    defines.events.on_robot_mined_entity,
-  },
-
-  On_Death = {
-    defines.events.on_entity_died,
-    defines.events.script_raised_destroy
-  },
-}
-
-
--- These events depend on settings and will be added to the main list as needed.
 local function add_optional_events()
 BioInd.entered_function()
 
   -- Musk floor
   if BioInd.get_startup_setting("BI_Power_Production") then
-    BI_events.Solar_Mat_Built = {
+    BioInd.events.Solar_Mat_Built = {
       defines.events.on_player_built_tile,
       defines.events.on_robot_built_tile
     }
 
-    BI_events.Solar_Mat_Removed = {
+    BioInd.events.Solar_Mat_Removed = {
       defines.events.on_player_mined_tile,
       defines.events.on_robot_mined_tile
     }
 
-    BI_events.Tile_Changed = defines.events.script_raised_set_tiles
+    BioInd.events.Tile_Changed = defines.events.script_raised_set_tiles
   end
 
   -- Bio cannon
   if BioInd.get_startup_setting("BI_Bio_Cannon") then
-    BI_events.On_Script_Trigger_Effect = defines.events.on_script_trigger_effect
+    BioInd.events.On_Script_Trigger_Effect = defines.events.on_script_trigger_effect
   end
 
 
   -- Seedbombs
   if BioInd.get_startup_setting("BI_Explosive_Planting") then
-    BI_events.On_Trigger_Created_Entity = defines.events.on_trigger_created_entity
+    BioInd.events.On_Trigger_Created_Entity = defines.events.on_trigger_created_entity
   end
 
   -- "Picker Dollies"
@@ -84,7 +59,7 @@ BioInd.entered_function()
 
   if picker then
     BioInd.event_names[picker] = "dolly_moved_entity"
-    BI_events.On_Moved = picker
+    BioInd.events["On_Moved"] = picker
     BioInd.writeDebug("Added handler for \"%s\" from \"PickerDollies\".",
                       {BioInd.event_names[picker]})
   end
@@ -94,21 +69,13 @@ BioInd.entered_function()
   -- These need to be re-registered once we have rebuilt the compound entities list
   -- and can set the filters!
   if BioInd.get_startup_setting("BI_Terraforming") then
-    BI_events.Set_Filters = {
+    BioInd.events.Set_Filters = {
       defines.events.on_entity_damaged,
       defines.events.on_sector_scanned,
     }
   end
 end
 
-
--- Register event handlers
-local function register_events()
-  for handler, events in pairs(BI_events) do
-    script.on_event(events, event_handlers[handler])
-    BioInd.writeDebug("Added event handler %s.", {handler})
-  end
-end
 
 ------------------------------------------------------------------------------------
 --                           Dummy force for Musk floor                           --
@@ -155,7 +122,7 @@ local function get_arboretum_recipes()
     list[name].items = {}
     list[name].fluids = {}
 
-    for i, ingredient in pairs(recipes[name] and recipes[name].ingredients or {}) do
+    for i, ingredient in pairs(recipes[name].ingredients) do
       if ingredient.type == "item" then
         list[name].items[ingredient.name] = ingredient.amount
       else
@@ -221,19 +188,18 @@ end
 event_handlers.Set_Filters = function(event)
   BioInd.entered_event(event)
 
-BioInd.show("BioInd.compound_entities", BioInd.compound_entities)
   -- Entity was damaged
   if event.name == defines.events.on_entity_damaged then
     -- Re-register event
     script.on_event(event.name, event_handlers.On_Damage, {
-      {filter = "type", type = BioInd.compound_entities["bi-arboretum-area"].hidden.radar.type},
-      {filter = "name", name = BioInd.compound_entities["bi-arboretum-area"].hidden.radar.name, mode = "and"},
+      {filter = "type", type = global.compound_entities["bi-arboretum-area"].hidden.radar.type},
+      {filter = "name", name = global.compound_entities["bi-arboretum-area"].hidden.radar.name, mode = "and"},
       {filter = "final-damage-amount", comparison = "!=", value = 0, mode = "and"},
     })
     -- Manually call the new handler this time
     if event.final_damage_amount ~= 0 and
-        event.entity.type == BioInd.compound_entities["bi-arboretum-area"].hidden.radar.type and
-        event.entity.name == BioInd.compound_entities["bi-arboretum-area"].hidden.radar.name then
+        event.entity.type == global.compound_entities["bi-arboretum-area"].hidden.radar.type and
+        event.entity.name == global.compound_entities["bi-arboretum-area"].hidden.radar.name then
 
       event_handlers.On_Damage(event)
     end
@@ -242,15 +208,15 @@ BioInd.show("BioInd.compound_entities", BioInd.compound_entities)
   elseif event.name == defines.events.on_sector_scanned then
     -- Re-register event
     script.on_event(event.name, event_handlers.On_Sector_Scanned, {
-      {filter = "name", name = BioInd.compound_entities["bi-arboretum-area"].hidden.radar.name},
+      {filter = "name", name = global.compound_entities["bi-arboretum-area"].hidden.radar.name},
     })
     -- Manually call the new handler this time
-    if event.radar.name == BioInd.compound_entities["bi-arboretum-area"].hidden.radar.name then
+    if event.radar.name == global.compound_entities["bi-arboretum-area"].hidden.radar.name then
       event_handlers.On_Sector_Scanned(event)
     end
   end
 
-  BioInd.entered_event(event, "leave")
+  BioInd.entered_event(event)
 end
 
 
@@ -258,8 +224,6 @@ end
 --                                     on_init                                    --
 ------------------------------------------------------------------------------------
 event_handlers.Init = function(event)
-  -- Debugging output depends on whether this function was called as event handler
-  -- for on_init or from on_configuration_changed
   if event then
     BioInd.entered_event(event)
   else
@@ -293,7 +257,7 @@ event_handlers.Init = function(event)
   -- change between saves (e.g. Bio gardens only need hidden poles when
   --  the "Easy gardens" setting is active).
   BioInd.writeDebug("Compile list of required compound entities.")
-  BioInd.compound_entities = BioInd.rebuild_compound_entity_list()
+  global.compound_entities = BioInd.rebuild_compound_entity_list()
 
 
   --------------------------------------------------------------------
@@ -301,24 +265,23 @@ event_handlers.Init = function(event)
   -- We'll always need this because seedlings can be planted manually.
   --------------------------------------------------------------------
   BioInd.writeDebug("Creating/restoring tables for tree growing.")
-  global.bi_trees = global.bi_trees or {}
-  global.bi_trees.growing = global.bi_trees.growing or {}
+  global.bi = global.bi or {}
+  global.bi.tree_growing = global.bi.tree_growing or {}
   for i = 1, 4 do
-    global.bi_trees["stage_" .. i] = global.bi_trees["stage_" .. i] or {}
+    global.bi["tree_growing_stage_" .. i] = global.bi["tree_growing_stage_" .. i] or {}
   end
 
   -- List of tree prototypes created by BI
-  BioInd.tree_stuff.tree_types = BI_scripts.trees.get_bi_trees()
+  --~ global.bi.trees = get_bi_trees()
+  global.bi.trees = BI_scripts.trees.get_bi_trees()
 
   -- List of tile prototypes that can't be fertilized
-  BioInd.tree_stuff.barren_tiles = BI_scripts.trees.get_fixed_tiles()
+  global.bi.barren_tiles = BI_scripts.trees.get_fixed_tiles()
 
-  -- Check if relevant tiles from "AlienBiomes" are used.
-  if type(BioInd.tree_stuff.AlienBiomes) ~= "boolean" then
-BioInd.writeDebug("Calling BioInd.tree_stuff.AB_tiles()!")
-    BioInd.tree_stuff.AlienBiomes = BioInd.tree_stuff.AB_tiles()
-  end
-BioInd.show("BioInd.tree_stuff.AlienBiomes", BioInd.tree_stuff.AlienBiomes)
+  -- 'AlienBiomes' is a bool value -- we don't want to read it again if it's false,
+  -- but only if it hasn't been set yet!
+  AlienBiomes = (AlienBiomes ~= nil) and AlienBiomes or BioInd.AB_tiles()
+
 
   --------------------------------------------------------------------
   -- Pollution detector
@@ -342,7 +305,7 @@ BioInd.show("BioInd.tree_stuff.AlienBiomes", BioInd.tree_stuff.AlienBiomes)
   -- Compound entities
   --------------------------------------------------------------------
   BioInd.writeDebug("Initialize tables for compound entities.")
-  --~ local compound_entity_tables = {}
+  local compound_entity_tables = {}
   init_functions.check_compound_entity_tabs()
 
 
@@ -355,8 +318,6 @@ BioInd.show("BioInd.tree_stuff.AlienBiomes", BioInd.tree_stuff.AlienBiomes)
     global.bi_musk_floor_table = global.bi_musk_floor_table or {}
     global.bi_musk_floor_table.tiles = global.bi_musk_floor_table.tiles or {}
     global.bi_musk_floor_table.forces = global.bi_musk_floor_table.forces or {}
-  else
-    global.bi_musk_floor_table = nil
   end
 
   -- Create dummy force for Musk floor if electric grid overlay should
@@ -376,9 +337,16 @@ BioInd.show("BioInd.tree_stuff.AlienBiomes", BioInd.tree_stuff.AlienBiomes)
     global.bi_arboretum_radar_table = global.bi_arboretum_radar_table or {}
 
     -- Global table of ingredients for terraformer recipes
-    BioInd.tree_stuff.arboretum_recipe_table = get_arboretum_recipes()
+    global.bi_arboretum_recipe_table = get_arboretum_recipes()
   end
 
+  --------------------------------------------------------------------
+  -- Compatibility with other mods
+  --------------------------------------------------------------------
+  BioInd.writeDebug("Creating table for storing compatibility data.")
+  global.compatible = global.compatible or {}
+  BioInd.writeDebug("Check for tiles from \"Alien Biomes\".")
+  global.compatible.AlienBiomes = BioInd.AB_tiles()
 
   --------------------------------------------------------------------
   -- Enable researched recipes
@@ -388,13 +356,17 @@ BioInd.show("BioInd.tree_stuff.AlienBiomes", BioInd.tree_stuff.AlienBiomes)
     force.reset_technology_effects()
   end
 
-
   --------------------------------------------------------------------
   -- Attach events
   --------------------------------------------------------------------
+  -- Add handler for entity-moved event
   add_optional_events()
-  register_events()
 
+  -- Register event handlers
+  for handler, events in pairs(BioInd.events) do
+    script.on_event(events, event_handlers[handler])
+    BioInd.writeDebug("Added event handler %s.", {handler})
+  end
 
   --------------------------------------------------------------------
   --                              DONE
@@ -416,16 +388,14 @@ event_handlers.On_Load = function()
     --~ Event.register(defines.events.on_tick, function(event) end)
   --~ end
 
-  BioInd.compound_entities                  = BI_cache.AutoCache(BioInd.rebuild_compound_entity_list)
-  BioInd.tree_stuff.AlienBiomes             = BI_cache.AutoCache(BioInd.tree_stuff.AB_tiles)
-  BioInd.tree_stuff.tree_types              = BI_cache.AutoCache(BI_scripts.trees.get_bi_trees)
-  BioInd.tree_stuff.barren_tiles            = BI_cache.AutoCache(BI_scripts.trees.get_fixed_tiles)
-  BioInd.tree_stuff.arboretum_recipe_table  = BI_cache.AutoCache(get_arboretum_recipes)
-
-  -- Attach events
+  -- Add handler for events that are only needed with certain mods/settings
   add_optional_events()
-  register_events()
-  log("Leaving On_Load!")
+
+  -- Register event handlers
+  for handler, events in pairs(BioInd.events) do
+    script.on_event(events, event_handlers[handler])
+    BioInd.writeDebug("Added event handler %s.", {handler})
+  end
 end
 
 ------------------------------------------------------------------------------------
@@ -449,11 +419,11 @@ event_handlers.On_Config_Change = function(event)
   -- need to make sure that the lists of growing trees don't contain removed tree
   -- prototypes! (This fix is needed when "Alien Biomes" has been removed; it should
   -- work with all other mods that create trees as well.)
-  local trees = BioInd.tree_stuff.tree_types
+  local trees = global.bi.trees
   local tab
   -- Growing stages
   for i = 1, 4 do
-    tab = global.bi_trees["stage_" .. i]
+    tab = global.bi["tree_growing_stage_" .. i]
 BioInd.writeDebug("Number of trees in growing stage %s: %s", {i, table_size(tab)})
 
     for t = #tab, 1, -1 do
@@ -504,6 +474,10 @@ event_handlers.On_Trigger_Created_Entity = function(event)
   local surface = ent.surface
   local position = ent.position
 
+  --~ -- 'AlienBiomes' is a bool value -- we don't want to read it again if it's false,
+  --~ -- but only if it hasn't been set yet!
+  --~ AlienBiomes = (AlienBiomes ~= nil) and AlienBiomes or BioInd.AB_tiles()
+
   -- Basic
   if ent.name == "seedling" then
     BioInd.writeDebug("Seed Bomb Activated - Basic")
@@ -512,14 +486,14 @@ event_handlers.On_Trigger_Created_Entity = function(event)
   -- Standard
   elseif ent.name == "seedling-2" then
     BioInd.writeDebug("Seed Bomb Activated - Standard")
-    local terrain_name_s = BioInd.tree_stuff.AlienBiomes and "vegetation-green-grass-3" or "grass-3"
+    local terrain_name_s = AlienBiomes and "vegetation-green-grass-3" or "grass-3"
     surface.set_tiles{{name = terrain_name_s, position = position}}
     BI_scripts.trees.seed_planted_trigger(event)
 
   -- Advanced
   elseif ent.name == "seedling-3" then
     BioInd.writeDebug("Seed Bomb Activated - Advanced")
-    local terrain_name_a = BioInd.tree_stuff.AlienBiomes and "vegetation-green-grass-1" or "grass-1"
+    local terrain_name_a = AlienBiomes and "vegetation-green-grass-1" or "grass-1"
     surface.set_tiles{{name = terrain_name_a, position = position}}
     BI_scripts.trees.seed_planted_trigger(event)
   end
@@ -555,7 +529,7 @@ event_handlers.On_Built = function(event)
 
   BioInd.show("Built entity", BioInd.print_name_id(entity))
 
-  local base_entry = BioInd.compound_entities[entity.name]
+  local base_entry = global.compound_entities[entity.name]
   local base = base_entry and entity
 
   -- We've found a compound entity!
@@ -672,7 +646,7 @@ event_handlers.On_Pre_Remove = function(event)
     return
   end
 
-  local compound_entity = BioInd.compound_entities[entity.name]
+  local compound_entity = global.compound_entities[entity.name]
   local base_entry = compound_entity and global[compound_entity.tab][entity.unit_number]
 BioInd.show("entity.name", entity.name)
 BioInd.show("entity.unit_number", entity.unit_number)
@@ -731,16 +705,17 @@ BioInd.writeDebug("Removing hidden entity %s", {BioInd.print_name_id(base_entry[
   elseif entity.name == "seedling" then
     BioInd.writeDebug("Seedling has been removed")
     --~ remove_plants(entity.position, global.bi.tree_growing)
-    BI_scripts.trees.remove_plants(entity.position, global.bi_trees.growing)
+    BI_scripts.trees.remove_plants(entity.position, global.bi.tree_growing)
 
   -- Removed tree
-  elseif entity.type == "tree" and BioInd.tree_stuff.tree_types[entity.name] then
+  elseif entity.type == "tree" and global.bi.trees[entity.name] then
     BioInd.show("Removed tree", entity.name)
 
     local tree_stage = entity.name:match('^.+%-(%d)$')
 BioInd.writeDebug("Removed tree %s (grow stage: %s)", {entity.name, tree_stage or nil})
     if tree_stage then
-      BI_scripts.trees.remove_plants(entity.position, global.bi["stage_" .. tree_stage])
+      --~ remove_plants(entity.position, global.bi["tree_growing_stage_" .. tree_stage])
+      BI_scripts.trees.remove_plants(entity.position, global.bi["tree_growing_stage_" .. tree_stage])
     else
       error(string.format("Tree %s does not have a valid tree_stage: %s", entity.name, tree_stage or "nil"))
     end
@@ -769,7 +744,7 @@ event_handlers.On_Damage = function(event)
   if entity.name == arb then
     associated = global.bi_arboretum_table[entity.unit_number].radar
   -- Radar was damaged: Find the base entity!
-  elseif entity.name == BioInd.compound_entities[arb].hidden.radar.name then
+  elseif entity.name == global.compound_entities[arb].hidden.radar.name then
     local base_id = global.bi_arboretum_radar_table[entity.unit_number]
     associated = global.bi_arboretum_table[base_id].base
   end
@@ -799,14 +774,14 @@ event_handlers.On_Death = function(event)
     error("Something went wrong -- no entity data!")
   end
 
-  local arboretum = BioInd.compound_entities["bi-arboretum"] and
-                      BioInd.compound_entities["bi-arboretum"].hidden
-  local power_rail = BioInd.compound_entities["bi-curved-rail-power"] and
-                      BioInd.compound_entities["bi-curved-rail-power"].hidden
+  local arboretum = global.compound_entities["bi-arboretum"] and
+                      global.compound_entities["bi-arboretum"].hidden
+  local power_rail = global.compound_entities["bi-curved-rail-power"] and
+                      global.compound_entities["bi-curved-rail-power"].hidden
   if
       -- Table checks
-      BioInd.compound_entities[entity.name] or
-      BioInd.tree_stuff.tree_types[entity.name] or
+      global.compound_entities[entity.name] or
+      global.bi.trees[entity.name] or
       -- Entity checks
       -- Hidden radar of terraformer
       entity.name == (arboretum and arboretum.radar and arboretum.radar.name) or
@@ -848,6 +823,9 @@ end
 ------------------------------------------------------------------------------------
 event_handlers.On_Script_Trigger_Effect = function(event)
   BioInd.entered_event(event)
+--~ BioInd.writeDebug("Must create pollution at position of %s (%s: %s)",
+                      --~ {event.source_entity and BioInd.argprint(event.source_entity) or "nil", event.source_entity and event.source_entity.surface or game.surfaces[event.surface_index].name, event.source_entity and event.source_entity.position or event.source_position})
+
   local Bio_Cannon = event.source_entity
   local position = Bio_Cannon and Bio_Cannon.position or event.source_position
   local surface = event.surface_index and game.surfaces[event.surface_index]
@@ -915,6 +893,7 @@ event_handlers.Solar_Mat_Removed = function(event)
 
 BioInd.writeDebug("Looking for hidden entities to remove")
       for _, o in pairs(surface.find_entities_filtered{
+        --~ name = {'bi-musk-mat-hidden-pole', 'bi-musk-mat-hidden-panel'},
         name = {BioInd.musk_floor_pole_name, BioInd.musk_floor_panel_name},
         position = {x + 0.5, y + 0.5}
       } or {}) do
@@ -1009,12 +988,12 @@ BioInd.show("index", index)
 BioInd.show("t.old_tile.name", t.old_tile.name)
 
       -- We want to restore removed tiles if nothing is supposed to grow on them!
-      if BioInd.tree_stuff.barren_tiles[t.old_tile.name] then
+      if global.bi.barren_tiles[t.old_tile.name] then
 BioInd.writeDebug("%s was used on forbidden ground (%s)!", {item.name, t.old_tile.name})
         restore_tiles[#restore_tiles + 1] = {name = t.old_tile.name, position = t.position}
 
         -- Is that tile minable?
-        products = BioInd.tree_stuff.barren_tiles[t.old_tile.name]
+        products = global.bi.barren_tiles[t.old_tile.name]
         if type(products) == "table" then
           for p, product in ipairs(products) do
             if player then
@@ -1076,12 +1055,12 @@ event_handlers.On_Moved = function(event)
   local entity = event.moved_entity
   if entity and entity.valid then
 
-    local data = BioInd.compound_entities[entity.name]
+    local data = global.compound_entities[entity.name]
 BioInd.writeDebug("Check for compound entity")
     -- Compound entities
     if data then
 BioInd.writeDebug("Compound entity has been moved!")
-      local data = BioInd.compound_entities[entity.name]
+      local data = global.compound_entities[entity.name]
       local g_tab = global[data.tab][entity.unit_number]
       local new_pos
 

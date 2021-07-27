@@ -2,6 +2,13 @@ BioInd = require("__" .. script.mod_name .. "__.common-control")
 BioInd.entered_file()
 
 ------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
+--                                  REQUIRE FILES                                 --
+------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
+
+
+------------------------------------------------------------------------------------
 --                          Require files from other mods                         --
 ------------------------------------------------------------------------------------
 -- External
@@ -13,6 +20,8 @@ end
 --~ local Event = require('__stdlib__/stdlib/event/event').set_protected_mode(false)
 --~ local Event = require('__stdlib__/stdlib/event/event').set_protected_mode(true)
 
+
+BI_cache = require('__eradicators-library__/erlib/factorio/Cache')()
 
 ------------------------------------------------------------------------------------
 --                           Require additional scripts                           --
@@ -33,7 +42,7 @@ BI_scripts = {
   poles                = require("scripts.control_poles"),
 }
 
-local event_handlers    = require("scripts.event_handlers")
+local event_handlers   = require("scripts.event_handlers")
 
 -- This will only be run if the Cannon is active. We may want to remove this later!
 --~ require("scripts/control_bio_cannon")

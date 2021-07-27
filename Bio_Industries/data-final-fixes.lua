@@ -14,7 +14,7 @@ require("prototypes.default.final_fixes.ash")
 
 -- If OwnlyMe's or Tral'a "Robot Tree Farm" mods are active, they will create variatons
 -- of our variations of tree prototypes. Remove them!
-local ignore_trees = BioInd.get_tree_ignore_list()
+local ignore_trees = BioInd.tree_stuff.get_tree_ignore_list()
 local removed = 0
 
 for name, _ in pairs(ignore_trees or {}) do

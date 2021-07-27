@@ -28,7 +28,7 @@ Date: 2021-07-?
     - Removed some useless secondary selection boxes.
     - The color of the bio-reactor's liquid now changes with the recipe.
     - Adjusted fluid colors and chemical plant recipe colors.
-    - Changed map color of some entities (Sappling, Terraformer, Gardens).
+    - Changed map color of some entities (Sapling, Terraformer, Gardens).
     - New mod logo.
     - 9 New signals (for blueprints, circuits, map points...)
 
@@ -47,8 +47,6 @@ Date: 2021-07-?
     - Divided some recipes into smaller chunks for readability (e.g.: 2 bricks = 2 ash + 6 pebbles => 1 brick = 1 ash + 3 pebbles in half the time)
     - Changes if "Early wooden defenses" are enabled: Pistol will be replaced with the dart rifle; firearm magazines will be locked behind "Military 1"; stone walls and gun turrets will be locked behind "Military 2"; darts will get bonus effects from "Physical projectile damage" and "Weapon shooting speed" research (levels 1-4); bonus turret effects of "Physical projectile damage" (levels 1-3) will be removed from gun turrets.
     - Terraformer has 2 pipes in each direction instead of only 2. Lets the water pass through. (Only newly built ones)
-
-    - Biofuel conversion recipes will now be made in the bio-reactor. That fixes an issue with IR2, which assigns a fixed recipe to the oil refinery, so there was no way to craft our recipes.
     - Added new techs "Rubber production" (new item "rubber" will be used in some recipes) and "Rubber-coated concrete" (new item and tile).
     - Bio Cannon:
       - Tier 1 unlocks only the cannon and basic ammo (low precision). Cost reduced to 75 automation/logistics/military science packs.
@@ -72,53 +70,26 @@ Date: 2021-07-?
     - If the setting "Enable: Rubber products" is active, we shuffle around some of the vanilla techs. That doesn't work well with "Industrial Revolution 2" because of circular tech dependencies, so the setting (and our Resin/Rubber techs) won't be available if IR2 is active as well!
     - If IR2 is not active we'll allow for Bio-fuel conversion recipes to be made in the bio reactor as well as the vanilla oil-refinery.
     - Added setting "Game tweaks: Fuel values". This will add a fuel value to all items that contain wood or items made with wood etc. in their production chain (e.g. "wood" --> "woodpulp" --> "cellulose" --> "plastic bar" --> "advanced circuit" --> "stack inserter"), based on the fuel value of wood.
-    - Added additional dependency on "Pyanodons Petroleum Handling". (For now, the optional dependency on "Pyanodons Coal Processing" has to be removed for this to work!)
-    - Removed steel plates from recipe for wooden rails, and increased amount of iron sticks and wood. Also added more steel plates to the vanilla rail recipe. This fixes that wooden rails couldn't be used early in a game with IR2. (https://mods.factorio.com/mod/Bio_Industries/discussion/600a5cca5f9fe9c9952b0b8a)
 
-    - Added dependency on "Wood gasification" to "Rubber-coated concrete"
-    - Adjustment for removal of crafting category "powdering*" in IR2 2.2.0
-    - Fixed that the shiny "wooden-boards" icon for "Bob's Electronics mod" would never be used
-    - Fixed a recipe update depending on an item from Angel's instead of Bob's mods
-    - Fixed that wooden floor wasn't created and raised decorative_removal_probability form 0.4 to 0.6
-    - Fixed order of some items, fluids and recipes
     - More changes to localization
-
-    - Fixed that there could still be hidden entities of Musk floor left although the main tile had been removed.
-    - Fixed that electric poles placed on Musk floor would waste all available connections on hidden poles.
     - Some more restructuring (new folders "scripts" and "triggers"), some more triggers.
-    - Added hidden optional dependencies for "Artisanal Reskin" mods
 
-    - Added solid-fuel recipes to 5D-groups
-    - Concrete rails (item/recipe) now are really sorted between wooden and power rails, even with 5Dim!
     - Reduced stacksize of charcoal and pellet coke from 400 to 200.
     - Stacksize of BI-items (rails, big/huge wooden poles, poison artillery shells) will be updated to that of the generic items they are based on.
-    - Fixed the testing for tiles from Alien Biomes. We can simply look up game.tile_prototypes!
-    - Fixed crash with "King Jo's War Rig Truck" + "Krastorio 2". (https://mods.factorio.com/mod/kj_warrig/discussion/60e1f8ff1ef686b1f36d1a82)
     - Replaced Crushed stone in recipe producing Biofarms with stonebricks + wood
     - Removed prerequisite technology "Stone crushing 1" from "Timber". We don't use crushed stone in the recipe anymore, and this would only have worked if Stone crushing was enabled.
     - Changed ingredients/results of bi-coal-1 (old: 10 charcoal-->12 coal, new: 16 charcoal-->10 coal) and bi-coal-2 (old: 10 charcoal-->16 coal, new: 12 charcoal-->10 coal)
 
-    - Fixed that we'd add too many startup items if IR2 was active. (In vanilla, items that are placed in the "ship" and "debris" would be deducted from "created", while IR2 adds everything from "created, "ship", and "debris".)
-    - Added rubber-wood recipes (IR2). Not sure yet if we should keep the special ingredient, or add recipes for seeds/saplings as well -- that would mean to also create items, and to make rubbertrees plantable!
-    - Moved "Scattergun turret", "Weapon shooting speed 1" and "Physical projectile damage 1" behind "Bronze milestone" if IR2 is active.
-    - Improved script for Deadlock Stacking/Crating: speed gain (look for recipes making an item just once instead of multiple times), new item subgroup in the main "Bio Industries" group for crating recipes
     - Added "order_crating" flag to item definitions.
     - Changed subgroup of several items so that crating recipes made for items in our own group don't end up in the "Intermediates" group.
     - Split common.lua to separate things needed only in the data/control stage. Put things that are not really shared between files in the control stage into separate files.
-    - Fixed that hidden poles of Musk floor could connect to hidden poles of Powered rails.
     - Completely reworked the script for pollution detectors.
-    - Removed dependency on Sdtlib.
-    - Fixed that Terraformer item couldn't be used to ghost a terraformer (the item places  the overlay, ghosts could be made from built entities, though).
     - Made setting for pollution sensors. (They shouldn't be tied to another setting, e.g. Bio Gardens, but they should be optional.)
-    - Added support for "Picker Dollies". Compound entities will be moved completely now. Caveat: Connections of electric poles will be broken if the entities they are connected to are farther away than the pole's max_wire_distance/max_circuit_wire_distance after moving. (Requested feature from Nexela to prevent moving the base entity if hidden components would end up too far away.)
-    - Added optional dependency on IR2 to prevent technology dependency cycles.
     - Made sure that the properties of huge entities (accumulator, solar farm etc.) are in sync with the amount of the normal entities they are made of.
-    - Fixed a dependency circle when all of Angel's mods were used.
-
     - Red/yellow/green wires aren't drawn on top of each other between big poles.
-
-    - Fixed icons for the rubber-wood recipes.
     - Made Bio-cannon reliant on trigger target masks instead of controlling it per script.
+    - Added resistance against explosion to rails and powered rails connector. Made powered rails immune against fire. (https://mods.factorio.com/mod/Bio_Industries/discussion/60fcd0338bd51d25dcff4190)
+
 
   Modding:
     - Migrated some recipes ("bi-sulfur-angels", "bi-crushed-stone-X", "bi-biomass-conversion-X", "bi-acid") and technologies ("bi-tech-bio-cannon", "bi-tech-advanced-fertilizers")
@@ -132,6 +103,18 @@ Date: 2021-07-?
     - Removed or moved some recipes around used by boblogistics, bobplates, bobpower, bobrevamp, angels refining, angels petrochem, angels industries, Krastorio 2, Industrial Revolution 2.
     - Sometimes, we use our item icon, sometimes the mods ones, but now recipes are coherent.
     - Made Bobgreenhouse incompatible (redundant and breaks the balance of BI).
+    - Added support for "Picker Dollies". Compound entities will be moved completely now. Caveat: Connections of electric poles will be broken if the entities they are connected to are farther away than the pole's max_wire_distance/max_circuit_wire_distance after moving. (Requested feature from Nexela to prevent moving the base entity if hidden components would end up too far away.)
+    - Adjustment for removal of crafting category "powdering*" in IR2 2.2.0
+    - Added optional dependency on IR2 to prevent technology dependency cycles.
+    - Added solid-fuel recipes to 5D-groups
+    - Concrete rails (item/recipe) now are really sorted between wooden and power rails, even with 5Dim!
+    - Added optional dependency on "Wood gasification" to "Rubber-coated concrete".
+    - Added hidden optional dependencies for "Artisanal Reskin" mods
+    - Added rubber-wood recipes (IR2).
+    - Moved "Scattergun turret", "Weapon shooting speed 1" and "Physical projectile damage 1" behind "Bronze milestone" if IR2 is active.
+    - Added additional dependency on "Pyanodons Petroleum Handling". (For now, the optional dependency on "Pyanodons Coal Processing" has to be removed for this to work!)
+    - Removed dependency on Sdtlib.
+    - Added dependency on "eradicators-library". We may use its event manager functions (similar to those of stdlib) again, but we really want it for the AutoCache function which allows us to recreate some tables when the game is loaded instead of storing them in global (increasing the size of savegame files).
 
   Optimization:
     - Major code and file structure cleanup and factori(o)sation.
@@ -147,9 +130,24 @@ Date: 2021-07-?
   Bugfixes:
     - Fixed visual zone for Huge wooden poles
     - Fixed that powered rails and the rail-to-power connectors could not be unlocked if IR2 was active.
+    - Fixed that hidden poles of Musk floor would connect to poles farther away than the intended max_wire_distance (definition of a local variable was only valid within an if-then block).
+    - Fixed that the shiny "wooden-boards" icon for "Bob's Electronics mod" would never be used
+    - Fixed a recipe update depending on an item from Angel's instead of Bob's mods
+    - Fixed that wooden floor wasn't created and raised decorative_removal_probability form 0.4 to 0.6
+    - Fixed order of some items, fluids and recipes
+    - Fixed that there could still be hidden entities of Musk floor left although the main tile had been removed.
+    - Fixed that electric poles placed on Musk floor would waste all available connections on hidden poles.
+    - Fixed the testing for tiles from Alien Biomes. We can simply look up game.tile_prototypes!
+    - Fixed that hidden poles of Musk floor could connect to hidden poles of Powered rails.
+    - Fixed that Terraformer item couldn't be used to ghost a terraformer (the item places the overlay, but ghosts could be made from built entities).
+    - Fixed a dependency circle when all of Angel's mods were used.
+    - Biofuel conversion recipes will now be made in the bio-reactor. That fixes an issue with IR2, which assigns a fixed recipe to the oil refinery, so there was no way to craft our recipes.
+    - Removed steel plates from recipe for wooden rails, and increased amount of iron sticks and wood. Also added more steel plates to the vanilla rail recipe. This fixes that wooden rails couldn't be used early in a game with IR2. (https://mods.factorio.com/mod/Bio_Industries/discussion/600a5cca5f9fe9c9952b0b8a)
+
 
   Credit:
-    - The pollution sensor has been inspired by Schorty's "Pollution detector" mod (https://mods.factorio.com/mod/pollution-detector), but has been coded from scratch using a completely different approach (getting pollution per chunk, not per sensor).
+    - The pollution sensor has been inspired by Schorty's "Pollution detector" mod (https://mods.factorio.com/mod/pollution-detector), but has been coded from scratch, using a different approach for way better performance (getting pollution per chunk, not per sensor).
+    - The new "Wood gasification" technology is based on cappie's "Wood gasification" mod, provides its basic recipe. If you want to get into serious wood gasification, you should use the original mod instead. Our tech won't be available in that case -- no need to duplicate what the original mod does much better!
 
 
   TODO:
@@ -161,8 +159,6 @@ Date: 2021-07-?
     - Don't plant lying trees
 
     - Fertilizer blueprints/ghosts (https://mods.factorio.com/mod/Bio_Industries/discussion/60ab5f9eb639ef1bb52cfbcc)
-
-    - in data-final-fixes we need to check the values of the entities we use as ingredients and adjust the values of our super-sized entities. Can you think of anything else where that would be necessary, or is it just boiler/solar panel/accumulator? Substations?
 
     - Make prototypes.default.final_fixes.ash dependent on a trigger?
     - Concrete/powered rail bridges

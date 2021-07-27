@@ -1,8 +1,5 @@
--- Add functions that are also used in other files (debugging output etc.)
-local BioInd = require("__" .. script.mod_name .. "__.common")(script.mod_name)
-BioInd.writeDebug("Entered migration script 0.18.35+1.01.05")
+BioInd.entered_file()
 
-require("util")
 
 
 -- Migrating global tables to new names
@@ -37,3 +34,9 @@ for b, boiler in pairs(boilers or {}) do
     end
   end
 end
+
+
+------------------------------------------------------------------------------------
+--                                    END OF FILE                                 --
+------------------------------------------------------------------------------------
+BioInd.entered_file("leave")

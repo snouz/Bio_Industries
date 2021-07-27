@@ -335,7 +335,7 @@ BioInd.show("seedbomb", seedbomb)
     surface = surface,
     seed_bomb = seedbomb
   }
-  plant_tree(global.bi.tree_growing, tree_data, false)
+  plant_tree(global.bi_trees.growing, tree_data, false)
   BioInd.entered_function("leave")
 end
 
@@ -487,7 +487,7 @@ BioInd.writeDebug("stage_1_tree_name: %s", {stage_1_tree_name})
           time = event.tick + grow_time,
           surface = surface
         }
-        plant_tree(global.bi.tree_growing_stage_1, tree_data, true)
+        plant_tree(global.bi_trees.stage_1, tree_data, true)
       end
     end
   end
@@ -660,7 +660,7 @@ local function Grow_tree_stage(stage_table, stage)
             time = time_planted + grow_time,
             surface = surface
           }
-          plant_tree(global.bi["tree_growing_stage_" .. next_stage], tree_data, true)
+          plant_tree(global.bi_trees["stage_" .. next_stage], tree_data, true)
         end
       end
 
@@ -798,21 +798,21 @@ BI_trees.check_tree_growing = function(event)
   BioInd.entered_function({event})
 
   -- Seedlings making transition to first tree stage
-  while next(global.bi.tree_growing) do
+  while next(global.bi_trees.growing) do
     -- Stop if the first tree's "time" is in the future! (Table sorted by tree.time)
-    if event.tick < global.bi.tree_growing[1].time then
+    if event.tick < global.bi_trees.growing[1].time then
       -- BioInd.writeDebug("Still growing")
       break
     end
 -- BioInd.writeDebug("Check if seedling will die or become a tree!")
-    Grow_tree_first_stage(global.bi.tree_growing[1], event)
-    table.remove(global.bi.tree_growing, 1)
--- BioInd.writeDebug("global.bi.tree_growing: %s", {global.bi.tree_growing}, "line")
+    Grow_tree_first_stage(global.bi_trees.growing[1], event)
+    table.remove(global.bi_trees.growing, 1)
+-- BioInd.writeDebug("global.bi_trees.growing: %s", {global.bi_trees.growing}, "line")
   end
 
   -- Trees growing through the different stages
   for stage = 1, 4 do
-    local stage_table = global.bi["tree_growing_stage_" .. stage]
+    local stage_table = global.bi_trees["stage_" .. stage]
     while next(stage_table) do
       -- Stop if the first tree's "time" is in the future! (Table sorted by tree.time)
       if event.tick < stage_table[1].time then

@@ -156,7 +156,7 @@ BioInd.show("Current state of BI_Game_Tweaks_Easy_Bio_Gardens", current)
 BioInd.writeDebug("Setting has been changed!")
     local pole, neighbours
     -- This is the unmodified table!
-    local compound_entity = BioInd.compound_entities and BioInd.compound_entities["bi-bio-garden"]
+    local compound_entity = BioInd.compound_entities["bi-bio-garden"]
     local hidden_entities = compound_entity.hidden
 
     -- Check that all gardens are still valid
@@ -201,7 +201,7 @@ BioInd.writeDebug("Removing hidden entity %s %s", {
                         {table_size(global.bi_bio_garden_table) })
 
       -- Restore the list of hidden entities
-      --~ global.compound_entities["bi-bio-garden"] = BioInd.compound_entities["bi-bio-garden"]
+      global.compound_entities["bi-bio-garden"] = BioInd.compound_entities["bi-bio-garden"]
       local base
       for g, garden in pairs(global.bi_bio_garden_table or {}) do
         -- Make sure the base entity exists!
@@ -262,8 +262,8 @@ BioInd.show("global.bi_bio_garden_table", global.bi_bio_garden_table)
 
       -- We don't want to create hidden poles if the setting is off,
       -- so remove the pole from hidden entities!
-      BioInd.compound_entities["bi-bio-garden"].hidden[pole_type] = nil
-BioInd.show("BioInd.compound_entities", BioInd.compound_entities)
+      global.compound_entities["bi-bio-garden"].hidden[pole_type] = nil
+BioInd.show("global.compound_entities", global.compound_entities)
     end
 
     -- Remove any hidden poles that are not associated with a garden

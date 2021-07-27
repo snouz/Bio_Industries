@@ -15,8 +15,49 @@ end
 ------------------------------------------------------------------------------------
 
 
-local vanilla, rail_group, bridge_group
+local vanilla, rail, rail_group, bridge_group
+local resistance_wood = {
+  fire = 80,
+  acid = 60,
+  explosion = 40,
+}
+local resistance_concrete = {
+  fire = 100,
+  acid = 80,
+  explosion = 60,
+}
 
+-- Other mods may have changed resistances. We only reset our own, or add them
+-- again if they have been removed!
+local function set_resistances(entity, resistances)
+  local add_it
+  -- We also pass on raw, unextended data, but we must modify the real entity!
+  if entity and data.raw[entity.type] and data.raw[entity.type][entity.name] then
+    entity = data.raw[entity.type][entity.name]
+    for need_resistance, need_resistance_value in pairs(resistances) do
+      add_it = true
+      for r, resistance in pairs(entity.resistances) do
+        if resistance.type == need_resistance then
+          resistance.percent = need_resistance_value
+          resistance.decrease = (need_resistance_value ~= 100) and
+                                  (need_resistance_value * 0.05) or 0
+          BioInd.modified_msg("resistance against " .. resistance.type, entity)
+          add_it = false
+          break
+        end
+      end
+      if add_it then
+        table.insert(entity.resistances, {
+          type = need_resistance,
+          percent = need_resistance_value,
+          decrease = (need_resistance_value ~= 100) and (need_resistance_value * 0.05) or 0
+        })
+        BioInd.modified_msg("resistance against " .. need_resistance, entity, "Added")
+      end
+    end
+    entity.hide_resistances = false
+  end
+end
 
 ------------------------------------------------------------------------------------
 --           Move unlock for vanilla rails (concrete rails) to our tech!          --
@@ -30,6 +71,27 @@ data.raw.recipe.rail.BI_add_to_tech = {"bi-tech-concrete-rails"}
 --       Add more steel plates to recipe of vanilla rails (concrete rails)!       --
 ------------------------------------------------------------------------------------
 thxbob.lib.recipe.add_ingredient("rail", {type = "item", name = "steel-plate", amount = 1.5})
+
+
+------------------------------------------------------------------------------------
+--          Make sure all relevant entities have appropriate resistances          --
+------------------------------------------------------------------------------------
+-- BI rails + power rail connector
+for r, r_data in pairs(BI.additional_entities[setting]) do
+  if r_data.name:find("-rail-wood", 1, true) then
+    set_resistances(r_data, resistance_wood)
+  else
+    set_resistances(r_data, resistance_concrete)
+  end
+  BioInd.show("Resistances of " .. r_data.name, data.raw[r_data.type][r_data.name].resistances)
+end
+
+-- Vanilla rails a.k.a. "Concrete rails"
+for r, rail in pairs({"curved-rail", "straight-rail"}) do
+  set_resistances(data.raw[rail][rail], resistance_concrete)
+  BioInd.show("Resistances of " .. rail, data.raw[rail][rail].resistances)
+end
+
 
 ------------------------------------------------------------------------------------
 -- "Transport drones" ruins rails by removing object-layer from their collision   --

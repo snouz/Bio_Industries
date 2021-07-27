@@ -63,49 +63,59 @@ end
 
 
 -- Allow mods to register names or patterns for black-/whitelisting items as
--- fuel_items (see prototypes/fuel_values/read_patterns.lua!)
+-- fuel_items (see prototypes/fuel_values/read_filters.lua!)
 BI_FuelItem_Filters = {}
 
 ------------------------------------------------------------------------------------
 -- Modders may use the following code in data-updates.lua to add/remove filters.  --
 -- Adjust strings/boolean values to your needs! If there are any presets for      --
 -- your mod, setting a filter to "false" will remove it from the presets.         --
--- Special characters in patterns are parsed by string.match and must be escaped! --
+-- Patterns are parsed by string.match as regular expressions, so special         --
+-- characters must be escaped!                                                    --
 ------------------------------------------------------------------------------------
--- if BI_FuelItem_Filters then
---   BI_FuelItem_Filters["your_mod_name"] = {
---     -- These lists may be nil or empty. Any other lists will be ignored!
---     whitelist_items = {
---       -- Contains a list of item_name and item_type
---       ["wood-beam"]                          = "item",
---       ["my-special-item"]            = "capsule",
---       -- Setting a value to false will remove this item from the preset (if any)
---       -- whitelist_items of mod "your_mod_name
---       ["dont-whitelist-this-item"]   = false,
---     },
---     blacklist_items = {
---       -- Contains a list of item_name and item_type
---       ["wood-beam"]                          = "item",
---       ["my-special-weapon"]                  = "gun",
---       -- Setting a value to false will remove this item from the preset (if any)
---       -- blacklist_items of mod "your_mod_name"
---       ["dont-blacklist-this-item"]           = false,
---     },
---     whitelist_patterns = {
---       -- Add this pattern
---       [".*wood.*"]                      = true,
---       -- Remove this pattern from presets (if there are any)
---       ["remove%-pattern"]               = false,
---     },
---     blacklist_patterns = {
---       -- Add this pattern
---       [".*wood.*"]                      = true,
---       -- Remove this pattern from presets (if there are any)
---       ["remove%-pattern"]               = false,
---     },
---   }
--- end
+--[[
+  if BI_FuelItem_Filters then
+    BI_FuelItem_Filters["your_mod_name"] = {
+    -- All of these lists may be nil or an empty table, i.e. "{}"!
 
+      whitelist_items = {
+        -- Contains a list of item_name and item_type
+        ["wood-beam"]                     = "item",
+        ["my-special-item"]               = "capsule",
+
+        -- Setting a value to false will remove this item from the presets (if any)
+        -- whitelist_items of mod "your_mod_name"
+        ["dont-whitelist-this-item"]      = false,
+      },
+
+      blacklist_items = {
+        -- Contains a list of item_name and item_type
+        ["wood-beam"]                     = "item",
+        ["my-special-weapon"]             = "gun",
+
+        -- Setting a value to false will remove this item from the presets (if any)
+        -- blacklist_items of mod "your_mod_name"
+        ["dont-blacklist-this-item"]      = false,
+      },
+
+      whitelist_patterns = {
+        -- Add this pattern
+        [".*wood.*"]                      = true,
+
+        -- Remove this pattern from presets (if there are any)
+        ["my%-patterns"]                  = false,
+      },
+
+      blacklist_patterns = {
+        -- Add this pattern
+        [".*wood.*"]                      = true,
+
+        -- Remove this pattern from presets (if there are any)
+        ["my%-items"]                       = false,
+      },
+    }
+  end
+]]
 
 ------------------------------------------------------------------------------------
 --                                 Auxiliary files                                --

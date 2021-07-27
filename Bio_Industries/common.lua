@@ -131,7 +131,8 @@ log("compound entities: " .. serpent.block(common.compound_entities))
   ------------------------------------------------------------------------------------
   -- There may be trees for which we don't want to create variations. These patterns
   -- are used to build a list of trees we want to ignore.
-  common.tree_ignore_name_patterns = {
+  common.tree_stuff = {}
+  common.tree_stuff.tree_ignore_name_patterns = {
     -- Ignore our own trees
     "bio%-tree%-.+%-%d",
     -- Tree prototypes created by "Robot Tree Farm" or "Tral's Robot Tree Farm"
@@ -142,13 +143,13 @@ log("compound entities: " .. serpent.block(common.compound_entities))
 
 
   -- Get list of tree prototypes that we want to ignore
-  common.get_tree_ignore_list = function()
+  common.tree_stuff.get_tree_ignore_list = function()
     local ignore = {}
     local trees = game and
                     game.get_filtered_entity_prototypes({{filter = "type", type = "tree"}}) or
                     data.raw.tree
     for tree_name, tree in pairs(trees) do
-      for p, pattern in ipairs(common.tree_ignore_name_patterns) do
+      for p, pattern in ipairs(common.tree_stuff.tree_ignore_name_patterns) do
         if tree_name:match(pattern) then
           ignore[tree_name] = true
           break
@@ -157,6 +158,26 @@ log("compound entities: " .. serpent.block(common.compound_entities))
     end
     return ignore
   end
+
+  ------------------------------------------------------------------------------------
+  -- Are tiles from Alien Biomes available? (Returns Boolean value or nil)
+  common.tree_stuff.AB_tiles = function()
+    common.entered_function()
+    local ret
+
+    if game then
+      ret = game.tile_prototypes["vegetation-green-grass-1"] and
+            game.tile_prototypes["vegetation-green-grass-3"] and true or false
+    elseif data then
+      ret = data.raw.tile["vegetation-green-grass-1"] and
+            data.raw.tile["vegetation-green-grass-3"] and true or false
+    end
+common.show("ret", ret)
+
+    common.entered_function("leave")
+    return ret
+  end
+
 
 
 
@@ -589,26 +610,6 @@ log("compound entities: " .. serpent.block(common.compound_entities))
   --                                  MOD SPECIFIC                                  --
   ------------------------------------------------------------------------------------
 
-  ------------------------------------------------------------------------------------
-  -- Are tiles from Alien Biomes available? (Returns true or false)
-  common.AB_tiles = function()
-
-    local ret
-
-    if game then
-      -- In data stage, place_as_tile is only changed to Alien Biomes tiles if
-      -- both "vegetation-green-grass-1" and "vegetation-green-grass-3" exist. Therefore,
-      -- we only need to check for one tile in the control stage.
-      ret = game.tile_prototypes["vegetation-green-grass-1"] and true or false
-    elseif data then
-      ret = data.raw.tile["vegetation-green-grass-1"] and
-            data.raw.tile["vegetation-green-grass-3"] and true or false
-    end
-
-    return ret
-  end
-
-  --~ ------------------------------------------------------------------------------------
   --~ -- Function for removing individual entities
   --~ common.remove_entity = function(entity)
     --~ if entity and entity.valid then
@@ -618,6 +619,89 @@ log("compound entities: " .. serpent.block(common.compound_entities))
 
   ------------------------------------------------------------------------------------
   -- Function for removing invalid prototypes from list of compound entities
+  --~ common.rebuild_compound_entity_list = function()
+    --~ common.entered_function()
+
+    --~ local ret = {}
+
+    --~ local base_prototype, h_prototype, base_name, base_type
+
+    --~ for c_name, c_data in pairs(common.compound_entities) do
+--~ common.show("base_name", c_name)
+--~ common.show("data", c_data)
+      --~ -- Is the base entity in the game? (Data and control stage!)
+      --~ base_name = c_data.base and c_data.base.name
+      --~ base_type = c_data.base and c_data.base.type
+
+      --~ base_prototype = game and game.entity_prototypes[base_name] or
+                        --~ data and base_type and base_name and
+                        --~ data.raw[base_type] and data.raw[base_type][base_name]
+      --~ if base_prototype then
+        --~ -- Make a copy of the compound-entity data
+        --~ common.writeDebug("%s exists -- copying data", {c_name})
+        --~ ret[c_name] = util.table.deepcopy(c_data)
+
+        --~ -- Check hidden entities
+        --~ for h_key, h_data in pairs(ret[c_name].hidden) do
+--~ common.writeDebug("h_key: %s\th_data: %s", {h_key, h_data})
+          --~ -- Control stage only
+          --~ if game then
+            --~ h_prototype = game.entity_prototypes[h_data.name]
+
+            --~ -- Remove hidden entities that don't exist from table
+            --~ if not h_prototype then
+              --~ common.writeDebug("Removing %s (%s) from list of hidden entities!", {h_data.name, h_key})
+              --~ ret[c_name].hidden[h_key] = nil
+            --~ -- If the hidden entity is an electric pole, store its wire reach!
+            --~ elseif h_data.type == "electric-pole" then
+              --~ ret[c_name].hidden[h_key].max_wire_distance = h_prototype.max_wire_distance
+              --~ common.writeDebug("Added wire_reach to data of %s (%s): %s",
+                                --~ {h_data.name, h_key, h_prototype.max_wire_distance})
+              --~ if h_prototype.max_circuit_wire_distance > 0 then
+                --~ ret[c_name].hidden[h_key].max_circuit_wire_distance = h_prototype.max_circuit_wire_distance
+                --~ common.writeDebug("Added circuit wire_reach to data of %s (%s): %s",
+                                  --~ {h_data.name, h_key, h_prototype.max_circuit_wire_distance})
+              --~ end
+            --~ end
+          --~ end
+        --~ end
+
+      --~ -- Clean table (Control stage only!)
+      --~ elseif game then
+        --~ local tab = c_data.tab
+        --~ if tab then
+          --~ -- Remove main table from global
+          --~ common.writeDebug("Removing %s (%s obsolete entries)", {tab, #tab})
+          --~ global[tab] = nil
+        --~ end
+
+        --~ -- If this compound entity requires additional tables in global, remove them!
+        --~ local related_tables = c_data.add_global_tables
+--~ common.show("related_tables", related_tables)
+        --~ if related_tables then
+          --~ for t, tab in ipairs(related_tables or {}) do
+            --~ common.writeDebug("Removing global[%s] (%s values)",
+                              --~ {tab, table_size(global[tab] or {})})
+            --~ global[tab] = nil
+          --~ end
+        --~ end
+
+        --~ -- If this compound entity requires additional values in global, remove them!
+        --~ local related_vars = c_data.add_global_values
+        --~ if related_vars then
+          --~ for var_name, value in pairs(related_vars or {}) do
+            --~ common.writeDebug("Removing global[%s] (was: %s)",
+                              --~ {var_name, global[var_name] or "nil"})
+            --~ global[var_name] = nil
+          --~ end
+        --~ end
+      --~ end
+    --~ end
+    --~ common.show("ret", ret)
+    --~ common.entered_function("leave")
+    --~ return ret
+  --~ end
+
   common.rebuild_compound_entity_list = function()
     common.entered_function()
 
@@ -625,7 +709,7 @@ log("compound entities: " .. serpent.block(common.compound_entities))
 
     local base_prototype, h_prototype, base_name, base_type
 
-    for c_name, c_data in pairs(common.compound_entities) do
+    for c_name, c_data in pairs(compound_entities.get_HE_list("complete")) do
 common.show("base_name", c_name)
 common.show("data", c_data)
       -- Is the base entity in the game? (Data and control stage!)
@@ -643,11 +727,6 @@ common.show("data", c_data)
         -- Check hidden entities
         for h_key, h_data in pairs(ret[c_name].hidden) do
 common.writeDebug("h_key: %s\th_data: %s", {h_key, h_data})
-          --~ -- Remove hidden entity if it doesn't exist
-          --~ if game and not game.entity_prototypes[h_data.name] then
-            --~ common.writeDebug("Removing %s (%s) from list of hidden entities!", {h_data.name, h_key})
-            --~ ret[c_name].hidden[h_key] = nil
-          --~ end
           -- Control stage only
           if game then
             h_prototype = game.entity_prototypes[h_data.name]
@@ -703,6 +782,7 @@ common.show("related_tables", related_tables)
     end
     common.show("ret", ret)
     common.entered_function("leave")
+    --~ return (game or data) and ret or common.rebuild_compound_entity_list
     return ret
   end
 

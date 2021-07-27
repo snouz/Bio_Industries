@@ -79,6 +79,10 @@ BI.additional_entities[setting].straight_rail_wood = {
     {
       type = "acid",
       percent = 60
+    },
+    {
+      type = "explosion",
+      percent = 40
     }
   },
   collision_box = {{-0.7, -0.8}, {0.7, 0.8}},
@@ -112,6 +116,10 @@ BI.additional_entities[setting].curved_rail_wood = {
     {
       type = "acid",
       percent = 60
+    },
+    {
+      type = "explosion",
+      percent = 40
     }
   },
   collision_box = {{-0.75, -0.55}, {0.75, 1.6}},
@@ -143,6 +151,20 @@ BI.additional_entities[setting].straight_rail_wood_bridge = {
   minable = {mining_time = 0.5, result = "bi-rail-wood-bridge"},
   max_health = 60,
   corpse = "straight-rail-wood-bridge-remnants",
+  resistances = {
+    {
+      type = "fire",
+      percent = 80
+    },
+    {
+      type = "acid",
+      percent = 60
+    },
+    {
+      type = "explosion",
+      percent = 40
+    }
+  },
   collision_box = {{-0.7, -0.8}, {0.7, 0.8}},
   selection_box = {{-0.7, -0.8}, {0.7, 0.8}},
   rail_category = "regular",
@@ -170,6 +192,20 @@ BI.additional_entities[setting].curved_rail_wood_bridge = {
   minable = {mining_time = 0.5, result = "bi-rail-wood-bridge", count = 4},
   max_health = 120,
   corpse = "curved-rail-wood-bridge-remnants",
+  resistances = {
+    {
+      type = "fire",
+      percent = 80
+    },
+    {
+      type = "acid",
+      percent = 60
+    },
+    {
+      type = "explosion",
+      percent = 40
+    }
+  },
   collision_box = {{-0.75, -0.55}, {0.75, 1.6}},
   secondary_collision_box = {{-0.65, -2.43}, {0.65, 2.43}},
   selection_box = {{-1.7, -0.8}, {1.7, 0.8}},
@@ -197,6 +233,20 @@ BI.additional_entities[setting].straight_rail_power = {
   minable = {mining_time = 0.5, result = "bi-rail-power"},
   max_health = 60,
   corpse = "straight-rail-remnants",
+  resistances = {
+    {
+      type = "fire",
+      percent = 100
+    },
+    {
+      type = "acid",
+      percent = 80
+    },
+    {
+      type = "explosion",
+      percent = 60
+    }
+  },
   collision_box = {{-0.7, -0.8}, {0.7, 0.8}},
   selection_box = {{-0.7, -0.8}, {0.7, 0.8}},
   rail_category = "regular",
@@ -222,6 +272,20 @@ BI.additional_entities[setting].curved_rail_power = {
   minable = {mining_time = 0.5, result = "bi-rail-power", count = 4},
   max_health = 120,
   corpse = "curved-rail-remnants",
+  resistances = {
+    {
+      type = "fire",
+      percent = 100
+    },
+    {
+      type = "acid",
+      percent = 80
+    },
+    {
+      type = "explosion",
+      percent = 60
+    }
+  },
   collision_box = {{-0.75, -0.55}, {0.75, 1.6}},
   secondary_collision_box = {{-0.65, -2.43}, {0.65, 2.43}},
   selection_box = {{-1.7, -0.8}, {1.7, 0.8}},
@@ -249,6 +313,14 @@ BI.additional_entities[setting].power_to_rail_pole = {
     {
       type = "fire",
       percent = 100
+    },
+    {
+      type = "acid",
+      percent = 80
+    },
+    {
+      type = "explosion",
+      percent = 60
     }
   },
   collision_box = {{-0.15, -0.15}, {0.15, 0.15}},
@@ -269,8 +341,7 @@ BI.additional_entities[setting].power_to_rail_pole = {
         height = 45,
         direction_count = 1,
         shift = util.by_pixel(0, -5),
-        hr_version =
-        {
+        hr_version = {
           filename = CNCTRPATH .. "hr_rail_power_connector.png",
           priority = "extra-high",
           width = 84,
@@ -288,8 +359,7 @@ BI.additional_entities[setting].power_to_rail_pole = {
         direction_count = 1,
         shift = util.by_pixel(8, -5),
         draw_as_shadow = true,
-        hr_version =
-        {
+        hr_version = {
           filename = CNCTRPATH .. "hr_rail_power_connector_shadow.png",
           priority = "extra-high",
           width = 84,

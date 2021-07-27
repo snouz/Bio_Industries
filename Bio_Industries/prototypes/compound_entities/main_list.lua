@@ -192,7 +192,7 @@ ret.compound_entities = {
         --~ type = ret.HE_map.lamp,
       },
     },
-    add_global_tables = {"bi_arboretum_radar_table", "bi_arboretum_recipe_table"},
+    add_global_tables = {"bi_arboretum_radar_table"},
     new_base_name = "bi-arboretum",
   },
   -- Built from blueprint

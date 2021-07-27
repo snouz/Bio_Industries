@@ -284,22 +284,26 @@ require("prototypes.mod_compatibility.updates.updates_triggerSubgroups")
 ------------------------------------------------------------------------------------
 BioInd.BI_add_unlocks()
 
+
 ------------------------------------------------------------------------------------
 --                                 Menu Simulations                               --
 ------------------------------------------------------------------------------------
-
+--~ data.raw["utility-constants"]["default"].main_menu_simulations = {}
 local menu_simulations = require("__Bio_Industries__/menu-simulations/menu-simulations")
-if data.raw["utility-constants"]["default"].main_menu_simulations then
-	--data.raw["utility-constants"]["default"].main_menu_simulations = {}
-	data.raw["utility-constants"]["default"].main_menu_simulations.bioindustries_1 = menu_simulations.bioindustries_1
-	if settings.startup["BI_Power_Production"].value then
-		data.raw["utility-constants"]["default"].main_menu_simulations.bioindustries_2 = menu_simulations.bioindustries_2
-	end
-	if settings.startup["BI_Bio_Garden"].value then
-		data.raw["utility-constants"]["default"].main_menu_simulations.bioindustries_3 = menu_simulations.bioindustries_3
-	end
+local game_simulations = data.raw["utility-constants"]["default"].main_menu_simulations
 
+if game_simulations then
+  --~ data.raw["utility-constants"]["default"].main_menu_simulations = {}
+  game_simulations.bioindustries_1 = menu_simulations.bioindustries_1
+  if settings.startup["BI_Power_Production"].value then
+    game_simulations.bioindustries_2 = menu_simulations.bioindustries_2
+  end
+  if settings.startup["BI_Bio_Garden"].value then
+    game_simulations.bioindustries_3 = menu_simulations.bioindustries_3
+  end
 end
+
+
 ------------------------------------------------------------------------------------
 --                                    END OF FILE                                 --
 ------------------------------------------------------------------------------------

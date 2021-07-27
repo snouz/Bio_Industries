@@ -26,7 +26,7 @@ local fertilizer = items["fertilizer"]
 local fertilizer_adv = items["bi-adv-fertilizer"]
 
 -- Even though the mod is active, we should make sure its tiles exist!
-local AlienBiomes = tiles["vegetation-green-grass-3"] and tiles["vegetation-green-grass-1"] and true
+local AlienBiomes = BioInd.tree_stuff.AB_tiles()
 
 
 ------------------------------------------------------------------------------------

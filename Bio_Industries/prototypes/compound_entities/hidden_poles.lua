@@ -59,10 +59,11 @@ h_entity.radius_visualisation_picture = BioInd.is_debug and
 BI.make_hidden_entity_list(h_key)
 
 -- Add entities for Musk floor?
+local Musk_name
 if BI.Settings.BI_Power_Production then
   -- Musk floor is not an entity, but a tile, so we don't have a compound-entity table
   -- for it and must add it manually!
-  local Musk_name = BioInd.musk_floor_pole_name
+  Musk_name = BioInd.musk_floor_pole_name
   BI.hidden_entities.types[h_key][Musk_name] = "bi-solar-mat"
 end
 

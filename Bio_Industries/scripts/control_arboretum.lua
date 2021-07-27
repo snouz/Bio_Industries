@@ -71,7 +71,7 @@ end
 local function check_ingredients(arboretum)
   BioInd.entered_function({arboretum})
   local recipe = arboretum.get_recipe()
-  local need = recipe and global.bi_arboretum_recipe_table[recipe.name]
+  local need = recipe and BioInd.tree_stuff.arboretum_recipe_table[recipe.name]
 
   local function check(need, have)
     for name, amount in pairs(need or {}) do
@@ -158,9 +158,9 @@ BI_arboretum.check_arboretum = function(ArboretumTable, event)
 
   -- 'AlienBiomes' is a bool value -- we don't want to read it again if it's false,
   -- but only if it hasn't been set yet!
-  AB = global.compatible.AlienBiomes
-  terrain_name_g1 = terrain_name_g1 or (AB and "vegetation-green-grass-1" or "grass-1")
-  terrain_name_g3 = terrain_name_g3 or (AB and "vegetation-green-grass-3" or "grass-3")
+  AB = BioInd.tree_stuff.AlienBiomes
+  terrain_name_g1 = AB and "vegetation-green-grass-1" or "grass-1"
+  terrain_name_g3 = AB and "vegetation-green-grass-3" or "grass-3"
 
 
   local check = check_ingredients(arboretum)
@@ -177,7 +177,7 @@ BI_arboretum.check_arboretum = function(ArboretumTable, event)
 
     -- Just plant a tree and hope the ground is fertile!
     if recipe_name == "bi-arboretum-r1" then
-      BioInd.writeDebug(tostring(recipe_name) .. ": Just plant a tree")
+      BioInd.writeDebug("%s: Just plant a tree", {recipe_name})
 
       --- 10 attempts to find a random spot to plant a tree and/or change terrain
       for k = 1, 10 do
@@ -200,7 +200,7 @@ BI_arboretum.check_arboretum = function(ArboretumTable, event)
       end
     -- Fertilize the ground with normal fertilizer. Ignore tiles listed in Terrain_Check_1!
     elseif recipe_name == "bi-arboretum-r2" then
-      BioInd.writeDebug(tostring(recipe_name) .. ": Just change terrain to grass-3 (basic)")
+      BioInd.writeDebug("%s: Just change terrain to %s (basic)", {recipe_name, terrain_name_g3})
 
       for k = 1, 10 do --- 10 attempts to find a random spot to plant a tree and / or change terrain
         new_position = get_new_position(pos)
@@ -219,7 +219,7 @@ BI_arboretum.check_arboretum = function(ArboretumTable, event)
       end
     -- Fertilize the ground with advanced fertilizer. Ignore tiles listed in Terrain_Check_2!
     elseif recipe_name == "bi-arboretum-r3" then
-      BioInd.writeDebug(tostring(recipe_name) .. ": Just change terrain to grass-1 (advanced)")
+      BioInd.writeDebug("%s: Just change terrain to %s (advanced)", {recipe_name, terrain_name_g1})
 
       for k = 1, 10 do --- 10 attempts to find a random spot to plant a tree and / or change terrain
         new_position = get_new_position(pos)
@@ -238,7 +238,7 @@ BI_arboretum.check_arboretum = function(ArboretumTable, event)
     -- Fertilize the ground with normal fertilizer. Ignore tiles listed in Terrain_Check_1!
     -- Also plant a tree.
     elseif recipe_name == "bi-arboretum-r4" then
-      BioInd.writeDebug(tostring(recipe_name) .. ": Plant Tree AND change the terrain to grass-3 (basic)")
+      BioInd.writeDebug("%s: Plant Tree AND change the terrain to %s (basic)", {recipe_name, terrain_name_g3})
 
       for k = 1, 10 do --- 10 attempts to find a random spot to plant a tree and / or change terrain
         new_position = get_new_position(pos)
@@ -271,7 +271,7 @@ BI_arboretum.check_arboretum = function(ArboretumTable, event)
     -- Fertilize the ground with advanced fertilizer. Ignore tiles listed in Terrain_Check_2!
     -- Also plant a tree.
     elseif recipe_name == "bi-arboretum-r5" then
-      BioInd.writeDebug(tostring(recipe_name) .. ": Plant Tree and change the terrain to grass-1 (advanced)")
+      BioInd.writeDebug("%s: Plant Tree and change the terrain to %s (advanced)",{recipe_name, terrain_name_g1})
 
       for k = 1, 10 do --- 10 attempts to find a random spot to plant a tree and / or change terrain
         new_position = get_new_position(pos)

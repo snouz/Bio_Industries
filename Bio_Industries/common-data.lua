@@ -168,7 +168,9 @@ common.make_icons = function(args)
       return _type and (data.raw[_type][it_name] or data.raw[_type]["bi-" .. it_name]) or nil
     end
 
-    if addbase then table.insert(icontable, emptylayer) end
+    if addbase then 
+      table.insert(icontable, emptylayer) 
+    end
     if customicon_down then table.insert(icontable, {icon = customicon_down, icon_size = 64, mipmaps = 4, shift = {0,0}}) end
     for k=1, #it do
       local _item = it[k].ite or nil
@@ -223,11 +225,17 @@ common.make_icons = function(args)
       end
     end
     --rescale first layer
-    if not icontable[1] then table.insert(icontable, emptylayer) end
+    if not icontable[1] then 
+      table.insert(icontable, emptylayer) 
+    end
     icontable[1].scale = (32 / (icontable[1].icon_size or 64))
     scalefirstlayer = icontable[1].scale or 0.5
-    if customicon_up then table.insert(icontable, {icon = customicon_up, icon_size = 64, mipmaps = 4, scale = scalefirstlayer, shift = {0,0}}) end
-    if custom_topright then table.insert(icontable, {icon = custom_topright, icon_size = 64, mipmaps = 4, scale = (scalefirstlayer * 0.4), shift = {10, -10}}) end
+    if customicon_up then 
+      table.insert(icontable, {icon = customicon_up, icon_size = 64, mipmaps = 4, scale = scalefirstlayer, shift = {0,0}}) 
+    end
+    if custom_topright then 
+      table.insert(icontable, {icon = custom_topright, icon_size = 64, mipmaps = 4, scale = (scalefirstlayer * 0.4), shift = {10, -10}}) 
+    end
 
 
     common.entered_function("leave")

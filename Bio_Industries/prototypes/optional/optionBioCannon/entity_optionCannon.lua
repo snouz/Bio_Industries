@@ -392,6 +392,7 @@ BI.additional_entities[setting].bio_cannon = {
     range = 120,
     min_range = 20,
     projectile_creation_distance = 1.8,
+    projectile_center = {0,-4.5},
     action ={}
   },
   attack_target_mask = { BI.additional_categories.Bio_Cannon.trigger_target.name },

@@ -16,7 +16,7 @@ License:  CC BY-SA 4.0
 ]]
 
 -- Don't create prototypes for trees in this table!
-local ignore_trees = BioInd.get_tree_ignore_list()
+local ignore_trees = BioInd.tree_stuff.get_tree_ignore_list()
 BioInd.show("Ignoring these trees", ignore_trees)
 
 local COLLISION_BOX = {{-0.1, -0.1}, {0.1, 0.1}}

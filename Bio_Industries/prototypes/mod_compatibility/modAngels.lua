@@ -7,10 +7,10 @@ if not BioInd.check_mods({
   "angelsrefining",
   "angelssmelting",
 }) then
-  BioInd.nothing_to_do("*")
+  BioInd.debugging.nothing_to_do("*")
   return
 else
-  BioInd.entered_file()
+  BioInd.debugging.entered_file()
 end
 
 
@@ -31,10 +31,24 @@ local recipes = data.raw.recipe
 if fluids["water-purified"] and
     fluids["water-yellow-waste"] and
     fluids["water-mineralized"] and
-    BI.additional_items.BI_Coal_Processing and
-      items[BI.additional_items.BI_Coal_Processing.wood_charcoal.name] and
-     BI.additional_items.BI_Trigger_Crushed_Stone_Create and
-      items[BI.additional_items.BI_Trigger_Crushed_Stone_Create.crushed_stone.name] then
+    (
+      --~ (BI.additional_items.BI_Trigger_Wood_Charcoal_Create and
+      --~ BI.additional_items.BI_Trigger_Wood_Charcoal_Create.wood_charcoal and
+      --~ items[BI.additional_items.BI_Trigger_Wood_Charcoal_Create.wood_charcoal.name]) or
+      --~ items["charcoal"]
+      (BI.additional_items.BI_Trigger_Wood_Charcoal_Create.wood_charcoal and
+      BI.additional_items.BI_Trigger_Wood_Charcoal_Create.wood_charcoal and
+      items[BI.additional_items.BI_Trigger_Wood_Charcoal_Create.wood_charcoal.name])
+    ) and
+    (
+      --~ (BI.additional_items.BI_Trigger_Crushed_Stone_Create and
+        --~ BI.additional_items.BI_Trigger_Crushed_Stone_Create.crushed_stone and
+        --~ items[BI.additional_items.BI_Trigger_Crushed_Stone_Create.crushed_stone.name]) or
+        --~ items["gravel"]
+      (BI.additional_items.BI_Trigger_Crushed_Stone_Create and
+        BI.additional_items.BI_Trigger_Crushed_Stone_Create.crushed_stone and
+        items[BI.additional_items.BI_Trigger_Crushed_Stone_Create.crushed_stone.name])
+    ) then
 
   -- "angelsbioprocessing" will move the unlock of "water-mineralized" from
   -- the "water-treatment" tech to "bio-processing-green", so we must move our recipe
@@ -68,11 +82,11 @@ end
     --~ -- Adjust result
     --~ recipe.result = "solid-sand"
     --~ recipe.result_count = 5
-    --~ BioInd.modified_msg("result", recipe)
+    --~ BioInd.debugging.modified_msg("result", recipe)
 
     --~ -- Adjust localization
     --~ recipe.localised_name = {"recipe-name.bi-sand", {"item-name.solid-sand"}}
-    --~ BioInd.modified_msg("localization", recipe)
+    --~ BioInd.debugging.modified_msg("localization", recipe)
   --~ end
 --~ end
 
@@ -90,4 +104,4 @@ end
 ------------------------------------------------------------------------------------
 --                                    END OF FILE                                 --
 ------------------------------------------------------------------------------------
-BioInd.entered_file("leave")
+BioInd.debugging.entered_file("leave")

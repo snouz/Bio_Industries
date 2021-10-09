@@ -1,4 +1,4 @@
-BioInd.entered_file()
+BioInd.debugging.entered_file()
 
 
 ------------------------------------------------------------------------------------
@@ -22,7 +22,7 @@ local recipes = data.raw.recipe
   --~ BioInd.create_stuff(BI.additional_items.ash)
 --~ end
 if items["ash"] then
-  BioInd.nothing_to_do()
+  BioInd.debugging.nothing_to_do()
 
   --~ -- Moved to prototypes/mod_compatibility/updates/updates_modPyanodon.lua!
   --~ if mods["pycoalprocessing"] then              -- replace py's ash with ours.
@@ -41,15 +41,15 @@ end
 --~ if not items[bi_ash] then
 
   --~ thxbob.lib.recipe.replace_ingredient_in_all(BI.additional_items.ash, "ash")
---~ BioInd.writeDebug("Replaced ingredient \"%s\" with \"ash\" in all recipes", {BI.additional_items.ash.name})
+--~ BioInd.debugging.writeDebug("Replaced ingredient \"%s\" with \"ash\" in all recipes", {BI.additional_items.ash.name})
   --~ thxbob.lib.recipe.replace_result_in_all(BI.additional_items.ash, "ash")
---~ BioInd.writeDebug("Replaced result \"%s\" with \"ash\" in all recipes", {BI.additional_items.ash.name})
+--~ BioInd.debugging.writeDebug("Replaced result \"%s\" with \"ash\" in all recipes", {BI.additional_items.ash.name})
 
 --~ end
 
---~ BioInd.show("recipes[BI.default_recipes.ash_1.name]", recipes[BI.default_recipes.ash_1.name])
+--~ BioInd.debugging.show("recipes[BI.default_recipes.ash_1.name]", recipes[BI.default_recipes.ash_1.name])
 --~ error("Test!")
 ------------------------------------------------------------------------------------
 --                                    END OF FILE                                 --
 ------------------------------------------------------------------------------------
-BioInd.entered_file("leave")
+BioInd.debugging.entered_file("leave")

@@ -1,7 +1,7 @@
 ------------------------------------------------------------------------------------
 --                     Add resistances to our hidden entities                     --
 ------------------------------------------------------------------------------------
-BioInd.entered_file()
+BioInd.debugging.entered_file()
 
 
 ------------------------------------------------------------------------------------
@@ -25,9 +25,9 @@ for h_key, h_names in pairs(BI.hidden_entities.types) do
   -- use in compound_entities.hidden!)
   h_type = BioInd.HE_map[h_key]
   for h_name, h in pairs(h_names) do
---~ -- BioInd.writeDebug("h_type: %s\th_name: %s\th:%s", {h_type, h_name, h})
+--~ -- BioInd.debugging.writeDebug("h_type: %s\th_name: %s\th:%s", {h_type, h_name, h})
     data.raw[h_type][h_name].resistances = resistances
-    BioInd.writeDebug("Added resistances to %s (%s): %s",
+    BioInd.debugging.writeDebug("Added resistances to %s (%s): %s",
                       {h_name, h_type, data.raw[h_type][h_name].resistances})
   end
 end
@@ -47,7 +47,29 @@ if b and r then
 
   if resistances then
     data.raw[r.type][r.name].resistances = table.deepcopy(resistances)
-    BioInd.writeDebug("Copied resistances from %s to %s!", {b.name, r.name})
+    BioInd.debugging.writeDebug("Copied resistances from %s to %s!", {b.name, r.name})
+  end
+end
+
+------------------------------------------------------------------------------------
+-- Adjust resistances for receiving end of power-to-rail connectors. Like the radar
+-- of terraformers, it is a visible entity; unlike it, it's not directly a part of
+-- the compount entity, but will only be placed when needed by a power-to-rail
+-- connector.
+compound = BioInd.compound_entities["bi-straight-rail-power"]
+b = compound and compound.base
+local c = BI.additional_entities.BI_Rails and
+            BI.additional_entities.BI_Rails.power_to_rail_socket
+
+
+if b and c and data.raw[c.type][c.name] then
+  local resistances = data.raw[b.type] and
+                        data.raw[b.type][b.name] and
+                        data.raw[b.type][b.name].resistances
+
+  if resistances then
+    data.raw[c.type][c.name].resistances = table.deepcopy(resistances)
+    BioInd.debugging.writeDebug("Copied resistances from %s to %s!", {b.name, c.name})
   end
 end
 
@@ -55,4 +77,4 @@ end
 ------------------------------------------------------------------------------------
 --                                    END OF FILE                                 --
 ------------------------------------------------------------------------------------
-BioInd.entered_file("leave")
+BioInd.debugging.entered_file("leave")

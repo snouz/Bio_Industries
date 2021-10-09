@@ -1,3 +1,11 @@
+BioInd = require('common')('Bio_Industries')
+BioInd.debugging.entered_file()
+
+
+
+erlib_enable_plugin('on_ticked_action')
+
+
 local setting_list = {}
 
 ------------------------------------------------------------------------------------
@@ -109,6 +117,7 @@ setting_list.BI_Pollution_Detector = {
   order = "a[enable]-e-[utility]-[BI_Pollution_Detector]",
 }
 
+--~ BioInd.debugging.writeDebug("Read data for default settings to enable technologies.")
 
 ------------------------------------------------------------------------------------
 --                                   Game tweaks                                  --
@@ -201,6 +210,7 @@ setting_list.BI_Game_Tweaks_Bot = {
   order = "b[tweaks]-c[BI_Game_Tweaks_Bot]",
 }
 
+--~ BioInd.debugging.writeDebug("Read data for default settings for game tweaks.")
 
 ------------------------------------------------------------------------------------
 --                                    Debugging                                   --
@@ -221,6 +231,8 @@ setting_list.BI_Debug_To_Game = {
   order = "c[debugging]-c2[BI_Debugging]",
 }
 
+--~ BioInd.debugging.writeDebug("Read data for default debugging settings.")
+
 -- Compatibility with other mods (optional)
 -- Industrial Revolution + AAI Industry
 if not (mods["IndustrialRevolution"] or mods["aai-industry"]) then
@@ -238,6 +250,9 @@ if not (mods["IndustrialRevolution"] or mods["aai-industry"]) then
     default_value = true,
     order = "a[enable]-b-[resources]-[BI_Rubber]",
   }
+
+  --~ BioInd.debugging.writeDebug("Read data for settings depending on \"Industrial Revolution\" and \"aai-industry\" being absent.")
+
 end
 
 -- Krastorio 2 + Industrial Revolution
@@ -249,6 +264,8 @@ if not (mods["Krastorio2"] or mods["IndustrialRevolution"]) then
     default_value = true,
     order = "b[tweaks]-b-[production]-[BI_Game_Tweaks_Production_Science]",
   }
+  --~ BioInd.debugging.writeDebug("Read data for settings depending on \"Industrial Revolution\" and \"Krastorio2\" being absent.")
+
 end
 
 -- Wood Gasification (Don't duplicate what's already there!)
@@ -266,6 +283,9 @@ if not mods["Wood_Gasification"] then
     default_value = true,
     order = "a[enable]-b-[resources]-[BI_Wood_Gasification]",
   }
+
+  --~ BioInd.debugging.writeDebug("Read data for settings depending on \"Wood_Gasification\" being absent.")
+
 end
 
 -- Lua API global Variable Viewer (gvv)
@@ -283,11 +303,15 @@ if mods["gvv"] then
     default_value = false,
     order = "c[debugging]-c3[BI_Debug_gvv]",
   }
+
+  --~ BioInd.debugging.writeDebug("Read data for setting depending on \"gvv\".")
+
 end
 
 for name, setting in pairs(setting_list) do
   data:extend({setting})
-  --~ log("Added setting " .. setting.name .. "\tDefault value: " .. tostring(setting.default_value) .. "\tType: " .. setting.setting_type)
+  BioInd.debugging.writeDebug("Added setting \"%s\"\tDefault value: %s\tType: %s",
+                    {setting.name, setting.default_value, setting.setting_type})
 end
 
 --[[
@@ -369,3 +393,5 @@ Using in CONTROL.lua and in other code for reading:
     maximum_value = 216000, -- 1h
   },
 })]]--
+
+BioInd.debugging.entered_file("leave")

@@ -1,7 +1,7 @@
 ------------------------------------------------------------------------------------
---    Data for some recipes that will be needed if one of several mods is used.   --
+--   Data for some entities that will be needed if one of several mods is used.   --
 ------------------------------------------------------------------------------------
-BioInd.entered_file()
+BioInd.debugging.entered_file()
 
 
 BI.additional_entities = BI.additional_entities or {}
@@ -208,10 +208,9 @@ BI.additional_entities.BI_Trigger_Woodfloor.wood_floor = {
 
 
 -- Status report
-BioInd.readdata_msg(BI.additional_entities, mod_compatibility,
-                    "additional entities", "compatibility with other mods")
+BioInd.debugging.readdata_msg(BI.additional_entities, triggers, "additional entities", "trigger")
 
 ------------------------------------------------------------------------------------
 --                                    END OF FILE                                 --
 ------------------------------------------------------------------------------------
-BioInd.entered_file("leave")
+BioInd.debugging.entered_file("leave")

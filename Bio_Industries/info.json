@@ -1,6 +1,6 @@
 {
   "name": "Bio_Industries",
-  "version": "1.1.112",
+  "version": "1.1.114",
   "factorio_version": "1.1",
   "title": "Bio Industries",
   "author": "TheSAguy, Pi-C, snouz",
@@ -17,6 +17,7 @@
     "(?) DeadlockCrating",
     "(?) FARL",
     "(?) IndustrialRevolution",
+    "(?) IndustrialRevolutionStacking",
     "(?) Krastorio2",
     "(?) Transport_Drones",
     "(?) alien-biomes",

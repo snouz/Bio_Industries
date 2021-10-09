@@ -10,9 +10,15 @@ function BI_Functions.lib.allow_productivity(recipe_name)
 end
 
 
+function BI_Functions.lib.check_difficulty(difficulty)
+  if difficulty ~= "" and difficulty ~= "normal" and difficulty ~= "expensive" then
+    error(string.format("%s is not a valid difficulty!", difficulty))
+  end
+end
+
 -- Returns table with all results for a difficulty, or nil
 function BI_Functions.lib.get_difficulty_recipe_results(recipe_in, difficulty)
---~ BioInd.entered_function()
+--~ BioInd.debugging.entered_function()
   -- Sanitize arguments
   if difficulty ~= "" and difficulty ~= "normal" and difficulty ~= "expensive" then
     error(string.format("%s is not a valid difficulty!", difficulty))
@@ -21,8 +27,8 @@ function BI_Functions.lib.get_difficulty_recipe_results(recipe_in, difficulty)
                   data.raw.recipe[recipe_in.name] or
                   data.raw.recipe[recipe_in]
   local ret = {}
---~ BioInd.show("recipe", recipe and recipe.name or "nil")
---~ BioInd.show("difficulty", difficulty == "" and "no difficulty" or difficulty)
+--~ BioInd.debugging.show("recipe", recipe and recipe.name or "nil")
+--~ BioInd.debugging.show("difficulty", difficulty == "" and "no difficulty" or difficulty)
 
   if recipe then
     local name, amount, amount_min, amount_max, catalyst_amount, probability
@@ -41,7 +47,7 @@ function BI_Functions.lib.get_difficulty_recipe_results(recipe_in, difficulty)
       results = recipe[difficulty].results
       crafting_time = recipe[difficulty].energy_required or 0.5
     end
---~ BioInd.writeDebug("results for %s: %s", {
+--~ BioInd.debugging.writeDebug("results for %s: %s", {
   --~ difficulty == "" and "no difficulty" or "difficulty " .. difficulty, results
 --~ })
     -- Cumulate results in case the same result is used several times
@@ -63,7 +69,7 @@ function BI_Functions.lib.get_difficulty_recipe_results(recipe_in, difficulty)
           cnt                   = 0,
           min_max_cnt           = 0
         }
---~ BioInd.writeDebug("ret[\"%s\"]: %s", {name, ret[name]})
+--~ BioInd.debugging.writeDebug("ret[\"%s\"]: %s", {name, ret[name]})
         -- amount has precedence over amount_min/amount_max!
         if amount and amount > 0 then
           ret[name].amount                = ret[name].amount + amount
@@ -80,7 +86,7 @@ function BI_Functions.lib.get_difficulty_recipe_results(recipe_in, difficulty)
             elseif not amount_min then
               amount_min = amount_max
             end
---~ BioInd.writeDebug("Result: %s\nname: %s\tamount: %s\tamount_min: %s\tamount_max: %s",
+--~ BioInd.debugging.writeDebug("Result: %s\nname: %s\tamount: %s\tamount_min: %s\tamount_max: %s",
                   --~ {result, name, amount or "nil", amount_min or "nil", amount_max or "nil"})
 
             ret[name].amount_min      = amount_min and (ret[name].amount_min + amount_min) or
@@ -103,20 +109,20 @@ function BI_Functions.lib.get_difficulty_recipe_results(recipe_in, difficulty)
 
     -- Prepare the final list
     for r, result in pairs(ret) do
---~ BioInd.writeDebug("Result %s: %s", {r, result}, "line")
+--~ BioInd.debugging.writeDebug("Result %s: %s", {r, result}, "line")
       -- Multiplication is faster than division!
---~ BioInd.show("result.cnt", result.cnt)
---~ BioInd.show("result.min_max_cnt", result.min_max_cnt)
+--~ BioInd.debugging.show("result.cnt", result.cnt)
+--~ BioInd.debugging.show("result.min_max_cnt", result.min_max_cnt)
       result.cnt = result.cnt > 0 and 1/result.cnt or 1
       result.min_max_cnt = result.min_max_cnt > 0 and 1/result.min_max_cnt
---~ BioInd.show("result.cnt", result.cnt)
---~ BioInd.show("result.min_max_cnt", result.min_max_cnt)
+--~ BioInd.debugging.show("result.cnt", result.cnt)
+--~ BioInd.debugging.show("result.min_max_cnt", result.min_max_cnt)
 
       result.amount             = tonumber(result.amount) and (result.amount > 0) and
                                     result.amount or nil
---~ BioInd.show("result.amount", result.amount)
---~ BioInd.show("result.amount_min", result.amount_min)
---~ BioInd.show("result.amount_max", result.amount_max)
+--~ BioInd.debugging.show("result.amount", result.amount)
+--~ BioInd.debugging.show("result.amount_min", result.amount_min)
+--~ BioInd.debugging.show("result.amount_max", result.amount_max)
 
       -- Round up to next full number for values with x > y.5
       -- (Either both or none of amount_min and amount_max exist!)
@@ -140,8 +146,8 @@ function BI_Functions.lib.get_difficulty_recipe_results(recipe_in, difficulty)
                               ((result.amount_min or 0) + (result.amount_max or 0)) * 0.5 / crafting_time
     end
   end
---~ BioInd.writeDebug("ret: %s", {ret}, "line")
---~ BioInd.entered_function("leave")
+--~ BioInd.debugging.writeDebug("ret: %s", {ret}, "line")
+--~ BioInd.debugging.entered_function("leave")
   return ret
 end
 
@@ -149,28 +155,28 @@ end
 -- Returns table with all results for "normal", "expensive", or no difficulty
 -- (in that order) or nil
 function BI_Functions.lib.get_recipe_results(recipe_in)
---~ BioInd.entered_function()
+--~ BioInd.debugging.entered_function()
   local recipe = type(recipe_in) == "string" and data.raw.recipe[recipe_in] or
             type(recipe_in) == "table" and recipe_in.type == "recipe" and recipe_in.name and
             data.raw.recipe[recipe_in.name]
 
   local ret
---~ BioInd.writeDebug("Get results for recipe %s", {recipe and recipe.name or "nil"})
+--~ BioInd.debugging.writeDebug("Get results for recipe %s", {recipe and recipe.name or "nil"})
   if recipe then
     -- If difficulty doesn't exist, it will be created from the raw recipe, so we don't
     -- need to check recipe.results!
     ret = BI_Functions.lib.get_difficulty_recipe_results(recipe, "normal") or
           BI_Functions.lib.get_difficulty_recipe_results(recipe, "expensive")
   end
---~ BioInd.writeDebug("ret: %s", {ret}, "line")
---~ BioInd.entered_function("leave")
+--~ BioInd.debugging.writeDebug("ret: %s", {ret}, "line")
+--~ BioInd.debugging.entered_function("leave")
   return ret
 end
 
 
 -- Returns table with accumulated amount data for requested result or nil
 function BI_Functions.lib.recipe_has_result(recipe_in, result_name)
---~ BioInd.entered_function()
+--~ BioInd.debugging.entered_function()
   if type(result_name) ~= "string" then
     error(string.format("%s is not a valid result name!", result_name))
   end
@@ -180,13 +186,13 @@ function BI_Functions.lib.recipe_has_result(recipe_in, result_name)
             data.raw.recipe[recipe_in.name]
 
   local ret
---~ BioInd.writeDebug("Checking recipe %s for result %s", {recipe.name, result_name})
+--~ BioInd.debugging.writeDebug("Checking recipe %s for result %s", {recipe.name, result_name})
   if recipe then
     ret = BI_Functions.lib.get_recipe_results(recipe)
---~ BioInd.writeDebug("get difficulty results: %s", {ret})
+--~ BioInd.debugging.writeDebug("get difficulty results: %s", {ret})
   end
---~ BioInd.writeDebug("ret: %s", {ret and ret[result_name] or "nil"}, "line")
---~ BioInd.entered_function("leave")
+--~ BioInd.debugging.writeDebug("ret: %s", {ret and ret[result_name] or "nil"}, "line")
+--~ BioInd.debugging.entered_function("leave")
   return ret and ret[result_name]
 end
 
@@ -197,7 +203,7 @@ end
 --                                  Get property                                  --
 ------------------------------------------------------------------------------------
 function BI_Functions.lib.recipe_get_difficulty_property(recipe_in, difficulty, property)
-BioInd.entered_function({difficulty, property})
+BioInd.debugging.entered_function({difficulty, property})
   -- Sanitize arguments
   if difficulty ~= "" and difficulty ~= "normal" and difficulty ~= "expensive" then
     error(string.format("%s is not a valid difficulty!", difficulty))
@@ -205,53 +211,53 @@ BioInd.entered_function({difficulty, property})
   local recipe = type(recipe_in) == "table" and recipe_in.type == "recipe" and recipe_in.name and
                   data.raw.recipe[recipe_in.name] or
                   data.raw.recipe[recipe_in]
---~ BioInd.show("recipe exists", recipe ~= nil)
+--~ BioInd.debugging.show("recipe exists", recipe ~= nil)
 
   local ret
   if recipe and property then
     if difficulty == "" then
---~ BioInd.writeDebug("No difficulty!")
+--~ BioInd.debugging.writeDebug("No difficulty!")
       ret = recipe[property]
---~ BioInd.show("Added result to raw recipe", recipe.results)
+--~ BioInd.debugging.show("Added result to raw recipe", recipe.results)
     else
---~ BioInd.show("Difficulty", difficulty)
---~ BioInd.show("Difficulty data", recipe[difficulty])
+--~ BioInd.debugging.show("Difficulty", difficulty)
+--~ BioInd.debugging.show("Difficulty data", recipe[difficulty])
       if not recipe[difficulty] then
---~ BioInd.writeDebug("Need to create difficulty %s!", {difficulty})
+--~ BioInd.debugging.writeDebug("Need to create difficulty %s!", {difficulty})
         thxbob.lib.recipe.difficulty_split(recipe)
       end
---~ BioInd.show("New difficulty data", recipe[difficulty])
+--~ BioInd.debugging.show("New difficulty data", recipe[difficulty])
       ret = recipe[difficulty][property]
     end
   else
     if not recipe then
-      BioInd.writeDebug("Recipe %s does not exist!", {recipe_in})
+      BioInd.debugging.writeDebug("Recipe %s does not exist!", {recipe_in})
     end
     if not property then
-      BioInd.writeDebug("Missing property!")
+      BioInd.debugging.writeDebug("Missing property!")
     end
   end
---~ BioInd.show("Return", ret or "nil")
---~ BioInd.entered_function("leave")
+--~ BioInd.debugging.show("Return", ret or "nil")
+--~ BioInd.debugging.entered_function("leave")
   return ret
 end
 
 
 function BI_Functions.lib.recipe_get_property(recipe_in, property)
-BioInd.entered_function({property})
+BioInd.debugging.entered_function({property})
   local recipe = type(recipe_in) == "string" and data.raw.recipe[recipe_in] or
             type(recipe_in) == "table" and recipe_in.type == "recipe" and recipe_in.name and
             data.raw.recipe[recipe_in.name]
 
   local ret
---~ BioInd.writeDebug("Get property \"%s\" of  recipe %s", {property, recipe and recipe.name or "nil"})
+--~ BioInd.debugging.writeDebug("Get property \"%s\" of  recipe %s", {property, recipe and recipe.name or "nil"})
   if recipe then
     ret = BI_Functions.lib.recipe_get_difficulty_property(recipe, "", property) or
           BI_Functions.lib.recipe_get_difficulty_property(recipe, "normal", property) or
           BI_Functions.lib.recipe_get_difficulty_property(recipe, "expensive", property)
   end
---~ BioInd.show("Return", ret)
-BioInd.entered_function("leave")
+--~ BioInd.debugging.show("Return", ret)
+BioInd.debugging.entered_function("leave")
   return ret
 end
 
@@ -260,7 +266,7 @@ end
 
 
 function BI_Functions.lib.get_difficulty_recipe_ingredients(recipe_in, difficulty)
-BioInd.entered_function()
+BioInd.debugging.entered_function()
   -- Sanitize arguments
   if difficulty ~= "" and difficulty ~= "normal" and difficulty ~= "expensive" then
     error(string.format("%s is not a valid difficulty!", difficulty))
@@ -283,7 +289,7 @@ BioInd.entered_function()
 
     local name, amount, t_min, t_max
     for i, ingredient in ipairs(ingredients or {}) do
---~ BioInd.writeDebug("Ingredient %s: %s", {i, ingredient}, "line")
+--~ BioInd.debugging.writeDebug("Ingredient %s: %s", {i, ingredient}, "line")
       name = ingredient.name or ingredient[1]
       amount = ingredient.amount or ingredient[2]
       if not (name and amount) then
@@ -304,8 +310,8 @@ BioInd.entered_function()
       }
       ret[name].amount = ret[name].amount + amount
       ret[name].catalyst_amount = ret[name].catalyst_amount + (ingredient.catalyst_amount or 0)
---~ BioInd.show("amount", amount)
---~ BioInd.show("catalyst_amount", catalyst_amount)
+--~ BioInd.debugging.show("amount", amount)
+--~ BioInd.debugging.show("catalyst_amount", catalyst_amount)
 
       ret[name].cnt = ret[name].cnt + 1
 
@@ -380,14 +386,14 @@ BioInd.entered_function()
       i_data.cnt, i_data.min_max_cnt = nil
     end
   end
---~ BioInd.show("ret", ret)
---~ BioInd.entered_function("leave")
+--~ BioInd.debugging.show("ret", ret)
+--~ BioInd.debugging.entered_function("leave")
   return next(ret) and ret
 end
 
 
 function BI_Functions.lib.get_recipe_ingredients(recipe_in)
-BioInd.entered_function()
+BioInd.debugging.entered_function()
   local recipe = type(recipe_in) == "table" and recipe_in.type == "recipe" and recipe_in.name and
                   data.raw.recipe[recipe_in.name] or
                   data.raw.recipe[recipe_in]
@@ -402,14 +408,14 @@ BioInd.entered_function()
     ret = BI_Functions.lib.get_difficulty_recipe_ingredients(recipe, "normal") or
           BI_Functions.lib.get_difficulty_recipe_ingredients(recipe, "expensive")
   end
---~ BioInd.show("ret", ret)
---~ BioInd.entered_function("leave")
+--~ BioInd.debugging.show("ret", ret)
+--~ BioInd.debugging.entered_function("leave")
   return ret
 end
 
 
 function BI_Functions.lib.recipe_has_ingredient(recipe_in, ingredient)
-BioInd.entered_function()
+BioInd.debugging.entered_function()
   if type(ingredient) ~= "string" then
     error(string.format("%s is not a valid ingredient name!", ingredient))
   end
@@ -417,17 +423,17 @@ BioInd.entered_function()
   local recipe = type(recipe_in) == "string" and data.raw.recipe[recipe_in] or
             type(recipe_in) == "table" and recipe_in.type == "recipe" and recipe_in.name and
             data.raw.recipe[recipe_in.name]
---~ BioInd.writeDebug("Checking recipe %s for %s", {recipe and recipe.name or "nil", ingredient})
+--~ BioInd.debugging.writeDebug("Checking recipe %s for %s", {recipe and recipe.name or "nil", ingredient})
   local ret, ingredients
 
   if recipe then
---~ BioInd.writeDebug("Recipe %s exists.", {recipe.name})
+--~ BioInd.debugging.writeDebug("Recipe %s exists.", {recipe.name})
     ingredients = BI_Functions.lib.get_recipe_ingredients(recipe.ingredients)
---~ BioInd.show("Found ingredients", ingredients)
+--~ BioInd.debugging.show("Found ingredients", ingredients)
     ret = ingredients and ingredients[ingredient]
   end
---~ BioInd.show("Return", ret)
-BioInd.entered_function("leave")
+--~ BioInd.debugging.show("Return", ret)
+BioInd.debugging.entered_function("leave")
   return ret
 end
 
@@ -439,17 +445,17 @@ end
 
 
 function BI_Functions.lib.fuel_emissions_multiplier_update(item, value)
-BioInd.entered_function()
---~ BioInd.show("item", item)
---~ BioInd.show("factor", value)
+BioInd.debugging.entered_function()
+--~ BioInd.debugging.show("item", item)
+--~ BioInd.debugging.show("factor", value)
 
   local target = type(item) == "string" and data.raw.item[item] or
                   type(item) == "table" and item.type == "item" and item
 
   if target and target.fuel_value then
---~ BioInd.show("fuel_emissions_multiplier", target.fuel_emissions_multiplier)
+--~ BioInd.debugging.show("fuel_emissions_multiplier", target.fuel_emissions_multiplier)
 
     target.fuel_emissions_multiplier = value
---~ BioInd.show("fuel_emissions_multiplier", target.fuel_emissions_multiplier)
+--~ BioInd.debugging.show("fuel_emissions_multiplier", target.fuel_emissions_multiplier)
   end
 end

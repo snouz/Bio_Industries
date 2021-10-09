@@ -5,10 +5,10 @@
 local setting = "BI_Darts"
 -- Don't duplicate what NE does!
 if (not BI.Settings[setting]) or mods["Natural_Evolution_Buildings"] then
-  BioInd.nothing_to_do("*")
+  BioInd.debugging.nothing_to_do("*")
   return
 else
-  BioInd.entered_file()
+  BioInd.debugging.entered_file()
 end
 
 
@@ -40,16 +40,16 @@ if turret then
 
   for level, bonus in ipairs(map) do
     turret_attack, ammo_damage, gun_speed = table.unpack(bonus)
-BioInd.writeDebug("turret_attack: %s\tammo_damage: %s\tgun_speed: %s", {
+BioInd.debugging.writeDebug("turret_attack: %s\tammo_damage: %s\tgun_speed: %s", {
   turret_attack, ammo_damage, gun_speed or "nil"
 })
     -- Turret attack bonus
     if turret_attack then
-BioInd.show("tech", techs["physical-projectile-damage-" .. level])
+BioInd.debugging.show("tech", techs["physical-projectile-damage-" .. level])
       table.insert(techs["physical-projectile-damage-" .. level].effects, {
         type = "turret-attack", turret_id = turret.name, modifier = turret_attack
       })
-      BioInd.modified_msg("turret-attack bonus", turret)
+      BioInd.debugging.modified_msg("turret-attack bonus", turret)
     end
 
     -- Ammo damage modifier
@@ -57,7 +57,7 @@ BioInd.show("tech", techs["physical-projectile-damage-" .. level])
       table.insert(techs["physical-projectile-damage-" .. level].effects, {
         type = "ammo-damage", ammo_category = "Bio_Turret_Ammo", modifier = ammo_damage
       })
-      BioInd.modified_msg("ammo-damage bonus", turret)
+      BioInd.debugging.modified_msg("ammo-damage bonus", turret)
     end
 
     -- Shooting speed modifier
@@ -65,7 +65,7 @@ BioInd.show("tech", techs["physical-projectile-damage-" .. level])
       table.insert(techs["weapon-shooting-speed-" .. level].effects, {
         type = "gun-speed", ammo_category = "Bio_Turret_Ammo", modifier = gun_speed
       })
-      BioInd.modified_msg("shooting-speed bonus", turret)
+      BioInd.debugging.modified_msg("shooting-speed bonus", turret)
     end
   end
 end
@@ -76,7 +76,7 @@ end
 ------------------------------------------------------------------------------------
 for level = 1, 3 do
   tech = techs["physical-projectile-damage-" .. level]
---~ BioInd.show("tech", tech)
+--~ BioInd.debugging.show("tech", tech)
   tech_effects = tech and tech.effects
   new_effects = {}
 
@@ -91,10 +91,10 @@ for level = 1, 3 do
     -- Only overwrite effects if size of new list differs from that of the old one!
     if #new_effects < #tech_effects then
       tech.effects = new_effects
-      BioInd.modified_msg("turret-attack effect for gun-turret", tech, "Removed")
+      BioInd.debugging.modified_msg("turret-attack effect for gun-turret", tech, "Removed")
     end
   end
---~ BioInd.show("tech", tech)
+--~ BioInd.debugging.show("tech", tech)
 end
 
 
@@ -109,10 +109,10 @@ local prerequisite_map = {
 }
 for tech, prerequisite in pairs(prerequisite_map) do
   thxbob.lib.tech.add_prerequisite(tech, prerequisite)
-  BioInd.modified_msg("prerequisites", data.raw.technology[tech])
+  BioInd.debugging.modified_msg("prerequisites", data.raw.technology[tech])
 
 thxbob.lib.tech.remove_prerequisite(prerequisite, tech)
-  BioInd.modified_msg("prerequisites", data.raw.technology[prerequisite])
+  BioInd.debugging.modified_msg("prerequisites", data.raw.technology[prerequisite])
 end
 
 
@@ -178,13 +178,13 @@ map = {
 
 for t_name, t_unit in pairs(map) do
   tech = techs[t_name]
-BioInd.show("Modifying tech", t_name)
+BioInd.debugging.show("Modifying tech", t_name)
   if tech then
     thxbob.lib.tech.replace_unit(t_name, t_unit)
-BioInd.show("Final tech", tech)
+BioInd.debugging.show("Final tech", tech)
   end
 end
 ------------------------------------------------------------------------------------
 --                                    END OF FILE                                 --
 ------------------------------------------------------------------------------------
-BioInd.entered_file("leave")
+BioInd.debugging.entered_file("leave")

@@ -4,10 +4,10 @@
 ------------------------------------------------------------------------------------
 local setting = "BI_Rails"
 if not BI.Settings[setting] then
-  BioInd.nothing_to_do("*")
+  BioInd.debugging.nothing_to_do("*")
   return
 else
-  BioInd.entered_file()
+  BioInd.debugging.entered_file()
 end
 
 
@@ -36,7 +36,7 @@ require("prototypes.optional._final_fixes.rails.fixes_wooden_rail_bridge")
 ------------------------------------------------------------------------------------
 --           Adjust the vanilla rails -- they are "Concrete rails" now!           --
 ------------------------------------------------------------------------------------
-BioInd.writeDebug("Adjusting vanilla rails")
+BioInd.debugging.writeDebug("Adjusting vanilla rails")
 
 -- Recipe
 recipe = recipes["rail"]
@@ -47,18 +47,18 @@ if recipe then
     name = "concrete",
     amount = 2
   })
-  BioInd.modified_msg("ingredient \"concrete\"", recipe, "Added")
-BioInd.show("DEBUG RAIL RECIPE", data.raw.recipe.rail)
+  BioInd.debugging.modified_msg("ingredient \"concrete\"", recipe, "Added")
+BioInd.debugging.show("DEBUG RAIL RECIPE", data.raw.recipe.rail)
 
   -- Change localization
   --~ recipe.localised_name = {"entity-name.bi-rail-concrete"}
   recipe.localised_name = BI.additional_recipes.BI_Rails.rail_concrete.localised_name
-  BioInd.modified_msg("localization", recipe)
+  BioInd.debugging.modified_msg("localization", recipe)
 
   -- Change order
   --~ recipe.order = "a[train-system]-[Bio_Industries]-b[concrete]-a[rail]",
   recipe.order = BI.additional_recipes.BI_Rails.rail_concrete.order
-  BioInd.modified_msg("order", recipe)
+  BioInd.debugging.modified_msg("order", recipe)
 end
 
 
@@ -67,12 +67,12 @@ item = data.raw["rail-planner"]["rail"]
 if item then
   --~ item.localised_name = {"entity-name.bi-rail-concrete"}
   item.localised_name = BI.additional_items.BI_Rails.rail_concrete.localised_name
-  BioInd.modified_msg("localization", item)
+  BioInd.debugging.modified_msg("localization", item)
 
   -- Change order
   --~ recipe.order = "a[train-system]-[Bio_Industries]-b[concrete]-a[rail]",
   item.order = BI.additional_items.BI_Rails.rail_concrete.order
-  BioInd.modified_msg("order", recipe)
+  BioInd.debugging.modified_msg("order", recipe)
 end
 
 
@@ -81,7 +81,7 @@ for n, name in ipairs({"straight-rail", "curved-rail"}) do
   rail = data.raw[name][name]
   if rail then
     rail.localised_name = {"entity-name.bi-rail-concrete"}
-    BioInd.modified_msg("localization", rail)
+    BioInd.debugging.modified_msg("localization", rail)
   end
 end
 
@@ -90,4 +90,4 @@ end
 ------------------------------------------------------------------------------------
 --                                    END OF FILE                                 --
 ------------------------------------------------------------------------------------
-BioInd.entered_file("leave")
+BioInd.debugging.entered_file("leave")

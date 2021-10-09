@@ -1,4 +1,4 @@
-BioInd.entered_file()
+BioInd.debugging.entered_file()
 
 ------------------------------------------------------------------------------------
 -- This is just a copy of the vanilla functions for creating the pictures of rails
@@ -124,4 +124,4 @@ end
 ------------------------------------------------------------------------------------
 --                                    END OF FILE                                 --
 ------------------------------------------------------------------------------------
-BioInd.entered_file("leave")
+BioInd.debugging.entered_file("leave")

@@ -1,4 +1,4 @@
-BioInd.entered_file()
+BioInd.debugging.entered_file()
 
 BI.default_recipes = BI.default_recipes or {}
 
@@ -17,7 +17,9 @@ local ICONPATH = BioInd.iconpath
 BI.default_recipes.logs_1 = {
   type = "recipe",
   name = "bi-logs-1",
-  localised_name = {"recipe-name.bi-logs"},
+  -- We replace woodpulp with wood chips if IR2 is used, so we'll need a parameter!
+  --~ localised_name = {"recipe-name.bi-logs"},
+  localised_name = {"recipe-name.bi-logs", {"item-name.bi-woodpulp"}},
   icon = ICONPATH .. "wood_woodpulp.png",
 -- I need this icon for the rubber wood recipe! :-)
   icon_size = 64, icon_mipmaps = 3,
@@ -46,33 +48,33 @@ BI.default_recipes.logs_1 = {
   allow_as_intermediate = false,
 }
 
--- Woodpulp
-BI.default_recipes.woodpulp = {
-  type = "recipe",
-  name = "bi-woodpulp",
-  --icon = ICONPATH .. "woodpulp.png",
-  --icon_size = 64, icon_mipmaps = 3,
-  BI_add_icon = true,
-  subgroup = BI.default_item_subgroup.bio_farm_raw.name,
-  order = "a[bi]-a-a[bi-1-woodpulp]",
-  enabled = false,
-  --~ always_show_made_in = true,
-  --~ allow_decomposition = false,
-  --~ allow_as_intermediate = false,
-  energy_required = 1,
-  ingredients = {{"wood", 1}},
-  result = "bi-woodpulp",
-  result_count = 2,
-  allow_as_intermediate = true,       -- Added for 0.18.34/1.1.4
-  allow_intermediates = true,         -- Added for 0.18.35/1.1.5
-  always_show_made_in = false,        -- Added for 0.18.34/1.1.4
-  allow_decomposition = false,        -- Added for 0.18.34/1.1.4
-  -- This is a custom property for use by "Krastorio 2" (it will change
-  -- ingredients/results; used for wood/wood pulp)
-  mod = "Bio_Industries",
-  -- Custom property that allows to automatically add our recipes to tech unlocks.
-  BI_add_to_tech = {"bi-tech-timber"},
-}
+--~ -- Woodpulp
+--~ BI.default_recipes.woodpulp = {
+  --~ type = "recipe",
+  --~ name = "bi-woodpulp",
+  --~ --icon = ICONPATH .. "woodpulp.png",
+  --~ --icon_size = 64, icon_mipmaps = 3,
+  --~ BI_add_icon = true,
+  --~ subgroup = BI.default_item_subgroup.bio_farm_raw.name,
+  --~ order = "a[bi]-a-a[bi-1-woodpulp]",
+  --~ enabled = false,
+  -- always_show_made_in = true,
+  -- allow_decomposition = false,
+  -- allow_as_intermediate = false,
+  --~ energy_required = 1,
+  --~ ingredients = {{"wood", 1}},
+  --~ result = "bi-woodpulp",
+  --~ result_count = 2,
+  --~ allow_as_intermediate = true,       -- Added for 0.18.34/1.1.4
+  --~ allow_intermediates = true,         -- Added for 0.18.35/1.1.5
+  --~ always_show_made_in = false,        -- Added for 0.18.34/1.1.4
+  --~ allow_decomposition = false,        -- Added for 0.18.34/1.1.4
+  --~ -- This is a custom property for use by "Krastorio 2" (it will change
+  --~ -- ingredients/results; used for wood/wood pulp)
+  --~ mod = "Bio_Industries",
+  --~ -- Custom property that allows to automatically add our recipes to tech unlocks.
+  --~ BI_add_to_tech = {"bi-tech-timber"},
+--~ }
 
 -- Wood fuel brick
 BI.default_recipes.wood_fuel_brick = {
@@ -437,7 +439,9 @@ BI.default_recipes.seedling_4 = {
 BI.default_recipes.logs_2 = {
   type = "recipe",
   name = "bi-logs-2",
-  localised_name = {"recipe-name.bi-logs-using", {"item-name.bi-ash"}},
+  -- We replace woodpulp with wood chips if IR2 is used, so we'll need a parameter!
+  --~ localised_name = {"recipe-name.bi-logs-using", {"item-name.bi-ash"}},
+  localised_name = {"recipe-name.bi-logs-using", {"item-name.bi-woodpulp"}, {"item-name.bi-ash"}},
   --icon = ICONPATH .. "wood_woodpulp_ash.png",
   --icon_size = 64, icon_mipmaps = 3,
   --BI_add_icon = true,
@@ -478,7 +482,9 @@ BI.default_recipes.logs_2 = {
 BI.default_recipes.logs_3 = {
   type = "recipe",
   name = "bi-logs-3",
-  localised_name = {"recipe-name.bi-logs-using", {"item-name.fertilizer"}},
+  -- We replace woodpulp with wood chips if IR2 is used, so we'll need a parameter!
+  --~ localised_name = {"recipe-name.bi-logs-using", {"item-name.fertilizer"}},
+  localised_name = {"recipe-name.bi-logs-using", {"item-name.bi-woodpulp"}, {"item-name.fertilizer"}},
   --icon = ICONPATH .. "wood_woodpulp_fert1.png",
   --icon_size = 64, icon_mipmaps = 3,
   --BI_add_icon = true,
@@ -521,7 +527,9 @@ BI.default_recipes.logs_3 = {
 BI.default_recipes.logs_4 = {
   type = "recipe",
   name = "bi-logs-4",
-  localised_name = {"recipe-name.bi-logs-using", {"item-name.bi-adv-fertilizer"}},
+  -- We replace woodpulp with wood chips if IR2 is used, so we'll need a parameter!
+  --~ localised_name = {"recipe-name.bi-logs-using", {"item-name.bi-adv-fertilizer"}},
+  localised_name = {"recipe-name.bi-logs-using", {"item-name.bi-woodpulp"}, {"item-name.bi-adv-fertilizer"}},
   --icon = ICONPATH .. "wood_woodpulp_fert2.png",
   --icon_size = 64, icon_mipmaps = 3,
   --BI_add_icon = true,
@@ -769,4 +777,4 @@ BioInd.create_stuff(BI.default_recipes)
 ------------------------------------------------------------------------------------
 --                                    END OF FILE                                 --
 ------------------------------------------------------------------------------------
-BioInd.entered_file("leave")
+BioInd.debugging.entered_file("leave")

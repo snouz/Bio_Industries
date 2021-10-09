@@ -4,10 +4,10 @@
 ------------------------------------------------------------------------------------
 local setting = "BI_Wood_Products"
 if not BI.Settings[setting] then
-  BioInd.nothing_to_do("*")
+  BioInd.debugging.nothing_to_do("*")
   return
 else
-  BioInd.entered_file()
+  BioInd.debugging.entered_file()
 end
 
 BI.additional_entities = BI.additional_entities or {}
@@ -206,7 +206,7 @@ function change_graphics(was_picture, sheet_element, quality)
   --picture.shift.y = -8/32 * k * sheet_element.shift.y
   picture.shift.x = -8/32  * (sheet_element.shift.x or sheet_element.shift[1])
   picture.shift.y = -8/32  * (sheet_element.shift.y or sheet_element.shift[2])
-  --BioInd.writeDebug("%s Quality: %s - Success", {sheet_element.number, quality})
+  --BioInd.debugging.writeDebug("%s Quality: %s - Success", {sheet_element.number, quality})
 end
 
 
@@ -223,7 +223,7 @@ for i, was_picture in pairs(pipe_pictures or {}) do
     end
   end
 end
-BioInd.modified_msg("graphics", pipes["bi-wood-pipe"])
+BioInd.debugging.modified_msg("graphics", pipes["bi-wood-pipe"])
 
 -- Wooden underground pipes
 local pipe_to_ground_pictures = upipes["bi-wood-pipe-to-ground"] and
@@ -237,7 +237,7 @@ for i, was_picture in pairs(pipe_to_ground_pictures or {}) do
     end
   end
 end
-BioInd.modified_msg("graphics", upipes["bi-wood-pipe-to-ground"])
+BioInd.debugging.modified_msg("graphics", upipes["bi-wood-pipe-to-ground"])
 
 
 ------------------------------------------------------------------------------------
@@ -247,7 +247,7 @@ item = BI.additional_items.BI_Rubber.resin
 if not items[item.name] then
   recipe = recipes[BI.additional_recipes.BI_Wood_Products.large_wooden_chest.name]
   thxbob.lib.recipe.remove_ingredient(recipe.name, item.name)
-  BioInd.modified_msg("ingredient " .. item.name, recipe, "Removed")
+  BioInd.debugging.modified_msg("ingredient " .. item.name, recipe, "Removed")
 end
 
 
@@ -260,7 +260,7 @@ for p, p_type in ipairs({"container", "item", "recipe"}) do
   if chest then
     chest.localised_name = {"entity-name.bi-wooden-chest"}
     chest.localised_description = {"entity-description.bi-wooden-chest"}
-    BioInd.modified_msg("localization", chest)
+    BioInd.debugging.modified_msg("localization", chest)
   end
 end
 
@@ -281,7 +281,7 @@ if tech then
     {"entity-name.bi-wooden-pole-big"},
     pole.maximum_wire_distance
   }
-  BioInd.modified_msg("localization", tech)
+  BioInd.debugging.modified_msg("localization", tech)
 end
 
 
@@ -293,11 +293,11 @@ if tech then
     "technology-description.bi-tech-wooden-pole-2",
     pole.maximum_wire_distance
   }
-  BioInd.modified_msg("localization", tech)
+  BioInd.debugging.modified_msg("localization", tech)
 end
 
 
 ------------------------------------------------------------------------------------
 --                                    END OF FILE                                 --
 ------------------------------------------------------------------------------------
-BioInd.entered_file("leave")
+BioInd.debugging.entered_file("leave")

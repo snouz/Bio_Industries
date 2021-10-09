@@ -5,10 +5,10 @@
 -- Mods: "5dim_core"
 local trigger = "BI_Trigger_Subgroups"
 if not BI.Triggers[trigger] then
-  BioInd.nothing_to_do("*")
+  BioInd.debugging.nothing_to_do("*")
   return
 else
-  BioInd.entered_file()
+  BioInd.debugging.entered_file()
 end
 
 
@@ -57,9 +57,9 @@ local done_list = {}
 --              (e.g. "5d" --> item.subgroup_5d, item.subgroup_order_5d)
 local function change_subgroups(items, recipes, mod_handle)
 
-  BioInd.check_args(items, "table", "item list")
-  BioInd.check_args(recipes, "table", "recipe list")
-  BioInd.check_args(mod_handle, "string", "mod handle")
+  BioInd.debugging.check_args(items, "table", "item list")
+  BioInd.debugging.check_args(recipes, "table", "recipe list")
+  BioInd.debugging.check_args(mod_handle, "string", "mod handle")
 
   -- item-group and order of the subgroup in the item-group
   local group           = "group_" .. mod_handle
@@ -73,8 +73,8 @@ local function change_subgroups(items, recipes, mod_handle)
 
     for i, opt_item in pairs(item_searchlist) do
       item = data.raw[opt_item.type][opt_item.name]
-  BioInd.show("Checking item", item and item.name or "nil")
-  BioInd.show("Item has 5D-subgroup", item and item[subgroup] or "nil")
+  BioInd.debugging.show("Checking item", item and item.name or "nil")
+  BioInd.debugging.show("Item has 5D-subgroup", item and item[subgroup] or "nil")
 
       -- Data for vanilla rails (possibly other entities?) are stored in our tables,
       -- but have never been created because we don't overwrite existing things. As
@@ -89,27 +89,27 @@ local function change_subgroups(items, recipes, mod_handle)
         --~ end
 
         item.subgroup = item[subgroup] or opt_item[subgroup]
-        BioInd.modified_msg("subgroup", item)
+        BioInd.debugging.modified_msg("subgroup", item)
 
         item.order = item[order] or opt_item[order]
-        BioInd.modified_msg("order", item)
+        BioInd.debugging.modified_msg("order", item)
 
-BioInd.show("Looking for recipes making", item.name)
+BioInd.debugging.show("Looking for recipes making", item.name)
         for rl, recipe_list in pairs(recipes) do
           recipe_searchlist = (recipe_list.type or recipe_list.name) and {recipe_list} or recipe_list
           for r, opt_recipe in pairs(recipe_searchlist) do
-BioInd.show("Must check recipe", opt_recipe.name)
+BioInd.debugging.show("Must check recipe", opt_recipe.name)
             recipe = data.raw.recipe[opt_recipe.name]
             -- The recipe exists and we didn't change the subgroup yet
             if recipe and not done_list[recipe.name] then
               -- The recipe creates a BI item and inherits its subgroup/order
               if BI_Functions.lib.recipe_has_result(recipe, item.name) or
                   BI_Functions.lib.recipe_get_property(recipe, "main_product") == item.name then
-BioInd.writeDebug("Must add recipe %s to subgroup %s", {recipe.name, item[subgroup] or opt_item[subgroup]})
+BioInd.debugging.writeDebug("Must add recipe %s to subgroup %s", {recipe.name, item[subgroup] or opt_item[subgroup]})
                 recipe.subgroup = item[subgroup]
                 recipe.order = item[order]
                 done_list[recipe.name] = true
-                BioInd.modified_msg("subgroup", recipe)
+                BioInd.debugging.modified_msg("subgroup", recipe)
               -- The recipe creates a vanilla/mod item and has its own subgroup/order data
               elseif recipe[subgroup] then
                 --~ if not item_subgroups[recipe[subgroup]] then
@@ -120,10 +120,10 @@ BioInd.writeDebug("Must add recipe %s to subgroup %s", {recipe.name, item[subgro
                 recipe.order = recipe[order]
                 done_list[recipe.name] = true
 
-                BioInd.modified_msg("subgroup", recipe)
+                BioInd.debugging.modified_msg("subgroup", recipe)
               end
             else
-              BioInd.writeDebug("Skipping recipe %s -- %s!", {
+              BioInd.debugging.writeDebug("Skipping recipe %s -- %s!", {
                                 recipe and recipe.name or opt_recipe.name,
                                 recipe and "already added to new subgroup" or "recipe doesn't exist"
               })
@@ -150,4 +150,4 @@ change_subgroups(BI.additional_items, BI.additional_recipes, "5d")
 ------------------------------------------------------------------------------------
 --                                    END OF FILE                                 --
 ------------------------------------------------------------------------------------
-BioInd.entered_file("leave")
+BioInd.debugging.entered_file("leave")

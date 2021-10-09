@@ -6,10 +6,10 @@ if not BioInd.check_mods({
   "angelsbioprocessing",
   "angelsrefining",
 }) then
-  BioInd.nothing_to_do("*")
+  BioInd.debugging.nothing_to_do("*")
   return
 else
-  BioInd.entered_file()
+  BioInd.debugging.entered_file()
 end
 
 
@@ -40,7 +40,7 @@ if items["angels-electric-boiler"] and BI.Settings.BI_Power_Production then
       name = "angels-electric-boiler",
       amount = 1}
     )
-    BioInd.modified_msg("ingredients", recipe)
+    BioInd.debugging.modified_msg("ingredients", recipe)
   end
 end
 
@@ -74,13 +74,13 @@ if items["solid-carbon"] and BI.Settings["BI_Coal_Processing"] then
       name = "solid-carbon",
       amount = 10
     })
-    BioInd.modified_msg("ingredients", recipe)
+    BioInd.debugging.modified_msg("ingredients", recipe)
 
     recipe.localised_name = {
       "recipe-name.bi-pellet-coke",
       {"item-name.solid-carbon"},
     }
-    BioInd.modified_msg("localization", recipe)
+    BioInd.debugging.modified_msg("localization", recipe)
   end
 end
 
@@ -122,10 +122,10 @@ if item then
       name = "solid-sodium-hydroxide",
       amount = 10
     })
-    BioInd.modified_msg("ingredient \"solid-sodium-hydroxide\"", recipe, "Added")
+    BioInd.debugging.modified_msg("ingredient \"solid-sodium-hydroxide\"", recipe, "Added")
   end
   thxbob.lib.recipe.replace_ingredient(recipe.name, "nitrogen", "gas-nitrogen")
-  BioInd.modified_msg("ingredient \"nitrogen\"", recipe, "Replaced")
+  BioInd.debugging.modified_msg("ingredient \"nitrogen\"", recipe, "Replaced")
 
   -- Change localization
   recipe.localised_name = {
@@ -138,17 +138,17 @@ if item then
     --~ {"item-name.solid-sodium-hydroxide"},
   --~ }
   --~ recipe.localised_description = {"recipe-description.bi-fertilizer-1"}
-  BioInd.modified_msg("localization", recipe)
+  BioInd.debugging.modified_msg("localization", recipe)
 
   -- Change icons
   --BioInd.BI_change_icon(recipe, ICONPATH .. "fertilizer_solid_sodium_hydroxide.png")
   recipe.icons = BioInd.make_icons({it1 = "fertilizer", it2 = "solid-sodium-hydroxide", it3 = "", shift1_1 = 0 , shift1_2 = 0, shift2_1 = 0, shift2_2 = 0})
   recipe.BI_add_icon = true
-  BioInd.modified_msg("icon", recipe)
+  BioInd.debugging.modified_msg("icon", recipe)
 
   -- Add unlock
   recipe.BI_add_to_tech = {"bi-tech-fertilizer"}
-  BioInd.modified_msg("unlock", recipe, "Added")
+  BioInd.debugging.modified_msg("unlock", recipe, "Added")
 end
 
 
@@ -165,7 +165,7 @@ if fluids["gas-nitrogen"] then
     recipe = recipes[rec.name]
     if recipe then
       thxbob.lib.recipe.replace_ingredient(recipe.name, "nitrogen", "gas-nitrogen")
-      BioInd.modified_msg("ingredients", recipe)
+      BioInd.debugging.modified_msg("ingredients", recipe)
     end
   end
 end
@@ -176,7 +176,7 @@ if fluids["gas-compressed-air"] then
     recipe = recipes[BI.additional_recipes.BI_Bio_Fuel["bio_mass_" .. i].name]
     if recipe then
       thxbob.lib.recipe.replace_ingredient(recipe.name, "liquid-air", "gas-compressed-air")
-      BioInd.modified_msg("ingredients", recipe)
+      BioInd.debugging.modified_msg("ingredients", recipe)
     end
   end
 end
@@ -212,7 +212,7 @@ if mods["angelspetrochem"] and BI.Settings.BI_Bio_Fuel then
       {"fluid-name.bi-biomass"},
       {"fluid-name.gas-methane"},
     }
-    BioInd.modified_msg("localization", recipe)
+    BioInd.debugging.modified_msg("localization", recipe)
   end
 
   -- Biomass conversion (Light oil --> Fuel oil)
@@ -229,7 +229,7 @@ if mods["angelspetrochem"] and BI.Settings.BI_Bio_Fuel then
         {"item-name.bi-cellulose"},
       }
     }
-    BioInd.modified_msg("localization", recipe)
+    BioInd.debugging.modified_msg("localization", recipe)
   end
 
   -- Basic gas processing
@@ -263,7 +263,7 @@ if fluids["water-yellow-waste"] and BI.Settings.BI_Bio_Fuel then
       name = "water-yellow-waste",
       amount = 40
     })
-    BioInd.modified_msg("results", recipe)
+    BioInd.debugging.modified_msg("results", recipe)
 
     --BioInd.BI_change_icon(recipe, ICONPATH .. "bio-conversion-1-angels.png")
 
@@ -275,7 +275,7 @@ if fluids["water-yellow-waste"] and BI.Settings.BI_Bio_Fuel then
       --~ {"fluid-name.crude-oil"},
       --~ --~-- {"fluid-name.water-yellow-waste"},
     --~ }
-    --~ BioInd.modified_msg("localization", recipe)
+    --~ BioInd.debugging.modified_msg("localization", recipe)
   end
 end
 
@@ -293,17 +293,20 @@ if mods["angelsbioprocessing"] and BI.Settings.BI_Coal_Processing then
 
     -- Change category
     recipe.category = BI.default_recipe_categories.smelting.name
-    BioInd.modified_msg("category", recipe)
+    BioInd.debugging.modified_msg("category", recipe)
   end
 
-  item = items[BI.additional_items.BI_Coal_Processing.wood_charcoal.name]
+  --~ item = items[BI.additional_items.BI_Coal_Processing.wood_charcoal.name]
+  item = BI.additional_items.BI_Trigger_Wood_Charcoal_Create and
+          BI.additional_items.BI_Trigger_Wood_Charcoal_Create.wood_charcoal and
+          items[BI.additional_items.BI_Trigger_Wood_Charcoal_Create.wood_charcoal.name]
   if item then
     -- Change icon
     --BioInd.BI_change_icon(item, ICONPATH .. "charcoal.png")
 
     -- Change fuel emission multiplier
     item.fuel_emissions_multiplier = 1.05
-    BioInd.modified_msg("fuel_emissions_multiplier", item)
+    BioInd.debugging.modified_msg("fuel_emissions_multiplier", item)
   end
 end
 
@@ -320,21 +323,21 @@ if mods["angelspetrochem"] and BI.Settings.BI_Coal_Processing then
 
     -- Change speed boosts
     item.fuel_acceleration_multiplier = 1.1
-    BioInd.modified_msg("fuel_acceleration_multiplier", item)
+    BioInd.debugging.modified_msg("fuel_acceleration_multiplier", item)
 
     item.fuel_top_speed_multiplier = 1.2
-    BioInd.modified_msg("fuel_top_speed_multiplier", item)
+    BioInd.debugging.modified_msg("fuel_top_speed_multiplier", item)
 
     recipe = recipes[BI.additional_recipes.BI_Coal_Processing.pellet_coke.name]
     if recipe then
       -- Change category
       recipe.category = BI.default_recipe_categories.smelting.name
-      BioInd.modified_msg("category", recipe)
+      BioInd.debugging.modified_msg("category", recipe)
 
       -- Change unlock
       thxbob.lib.tech.remove_recipe_unlock("angels-coal-processing-2", recipe.name)
       thxbob.lib.tech.add_recipe_unlock("angels-coal-cracking", recipe.name)
-      BioInd.modified_msg("unlock", recipe)
+      BioInd.debugging.modified_msg("unlock", recipe)
     end
   end
 end
@@ -368,7 +371,7 @@ end
   --~ recipe = recipes[BI.additional_recipes.mod_compatibility.slag_slurry.name]
   --~ if recipe then
     --~ thxbob.lib.recipe.replace_ingredient(recipe.name, "bi-ash", "ash")
-    --~ BioInd.modified_msg("ingredients", recipe)
+    --~ BioInd.debugging.modified_msg("ingredients", recipe)
   --~ end
 --~ end
 
@@ -376,4 +379,4 @@ end
 ------------------------------------------------------------------------------------
 --                                    END OF FILE                                 --
 ------------------------------------------------------------------------------------
-BioInd.entered_file("leave")
+BioInd.debugging.entered_file("leave")

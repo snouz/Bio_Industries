@@ -5,10 +5,10 @@
 -- Settings: BI_Game_Tweaks_Recipe or BI_Rubber or BI_Stone_Crushing
 local trigger = "BI_Trigger_Concrete"
 if not BI.Triggers[trigger] then
-  BioInd.nothing_to_do("*")
+  BioInd.debugging.nothing_to_do("*")
   return
 else
-  BioInd.entered_file()
+  BioInd.debugging.entered_file()
 end
 
 
@@ -36,8 +36,8 @@ if tech then
     },
     time = 30,
   })
-  BioInd.modified_msg("unit", tech, "Replaced")
-  BioInd.show(tech.name, tech)
+  BioInd.debugging.modified_msg("unit", tech, "Replaced")
+  BioInd.debugging.show(tech.name, tech)
 end
 
 
@@ -45,18 +45,21 @@ end
 --          Make "Refined concrete" a prerequisite of "Stone crushing 3".         --
 ------------------------------------------------------------------------------------
 tech = BI.additional_techs.BI_Stone_Crushing.stone_crushing_3
-prerequisite = BI.additional_techs.BI_Trigger_Concrete.refined_concrete
+-- Let's use IR2's tech for refined concrete if it's active!
+prerequisite = mods["IndustrialRevolution"] and techs["ir2-concrete-2"] or
+                BI.additional_techs.BI_Trigger_Concrete.refined_concrete
 
-if techs[tech.name] and techs[prerequisite.name] then
+if tech and prerequisite and techs[tech.name] and techs[prerequisite.name] then
   thxbob.lib.tech.add_prerequisite(tech.name, prerequisite.name)
-  BioInd.modified_msg("prerequisite " .. prerequisite.name, tech, "Added")
+  BioInd.debugging.modified_msg("prerequisite " .. prerequisite.name, tech, "Added")
 end
 
 
 ------------------------------------------------------------------------------------
 --        Replace concrete with refined (hazard) concrete in some recipes.        --
 ------------------------------------------------------------------------------------
-old = "concrete"
+-- IR2 already replaces concrete with refined concrete in these recipes!
+old = mods["IndustrialRevolution"] and "refined-concrete" or "concrete"
 new = "refined-concrete"
 hazard = "refined-hazard-concrete"
 
@@ -68,6 +71,7 @@ for r, recipe in ipairs({
       ingredients = BI_Functions.lib.get_difficulty_recipe_ingredients(recipe, difficulty)
 
       amount = ingredients[old] and ingredients[old].amount
+
       if amount then
         amount_a = math.floor(amount * 0.9)
         if amount_a == 0 then
@@ -80,12 +84,40 @@ for r, recipe in ipairs({
           thxbob.lib.recipe.add_difficulty_ingredient(recipe, difficulty, {new, amount_a})
           -- … and 10% new hazard variety
           thxbob.lib.recipe.add_difficulty_ingredient(recipe, difficulty, {hazard, amount - amount_a})
-  BioInd.writeDebug("Replaced %s in ingredients for difficulty %s of %s: %s",
+  BioInd.debugging.writeDebug("Replaced %s in ingredients for difficulty %s of %s: %s",
                     {old, difficulty, recipe, recipes[recipe][difficulty].ingredients})
         end
       end
     end
   end
+end
+
+
+------------------------------------------------------------------------------------
+--         Use tech "refined concrete" tech as prerequisite of some techs.        --
+------------------------------------------------------------------------------------
+old = "concrete"
+new = BI.additional_techs.BI_Trigger_Concrete.refined_concrete and
+      BI.additional_techs.BI_Trigger_Concrete.refined_concrete.name
+
+if new then
+  -- Replace "concrete" with "refined concrete"
+  --~ for t, tech in ipairs({"artillery", "uranium-processing", "nuclear-power", "rocket-silo"}) do
+  for t, tech in ipairs({"uranium-processing", "nuclear-power", "rocket-silo"}) do
+    if techs[tech] then
+      thxbob.lib.tech.replace_prerequisite(tech, old, new)
+      BioInd.debugging.writeDebug("Replaced prerequisite %s of tech %s with %s", {old, tech, new})
+    end
+  end
+
+  -- Add "refined concrete" as new prerequisite
+  for t, tech in ipairs({"artillery"}) do
+    if techs[tech] then
+      thxbob.lib.tech.add_prerequisite(tech, new)
+      BioInd.debugging.writeDebug("Added %s to prerequisites of tech %s", {new, tech})
+    end
+  end
+
 end
 
 
@@ -117,7 +149,7 @@ for r, recipe in ipairs({
           thxbob.lib.recipe.set_difficulty_ingredient(recipe, difficulty, {old, amount_a})
           -- … and replace the 10% with the hazard variety
           thxbob.lib.recipe.add_difficulty_ingredient(recipe, difficulty, {hazard, amount - amount_a})
-BioInd.writeDebug("Replaced %s in ingredients for difficulty %s of %s: %s",
+BioInd.debugging.writeDebug("Replaced %s in ingredients for difficulty %s of %s: %s",
                   {old, difficulty, recipe, recipes[recipe][difficulty].ingredients})
         end
       end
@@ -130,4 +162,4 @@ end
 ------------------------------------------------------------------------------------
 --                                    END OF FILE                                 --
 ------------------------------------------------------------------------------------
-BioInd.entered_file("leave")
+BioInd.debugging.entered_file("leave")

@@ -1,4 +1,4 @@
-BioInd.entered_file()
+BioInd.debugging.entered_file()
 
 BI.default_recipes = BI.default_recipes or {}
 
@@ -187,7 +187,8 @@ BI.default_recipes.bio_reactor = {
     enabled = false,
     energy_required = 20,
     ingredients = {
-      {"assembling-machine-1", 1},
+      --~ {"assembling-machine-1", 1},
+      {"assembling-machine-2", 1},
       {"steel-plate", 5},
       {"electronic-circuit", 5},
     },
@@ -201,7 +202,8 @@ BI.default_recipes.bio_reactor = {
     enabled = false,
     energy_required = 30,
     ingredients = {
-      {"assembling-machine-1", 2},
+      --~ {"assembling-machine-1", 2},
+      {"assembling-machine-2", 2},
       {"steel-plate", 5},
       {"electronic-circuit", 5},
     },
@@ -279,11 +281,11 @@ BI.default_recipes.bio_reactor = {
 ------------------------------------------------------------------------------------
 --~ for r, r_data in pairs(BI.default_recipes or {}) do
   --~ data:extend({r_data})
-  --~ BioInd.created_msg(r_data)
+  --~ BioInd.debugging.created_msg(r_data)
 --~ end
 BioInd.create_stuff(BI.default_recipes)
 
 ------------------------------------------------------------------------------------
 --                                    END OF FILE                                 --
 ------------------------------------------------------------------------------------
-BioInd.entered_file("leave")
+BioInd.debugging.entered_file("leave")

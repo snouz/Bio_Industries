@@ -1,4 +1,4 @@
-BioInd.entered_file()
+BioInd.debugging.entered_file()
 
 --~ local BioInd = require(['"]common['"])(["']Bio_Industries['"])
 
@@ -184,10 +184,10 @@ BI.default_remnants.bio_reactor = {
 }
 
 
-BioInd.writeDebug("Read data for default remnants.")
+BioInd.debugging.writeDebug("Read data for default remnants.")
 
 
 ------------------------------------------------------------------------------------
 --                                    END OF FILE                                 --
 ------------------------------------------------------------------------------------
-BioInd.entered_file("leave")
+BioInd.debugging.entered_file("leave")

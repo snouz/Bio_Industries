@@ -1,4 +1,4 @@
-BioInd.entered_file()
+BioInd.debugging.entered_file()
 
 BI.additional_fluids = BI.additional_fluids or {}
 
@@ -77,9 +77,9 @@ BI.additional_fluids.nitrogen = {
 
 
 -- Status report
-BioInd.readdata_msg(BI.additional_fluids, nil, "additional_fluids")
+BioInd.debugging.readdata_msg(BI.additional_fluids, nil, "additional_fluids")
 
 ------------------------------------------------------------------------------------
 --                                    END OF FILE                                 --
 ------------------------------------------------------------------------------------
-BioInd.entered_file("leave")
+BioInd.debugging.entered_file("leave")

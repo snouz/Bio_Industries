@@ -6,10 +6,10 @@ local setting = "BI_Darts"
 --~ local BioInd = require(['"]common['"])(["']Bio_Industries['"])
 
 if not BI.Settings[setting] then
-  BioInd.nothing_to_do("*")
+  BioInd.debugging.nothing_to_do("*")
   return
 else
-  BioInd.entered_file()
+  BioInd.debugging.entered_file()
 end
 
 BI.additional_entities = BI.additional_entities or {}
@@ -661,4 +661,4 @@ end
 ------------------------------------------------------------------------------------
 --                                    END OF FILE                                 --
 ------------------------------------------------------------------------------------
-BioInd.entered_file("leave")
+BioInd.debugging.entered_file("leave")

@@ -89,7 +89,7 @@ Date: 2021-07-?
     - Red/yellow/green wires aren't drawn on top of each other between big poles.
     - Made Bio-cannon reliant on trigger target masks instead of controlling it per script.
     - Added resistance against explosion to rails and powered rails connector. Made powered rails immune against fire. (https://mods.factorio.com/mod/Bio_Industries/discussion/60fcd0338bd51d25dcff4190)
-
+    - If terraformers have no recipe set, or if they don't have enough ingredients to work with, they will be turned off. When they have a recipe and enough ingredients, they will be turned on again WHEN THE RADAR STARTS A NEW SECTOR SCAN.
 
   Modding:
     - Migrated some recipes ("bi-sulfur-angels", "bi-crushed-stone-X", "bi-biomass-conversion-X", "bi-acid") and technologies ("bi-tech-bio-cannon", "bi-tech-advanced-fertilizers")
@@ -116,12 +116,15 @@ Date: 2021-07-?
     - Removed dependency on Sdtlib.
     - Added dependency on "eradicators-library". We may use its event manager functions (similar to those of stdlib) again, but we really want it for the AutoCache function which allows us to recreate some tables when the game is loaded instead of storing them in global (increasing the size of savegame files).
 
+
+
   Optimization:
     - Major code and file structure cleanup and factori(o)sation.
     - Made graphics and sounds a separate mod to avoid redownloads.
     - Added icon mipmaps.
     - Images losslessly optimized with PNGGauntlet (some are compressed with loss).
     - Added settings to enable debugging to log and game. You should leave these disabled unless you want to help fixing bugs!
+    - Seedbombs now plant by on_script_trigger_effect instead of on_trigger_created_entity, so that we can distribute creating entities over several ticks.
 
   Sound:
     - Added unique sounds for Huge gardens, Stone crushers and Bio farms.
@@ -147,7 +150,7 @@ Date: 2021-07-?
 
   Credit:
     - The pollution sensor has been inspired by Schorty's "Pollution detector" mod (https://mods.factorio.com/mod/pollution-detector), but has been coded from scratch, using a different approach for way better performance (getting pollution per chunk, not per sensor).
-    - The new "Wood gasification" technology is based on cappie's "Wood gasification" mod, provides its basic recipe. If you want to get into serious wood gasification, you should use the original mod instead. Our tech won't be available in that case -- no need to duplicate what the original mod does much better!
+    - The new "Wood gasification" technology is based on cappie's "Wood gasification" mod; it provides the basic wood gasification recipe of that mod. If you want to get into serious wood gasification, you should use the original mod instead. Our tech won't be available in that case -- no need to duplicate what the original mod does much better!
 
 
   TODO:
@@ -163,6 +166,14 @@ Date: 2021-07-?
     - Make prototypes.default.final_fixes.ash dependent on a trigger?
     - Concrete/powered rail bridges
     - Power rail connectors
+
+    - I found a small problem I can't figure out. Every recipe is successfully migrated when added in the migration json, except bi-acid -> bi-biomass-conversion-sulfuric-acid. It also says at startup that it migrated it. The line: ["bi-acid", "bi-biomass-conversion-sulfuric-acid"] My test: in 1.1.10 I added every recipe to their crafting machines, migrated , all recipe stay in their machine, EXCEPT fluid ferts and the biomass - sufuric acid one. Is it because you changed the crafting category or something? because I can still use the same machine to schedule the recipe again. --> Yes, this can't be migrated because the entity used to craft the recipe has changed with the category.
+
+    - terraformers... my goal was to remove them and recrate them at the same position, in the hope it would re-load the properties of the prototype (especially, the 8 pipes instead of 2). --> Should work with migrations/Bio_Industries_1.01.112.lua.
+
+    - If add_global_tables in the raw data of compound entities contains a key/value pair where key is the name of a hidden entity, the table named in value should allow to look up the base entity this hidden entity belongs to. So far, only the additional tables are created when a game is loaded. We should make sure that these tables are also filled with appropriate data!
+
+    - Seedbombs: Revert the temporary fix for the ErLib bug once that has been fixed!
 
 ---------------------------------------------------------------------------------------------------
 Version: 1.1.10

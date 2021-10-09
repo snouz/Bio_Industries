@@ -1,4 +1,4 @@
-BioInd.entered_file()
+BioInd.debugging.entered_file()
 
 
 ------------------------------------------------------------------------------------
@@ -39,16 +39,16 @@ BI.hidden_entities.flags = {
   "not-upgradable",
   "placeable-off-grid",
 }
-if not BioInd.is_debug then
+if not BioInd.debugging.is_debug then
   table.insert(BI.hidden_entities.flags, "not-selectable-in-game")
 end
 
-BI.hidden_entities.collision_mask = BioInd.is_debug and {"ground-tile"} or {}
+BI.hidden_entities.collision_mask = BioInd.debugging.is_debug and {"ground-tile"} or {}
 BI.hidden_entities.collision_box = {{0, 0}, {0, 0}}
-BI.hidden_entities.selection_box = BioInd.is_debug and
+BI.hidden_entities.selection_box = BioInd.debugging.is_debug and
                                     {{-0.5, -0.5}, {0.5, 0.5}} or
                                     {{0, 0}, {0, 0}}
-BI.hidden_entities.selectable_in_game = BioInd.is_debug
+BI.hidden_entities.selectable_in_game = BioInd.debugging.is_debug
 BI.hidden_entities.max_health = 1
 
 BI.hidden_entities.icon = "__core__/graphics/empty.png"
@@ -135,7 +135,7 @@ BI.set_common_properties = function(h_entity)
   h_entity.icon_size = BI.hidden_entities.icon_size
   h_entity.icon_mipmaps = BI.hidden_entities.icon_mipmaps
 
-  if BioInd.is_debug then
+  if BioInd.debugging.is_debug then
     h_entity.icons = h_entity.icons or {
       {
         icon = h_entity.icon,
@@ -148,10 +148,10 @@ BI.set_common_properties = function(h_entity)
     h_entity.icons = BI.hidden_entities.icons
   end
 
-  h_entity.picture = BioInd.is_debug and h_entity.picture or BI.hidden_entities.picture
-  h_entity.pictures = BioInd.is_debug and h_entity.pictures or BI.hidden_entities.picture
+  h_entity.picture = BioInd.debugging.is_debug and h_entity.picture or BI.hidden_entities.picture
+  h_entity.pictures = BioInd.debugging.is_debug and h_entity.pictures or BI.hidden_entities.picture
   --~ h_entity.pictures = BI.hidden_entities.picture
-  h_entity.overlay = BioInd.is_debug and h_entity.overlay or BI.hidden_entities.overlay
+  h_entity.overlay = BioInd.debugging.is_debug and h_entity.overlay or BI.hidden_entities.overlay
   h_entity.flags = BI.hidden_entities.flags
   h_entity.selectable_in_game = BI.hidden_entities.selectable_in_game
   h_entity.max_health = BI.hidden_entities.max_health
@@ -170,13 +170,13 @@ end
 -- curved and straight rails, or entities where an overlay is placed first). So, we
 -- should look for the tables instead: They are guaranteed to be unique!
 BI.make_hidden_entity_list = function(hidden_type)
-  BioInd.check_args(hidden_type, "string", "valid handle for hidden entities")
+  BioInd.debugging.check_args(hidden_type, "string", "valid handle for hidden entities")
 
   local name, entity_locale
   for c_name, c_data in pairs(BioInd.compound_entities) do
-    BioInd.writeDebug("Checking %s for hidden %ss", {c_name, hidden_type})
---~ BioInd.show("c_name", c_name)
---~ BioInd.show("c_data", c_data)
+    BioInd.debugging.writeDebug("Checking %s for hidden %ss", {c_name, hidden_type})
+--~ BioInd.debugging.show("c_name", c_name)
+--~ BioInd.debugging.show("c_data", c_data)
     local h_type = c_data.hidden[hidden_type]
     if h_type then
       --~ name = c_data.tab:gsub("_table$", ""):gsub("_", "-") .. "-hidden-" .. hidden_type
@@ -190,7 +190,7 @@ BI.make_hidden_entity_list = function(hidden_type)
       BI.hidden_entities.types[hidden_type][name] = h_type.localize_entity or
                                                     c_data.new_base_name or
                                                     c_name
-      BioInd.writeDebug("Must create %s!", {name})
+      BioInd.debugging.writeDebug("Must create %s!", {name})
     end
   end
 end
@@ -203,8 +203,8 @@ end
 -- The hidden entities DO need to have images, so that they can be identified in the
 -- production tab!
 BI.add_layer = function(layers, data)
-  --~ BioInd.check_args(layers, "table", "layer")
-  BioInd.check_args(data, "table", "layer data")
+  --~ BioInd.debugging.check_args(layers, "table", "layer")
+  BioInd.debugging.check_args(data, "table", "layer data")
   layers = layers or {}
 
   local name = data.name
@@ -242,11 +242,11 @@ require(HIDDENPATH .. "hidden_panels")
 require(HIDDENPATH .. "hidden_poles")
 require(HIDDENPATH .. "hidden_radars")
 
---~ BioInd.show("BI.hidden_entities.types", BI.hidden_entities.types)
+--~ BioInd.debugging.show("BI.hidden_entities.types", BI.hidden_entities.types)
 --~ error("Break!")
 
 
 ------------------------------------------------------------------------------------
 --                                    END OF FILE
 ------------------------------------------------------------------------------------
-BioInd.entered_file("leave")
+BioInd.debugging.entered_file("leave")

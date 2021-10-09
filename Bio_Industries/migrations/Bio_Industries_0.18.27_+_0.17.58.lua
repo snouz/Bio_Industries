@@ -1,4 +1,4 @@
-BioInd.entered_file()
+BioInd.debugging.entered_file()
 
 ------------------------------------------------------------------------------------
 -- For some reason, the recipe for bi-biomass-2 was more advanced than the recipe
@@ -8,7 +8,7 @@ BioInd.entered_file()
 -- the recipes in bio-reactors making bio-mass are exchanged as well!
 ------------------------------------------------------------------------------------
 
-BioInd.writeDebug("Entered migration script 0.18.27+0.17.58")
+BioInd.debugging.writeDebug("Entered migration script 0.18.27+0.17.58")
 
 
 -- Look for bio-reactors on all surfaces
@@ -19,25 +19,25 @@ for s, surface in pairs(game.surfaces) do
     type = "assembling-machine",
     name = "bi-bio-reactor"
   }
-  BioInd.writeDebug("Found %g bio-reactors on surface \"%s\".",
+  BioInd.debugging.writeDebug("Found %g bio-reactors on surface \"%s\".",
                                     {#reactors, surface.name})
 
   -- Get recipe of reactors
   for r, reactor in ipairs(reactors) do
     recipe = reactor.get_recipe()
     recipe = recipe and recipe.name or ""
-    BioInd.writeDebug("Reactor %g has recipe \"%s\".",
+    BioInd.debugging.writeDebug("Reactor %g has recipe \"%s\".",
                                       {reactor.unit_number, recipe})
 
     -- Exchange "bi-biomass-2" against "bi-biomass-3"
     if recipe == "bi-biomass-2" then
       reactor.set_recipe("bi-biomass-3")
-      BioInd.writeDebug("Set recipe to %s.", {reactor.get_recipe().name})
+      BioInd.debugging.writeDebug("Set recipe to %s.", {reactor.get_recipe().name})
 
     -- Exchange "bi-biomass-3" against "bi-biomass-2"
     elseif recipe == "bi-biomass-3" then
       reactor.set_recipe("bi-biomass-2")
-      BioInd.writeDebug("Set recipe to %s.", {reactor.get_recipe().name})
+      BioInd.debugging.writeDebug("Set recipe to %s.", {reactor.get_recipe().name})
     end
   end
 
@@ -47,4 +47,4 @@ end
 ------------------------------------------------------------------------------------
 --                                    END OF FILE                                 --
 ------------------------------------------------------------------------------------
-BioInd.entered_file("leave")
+BioInd.debugging.entered_file("leave")

@@ -4,10 +4,10 @@
 ------------------------------------------------------------------------------------
 local mod_name = "5dim_core"
 if not BioInd.check_mods(mod_name) then
-  BioInd.nothing_to_do("*")
+  BioInd.debugging.nothing_to_do("*")
   return
 else
-  BioInd.entered_file()
+  BioInd.debugging.entered_file()
 end
 
 
@@ -28,7 +28,7 @@ if BioInd.get_startup_setting("5d-change-stack") then
   item = items["wood"]
   if item then
     item.stack_size = math.max(200, item.stack_size)
-    BioInd.modified_msg("stacksize", item)
+    BioInd.debugging.modified_msg("stacksize", item)
   end
 end
 
@@ -37,4 +37,4 @@ end
 ------------------------------------------------------------------------------------
 --                                    END OF FILE                                 --
 ------------------------------------------------------------------------------------
-BioInd.entered_file("leave")
+BioInd.debugging.entered_file("leave")

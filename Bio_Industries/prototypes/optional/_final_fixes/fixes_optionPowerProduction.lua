@@ -4,10 +4,10 @@
 ------------------------------------------------------------------------------------
 local setting = "BI_Power_Production"
 if not BI.Settings[setting] then
-  BioInd.nothing_to_do("*")
+  BioInd.debugging.nothing_to_do("*")
   return
 else
-  BioInd.entered_file()
+  BioInd.debugging.entered_file()
 end
 
 
@@ -41,10 +41,11 @@ if recipe and boiler then
   -- Find solar panels among ingredients. Other mods may have exchanged it against
   -- another variety!
   for i, i_data in pairs(ingredients) do
-    if i:find("panel") and panels[i] then
+    --~ if i:find("panel") and panels[i] then
+    if panels[i] then
       panel = panels[i]
       amount = i_data.amount
-      BioInd.writeDebug("Recipe requires %s panels (%s)", {amount, i})
+      BioInd.debugging.writeDebug("Recipe requires %s panels (%s)", {amount, i})
       break
     end
   end
@@ -53,7 +54,7 @@ if recipe and boiler then
   if amount then
     --~ boiler.energy_consumption = (util.parse_energy(panel.production) * amount) .. "J"
     boiler.energy_consumption = calc_energy(panel.production, amount)
-    BioInd.modified_msg("energy_consumption", boiler)
+    BioInd.debugging.modified_msg("energy_consumption", boiler)
   end
 
 end
@@ -65,7 +66,6 @@ end
 -- Get the number of panels used as ingredient
 recipe = recipes[BI.additional_recipes[setting].solar_farm.name]
 panel = panels[BI.additional_entities[setting].solar_farm.name]
---~ target_amount = 60
 
 if recipe and panel then
   ingredients = BI_Functions.lib.get_recipe_ingredients(recipe)
@@ -74,10 +74,11 @@ if recipe and panel then
   -- Find solar panels among ingredients. Other mods may have exchanged it against
   -- another variety!
   for i, i_data in pairs(ingredients) do
-    if i:find("panel") and panels[i] then
+    --~ if i:find("panel") and panels[i] then
+    if panels[i] then
       ingredient = i
       amount = i_data.amount
-BioInd.writeDebug("Recipe requires %s panels (%s)", {amount, i})
+BioInd.debugging.writeDebug("Recipe requires %s panels (%s)", {amount, i})
       break
     end
   end
@@ -85,18 +86,11 @@ BioInd.writeDebug("Recipe requires %s panels (%s)", {amount, i})
   if ingredient then
     -- Localize Solar farm description
     panel.localised_description = {"entity-description.bi-bio-solar-farm", amount, {"entity-name."..ingredient}}
-    BioInd.modified_msg("localization", panel)
-
-    --~ -- Make sure we have the correct amount of panels
-    --~ if amount ~= target_amount then
-      --~ thxbob.lib.recipe.set_ingredient(recipe, {ingredient, amount})
-      --~ BioInd.modified_msg(ingredient .. " amount", recipe)
-    --~ end
+    BioInd.debugging.modified_msg("localization", panel)
 
     -- Set produced energy
-    --~ panel.production = (util.parse_energy(panels[ingredient].production) * target_amount) .. "J"
     panel.production = calc_energy(panels[ingredient].production, amount)
-    BioInd.modified_msg("production", panel)
+    BioInd.debugging.modified_msg("production", panel)
   end
 end
 
@@ -118,7 +112,7 @@ if recipe and accu then
     if i:find("accumulator") and accus[i] then
       ingredient = i
       amount = i_data.amount
-BioInd.writeDebug("Recipe requires %s accumulators (%s)", {amount, i})
+BioInd.debugging.writeDebug("Recipe requires %s accumulators (%s)", {amount, i})
       break
     end
   end
@@ -126,30 +120,19 @@ BioInd.writeDebug("Recipe requires %s accumulators (%s)", {amount, i})
   if ingredient then
     -- Localize accu description
     accu.localised_description = {"entity-description.bi-bio-accumulator", amount, {"entity-name."..ingredient}}
-    BioInd.modified_msg("localization", panel)
+    BioInd.debugging.modified_msg("localization", panel)
 
     -- Set buffer capacity and charge/discharge speed
     energy = accus[ingredient].energy_source
 
-    --~ accu.energy_source.buffer_capacity =
-      --~ (util.parse_energy(energy.buffer_capacity) * target_amount) .. "J"
-    --~ BioInd.modified_msg("buffer_capacity", accu)
-
-    --~ accu.energy_source.input_flow_limit =
-      --~ (util.parse_energy(energy.input_flow_limit) * target_amount) .. "J"
-    --~ BioInd.modified_msg("input_flow_limit", accu)
-
-    --~ accu.energy_source.output_flow_limit =
-      --~ (util.parse_energy(energy.output_flow_limit) * target_amount) .. "J"
-    --~ BioInd.modified_msg("output_flow_limit", accu)
-
     accu.energy_source.buffer_capacity = calc_energy(energy.buffer_capacity, amount)
-    BioInd.modified_msg("buffer_capacity", accu)
+    BioInd.debugging.modified_msg("buffer_capacity", accu)
 
     accu.energy_source.input_flow_limit = calc_energy(energy.input_flow_limit, amount)
-    BioInd.modified_msg("input_flow_limit", accu)
+    BioInd.debugging.modified_msg("input_flow_limit", accu)
 
-    accu.energy_source.output_flow_limit = calc_energy(energy.output_flow_limit, amount)BioInd.modified_msg("output_flow_limit", accu)
+    accu.energy_source.output_flow_limit = calc_energy(energy.output_flow_limit, amount)
+    BioInd.debugging.modified_msg("output_flow_limit", accu)
   end
 end
 
@@ -157,4 +140,4 @@ end
 ------------------------------------------------------------------------------------
 --                                    END OF FILE
 ------------------------------------------------------------------------------------
-BioInd.entered_file("leave")
+BioInd.debugging.entered_file("leave")

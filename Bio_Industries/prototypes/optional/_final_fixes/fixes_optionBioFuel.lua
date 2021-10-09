@@ -4,10 +4,10 @@
 ------------------------------------------------------------------------------------
 local setting = "BI_Bio_Fuel"
 if not BI.Settings[setting] then
-  BioInd.nothing_to_do("*")
+  BioInd.debugging.nothing_to_do("*")
   return
 else
-  BioInd.entered_file()
+  BioInd.debugging.entered_file()
 end
 
 
@@ -31,7 +31,7 @@ local boiler
 for b, b_name in ipairs({"boiler", "bi-bio-boiler"}) do
   boiler = boilers[b_name]
   boiler.fast_replaceable_group = boiler_group
-  BioInd.modified_msg("fast_replaceable_group", boiler)
+  BioInd.debugging.modified_msg("fast_replaceable_group", boiler)
 end
 
 
@@ -51,7 +51,7 @@ if recipe and boiler then
     if i:find("boiler") and boilers[i] then
       ingredient = boilers[i]
       amount = i_data.amount
-BioInd.writeDebug("Found boiler %s (using %s)", {i, amount})
+BioInd.debugging.writeDebug("Found boiler %s (using %s)", {i, amount})
       break
     end
   end
@@ -59,21 +59,21 @@ BioInd.writeDebug("Found boiler %s (using %s)", {i, amount})
   -- Set energy_consumption, emissions_per_minute, effectivity, health, and localization
   if amount then
     boiler.localised_description = {"entity-description.bi-bio-boiler", amount, amount * 0.5}
-    BioInd.modified_msg("localization", boiler)
+    BioInd.debugging.modified_msg("localization", boiler)
 
     boiler.energy_consumption = (util.parse_energy(ingredient.energy_consumption) * amount) .. "J"
-    BioInd.modified_msg("energy_consumption", boiler)
+    BioInd.debugging.modified_msg("energy_consumption", boiler)
 
     boiler.energy_source.emissions_per_minute =
       ingredient.energy_source.emissions_per_minute * amount * 0.5
-    BioInd.modified_msg("emissions_per_minute", boiler)
+    BioInd.debugging.modified_msg("emissions_per_minute", boiler)
 
     boiler.energy_source.effectivity =
       ingredient.energy_source.effectivity * amount * 0.5
-    BioInd.modified_msg("effectivity", boiler)
+    BioInd.debugging.modified_msg("effectivity", boiler)
 
     boiler.max_health = ingredient.max_health * amount * 0.75
-    BioInd.modified_msg("max_health", boiler)
+    BioInd.debugging.modified_msg("max_health", boiler)
   end
 end
 
@@ -81,4 +81,4 @@ end
 ------------------------------------------------------------------------------------
 --                                    END OF FILE
 ------------------------------------------------------------------------------------
-BioInd.entered_file("leave")
+BioInd.debugging.entered_file("leave")

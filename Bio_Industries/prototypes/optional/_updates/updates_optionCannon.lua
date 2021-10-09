@@ -5,10 +5,10 @@
 local setting = "Bio_Cannon"
 -- Don't duplicate what NE does!
 if (not BI.Settings[setting]) or mods["Natural_Evolution_Buildings"] then
-  BioInd.nothing_to_do("*")
+  BioInd.debugging.nothing_to_do("*")
   return
 else
-  BioInd.entered_file()
+  BioInd.debugging.entered_file()
 end
 
 
@@ -44,7 +44,7 @@ if turret then
         ammo_category = BI.additional_categories.Bio_Cannon.cannon_ammo.name,
         modifier = ammo_damage
       })
-      BioInd.modified_msg("ammo-damage bonus", turret)
+      BioInd.debugging.modified_msg("ammo-damage bonus", turret)
     end
 
     -- Shooting speed modifier
@@ -54,7 +54,7 @@ if turret then
         ammo_category = BI.additional_categories.Bio_Cannon.cannon_ammo.name,
         modifier = gun_speed
       })
-      BioInd.modified_msg("shooting-speed bonus", turret)
+      BioInd.debugging.modified_msg("shooting-speed bonus", turret)
     end
   end
 
@@ -66,8 +66,8 @@ if turret then
     ammo_category = BI.additional_categories.Bio_Cannon.cannon_ammo.name,
     modifier = 1
   })
-  --~ BioInd.modified_msg("shooting-speed bonus", turret)
-  BioInd.modified_msg(turret.name, tech, "Added")
+  --~ BioInd.debugging.modified_msg("shooting-speed bonus", turret)
+  BioInd.debugging.modified_msg(turret.name, tech, "Added")
 end
 
 
@@ -77,7 +77,7 @@ end
 tech = techs["artillery"]
 if tech then
   thxbob.lib.tech.add_prerequisite(tech.name, "bi-tech-bio-cannon-3")
-  BioInd.modified_msg("prerequisites", tech)
+  BioInd.debugging.modified_msg("prerequisites", tech)
 end
 
 
@@ -87,10 +87,10 @@ end
 ------------------------------------------------------------------------------------
 addit = true
 for a, ammo in pairs(ammos) do
-BioInd.show("Checking ammo", a)
+BioInd.debugging.show("Checking ammo", a)
   if a:match(".*poison%-artillery%-shell.*") then
     addit = false
-BioInd.writeDebug("Found poison artillery shell: %s -- nothing to do!", {a})
+BioInd.debugging.writeDebug("Found poison artillery shell: %s -- nothing to do!", {a})
     break
   end
 end
@@ -107,4 +107,4 @@ end
 ------------------------------------------------------------------------------------
 --                                    END OF FILE                                 --
 ------------------------------------------------------------------------------------
-BioInd.entered_file("leave")
+BioInd.debugging.entered_file("leave")

@@ -1,4 +1,4 @@
-BioInd.entered_file()
+BioInd.debugging.entered_file()
 
 BI.additional_items = BI.additional_items or {}
 
@@ -52,10 +52,10 @@ BI.additional_items.ash.pictures = BioInd.add_pix("ash", 4)
 
 
 -- Status report
-BioInd.readdata_msg(BI.additional_items, nil, "additional items")
+BioInd.debugging.readdata_msg(BI.additional_items, nil, "additional items")
 
 
 ------------------------------------------------------------------------------------
 --                                    END OF FILE                                 --
 ------------------------------------------------------------------------------------
-BioInd.entered_file("leave")
+BioInd.debugging.entered_file("leave")

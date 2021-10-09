@@ -5,10 +5,10 @@
 -- Settings: BI.Settings.BI_Rubber and BI.Settings.BI_Darts/NE Buildings
 local trigger = "BI_Trigger_Rubber_Darts"
 if not BI.Triggers[trigger] then
-  BioInd.nothing_to_do("*")
+  BioInd.debugging.nothing_to_do("*")
   return
 else
-  BioInd.entered_file()
+  BioInd.debugging.entered_file()
 end
 
 
@@ -24,16 +24,16 @@ local tech, new_tech
 
 new_tech = BI.additional_techs.BI_Rubber.rubber_mat
 tech = techs["military-2"]
---~ BioInd.writeDebug("Must add %s to prerequisites of %s!", {new_tech.name, tech and tech.name})
+--~ BioInd.debugging.writeDebug("Must add %s to prerequisites of %s!", {new_tech.name, tech and tech.name})
 
 if tech then
   -- Add "Rubber mat" to prerequisites
   thxbob.lib.tech.add_prerequisite(tech.name, new_tech.name)
-  BioInd.modified_msg("prerequisites", tech)
+  BioInd.debugging.modified_msg("prerequisites", tech)
 
   for p, prerequisite in ipairs({"logistic-science-pack", "military", "steel-processing"}) do
     thxbob.lib.tech.remove_prerequisite(tech.name, prerequisite)
-    BioInd.modified_msg("prerequisites", tech, "Removed")
+    BioInd.debugging.modified_msg("prerequisites", tech, "Removed")
   end
 end
 
@@ -41,4 +41,4 @@ end
 ------------------------------------------------------------------------------------
 --                                    END OF FILE                                 --
 ------------------------------------------------------------------------------------
-BioInd.entered_file("leave")
+BioInd.debugging.entered_file("leave")

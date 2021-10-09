@@ -4,10 +4,10 @@
 ------------------------------------------------------------------------------------
 local setting = "BI_Power_Production"
 if not BI.Settings[setting] then
-  BioInd.nothing_to_do("*")
+  BioInd.debugging.nothing_to_do("*")
   return
 else
-  BioInd.entered_file()
+  BioInd.debugging.entered_file()
 end
 
 BI.additional_entities = BI.additional_entities or {}
@@ -537,9 +537,9 @@ BI.additional_entities[setting].huge_substation = {
 -- Solar mat/Musk floor
 BI.additional_entities[setting].solar_mat = {
   type = "tile",
-  name = "bi-solar-mat",
-  localised_name = {"entity-name.bi-solar-mat"},
-  localised_description = {"entity-description.bi-solar-mat"},
+  name = BioInd.musk_floor_stuff.musk_floor_tile_name,
+  localised_name = {"entity-name." .. BioInd.musk_floor_stuff.musk_floor_tile_name},
+  localised_description = {"entity-description." .. BioInd.musk_floor_stuff.musk_floor_tile_name},
   icon = ICONPATH .. "entity/solar-mat.png",
   icon_size = 64, icon_mipmaps = 3,
   BI_add_icon = true,
@@ -785,4 +785,4 @@ end
 ------------------------------------------------------------------------------------
 --                                    END OF FILE                                 --
 ------------------------------------------------------------------------------------
-BioInd.entered_file("leave")
+BioInd.debugging.entered_file("leave")

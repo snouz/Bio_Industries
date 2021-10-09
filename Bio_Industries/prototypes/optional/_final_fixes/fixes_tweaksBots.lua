@@ -4,10 +4,10 @@
 ------------------------------------------------------------------------------------
 local setting = "BI_Game_Tweaks_Bot"
 if not BI.Settings[setting] then
-  BioInd.nothing_to_do("*")
+  BioInd.debugging.nothing_to_do("*")
   return
 else
-  BioInd.entered_file()
+  BioInd.debugging.entered_file()
 end
 
 
@@ -29,30 +29,30 @@ local function immunify(bot)
   end
   if can_insert then
     table.insert(bot.flags, "not-flammable")
-    --~ BioInd.writeDebug("Added flag \"not-flammable\" to %s", {bot.name})
-    BioInd.modified_msg("flag \"not-flammable\"", bot, "Added")
+    --~ BioInd.debugging.writeDebug("Added flag \"not-flammable\" to %s", {bot.name})
+    BioInd.debugging.modified_msg("flag \"not-flammable\"", bot, "Added")
   end
 
   can_insert = true
   for r, resistance in pairs(bot.resistances) do
     if resistance.type == "fire" and resistance.percent ~= 100 then
-      --~ BioInd.writeDebug("Change resistance against \"fire\" from %s to 100 %% for %s",
+      --~ BioInd.debugging.writeDebug("Change resistance against \"fire\" from %s to 100 %% for %s",
                         --~ {resistance.percent or "nil", bot.name})
       bot.resistances[r] = {type = "fire", percent = 100}
       can_insert = false
-      BioInd.modified_msg("fire resistance", bot)
+      BioInd.debugging.modified_msg("fire resistance", bot)
       break
     end
   end
   if can_insert then
     table.insert(bot.resistances, {type = "fire", percent = 100})
-    --~ BioInd.writeDebug("Added resistance against  \"fire\" to %s", {bot.name})
-    BioInd.modified_msg("fire resistance", bot, "Added")
+    --~ BioInd.debugging.writeDebug("Added resistance against  \"fire\" to %s", {bot.name})
+    BioInd.debugging.modified_msg("fire resistance", bot, "Added")
   end
 
   bot.minable = nil
-  BioInd.writeDebug("Made  %s unminable", {bot.name})
-  BioInd.modified_msg("minable", bot, "Removed")
+  BioInd.debugging.writeDebug("Made  %s unminable", {bot.name})
+  BioInd.debugging.modified_msg("minable", bot, "Removed")
 end
 
 
@@ -70,4 +70,4 @@ end
 ------------------------------------------------------------------------------------
 --                                    END OF FILE
 ------------------------------------------------------------------------------------
-BioInd.entered_file("leave")
+BioInd.debugging.entered_file("leave")

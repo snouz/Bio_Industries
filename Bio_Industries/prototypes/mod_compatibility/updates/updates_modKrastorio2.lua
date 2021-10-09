@@ -3,10 +3,10 @@
 ------------------------------------------------------------------------------------
 local mod_name = "Krastorio2"
 if not BioInd.check_mods(mod_name) then
-  BioInd.nothing_to_do("*")
+  BioInd.debugging.nothing_to_do("*")
   return
 else
-  BioInd.entered_file()
+  BioInd.debugging.entered_file()
 end
 
 
@@ -27,7 +27,7 @@ if data.raw.fluid[fluid] then
     if recipe then
       -- Change ingredients
       thxbob.lib.recipe.replace_ingredient(recipe.name, "liquid-air", fluid)
-      BioInd.modified_msg("ingredients", recipe)
+      BioInd.debugging.modified_msg("ingredients", recipe)
     end
   end
 end
@@ -36,4 +36,4 @@ end
 ------------------------------------------------------------------------------------
 --                                    END OF FILE                                 --
 ------------------------------------------------------------------------------------
-BioInd.entered_file("leave")
+BioInd.debugging.entered_file("leave")

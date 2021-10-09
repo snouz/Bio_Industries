@@ -4,10 +4,10 @@
 ------------------------------------------------------------------------------------
 local setting = "BI_Darts"
 if not BI.Settings[setting] then
-  BioInd.nothing_to_do("*")
+  BioInd.debugging.nothing_to_do("*")
   return
 else
-  BioInd.entered_file()
+  BioInd.debugging.entered_file()
 end
 
 
@@ -35,9 +35,9 @@ local tech, unlock
 
       --~ -- Lock techs behind "Military 2"
       --~ tech.prerequisites = tech.prerequisites or {}
---~ BioInd.show("tech", tech)
+--~ BioInd.debugging.show("tech", tech)
       --~ table.insert(tech.prerequisites, unlock.name)
-      --~ BioInd.modified_msg("unlock", tech, "Added")
+      --~ BioInd.debugging.modified_msg("unlock", tech, "Added")
 
       --~ -- Change research unit ingredients of technologies
       --~ tech.unit = {
@@ -48,7 +48,7 @@ local tech, unlock
         --~ },
         --~ time = 15
       --~ }
-      --~ BioInd.modified_msg("research unit ingredients", tech)
+      --~ BioInd.debugging.modified_msg("research unit ingredients", tech)
 
     --~ end
   --~ end
@@ -73,11 +73,11 @@ for tech_name, prerequisite in pairs(map) do
   tech = techs[tech_name]
   if tech then
     thxbob.lib.tech.remove_prerequisite(tech.name, prerequisite)
-    BioInd.modified_msg("prerequisite " .. prerequisite, tech, "Removed")
+    BioInd.debugging.modified_msg("prerequisite " .. prerequisite, tech, "Removed")
   end
 end
 
 ------------------------------------------------------------------------------------
 --                                    END OF FILE                                 --
 ------------------------------------------------------------------------------------
-BioInd.entered_file("leave")
+BioInd.debugging.entered_file("leave")

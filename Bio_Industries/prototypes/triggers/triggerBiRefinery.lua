@@ -9,10 +9,10 @@
 -- Entity: "oil-refinery"
 local trigger = "BI_Trigger_BiRefinery"
 if not BI.Triggers[trigger] then
-  BioInd.nothing_to_do("*")
+  BioInd.debugging.nothing_to_do("*")
   return
 else
-  BioInd.entered_file()
+  BioInd.debugging.entered_file()
 end
 
 
@@ -37,7 +37,7 @@ if refinery then
   end
   if addit then
     table.insert(refinery.crafting_categories, BI.default_recipe_categories.bioreactor.name)
-    BioInd.modified_msg("crafting_categories", refinery)
+    BioInd.debugging.modified_msg("crafting_categories", refinery)
   end
 end
 
@@ -45,4 +45,4 @@ end
 ------------------------------------------------------------------------------------
 --                                    END OF FILE
 ------------------------------------------------------------------------------------
-BioInd.entered_file("leave")
+BioInd.debugging.entered_file("leave")

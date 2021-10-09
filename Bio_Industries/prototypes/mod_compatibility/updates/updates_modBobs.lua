@@ -8,10 +8,10 @@ if not BioInd.check_mods({
   "bobrevamp",
   "bobgreenhouse",
 }) then
-  BioInd.nothing_to_do("*")
+  BioInd.debugging.nothing_to_do("*")
   return
 else
-  BioInd.entered_file()
+  BioInd.debugging.entered_file()
 end
 
 
@@ -74,7 +74,7 @@ if items[item] and BI.additional_entities.BI_Wood_Products then
       name = item,
       amount = 15
     })
-    BioInd.modified_msg("ingredients", recipe)
+    BioInd.debugging.modified_msg("ingredients", recipe)
   end
 end
 
@@ -93,7 +93,7 @@ if items[item] and BI.additional_recipes.BI_Power_Production then
       name = item,
       amount = 30}
     )
-    BioInd.modified_msg("ingredients", recipe)
+    BioInd.debugging.modified_msg("ingredients", recipe)
   end
 end
 
@@ -111,7 +111,7 @@ if items[item] and BI.additional_recipes.BI_Power_Production then
       name = item,
       amount = 6}
     )
-    BioInd.modified_msg("ingredients", recipe)
+    BioInd.debugging.modified_msg("ingredients", recipe)
   end
 end
 
@@ -130,7 +130,7 @@ if items["large-accumulator-2"] and BI.additional_recipes.BI_Power_Production th
       name = "large-accumulator",
       amount = 30}
     )
-    BioInd.modified_msg("ingredients", recipe)
+    BioInd.debugging.modified_msg("ingredients", recipe)
   end
 end
 
@@ -145,7 +145,7 @@ if items[item] and BI.additional_recipes.BI_Power_Production then
       name = item,
       amount = 50
     })
-    BioInd.modified_msg("ingredients", recipe)
+    BioInd.debugging.modified_msg("ingredients", recipe)
   end
 end
 
@@ -164,7 +164,7 @@ if items[item] and BI.additional_recipes.BI_Power_Production then
       name = item,
       amount = 1}
     )
-    BioInd.modified_msg("ingredients", recipe)
+    BioInd.debugging.modified_msg("ingredients", recipe)
   end
 end
 
@@ -179,7 +179,7 @@ if items[item] and BI.additional_recipes.BI_Power_Production then
       name = item,
       amount = 4}
     )
-    BioInd.modified_msg("ingredients", recipe)
+    BioInd.debugging.modified_msg("ingredients", recipe)
   end
 end
 
@@ -210,14 +210,14 @@ if items[item] and BI.Settings["BI_Coal_Processing"] then
       name = item,
       amount = 10
     })
-    BioInd.modified_msg("ingredients", recipe)
+    BioInd.debugging.modified_msg("ingredients", recipe)
 
     -- Change localization of "bi-pellet-coke-2"
     recipe.localised_name = {
       "recipe-name.bi-pellet-coke",
       {"item-name.carbon"},
     }
-    BioInd.modified_msg("localization", recipe)
+    BioInd.debugging.modified_msg("localization", recipe)
   end
 end
 
@@ -238,10 +238,10 @@ if items[item] then
       name = item,
       amount = 10
     })
-    BioInd.modified_msg("ingredients", recipe)
+    BioInd.debugging.modified_msg("ingredients", recipe)
     -- Add unlock
     recipe.BI_add_to_tech = {BI.default_techs.fertilizer.name}
-    BioInd.modified_msg("unlock", recipe)
+    BioInd.debugging.modified_msg("unlock", recipe)
   end
 end
 
@@ -256,7 +256,7 @@ if items[item] then
   if recipe then
     -- Change ingredients
     thxbob.lib.recipe.replace_ingredient(recipe.name, "copper-cable", item)
-    BioInd.modified_msg("ingredients", recipe)
+    BioInd.debugging.modified_msg("ingredients", recipe)
   end
 end
 
@@ -275,7 +275,7 @@ if techs[tech] and BI.additional_recipes.BI_Coal_Processing then
     thxbob.lib.tech.remove_recipe_unlock(
       BI.additional_techs.BI_Coal_Processing.coal_processing_2.name, recipe.name)
     thxbob.lib.tech.add_recipe_unlock(tech, recipe.name)
-    BioInd.modified_msg("unlock", recipe)
+    BioInd.debugging.modified_msg("unlock", recipe)
   end
 end
 
@@ -292,7 +292,7 @@ if items["bob-greenhouse"] then
 
     -- Change place result
     item.place_result = "seedling"
-    BioInd.modified_msg("place_result", item)
+    BioInd.debugging.modified_msg("place_result", item)
   end
 
   item = items["fertilizer"]
@@ -306,4 +306,4 @@ end
 ------------------------------------------------------------------------------------
 --                                    END OF FILE                                 --
 ------------------------------------------------------------------------------------
-BioInd.entered_file("leave")
+BioInd.debugging.entered_file("leave")

@@ -19,27 +19,27 @@ end
 
 -- Converts recipe.result to recipe.results!
 function thxbob.lib.result_check(object)
-BioInd.entered_function()
+BioInd.debugging.entered_function({object})
   if object then
     object.results = object.results or {}
---~ BioInd.show("object.results", object.results)
+--~ BioInd.debugging.show("object.results", object.results)
 
     if object.result then
       local item = thxbob.lib.item.basic_item({name = object.result})
-BioInd.writeDebug("item: %s", {item}, "line")
+BioInd.debugging.writeDebug("item: %s", {item}, "line")
       if object.result_count then
         item.amount = object.result_count
         object.result_count = nil
       end
 
---~ BioInd.show("object.results", object.results)
+--~ BioInd.debugging.show("object.results", object.results)
       thxbob.lib.item.add_new(object.results, item)
---~ BioInd.show("object.results after add_new", object.results)
+--~ BioInd.debugging.show("object.results after add_new", object.results)
 
       if object.ingredients then  -- It's a recipe
         if not object.main_product then
           if object.icon or object.subgroup or object.order or item.type ~= "item" then -- if we already have one, add the rest
---~ BioInd.writeDebug("data.raw[%s][%s]: %s", {item.type, item.name, data.raw[item.type][item.name] or "nil"})
+--~ BioInd.debugging.writeDebug("data.raw[%s][%s]: %s", {item.type, item.name, data.raw[item.type][item.name] or "nil"})
             if (not object.icon) and data.raw[item.type][item.name] and
                                       data.raw[item.type][item.name].icon then
               object.icon = data.raw[item.type][item.name].icon
@@ -80,9 +80,9 @@ BioInd.writeDebug("item: %s", {item}, "line")
     end
 
   else
-    BioInd.writeDebug("%s does not exist.", {object})
+    BioInd.debugging.writeDebug("%s does not exist.", {object})
   end
-BioInd.entered_function("leave")
+BioInd.debugging.entered_function("leave")
 end
 
 

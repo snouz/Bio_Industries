@@ -4,10 +4,10 @@
 ------------------------------------------------------------------------------------
 local setting = "BI_Game_Tweaks_Emissions_Multiplier"
 if not BI.Settings[setting] then
-  BioInd.nothing_to_do("*")
+  BioInd.debugging.nothing_to_do("*")
   return
 else
-  BioInd.entered_file()
+  BioInd.debugging.entered_file()
 end
 
 
@@ -51,7 +51,7 @@ for item_name, factor in pairs({
   item = items[item_name]
   if item then
     BI_Functions.lib.fuel_emissions_multiplier_update(item, factor)
-    BioInd.modified_msg("fuel_emissions_multiplier", item)
+    BioInd.debugging.modified_msg("fuel_emissions_multiplier", item)
   end
 end
 
@@ -59,4 +59,4 @@ end
 ------------------------------------------------------------------------------------
 --                                    END OF FILE
 ------------------------------------------------------------------------------------
-BioInd.entered_file("leave")
+BioInd.debugging.entered_file("leave")

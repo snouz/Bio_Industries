@@ -1,4 +1,4 @@
-BioInd.entered_file()
+BioInd.debugging.entered_file()
 
 BI.additional_fluids = BI.additional_fluids or {}
 
@@ -23,7 +23,7 @@ recipe = BI.additional_recipes.liquid_air
 
 -- Liquid air already exists!
 if fluids[f_liquid_air.name] then
-  BioInd.writeDebug("%s already exists!", {f_liquid_air.name})
+  BioInd.debugging.writeDebug("%s already exists!", {f_liquid_air.name})
 
 -- Create fluid and recipes?
 else
@@ -38,14 +38,14 @@ else
 
   -- Check all substitutes in our list
   for s, s_name in ipairs(substitutes) do
-BioInd.show("Checking for liquid-air substitute", s_name)
+BioInd.debugging.show("Checking for liquid-air substitute", s_name)
     -- Substitute exists!
     if fluids[s_name] then
-BioInd.writeDebug("%s exists!", {s_name})
+BioInd.debugging.writeDebug("%s exists!", {s_name})
       --~ -- Use the substitute instead of liquid air in recipes
       --~ for r, recipe in ipairs({"bi-biomass-2", "bi-biomass-3"}) do
         --~ thxbob.lib.recipe.replace_ingredient(recipe, fluid.name, s_name)
-        --~ BioInd.modified_msg("ingredients", recipes[recipe])
+        --~ BioInd.debugging.modified_msg("ingredients", recipes[recipe])
       --~ end
       --~ check = true
       subst_liquid_air = s_name
@@ -75,11 +75,11 @@ recipe = BI.additional_recipes.nitrogen
 
 --~ -- Nitrogen exists
 --~ if fluids[fluid.name] then
-  --~ BioInd.writeDebug("%s already exists!", {fluid.name})
+  --~ BioInd.debugging.writeDebug("%s already exists!", {fluid.name})
 
 --~ -- Create fluid and recipes?
 --~ else
-  --~ BioInd.writeDebug("Check if we need to create nitrogen fluid and recipe!")
+  --~ BioInd.debugging.writeDebug("Check if we need to create nitrogen fluid and recipe!")
   --~ -- Do we really need nitrogen? We could use other fluids as substitute!
   --~ local substitutes = {
     --~ -- Angel's Petrochemical Processing ("angelspetrochem")
@@ -91,10 +91,10 @@ recipe = BI.additional_recipes.nitrogen
 
   --~ -- Check all substitutes in our list
   --~ for s, s_name in ipairs(substitutes) do
---~ BioInd.show("Checking for nitrogen substitute", s_name)
+--~ BioInd.debugging.show("Checking for nitrogen substitute", s_name)
     --~ -- Substitute exists!
     --~ if fluids[s_name] then
---~ BioInd.writeDebug("%s exists!", {s_name})
+--~ BioInd.debugging.writeDebug("%s exists!", {s_name})
       --~ success = true
       --~ substitute = s_name
       --~ break
@@ -113,7 +113,7 @@ recipe = BI.additional_recipes.nitrogen
 
 -- Create fluid?
 if not fluids[f_nitrogen.name] then
-  BioInd.writeDebug("Check if we need to create nitrogen fluid and recipe!")
+  BioInd.debugging.writeDebug("Check if we need to create nitrogen fluid and recipe!")
   -- Do we really need nitrogen? We could use other fluids as substitute!
   local substitutes = {
     -- Angel's Petrochemical Processing ("angelspetrochem")
@@ -124,10 +124,10 @@ if not fluids[f_nitrogen.name] then
 
   -- Check all substitutes in our list
   for s, s_name in ipairs(substitutes) do
-BioInd.show("Checking for nitrogen substitute", s_name)
+BioInd.debugging.show("Checking for nitrogen substitute", s_name)
     -- Substitute exists!
     if fluids[s_name] then
-BioInd.writeDebug("%s exists!", {s_name})
+BioInd.debugging.writeDebug("%s exists!", {s_name})
       --~ success = true
       subst_nitrogen = s_name
       break
@@ -182,12 +182,12 @@ for r, recipe in pairs(BI_recipes) do
     -- Substitute nitrogen?
     if subst_nitrogen then
       thxbob.lib.recipe.replace_ingredient(recipe, f_nitrogen.name, subst_nitrogen)
-      BioInd.modified_msg("ingredient", recipe)
+      BioInd.debugging.modified_msg("ingredient", recipe)
     end
     -- Substitute liquid air?
     if subst_liquid_air then
       thxbob.lib.recipe.replace_ingredient(recipe, f_liquid_air.name, subst_liquid_air)
-      BioInd.modified_msg("ingredient", recipe)
+      BioInd.debugging.modified_msg("ingredient", recipe)
     end
   end
 end
@@ -196,11 +196,11 @@ end
 --~ -- If we substitute liquid air, we must also replace it in the nitrogen recipe!
 --~ if substitute then
   --~ thxbob.lib.recipe.replace_ingredient(recipe.name, fluid.name, substitute)
-  --~ BioInd.modified_msg("ingredient", recipe)
+  --~ BioInd.debugging.modified_msg("ingredient", recipe)
 --~ end
 
 
 ------------------------------------------------------------------------------------
 --                                    END OF FILE                                 --
 ------------------------------------------------------------------------------------
-BioInd.entered_file("leave")
+BioInd.debugging.entered_file("leave")

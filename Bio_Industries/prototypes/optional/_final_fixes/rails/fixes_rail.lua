@@ -4,10 +4,10 @@
 ------------------------------------------------------------------------------------
 local setting = "BI_Rails"
 if not BI.Settings[setting] then
-  BioInd.nothing_to_do("*")
+  BioInd.debugging.nothing_to_do("*")
   return
 else
-  BioInd.entered_file()
+  BioInd.debugging.entered_file()
 end
 
 
@@ -41,7 +41,7 @@ local function set_resistances(entity, resistances)
           resistance.percent = need_resistance_value
           resistance.decrease = (need_resistance_value ~= 100) and
                                   (need_resistance_value * 0.05) or 0
-          BioInd.modified_msg("resistance against " .. resistance.type, entity)
+          BioInd.debugging.modified_msg("resistance against " .. resistance.type, entity)
           add_it = false
           break
         end
@@ -52,7 +52,7 @@ local function set_resistances(entity, resistances)
           percent = need_resistance_value,
           decrease = (need_resistance_value ~= 100) and (need_resistance_value * 0.05) or 0
         })
-        BioInd.modified_msg("resistance against " .. need_resistance, entity, "Added")
+        BioInd.debugging.modified_msg("resistance against " .. need_resistance, entity, "Added")
       end
     end
     entity.hide_resistances = false
@@ -83,13 +83,13 @@ for r, r_data in pairs(BI.additional_entities[setting]) do
   else
     set_resistances(r_data, resistance_concrete)
   end
-  BioInd.show("Resistances of " .. r_data.name, data.raw[r_data.type][r_data.name].resistances)
+  BioInd.debugging.show("Resistances of " .. r_data.name, data.raw[r_data.type][r_data.name].resistances)
 end
 
 -- Vanilla rails a.k.a. "Concrete rails"
 for r, rail in pairs({"curved-rail", "straight-rail"}) do
   set_resistances(data.raw[rail][rail], resistance_concrete)
-  BioInd.show("Resistances of " .. rail, data.raw[rail][rail].resistances)
+  BioInd.debugging.show("Resistances of " .. rail, data.raw[rail][rail].resistances)
 end
 
 
@@ -137,7 +137,7 @@ for f, form in ipairs({"straight", "curved"}) do
     end
   end
 end
-BioInd.show("Found these bridges", bridges)
+BioInd.debugging.show("Found these bridges", bridges)
 
 
 -- Change the collision masks!
@@ -155,16 +155,16 @@ for f, form in ipairs({"straight", "curved"}) do
     if BI_rails[rail_name] then
       -- Add collision masks to our rails
       rail.collision_mask = BioInd.RAIL_MASK
-      BioInd.writeDebug("Set collision_mask of %s to %s", {rail_name, rail.collision_mask})
+      BioInd.debugging.writeDebug("Set collision_mask of %s to %s", {rail_name, rail.collision_mask})
 
       -- Add fast_replaceable_group to our rails
       rail.fast_replaceable_group = rail_group
-      BioInd.modified_msg("fast_replaceable_group", rail)
+      BioInd.debugging.modified_msg("fast_replaceable_group", rail)
     end
 
     -- Look for all known bridges
     if bridges[form][rail_name] then
-BioInd.show("Bridge found", rail_name)
+BioInd.debugging.show("Bridge found", rail_name)
 
       rail.collision_mask = rail.collision_mask or {}
 
@@ -182,13 +182,13 @@ BioInd.show("Bridge found", rail_name)
         -- Add layer to collision mask
         if not found_layer then
           table.insert(rail.collision_mask, need_layer)
-          BioInd.writeDebug("Added %s to collision mask of %s", {need_layer, rail_name})
+          BioInd.debugging.writeDebug("Added %s to collision mask of %s", {need_layer, rail_name})
         end
       end
-BioInd.show("Collision mask", rail.collision_mask)
+BioInd.debugging.show("Collision mask", rail.collision_mask)
       -- Add fast_replaceable_group to the bridges
       rail.fast_replaceable_group = rail_group
-      BioInd.modified_msg("fast_replaceable_group", rail)
+      BioInd.debugging.modified_msg("fast_replaceable_group", rail)
     end
   end
 end
@@ -197,4 +197,4 @@ end
 ------------------------------------------------------------------------------------
 --                                    END OF FILE
 ------------------------------------------------------------------------------------
-BioInd.entered_file("leave")
+BioInd.debugging.entered_file("leave")

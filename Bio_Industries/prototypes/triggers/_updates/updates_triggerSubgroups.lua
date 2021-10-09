@@ -6,10 +6,10 @@
 -- Mods: "5dim_core",
 local trigger = "BI_Trigger_Subgroups"
 if not BI.Triggers[trigger] then
-  BioInd.nothing_to_do("*")
+  BioInd.debugging.nothing_to_do("*")
   return
 else
-  BioInd.entered_file()
+  BioInd.debugging.entered_file()
 end
 
 
@@ -51,8 +51,8 @@ end
 --              (e.g. "5d" --> item.subgroup_5d, item.subgroup_order_5d)
 local function add_subgroups(things, mod_handle)
 
-  BioInd.check_args(things, "table")
-  BioInd.check_args(mod_handle, "string", "mod handle")
+  BioInd.debugging.check_args(things, "table")
+  BioInd.debugging.check_args(mod_handle, "string", "mod handle")
 
 
   local group           = "group_" .. mod_handle
@@ -86,7 +86,7 @@ end
 ------------------------------------------------------------------------------------
 --~ local mod_handle = "5d"
 
---~ BioInd.show("mod_handle", mod_handle)
+--~ BioInd.debugging.show("mod_handle", mod_handle)
 
 --~ if mod_handle then
   for l, list in pairs({
@@ -103,4 +103,4 @@ end
 ------------------------------------------------------------------------------------
 --                                    END OF FILE                                 --
 ------------------------------------------------------------------------------------
-BioInd.entered_file("leave")
+BioInd.debugging.entered_file("leave")

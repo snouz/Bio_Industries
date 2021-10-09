@@ -1,10 +1,16 @@
 BioInd = require('common-data')
-BioInd.entered_file()
+BioInd.debugging.entered_file()
 
 
 ------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------
+local flag  = require('__eradicators-library__/erlib/shared')[5]
+local elreq = require('__eradicators-library__/erlib/shared')[4]
+local Lock  = elreq('erlib/lua/Lock')()
 
+if flag.IS_DEV_MODE then
+  Lock.auto_lock(_ENV, '_ENV')
+  end
 
 ------------------------------------------------------------------------------------
 --                                      Init                                      --
@@ -24,41 +30,13 @@ thxbob.lib = thxbob.lib or {}
 -- Populate BI.Settings with the setting values
 BioInd.get_startup_settings()
 for k, v in pairs(BI.Settings) do
-  BioInd.writeDebug("Setting %s: %s", {k, v})
+  BioInd.debugging.writeDebug("Setting %s: %s", {k, v})
 end
 
 -- Set triggers depending on multiple settings/mods
 require('set_triggers')
---~ BI.Triggers = {
-  --~ -- Crafting of bioreactor recipes in the oil refinery?
-    --~ BI_Trigger_BiRefinery         = not BioInd.check_mods({"IndustrialRevolution"}) and
-                                    --~ data.raw["assembling-machine"]["oil-refinery"],
-  --~ -- Create new tech "Refined concrete"?
-    --~ BI_Trigger_Concrete           = BI.Settings.BI_Game_Tweaks_Recipe or
-                                    --~ BI.Settings.BI_Rubber or
-                                    --~ BI.Settings.BI_Stone_Crushing,
-  --~ -- Only create Crushed stone if no other mod provides an equivalent
-  --~ BI_Trigger_Crushed_Stone_Create = BI.Settings.BI_Stone_Crushing and
-                                    --~ not BioInd.check_mods({"IndustrialRevolution"}),
-  --~ -- Replace Crushed stone in recipes
-  --~ BI_Trigger_Crushed_Stone_Replace= not BI.Settings.BI_Stone_Crushing,
-  --~ -- Create fluid fertilizers
-  --~ BI_Trigger_Easy_Bio_Gardens     = BI.Settings.BI_Bio_Garden and
-                                    --~ BI.Settings.BI_Game_Tweaks_Easy_Bio_Gardens,
-  --~ -- Move unlock of "Military 2" behind Rubber mats?
-  --~ BI_Trigger_Rubber_Darts         = BI.Settings.BI_Rubber and
-                                    --~ (BI.Settings.BI_Darts or mods["Natural_Evolution_Buildings"]),
-  --~ -- Add prerequisite "Wood gasification" to "Rubber-coated concrete"?
-  --~ BI_Trigger_Rubber_Woodgas       = BI.Settings.BI_Rubber and BI.Settings.BI_Wood_Gasification,
-  --~ -- Sort recipes into item-subgroups provided by other mods?
-  --~ BI_Trigger_Subgroups            = BioInd.check_mods({"5dim_core"}),
-  --~ -- Sort recipes into item-subgroups provided by other mods?
-  --~ BI_Trigger_Subgroups_rail       = BioInd.check_mods({"5dim_core"}) and BI.Settings.BI_Rails,
-  --~ -- Create "bi-wood-floor" tiles unless "Dectorio" already does that
-  --~ BI_Trigger_Woodfloor            = not BioInd.get_startup_setting("dectorio-wood"),
---~ }
 for k, v in pairs(BI.Triggers) do
-  BioInd.writeDebug("Trigger %s: %s", {k, v})
+  BioInd.debugging.writeDebug("Trigger %s: %s", {k, v})
 end
 
 
@@ -145,6 +123,7 @@ require("libs.bi_functions")
 -- Default
 require("prototypes.default.categories")
 require("prototypes.default.signal")
+require("prototypes.default.sprites")
 
 ------------------------------------------------------------------------------------
 --                                     Fluids                                     --
@@ -372,10 +351,28 @@ require("prototypes.optional.tweaksSciencePack")
 --                   (Running before mod-compatibility scripts)                   --
 ------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------
+
+
+------------------------------------------------------------------------------------
+--             Data of all additional things that depend on a trigger             --
+------------------------------------------------------------------------------------
+require("prototypes.triggers.additional_entities")
+require("prototypes.triggers.additional_fluids")
+require("prototypes.triggers.additional_items")
+require("prototypes.triggers.additional_recipes")
+require("prototypes.triggers.additional_technologies")
+
+
+------------------------------------------------------------------------------------
+--                                 Check triggers                                 --
+------------------------------------------------------------------------------------
 require("prototypes.triggers.triggerBiRefinery")
 require("prototypes.triggers.triggerConcrete")
-require("prototypes.triggers.triggerCrushedStoneCreate")
 require("prototypes.triggers.triggerEasyBioGardens")
+require("prototypes.triggers.triggerWoodfloor")
+require("prototypes.triggers.triggerCrushedStoneCreate")
+require("prototypes.triggers.triggerCharcoalCreate")
+require("prototypes.triggers.triggerWoodpulpCreate")
 
 
 --~ ------------------------------------------------------------------------------------
@@ -418,7 +415,7 @@ require("prototypes.triggers.triggerEasyBioGardens")
 --            Data of all additional things that depend on another mod            --
 ------------------------------------------------------------------------------------
 require("prototypes.mod_compatibility.additional_categories_item")
-require("prototypes.mod_compatibility.additional_entities")
+--~ require("prototypes.mod_compatibility.additional_entities")
 require("prototypes.mod_compatibility.additional_recipes")
 require("prototypes.mod_compatibility.additional_recipes_IR2")
 require("prototypes.mod_compatibility.additional_remnants")
@@ -505,13 +502,10 @@ require("prototypes.mod_compatibility.modPyanodon")
 --  ALL BASE ENTITIES EXIST -- NOW CREATE THE HIDDEN PARTS OF COMPOUND ENTITIES!  --
 ------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------
--- Let's remove all unnecessary entities from the list of compound entities!
-
---~ BioInd.compound_entities = compound_entities.get_HE_list()
---~ BioInd.compound_entities = require("prototypes.compound_entities.main_list").get_HE_list()
-BioInd.compound_entities = BioInd.rebuild_compound_entity_list()
-BioInd.show("LIST OF COMPOUND ENTITIES:", BioInd.compound_entities)
--- This will load all other files we need!
+-- Compile a list of the compound entities we need!
+BioInd.compound_entities = BioInd.build_compound_entity_list()
+BioInd.debugging.show("LIST OF COMPOUND ENTITIES", BioInd.compound_entities)
+-- Create the hidden entities. (This will load all other files we'll need!)
 require("prototypes.compound_entities.hidden_entities")
 
 
@@ -545,4 +539,8 @@ BioInd.BI_add_difficulty()
 ------------------------------------------------------------------------------------
 --                                    END OF FILE                                 --
 ------------------------------------------------------------------------------------
-BioInd.entered_file("leave")
+BioInd.debugging.entered_file("leave")
+
+if flag.IS_DEV_MODE then
+  Lock.remove_lock(_ENV, '_ENV')
+  end

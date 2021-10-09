@@ -4,10 +4,10 @@
 ------------------------------------------------------------------------------------
 local setting = "BI_Game_Tweaks_Recipe"
 if not BI.Settings[setting] then
-  BioInd.nothing_to_do("*")
+  BioInd.debugging.nothing_to_do("*")
   return
 else
-  BioInd.entered_file()
+  BioInd.debugging.entered_file()
 end
 
 
@@ -33,7 +33,7 @@ if recipe then
     name = "iron-stick",
     amount = 2
   })
-  BioInd.modified_msg("ingredients", recipe)
+  BioInd.debugging.modified_msg("ingredients", recipe)
 end
 
 
@@ -45,7 +45,7 @@ if recipe then
     name = "iron-stick",
     amount = 1
   })
-  BioInd.modified_msg("ingredients", recipe)
+  BioInd.debugging.modified_msg("ingredients", recipe)
 end
 
 
@@ -61,7 +61,7 @@ if BI.Triggers.BI_Trigger_Crushed_Stone_Create then
         name = "stone-crushed",
         amount = 6
       })
-      BioInd.modified_msg("ingredients", recipe)
+      BioInd.debugging.modified_msg("ingredients", recipe)
     end
   end
 end
@@ -75,11 +75,11 @@ if recipe then
     name = "concrete",
     amount = 6
   })
-  BioInd.modified_msg("ingredients", recipe)
+  BioInd.debugging.modified_msg("ingredients", recipe)
 end
 
 
 ------------------------------------------------------------------------------------
 --                                    END OF FILE                                 --
 ------------------------------------------------------------------------------------
-BioInd.entered_file("leave")
+BioInd.debugging.entered_file("leave")

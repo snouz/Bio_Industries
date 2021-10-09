@@ -4,10 +4,10 @@
 ------------------------------------------------------------------------------------
 local setting = "BI_Bio_Fuel"
 if not BI.Settings[setting] then
-  BioInd.nothing_to_do("*")
+  BioInd.debugging.nothing_to_do("*")
   return
 else
-  BioInd.entered_file()
+  BioInd.debugging.entered_file()
 end
 
 
@@ -24,4 +24,4 @@ BioInd.create_stuff(BI.additional_techs[setting])
 ------------------------------------------------------------------------------------
 --                                    END OF FILE                                 --
 ------------------------------------------------------------------------------------
-BioInd.entered_file("leave")
+BioInd.debugging.entered_file("leave")

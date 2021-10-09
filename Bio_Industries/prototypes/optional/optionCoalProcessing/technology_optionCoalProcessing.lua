@@ -8,10 +8,10 @@ if (not BI.Settings[setting]) or BioInd.check_mods({
   "pycoalprocessing",
   "pyrawores",
 }) then
-  BioInd.nothing_to_do("*")
+  BioInd.debugging.nothing_to_do("*")
   return
 else
-  BioInd.entered_file()
+  BioInd.debugging.entered_file()
 end
 
 
@@ -28,4 +28,4 @@ BioInd.create_stuff(BI.additional_techs[setting])
 ------------------------------------------------------------------------------------
 --                                    END OF FILE                                 --
 ------------------------------------------------------------------------------------
-BioInd.entered_file("leave")
+BioInd.debugging.entered_file("leave")

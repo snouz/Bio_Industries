@@ -1,4 +1,4 @@
-BioInd.entered_file()
+BioInd.debugging.entered_file()
 
 BI.default_techs = BI.default_techs or {}
 
@@ -226,11 +226,11 @@ BI.default_techs.ash = {
       --~ recipe = "bi-ash-2"
     --~ },
   },
-  -- Technology prerequisite 'steel-processing' on 'bi-tech-ash' is redundant
-  -- as 'bi-tech-timber' already contains it in its prerequisite tree.
-  --~ prerequisites = {"bi-tech-timber", "steel-processing"},
+  --~ -- Technology prerequisite 'steel-processing' on 'bi-tech-ash' is redundant
+  --~ -- as 'bi-tech-timber' already contains it in its prerequisite tree.
+  prerequisites = {"bi-tech-timber", "steel-processing"},
+  --~ prerequisites = {"bi-tech-timber"},
   order = "[bio-farming]-c-[ash]",
-  prerequisites = {"bi-tech-timber"},
   unit = {
     count = 70,
     ingredients = {
@@ -389,4 +389,4 @@ BioInd.create_stuff(BI.default_techs)
 ------------------------------------------------------------------------------------
 --                                    END OF FILE                                 --
 ------------------------------------------------------------------------------------
-BioInd.entered_file("leave")
+BioInd.debugging.entered_file("leave")

@@ -3,10 +3,10 @@
 --~ ------------------------------------------------------------------------------------
 --~ local mod_name = "BioTech"
 --~ if not BioInd.check_mods(mod_name) then
-  --~ BioInd.nothing_to_do("*")
+  --~ BioInd.debugging.nothing_to_do("*")
   --~ return
 --~ else
-  --~ BioInd.entered_file()
+  --~ BioInd.debugging.entered_file()
 --~ end
 
 
@@ -29,11 +29,11 @@
     --~ -- Adjust result
     --~ recipe.result = "biotech-sand"
     --~ recipe.result_count = 5
-    --~ BioInd.modified_msg("result", recipe)
+    --~ BioInd.debugging.modified_msg("result", recipe)
 
     --~ -- Adjust localization
     --~ recipe.localised_name = {"recipe-name.bi-sand", {"item-name.biotech-sand"}}
-    --~ BioInd.modified_msg("localization", recipe)
+    --~ BioInd.debugging.modified_msg("localization", recipe)
   --~ end
 
 --~ end
@@ -42,4 +42,4 @@
 --~ ------------------------------------------------------------------------------------
 --~ --                                    END OF FILE                                 --
 --~ ------------------------------------------------------------------------------------
---~ BioInd.entered_file("leave")
+--~ BioInd.debugging.entered_file("leave")

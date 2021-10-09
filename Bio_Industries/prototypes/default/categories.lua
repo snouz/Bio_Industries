@@ -1,4 +1,4 @@
-BioInd.entered_file()
+BioInd.debugging.entered_file()
 
 BI.default_item_group           = BI.default_item_group or {}
 BI.default_item_subgroup        = BI.default_item_subgroup or {}
@@ -23,6 +23,17 @@ BI.default_item_group.bio_industries = {
   icon = ICONPATH .. "BioIndustries_itemgroup.png",
   icon_size = 128, icon_mipmaps = 4,
   BI_add_icon = true
+}
+
+
+------------------------------------------------------------------------------------
+--                             Item subgroups: Signals                            --
+------------------------------------------------------------------------------------
+BI.default_item_subgroup.signals = {
+  type = "item-subgroup",
+  name = "bi-signal",
+  group = "signals",
+  order = "f-bioindustries"
 }
 
 
@@ -283,4 +294,4 @@ BioInd.create_stuff(BI.default_recipe_categories)
 ------------------------------------------------------------------------------------
 --                                    END OF FILE                                 --
 ------------------------------------------------------------------------------------
-BioInd.entered_file("leave")
+BioInd.debugging.entered_file("leave")

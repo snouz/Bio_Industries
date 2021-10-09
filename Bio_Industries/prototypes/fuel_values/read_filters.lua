@@ -3,7 +3,7 @@
 --          Read patterns for blacklisted/whitelists items from each mod          --
 ------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------
-BioInd.entered_file()
+BioInd.debugging.entered_file()
 
 
 ------------------------------------------------------------------------------------
@@ -39,15 +39,15 @@ filters["creative-mod"]         = require("prototypes.fuel_values.filtersCreativ
 filters["Pyanodons"]            = require("prototypes.fuel_values.filtersPyanodon")
 
 
-BioInd.show("filters", filters)
+BioInd.debugging.show("filters", filters)
 
 ------------------------------------------------------------------------------------
 -- Preset patterns are stored as array for simplicity. Convert these lists to     --
 -- dictionaries, so mods can easily overwrite them.                               --
 ------------------------------------------------------------------------------------
 for mod_name, mod_lists in pairs(filters) do
-BioInd.show("mod_name", mod_name)
-BioInd.show("mod_lists", mod_lists)
+BioInd.debugging.show("mod_name", mod_name)
+BioInd.debugging.show("mod_lists", mod_lists)
   mod_lists.blacklist_patterns = mod_lists.blacklist_patterns and
                                     util.list_to_map(mod_lists.blacklist_patterns)
   mod_lists.whitelist_patterns = mod_lists.whitelist_patterns  and
@@ -86,7 +86,7 @@ local mod_name
   --~ filters[suite_name] = nil
 --~ end
 
---~ BioInd.show("filters", filters)
+--~ BioInd.debugging.show("filters", filters)
 
 
 ------------------------------------------------------------------------------------
@@ -110,9 +110,9 @@ local mod_name
 --                Read custom filters set via  BI_FuelItem_Filters                --
 ------------------------------------------------------------------------------------
 for m_name, lists in pairs(BI_FuelItem_Filters) do
-BioInd.writeDebug("Custom filters for mod \"%s\": %s", {mod_name, lists})
+BioInd.debugging.writeDebug("Custom filters for mod \"%s\": %s", {mod_name, lists})
   mod_name = suite_mods[m_name] or m_name
-BioInd.show("mod_name", mod_name)
+BioInd.debugging.show("mod_name", mod_name)
 
   filters[mod_name] = filters[mod_name] or {}
 
@@ -122,18 +122,18 @@ BioInd.show("mod_name", mod_name)
         list_name == "whitelist_items" or list_name == "whitelist_patterns" then
 
       filters[mod_name][list_name] = filters[mod_name][list_name] or {}
-BioInd.writeDebug("Filter list \"%s\": %s", {list_name, list})
+BioInd.debugging.writeDebug("Filter list \"%s\": %s", {list_name, list})
 
       for filter_name, set_filter in pairs(list) do
-BioInd.writeDebug("Filter: \"%s\"\tValue: \"%s\"", {filter_name, set_filter})
+BioInd.debugging.writeDebug("Filter: \"%s\"\tValue: \"%s\"", {filter_name, set_filter})
         filters[mod_name][list_name][filter_name] = set_filter or nil
-BioInd.writeDebug("Set filters \"%s\": %s", {filter_name, filters[mod_name][list_name][filter_name] or "nil"})
+BioInd.debugging.writeDebug("Set filters \"%s\": %s", {filter_name, filters[mod_name][list_name][filter_name] or "nil"})
       end
     end
   end
 end
 
-BioInd.writeDebug("filters after merging lists: %s", {filters})
+BioInd.debugging.writeDebug("filters after merging lists: %s", {filters})
 
 
 ------------------------------------------------------------------------------------
@@ -141,8 +141,8 @@ BioInd.writeDebug("filters after merging lists: %s", {filters})
 -- different mods, the data from the last mod read from the list will be used.    --
 ------------------------------------------------------------------------------------
 for mod_name, lists in pairs(filters) do
-BioInd.show("mod_name", mod_name)
-BioInd.show("lists", lists)
+BioInd.debugging.show("mod_name", mod_name)
+BioInd.debugging.show("lists", lists)
   -- Add blacklist item names/types (dictionary)
   cnt = 0
   if next(lists) then
@@ -152,7 +152,7 @@ BioInd.show("lists", lists)
         blacklist_items[item_type][item_name] = true
         cnt = cnt + 1
       end
-      BioInd.writeDebug("Read data for %s types of items with a blacklisted name (Mod: \"%s\")",
+      BioInd.debugging.writeDebug("Read data for %s types of items with a blacklisted name (Mod: \"%s\")",
                         {cnt, mod_name})
     end
 
@@ -164,7 +164,7 @@ BioInd.show("lists", lists)
         whitelist_items[item_type][item_name] = true
         cnt = cnt + 1
       end
-      BioInd.writeDebug("Read data for %s types of items with a whitelisted name (Mod: \"%s\")",
+      BioInd.debugging.writeDebug("Read data for %s types of items with a whitelisted name (Mod: \"%s\")",
                         {cnt, mod_name})
     end
 
@@ -175,7 +175,7 @@ BioInd.show("lists", lists)
         blacklist_patterns[#blacklist_patterns + 1] = pattern
         cnt = cnt + 1
       end
-      BioInd.writeDebug("Read %s blacklist patterns for mod \"%s\"",
+      BioInd.debugging.writeDebug("Read %s blacklist patterns for mod \"%s\"",
                         {cnt, mod_name})
     end
 
@@ -186,19 +186,19 @@ BioInd.show("lists", lists)
         whitelist_patterns[#whitelist_patterns + 1] = pattern
         cnt = cnt + 1
       end
-      BioInd.writeDebug("Read %s whitelist patterns for mod \"%s\"",
+      BioInd.debugging.writeDebug("Read %s whitelist patterns for mod \"%s\"",
                         {cnt, mod_name})
     end
   else
-    BioInd.writeDebug("No data for mod \"%s\"!", {mod_name})
+    BioInd.debugging.writeDebug("No data for mod \"%s\"!", {mod_name})
   end
 
 end
 
-BioInd.show("blacklist_items", blacklist_items)
-BioInd.show("blacklist_patterns", blacklist_patterns)
-BioInd.show("whitelist_items", whitelist_items)
-BioInd.show("whitelist_patterns", whitelist_patterns)
+BioInd.debugging.show("blacklist_items", blacklist_items)
+BioInd.debugging.show("blacklist_patterns", blacklist_patterns)
+BioInd.debugging.show("whitelist_items", whitelist_items)
+BioInd.debugging.show("whitelist_patterns", whitelist_patterns)
 
 --~ error("Test!")
 
@@ -206,7 +206,7 @@ BioInd.show("whitelist_patterns", whitelist_patterns)
 ------------------------------------------------------------------------------------
 --                                    END OF FILE
 ------------------------------------------------------------------------------------
-BioInd.entered_file("leave")
+BioInd.debugging.entered_file("leave")
 
 return {
   blacklist_items       = blacklist_items,

@@ -3,10 +3,10 @@
 ------------------------------------------------------------------------------------
 local mod_name = "omnimatter_fluid"
 if not BioInd.check_mods(mod_name) then
-  BioInd.nothing_to_do("*")
+  BioInd.debugging.nothing_to_do("*")
   return
 else
-  BioInd.entered_file()
+  BioInd.debugging.entered_file()
 end
 
 
@@ -17,10 +17,10 @@ end
 -- Omnifluid will be confused by our bi-solar-boiler (the compound boiler + solar
 -- plant entity). Let's blacklist it if the mod is active!
 forbidden_boilers["bi-solar-boiler"] = true
-BioInd.writeDebug("Blacklisted \"bi-solar-boiler\" with Omnifluid!")
+BioInd.debugging.writeDebug("Blacklisted \"bi-solar-boiler\" with Omnifluid!")
 
 
 ------------------------------------------------------------------------------------
 --                                    END OF FILE                                 --
 ------------------------------------------------------------------------------------
-BioInd.entered_file("leave")
+BioInd.debugging.entered_file("leave")

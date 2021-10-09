@@ -1,4 +1,4 @@
-BioInd.entered_file()
+BioInd.debugging.entered_file()
 
 ------------------------------------------------------------------------------------
 -- Just remove some obsolete global tables!
@@ -6,11 +6,11 @@ BioInd.entered_file()
 if global and global.bi then
   global.bi.terrains = nil
   global.bi.seed_bomb = nil
-  BioInd.writeDebug("Removed obsolete tables from global!")
+  BioInd.debugging.writeDebug("Removed obsolete tables from global!")
 end
 
 
 ------------------------------------------------------------------------------------
 --                                    END OF FILE                                 --
 ------------------------------------------------------------------------------------
-BioInd.entered_file("leave")
+BioInd.debugging.entered_file("leave")

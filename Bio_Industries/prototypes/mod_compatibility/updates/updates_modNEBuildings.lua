@@ -3,10 +3,10 @@
 ------------------------------------------------------------------------------------
 local mod_name = "Natural_Evolution_Buildings"
 if not BioInd.check_mods(mod_name) then
-  BioInd.nothing_to_do("*")
+  BioInd.debugging.nothing_to_do("*")
   return
 else
-  BioInd.entered_file()
+  BioInd.debugging.entered_file()
 end
 
 
@@ -50,16 +50,16 @@ local turrets = data.raw["ammo-turret"]
 
   --~ for level, bonus in ipairs(map) do
     --~ turret_attack, ammo_damage, gun_speed = table.unpack(bonus)
---~ BioInd.writeDebug("turret_attack: %s\tammo_damage: %s\tgun_speed: %s", {
+--~ BioInd.debugging.writeDebug("turret_attack: %s\tammo_damage: %s\tgun_speed: %s", {
   --~ turret_attack, ammo_damage, gun_speed or "nil"
 --~ })
     --~ -- Turret attack bonus
     --~ if turret_attack then
---~ BioInd.show("tech", techs["physical-projectile-damage-" .. level])
+--~ BioInd.debugging.show("tech", techs["physical-projectile-damage-" .. level])
       --~ table.insert(techs["physical-projectile-damage-" .. level].effects, {
         --~ type = "turret-attack", turret_id = turret, modifier = turret_attack
       --~ })
-      --~ BioInd.modified_msg("turret-attack bonus", turrets[turret])
+      --~ BioInd.debugging.modified_msg("turret-attack bonus", turrets[turret])
     --~ end
 
     --~ -- Ammo damage modifier
@@ -67,7 +67,7 @@ local turrets = data.raw["ammo-turret"]
       --~ table.insert(techs["physical-projectile-damage-" .. level].effects, {
         --~ type = "ammo-damage", ammo_category = "Bio_Turret_Ammo", modifier = ammo_damage
       --~ })
-      --~ BioInd.modified_msg("ammo-damage bonus", turrets[turret])
+      --~ BioInd.debugging.modified_msg("ammo-damage bonus", turrets[turret])
     --~ end
 
     --~ -- Shooting speed modifier
@@ -75,7 +75,7 @@ local turrets = data.raw["ammo-turret"]
       --~ table.insert(techs["weapon-shooting-speed-" .. level].effects, {
         --~ type = "gun-speed", ammo_category = "Bio_Turret_Ammo", modifier = gun_speed
       --~ })
-      --~ BioInd.modified_msg("shooting-speed bonus", turrets[turret])
+      --~ BioInd.debugging.modified_msg("shooting-speed bonus", turrets[turret])
     --~ end
   --~ end
   --~ -- Turret attack modifier
@@ -95,7 +95,7 @@ local turrets = data.raw["ammo-turret"]
     --~ table.insert(tech.effects, {
       --~ type = bonus, turret_id = turret, modifier = modifier
     --~ })
-    --~ BioInd.modified_msg("effects of " tech.name .. " (" .. turret .. ")", tech)
+    --~ BioInd.debugging.modified_msg("effects of " tech.name .. " (" .. turret .. ")", tech)
   --~ end
 
   --~ -- Ammo damage modifier
@@ -114,7 +114,7 @@ local turrets = data.raw["ammo-turret"]
       --~ ammo_category = "Bio_Turret_Ammo",
       --~ modifier = modifier
     --~ })
-    --~ BioInd.modified_msg("effects (Bio cannon)", tech)
+    --~ BioInd.debugging.modified_msg("effects (Bio cannon)", tech)
   --~ end
 
   --~ -- Shooting speed modifier
@@ -131,7 +131,7 @@ local turrets = data.raw["ammo-turret"]
     --~ table.insert(tech.effects, {
       --~ type = bonus, ammo_category = "Bio_Turret_Ammo", modifier = modifier
     --~ })
-    --~ BioInd.modified_msg("effects (Bio cannon)", tech)
+    --~ BioInd.debugging.modified_msg("effects (Bio cannon)", tech)
   --~ end
 --~ end
 --~ end
@@ -155,7 +155,7 @@ local turrets = data.raw["ammo-turret"]
       --~ table.insert(techs["physical-projectile-damage-" .. level].effects, {
         --~ type = "ammo-damage", ammo_category = "Bio_Cannon_Ammo", modifier = ammo_damage
       --~ })
-      --~ BioInd.modified_msg("ammo-damage bonus", turrets[turret])
+      --~ BioInd.debugging.modified_msg("ammo-damage bonus", turrets[turret])
     --~ end
 
     --~ -- Shooting speed modifier
@@ -163,7 +163,7 @@ local turrets = data.raw["ammo-turret"]
       --~ table.insert(techs["weapon-shooting-speed-" .. level].effects, {
         --~ type = "gun-speed", ammo_category = "Bio_Cannon_Ammo", modifier = gun_speed
       --~ })
-      --~ BioInd.modified_msg("shooting-speed bonus", turrets[turret])
+      --~ BioInd.debugging.modified_msg("shooting-speed bonus", turrets[turret])
     --~ end
   --~ end
 
@@ -192,7 +192,7 @@ local turrets = data.raw["ammo-turret"]
       --~ ammo_category = "Bio_Turret_Ammo",
       --~ modifier = modifier
     --~ })
-    --~ BioInd.modified_msg("effects (Bio cannon)", tech)
+    --~ BioInd.debugging.modified_msg("effects (Bio cannon)", tech)
   --~ end
 
   --~ -- Ammo damage modifier
@@ -211,7 +211,7 @@ local turrets = data.raw["ammo-turret"]
       --~ ammo_category = "Bio_Turret_Ammo",
       --~ modifier = modifier
     --~ })
-    --~ BioInd.modified_msg("effects (Bio cannon)", tech)
+    --~ BioInd.debugging.modified_msg("effects (Bio cannon)", tech)
   --~ end
 --~ end
 
@@ -221,7 +221,7 @@ local turrets = data.raw["ammo-turret"]
 --~ tech = techs["artillery"]
 --~ if tech and techs["bi-tech-bio-cannon-3"] then
   --~ thxbob.lib.tech.add_prerequisite(tech.name, "bi-tech-bio-cannon-3")
-  --~ BioInd.modified_msg("prerequisites", tech)
+  --~ BioInd.debugging.modified_msg("prerequisites", tech)
 --~ end
 
 ------------------------------------------------------------------------------------
@@ -238,11 +238,11 @@ if recipe then
     name = "NE_enhanced-nutrient-solution",
     amount = 50
   })
-  BioInd.modified_msg("ingredients", recipe)
+  BioInd.debugging.modified_msg("ingredients", recipe)
 end
 
 
 ------------------------------------------------------------------------------------
 --                                    END OF FILE                                 --
 ------------------------------------------------------------------------------------
-BioInd.entered_file("leave")
+BioInd.debugging.entered_file("leave")

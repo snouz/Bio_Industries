@@ -6,10 +6,10 @@
 
 local trigger = "BI_Trigger_Easy_Bio_Gardens"
 if not BI.Triggers[trigger] then
-  BioInd.nothing_to_do("*")
+  BioInd.debugging.nothing_to_do("*")
   return
 else
-  BioInd.entered_file()
+  BioInd.debugging.entered_file()
 end
 
 
@@ -36,15 +36,15 @@ for i, ingredient in pairs({"fertilizer", "bi-adv-fertilizer"}) do
     thxbob.lib.recipe.remove_ingredient(recipe.name, ingredient)
     thxbob.lib.recipe.remove_ingredient(recipe.name, "water")
     thxbob.lib.recipe.add_new_ingredient(recipe.name, {type = "fluid", name = fluid.name, amount = 50})
-    BioInd.modified_msg("ingredients", recipe)
+    BioInd.debugging.modified_msg("ingredients", recipe)
 
     -- Change recipe localization
     recipe.localised_description = {
       "recipe-description." .. recipe.name .. "-fluid",
       {"fluid-name.bi-fertilizer-fluid", {"item-name." .. ingredient}},
     }
-BioInd.show("Fluid recipe description", recipe.localised_description)
-    BioInd.modified_msg("localization", recipe)
+BioInd.debugging.show("Fluid recipe description", recipe.localised_description)
+    BioInd.debugging.modified_msg("localization", recipe)
   end
 end
 
@@ -57,11 +57,11 @@ end
 
   --~ if tech then
     --~ tech.localised_name = {"technology-name." .. tech.name .. "-easy"}
-    --~ BioInd.modified_msg("localization", tech)
+    --~ BioInd.debugging.modified_msg("localization", tech)
   --~ end
 --~ end
 
 ------------------------------------------------------------------------------------
 --                                    END OF FILE
 ------------------------------------------------------------------------------------
-BioInd.entered_file("leave")
+BioInd.debugging.entered_file("leave")

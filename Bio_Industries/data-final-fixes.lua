@@ -1,12 +1,32 @@
-BioInd.entered_file()
+BioInd.debugging.entered_file()
+
+local function check_bricks(where_are_we)
+local recipe = data.raw.recipe["bi-stone-brick"]
+
+  if recipe then
+BioInd.debugging.writeDebug("Recipe bi-stone-brick is hidden: %s (%s)", {recipe.hidden ~= nil and recipe.hidden or "nil", where_are_we or "missing location"})
+  end
+end
+
+check_bricks("at start of data-final-fixes.lua")
 
 ------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------
+local flag  = require('__eradicators-library__/erlib/shared')[5]
+local elreq = require('__eradicators-library__/erlib/shared')[4]
+local Lock  = elreq('erlib/lua/Lock')()
 
+if flag.IS_DEV_MODE then
+  Lock.auto_lock(_ENV, '_ENV')
+  end
+------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
 
 --~ local BioInd = require(['"]common['"])(["']Bio_Industries['"])
 local ICONPATH = BioInd.iconpath
 
+------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
 
 -- Check if we need to replace "bi-ash" with "ash" in recipe ingredients/results!
 require("prototypes.default.final_fixes.ash")
@@ -22,10 +42,10 @@ for name, _ in pairs(ignore_trees or {}) do
     data.raw.tree[name] = nil
     ignore_trees[name] = nil
     removed = removed + 1
-    BioInd.show("Removed tree prototype", name)
+    BioInd.debugging.show("Removed tree prototype", name)
   end
 end
-BioInd.writeDebug("Removed %g tree prototypes. Number of trees to ignore now: %g", {removed, table_size(ignore_trees)})
+BioInd.debugging.writeDebug("Removed %g tree prototypes. Number of trees to ignore now: %g", {removed, table_size(ignore_trees)})
 
 --~ ------------------------------------------------------------------------------------
 --~ --                              Enable: Wooden rails                              --
@@ -83,6 +103,15 @@ require("prototypes.optional._final_fixes.fixes_tweaksStackSize")
 require("prototypes.optional._final_fixes.fixes_tweaksTreeYield")
 
 
+
+------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
+--                                    TRIGGERS                                    --
+------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
+require("prototypes.triggers._final_fixes.fixes_triggerConcrete")
+
+
 ------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------
 --                          Compatibility with other mods                         --
@@ -117,7 +146,6 @@ require("prototypes.mod_compatibility.final_fixes.fixes_modAlienBiomes")
 require("prototypes.mod_compatibility.final_fixes.fixes_modNEBuildings")
 
 
-
 ------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------
 --                                    TRIGGERS                                    --
@@ -130,7 +158,7 @@ require("prototypes.mod_compatibility.final_fixes.fixes_modNEBuildings")
 ------------------------------------------------------------------------------------
 require("prototypes.triggers._final_fixes.fixes_triggerSubgroups")
 
-
+--~ require("prototypes.triggers._final_fixes.fixes_triggerConcrete")
 
 ------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------
@@ -143,6 +171,7 @@ require("prototypes.triggers._final_fixes.fixes_triggerSubgroups")
 ------------- SNOUZ ICON UPDATES
 require("prototypes.mod_compatibility.final_fixes.icon_updates")
 --~ require("prototypes.mod_compatibility.final_fixes.group_updates")
+
 
 ------------------------------------------------------------------------------------
 --                           Add icons to our prototypes                          --
@@ -172,7 +201,7 @@ local function update_stacksize(items)
 
         if BI_item and generic_item then
           BI_item.stack_size = generic_item.stack_size
-          BioInd.modified_msg("stack_size", BI_item)
+          BioInd.debugging.modified_msg("stack_size", BI_item)
         end
       end
     end
@@ -180,13 +209,14 @@ local function update_stacksize(items)
 end
 update_stacksize(BI.additional_items)
 
+
 ------------------------------------------------------------------------------------
 --                 Remove obsolete prerequisites from technologies                --
 ------------------------------------------------------------------------------------
 local techs = data.raw.technology
 
 local function sort_difficulty_unlocks(technology, difficulty)
-BioInd.entered_function()
+BioInd.debugging.entered_function()
   if difficulty ~= "normal" and difficulty ~= "expensive" and difficulty ~= "" then
     error(string.format("%s is not a valid difficulty!", difficulty))
   end
@@ -220,21 +250,21 @@ BioInd.entered_function()
         unlock_other[#unlock_other + 1] = effect
       end
     end
-BioInd.show("Unsorted recipe unlocks", unlock_recipes)
+BioInd.debugging.show("Unsorted recipe unlocks", unlock_recipes)
     table.sort(unlock_recipes, function(a,b) return a.order < b.order end)
-BioInd.show("Sorted recipe unlocks", unlock_recipes)
+BioInd.debugging.show("Sorted recipe unlocks", unlock_recipes)
     if next(unlock_other) then
       table.move(unlock_other, 1, #unlock_other, #unlock_recipe, unlock_recipe)
     end
     for u, unlock in ipairs(unlock_recipes) do
       effects[u] = unlock
     end
-BioInd.show("Final unlocks of " .. tech.name, effects)
+BioInd.debugging.show("Final unlocks of " .. tech.name, effects)
   end
 end
 
 -- Check default techs
-BioInd.writeDebug("Looking for missing prerequisites of default technologies:")
+BioInd.debugging.writeDebug("Looking for missing prerequisites of default technologies:")
 for t, tech in pairs(BI.default_techs) do
   thxbob.lib.tech.remove_obsolete_prerequisites(tech.name)
 
@@ -246,7 +276,7 @@ end
 
 -- Check optional techs
 for s, setting in pairs(BI.additional_techs) do
-BioInd.writeDebug("Looking for missing prerequisites of technologies depending on setting %s:", {s})
+BioInd.debugging.writeDebug("Looking for missing prerequisites of technologies depending on setting %s:", {s})
   for t, tech in pairs(setting) do
     thxbob.lib.tech.remove_obsolete_prerequisites(tech)
     --~ for d, diff in ipairs({"", "normal", "expensive"}) do
@@ -268,8 +298,11 @@ end
 
 
 
-
 ------------------------------------------------------------------------------------
 --                                    END OF FILE                                 --
 ------------------------------------------------------------------------------------
-BioInd.entered_file("leave")
+BioInd.debugging.entered_file("leave")
+
+if flag.IS_DEV_MODE then
+  Lock.remove_lock(_ENV, '_ENV')
+end

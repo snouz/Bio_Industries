@@ -1,7 +1,7 @@
 ------------------------------------------------------------------------------------
 --                   Data for recipes that depend on a setting.                   --
 ------------------------------------------------------------------------------------
-BioInd.entered_file()
+BioInd.debugging.entered_file()
 
 BI.additional_recipes = BI.additional_recipes or {}
 
@@ -27,13 +27,13 @@ for s, setting in pairs(settings) do
   BI.additional_recipes[setting] = BI.additional_recipes[setting] or {}
 end
 
-local triggers = {
-  "BI_Trigger_Easy_Bio_Gardens",
-  "BI_Trigger_Sand",
-}
-for t, trigger in pairs(triggers) do
-  BI.additional_recipes[trigger] = BI.additional_recipes[trigger] or {}
-end
+--~ local triggers = {
+  --~ "BI_Trigger_Easy_Bio_Gardens",
+  --~ "BI_Trigger_Sand",
+--~ }
+--~ for t, trigger in pairs(triggers) do
+  --~ BI.additional_recipes[trigger] = BI.additional_recipes[trigger] or {}
+--~ end
 
 
 ------------------------------------------------------------------------------------
@@ -774,7 +774,8 @@ BI.additional_recipes.BI_Bio_Garden.bio_garden = {
   energy_required = 10,
   ingredients = {
     {"stone-wall", 10},
-    {"stone-crushed", 40},
+    -- We'll add this in data-updates, depending on what's available!
+    --~ {"stone-crushed", 40},
     {"seedling", 30}
   },
   result = "bi-bio-garden",
@@ -2349,7 +2350,7 @@ BI.additional_recipes.BI_Power_Production.solar_mat = {
   ingredients = {
     {"steel-plate", 1},
     {"advanced-circuit", 3},
-    {"copper-cable", 4}
+    {"copper-cable", 4},
   },
   result = "bi-solar-mat",
   --~ -- subgroup = "bio-bio-solar-entity",
@@ -3628,154 +3629,139 @@ BI.additional_recipes.BI_Game_Tweaks_Production_Science.production_science_pack 
 
 
 
-------------------------------------------------------------------------------------
-------------------------------------------------------------------------------------
---                                    Triggers                                    --
-------------------------------------------------------------------------------------
-------------------------------------------------------------------------------------
+--~ ------------------------------------------------------------------------------------
+--~ ------------------------------------------------------------------------------------
+--~ --                                    Triggers                                    --
+--~ ------------------------------------------------------------------------------------
+--~ ------------------------------------------------------------------------------------
 
 
-------------------------------------------------------------------------------------
---                            Trigger: Easy Bio gardens                           --
---                    (BI.Triggers.BI_Trigger_Easy_Bio_Gardens)                   --
-------------------------------------------------------------------------------------
--- Fertilizer fluid (Tints will be added later)
-BI.additional_recipes.BI_Trigger_Easy_Bio_Gardens.fertilizer_fluid = {
-  type = "recipe",
-  name = "bi-fertilizer-fluid",
-  localised_description = {
-    "recipe-description.bi-fertilizer-fluid",
-    {"fluid-name.water"},
-  },
-  icon = ICONPATH .. "fluid_fertilizer.png",
-  icon_size = 64, icon_mipmaps = 3,
-  BI_add_icon = true,
-  category = "chemistry",
-  energy_required = 5,
-  ingredients = {
-    {type = "item", name = "fertilizer", amount = 3},
-    {type = "fluid", name = "water", amount = 100},
-  },
-  results = {
-    {type = "fluid", name = "bi-fertilizer-fluid", amount = 100}
-  },
-  main_product = "",
-  enabled = false,
-  always_show_made_in = true,
-  allow_decomposition = false,
-  allow_as_intermediate = false,
-  subgroup = BI.default_item_subgroup.bio_farm_intermediate_product.name,
-  order = "b[bi-fertilizer]-b[bi-fertilizer-fluid-1]",
-  -- This will be added in optionsEasyBioGardens.lua!
-  --~ crafting_machine_tint = {
-    --~ -- Kettle
-    --~ primary = fertilizer_fluid_colors.primary,
-    --~ secondary = fertilizer_fluid_colors.secondary,
-    --~ -- Chimney
-    --~ tertiary = fertilizer_fluid_colors.tertiary,
-    --~ quaternary = fertilizer_fluid_colors.quaternary,
+--~ ------------------------------------------------------------------------------------
+--~ --                            Trigger: Easy Bio gardens                           --
+--~ --                    (BI.Triggers.BI_Trigger_Easy_Bio_Gardens)                   --
+--~ ------------------------------------------------------------------------------------
+--~ -- Fertilizer fluid (Tints will be added later)
+--~ BI.additional_recipes.BI_Trigger_Easy_Bio_Gardens.fertilizer_fluid = {
+  --~ type = "recipe",
+  --~ name = "bi-fertilizer-fluid",
+  --~ localised_description = {
+    --~ "recipe-description.bi-fertilizer-fluid",
+    --~ {"fluid-name.water"},
   --~ },
-  crafting_machine_tint = {
-    primary     = util.color("5e9347"),
-    secondary   = util.color("72be51"),
-    tertiary    = util.color("63ae42"),
-    quaternary  = util.color("58af33")
-  },
-  -- Custom property that allows to automatically add our recipes to tech unlocks.
-  BI_add_to_tech = {"bi-tech-fertilizer"},
-}
-
--- Advanced fertilizer fluid (Tints will be added later)
-BI.additional_recipes.BI_Trigger_Easy_Bio_Gardens.adv_fertilizer_fluid = {
-  type = "recipe",
-  name = "bi-adv-fertilizer-fluid",
-  localised_description = {
-    "recipe-description.bi-adv-fertilizer-fluid",
-    {"fluid-name.water"},
-  },
-  icon = ICONPATH .. "fluid_fertilizer_advanced.png",
-  icon_size = 64, icon_mipmaps = 3,
-  BI_add_icon = true,
-  category = "chemistry",
-  energy_required = 5,
-  ingredients = {
-    {type = "item", name = "bi-adv-fertilizer", amount = 3},
-    {type = "fluid", name = "water", amount = 100},
-  },
-  results = {
-    {type = "fluid", name = "bi-adv-fertilizer-fluid", amount = 100}
-  },
-  main_product = "",
-  enabled = false,
-  always_show_made_in = true,
-  allow_decomposition = false,
-  allow_as_intermediate = false,
-  subgroup = BI.default_item_subgroup.bio_farm_intermediate_product.name,
-  order = "b[bi-fertilizer]-b[bi-fertilizer-fluid-2]",
-  -- This will be added in optionsEasyBioGardens.lua!
-  --~ crafting_machine_tint = {
-    --~ primary = adv_fertilizer_fluid_colors.primary,
-    --~ secondary = adv_fertilizer_fluid_colors.secondary,
-    --~ -- Chimney
-    --~ tertiary = adv_fertilizer_fluid_colors.tertiary,
-    --~ quaternary = adv_fertilizer_fluid_colors.quaternary,
+  --~ icon = ICONPATH .. "fluid_fertilizer.png",
+  --~ icon_size = 64, icon_mipmaps = 3,
+  --~ BI_add_icon = true,
+  --~ category = "chemistry",
+  --~ energy_required = 5,
+  --~ ingredients = {
+    --~ {type = "item", name = "fertilizer", amount = 3},
+    --~ {type = "fluid", name = "water", amount = 100},
   --~ },
-  crafting_machine_tint = {
-    primary     = util.color("d04677"),
-    secondary   = util.color("b82e5f"),
-    tertiary    = util.color("b64f73"),
-    quaternary  = util.color("b85e84")
-  },
-  -- Custom property that allows to automatically add our recipes to tech unlocks.
-  BI_add_to_tech = {"bi-tech-advanced-fertilizer"},
-}
+  --~ results = {
+    --~ {type = "fluid", name = "bi-fertilizer-fluid", amount = 100}
+  --~ },
+  --~ main_product = "",
+  --~ enabled = false,
+  --~ always_show_made_in = true,
+  --~ allow_decomposition = false,
+  --~ allow_as_intermediate = false,
+  --~ subgroup = BI.default_item_subgroup.bio_farm_intermediate_product.name,
+  --~ order = "b[bi-fertilizer]-b[bi-fertilizer-fluid-1]",
+  --~ -- This will be added in optionsEasyBioGardens.lua!
+  --~ crafting_machine_tint = {
+    --~ primary     = util.color("5e9347"),
+    --~ secondary   = util.color("72be51"),
+    --~ tertiary    = util.color("63ae42"),
+    --~ quaternary  = util.color("58af33")
+  --~ },
+  --~ -- Custom property that allows to automatically add our recipes to tech unlocks.
+  --~ BI_add_to_tech = {"bi-tech-fertilizer"},
+--~ }
+
+--~ -- Advanced fertilizer fluid (Tints will be added later)
+--~ BI.additional_recipes.BI_Trigger_Easy_Bio_Gardens.adv_fertilizer_fluid = {
+  --~ type = "recipe",
+  --~ name = "bi-adv-fertilizer-fluid",
+  --~ localised_description = {
+    --~ "recipe-description.bi-adv-fertilizer-fluid",
+    --~ {"fluid-name.water"},
+  --~ },
+  --~ icon = ICONPATH .. "fluid_fertilizer_advanced.png",
+  --~ icon_size = 64, icon_mipmaps = 3,
+  --~ BI_add_icon = true,
+  --~ category = "chemistry",
+  --~ energy_required = 5,
+  --~ ingredients = {
+    --~ {type = "item", name = "bi-adv-fertilizer", amount = 3},
+    --~ {type = "fluid", name = "water", amount = 100},
+  --~ },
+  --~ results = {
+    --~ {type = "fluid", name = "bi-adv-fertilizer-fluid", amount = 100}
+  --~ },
+  --~ main_product = "",
+  --~ enabled = false,
+  --~ always_show_made_in = true,
+  --~ allow_decomposition = false,
+  --~ allow_as_intermediate = false,
+  --~ subgroup = BI.default_item_subgroup.bio_farm_intermediate_product.name,
+  --~ order = "b[bi-fertilizer]-b[bi-fertilizer-fluid-2]",
+  --~ -- This will be added in optionsEasyBioGardens.lua!
+  --~ crafting_machine_tint = {
+    --~ primary     = util.color("d04677"),
+    --~ secondary   = util.color("b82e5f"),
+    --~ tertiary    = util.color("b64f73"),
+    --~ quaternary  = util.color("b85e84")
+  --~ },
+  --~ -- Custom property that allows to automatically add our recipes to tech unlocks.
+  --~ BI_add_to_tech = {"bi-tech-advanced-fertilizer"},
+--~ }
 
 
-------------------------------------------------------------------------------------
---                General recipe for sand (will be adjusted later)                --
-------------------------------------------------------------------------------------
--- Angel's Smelting ("angelssmelting"),
--- BioTech ("BioTech"),
--- Krastorio2 ("Krastorio2")
-BI.additional_recipes.BI_Trigger_Sand.sand = {
-  type = "recipe",
-  name = "bi-sand",
-  --icon = ICONPATH .. "mod_aai/sand-aai.png",
-  --icon_size = 64, icon_mipmaps = 3,
-  --BI_add_icon = true,
-  --~ --icons = BioInd.make_icons({it1 = "sand", it2 = "crushed-stone", shift1_1=0 , shift1_2=0}),
-  icons = {it1 = "sand", it2 = "crushed-stone", shift1_1=0 , shift1_2=0},
-  BI_add_icon = true,
-  BI_add_to_tech = {"bi-tech-stone-crushing-1"},
-  category = BI.additional_categories.BI_Stone_Crushing.crushing.name,
-  --~ --subgroup = "bio-bio-farm-raw",
-  subgroup = BI.additional_categories.BI_Stone_Crushing.stone_crusher.name,
-  --~ --order = "a[bi]-a-z[bi-9-sand]",
-  order = "a[bi]-a-z[bi-9-stone-crushed-sand-1]",
-  energy_required = 1,
-  ingredients = {{"stone-crushed", 2}},
-  --~ --result = "sand",
-  --~ --result_count = 5,
-  main_product = "",
-  enabled = false,
-  --~ --always_show_made_in = true,
-  --~ --allow_decomposition = false,
-  --~ --allow_as_intermediate = false,
-  allow_as_intermediate = true,     -- Changed for 0.18.34/1.1.4
-  always_show_made_in = true,       -- Changed for 0.18.34/1.1.4
-  allow_decomposition = true,               -- Changed for 0.18.34/1.1.4
-}
+--~ ------------------------------------------------------------------------------------
+--~ --                General recipe for sand (will be adjusted later)                --
+--~ ------------------------------------------------------------------------------------
+--~ -- Angel's Smelting ("angelssmelting"),
+--~ -- BioTech ("BioTech"),
+--~ -- Krastorio2 ("Krastorio2")
+--~ BI.additional_recipes.BI_Trigger_Sand.sand = {
+  --~ type = "recipe",
+  --~ name = "bi-sand",
+  --~ --icon = ICONPATH .. "mod_aai/sand-aai.png",
+  --~ --icon_size = 64, icon_mipmaps = 3,
+  --~ --BI_add_icon = true,
+  --icons = BioInd.make_icons({it1 = "sand", it2 = "crushed-stone", shift1_1=0 , shift1_2=0}),
+  --~ icons = {it1 = "sand", it2 = "crushed-stone", shift1_1=0 , shift1_2=0},
+  --~ BI_add_icon = true,
+  --~ BI_add_to_tech = {"bi-tech-stone-crushing-1"},
+  --~ category = BI.additional_categories.BI_Stone_Crushing.crushing.name,
+  --subgroup = "bio-bio-farm-raw",
+  --~ subgroup = BI.additional_categories.BI_Stone_Crushing.stone_crusher.name,
+  --order = "a[bi]-a-z[bi-9-sand]",
+  --~ order = "a[bi]-a-z[bi-9-stone-crushed-sand-1]",
+  --~ energy_required = 1,
+  --~ ingredients = {{"stone-crushed", 2}},
+  --result = "sand",
+  --result_count = 5,
+  --~ main_product = "",
+  --~ enabled = false,
+  --always_show_made_in = true,
+  --allow_decomposition = false,
+  --allow_as_intermediate = false,
+  --~ allow_as_intermediate = true,     -- Changed for 0.18.34/1.1.4
+  --~ always_show_made_in = true,       -- Changed for 0.18.34/1.1.4
+  --~ allow_decomposition = true,               -- Changed for 0.18.34/1.1.4
+--~ }
 
 
 
 -- Status report
-BioInd.readdata_msg(BI.additional_recipes, settings,
+BioInd.debugging.readdata_msg(BI.additional_recipes, settings,
                     "optional recipes", "setting")
-BioInd.readdata_msg(BI.additional_recipes, triggers,
-                    "optional recipes", "trigger")
+--~ BioInd.debugging.readdata_msg(BI.additional_recipes, triggers,
+                    --~ "optional recipes", "trigger")
 
 
 ------------------------------------------------------------------------------------
 --                                    END OF FILE                                 --
 ------------------------------------------------------------------------------------
-BioInd.entered_file("leave")
+BioInd.debugging.entered_file("leave")

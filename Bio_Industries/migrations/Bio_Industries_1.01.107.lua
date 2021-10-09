@@ -1,4 +1,4 @@
-BioInd.entered_file()
+BioInd.debugging.entered_file()
 
 
 ------------------------------------------------------------------------------------
@@ -10,7 +10,7 @@ global.mod_settings = global.mod_settings or {}
 global.mod_settings.BI_Game_Tweaks_Easy_Bio_Gardens =
                           table.deepcopy(global.mod_settings.BI_Easy_Bio_Gardens)
 global.mod_settings.BI_Easy_Bio_Gardens = nil
-BioInd.writeDebug("Migrated \"%s\" to \"%s\".", {
+BioInd.debugging.writeDebug("Migrated \"%s\" to \"%s\".", {
   "global.mod_settings.BI_Easy_Bio_Gardens",
   "global.mod_settings.BI_Game_Tweaks_Easy_Bio_Gardens"
 })
@@ -19,4 +19,4 @@ BioInd.writeDebug("Migrated \"%s\" to \"%s\".", {
 ------------------------------------------------------------------------------------
 --                                    END OF FILE                                 --
 ------------------------------------------------------------------------------------
-BioInd.entered_file("leave")
+BioInd.debugging.entered_file("leave")

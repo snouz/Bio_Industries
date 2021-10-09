@@ -4,10 +4,10 @@
 ------------------------------------------------------------------------------------
 local setting = "BI_Game_Tweaks_Player"
 if not BI.Settings[setting] then
-  BioInd.nothing_to_do("*")
+  BioInd.debugging.nothing_to_do("*")
   return
 else
-  BioInd.entered_file()
+  BioInd.debugging.entered_file()
 end
 
 ------------------------------------------------------------------------------------
@@ -54,16 +54,16 @@ local tweaks = {
 
 local found, ignore
 for char_name, character in pairs(data.raw.character) do
-BioInd.show("Checking character", char_name)
+BioInd.debugging.show("Checking character", char_name)
   found = false
 
   for w, w_pattern in ipairs(whitelist) do
     if char_name == w_pattern or char_name:match(w_pattern) then
       ignore = false
-        BioInd.show("Found whitelisted character name", char_name)
+        BioInd.debugging.show("Found whitelisted character name", char_name)
       for b, b_pattern in ipairs(blacklist) do
         if char_name == b_pattern or char_name:match(b_pattern) then
-            BioInd.writeDebug("%s is on the ignore list!", char_name)
+            BioInd.debugging.writeDebug("%s is on the ignore list!", char_name)
           -- Mark character as found
           ignore = true
           break
@@ -85,7 +85,7 @@ BioInd.show("Checking character", char_name)
     for tweak_name, tweak in pairs(tweaks) do
       if character[tweak_name] < tweak then
         character[tweak_name] = tweak
-        BioInd.modified_msg(tweak_name, character)
+        BioInd.debugging.modified_msg(tweak_name, character)
       end
     end
   end
@@ -95,4 +95,4 @@ end
 ------------------------------------------------------------------------------------
 --                                    END OF FILE
 ------------------------------------------------------------------------------------
-BioInd.entered_file("leave")
+BioInd.debugging.entered_file("leave")

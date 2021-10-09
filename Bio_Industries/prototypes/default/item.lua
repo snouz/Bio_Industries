@@ -1,4 +1,4 @@
-BioInd.entered_file()
+BioInd.debugging.entered_file()
 
 BI.default_items = BI.default_items or {}
 
@@ -171,24 +171,24 @@ BI.default_items.seedling.pictures = BioInd.add_pix("seedling", 9)
 --~ }
 --~ BI.default_items.ash.pictures = BioInd.add_pix("ash", 4)
 
--- Wood Pulp
-BI.default_items.woodpulp = {
-  type = "item",
-  name = "bi-woodpulp",
-  icon = ICONPATH .. "woodpulp.png",
-  icon_size = 64, icon_mipmaps = 3,
-  BI_add_icon = true,
-  fuel_value = "1MJ",
-  fuel_category = "chemical",
-  --~ subgroup = "raw-material",
-  subgroup = BI.default_item_subgroup.bio_farm_intermediate_product.name,
-  --~ order = "a-b[bi-woodpulp]",
-  order = "x[bi]-a[wood-production]-[products]-aa[bi-woodpulp]",
-  -- Order for "DeadlockCrating"
-  order_crating = "a[wood-production]-b[products]-aa[bi-woodpulp]",
-  stack_size = 800
-}
-BI.default_items.woodpulp.pictures = BioInd.add_pix("woodpulp", 4)
+--~ -- Wood Pulp
+--~ BI.default_items.woodpulp = {
+  --~ type = "item",
+  --~ name = "bi-woodpulp",
+  --~ icon = ICONPATH .. "woodpulp.png",
+  --~ icon_size = 64, icon_mipmaps = 3,
+  --~ BI_add_icon = true,
+  --~ fuel_value = "1MJ",
+  --~ fuel_category = "chemical",
+  --subgroup = "raw-material",
+  --~ subgroup = BI.default_item_subgroup.bio_farm_intermediate_product.name,
+  -- order = "a-b[bi-woodpulp]",
+  --~ order = "x[bi]-a[wood-production]-[products]-aa[bi-woodpulp]",
+  --~ -- Order for "DeadlockCrating"
+  --~ order_crating = "a[wood-production]-b[products]-aa[bi-woodpulp]",
+  --~ stack_size = 800
+--~ }
+--~ BI.default_items.woodpulp.pictures = BioInd.add_pix("woodpulp", 4)
 
 -- Wood Bricks
 BI.default_items.wood_bricks = {
@@ -231,6 +231,11 @@ BI.default_items.fertilizer = {
     --~ condition_size = 1,
     --~ condition = { "water-tile" }
   --~ },
+  place_as_tile = {
+    result = "grass-3",
+    condition_size = 1,
+    condition = { "water-tile" }
+  }
 }
 
 -- Advanced fertilizer
@@ -257,6 +262,11 @@ BI.default_items.adv_fertilizer = {
     --~ condition_size = 1,
     --~ condition = { "water-tile" }
   --~ },
+  place_as_tile = {
+    result = "grass-1",
+    condition_size = 1,
+    condition = { "water-tile" }
+  }
 }
 
 
@@ -268,4 +278,4 @@ BioInd.create_stuff(BI.default_items)
 ------------------------------------------------------------------------------------
 --                                    END OF FILE                                 --
 ------------------------------------------------------------------------------------
-BioInd.entered_file("leave")
+BioInd.debugging.entered_file("leave")

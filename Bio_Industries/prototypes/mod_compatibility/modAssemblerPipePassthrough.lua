@@ -3,10 +3,10 @@
 ------------------------------------------------------------------------------------
 local mod_name = "assembler-pipe-passthrough"
 if not BioInd.check_mods(mod_name) then
-  BioInd.nothing_to_do("*")
+  BioInd.debugging.nothing_to_do("*")
   return
 else
-  BioInd.entered_file()
+  BioInd.debugging.entered_file()
 end
 
 
@@ -20,6 +20,7 @@ appmod.blacklist = appmod.blacklist or {}
 
 -- We need to blacklist these entities
 local blacklist = {
+  "bi-arboretum",
   "bi-bio-reactor",
   "bi-bio-garden-large",
   "bi-bio-garden-huge",
@@ -28,11 +29,11 @@ local blacklist = {
 -- Add entities to blacklist
 for e, entity in ipairs(blacklist or {}) do
   appmod.blacklist[entity] = true
-  BioInd.writeDebug("Added %s to blacklist!", {entity})
+  BioInd.debugging.writeDebug("Added %s to blacklist!", {entity})
 end
 
 
 ------------------------------------------------------------------------------------
 --                                    END OF FILE                                 --
 ------------------------------------------------------------------------------------
-BioInd.entered_file("leave")
+BioInd.debugging.entered_file("leave")

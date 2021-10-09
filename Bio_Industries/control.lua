@@ -1,5 +1,5 @@
 BioInd = require("__" .. script.mod_name .. "__.common-control")
-BioInd.entered_file()
+BioInd.debugging.entered_file()
 
 ------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------
@@ -11,41 +11,86 @@ BioInd.entered_file()
 ------------------------------------------------------------------------------------
 --                          Require files from other mods                         --
 ------------------------------------------------------------------------------------
--- External
 if BioInd.get_startup_setting("BI_Debug_gvv") then
-  BioInd.writeDebug("Activating support for gvv!")
+  BioInd.debugging.writeDebug("Activating support for gvv!")
   require("__gvv__/gvv")()
 end
 
---~ local Event = require('__stdlib__/stdlib/event/event').set_protected_mode(false)
---~ local Event = require('__stdlib__/stdlib/event/event').set_protected_mode(true)
+BioInd.debugging.show("BioInd.compound_entities", BioInd.compound_entities)
+------------------------------------------------------------------------------------
+--                         Stuff for Eradicator's Library                         --
+------------------------------------------------------------------------------------
+BioInd.erlib = {}
+BioInd.erlib.Cache  = require('__eradicators-library__/erlib/factorio/Cache')()
+BioInd.erlib.Events = require('__eradicators-library__/erlib/factorio/EventManagerLite-1')()
+BioInd.erlib.Remote = require('__eradicators-library__/erlib/factorio/Remote')()
 
 
-BI_cache = require('__eradicators-library__/erlib/factorio/Cache')()
+------------------------------------------------------------------------------------
+-- AutoCache stuff
+--~ BioInd.compound_entities = BioInd.erlib.Cache.AutoCache(BioInd.rebuild_compound_entity_list)
+--~ BioInd.compound_entities = BioInd.erlib.Cache.AutoCache(BioInd.prune_compound_entity_list)
+BioInd.compound_entities = BioInd.erlib.Cache.AutoCache(BioInd.build_compound_entity_list)
+
+
+------------------------------------------------------------------------------------
+-- EventManager
+--~ BioInd.erlib.Events = require('__eradicators-library__/erlib/factorio/EventManagerLite-1')()
+--~ script                  = BioInd.erlib.Events.get_managed_script("BI_generic_script")
+--~ tree_growing_script     = BioInd.erlib.Events.get_managed_script("trees")
+--~ arboretum_script        = BioInd.erlib.Events.get_managed_script("arboretum")
+--~ seedbomb_script         = BioInd.erlib.Events.get_managed_script("seedbombs")
+--~ pollution_sensor_script = BioInd.erlib.Events.get_managed_script("pollution_sensor")
+--~ bio_cannon_script       = BioInd.erlib.Events.get_managed_script("bio_cannon")
+
+for literal_name, event_id in pairs(BioInd.erlib.Events.events) do
+  BioInd.event_names[event_id] = literal_name
+end
+BioInd.debugging.writeDebug("Added names of ErLib events to BioInd.event_names!")
+
+------------------------------------------------------------------------------------
+-- TickedAction
+--~ BioInd.erlib.Remote = require('__eradicatoers-library__/erlib/factorio/Remote')()
+BioInd.erlib.TickedAction = BioInd.erlib.Remote.get_interface('erlib:on_ticked_action')
+
 
 ------------------------------------------------------------------------------------
 --                           Require additional scripts                           --
 ------------------------------------------------------------------------------------
+--~ local event_handlers    = require("scripts.event_handlers")
 BI_scripts = {
+  event_handlers        = require("scripts.event_handlers"),
+
+  -- Trees can grow from manually planted seeds. We will always need these functions!
+  trees                 = require("scripts.control_trees"),
+  -- Only load these functions if seedbombs are used in the game!
+  seedbombs             = BioInd.get_startup_setting("BI_Explosive_Planting") and
+                          require("scripts.control_seedbombs") or nil,
   -- Only load these functions if terraformers are used in the game. As these are
   -- compound entities, their tables will be created/removed automatically.
-  arboretum            = BioInd.get_startup_setting("BI_Terraforming") and
+  arboretum             = BioInd.get_startup_setting("BI_Terraforming") and
                           require("scripts.control_arboretum") or nil,
+  -- The cannon is auto-firing now, but we want it to be active only if it has power!
+  bio_cannon            = BioInd.get_startup_setting("BI_Bio_Cannon") and
+                          require("scripts.control_bio_cannon") or nil,
+  -- If early wooden defenses are toggled, we must change the startup items. The file
+  -- must be loaded even if the setting is turned off.
+  darts                 = require("scripts.control_darts"),
   -- Pollution sensors are not a compound entity, so we must be careful to check if
   -- tables/functions/entities exist later!
-  pollution_sensor     = BioInd.get_startup_setting("BI_Pollution_Detector") and
-                          require("scripts.control_pollution_sensor"),
-  -- Trees can grow from manually planted seeds. We will always need these functions!
-  trees                = require("scripts.control_trees"),
+  pollution_sensor      = BioInd.get_startup_setting("BI_Pollution_Detector") and
+                          require("scripts.control_pollution_sensor") or nil,
+  -- Ditto.
+  musk_floor            = BioInd.get_startup_setting("BI_Power_Production") and
+                          require("scripts.control_musk_floor") or nil,
   -- We will have at least the hidden poles from the Bio farms (default entity, not
   -- depending on a setting!) to take care of, so we'll always need these functions.
-  poles                = require("scripts.control_poles"),
+  poles                 = require("scripts.control_poles"),
 }
+--~ local event_handlers    = require("scripts.event_handlers")
+local ticked_actions    = require("scripts.ticked_actions")
 
-local event_handlers   = require("scripts.event_handlers")
 
--- This will only be run if the Cannon is active. We may want to remove this later!
---~ require("scripts/control_bio_cannon")
 
 
 ---************** Used for Testing -----
@@ -57,14 +102,17 @@ local event_handlers   = require("scripts.event_handlers")
 ------------------------------------------------------------------------------------
 --                                 Register events                                --
 ------------------------------------------------------------------------------------
--- These are not events listed in defines.events, but we need an event name for the
--- debugging functions!
-script.on_configuration_changed(function(event)
-  event.name = "on_configuration_changed"
-  event_handlers.On_Config_Change(event)
-end)
-script.on_init(function() event_handlers.Init({name = "on_init"}) end)
-script.on_load(function() event_handlers.On_Load({name = "on_load"}) end)
+--~ -- These are not events listed in defines.events, but we need an event name for the
+--~ -- debugging functions!
+--~ script.on_configuration_changed(function(event)
+  -- event.name = "on_configuration_changed"
+  --~ event = event or {name = "on_configuration_changed"}
+  --~ event_handlers.On_Config_Change(event)
+--~ end)
+--~ script.on_configuration_changed(event_handlers.On_Config_Change)
+--~ script.on_init(function() event_handlers.Init({name = "on_init"}) end)
+--~ script.on_load(function() event_handlers.On_Load({name = "on_load"}) end)
+
 
 --~ Event.register(defines.events.on_tick, event_handlers.On_Tick)
 
@@ -158,4 +206,4 @@ setmetatable(_ENV, {
 ------------------------------------------------------------------------------------
 --                                    END OF FILE                                 --
 ------------------------------------------------------------------------------------
-BioInd.entered_file("leave")
+BioInd.debugging.entered_file("leave")

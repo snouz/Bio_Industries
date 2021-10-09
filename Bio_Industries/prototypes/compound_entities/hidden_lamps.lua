@@ -1,11 +1,11 @@
-BioInd.entered_file()
+BioInd.debugging.entered_file()
 
 
 ------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------
 
 
-BioInd.show("Compound entities", BioInd.compound_entities)
+BioInd.debugging.show("Compound entities", BioInd.compound_entities)
 local ICONPATH = BioInd.iconpath
 
 
@@ -70,15 +70,15 @@ for lamp_name, locale_name in pairs(BI.hidden_entities.types[h_key] or {}) do
     --lamp.icon_size = 64
     --lamp.icon_mipmaps = 3
     --lamp.BI_add_icon = true
-    lamp.icons = { 
+    lamp.icons = {
       { icon = ICONPATH .. "entity/biofarm.png", icon_size = 64, icon_mipmaps = 4, scale = 1, shift = {0, 0} },
       { icon = "__base__/graphics/icons/small-lamp.png", icon_size = 64, icon_mipmaps = 4, scale = 0.5, shift = {16, 16} },
     }
-    BioInd.show("Adjusted properties of", lamp_name)
+    BioInd.debugging.show("Adjusted properties of", lamp_name)
   end
 
   --~ data:extend({lamp})
-  --~ BioInd.created_msg(lamp)
+  --~ BioInd.debugging.created_msg(lamp)
   BioInd.create_stuff({lamp})
 end
 
@@ -86,4 +86,4 @@ end
 ------------------------------------------------------------------------------------
 --                                    END OF FILE
 ------------------------------------------------------------------------------------
-BioInd.entered_file("leave")
+BioInd.debugging.entered_file("leave")

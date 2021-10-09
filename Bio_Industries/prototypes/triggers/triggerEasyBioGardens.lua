@@ -5,10 +5,10 @@
 -- Settings: BI.Settings.BI_Bio_Garden and BI.Settings.BI_Game_Tweaks_Easy_Bio_Gardens
 local trigger = "BI_Trigger_Easy_Bio_Gardens"
 if not BI.Triggers[trigger] then
-  BioInd.nothing_to_do("*")
+  BioInd.debugging.nothing_to_do("*")
   return
 else
-  BioInd.entered_file()
+  BioInd.debugging.entered_file()
 end
 
 ------------------------------------------------------------------------------------
@@ -58,7 +58,7 @@ local function make_colors(color)
     --~ quaternary = black,
   }
 for c, color in pairs(ret) do
-BioInd.show(c, hcolor(color))
+BioInd.debugging.show(c, hcolor(color))
 end
   return ret
 end
@@ -79,7 +79,7 @@ fluid = BioInd.create_stuff(BI.additional_fluids[trigger].fertilizer_fluid)[1]
 if fluid then
   fluid.base_color = fertilizer_fluid_colors.base
   fluid.flow_color = fertilizer_fluid_colors.flow
-  BioInd.modified_msg("colors", fluid)
+  BioInd.debugging.modified_msg("colors", fluid)
 end
 
 -- Advanced fertilizer fluid
@@ -88,7 +88,7 @@ fluid = BioInd.create_stuff(BI.additional_fluids[trigger].adv_fertilizer_fluid)[
 if fluid then
   fluid.base_color = adv_fertilizer_fluid_colors.base
   fluid.flow_color = adv_fertilizer_fluid_colors.flow
-  BioInd.modified_msg("colors", fluid)
+  BioInd.debugging.modified_msg("colors", fluid)
 end
 
 ------------------------------------------------------------------------------------
@@ -106,7 +106,7 @@ recipe = BioInd.create_stuff(BI.additional_recipes[trigger].fertilizer_fluid)[1]
     --~ tertiary = fertilizer_fluid_colors.tertiary,
     --~ quaternary = fertilizer_fluid_colors.quaternary,
   --~ }
-  --~ BioInd.modified_msg("crafting_machine_tint", recipe)
+  --~ BioInd.debugging.modified_msg("crafting_machine_tint", recipe)
 --~ end
 
 -- Advanced fertilizer fluid
@@ -120,7 +120,7 @@ recipe = BioInd.create_stuff(BI.additional_recipes[trigger].adv_fertilizer_fluid
     --~ tertiary = fertilizer_fluid_colors.tertiary,
     --~ quaternary = fertilizer_fluid_colors.quaternary,
   --~ }
-  --~ BioInd.modified_msg("crafting_machine_tint", recipe)
+  --~ BioInd.debugging.modified_msg("crafting_machine_tint", recipe)
 --~ end
 
 
@@ -152,4 +152,4 @@ recipe = BioInd.create_stuff(BI.additional_recipes[trigger].adv_fertilizer_fluid
 ------------------------------------------------------------------------------------
 --                                    END OF FILE
 ------------------------------------------------------------------------------------
-BioInd.entered_file("leave")
+BioInd.debugging.entered_file("leave")

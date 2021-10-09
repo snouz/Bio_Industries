@@ -3,10 +3,10 @@
 ------------------------------------------------------------------------------------
 local mod_name = "Yuoki"
 if not BioInd.check_mods(mod_name) then
-  BioInd.nothing_to_do("*")
+  BioInd.debugging.nothing_to_do("*")
   return
 else
-  BioInd.entered_file()
+  BioInd.debugging.entered_file()
 end
 
 
@@ -26,7 +26,7 @@ if data.raw[category.type][category.name] then
   for c, crusher in ipairs({"y-crusher", "y_crusher2"}) do
     if assemblers[crusher] then
       table.insert(assemblers[crusher].crafting_categories, category.name)
-      BioInd.modified_msg("category \"" .. category.name .. "\"", assemblers[crusher], "Added")
+      BioInd.debugging.modified_msg("category \"" .. category.name .. "\"", assemblers[crusher], "Added")
     end
   end
 end
@@ -34,4 +34,4 @@ end
 ------------------------------------------------------------------------------------
 --                                    END OF FILE
 ------------------------------------------------------------------------------------
-BioInd.entered_file("leave")
+BioInd.debugging.entered_file("leave")

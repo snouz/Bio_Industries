@@ -1,6 +1,13 @@
-BioInd.entered_file()
+BioInd.debugging.entered_file()
 
 
+local flag  = require('__eradicators-library__/erlib/shared')[5]
+local elreq = require('__eradicators-library__/erlib/shared')[4]
+local Lock  = elreq('erlib/lua/Lock')()
+
+if flag.IS_DEV_MODE then
+  Lock.auto_lock(_ENV, '_ENV')
+  end
 ------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------
 
@@ -9,7 +16,6 @@ local recipe, item, fluid
 local recipes = data.raw.recipe
 local items = data.raw.item
 local fluids = data.raw.fluid
-
 
 
 ------------------------------------------------------------------------------------
@@ -93,6 +99,11 @@ require("prototypes.optional._updates.updates_optionBioFuel")
 require("prototypes.optional._updates.updates_optionDarts")
 
 
+------------------------------------------------------------------------------------
+--                               Enable: Bio gardens                              --
+--                           (BI.Settings.BI_Bio_Garden)                          --
+------------------------------------------------------------------------------------
+require("prototypes.optional._updates.updates_optionBioGarden")
 
 
 ------------------------------------------------------------------------------------
@@ -144,9 +155,9 @@ require("prototypes.triggers._updates.updates_triggerRubberDarts")
 require("prototypes.triggers._updates.updates_triggerRubberWoodgas")
 require("prototypes.triggers._updates.updates_triggerStoneCrushingReplace")
 require("prototypes.triggers._updates.updates_triggerSubgroups")
-require("prototypes.triggers._updates.updates_triggerWoodfloor")
+--~ require("prototypes.triggers._updates.updates_triggerWoodfloor")
 require("prototypes.triggers.triggerSand")
-
+require("prototypes.triggers._updates.updates_triggerSolarFarmPanel")
 
 --~ ------------------------------------------------------------------------------------
 --~ --                            Trigger: Easy Bio gardens                           --
@@ -307,4 +318,7 @@ end
 ------------------------------------------------------------------------------------
 --                                    END OF FILE                                 --
 ------------------------------------------------------------------------------------
-BioInd.entered_file("leave")
+BioInd.debugging.entered_file("leave")
+if flag.IS_DEV_MODE then
+  Lock.remove_lock(_ENV, '_ENV')
+  end

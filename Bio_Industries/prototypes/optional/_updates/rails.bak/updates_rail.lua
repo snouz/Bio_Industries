@@ -4,10 +4,10 @@
 ------------------------------------------------------------------------------------
 local setting = "BI_Rails"
 if not BI.Settings[setting] then
-  BioInd.nothing_to_do("*")
+  BioInd.debugging.nothing_to_do("*")
   return
 else
-  BioInd.entered_file()
+  BioInd.debugging.entered_file()
 end
 
 
@@ -77,7 +77,7 @@ for f, form in ipairs({"straight", "curved"}) do
     end
   end
 end
-BioInd.show("Found these bridges", bridges)
+BioInd.debugging.show("Found these bridges", bridges)
 
 
 -- Change the collision masks!
@@ -95,16 +95,16 @@ for f, form in ipairs({"straight", "curved"}) do
     if BI_rails[rail_name] then
       -- Add collision masks to our rails
       rail.collision_mask = BioInd.RAIL_MASK
-      BioInd.writeDebug("Set collision_mask of %s to %s", {rail_name, rail.collision_mask})
+      BioInd.debugging.writeDebug("Set collision_mask of %s to %s", {rail_name, rail.collision_mask})
 
       -- Add fast_replaceable_group to our rails
       rail.fast_replaceable_group = rail_group
-      BioInd.modified_msg("fast_replaceable_group", rail)
+      BioInd.debugging.modified_msg("fast_replaceable_group", rail)
     end
 
     -- Look for all known bridges
     if bridges[form][rail_name] then
-BioInd.show("Bridge found", rail_name)
+BioInd.debugging.show("Bridge found", rail_name)
 
       rail.collision_mask = rail.collision_mask or {}
 
@@ -122,13 +122,13 @@ BioInd.show("Bridge found", rail_name)
         -- Add layer to collision mask
         if not found_layer then
           table.insert(rail.collision_mask, need_layer)
-          BioInd.writeDebug("Added %s to collision mask of %s", {need_layer, rail_name})
+          BioInd.debugging.writeDebug("Added %s to collision mask of %s", {need_layer, rail_name})
         end
       end
-BioInd.show("Collision mask", rail.collision_mask)
+BioInd.debugging.show("Collision mask", rail.collision_mask)
       -- Add fast_replaceable_group to the bridges
       rail.fast_replaceable_group = rail_group
-      BioInd.modified_msg("fast_replaceable_group", rail)
+      BioInd.debugging.modified_msg("fast_replaceable_group", rail)
     end
   end
 end
@@ -137,4 +137,4 @@ end
 ------------------------------------------------------------------------------------
 --                                    END OF FILE
 ------------------------------------------------------------------------------------
-BioInd.entered_file("leave")
+BioInd.debugging.entered_file("leave")

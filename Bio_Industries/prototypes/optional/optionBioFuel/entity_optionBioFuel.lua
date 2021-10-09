@@ -4,10 +4,10 @@
 ------------------------------------------------------------------------------------
 local setting = "BI_Bio_Fuel"
 if not BI.Settings[setting] then
-  BioInd.nothing_to_do("*")
+  BioInd.debugging.nothing_to_do("*")
   return
 else
-  BioInd.entered_file()
+  BioInd.debugging.entered_file()
 end
 
 BI.additional_entities = BI.additional_entities or {}
@@ -459,7 +459,7 @@ fire_flicker_enabled = true,
 for e, e_data in pairs(BI.additional_entities[setting] or {}) do
   -- Entity
   --~ data:extend({e_data})
-  --~ BioInd.created_msg(e_data)
+  --~ BioInd.debugging.created_msg(e_data)
   BioInd.create_stuff(e_data)
 
   -- Remnants, if they exist
@@ -470,4 +470,4 @@ end
 ------------------------------------------------------------------------------------
 --                                    END OF FILE                                 --
 ------------------------------------------------------------------------------------
-BioInd.entered_file("leave")
+BioInd.debugging.entered_file("leave")

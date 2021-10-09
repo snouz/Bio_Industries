@@ -4,10 +4,10 @@
 ------------------------------------------------------------------------------------
 local setting = "BI_Game_Tweaks_Fuel_Values"
 if not BI.Settings[setting] then
-  BioInd.nothing_to_do("*")
+  BioInd.debugging.nothing_to_do("*")
   return
 else
-  BioInd.entered_file()
+  BioInd.debugging.entered_file()
 end
 
 
@@ -24,4 +24,4 @@ require("prototypes/fuel_values/assign_fuel_values")
 ------------------------------------------------------------------------------------
 --                                    END OF FILE
 ------------------------------------------------------------------------------------
-BioInd.entered_file("leave")
+BioInd.debugging.entered_file("leave")

@@ -4,10 +4,10 @@
 ------------------------------------------------------------------------------------
 local setting = "BI_Explosive_Planting"
 if not BI.Settings[setting] then
-  BioInd.nothing_to_do("*")
+  BioInd.debugging.nothing_to_do("*")
   return
 else
-  BioInd.entered_file()
+  BioInd.debugging.entered_file()
 end
 
 BI.additional_entities = BI.additional_entities or {}
@@ -59,20 +59,24 @@ BI.additional_entities[setting].seed_bomb_projectile_1 = {
     action_delivery = {
       type = "instant",
       target_effects = {
-        {
-          type = "nested-result",
-          action = {
-            type = "area",
-            target_entities = false,
-            repeat_count = 600,
-            radius = 24,
-            action_delivery = {
-              type = "projectile",
-              projectile = "seed-bomb-wave-1",
-              starting_speed = 0.5
-            }
-          }
-        }
+        --~ {
+          --~ type = "nested-result",
+          --~ action = {
+            --~ type = "area",
+            --~ target_entities = false,
+            --~ repeat_count = 600,
+            --~ radius = 24,
+            --~ action_delivery = {
+              --~ type = "projectile",
+              --~ projectile = "seed-bomb-wave-1",
+              --~ starting_speed = 0.5
+            --~ }
+          --~ }
+        --~ }
+        --~ source_effects = {
+          type = "script",
+          effect_id = "BI_seedbomb_seedling",
+        --~ },
       }
     }
   },
@@ -121,18 +125,20 @@ BI.additional_entities[setting].seed_bomb_projectile_2 = {
       type = "instant",
       target_effects = {
         {
-          type = "nested-result",
-          action = {
-            type = "area",
-            target_entities = false,
-            repeat_count = 800,
-            radius = 27,
-            action_delivery = {
-              type = "projectile",
-              projectile = "seed-bomb-wave-2",
-              starting_speed = 0.5
-            }
-          }
+          --~ type = "nested-result",
+          --~ action = {
+            --~ type = "area",
+            --~ target_entities = false,
+            --~ repeat_count = 800,
+            --~ radius = 27,
+            --~ action_delivery = {
+              --~ type = "projectile",
+              --~ projectile = "seed-bomb-wave-2",
+              --~ starting_speed = 0.5
+            --~ }
+          --~ }
+          type = "script",
+          effect_id = "BI_seedbomb_seedling-2",
         }
       }
     }
@@ -182,18 +188,20 @@ BI.additional_entities[setting].seed_bomb_projectile_3 = {
       type = "instant",
       target_effects = {
         {
-          type = "nested-result",
-          action = {
-            type = "area",
-            target_entities = false,
-            repeat_count = 1000,
-            radius = 30,
-            action_delivery = {
-              type = "projectile",
-              projectile = "seed-bomb-wave-3",
-              starting_speed = 0.5
-            }
-          }
+          --~ type = "nested-result",
+          --~ action = {
+            --~ type = "area",
+            --~ target_entities = false,
+            --~ repeat_count = 1000,
+            --~ radius = 30,
+            --~ action_delivery = {
+              --~ type = "projectile",
+              --~ projectile = "seed-bomb-wave-3",
+              --~ starting_speed = 0.5
+            --~ }
+          --~ }
+          type = "script",
+          effect_id = "BI_seedbomb_seedling-3",
         }
       }
     }
@@ -231,119 +239,119 @@ BI.additional_entities[setting].seed_bomb_projectile_3 = {
   }
 }
 
--- Basic seed bomb (wave)
-BI.additional_entities[setting].seed_bomb_wave_1 = {
-  type = "projectile",
-  name = "seed-bomb-wave-1",
-  flags = {"not-on-map"},
-  acceleration = 0,
-  action = {
-    {
-      type = "direct",
-      action_delivery = {
-        type = "instant",
-        target_effects = {
-          {
-            type = "create-entity",
-            entity_name = "seedling",
-            check_buildability = true,
-            trigger_created_entity = true,
-          }
-        }
-      }
-    },
-  },
-  animation = {
-    filename = "__core__/graphics/empty.png",
-    frame_count = 1,
-    width = 1,
-    height = 1,
-    priority = "high"
-  },
-  shadow = {
-    filename = "__core__/graphics/empty.png",
-    frame_count = 1,
-    width = 1,
-    height = 1,
-    priority = "high"
-  }
-}
+--~ -- Basic seed bomb (wave)
+--~ BI.additional_entities[setting].seed_bomb_wave_1 = {
+  --~ type = "projectile",
+  --~ name = "seed-bomb-wave-1",
+  --~ flags = {"not-on-map"},
+  --~ acceleration = 0,
+  --~ action = {
+    --~ {
+      --~ type = "direct",
+      --~ action_delivery = {
+        --~ type = "instant",
+        --~ target_effects = {
+          --~ {
+            --~ type = "create-entity",
+            --~ entity_name = "seedling",
+            --~ check_buildability = true,
+            --~ trigger_created_entity = true,
+          --~ }
+        --~ }
+      --~ }
+    --~ },
+  --~ },
+  --~ animation = {
+    --~ filename = "__core__/graphics/empty.png",
+    --~ frame_count = 1,
+    --~ width = 1,
+    --~ height = 1,
+    --~ priority = "high"
+  --~ },
+  --~ shadow = {
+    --~ filename = "__core__/graphics/empty.png",
+    --~ frame_count = 1,
+    --~ width = 1,
+    --~ height = 1,
+    --~ priority = "high"
+  --~ }
+--~ }
 
--- Standard seed bomb (wave)
-BI.additional_entities[setting].seed_bomb_wave_2 = {
-  type = "projectile",
-  name = "seed-bomb-wave-2",
-  flags = {"not-on-map"},
-  acceleration = 0,
-  action = {
-    {
-      type = "direct",
-      action_delivery = {
-        type = "instant",
-        target_effects = {
-          {
-            type = "create-entity",
-            entity_name = "seedling-2",
-            check_buildability = true,
-            trigger_created_entity = true,
-          }
-        }
-      }
-    },
-  },
-  animation = {
-    filename = "__core__/graphics/empty.png",
-    frame_count = 1,
-    width = 1,
-    height = 1,
-    priority = "high"
-  },
-  shadow = {
-    filename = "__core__/graphics/empty.png",
-    frame_count = 1,
-    width = 1,
-    height = 1,
-    priority = "high"
-  }
-}
+--~ -- Standard seed bomb (wave)
+--~ BI.additional_entities[setting].seed_bomb_wave_2 = {
+  --~ type = "projectile",
+  --~ name = "seed-bomb-wave-2",
+  --~ flags = {"not-on-map"},
+  --~ acceleration = 0,
+  --~ action = {
+    --~ {
+      --~ type = "direct",
+      --~ action_delivery = {
+        --~ type = "instant",
+        --~ target_effects = {
+          --~ {
+            --~ type = "create-entity",
+            --~ entity_name = "seedling-2",
+            --~ check_buildability = true,
+            --~ trigger_created_entity = true,
+          --~ }
+        --~ }
+      --~ }
+    --~ },
+  --~ },
+  --~ animation = {
+    --~ filename = "__core__/graphics/empty.png",
+    --~ frame_count = 1,
+    --~ width = 1,
+    --~ height = 1,
+    --~ priority = "high"
+  --~ },
+  --~ shadow = {
+    --~ filename = "__core__/graphics/empty.png",
+    --~ frame_count = 1,
+    --~ width = 1,
+    --~ height = 1,
+    --~ priority = "high"
+  --~ }
+--~ }
 
--- Advanced seed bomb (wave)
-BI.additional_entities[setting].seed_bomb_wave_3 = {
-  type = "projectile",
-  name = "seed-bomb-wave-3",
-  flags = {"not-on-map"},
-  acceleration = 0,
-  action = {
-    {
-      type = "direct",
-      action_delivery = {
-        type = "instant",
-        target_effects = {
-          {
-            type = "create-entity",
-            entity_name = "seedling-3",
-            check_buildability = true,
-            trigger_created_entity = true,
-          },
-        }
-      }
-    },
-  },
-  animation = {
-    filename = "__core__/graphics/empty.png",
-    frame_count = 1,
-    width = 1,
-    height = 1,
-    priority = "high"
-  },
-  shadow = {
-    filename = "__core__/graphics/empty.png",
-    frame_count = 1,
-    width = 1,
-    height = 1,
-    priority = "high"
-  }
-}
+--~ -- Advanced seed bomb (wave)
+--~ BI.additional_entities[setting].seed_bomb_wave_3 = {
+  --~ type = "projectile",
+  --~ name = "seed-bomb-wave-3",
+  --~ flags = {"not-on-map"},
+  --~ acceleration = 0,
+  --~ action = {
+    --~ {
+      --~ type = "direct",
+      --~ action_delivery = {
+        --~ type = "instant",
+        --~ target_effects = {
+          --~ {
+            --~ type = "create-entity",
+            --~ entity_name = "seedling-3",
+            --~ check_buildability = true,
+            --~ trigger_created_entity = true,
+          --~ },
+        --~ }
+      --~ }
+    --~ },
+  --~ },
+  --~ animation = {
+    --~ filename = "__core__/graphics/empty.png",
+    --~ frame_count = 1,
+    --~ width = 1,
+    --~ height = 1,
+    --~ priority = "high"
+  --~ },
+  --~ shadow = {
+    --~ filename = "__core__/graphics/empty.png",
+    --~ frame_count = 1,
+    --~ width = 1,
+    --~ height = 1,
+    --~ priority = "high"
+  --~ }
+--~ }
 
 
 ------------------------------------------------------------------------------------
@@ -360,4 +368,4 @@ end
 ------------------------------------------------------------------------------------
 --                                    END OF FILE                                 --
 ------------------------------------------------------------------------------------
-BioInd.entered_file("leave")
+BioInd.debugging.entered_file("leave")

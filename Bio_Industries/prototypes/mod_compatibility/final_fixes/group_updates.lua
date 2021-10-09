@@ -1,4 +1,4 @@
-BioInd.entered_file()
+BioInd.debugging.entered_file()
 
 -- THIS ISN'T USED YET!
 ------------------------------------------------------------------------------------
@@ -33,9 +33,9 @@ end
 
 local function change_subgroups(items, recipes, mod_handle)
 
-  BioInd.check_args(items, "table", "item list")
-  BioInd.check_args(recipes, "table", "recipe list")
-  BioInd.check_args(mod_handle, "string", "mod handle")
+  BioInd.debugging.check_args(items, "table", "item list")
+  BioInd.debugging.check_args(recipes, "table", "recipe list")
+  BioInd.debugging.check_args(mod_handle, "string", "mod handle")
 
   -- item-group and order of the subgroup in the item-group
   local group           = "group_" .. mod_handle
@@ -49,8 +49,8 @@ local function change_subgroups(items, recipes, mod_handle)
 
     for i, opt_item in pairs(item_searchlist) do
       item = data.raw[opt_item.type][opt_item.name]
-  BioInd.show("Checking item", item and item.name or "nil")
-  BioInd.show("Item has 5D-subgroup", item and item[subgroup] or "nil")
+  BioInd.debugging.show("Checking item", item and item.name or "nil")
+  BioInd.debugging.show("Item has 5D-subgroup", item and item[subgroup] or "nil")
 
       -- Data for vanilla rails (possibly other entities?) are stored in our tables,
       -- but have never been created because we don't overwrite existing things. As
@@ -65,27 +65,27 @@ local function change_subgroups(items, recipes, mod_handle)
         --~ end
 
         item.subgroup = item[subgroup] or opt_item[subgroup]
-        BioInd.modified_msg("subgroup", item)
+        BioInd.debugging.modified_msg("subgroup", item)
 
         item.order = item[order] or opt_item[order]
-        BioInd.modified_msg("order", item)
+        BioInd.debugging.modified_msg("order", item)
 
-BioInd.show("Looking for recipes making", item.name)
+BioInd.debugging.show("Looking for recipes making", item.name)
         for rl, recipe_list in pairs(recipes) do
           recipe_searchlist = (recipe_list.type or recipe_list.name) and {recipe_list} or recipe_list
           for r, opt_recipe in pairs(recipe_searchlist) do
-BioInd.show("Must check recipe", opt_recipe.name)
+BioInd.debugging.show("Must check recipe", opt_recipe.name)
             recipe = data.raw.recipe[opt_recipe.name]
             -- The recipe exists and we didn't change the subgroup yet
             if recipe and not done_list[recipe.name] then
               -- The recipe creates a BI item and inherits its subgroup/order
               if BI_Functions.lib.recipe_has_result(recipe, item.name) or
                   BI_Functions.lib.recipe_get_property(recipe, "main_product") == item.name then
-BioInd.writeDebug("Must add recipe %s to subgroup %s", {recipe.name, item[subgroup] or opt_item[subgroup]})
+BioInd.debugging.writeDebug("Must add recipe %s to subgroup %s", {recipe.name, item[subgroup] or opt_item[subgroup]})
                 recipe.subgroup = item[subgroup]
                 recipe.order = item[order]
                 done_list[recipe.name] = true
-                BioInd.modified_msg("subgroup", recipe)
+                BioInd.debugging.modified_msg("subgroup", recipe)
               -- The recipe creates a vanilla/mod item and has its own subgroup/order data
               elseif recipe[subgroup] then
                 --~ if not item_subgroups[recipe[subgroup]] then
@@ -96,10 +96,10 @@ BioInd.writeDebug("Must add recipe %s to subgroup %s", {recipe.name, item[subgro
                 recipe.order = recipe[order]
                 done_list[recipe.name] = true
 
-                BioInd.modified_msg("subgroup", recipe)
+                BioInd.debugging.modified_msg("subgroup", recipe)
               end
             else
-              BioInd.writeDebug("Skipping recipe %s -- %s!", {
+              BioInd.debugging.writeDebug("Skipping recipe %s -- %s!", {
                                 recipe and recipe.name or opt_recipe.name,
                                 recipe and "already added to new subgroup" or "recipe doesn't exist"
               })
@@ -128,7 +128,7 @@ end
 
 local function set_group_and_order(object, data)
   if object and data then
-BioInd.show("Changing group and order of", object.name)
+BioInd.debugging.show("Changing group and order of", object.name)
     local group, subgroup = data.group, data.subgroup
     local group_order, order = data.group_order, data.order
 
@@ -137,10 +137,10 @@ BioInd.show("Changing group and order of", object.name)
     end
 
     object.subgroup = subgroup or object.subgroup
-BioInd.show("subgroup", object.subgroup)
+BioInd.debugging.show("subgroup", object.subgroup)
     object.order = order or object.order
-BioInd.show("order", object.order)
-    BioInd.modified_msg("subgroup and order", object)
+BioInd.debugging.show("order", object.order)
+    BioInd.debugging.modified_msg("subgroup and order", object)
   end
 end
 
@@ -413,14 +413,14 @@ if BI.Settings.BI_Wood_Products then
 
 for mod_name, mod_data in pairs(group_data) do
   if mods[mod_name] then
-BioInd.show("Changing groups/order on account of mod", mod_name)
+BioInd.debugging.show("Changing groups/order on account of mod", mod_name)
     -- Items
     for item_name, item_data in pairs(mod_data.items or {}) do
       item_type = thxbob.lib.item.get_type(item_name)
       item = item_type and data.raw[item_type][item_name]
 
       if item then
-BioInd.show("Changing group and order of", item.name)
+BioInd.debugging.show("Changing group and order of", item.name)
         --~ group, subgroup = item_data.group, item_data.subgroup
         --~ group_order, order = item_data.group_order, item_data.order
 
@@ -429,10 +429,10 @@ BioInd.show("Changing group and order of", item.name)
         --~ end
 
         --~ item.subgroup = subgroup or item.subgroup
---~ BioInd.show("item.subgroup", item.subgroup)
+--~ BioInd.debugging.show("item.subgroup", item.subgroup)
         --~ item.order = order or item.order
---~ BioInd.show("item.order", item.order)
-        --~ BioInd.modified_msg("subgroup and order", item)
+--~ BioInd.debugging.show("item.order", item.order)
+        --~ BioInd.debugging.modified_msg("subgroup and order", item)
         set_group_and_order(item, item_data)
       end
     end
@@ -441,7 +441,7 @@ BioInd.show("Changing group and order of", item.name)
     for recipe_name, recipe_data in pairs(mod_data.recipes or {}) do
       recipe = recipes[recipe_name]
       if recipe then
---~ BioInd.show("Changing group and order of", recipe.name)
+--~ BioInd.debugging.show("Changing group and order of", recipe.name)
         --~ group, subgroup = recipe_data.group, recipe_data.subgroup
         --~ group_order, order = recipe_data.group_order, recipe_data.order
 
@@ -450,17 +450,17 @@ BioInd.show("Changing group and order of", item.name)
         --~ end
 
         --~ recipe.subgroup = subgroup or recipe.subgroup
---~ BioInd.show("recipe.subgroup", recipe.subgroup)
+--~ BioInd.debugging.show("recipe.subgroup", recipe.subgroup)
         --~ recipe.order = order or recipe.order
---~ BioInd.show("recipe.order", recipe.order)
-        --~ BioInd.modified_msg("subgroup and order", recipe)
+--~ BioInd.debugging.show("recipe.order", recipe.order)
+        --~ BioInd.debugging.modified_msg("subgroup and order", recipe)
         set_group_and_order(recipe, recipe_data)
       end
     end
   end
 end
 
-BioInd.show("item-subgroups:", subgroups)
+BioInd.debugging.show("item-subgroups:", subgroups)
 --~ change_sub("boblogistics", "bi-wood-pipe", "pipe")
 --~ change_sub("boblogistics", "bi-wood-pipe-to-ground", "pipe-to-ground")
 --~ change_sub("boblogistics", "bi-wooden-chest-large", "", "a[items]-g[bigchests]")
@@ -520,4 +520,4 @@ BioInd.show("item-subgroups:", subgroups)
 ------------------------------------------------------------------------------------
 --                                    END OF FILE                                 --
 ------------------------------------------------------------------------------------
-BioInd.entered_file("leave")
+BioInd.debugging.entered_file("leave")

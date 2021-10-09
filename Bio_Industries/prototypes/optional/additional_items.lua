@@ -1,7 +1,7 @@
 ------------------------------------------------------------------------------------
 --                     Data for items that depend on settings.                    --
 ------------------------------------------------------------------------------------
-BioInd.entered_file()
+BioInd.debugging.entered_file()
 
 BI.additional_items = BI.additional_items or {}
 
@@ -25,12 +25,12 @@ for s, setting in pairs(settings) do
 end
 
 
-local triggers = {
-  "BI_Trigger_Crushed_Stone_Create",
-}
-for t, trigger in pairs(triggers) do
-  BI.additional_items[trigger] = BI.additional_items[trigger] or {}
-end
+--~ local triggers = {
+  --~ "BI_Trigger_Crushed_Stone_Create",
+--~ }
+--~ for t, trigger in pairs(triggers) do
+  --~ BI.additional_items[trigger] = BI.additional_items[trigger] or {}
+--~ end
 
 ------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------
@@ -251,26 +251,26 @@ BI.additional_items.Bio_Cannon.poison_artillery_shell = {
 --                             Enable: Coal processing                            --
 --                        (BI.Settings.BI_Coal_Processing)                        --
 ------------------------------------------------------------------------------------
--- Charcoal
-BI.additional_items.BI_Coal_Processing.wood_charcoal = {
-  type = "item",
-  name = "wood-charcoal",
-  icon = ICONPATH .. "charcoal.png",
-  icon_size = 64, icon_mipmaps = 3,
-  BI_add_icon = true,
-  fuel_value = "6MJ",
-  fuel_category = "chemical",
-  --~ subgroup = "raw-material",
-  subgroup = "raw-resource",
-  --~ subgroup = "bio-bio-farm-raw",
-  --~ order = "a[bi]-a-c[charcoal]",
-  order = "b[charcoal]",
-  -- Order for "DeadlockCrating"
-  order_crating = "b[cokery]-a[wood-charcoal]",
-  --~ stack_size = 400,
-  stack_size = 200,
-}
-BI.additional_items.BI_Coal_Processing.wood_charcoal.pictures = BioInd.add_pix("charcoal", 4)
+--~ -- Charcoal
+--~ BI.additional_items.BI_Coal_Processing.wood_charcoal = {
+  --~ type = "item",
+  --~ name = "wood-charcoal",
+  --~ icon = ICONPATH .. "charcoal.png",
+  --~ icon_size = 64, icon_mipmaps = 3,
+  --~ BI_add_icon = true,
+  --~ fuel_value = "6MJ",
+  --~ fuel_category = "chemical",
+  -- subgroup = "raw-material",
+  --~ subgroup = "raw-resource",
+  -- subgroup = "bio-bio-farm-raw",
+  -- order = "a[bi]-a-c[charcoal]",
+  --~ order = "b[charcoal]",
+  --~ -- Order for "DeadlockCrating"
+  --~ order_crating = "b[cokery]-a[wood-charcoal]",
+  -- stack_size = 400,
+  --~ stack_size = 200,
+--~ }
+--~ BI.additional_items.BI_Coal_Processing.wood_charcoal.pictures = BioInd.add_pix("charcoal", 4)
 
 -- Coke coal (Pellet coke for Angel's mods)
 BI.additional_items.BI_Coal_Processing.pellet_coke = {
@@ -646,7 +646,7 @@ BI.additional_items.BI_Power_Production.solar_mat = {
   order = "d[solar-panel]-aa[solar-panel-1-a]",
   stack_size = 400,
   place_as_tile = {
-    result = "bi-solar-mat",
+    result = BioInd.musk_floor_stuff.musk_floor_tile_name,
     condition_size = 4,
     condition = { "water-tile" }
   },
@@ -778,7 +778,8 @@ BI.additional_items.BI_Terraforming.arboretum_area = {
   subgroup = BI.default_item_subgroup.biofarm.name,
   --~ order = "x[bi]-a[bi-arboretum]",
   order = "x[bi]-a[wood-production]-[buildings]-c[bi-arboretum]",
-  place_result = "bi-arboretum-area",
+  --~ place_result = "bi-arboretum-area",
+  place_result = "bi-arboretum",
   stack_size= 10,
 }
 
@@ -1163,47 +1164,46 @@ BI.additional_items.BI_Pollution_Detector.pollution_sensor = {
 
 
 
-------------------------------------------------------------------------------------
-------------------------------------------------------------------------------------
---                                    Triggers                                    --
-------------------------------------------------------------------------------------
-------------------------------------------------------------------------------------
+--~ ------------------------------------------------------------------------------------
+--~ ------------------------------------------------------------------------------------
+--~ --                                    Triggers                                    --
+--~ ------------------------------------------------------------------------------------
+--~ ------------------------------------------------------------------------------------
 
 
-------------------------------------------------------------------------------------
---                      Trigger: Create item "crushed stone"?                     --
---                  (BI.Triggers.BI_Trigger_Crushed_Stone_Create)                 --
-------------------------------------------------------------------------------------
--- Crushed Stone
-BI.additional_items.BI_Trigger_Crushed_Stone_Create.crushed_stone = {
-  type = "item",
-  name = "stone-crushed",
-  icon = ICONPATH .. "crushed-stone.png",
-  icon_size = 64, icon_mipmaps = 3,
-  BI_add_icon = true,
-  --~ --icon_mipmaps = 4,
-  --~ --pictures = {
-    --~ --{ size = 64, filename = ICONPATHMIPS.."crush_1.png", scale = 0.2 },
-    --~ --{ size = 64, filename = ICONPATHMIPS.."crush_2.png", scale = 0.2 },
-    --~ --{ size = 64, filename = ICONPATHMIPS.."crush_3.png", scale = 0.2 },
-    --~ --{ size = 64, filename = ICONPATHMIPS.."crush_4.png", scale = 0.2 }
-  --~ --},
-  --~ subgroup = "raw-material",
-  subgroup = BI.default_item_subgroup.bio_farm_intermediate_product.name,
-  order = "a[bi]-a-z[stone-crushed]",
-  -- Order for "DeadlockCrating"
-  order_crating = "c[stone-crushing]-[products]-a[stone-crushed]",
-  stack_size = 400
-}
-BI.additional_items.BI_Trigger_Crushed_Stone_Create.crushed_stone.pictures = BioInd.add_pix("crush", 4)
+--~ ------------------------------------------------------------------------------------
+--~ --                      Trigger: Create item "crushed stone"?                     --
+--~ --                  (BI.Triggers.BI_Trigger_Crushed_Stone_Create)                 --
+--~ ------------------------------------------------------------------------------------
+--~ -- Crushed Stone
+--~ BI.additional_items.BI_Trigger_Crushed_Stone_Create.crushed_stone = {
+  --~ type = "item",
+  --~ name = "stone-crushed",
+  --~ icon = ICONPATH .. "crushed-stone.png",
+  --~ icon_size = 64, icon_mipmaps = 3,
+  --~ BI_add_icon = true,
+  --icon_mipmaps = 4,
+  --pictures = {
+    --{ size = 64, filename = ICONPATHMIPS.."crush_1.png", scale = 0.2 },
+    --{ size = 64, filename = ICONPATHMIPS.."crush_2.png", scale = 0.2 },
+    --{ size = 64, filename = ICONPATHMIPS.."crush_3.png", scale = 0.2 },
+    --{ size = 64, filename = ICONPATHMIPS.."crush_4.png", scale = 0.2 }
+  --},
+  --~ -- subgroup = "raw-material",
+  --~ subgroup = BI.default_item_subgroup.bio_farm_intermediate_product.name,
+  --~ order = "a[bi]-a-z[stone-crushed]",
+  --~ -- Order for "DeadlockCrating"
+  --~ order_crating = "c[stone-crushing]-[products]-a[stone-crushed]",
+  --~ stack_size = 400
+--~ }
+--~ BI.additional_items.BI_Trigger_Crushed_Stone_Create.crushed_stone.pictures = BioInd.add_pix("crush", 4)
 
 
 -- Status report
-BioInd.readdata_msg(BI.additional_items, settings,
-                    "optional items", "setting")
+BioInd.debugging.readdata_msg(BI.additional_items, settings, "optional items", "setting")
 
 
 ------------------------------------------------------------------------------------
 --                                    END OF FILE                                 --
 ------------------------------------------------------------------------------------
-BioInd.entered_file("leave")
+BioInd.debugging.entered_file("leave")

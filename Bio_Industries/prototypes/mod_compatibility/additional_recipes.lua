@@ -1,7 +1,7 @@
 ------------------------------------------------------------------------------------
 --    Data for some recipes that will be needed if one of several mods is used.   --
 ------------------------------------------------------------------------------------
-BioInd.entered_file()
+BioInd.debugging.entered_file()
 
 --~ local BioInd = require(['"]common['"])(["']Bio_Industries['"])
 local ICONPATH = BioInd.iconpath
@@ -226,10 +226,10 @@ BI.additional_recipes.mod_compatibility.press_wood = {
 
 
 -- Status report
-BioInd.readdata_msg(BI.additional_recipes, mod_compatibility,
+BioInd.debugging.readdata_msg(BI.additional_recipes, mod_compatibility,
                     "additional recipes", "compatibility with other mods")
 
 ------------------------------------------------------------------------------------
 --                                    END OF FILE                                 --
 ------------------------------------------------------------------------------------
-BioInd.entered_file("leave")
+BioInd.debugging.entered_file("leave")

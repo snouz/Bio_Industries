@@ -64,18 +64,25 @@ function thxbob.lib.item.get_type(name)
 end
 
 
-function thxbob.lib.item.get_basic_type(name)
-  name = type(name) == "string" and name or
-          type(name) == "table" and name.name or
-          error(string.format("\"%s\" is not a valid item or item name!", name))
+--~ function thxbob.lib.item.get_basic_type(name)
+  --~ name = type(name) == "string" and name or
+          --~ type(name) == "table" and name.name or
+          --~ error(string.format("\"%s\" is not a valid item or item name!", name))
 
-  return data.raw.fluid[name] and "fluid" or "item"
+  --~ return data.raw.fluid[name] and "fluid" or "item"
+--~ end
+function thxbob.lib.item.get_basic_type(input)
+  input = type(input) == "string" and input or
+          type(input) == "table" and input.type and input.name or
+          error(string.format("\"%s\" is not a valid item or item name!", input))
+
+  return data.raw.fluid[input] and "fluid" or "item"
 end
 
 
 function thxbob.lib.item.basic_item(inputs)
-BioInd.entered_function()
---~ BioInd.show("Inputs", inputs)
+BioInd.debugging.entered_function()
+--~ BioInd.debugging.show("Inputs", inputs)
   --~ local item = {}
 
   --~ if inputs.name then
@@ -83,7 +90,7 @@ BioInd.entered_function()
   --~ else
     --~ item.name = inputs[1]
   --~ end
---~ BioInd.show("item.name", item.name)
+--~ BioInd.debugging.show("item.name", item.name)
 
   --~ if inputs.amount then
     --~ item.amount = inputs.amount
@@ -95,14 +102,14 @@ BioInd.entered_function()
   --~ if not item.amount then
     --~ item.amount = 1
   --~ end
---~ BioInd.show("item.amount", item.amount)
+--~ BioInd.debugging.show("item.amount", item.amount)
 
   --~ if inputs.type then
     --~ item.type = inputs.type
   --~ else
     --~ item.type = thxbob.lib.item.get_basic_type(item.name)
   --~ end
---~ BioInd.show("item.type", item.type)
+--~ BioInd.debugging.show("item.type", item.type)
 
 
   --~ if item.type == "item" then
@@ -115,7 +122,7 @@ BioInd.entered_function()
   local item = {}
 
   item.name = inputs.name or inputs[1]
---~ BioInd.show("item.name", item.name)
+--~ BioInd.debugging.show("item.name", item.name)
 
   item.amount = inputs.amount or inputs[2]
   if not item.amount then
@@ -131,10 +138,10 @@ BioInd.entered_function()
       item.amount = 1
     end
   end
---~ BioInd.show("item.amount", item.amount)
+--~ BioInd.debugging.show("item.amount", item.amount)
 
   item.type = inputs.type or thxbob.lib.item.get_basic_type(item.name)
---~ BioInd.show("item.type", item.type)
+--~ BioInd.debugging.show("item.type", item.type)
 
   -- Amount of "item" must be an integer because there can be no fractional
   -- items in the player's inventory!
@@ -145,8 +152,8 @@ BioInd.entered_function()
       item.amount = math.floor(item.amount)
     end
   end
---~ BioInd.show("item", item)
-BioInd.entered_function("leave")
+--~ BioInd.debugging.show("item", item)
+BioInd.debugging.entered_function("leave")
   return item
 end
 
@@ -271,14 +278,14 @@ end
 
 -- Modified by Pi-C
 function thxbob.lib.item.add(list, item_in) --increments amount if exists
-BioInd.entered_function()
+BioInd.debugging.entered_function({list, item_in})
   local item = thxbob.lib.item.item(item_in)
---~ BioInd.writeDebug("Need to add %s to %s", {item, list}, "line")
+--~ BioInd.debugging.writeDebug("Need to add %s to %s", {item, list}, "line")
   local addit = true
   for i, object in pairs(list or {}) do
---~ BioInd.writeDebug("object: %s\titem.name: %s", {object, item.name}, "line")
+--~ BioInd.debugging.writeDebug("object: %s\titem.name: %s", {object, item.name}, "line")
     if object[1] == item.name or object.name == item.name then
---~ BioInd.writeDebug("Item already exists!")
+--~ BioInd.debugging.writeDebug("Item already exists!")
       addit = false
       list[i] = thxbob.lib.item.combine(object, item)
     end
@@ -286,8 +293,8 @@ BioInd.entered_function()
   if addit then
     table.insert(list, item)
   end
---~ BioInd.show("list", list)
-BioInd.entered_function("leave")
+--~ BioInd.debugging.show("list", list)
+BioInd.debugging.entered_function("leave")
 end
 
 -- Modified by Pi-C
@@ -328,15 +335,15 @@ end
 
 -- Modified by Pi-C
 function thxbob.lib.item.set(list, item_in)
-BioInd.entered_function()
+BioInd.debugging.entered_function()
   local item = thxbob.lib.item.item(item_in)
---~ BioInd.show("list", list)
---~ BioInd.show("item", item)
+--~ BioInd.debugging.show("list", list)
+--~ BioInd.debugging.show("item", item)
   for i, object in pairs(list or {}) do
---~ BioInd.show("object", object)
+--~ BioInd.debugging.show("object", object)
     if object[1] == item.name or object.name == item.name then
       list[i] = item
---~ BioInd.writeDebug("Set item!")
+--~ BioInd.debugging.writeDebug("Set item!")
     end
   end
 end

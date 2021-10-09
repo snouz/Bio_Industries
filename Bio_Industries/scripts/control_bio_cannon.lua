@@ -1,154 +1,354 @@
---~ if BioInd.get_startup_setting("BI_Bio_Cannon") then
-  --~ BioInd.entered_file()
---~ else
-  --~ BioInd.nothing_to_do("*")
-  --~ return
---~ end
+------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
+--                                BIO-CANNON STUFF                                --
+------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
+BioInd.debugging.entered_file()
 
 
---~ ---Bio Cannon Stuff
---~ -- local Event = require('__stdlib__/stdlib/event/event').set_protected_mode(true)
+------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
+--                             Local variables/tables                             --
+------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
+
+-- ManagedLuaBootstrap instance from ErLib
+local bio_cannon_script = BioInd.erlib.Events.get_managed_script("bio_cannon")
+
+-- Eradicator's Library uses the on_configuration_changed event for on_init as well.
+-- If the mod is added to an existing game, the event will trigger two times, but
+-- we only need to run the code once, so we check for this flag.
+local initialized
+
+-- Things put in here will be visible from other files
+local BI_bio_cannon = {}
+
+-- The global tables used for Bio cannons and their radars. We'll get them when the
+-- game is initialized in on_configuration_changed!
+local cannons, radars
+
+-- How often do we check the radars for electricity?
+local action_interval = 120
 
 
---~ ----- Bio Cannon Stuff
---~ local function Bio_Cannon_Check(Bio_Cannon)
-  --~ BioInd.entered_function({Bio_Cannon})
+-- Firing the Bio cannon will have different effects, depending on the ammo used.
+local Bio_Cannon_Fired = {
+  base_pollution = 100,
+  base_unit_count = 100,
+  base_unit_search_distance = 500,
+  modifiers = {
+    ["BI_cannon-ammo-proto_create_pollution"] = 0.5,
+    ["BI_cannon-ammo-basic_create_pollution"] = 0.75,
+    ["BI_cannon-ammo-poison_create_pollution"] = 1,
+  }
+}
 
-  --~ local Radar = Bio_Cannon and Bio_Cannon.valid and
-                  --~ global.bi_bio_cannon_table[Bio_Cannon.unit_number].radar
-
-  --~ if not Bio_Cannon and Bio_Cannon.valid and Radar and Radar.valid then
-    --~ error(string.format("Invalid Bio cannon parts!\nCannon: %s\tRadar: %s", Bio_Cannon, Radar))
-  --~ end
-
-  --~ local inventory = Bio_Cannon.get_inventory(1)
-  --~ local inventoryContent = inventory.get_contents()
-  --~ local AmmoType
-  --~ local ammo = 0
-  --~ local spawner
-  --~ local worms
-  --~ local target
-  --~ local delay
+------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
+--                                 Local functions                                --
+------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
+local function get_compound_entity_tables()
+  cannons = cannons or global[BioInd.compound_entities["bi-bio-cannon"].tab]
+  radars  = radars or global[BioInd.compound_entities["bi-bio-cannon"].add_global_tables.radar]
+end
 
 
-  --~ for n, a in pairs(inventoryContent or {}) do
-    --~ AmmoType = n
-    --~ ammo = a
-  --~ end
+local function clean_up_check_tables()
+  BioInd.debugging.entered_function()
 
-  --~ if ammo > 0 and Radar.energy > 0 then
+  if not initialized then
 
-    --~ local radius = 90 -- Radius it looks for a Spawner / Worm to fire at
-    --~ local pos = Bio_Cannon.position
+    local checks = global.checks.bio_cannon
+    local current_tick = game.tick
 
-    --~ local area = {{pos.x - radius, pos.y - radius}, {pos.x + radius, pos.y + radius}}
+    for tick, t in pairs(check.ticks) do
+      if tick < current.tick then
+        check.ticks[tick] = nil
+        BioInd.writeDebug("Removed global.checks.bio_cannon.tick[%s]", tick)
+      end
+    end
 
-    --~ --- Look for spawners and worms
-    --~ spawner = Bio_Cannon.surface.find_entities_filtered({
-      --~ area = area,
-      --~ type = "unit-spawner",
-      --~ force= "enemy"
-    --~ })
-    --~ worms = Bio_Cannon.surface.find_entities_filtered({
-      --~ area = area,
-      --~ type = "turret",
-      --~ force= "enemy"
-    --~ })
+    for cannon, tick in pairs(check.cannons) do
+      if not (cannons[cannon] and cannons[cannon].base and cannons[cannon].base.valid) then
+        check.cannons[cannon] = nil
+        BioInd.writeDebug("Removed global.checks.bio_cannon.cannons[%s]", cannon)
+      end
+    end
 
-    --~ --BioInd.writeDebug("The Number of Spawners is: %g", {#spawner})
-    --~ --BioInd.writeDebug("The Number of Worms is: ", {#worms})
-    --~ --Find Spawner Target
-    --~ if #spawner > 0 and target == nil then
-      --~ for _, enemy in pairs(spawner) do
-        --~ local distance = math.sqrt(((Bio_Cannon.position.x - enemy.position.x)^2) + ((Bio_Cannon.position.y - enemy.position.y)^2) )
-        --~ --BioInd.writeDebug("The Distance is: %s", {distance})
-        --~ if (distance > 20) and (distance <= radius) and target == nil then
-          --~ target = enemy
-          --~ -- Inserted break -- just target the first enemy found (Pi-C)
-          --~ break
-        --~ end
-      --~ end
+    initialized = true
+  end
 
-    --~ -- First attack the Spawners, then worms.
-    --~ elseif #worms > 0 and target == nil then
-      --~ for _, enemy in pairs(worms) do
-        --~ local distance = math.sqrt(((Bio_Cannon.position.x - enemy.position.x)^2) +((Bio_Cannon.position.y - enemy.position.y)^2) )
-        --~ --BioInd.writeDebug("The Distance is: %s", {distance})
-        --~ if (distance > 20) and (distance <= radius) and target == nil then
-          --~ target = enemy
-          --~ -- Inserted break -- just target the first enemy found (Pi-C)
-          --~ break
-        --~ end
-      --~ end
-    --~ end
+  BioInd.debugging.entered_function("leave")
+end
 
-    --~ --Fire at Spawner
-    --~ if target then
-      --~ Bio_Cannon.surface.create_entity({
-        --~ name = AmmoType,
-        --~ position = {
-          --~ x = Bio_Cannon.position.x - 0.5,
-          --~ y = Bio_Cannon.position.y - 4.5
-        --~ },
-        --~ force = Bio_Cannon.force,
-        --~ target = target,
-        --~ speed= 0.1
-      --~ })
-      --~ Bio_Cannon.surface.pollute(Bio_Cannon.position, 100) -- The firing of the Hive Buster will cause Pollution
-      --~ Bio_Cannon.surface.set_multi_command{
-        --~ command = {
-          --~ type = defines.command.attack,
-          --~ target = Bio_Cannon,
-          --~ distraction = defines.distraction.by_enemy
-        --~ },
-        --~ unit_count = math.floor(100 * game.forces.enemy.evolution_factor),
-        --~ unit_search_distance = 500
-      --~ }
-
-      --~ --Reduce Ammo
-      --~ if ammo > 0 then
-        --~ inventory.remove({name = AmmoType, count = 1})
-      --~ end
-
-      --~ --Delay between shots
-      --~ local delays = {
-        --~ ["bi-bio-cannon-ammo-proto"] = 9,
-        --~ ["bi-bio-cannon-ammo-basic"] = 10,
-        --~ ["bi-bio-cannon-ammo-poison"] = 15
-      --~ }
-      --~ global.bi_bio_cannon_table[Bio_Cannon.unit_number].delay = delays[AmmoType] or 20
-    --~ end
-  --~ end
-  --~ BioInd.entered_function("leave")
---~ end
+------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
+--                       Functions visible from other files                       --
+------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
 
 
 
---~ Event.register(defines.events.on_tick, function(event)
-  --~ if global.bi_bio_cannon_table ~= nil then
-    --~ if global.Bio_Cannon_Counter == 0 or global.Bio_Cannon_Counter == nil then
-      --~ global.Bio_Cannon_Counter = 60
-      --~ for b, bio_cannon in pairs(global.bi_bio_cannon_table) do
---~ -- BioInd.writeDebug("Checking cannon %s (%g)", {b, bio_cannon.base.unit_number})
 
-        --~ if bio_cannon.base and bio_cannon.base.valid and
-            --~ bio_cannon.radar and bio_cannon.radar.valid then
+------------------------------------------------------------------------------------
+--            Add the cannon to the table of entities to check at tick            --
+------------------------------------------------------------------------------------
+-- This will be called when a new Bio cannon radar has been placed (next tick), and
+-- when checks are scheduled normally (action_interval)
+--
+BI_bio_cannon.add_cannon_to_checks = function(cannon_id, current_tick, delay)
+  BioInd.debugging.entered_function({cannon_id, delay})
 
-          --~ bio_cannon.delay = bio_cannon.delay - 1
+  BioInd.debugging.check_args(cannon_id, "number", "Bio-cannon unit_number")
+  BioInd.debugging.check_args(current_tick, "number", "tick")
+  BioInd.debugging.check_args(delay, "number", "delay")
 
-          --~ if bio_cannon.delay <= 0 then
-            --~ Bio_Cannon_Check(bio_cannon.base)
-          --~ end
-        --~ end
-      --~ end
-    --~ else
-      --~ global.Bio_Cannon_Counter = global.Bio_Cannon_Counter - 1
-    --~ end
-  --~ end
---~ end)
+  clean_up_check_tables()
+
+  local next_action = current_tick + delay
+
+  -- If this is the first Bio cannon to be checked on that tick, add it to
+  -- the list and enqueue the action
+  if not global.checks.bio_cannon.ticks[next_action] then
+    global.checks.bio_cannon.ticks[next_action] = {cannon_id}
+    BioInd.erlib.TickedAction.enqueue('bio_cannon', 'check_bio_cannon_radars', delay)
+    BioInd.debugging.writeDebug("Scheduled next check for tick %s.", next_action)
+
+  -- If we have already registered a TickedAction for that tick, just add
+  -- the Bio cannon to the list
+  else
+    table.insert(global.checks.bio_cannon.ticks[next_action], cannon_id)
+    BioInd.debugging.writeDebug("Added cannon %s to list of entities checked on tick %s.",
+                                {cannon_id, next_action})
+  end
+  global.checks.bio_cannon.cannons[cannon_id] = next_action
+
+  BioInd.debugging.entered_function("leave")
+end
 
 
---~ ------------------------------------------------------------------------------------
---~ --                                    END OF FILE                                 --
---~ ------------------------------------------------------------------------------------
---~ BioInd.entered_file("leave")
+
+------------------------------------------------------------------------------------
+--    If the radar has power, activate the cannon and schedule the next check!    --
+------------------------------------------------------------------------------------
+BI_bio_cannon.schedule_radar_check = function(cannon_id, tick)
+  BioInd.debugging.entered_function({cannon_id, tick})
+
+  BioInd.debugging.check_args(cannon_id, "number", "Bio-cannon unit_number")
+
+  if not cannons then
+    get_compound_entity_tables()
+  end
+
+  local cannon = cannons[cannon_id]
+
+  -- A Bio-cannon with that unit_number is registered in our tables
+  if cannon then
+
+    local cannon_check = global.checks.bio_cannon.cannons[cannon_id]
+
+    -- Get the entities!
+    cannon = cannon.base
+    local radar = cannons[cannon_id].radar
+
+    -- Something has gone seriously wrong! Destroy the radar, and remove
+    -- cannon + radar from the tables!
+    if not (cannon and cannon.valid and radar and radar.valid) then
+      BioInd.debugging.writeDebug("Cannon and/or radar don't exist. Cleaning up!")
+      global.checks.bio_cannon.cannons[cannon_id] = nil
+      BI_scripts.event_handlers.On_Pre_Remove({entity = cannon})
+
+    -- Cannon exists, but radar has no power. Turn off the cannon!
+    elseif radar.energy == 0 then
+      if cannon.active then
+        cannon.active = false
+        global.checks.bio_cannon.cannons[cannon_id] = nil
+        BioInd.debugging.writeDebug("Turned off %s because its radar doesn't have power!",
+                          {BioInd.debugging.argprint(cannon)})
+      end
+
+    -- Everything is alright!
+    else
+      -- Activate cannon
+      if not cannon.active then
+        cannon.active = true
+        BioInd.debugging.writeDebug("Turned on %s!", {BioInd.debugging.argprint(cannon)})
+      end
+
+      -- Don't schedule a new check for this cannon if it's already waiting for one!
+      --~ if not global.checks.bio_cannon.cannons[cannon_id] then
+BioInd.debugging.show("cannon_check", cannon_check)
+BioInd.debugging.show("global.checks.bio_cannon.cannons[cannon_id]", global.checks.bio_cannon.cannons[cannon_id])
+      if (not cannon_check) or cannon_check <= tick then
+        BI_bio_cannon.add_cannon_to_checks(cannon_id, tick, action_interval)
+      else
+        BioInd.debugging.writeDebug("%s already has a check scheduled for tick %s!",
+                                    {BioInd.debugging.argprint(cannon), cannon_check})
+      end
+    end
+  -- The Bio cannon doesn't exist anymore. Remove it from the checks table!
+  else
+    global.checks.bio_cannon.cannons[cannon_id] = nil
+  end
+
+  BioInd.debugging.entered_function("leave")
+end
+
+
+------------------------------------------------------------------------------------
+--            Bio cannon should only be active if the radar has power!            --
+------------------------------------------------------------------------------------
+BI_bio_cannon.check_radars = function(tick)
+  BioInd.debugging.entered_function({tick})
+
+    BioInd.debugging.writeDebug("Must check %s entities!", #global.checks.bio_cannon.ticks[tick])
+    for c, cannon_id in pairs(global.checks.bio_cannon.ticks[tick] or {}) do
+      BI_bio_cannon.schedule_radar_check(cannon_id, tick)
+    end
+
+    global.checks.bio_cannon.ticks[tick] = nil
+    BioInd.debugging.writeDebug("Removed global.checks.bio_cannon.ticks[%s]!", tick)
+
+  BioInd.debugging.entered_function("leave")
+end
+
+
+------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
+--                                 AutoCache stuff                                --
+------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
+
+
+
+------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
+--                                 Event handlers                                 --
+------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
+
+
+------------------------------------------------------------------------------------
+--       Radar completed a sector scan. Activate cannon and schedule check!       --
+------------------------------------------------------------------------------------
+bio_cannon_script.on_event(defines.events.on_sector_scanned, function(event)
+  BioInd.debugging.entered_event(event)
+
+  local radar = event.radar
+
+  if not radars then
+    get_compound_entity_tables()
+  end
+
+
+  -- Only act if radar belongs to a bio-cannon!
+  local bio_cannon_id = radars and radars[radar.unit_number]
+  if bio_cannon_id then
+    BI_bio_cannon.schedule_radar_check(bio_cannon_id, event.tick)
+  end
+
+  BioInd.debugging.entered_event(event, "leave")
+end)
+
+
+
+------------------------------------------------------------------------------------
+--          Bio cannon has been fired: Create pollution and send enemies!         --
+------------------------------------------------------------------------------------
+bio_cannon_script.on_event(defines.events.on_script_trigger_effect, function(event)
+  BioInd.debugging.entered_event(event)
+  local Bio_Cannon = event.source_entity
+  local position = Bio_Cannon and Bio_Cannon.position or event.source_position
+  local surface = event.surface_index and game.surfaces[event.surface_index]
+
+  local data = Bio_Cannon_Fired
+  local modifier = event.effect_id and data.modifiers[event.effect_id]
+
+  if modifier and position and surface then
+    local unit_count = math.floor(game.forces.enemy.evolution_factor * data.base_unit_count * modifier)
+    local unit_search_distance = data.base_unit_search_distance * modifier
+
+    -- The firing of the Hive Buster will cause pollution
+    surface.pollute(position, data.base_pollution * modifier)
+
+    -- Send off enemies to retaliate
+    if Bio_Cannon then
+      -- Attack cannon
+      surface.set_multi_command{
+        command = {
+          type = defines.command.attack,
+          target = Bio_Cannon,
+          distraction = defines.distraction.by_enemy
+        },
+        unit_count = unit_count,
+        unit_search_distance = unit_search_distance
+      }
+      BioInd.debugging.writeDebug("Looking for %s enemies in a radius of %s tiles",
+                        {unit_count, unit_search_distance})
+    else
+      -- If cannon doesn't exist anymore, attack position or anything on the way to it
+      surface.set_multi_command{
+        command = {
+          type = defines.command.attack_area,
+          destination = position,
+          radius = 5,
+          distraction = defines.distraction.by_anything
+        },
+        unit_count = unit_count,
+        unit_search_distance = unit_search_distance
+      }
+      BioInd.debugging.writeDebug("Looking for %s enemies in a radius of %s tiles",
+                        {unit_count, unit_search_distance})
+    end
+  end
+  BioInd.debugging.entered_event(event, "leave")
+end)
+
+
+
+------------------------------------------------------------------------------------
+--                         Initialize a new or loaded game                        --
+------------------------------------------------------------------------------------
+bio_cannon_script.on_configuration_changed(function(event)
+  event = event or {}; event.name = "on_configuration_changed"
+  BioInd.debugging.entered_event(event)
+
+  -- If the mod was added to an existing game, this event has already been triggered
+  -- for on_init, so we can skip it for on_configuration_changed!
+  if initialized then
+    BioInd.debugging.entered_event(event, "leave", "Nothing to do!")
+    return
+  end
+
+  -- Make sure all bio cannons can be identified via their radars
+  get_compound_entity_tables()
+
+  for c, cannon in pairs(cannons or {}) do
+    radars[cannon.radar.unit_number] = cannon.base.unit_number
+  end
+
+  -- Add a table where we can schedule checks for unpowered radars
+  global.checks.bio_cannon = global.checks.bio_cannon or {
+    -- Key: tick
+    -- Value: Array of cannons that will be checked on that tick
+    ticks   = {},
+    -- Only schedule checks for cannons that aren't waiting for a check yet!
+    -- Key: unit_number
+    -- Value: tick for next action
+    cannons = {}
+  }
+
+  -- Mark game as initialized
+  initialized = true
+
+  BioInd.debugging.entered_event(event, "leave")
+end)
+
+
+------------------------------------------------------------------------------------
+--                                    END OF FILE                                 --
+------------------------------------------------------------------------------------
+BioInd.debugging.entered_file("leave")
+
+return BI_bio_cannon

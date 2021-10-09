@@ -1,7 +1,7 @@
 ------------------------------------------------------------------------------------
 --                Data for ammo-categories that depend on settings.               --
 ------------------------------------------------------------------------------------
-BioInd.entered_file()
+BioInd.debugging.entered_file()
 
 BI.additional_categories = BI.additional_categories or {}
 
@@ -81,10 +81,10 @@ BI.additional_categories.BI_Explosive_Planting.ammo = table.deepcopy(BI.addition
 
 
 -- Status report
-BioInd.readdata_msg(BI.additional_categories, settings,
+BioInd.debugging.readdata_msg(BI.additional_categories, settings,
                     "optional ammo categories", "setting")
 
 ------------------------------------------------------------------------------------
 --                                    END OF FILE                                 --
 ------------------------------------------------------------------------------------
-BioInd.entered_file("leave")
+BioInd.debugging.entered_file("leave")

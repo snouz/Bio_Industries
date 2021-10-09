@@ -1,8 +1,8 @@
 ------------------------------------------------------------------------------------
 --                                Base mod/vanilla                                --
 ------------------------------------------------------------------------------------
-BioInd.entered_file()
-BioInd.writeDebug("Reading default patterns")
+BioInd.debugging.entered_file()
+BioInd.debugging.writeDebug("Reading default patterns")
 
 
 ------------------------------------------------------------------------------------
@@ -197,7 +197,7 @@ local whitelist_items = {}
 ------------------------------------------------------------------
 --                                    END OF FILE
 ------------------------------------------------------------------------------------
-BioInd.entered_file("leave")
+BioInd.debugging.entered_file("leave")
 
 return {
   blacklist_items = blacklist_items or {},

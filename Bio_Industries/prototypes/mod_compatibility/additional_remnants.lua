@@ -1,4 +1,4 @@
-BioInd.entered_file()
+BioInd.debugging.entered_file()
 
 local ICONPATH = BioInd.iconpath
 local REMNANTPATH = BioInd.entitypath .. "remnants/"
@@ -13,10 +13,10 @@ BI.additional_remnants.mod_compatibility = BI.additional_remnants.mod_compatibil
 
 
 -- Status report
-BioInd.readdata_msg(BI.additional_remnants, mod_compatibility,
+BioInd.debugging.readdata_msg(BI.additional_remnants, mod_compatibility,
                     "additional remnants", "compatibility with other mods")
 
 ------------------------------------------------------------------------------------
 --                                    END OF FILE                                 --
 ------------------------------------------------------------------------------------
-BioInd.entered_file("leave")
+BioInd.debugging.entered_file("leave")

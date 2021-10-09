@@ -4,10 +4,10 @@
 ------------------------------------------------------------------------------------
 local setting = "BI_Game_Tweaks_Stack_Size"
 if not BI.Settings[setting] then
-  BioInd.nothing_to_do("*")
+  BioInd.debugging.nothing_to_do("*")
   return
 else
-  BioInd.entered_file()
+  BioInd.debugging.entered_file()
 end
 
 ------------------------------------------------------------------------------------
@@ -28,8 +28,8 @@ for tweak_name, tweak in pairs(tweaks) do
   item = data.raw.item[tweak_name]
   if item and item.stack_size < tweak then
     item.stack_size = 800
-    --~ BioInd.writeDebug("Changing stacksize of %s from %s to %s", {item.name, item.stack_size, tweak})
-    BioInd.modified_msg("stack_size", item)
+    --~ BioInd.debugging.writeDebug("Changing stacksize of %s from %s to %s", {item.name, item.stack_size, tweak})
+    BioInd.debugging.modified_msg("stack_size", item)
   end
 end
 
@@ -37,4 +37,4 @@ end
 ------------------------------------------------------------------------------------
 --                                    END OF FILE
 ------------------------------------------------------------------------------------
-BioInd.entered_file("leave")
+BioInd.debugging.entered_file("leave")

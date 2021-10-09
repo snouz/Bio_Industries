@@ -4,10 +4,10 @@
 ------------------------------------------------------------------------------------
 local mod_name = "5dim_core"
 if not BioInd.check_mods(mod_name) then
-  BioInd.nothing_to_do("*")
+  BioInd.debugging.nothing_to_do("*")
   return {}
 else
-  BioInd.entered_file()
+  BioInd.debugging.entered_file()
 end
 
 
@@ -64,7 +64,7 @@ local whitelist_patterns = {}
 ------------------------------------------------------------------------------------
 --                                    END OF FILE
 ------------------------------------------------------------------------------------
-BioInd.entered_file("leave")
+BioInd.debugging.entered_file("leave")
 
 return {
   blacklist_items = blacklist_items or {},

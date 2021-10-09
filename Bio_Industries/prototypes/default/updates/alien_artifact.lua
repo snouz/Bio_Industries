@@ -1,8 +1,8 @@
 if not data.raw.item["alien-artifact"] then
-  BioInd.nothing_to_do("*")
+  BioInd.debugging.nothing_to_do("*")
   return
 else
-  BioInd.entered_file()
+  BioInd.debugging.entered_file()
 end
 
 
@@ -23,4 +23,4 @@ BioInd.create_stuff(BI.additional_recipes.adv_fertilizer_2)
 ------------------------------------------------------------------------------------
 --                                    END OF FILE                                 --
 ------------------------------------------------------------------------------------
-BioInd.entered_file("leave")
+BioInd.debugging.entered_file("leave")

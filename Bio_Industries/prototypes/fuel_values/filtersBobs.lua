@@ -9,12 +9,12 @@ if not BioInd.check_mods({
   "bobpower",
   "bobrevamp",
 }) then
-  BioInd.nothing_to_do("*")
+  BioInd.debugging.nothing_to_do("*")
   -- require("file") will return true unless the file returns a value ~= nil
   return {}
 else
-  BioInd.entered_file()
-  BioInd.writeDebug("Reading patterns for Bob's mods")
+  BioInd.debugging.entered_file()
+  BioInd.debugging.writeDebug("Reading patterns for Bob's mods")
 end
 
 
@@ -90,7 +90,7 @@ local whitelist_patterns = {}
 ------------------------------------------------------------------------------------
 --                                    END OF FILE
 ------------------------------------------------------------------------------------
-BioInd.entered_file("leave")
+BioInd.debugging.entered_file("leave")
 
 return {
   blacklist_items = blacklist_items or {},

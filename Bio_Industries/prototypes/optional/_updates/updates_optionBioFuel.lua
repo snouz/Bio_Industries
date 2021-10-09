@@ -5,10 +5,10 @@
 local setting = "BI_Bio_Fuel"
 --~ -- We only want to do this when the setting is not active!
 --~ if BI.Settings[setting] then
-  --~ BioInd.nothing_to_do("*")
+  --~ BioInd.debugging.nothing_to_do("*")
   --~ return
 --~ else
-  BioInd.entered_file()
+  BioInd.debugging.entered_file()
 --~ end
 
 
@@ -26,18 +26,18 @@ local item, recipe, tech
 --          Create recipe for Basic gas processing if resin is available          --
 ------------------------------------------------------------------------------------
 --~ if BI.Settings[setting] then
---~ BioInd.writeDebug("Check if we must create Basic gas processing recipe")
+--~ BioInd.debugging.writeDebug("Check if we must create Basic gas processing recipe")
   --~ local name = BI.additional_techs.BI_Rubber.resin_extraction.name
-  --~ BioInd.writeDebug("Needed tech %s exists: %s", {name, techs[name] and true or false})
+  --~ BioInd.debugging.writeDebug("Needed tech %s exists: %s", {name, techs[name] and true or false})
 
   --~ tech = techs[BI.additional_techs.BI_Rubber.resin_extraction.name]
-  --~ BioInd.show("tech", tech)
+  --~ BioInd.debugging.show("tech", tech)
   --~ if tech then
     --~ BioInd.create_stuff(BI.additional_recipes.BI_Bio_Fuel.basic_gas_processing)
   --~ end
 --~ end
 if BI.Settings[setting] then
-BioInd.writeDebug("Check if we must create Basic gas processing recipe")
+BioInd.debugging.writeDebug("Check if we must create Basic gas processing recipe")
   -- Resin will be created if our "Resin extraction" tech exists.
   if techs[BI.additional_techs.BI_Rubber.resin_extraction.name] or
   -- It may also have been created by another mod.
@@ -45,7 +45,7 @@ BioInd.writeDebug("Check if we must create Basic gas processing recipe")
 
     BioInd.create_stuff(BI.additional_recipes.BI_Bio_Fuel.basic_gas_processing)
   else
-    BioInd.nothing_to_do("")
+    BioInd.debugging.nothing_to_do("")
   end
 end
 
@@ -64,7 +64,7 @@ if not BI.Settings[setting] then
       name = "fertilizer",
       amount = 50
     })
-    BioInd.modified_msg("ingredients", recipe)
+    BioInd.debugging.modified_msg("ingredients", recipe)
   end
 
   -- Advanced fertilizer
@@ -77,11 +77,11 @@ if not BI.Settings[setting] then
       name = "fertilizer",
       amount = 30
     })
-    BioInd.modified_msg("ingredients", recipe)
+    BioInd.debugging.modified_msg("ingredients", recipe)
   end
 end
 
 ------------------------------------------------------------------------------------
 --                                    END OF FILE                                 --
 ------------------------------------------------------------------------------------
-BioInd.entered_file("leave")
+BioInd.debugging.entered_file("leave")

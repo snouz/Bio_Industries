@@ -1,8 +1,8 @@
 --~ if not BI.Triggers.BI_Trigger_Sand then
-  --~ BioInd.nothing_to_do("*")
+  --~ BioInd.debugging.nothing_to_do("*")
   --~ return
 --~ else
-  --~ BioInd.entered_file()
+  --~ BioInd.debugging.entered_file()
 --~ end
 
 
@@ -24,7 +24,7 @@
     --~ prototype.localised_description = {
       --~ "entity-description." .. prototype.name .. "-sand"
     --~ }
-    --~ BioInd.modified_msg("localization", prototype)
+    --~ BioInd.debugging.modified_msg("localization", prototype)
   --~ end
 --~ end
 
@@ -32,4 +32,4 @@
 --~ ------------------------------------------------------------------------------------
 --~ --                                    END OF FILE                                 --
 --~ ------------------------------------------------------------------------------------
---~ BioInd.entered_file("leave")
+--~ BioInd.debugging.entered_file("leave")

@@ -3,10 +3,10 @@
 ------------------------------------------------------------------------------------
 local mod_name = "alien-biomes"
 if not BioInd.check_mods(mod_name) then
-  BioInd.nothing_to_do("*")
+  BioInd.debugging.nothing_to_do("*")
   return
 else
-  BioInd.entered_file()
+  BioInd.debugging.entered_file()
 end
 
 
@@ -26,20 +26,23 @@ local fertilizer = items["fertilizer"]
 local fertilizer_adv = items["bi-adv-fertilizer"]
 
 -- Even though the mod is active, we should make sure its tiles exist!
-local AlienBiomes = BioInd.tree_stuff.AB_tiles()
+--~ local AlienBiomes = BioInd.tree_stuff.AB_tiles()
+local tile_names = BioInd.tree_stuff.AB_tiles({})
 
-
+--~ BioInd.debugging.show("Got these tile_names from AB_tiles", tile_names)
+--~ error("Break!")
 ------------------------------------------------------------------------------------
 -- Common fertilizer
 if fertilizer then
   -- Add "place_as_tile" property!
   fertilizer.place_as_tile = {
-    result = AlienBiomes and "vegetation-green-grass-3" or "grass-3",
+    --~ result = AlienBiomes and "vegetation-green-grass-3" or "grass-3",
+    result = tile_names.common,
     condition_size = 1,
     condition = { "water-tile" }
   }
-  --~ BioInd.writeDebug("Added \"place_as_tile\" to item %s!", {fertilizer.name})
-  BioInd.modified_msg("result", fertilizer, "Added")
+  --~ BioInd.debugging.writeDebug("Added \"place_as_tile\" to item %s!", {fertilizer.name})
+  BioInd.debugging.modified_msg("result", fertilizer, "Added")
 
   -- Change icon
   BioInd.BI_change_icon(fertilizer, ICONPATH .. "fertilizer.png")
@@ -47,7 +50,7 @@ if fertilizer then
   -- Change localization
   fertilizer.localised_name = {"item-name.fertilizer"}
   fertilizer.localised_description = {"item-description.fertilizer"}
-  BioInd.modified_msg("localization", fertilizer)
+  BioInd.debugging.modified_msg("localization", fertilizer)
 end
 
 
@@ -56,11 +59,12 @@ end
 if fertilizer_adv then
   -- Add "place_as_tile" property!
   fertilizer_adv.place_as_tile = {
-    result = AlienBiomes and "vegetation-green-grass-1" or "grass-1",
+    --~ result = AlienBiomes and "vegetation-green-grass-1" or "grass-1",
+    result = tile_names.advanced,
     condition_size = 1,
     condition = { "water-tile" }
   }
-  BioInd.modified_msg("place_as_tile", fertilizer_adv, "Added")
+  BioInd.debugging.modified_msg("place_as_tile", fertilizer_adv, "Added")
 end
 
 
@@ -71,7 +75,7 @@ end
 --- Vanilla "grass" tile
 for t, tile_name in ipairs{"grass-1", "grass-2", "grass-3", "grass-4"} do
   BI_Functions.lib.remove_from_blueprint(tile)
-  BioInd.writeDebug("Removed tile \"%s\" from blueprints.", {tile_name})
+  BioInd.debugging.writeDebug("Removed tile \"%s\" from blueprints.", {tile_name})
 end
 
 -- Tiles from "Alien Biomes"
@@ -120,7 +124,7 @@ for tile_name, tile in pairs(tiles) do
   for p, pattern in ipairs(patterns) do
     if tile_name:match(pattern) then
       BI_Functions.lib.remove_from_blueprint(tile)
-      BioInd.writeDebug("Removed tile \"%s\" from blueprints.", {tile_name})
+      BioInd.debugging.writeDebug("Removed tile \"%s\" from blueprints.", {tile_name})
       break
     end
   end
@@ -130,4 +134,4 @@ end
 ------------------------------------------------------------------------------------
 --                                    END OF FILE
 ------------------------------------------------------------------------------------
-BioInd.entered_file("leave")
+BioInd.debugging.entered_file("leave")

@@ -1,4 +1,4 @@
-BioInd.entered_file()
+BioInd.debugging.entered_file()
 
 
 
@@ -12,7 +12,7 @@ for new, old in pairs({
 
   global[new] = util.table.deepcopy(global[old])
   global[old] = nil
-  BioInd.writeDebug("Migrated global[\"%s\"] to global[\"%s\"].", {old, new})
+  BioInd.debugging.writeDebug("Migrated global[\"%s\"] to global[\"%s\"].", {old, new})
 end
 
 -- Migrate renamed hidden entities!
@@ -25,12 +25,12 @@ for b, boiler in pairs(boilers or {}) do
     if not boiler.panel then
       boiler.panel = boiler.boiler
       boiler.boiler = nil
-      BioInd.writeDebug("Moved \"boiler\" to \"panel\" in global[\"bi_solar_boiler_table\"][%s]: %s",
+      BioInd.debugging.writeDebug("Moved \"boiler\" to \"panel\" in global[\"bi_solar_boiler_table\"][%s]: %s",
                         {b, boilers[b]})
     -- This should never be needed!
     else
       boiler.boiler = nil
-      BioInd.writeDebug("\"Panel\" already exists! Removed \"boiler\" from global[\"bi_solar_boiler_table\"][%s]: %s", {b, boilers[b]})
+      BioInd.debugging.writeDebug("\"Panel\" already exists! Removed \"boiler\" from global[\"bi_solar_boiler_table\"][%s]: %s", {b, boilers[b]})
     end
   end
 end
@@ -39,4 +39,4 @@ end
 ------------------------------------------------------------------------------------
 --                                    END OF FILE                                 --
 ------------------------------------------------------------------------------------
-BioInd.entered_file("leave")
+BioInd.debugging.entered_file("leave")

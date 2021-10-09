@@ -1,4 +1,4 @@
-BioInd.entered_file()
+BioInd.debugging.entered_file()
 
 
 ------------------------------------------------------------------------------------
@@ -17,7 +17,7 @@ License:  CC BY-SA 4.0
 
 -- Don't create prototypes for trees in this table!
 local ignore_trees = BioInd.tree_stuff.get_tree_ignore_list()
-BioInd.show("Ignoring these trees", ignore_trees)
+BioInd.debugging.show("Ignoring these trees", ignore_trees)
 
 local COLLISION_BOX = {{-0.1, -0.1}, {0.1, 0.1}}
 local TREE_LEVELS = 4
@@ -67,7 +67,7 @@ BioInd.create_stuff(extend)
 local tree, stump, trunk, leaves, branches, shadow
 extend = {}
 for id, prototype in pairs(data.raw.tree) do
---~ BioInd.show("id", id)
+--~ BioInd.debugging.show("id", id)
   if prototype.variations and not ignore_trees[id] then
     for i = 1, TREE_LEVELS do
       tree = table.deepcopy(prototype)
@@ -237,4 +237,4 @@ BioInd.create_stuff(extend)
 ------------------------------------------------------------------------------------
 --                                    END OF FILE                                 --
 ------------------------------------------------------------------------------------
-BioInd.entered_file("leave")
+BioInd.debugging.entered_file("leave")

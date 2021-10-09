@@ -4,10 +4,10 @@
 ------------------------------------------------------------------------------------
 local setting = "BI_Stone_Crushing"
 if not BI.Settings[setting] then
-  BioInd.nothing_to_do("*")
+  BioInd.debugging.nothing_to_do("*")
   return
 else
-  BioInd.entered_file()
+  BioInd.debugging.entered_file()
 end
 
 
@@ -34,15 +34,13 @@ if recipe and item then
   for m, mode in pairs({"normal", "expensive" }) do
     ingredients = recipe[mode] and recipe[mode].ingredients
     -- Get the amount of stone used in the original recipe
-    --~ amount = BI_Functions.lib.get_recipe_ingredients(ingredients)["stone"]
-    --~ amount = (amount and amount.amount or 1.5) * 4
     amount = BI_Functions.lib.get_recipe_ingredients(ingredients)
     amount = (amount and amount["stone"].amount or 1.5) * 4
     thxbob.lib.recipe.add_difficulty_ingredient(recipe.name, mode, {item.name, amount})
   end
   recipe.ingredients = table.deepcopy(recipe.normal.ingredients)
   thxbob.lib.recipe.remove_ingredient(recipe.name, "stone")
-  BioInd.modified_msg("ingredients", recipe)
+  BioInd.debugging.modified_msg("ingredients", recipe)
 end
 
 
@@ -55,7 +53,7 @@ end
 
   --~ for r_name, recipe in pairs(recipes) do
     --~ -- Get list of ingredients, indexed by ingredient name
-  --~ BioInd.show("Checking recipe", r_name)
+  --~ BioInd.debugging.show("Checking recipe", r_name)
     --~ -- Make sure the recipe has difficulties!
     --~ thxbob.lib.recipe.difficulty_split(recipe.name)
     --~ for m, mode in pairs({"normal", "expensive" }) do
@@ -67,7 +65,7 @@ end
       --~ end
     --~ end
     --~ thxbob.lib.recipe.remove_ingredient(recipe.name, name)
-    --~ BioInd.modified_msg("ingredients", recipe)
+    --~ BioInd.debugging.modified_msg("ingredients", recipe)
   --~ end
 --~ end
 
@@ -75,4 +73,4 @@ end
 ------------------------------------------------------------------------------------
 --                                    END OF FILE                                 --
 ------------------------------------------------------------------------------------
-BioInd.entered_file("leave")
+BioInd.debugging.entered_file("leave")

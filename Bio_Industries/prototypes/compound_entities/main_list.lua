@@ -39,18 +39,23 @@ end
 --~ log("ret.HE_map_reverse: " .. serpent.block(ret.HE_map_reverse))
 ------------------------------------------------------------------------------------
 -- List of compound entities
--- Key:                 name of the base entity
--- tab:                 name of the global table where data of these entity are stored
--- hidden:              table containing the hidden entities needed by this entity
---                      Key:    handle of the hidden entity
---                      Value:  data needed when placing the hidden entity
+-- Key:                 Name of the base entity
+-- tab:                 Name of the global table where data of these entity are stored
+-- hidden:              Table containing the hidden entities needed by this entity
+--                        Key:    handle of the hidden entity
+--                        Value:  data needed when placing the hidden entity
 -- localize_entity:     Pointer to an entity name -- e.g. {"entity-name.NAME"} -- that
 --                      will be used to localize this entity. This is needed when the
 --                      same string is used for differently named entity names, such
 --                      as "straight-rail"/"curved-rail"/"rail-planner".
 -- new_base_name:       If the placed entity is used as overlay, it will be replaced  --                      with this entity.
--- add_global_tables    table of names of other tables in global that are needed by
---                      this entity
+-- add_global_tables    Table of other tables that should be created in global
+--                        Key:   string or number
+--                        Value: name of the additional table
+--                      If the key is the handle of a hidden entity, then the table
+--                      is used to link from this hidden entity to the base entity,
+--                      so global[table_name][hidden_entity.unit_number] =
+--                              base_entity.unit_number
 -- add_global_values    table of names and values of variables that should be added to
 --                      the global table if this compound entity is used
 -- optional:            Any optional data affecting the compound entity that must be  --                      stored in the global table.
@@ -73,6 +78,8 @@ ret.compound_entities = {
       type = ret.HE_map.assembler,
     },
     hidden = {
+      -- We have two different hidden poles here, so it should be safer to set type
+      -- and name explicitely!
       connector = {
         name = "bi-bio-farm-hidden-connector_pole",
         type = ret.HE_map.pole,
@@ -107,25 +114,9 @@ ret.compound_entities = {
       type = ret.HE_map.assembler,
     },
     hidden = {
-      pole = {
-        --~ name = "bi-bio-garden-hidden-pole",
-        --~ type = ret.HE_map.pole,
-      },
+      pole = {},
     }
   },
-  --~ ["bi-bio-solar-farm"] = {
-    --~ tab = "bi_solar_farm_table",
-    --~ base = {
-      --~ name = "bi-bio-solar-farm",
-      --~ type = ret.HE_map.panel,
-    --~ },
-    --~ hidden = {
-      --~ pole = {
-       -- name = "bi-solar-farm-hidden-pole",
-       -- type = ret.HE_map.pole,
-      --~ },
-    --~ }
-  --~ },
   ["bi-bio-solar-farm"] = {
     tab = "bi_solar_farm_table",
     base = {
@@ -133,10 +124,7 @@ ret.compound_entities = {
       type = ret.HE_map.panel,
     },
     hidden = {
-      pole = {
-        --~ name = "bi-solar-farm-hidden-pole",
-        --~ type = ret.HE_map.pole,
-      },
+      pole = {},
     }
   },
   ["bi-solar-boiler"] = {
@@ -146,14 +134,8 @@ ret.compound_entities = {
       type = ret.HE_map.boiler,
     },
     hidden = {
-      panel = {
-        --~ name = "bi-solar-boiler-hidden-panel",
-        --~ type = ret.HE_map.panel,
-      },
-      pole = {
-        --~ name = "bi-solar-boiler-hidden-pole",
-        --~ type = ret.HE_map.pole,
-      },
+      panel = {},
+      pole = {},
     }
   },
   ["bi-straight-rail-power"] = {
@@ -179,20 +161,15 @@ ret.compound_entities = {
     },
     hidden = {
       radar = {
-        --~ name = "bi-arboretum-hidden-radar",
-        --~ type = ret.HE_map.radar,
         base_offset = {x = 0, y = -3.5},
       },
-      pole = {
-        --~ name = "bi-arboretum-hidden-pole",
-        --~ type = ret.HE_map.pole,
-      },
-      lamp = {
-        --~ name = "bi-arboretum-hidden-lamp",
-        --~ type = ret.HE_map.lamp,
-      },
+      pole = {},
+      lamp = {},
     },
-    add_global_tables = {"bi_arboretum_radar_table"},
+    add_global_tables = {
+      -- Key: Hidden entity. Value: Name of the table
+      radar = "bi_arboretum_radar_table"
+    },
     new_base_name = "bi-arboretum",
   },
   -- Built from blueprint
@@ -203,26 +180,23 @@ ret.compound_entities = {
       type = "ammo-turret",
     },
     hidden = {
-      radar = {
-        --~ name = "bi-bio-cannon-hidden-radar",
-        --~ type = ret.HE_map.radar,
-      },
+      radar = {},
     },
-    --~ add_global_values = { Bio_Cannon_Counter = 0 },
-    --~ optional = {delay = 0},
-    --~ new_base_name = "bi-bio-cannon",
-    add_global_values = { Bio_Cannon_Fired = {
-        base_pollution = 100,
-        base_unit_count = 100,
-        base_unit_search_distance = 500,
-        modifiers = {
-          ["BI_cannon-ammo-proto_create_pollution"] = 0.5,
-          ["BI_cannon-ammo-basic_create_pollution"] = 0.75,
-          ["BI_cannon-ammo-poison_create_pollution"] = 1,
-        },
-      }
+    add_global_tables = {
+      -- Key: Hidden entity. Value: Name of the table
+      radar = "bi_bio_cannon_radar_table"
     },
-    optional = {delay = 0},
+    --~ add_global_values = { Bio_Cannon_Fired = {
+        --~ base_pollution = 100,
+        --~ base_unit_count = 100,
+        --~ base_unit_search_distance = 500,
+        --~ modifiers = {
+          --~ ["BI_cannon-ammo-proto_create_pollution"] = 0.5,
+          --~ ["BI_cannon-ammo-basic_create_pollution"] = 0.75,
+          --~ ["BI_cannon-ammo-poison_create_pollution"] = 1,
+        --~ },
+      --~ }
+    --~ },
   },
 }
 
@@ -244,61 +218,48 @@ end
 ------------------------------------------------------------------------------------
 --  Remove entries for disabled compound entities. Do this before making copies!  --
 ------------------------------------------------------------------------------------
-ret.get_HE_list = function(get_complete_list)
+--~ ret.get_HE_list = function(get_complete_list)
+ret.get_HE_list = function()
 
-  -- Return complete list
-  if get_complete_list or script then
-    log("Preserving complete list!")
+  --~ -- Return complete list
+  --~ -- Control stage: We need the complete list to remove obsolete tables from global.
+  --~ -- Data stage (first pass): Read hidden-entity data for all compound entities.
+  --~ if get_complete_list or script then
+    --~ log("Preserving complete list!")
 
-  -- Clean up list before returning it
-  else
-    log("Removing obsolete entities from the list!")
+  --~ -- Clean up list before returning it
+  --~ -- Data stage (second pass): Only keep hidden-entity data for compound entities
+  --~ --                           where we have created the main entity!
+  --~ else
+    --~ log("Removing obsolete entities from the list!")
 
-    -- We still have the complete table to work with. Let's adjust hidden
-    -- entities based on individual settings now!
-    local settings = settings.startup
-    local function get_settings(name)
-      return settings[name] and settings[name].value
-    end
-
-    --~ -- Bio Cannon
-    --~ if not get_settings("BI_Bio_Cannon") then
-      --  log("Bio cannon has been disabled!")
-      --~ ret.compound_entities["bi-bio-cannon"] = nil
-      --  log("Removed \"bi-bio-cannon\" from compound_entity list!")
+    --~ -- We still have the complete table to work with. Let's adjust hidden
+    --~ -- entities based on individual settings now!
+    --~ local settings = settings.startup
+    --~ local function get_settings(name)
+      --~ return settings[name] and settings[name].value
     --~ end
 
-    --~ -- Solar additions
-    --  if not BI.Settings.BI_Power_Production then
-    --~ if not get_settings("BI_Power_Production") then
-      --  log("Solar additions have been disabled!")
-      --~ for e, entry in ipairs({"bi-bio-solar-farm", "bi-solar-boiler"}) do
-        --~ ret.compound_entities[entry] = nil
-        --  log("Removed " .. entry .. " from compound_entity list!")
+    --~ -- Easy Bio gardens: We only need the hidden pole if the setting is enabled. (But we
+    --~ -- want to keep the rest of the table even if the setting is disabled.)
+    --~ if not get_settings("BI_Game_Tweaks_Easy_Bio_Gardens") then
+      --~ ret.compound_entities["bi-bio-garden"].hidden.pole = nil
+      --~ log("Setting \"Easy Bio gardens\" is disabled. Removed hidden pole from list of hidden entities!")
+    --~ end
+
+    --~ -- All base entities required by a setting have been created. We can safely remove
+    --~ -- all entries from the list where the base entity doesn't exist!
+    --~ local base
+    --~ for e_name, e_data in pairs(ret.compound_entities) do
+      --~ base = e_data.base
+--~ log(string.format("Checking base entity for \"%s\".\nType: %s\tName: %s",
+                    --~ e_name, base.type, base.name))
+      --~ if not data.raw[base.type][base.name] then
+        --~ ret.compound_entities[e_name] =nil
+--~ log(string.format("Removed \"%s\" from list of compound entities!", e_name))
       --~ end
     --~ end
-
-    -- Easy Bio gardens: We only need the hidden pole if the setting is enabled. (But we
-    -- want to keep the rest of the table even if the setting is disabled.)
-    if not get_settings("BI_Game_Tweaks_Easy_Bio_Gardens") then
-      --~ --  log("\"Easy Bio gardens\" are disabled!")
-      ret.compound_entities["bi-bio-garden"].hidden.pole = nil
-      --~ --  log("Removed hidden pole from list of hidden entities!")
-    end
-
-    -- All base entities required by a setting have been created. We can safely remove
-    -- all entries from the list where the base entity doesn't exist!
-    local base
-    for e_name, e_data in pairs(ret.compound_entities) do
-      base = e_data.base
-log(string.format("Checking base entity for \"%s\".\nType: %s\tName: %s",
-                    e_name, base.type, base.name))
-      if not data.raw[base.type][base.name] then
-        ret.compound_entities[e_name] =nil
-log(string.format("Removed \"%s\" from list of compound entities!", e_name))
-      end
-    end
-  end
+  --~ end
 
 
   -- Some entities share almost the same data, so we can copy them

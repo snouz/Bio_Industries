@@ -3,10 +3,10 @@
 ------------------------------------------------------------------------------------
 local mod_name = "IndustrialRevolution"
 if not BioInd.check_mods(mod_name) then
-  BioInd.nothing_to_do("*")
+  BioInd.debugging.nothing_to_do("*")
   return
 else
-  BioInd.entered_file()
+  BioInd.debugging.entered_file()
 end
 
 
@@ -47,8 +47,8 @@ local create = {}
 local function get_key_names(name, i)
   local old = string.format("%s_%s", name, i)
   local new = old:gsub("^", rubber .. "_")
-BioInd.show("old", old)
-BioInd.show("new", new)
+BioInd.debugging.show("old", old)
+BioInd.debugging.show("new", new)
   return old, new
 end
 
@@ -76,7 +76,7 @@ for i = 1, 4 do
       --~ replace_string(new_tab[new_key].localised_description[1], seed, r_seed)
   --~ end
   --~ create[new_key] = new_tab[new_key]
-  --~ BioInd.modified_msg("", new_tab[new_key], "Initialized")
+  --~ BioInd.debugging.modified_msg("", new_tab[new_key], "Initialized")
 
   -- BI.default_recipes.seedling_x
   --~ old_key, new_key = get_key_names("seedling", i)
@@ -89,13 +89,16 @@ for i = 1, 4 do
       --~ replace_string(new_tab[new_key].localised_description[1], seedling, r_seedling)
   --~ end
   --~ create[new_key] = new_tab[new_key]
-  --~ BioInd.modified_msg("", new_tab[new_key], "Initialized")
+  --~ BioInd.debugging.modified_msg("", new_tab[new_key], "Initialized")
 
   --~ BI.default_recipes.logs_x
   old_key, new_key = get_key_names("logs", i)
   new_tab[new_key] = table.deepcopy(old_tab[old_key])
+BioInd.debugging.show("new_tab["..new_key.."]", new_tab[new_key])
   new_tab[new_key].name = string.format("%s-%s", r_logs, i)
   new_tab[new_key].localised_name[1] = replace_string(new_tab[new_key].localised_name[1], logs, r_logs)
+  table.remove(new_tab[new_key].localised_name, 2)
+BioInd.debugging.show("new_tab["..new_key.."] after changing name + locale", new_tab[new_key])
   if new_tab[new_key].localised_description then
     new_tab[new_key].localised_description[1] =
       replace_string(new_tab[new_key].localised_description[1], logs, r_logs)
@@ -107,8 +110,9 @@ for i = 1, 4 do
     amount = 20
   })
   create[new_key] = new_tab[new_key]
-  BioInd.modified_msg("", new_tab[new_key], "Initialized")
+  BioInd.debugging.modified_msg("", new_tab[new_key], "Initialized")
 end
+--~ error("Break!")
 
 
 ------------------------------------------------------------------------------------
@@ -118,11 +122,11 @@ for name, recipe in pairs(create) do
 
   -- Change order
   recipe.order = string.format("%s-[%s]", recipe.order, rubber)
-  BioInd.modified_msg("order", recipe)
+  BioInd.debugging.modified_msg("order", recipe)
 
   -- Remove flag for "Krastorio"
   recipe.mod = nil
-  BioInd.modified_msg("flag for \"Krastorio\"", recipe, "Removed")
+  BioInd.debugging.modified_msg("flag for \"Krastorio\"", recipe, "Removed")
 
   -- Replace items in ingredients
   changed = false
@@ -136,7 +140,7 @@ for name, recipe in pairs(create) do
     end
   end
   if changed then
-    BioInd.modified_msg("ingredients", recipe)
+    BioInd.debugging.modified_msg("ingredients", recipe)
   end
 
   -- Replace items in results
@@ -150,7 +154,7 @@ for name, recipe in pairs(create) do
     end
   end
   if changed then
-    BioInd.modified_msg("results", recipe)
+    BioInd.debugging.modified_msg("results", recipe)
   end
 
 end
@@ -161,4 +165,4 @@ BioInd.create_stuff(create)
 ------------------------------------------------------------------------------------
 --                                    END OF FILE                                 --
 ------------------------------------------------------------------------------------
-BioInd.entered_file("leave")
+BioInd.debugging.entered_file("leave")

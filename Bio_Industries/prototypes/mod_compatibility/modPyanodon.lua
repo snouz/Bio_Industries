@@ -5,10 +5,10 @@ if not BioInd.check_mods({
   "pyrawores",
   "pyindustry",
 }) then
-  BioInd.nothing_to_do("*")
+  BioInd.debugging.nothing_to_do("*")
   return
 else
-  BioInd.entered_file()
+  BioInd.debugging.entered_file()
 end
 
 
@@ -47,7 +47,7 @@ if fence_bi and fence_py and recipes[py_name] then
       item.amount_max = item.amount_max and item.amount_max * factor
 
       thxbob.lib.recipe.set_difficulty_ingredient(recipe, diff, item)
-      BioInd.modified_msg("ingredients", recipe)
+      BioInd.debugging.modified_msg("ingredients", recipe)
     end
   end
 end
@@ -62,7 +62,7 @@ recipe = recipes["rail-2"]
 if recipe and recipes[BI.additional_recipes.BI_Rails.rail_wood.name] then
   thxbob.lib.recipe.replace_ingredient(recipe, "wood", "concrete")
   thxbob.lib.recipe.replace_ingredient(recipe, "treated-wood", "concrete")
-  BioInd.modified_msg("ingredients", recipe)
+  BioInd.debugging.modified_msg("ingredients", recipe)
 end
 
 
@@ -122,21 +122,21 @@ end
 --~ ------------------------------------------------------------------------------------
 --~ --                            Make sure all techs exist!                          --
 --~ ------------------------------------------------------------------------------------
---~ BioInd.show("mod_techs", mod_techs)
+--~ BioInd.debugging.show("mod_techs", mod_techs)
 
 --~ for mod_name, tech in pairs(mod_techs) do
---~ BioInd.writeDebug("Checking tech %s for mod %s", {tech, mod_name})
+--~ BioInd.debugging.writeDebug("Checking tech %s for mod %s", {tech, mod_name})
   --~ check = true
   --~ for i = 1, max_level do
     --~ -- Missing techs, remove mod from list!
---~ BioInd.show(tech .. i, tostring(techs[tech .. i]))
+--~ BioInd.debugging.show(tech .. i, tostring(techs[tech .. i]))
     --~ if not techs[tech .. i] then
       --~ mod_techs[mod_name] = nil
---~ BioInd.writeDebug("Removed %s from list!", {mod_name})
+--~ BioInd.debugging.writeDebug("Removed %s from list!", {mod_name})
       --~ break
     --~ end
   --~ end
---~ BioInd.show("mod_techs", mod_techs)
+--~ BioInd.debugging.show("mod_techs", mod_techs)
 --~ end
 
 
@@ -144,32 +144,32 @@ end
 --~ --                   Move our unlocks to techs from other mods!                   --
 --~ ------------------------------------------------------------------------------------
 --~ for m, mod_name in pairs(mod_order) do
---~ BioInd.writeDebug("Priority: %s\tMod: %s", {m, mod_name})
+--~ BioInd.debugging.writeDebug("Priority: %s\tMod: %s", {m, mod_name})
   --~ -- All techs from that mod exist
   --~ if mod_techs[mod_name] then
---~ BioInd.writeDebug("mod_techs[%s]: %s", {mod_name, mod_techs[mod_name]})
+--~ BioInd.debugging.writeDebug("mod_techs[%s]: %s", {mod_name, mod_techs[mod_name]})
     --~ -- Check recipes
     --~ for r, recipe in pairs(BI_recipes) do
---~ BioInd.show("Checking recipe", recipe.name)
+--~ BioInd.debugging.show("Checking recipe", recipe.name)
       --~ if recipes[recipe.name] then
---~ BioInd.writeDebug("Recipe exists!")
+--~ BioInd.debugging.writeDebug("Recipe exists!")
         --~ -- Find the unlock tech
         --~ for u, unlock in pairs(recipes[recipe.name].BI_add_to_tech or {}) do
           --~ tech_level = unlock:match("^" .. src_tech .. "(%d+)$")
---~ BioInd.show("tech_level", tech_level)
+--~ BioInd.debugging.show("tech_level", tech_level)
           --~ -- Found original tech
           --~ if tech_level then
---~ BioInd.show("Changing unlock to", mod_techs[mod_name] .. tech_level)
+--~ BioInd.debugging.show("Changing unlock to", mod_techs[mod_name] .. tech_level)
             --~ unlock = mod_techs[mod_name] .. tech_level
           --~ end
         --~ end
       --~ end
     --~ end
---~ BioInd.writeDebug("Techs from mod with highest priority (%s) are used now. Breaking out of the loop!", {mod_name} )
+--~ BioInd.debugging.writeDebug("Techs from mod with highest priority (%s) are used now. Breaking out of the loop!", {mod_name} )
     --~ -- We've used the techs from the mod with the highest priority. Skip the rest!
     --~ break
   --~ else
---~ BioInd.writeDebug("Target techs don't exist, trying next mod!")
+--~ BioInd.debugging.writeDebug("Target techs don't exist, trying next mod!")
   --~ end
 --~ end
 
@@ -177,4 +177,4 @@ end
 --~ ------------------------------------------------------------------------------------
 --~ --                                    END OF FILE                                 --
 --~ ------------------------------------------------------------------------------------
---~ BioInd.entered_file("leave")
+--~ BioInd.debugging.entered_file("leave")

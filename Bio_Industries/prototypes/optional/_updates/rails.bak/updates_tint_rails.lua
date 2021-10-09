@@ -4,10 +4,10 @@
 ------------------------------------------------------------------------------------
 local setting = "BI_Rails"
 if not BI.Settings[setting] then
-  BioInd.nothing_to_do("*")
+  BioInd.debugging.nothing_to_do("*")
   return
 else
-  BioInd.entered_file()
+  BioInd.debugging.entered_file()
 end
 
 
@@ -62,21 +62,21 @@ function set_tint_to_rails (rails_entities, tint)
     }
   BI.global = BI.global or {}
   BI.global["rails"] = {}
-  --BioInd.writeDebug("Start rails")    ---------------------
+  --BioInd.debugging.writeDebug("Start rails")    ---------------------
   for i, v in pairs (rails_entities) do
     local r_table = serpent.block(find_ties(i, v, "rails"))
   end
-  --BioInd.writeDebug("BI.global table of rails is complete: %s", {#BI.global.rails})
+  --BioInd.debugging.writeDebug("BI.global table of rails is complete: %s", {#BI.global.rails})
   for i, handler in pairs (BI.global.rails) do
     --handler.name = "straight_rail_horizontal"
     local was_filename = handler.table.filename
     handler.table.filename = sheet_path_ties .. handler.name .. "-ties.png"
     handler.table.hr_version.filename = sheet_path_ties .. "hr-" .. handler.name .. "-ties.png"
-    BioInd.writeDebug('Replaced: %s ===>>> %s', {was_filename, handler.table.filename})
+    BioInd.debugging.writeDebug('Replaced: %s ===>>> %s', {was_filename, handler.table.filename})
     handler.table.tint = tint
     handler.table.hr_version.tint = tint -- oops, i've forgot it, added in 0.0.3
   end
-  --BioInd.writeDebug("End rails")        ---------------------
+  --BioInd.debugging.writeDebug("End rails")        ---------------------
 end
 
 
@@ -89,21 +89,21 @@ local remnants_entities = remnants_entities or {  -- or vanilla  {
 }
 BI.global = BI.global or {}
 BI.global["remnants"] = {}
---BioInd.writeDebug("Start remnants")         ---------------------
+--BioInd.debugging.writeDebug("Start remnants")         ---------------------
 for i, v in pairs (remnants_entities) do
   local r_table = serpent.block(find_ties(i, v, "remnants"))
 end
---BioInd.writeDebug("BI.global table of remnants is complete: %s", {#BI.global.remnants})
+--BioInd.debugging.writeDebug("BI.global table of remnants is complete: %s", {#BI.global.remnants})
 for i, handler in pairs (BI.global.remnants) do
   --remnants.name = "straight_rail_horizontal"
   local was_filename = handler.table.filename
   handler.table.filename = sheet_path_ties .. handler.name .. "-ties-remnants.png"
   handler.table.hr_version.filename = sheet_path_ties .. "hr-" .. handler.name .. "-ties-remnants.png"
-  BioInd.writeDebug('Replaced: %s ===>>> %s', {was_filename, handler.table.filename})
+  BioInd.debugging.writeDebug('Replaced: %s ===>>> %s', {was_filename, handler.table.filename})
   handler.table.tint = tint
   handler.table.hr_version.tint = tint -- oops, i'mm forgot it, added in 0.0.3
 end
---BioInd.writeDebug("End remnants")           ---------------------
+--BioInd.debugging.writeDebug("End remnants")           ---------------------
 end
 
 
@@ -178,13 +178,13 @@ end
 --~ ------------------------------------------------------------------------------------
 --~ entity = data.raw["rail-planner"]["rail"]
 --~ entity.order = "a[train-system]-a[rail1]"
---~ BioInd.modified_msg("order", entity)
+--~ BioInd.debugging.modified_msg("order", entity)
 --~ recipe = data.raw.recipe["rail"]
 --~ recipe.order = "a[train-system]-a[rail1]"
---~ BioInd.modified_msg("order", recipe)
+--~ BioInd.debugging.modified_msg("order", recipe)
 
 
 ------------------------------------------------------------------------------------
 --                                    END OF FILE                                 --
 ------------------------------------------------------------------------------------
-BioInd.entered_file("leave")
+BioInd.debugging.entered_file("leave")

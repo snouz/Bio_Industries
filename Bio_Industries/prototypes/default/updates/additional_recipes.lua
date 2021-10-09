@@ -1,4 +1,4 @@
-BioInd.entered_file()
+BioInd.debugging.entered_file()
 
 BI.additional_recipes = BI.additional_recipes or {}
 
@@ -128,10 +128,10 @@ BI.additional_recipes.adv_fertilizer_2 = {
 
 
 -- Status report
-BioInd.readdata_msg(BI.additional_recipes, nil, "additional recipes")
+BioInd.debugging.readdata_msg(BI.additional_recipes, nil, "additional recipes")
 
 
 ------------------------------------------------------------------------------------
 --                                    END OF FILE                                 --
 ------------------------------------------------------------------------------------
-BioInd.entered_file("leave")
+BioInd.debugging.entered_file("leave")

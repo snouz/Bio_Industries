@@ -4,10 +4,10 @@
 ------------------------------------------------------------------------------------
 local setting = "BI_Rails"
 if not BI.Settings[setting] then
-  BioInd.nothing_to_do("*")
+  BioInd.debugging.nothing_to_do("*")
   return
 else
-  BioInd.entered_file()
+  BioInd.debugging.entered_file()
 end
 
 BI.additional_entities = BI.additional_entities or {}
@@ -407,6 +407,117 @@ BI.additional_entities[setting].power_to_rail_pole = {
   }
 }
 
+-- Power to Rail Pole (receiving end on the tracks)
+BI.additional_entities[setting].power_to_rail_socket = {
+  type = "electric-pole",
+  name = "power-to-rail-socket",
+  localised_name = {"entity-name.bi-rail-power"},
+  localised_description = {"entity-name.bi-rail-power"},
+  --~ icon = ICONPATH .. "entity/rail_power_receiver.png",
+  --~ icon_size = 64,
+  --~ BI_add_icon = true,
+  icon = "__core__/graphics/empty.png",
+  icon_size = 1,
+  BI_add_icon = true,
+  icon_mipmaps = 0,
+  --~ flags = {"placeable-neutral", "player-creation", "fast-replaceable-no-build-while-moving"},
+  flags = {
+    "hidden",
+    "hide-alt-info",
+    "no-copy-paste",
+    "not-blueprintable",
+    "not-deconstructable",
+    "not-flammable",
+    "not-in-kill-statistics",
+    "not-on-map",
+    "not-repairable",
+    --~ "not-selectable-in-game",
+    "not-upgradable",
+    "placeable-off-grid",
+  },
+  --~ collision_mask = BioInd.debugging.is_debug and {"ground-tile"} or {},
+  collision_mask = {},
+  collision_box = {{-0.15, -0.15}, {0.15, 0.15}},
+  selection_box = {{-0.5, -0.5}, {0.5, 0.5}},
+  selectable_in_game = true,
+  --~ minable = {mining_time = 1, result = "bi-power-to-rail-pole"},
+  max_health = BI.additional_entities[setting].straight_rail_power.max_health,
+  --~ corpse = "medium-electric-pole-remnants",
+  --~ dying_explosion = "medium-electric-pole-explosion",
+  track_coverage_during_build_by_moving = false,
+  --~ damaged_trigger_effect = hit_effects.entity({{-0.2, -2.2},{0.2, 0.2}}),
+  drawing_box = {{-0.5, -2.8}, {0.5, 0.5}},
+  maximum_wire_distance = 0.75,
+  --~ supply_area_distance = 3.5,
+  supply_area_distance = 0,
+  --~ vehicle_impact_sound = sound_def.generic_impact,
+  open_sound = sound_def.electric_network_open,
+  close_sound = sound_def.electric_network_close,
+  build_sound = no_sound,
+  close_sound = no_sound,
+  mined_sound = no_sound,
+  open_sound = no_sound,
+  repair_sound = no_sound,
+  rotated_sound = no_sound,
+  vehicle_impact_sound = no_sound,
+  working_sound = no_sound,
+  pictures = {
+    layers = {
+      {
+        direction_count = 1,
+        filename = BioInd.entitypath .. "rail_power_connector/rail_power_receiver.png",
+        size = 20,
+        hr_version = {
+            direction_count = 1,
+            filename = BioInd.entitypath .. "rail_power_connector/hr_rail_power_receiver.png",
+            size = 40
+        }
+      }
+    }
+  },
+  connection_points = {
+    --~ {
+      --~ shadow = {
+        --~ copper = util.by_pixel_hr(40, 7),
+        --~ red = util.by_pixel_hr(10.5, 27),
+        --~ green = util.by_pixel_hr(10.5, 27),
+      --~ },
+      --~ wire = {
+        --~ copper = util.by_pixel_hr(8, -39),
+        --~ red = util.by_pixel_hr(0, 7),
+        --~ green = util.by_pixel_hr(0, 7),
+      --~ }
+    --~ },
+    {
+      shadow = {},
+      wire = { copper_wire_tweak = {0, 0} }
+    }
+  },
+  radius_visualisation_picture = {
+    filename = "__core__/graphics/empty.png",
+    priority = "low",
+    size = 1,
+    frame_count = 1,
+    axially_symmetrical = false,
+    direction_count = 1,
+  },
+  draw_copper_wires = true,
+  draw_circuit_wires = true,
+  --~ water_reflection = {
+    --~ pictures = {
+      --~ filename = "__base__/graphics/entity/medium-electric-pole/medium-electric-pole-reflection.png",
+      --~ priority = "extra-high",
+      --~ width = 12,
+      --~ height = 28,
+      --~ shift = util.by_pixel(0, 55),
+      --~ variation_count = 1,
+      --~ scale = 5
+    --~ },
+    --~ rotate = false,
+    --~ orientation_to_variation = false
+  --~ }
+}
+
 
 
 
@@ -437,7 +548,7 @@ pole.pictures.layers[1].tint = {r = 0.9, g = 0.87, b = 0.23, a = 0.5}
 --~ for e, e_data in pairs(BI.additional_entities[setting] or {}) do
   -- Entity
   --~ data:extend({e_data})
-  --~ BioInd.created_msg(e_data)
+  --~ BioInd.debugging.created_msg(e_data)
   --~ BioInd.create_stuff(e_data)
 
   -- Remnants, if they exist
@@ -453,4 +564,4 @@ BioInd.create_stuff(BI.additional_remnants[setting])
 ------------------------------------------------------------------------------------
 --                                    END OF FILE                                 --
 ------------------------------------------------------------------------------------
-BioInd.entered_file("leave")
+BioInd.debugging.entered_file("leave")

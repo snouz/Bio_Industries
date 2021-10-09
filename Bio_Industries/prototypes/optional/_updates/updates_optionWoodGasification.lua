@@ -4,10 +4,10 @@
 ------------------------------------------------------------------------------------
 local setting = "BI_Wood_Gasification"
 if not BI.Settings[setting] then
-  BioInd.nothing_to_do("*")
+  BioInd.debugging.nothing_to_do("*")
   return
 else
-  BioInd.entered_file()
+  BioInd.debugging.entered_file()
 end
 
 
@@ -27,10 +27,10 @@ local recipe, tech
 recipe = recipes[BI.additional_recipes.BI_Rubber.rubber_mat.name]
 if recipe then
   thxbob.lib.recipe.replace_ingredient(recipe.name, "resin", "tar")
-  BioInd.modified_msg("ingredient \"resin\"", recipe)
+  BioInd.debugging.modified_msg("ingredient \"resin\"", recipe)
 
   recipe.category = "crafting-with-fluid"
-  BioInd.modified_msg("category", recipe)
+  BioInd.debugging.modified_msg("category", recipe)
 end
 
 
@@ -42,10 +42,10 @@ end
 if techs[BI.additional_techs.BI_Rubber.rubber_production.name] then
   tech = techs[BI.additional_techs.BI_Wood_Gasification.wood_gasification.name]
   thxbob.lib.tech.remove_prerequisite(tech.name, BI.default_techs.timber.name)
-  BioInd.modified_msg("prerequisite \"" .. BI.default_techs.timber.name .. "\"", tech, "Removed")
+  BioInd.debugging.modified_msg("prerequisite \"" .. BI.default_techs.timber.name .. "\"", tech, "Removed")
 end
 
 ------------------------------------------------------------------------------------
 --                                    END OF FILE
 ------------------------------------------------------------------------------------
-BioInd.entered_file("leave")
+BioInd.debugging.entered_file("leave")

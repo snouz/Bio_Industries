@@ -1,11 +1,11 @@
-BioInd.entered_file()
+BioInd.debugging.entered_file()
 
 
 ------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------
 
 
-BioInd.show("Compound entities", BioInd.compound_entities)
+BioInd.debugging.show("Compound entities", BioInd.compound_entities)
 
 
 local ICONPATH = BioInd.iconpath
@@ -24,7 +24,7 @@ local h_entity = table.deepcopy(data.raw[h_type]["solar-panel"])
 
 BI.set_common_properties(h_entity)
 
---~ BioInd.show("Panel data after set_common_properties", h_entity)
+--~ BioInd.debugging.show("Panel data after set_common_properties", h_entity)
 
 ------------------------------------------------------------------------------------
 -- Panel specific attributes!
@@ -47,7 +47,7 @@ local Musk_name
 if BI.Settings.BI_Power_Production then
   -- Musk floor is not an entity, but a tile, so we don't have a compound-entity table
   -- for it and must add it manually!
-  Musk_name = BioInd.musk_floor_panel_name
+  Musk_name = BioInd.musk_floor_stuff.musk_floor_panel_name
   BI.hidden_entities.types[h_key][Musk_name] = "bi-solar-mat"
 end
 
@@ -56,7 +56,7 @@ end
 local tmp, panel
 local c_entities = BioInd.compound_entities
 
-BioInd.show("Compound entities", BioInd.compound_entities)
+BioInd.debugging.show("Compound entities", BioInd.compound_entities)
 
 for panel_name, locale_name in pairs(BI.hidden_entities.types[h_key] or {}) do
   panel = table.deepcopy(h_entity)
@@ -64,6 +64,13 @@ for panel_name, locale_name in pairs(BI.hidden_entities.types[h_key] or {}) do
   panel.localised_name = {"entity-name." .. locale_name}
   panel.localised_description = {"entity-description." .. locale_name}
 
+    panel.picture = {}
+    panel.picture.layers = BI.add_layer(panel.picture.layers, {
+      name = "__core__/graphics/empty.png",
+      size = 1
+    })
+    panel.overlay = {}
+    panel.overlay.layers = table.deepcopy(panel.picture.layers)
 
   -- Adjust properties for hidden panel of Solar boiler
   if c_entities["bi-solar-boiler"] and
@@ -78,31 +85,31 @@ for panel_name, locale_name in pairs(BI.hidden_entities.types[h_key] or {}) do
       { icon = "__base__/graphics/icons/solar-panel.png", icon_size = 64, icon_mipmaps = 4, scale = 0.25, shift = {8, -8} },
     }
 
-    panel.picture = {}
-    --[[panel.picture.layers = BI.add_layer(panel.picture.layers, {
-      name = ENTITYPATH .. "bio_solar_boiler/Bio_Solar_Boiler.png",
-      hr_name = ENTITYPATH .. "bio_solar_boiler/hr_Bio_Solar_Boiler.png",
-      size = 288
-    })
-    panel.picture.layers = BI.add_layer(panel.picture.layers, {
-      name = ENTITYPATH .. "bio_solar_boiler/Bio_Solar_Boiler_shadow.png",
-      hr_name = ENTITYPATH .. "bio_solar_boiler/hr_Bio_Solar_Boiler_shadow.png",
-      size = 288,
-      priority = "high",
-      draw_as_shadow = true,
-    })]]--
-    panel.picture.layers = BI.add_layer(panel.picture.layers, {
-      name = "__core__/graphics/empty.png",
-      size = 1
-    })
-    panel.overlay = {}
-    panel.overlay.layers = table.deepcopy(panel.picture.layers)
+    --~ panel.picture = {}
+    --~ --[[panel.picture.layers = BI.add_layer(panel.picture.layers, {
+      --~ name = ENTITYPATH .. "bio_solar_boiler/Bio_Solar_Boiler.png",
+      --~ hr_name = ENTITYPATH .. "bio_solar_boiler/hr_Bio_Solar_Boiler.png",
+      --~ size = 288
+    --~ })
+    --~ panel.picture.layers = BI.add_layer(panel.picture.layers, {
+      --~ name = ENTITYPATH .. "bio_solar_boiler/Bio_Solar_Boiler_shadow.png",
+      --~ hr_name = ENTITYPATH .. "bio_solar_boiler/hr_Bio_Solar_Boiler_shadow.png",
+      --~ size = 288,
+      --~ priority = "high",
+      --~ draw_as_shadow = true,
+    --~ })]]--
+    --~ panel.picture.layers = BI.add_layer(panel.picture.layers, {
+      --~ name = "__core__/graphics/empty.png",
+      --~ size = 1
+    --~ })
+    --~ panel.overlay = {}
+    --~ panel.overlay.layers = table.deepcopy(panel.picture.layers)
 
     panel.max_health = 400
     panel.render_no_power_icon = true
     panel.collision_box = {{-4.2, -4.2}, {4.2, 4.2}}
     panel.production = "1.8MW"
-    BioInd.show("Adjusted properties of", panel_name)
+    BioInd.debugging.show("Adjusted properties of", panel_name)
 
   -- Adjust properties for hidden panel of Bio farms
   elseif c_entities["bi-bio-farm"] and
@@ -116,8 +123,16 @@ for panel_name, locale_name in pairs(BI.hidden_entities.types[h_key] or {}) do
       { icon = ICONPATH .. "entity/biofarm.png", icon_size = 64, icon_mipmaps = 4, scale = 0.5, shift = {0, 0} },
       { icon = "__base__/graphics/icons/solar-panel.png", icon_size = 64, icon_mipmaps = 4, scale = 0.25, shift = {8, -8} },
     }
+    --~ panel.picture = {}
+    --~ panel.picture.layers = BI.add_layer(panel.picture.layers, {
+      --~ name = "__core__/graphics/empty.png",
+      --~ size = 1
+    --~ })
+    --~ panel.overlay = {}
+    --~ panel.overlay.layers = table.deepcopy(panel.picture.layers)
+
     panel.production = "100kW"
-    BioInd.show("Adjusted properties of", panel_name)
+    BioInd.debugging.show("Adjusted properties of", panel_name)
 
   --~ -- Adjust properties for hidden panel of Solar farms
   --~ elseif c_entities["bi-bio-solar-farm"] and
@@ -126,7 +141,7 @@ for panel_name, locale_name in pairs(BI.hidden_entities.types[h_key] or {}) do
     --~ panel.icon_size = 64
     --~ panel.flags = {"placeable-neutral", "player-creation"}
     --~ panel.production = "3600kW"
-    --~ BioInd.show("Adjusted properties of", panel_name)
+    --~ BioInd.debugging.show("Adjusted properties of", panel_name)
 
   -- Adjust properties for hidden panel of Musk floor
   elseif panel_name == Musk_name then
@@ -138,12 +153,12 @@ for panel_name, locale_name in pairs(BI.hidden_entities.types[h_key] or {}) do
       { icon = ICONPATH .. "entity/solar-mat.png", icon_size = 64, icon_mipmaps = 4, scale = 0.5, shift = {0, 0} },
     }
     panel.production = "10kW"
-    BioInd.show("Adjusted properties of", panel_name)
+    BioInd.debugging.show("Adjusted properties of", panel_name)
   end
 
 
   --~ data:extend({panel})
-  --~ BioInd.created_msg(panel)
+  --~ BioInd.debugging.created_msg(panel)
   BioInd.create_stuff({panel})
 
 end
@@ -152,11 +167,11 @@ end
 ------------------------------------------------------------------------------------
 --~ -- Testing
 --~ for k, v in pairs(data.raw[h_entity.type]) do
-  --~ BioInd.writeDebug("%s: %s", {k, v})
+  --~ BioInd.debugging.writeDebug("%s: %s", {k, v})
 --~ end
 
 
 ------------------------------------------------------------------------------------
 --                                    END OF FILE
 ------------------------------------------------------------------------------------
-BioInd.entered_file("leave")
+BioInd.debugging.entered_file("leave")

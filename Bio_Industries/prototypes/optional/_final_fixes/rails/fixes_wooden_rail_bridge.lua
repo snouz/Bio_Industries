@@ -4,10 +4,10 @@
 ------------------------------------------------------------------------------------
 local setting = "BI_Rails"
 if not BI.Settings[setting] then
-  BioInd.nothing_to_do("*")
+  BioInd.debugging.nothing_to_do("*")
   return
 else
-  BioInd.entered_file()
+  BioInd.debugging.entered_file()
 end
 
 
@@ -35,18 +35,18 @@ for p, pic in ipairs(pix) do
   -- Extract rail_type and direction from the string and replace underscores with "-"
   rail_type = pic:match("^([^_]+_rail)_.+$"):gsub("_", "-")
   direction = pic:match("^.+_rail_(.+)$"):gsub("_", "-")
-BioInd.show("rail_type", rail_type)
-BioInd.show("direction", direction)
+BioInd.debugging.show("rail_type", rail_type)
+BioInd.debugging.show("direction", direction)
 
   -- Rails
   PATH = ICONPATH .. rail_type .. "-bridge"
   FILE = PATH .. "/" .. rail_type .. "-" .. direction .. "-"
   HR_FILE = PATH .. "/hr-" .. rail_type .. "-" .. direction .. "-"
-BioInd.show("PATH", PATH)
-BioInd.show("FILE", FILE)
-BioInd.show("HR_FILE", HR_FILE)
+BioInd.debugging.show("PATH", PATH)
+BioInd.debugging.show("FILE", FILE)
+BioInd.debugging.show("HR_FILE", HR_FILE)
 
-BioInd.show("rail name", "bi-" .. rail_type .. "-wood-bridge")
+BioInd.debugging.show("rail name", "bi-" .. rail_type .. "-wood-bridge")
 
 
   --~ img = data.raw[rail_type]["bi-" .. rail_type .. "-wood-bridge"].pictures[pic]
@@ -59,16 +59,16 @@ BioInd.show("rail name", "bi-" .. rail_type .. "-wood-bridge")
 
     img.stone_path_background.filename = FILE.."stone-path-background.png"
     img.stone_path_background.hr_version.filename = HR_FILE.."stone-path-background.png"
-    BioInd.modified_msg("graphics", proto)
+    BioInd.debugging.modified_msg("graphics", proto)
   --~ end
 
   -- Remnants
   --~ img = data.raw["rail-remnants"][rail_type .. "-remnants-wood-bridge"].pictures[pic]
-BioInd.show("data.raw[rail-remnants]", table_size(data.raw["rail-remnants"]))
-BioInd.show("rail name", rail_type .. "-wood-bridge-remnants")
+BioInd.debugging.show("data.raw[rail-remnants]", table_size(data.raw["rail-remnants"]))
+BioInd.debugging.show("rail name", rail_type .. "-wood-bridge-remnants")
   proto = data.raw["rail-remnants"][rail_type .. "-wood-bridge-remnants"]
-BioInd.show("proto type", proto and proto.type or "nil")
-BioInd.show("proto name", proto and proto.name or "nil")
+BioInd.debugging.show("proto type", proto and proto.type or "nil")
+BioInd.debugging.show("proto name", proto and proto.name or "nil")
   --~ if proto then
     img = proto.pictures[pic]
 
@@ -77,7 +77,7 @@ BioInd.show("proto name", proto and proto.name or "nil")
 
     img.stone_path_background.filename = ICONPATH ..  "remnants/remnants.png"
     img.stone_path_background.hr_version.filename = ICONPATH ..  "remnants/hr-remnants.png"
-    BioInd.modified_msg("graphics", proto)
+    BioInd.debugging.modified_msg("graphics", proto)
   --~ end
 end
 
@@ -89,11 +89,11 @@ for f, form in ipairs({"straight", "curved"}) do
 
   remnants.localised_name = {"entity-name.rail-wood-bridge-remnants"}
   remnants.localised_description = {"entity-description.rail-wood-bridge-remnants"}
-  BioInd.modified_msg("localization", remnants)
+  BioInd.debugging.modified_msg("localization", remnants)
 end
 
 
 ------------------------------------------------------------------------------------
 --                                    END OF FILE                                 --
 ------------------------------------------------------------------------------------
-BioInd.entered_file("leave")
+BioInd.debugging.entered_file("leave")

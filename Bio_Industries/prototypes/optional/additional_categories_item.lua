@@ -1,7 +1,7 @@
 ------------------------------------------------------------------------------------
 --                Data for item-categories that depend on settings.               --
 ------------------------------------------------------------------------------------
-BioInd.entered_file()
+BioInd.debugging.entered_file()
 
 BI.additional_categories = BI.additional_categories or {}
 
@@ -285,11 +285,11 @@ BI.additional_categories.BI_Terraforming.arboretum_fluid = {
 
 
 -- Status report
-BioInd.readdata_msg(BI.additional_categories, settings,
+BioInd.debugging.readdata_msg(BI.additional_categories, settings,
                     "optional item categories", "setting")
 
 
 ------------------------------------------------------------------------------------
 --                                    END OF FILE                                 --
 ------------------------------------------------------------------------------------
-BioInd.entered_file("leave")
+BioInd.debugging.entered_file("leave")

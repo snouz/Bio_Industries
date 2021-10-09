@@ -4,10 +4,10 @@
 ------------------------------------------------------------------------------------
 local setting = "BI_Rubber"
 if not BI.Settings[setting] then
-  BioInd.nothing_to_do("*")
+  BioInd.debugging.nothing_to_do("*")
   return
 else
-  BioInd.entered_file()
+  BioInd.debugging.entered_file()
 end
 
 
@@ -37,12 +37,12 @@ for i, item_data in ipairs({
     item = items[item_data.name]
     if not mods["reskins-bobs"] then
       BioInd.BI_change_icon(item, item_data.icon)
-      BioInd.modified_msg("icon", item)
+      BioInd.debugging.modified_msg("icon", item)
     end
 
     item.localised_name = item_data.localised_name
     item.localised_description = item_data.localised_description
-    BioInd.modified_msg("localization", item)
+    BioInd.debugging.modified_msg("localization", item)
   end
 end
 
@@ -71,7 +71,7 @@ for r, r_name in ipairs(recipe_list) do
       thxbob.lib.recipe.add_difficulty_ingredient(recipe.name, mode, {item_data.name, amount})
     end
     recipe.ingredients = nil
-    BioInd.modified_msg("ingredients", recipe)
+    BioInd.debugging.modified_msg("ingredients", recipe)
   end
 end
 
@@ -81,7 +81,7 @@ recipe = recipes["fast-transport-belt"]
 if recipe then
   amount = 2
   thxbob.lib.recipe.add_new_ingredient(recipe.name, {item_data.name, amount})
-  BioInd.modified_msg("ingredients", recipe)
+  BioInd.debugging.modified_msg("ingredients", recipe)
 end
 
 
@@ -91,7 +91,7 @@ entity = data.raw["underground-belt"]["fast-underground-belt"]
 if recipe and entity then
   amount = entity.max_distance * 2
   thxbob.lib.recipe.add_new_ingredient(recipe.name, {item_data.name, amount})
-  BioInd.modified_msg("ingredients", recipe)
+  BioInd.debugging.modified_msg("ingredients", recipe)
 end
 
 
@@ -100,7 +100,7 @@ recipe = recipes["fast-splitter"]
 if recipe then
   amount = 5
   thxbob.lib.recipe.add_new_ingredient(recipe.name, {item_data.name, amount})
-  BioInd.modified_msg("ingredients", recipe)
+  BioInd.debugging.modified_msg("ingredients", recipe)
 end
 
 
@@ -112,7 +112,7 @@ for r, r_name in ipairs(recipe_list) do
   if recipe then
     amount = 2
     thxbob.lib.recipe.add_new_ingredient(recipe.name, {item_data.name, amount})
-    BioInd.modified_msg("ingredients", recipe)
+    BioInd.debugging.modified_msg("ingredients", recipe)
   end
 end
 
@@ -122,7 +122,7 @@ recipe = recipes["logistic-science-pack"]
 if recipe then
   amount = 2
   thxbob.lib.recipe.add_new_ingredient(recipe.name, {item_data.name, amount})
-  BioInd.modified_msg("ingredients", recipe)
+  BioInd.debugging.modified_msg("ingredients", recipe)
 end
 
 
@@ -135,7 +135,7 @@ tech = techs["logistic-science-pack"]
 if tech then
   -- Add "Rubber production" to prerequisites
   thxbob.lib.tech.add_prerequisite(tech.name, new_tech.name)
-  BioInd.modified_msg("prerequisites", tech)
+  BioInd.debugging.modified_msg("prerequisites", tech)
 
   -- Increase amount of needed science packs
   local count = 120
@@ -144,7 +144,7 @@ if tech then
   if tech.unit then
     tech.unit.count = count
     tech.unit.time = time
-    BioInd.modified_msg("unit.count", tech)
+    BioInd.debugging.modified_msg("unit.count", tech)
   else
     tech.unit = {
       count = count,
@@ -153,7 +153,7 @@ if tech then
       },
       time = time,
     }
-    BioInd.modified_msg("unit", tech, "Added")
+    BioInd.debugging.modified_msg("unit", tech, "Added")
   end
 end
 
@@ -178,7 +178,7 @@ for tech, prerequisites in pairs(tech_map) do
   if techs[tech] then
     for p, prerequisite in ipairs(prerequisites) do
       thxbob.lib.tech.remove_prerequisite(tech, prerequisite)
-      BioInd.modified_msg("prerequisite " .. prerequisite, techs[tech])
+      BioInd.debugging.modified_msg("prerequisite " .. prerequisite, techs[tech])
     end
   end
 end
@@ -186,4 +186,4 @@ end
 ------------------------------------------------------------------------------------
 --                                    END OF FILE                                 --
 ------------------------------------------------------------------------------------
-BioInd.entered_file("leave")
+BioInd.debugging.entered_file("leave")

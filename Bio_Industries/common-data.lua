@@ -54,50 +54,6 @@ common.POWER_TO_RAIL_WIRE_DISTANCE = 4
 
 
 ------------------------------------------------------------------------------------
--- Check if a mod (or several mods, or any of several mods) is installed
--- modlist: Name(s) of mod(s) we need to check (string or array of strings)
--- mode:    Any ("or") or all ("and") mods in modlist must be active.
-common.check_mods = function(modlist, mode)
-  common.entered_function()
-                    --~ {modlist or "nil", mode or "nil"})
-  modlist = type(modlist) == "string" and {modlist} or
-            type(modlist) == "table" and modlist or
-            common.arg_err(modlist or "nil", "string or array of strings")
-  mode = mode and mode:lower() or "or"
-
-  local active_mods = script and script.active_mods or mods
-  local ret
-
-  for m, mod_name in pairs(modlist) do
-    -- We've found a required mod_name!
-    if active_mods[mod_name] then
-      ret = true
-      -- If mode is "or", we've struck gold!
-      if mode == "or" then
-        if #modlist > 1 then
-          common.writeDebug("Mod %s has been found and mode is \"or\". Return: %s", {mod_name, ret})
-        end
-        break
-      end
-    -- Mod is not active
-    else
-      -- If mode is "and", the test has failed!
-      ret = false
-      if mode == "and" then
-        if #modlist > 1 then
-          common.writeDebug("Mod %s isn't active and mode is \"and\". Return: %s", {mod_name, ret})
-        end
-        break
-      end
-    end
-  end
-  --~ common.show("Return", ret)
-  return ret
-end
-
-
-
-------------------------------------------------------------------------------------
 --                                  MOD SPECIFIC                                  --
 ------------------------------------------------------------------------------------
 
@@ -106,20 +62,20 @@ end
 -- Make prototype.icons from prototype.icon
 ------------------------------------------------------------------------------------
 common.BI_add_icons = function()
-  common.entered_function()
-  common.writeDebug("Trying to convert \"icon\" to \"icons\"")
+  common.debugging.entered_function()
+  common.debugging.writeDebug("Trying to convert \"icon\" to \"icons\"")
 
   for tab_name, tab in pairs(data.raw) do
-    --~ common.writeDebug("Checking data.raw[%s]", {tab_name})
+    --~ common.debugging.writeDebug("Checking data.raw[%s]", {tab_name})
     for proto_type_name, proto_type in pairs(data.raw[tab_name] or {}) do
---~ common.show("proto_type.BI_add_icon", proto_type.BI_add_icon or "nil" )
+--~ common.debugging.show("proto_type.BI_add_icon", proto_type.BI_add_icon or "nil" )
       if proto_type.BI_add_icon then
         -- Prototype already has icons, but we still must bake the layers
         if proto_type.icons and proto_type.icons["it1"] then
           proto_type.icons = common.make_icons(proto_type.icons)
 
           proto_type.BI_add_icon = nil
-          common.modified_msg("icons", proto_type, "Added")
+          common.debugging.modified_msg("icons", proto_type, "Added")
 
         -- Prototype has icon, convert it to icons
         elseif proto_type.icon and not proto_type.icons then
@@ -132,20 +88,20 @@ common.BI_add_icons = function()
             }
           }
           proto_type.BI_add_icon = nil
-        --~ common.writeDebug("Added \"icons\" property to data.raw[\"%s\"][\"%s\"]: %s",
+        --~ common.debugging.writeDebug("Added \"icons\" property to data.raw[\"%s\"][\"%s\"]: %s",
                           --~ {tab_name, proto_type_name, proto_type.icons}, "line")
-          common.modified_msg("icons", proto_type, "Added")
+          common.debugging.modified_msg("icons", proto_type, "Added")
         end
       end
     end
   end
-  common.entered_function("leave")
+  common.debugging.entered_function("leave")
 end
 
 
 
 common.make_icons = function(args)
-    common.entered_function({args})
+    common.debugging.entered_function({args})
 
     local it = {}
 
@@ -168,8 +124,8 @@ common.make_icons = function(args)
       return _type and (data.raw[_type][it_name] or data.raw[_type]["bi-" .. it_name]) or nil
     end
 
-    if addbase then 
-      table.insert(icontable, emptylayer) 
+    if addbase then
+      table.insert(icontable, emptylayer)
     end
     if customicon_down then table.insert(icontable, {icon = customicon_down, icon_size = 64, mipmaps = 4, shift = {0,0}}) end
     for k=1, #it do
@@ -225,20 +181,20 @@ common.make_icons = function(args)
       end
     end
     --rescale first layer
-    if not icontable[1] then 
-      table.insert(icontable, emptylayer) 
+    if not icontable[1] then
+      table.insert(icontable, emptylayer)
     end
     icontable[1].scale = (32 / (icontable[1].icon_size or 64))
     scalefirstlayer = icontable[1].scale or 0.5
-    if customicon_up then 
-      table.insert(icontable, {icon = customicon_up, icon_size = 64, mipmaps = 4, scale = scalefirstlayer, shift = {0,0}}) 
+    if customicon_up then
+      table.insert(icontable, {icon = customicon_up, icon_size = 64, mipmaps = 4, scale = scalefirstlayer, shift = {0,0}})
     end
-    if custom_topright then 
-      table.insert(icontable, {icon = custom_topright, icon_size = 64, mipmaps = 4, scale = (scalefirstlayer * 0.4), shift = {10, -10}}) 
+    if custom_topright then
+      table.insert(icontable, {icon = custom_topright, icon_size = 64, mipmaps = 4, scale = (scalefirstlayer * 0.4), shift = {10, -10}})
     end
 
 
-    common.entered_function("leave")
+    common.debugging.entered_function("leave")
     return icontable
   end
 
@@ -263,10 +219,10 @@ end
 -- Exchange icons
 ------------------------------------------------------------------------------------
 common.BI_change_icon = function(prototype, icon, ...)
-  common.entered_function()
-  common.check_args(icon, "string", "path to an icon")
-  local proto_type = prototype and prototype.type or common.arg_err(prototype, "prototype")
-  local proto_name = prototype and prototype.name or common.arg_err(prototype, "prototype")
+  common.debugging.entered_function()
+  common.debugging.check_args(icon, "string", "path to an icon")
+  local proto_type = prototype and prototype.type or common.debugging.arg_err(prototype, "prototype")
+  local proto_name = prototype and prototype.name or common.debugging.arg_err(prototype, "prototype")
 
   local icon_size, icon_mips = ...
 
@@ -276,7 +232,7 @@ common.BI_change_icon = function(prototype, icon, ...)
     prototype.icon_mipmaps = icon_mips or prototype.icon_mipmaps or 0
     prototype.BI_add_icon = true
 
-    common.modified_msg("icon", prototype)
+    common.debugging.modified_msg("icon", prototype)
   end
 end
 
@@ -285,7 +241,7 @@ end
 --                       Add recipe unlocks to technologies                       --
 ------------------------------------------------------------------------------------
 common.BI_add_unlocks = function()
-  common.entered_function()
+  common.debugging.entered_function()
   local techs = data.raw.technology
 
   for r, recipe in pairs(data.raw.recipe) do
@@ -293,7 +249,7 @@ common.BI_add_unlocks = function()
     for t, tech in pairs(recipe.BI_add_to_tech or {}) do
       if techs[tech] then
         thxbob.lib.tech.add_recipe_unlock(tech, recipe.name)
-        common.modified_msg("unlock for recipe " .. r, techs[tech], "Added")
+        common.debugging.modified_msg("unlock for recipe " .. r, techs[tech], "Added")
       end
     end
     recipe.BI_add_to_tech = nil
@@ -305,30 +261,39 @@ end
 --                       Add difficulty to all our recipes                        --
 ------------------------------------------------------------------------------------
 common.BI_add_difficulty = function()
-  common.entered_function()
+  common.debugging.entered_function()
+
+  local recipes = data.raw.recipe
 
   for r, recipe in pairs(BI.default_recipes) do
-    thxbob.lib.recipe.difficulty_split(recipe)
-    common.modified_msg("difficulties", recipe, "Added")
+    if recipes[recipe.name] then
+      thxbob.lib.recipe.difficulty_split(recipe)
+      common.debugging.modified_msg("difficulties", recipe, "Added")
+    else
+      common.debugging.writeDebug("Ignored unextended recipe \"%s\"!", {recipe.name})
+    end
   end
   for l, recipe_list in pairs(BI.additional_recipes) do
     for r, recipe in pairs(recipe_list) do
       --~ thxbob.lib.recipe.difficulty_split(recipe)
-      --~ common.modified_msg("difficulties", recipe, "Added")
-      if thxbob.lib.recipe.difficulty_split(recipe) then
-        common.modified_msg("difficulties", recipe, "Added")
+      --~ common.debugging.modified_msg("difficulties", recipe, "Added")
+      --~ if thxbob.lib.recipe.difficulty_split(recipe) then
+      if recipes[recipe.name] and thxbob.lib.recipe.difficulty_split(recipe) then
+        common.debugging.modified_msg("difficulties", recipe, "Added")
+      else
+        common.debugging.writeDebug("Ignored unextended recipe \"%s\"!", {recipe.name})
       end
     end
   end
 
-  common.entered_function("leave")
+  common.debugging.entered_function("leave")
 end
 
 ------------------------------------------------------------------------------------
 --                           Make remnants for an entity                          --
 ------------------------------------------------------------------------------------
 common.make_remnants_for_entity = function(remnants, entity)
-  --~ common.entered_function()
+  --~ common.debugging.entered_function()
   local pattern = "^" .. entity.name:gsub("%-", "%%-") .. "%-remnant"
 
   -- We want to extend single items as well as complete arrays!
@@ -339,7 +304,7 @@ common.make_remnants_for_entity = function(remnants, entity)
   for r, remnant in pairs(remnants or {}) do
     if remnant.name:match(pattern) then
       data:extend({remnant})
-      common.created_msg(remnant)
+      common.debugging.created_msg(remnant)
       break
     end
   end
@@ -349,9 +314,9 @@ end
 --                                  Create things                                 --
 ------------------------------------------------------------------------------------
 common.create_stuff = function(create_list)
-  --~ common.entered_function()
+  --~ common.debugging.entered_function()
 
-  common.check_args (create_list, "table")
+  common.debugging.check_args (create_list, "table")
 
   -- We want to extend single items as well as complete arrays!
   create_list = (create_list.type and create_list.name) and {create_list} or create_list
@@ -361,7 +326,7 @@ common.create_stuff = function(create_list)
   for entry, entry_data in pairs(create_list) do
     if not (data.raw[entry_data.type] and data.raw[entry_data.type][entry_data.name]) then
       data:extend({ table.deepcopy(entry_data) })
-      common.created_msg(entry_data)
+      common.debugging.created_msg(entry_data)
     end
     ret[#ret + 1] = data.raw[entry_data.type] and
                     data.raw[entry_data.type][entry_data.name]
@@ -373,6 +338,6 @@ end
 ------------------------------------------------------------------------------------
 --                                    END OF FILE                                 --
 ------------------------------------------------------------------------------------
-common.entered_file("leave")
+common.debugging.entered_file("leave")
 
 return common

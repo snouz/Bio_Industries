@@ -6,10 +6,10 @@
 -- Setting: BI.Settings.BI_Stone_Crushing
 local trigger = "BI_Trigger_Sand"
 if not BI.Triggers[trigger] then
-  BioInd.nothing_to_do("*")
+  BioInd.debugging.nothing_to_do("*")
   return
 else
-  BioInd.entered_file()
+  BioInd.debugging.entered_file()
 end
 
 
@@ -46,22 +46,22 @@ if recipe then
     -- Adjust result
     recipe.result = item
     recipe.result_count = 5
-    BioInd.modified_msg("result", recipe)
+    BioInd.debugging.modified_msg("result", recipe)
 
     -- Adjust localization
     recipe.localised_name = {"recipe-name.bi-sand", {"item-name.solid-sand"}}
-    BioInd.modified_msg("localization", recipe)
+    BioInd.debugging.modified_msg("localization", recipe)
   end
 
   item = "biotech-sand"
   if items[item] then
     recipe.result = item
     recipe.result_count = 5
-    BioInd.modified_msg("result", recipe)
+    BioInd.debugging.modified_msg("result", recipe)
 
     -- Adjust localization
     recipe.localised_name = {"recipe-name.bi-sand", {"item-name.biotech-sand"}}
-    BioInd.modified_msg("localization", recipe)
+    BioInd.debugging.modified_msg("localization", recipe)
   end
 
   item = "sand"
@@ -73,11 +73,11 @@ if recipe then
     -- Adjust result
     recipe.result = "sand"
     recipe.result_count = 5
-    BioInd.modified_msg("result", recipe)
+    BioInd.debugging.modified_msg("result", recipe)
 
     -- Adjust localization
     recipe.localised_name = {"recipe-name.bi-sand", {"item-name.sand"}}
-    BioInd.modified_msg("localization", recipe)
+    BioInd.debugging.modified_msg("localization", recipe)
   end
 
 end
@@ -86,4 +86,4 @@ end
 ------------------------------------------------------------------------------------
 --                                    END OF FILE
 ------------------------------------------------------------------------------------
-BioInd.entered_file("leave")
+BioInd.debugging.entered_file("leave")

@@ -1,4 +1,4 @@
-BioInd.entered_file()
+BioInd.debugging.entered_file()
 
 
 ------------------------------------------------------------------------------------
@@ -138,6 +138,7 @@ build_icons("bi-crushed-stone-refined-concrete", {it1 = stcrorgravel, it2 = "ref
 build_icons("bi-crushed-stone-refined-hazard-concrete", {it1 = stcrorgravel, it2 = "hazard-concrete"})
 
 build_icons("bi-stone-brick", {it1 = "stone-brick", it2 = "ash", it3 = "stone-crushed"})
+
 build_icons("bi-sulfur", {it1 = "sulfur", it2 = "ash", it3 = "sulfuric-acid"})
 build_icons("bi-basic-gas-processing", {it4 = "ash", it5 = "petroleum-gas", sh4 = {-1,-3}, sh5 = {1,3}, sc4 = 1.2, sc5 = 1.2, addbase = true})
 build_icons("bi-plastic-1", {it1 = "plastic-bar", it2 = "light-oil", it3 = "woodpulp"})
@@ -158,11 +159,6 @@ if data.raw.recipe["bi-fertilizer-2"] then build_icons("bi-fertilizer-2", {it1 =
 build_icons("bi-mineralized-sulfuric-waste", {it1 = "water-mineralized", it6 = "water-yellow-waste", sc6 = 0.5, sh6 = {-2,2}})
 build_icons("bi-slag-slurry", {it1 = "slag-slurry", sh1 = {0,4}, it2 = "water-saline", sc2 = 0.4, it3 = "stone-crushed", sc3 = 0.4})
 
-if data.raw["solar-panel"][BioInd.musk_floor_panel_name] then 
-  data.raw["solar-panel"][BioInd.musk_floor_panel_name].icons = {
-    {icon = ICONPATH .. "entity/solar-mat.png", icon_size = 64, icon_mipmaps = 4, scale = 0.5, shift = {0, 0}}
-  } 
-end
 
 --bobplates
 build_icons("bob-resin-oil", {it1 = "resin", it2 = "heavy-oil"}, "bobplates")
@@ -192,18 +188,30 @@ build_icons("bob-rubber", {it1 = "rubber", it2 = "resin", sh1 = {0,4}}, "angelsp
 build_icons("solid-rubber", {it1 = "rubber", it2 = "liquid-rubber", sh1 = {0,4}}, "angelspetrochem")
 
 --IndustrialRevolution
+build_icons("bi-charcoal-1", {it1 = "charcoal", it2 = "wood-chips"}, "IndustrialRevolution")
+build_icons("bi-charcoal-2", {it1 = "charcoal", it2 = "wood"}, "IndustrialRevolution")
+
 build_icons("bi-coal-1", {it1 = "coal"}, "IndustrialRevolution")
 build_icons("bi-coal-2", {it1 = "coal", custom_topright = BioInd.iconpath .. "signal/bi_signal_plus.png"}, "IndustrialRevolution")
 build_icons("bi-wood-gasification", {it5 = "tar", it4 = "petroleum-gas", it7 = "wood"}, "IndustrialRevolution")
+
+build_icons("bi-woodpulp", {it1 = "wood-chips"}, "IndustrialRevolution")
+build_icons("bi-logs-1", {it4 = "wood-chips", it5 = "wood", addbase = true}, "IndustrialRevolution")
+build_icons("bi-logs-2", {it4 = "wood-chips", it5 = "wood", it7 = "ash", addbase = true}, "IndustrialRevolution")
+build_icons("bi-logs-3", {it4 = "wood-chips", it5 = "wood", custom_topright = BioInd.iconpath .. "signal/bi_signal_fert.png", addbase = true}, "IndustrialRevolution")
+build_icons("bi-logs-4", {it4 = "wood-chips", it5 = "wood", custom_topright = BioInd.iconpath .. "signal/bi_signal_adv_fert.png", addbase = true}, "IndustrialRevolution")
 
 build_icons("bi-rubberwood-logs-1", {it4 = "wood-chips", it5 = "rubber-wood", addbase = true})
 build_icons("bi-rubberwood-logs-2", {it4 = "wood-chips", it5 = "rubber-wood", it7 = "ash", addbase = true})
 build_icons("bi-rubberwood-logs-3", {it4 = "wood-chips", it5 = "rubber-wood", custom_topright = BioInd.iconpath .. "signal/bi_signal_fert.png", addbase = true})
 build_icons("bi-rubberwood-logs-4", {it4 = "wood-chips", it5 = "rubber-wood", custom_topright = BioInd.iconpath .. "signal/bi_signal_adv_fert.png", addbase = true})
 
+build_icons("bi-ash-1", {it1 = "ash", it2 = "wood-chips"}, "IndustrialRevolution")
+
 --pycoalprocessing
 build_icons("coaldust-ash", {it1 = "ash"}, "pycoalprocessing")
 build_icons("fluegas-filtration", {it1 = "ash"}, "pycoalprocessing")
+
 
 
 --~ -- Moved to group_updates.lua!
@@ -282,51 +290,9 @@ change_sub("IndustrialRevolution", "bi-solid-fuel", "ir2-fuels", "c1")
 change_sub("IndustrialRevolution", "solid-fuel-from-tar", "ir2-fuels", "c2")
 change_sub("IndustrialRevolution", "bi-sulfur", "fluid-recipes", "z1-la-zz")
 
-
---~ ------------------------------------------------------------------------------------
---~ --                              Disable/hide recipes                              --
---~ ------------------------------------------------------------------------------------
---~ --args ("mod that disables recipe", "recipe to remove", "check that this recipe exists before removing")
-local function disable_recipe(_mod, _reciperemoved, _recipecheck)
-  _reciperemoved = recipes[_reciperemoved]
-  if _recipecheck then
-    _recipecheck = recipes[_recipecheck]
-  else
-      -- This doesn't make sense unless you check for _recipecheck ~= "nocheck" later on!
-    _recipecheck = "nocheck"
-  end
-  if _reciperemoved and _recipecheck then
-    _reciperemoved.enabled = false
-    _reciperemoved.hidden = true
-    if _reciperemoved.normal then
-      _reciperemoved.normal.enabled = false
-      _reciperemoved.normal.hidden = true
-    end
-    if _reciperemoved.expensive then
-      _reciperemoved.expensive.enabled = false
-      _reciperemoved.expensive.hidden = true
-    end
-  end
-end
-
-disable_recipe("bobplates", "bob-resin-wood", "bi-resin-wood")
-disable_recipe("bobplates", "bob-coal-from-wood", "bi-coal-1")
-disable_recipe("bobplates", "bi-rubber", "bob-rubber")
-
-disable_recipe("angelssmelting", "bi-stone-brick", "stone-brick")
-
-disable_recipe("angelsbioprocessing", "bi-wood-fuel-brick", "wood-bricks")
-disable_recipe("angelsbioprocessing", "bi-charcoal-1", "wood-charcoal")
-disable_recipe("angelsbioprocessing", "bi-charcoal-2", "wood-charcoal")
-disable_recipe("angelsbioprocessing", "bi-resin-pulp", "bio-resin-wood-reprocessing")
-disable_recipe("angelsbioprocessing", "bi-resin-wood", "bio-resin-wood-reprocessing")
-
-disable_recipe("Krastorio2", "bi-liquid-air", "kr-atmospheric-condenser")
-
---~ -- This can be removed, the setting is off when IR2 is active!
-disable_recipe("IndustrialRevolution", "bi-production-science-pack", "production-science-pack")
-
-
+------------------------------------------------------------------------------------
+--                              Disable/hide recipes                              --
+------------------------------------------------------------------------------------
 local mod_hide_recipe_map = {
   -- Check mods[mod_name] once for all recipes!
   ["bobplates"] = {
@@ -359,11 +325,11 @@ for mod_name, mod_data in pairs(mod_hide_recipe_map) do
         -- Finally, a usecase for my auto-generated functions!
         thxbob.lib.recipe.set_enabled(remove_recipe, false)
         thxbob.lib.recipe.set_hidden(remove_recipe, true)
+BioInd.debugging.writeDebug("Mod %s provides recipe \"%s\" -- recipe \"%s\" is now hidden.", {mod_name, check_recipe, remove_recipe})
       end
     end
   end
 end
-
 
 
 
@@ -381,4 +347,4 @@ end
 ------------------------------------------------------------------------------------
 --                                    END OF FILE                                 --
 ------------------------------------------------------------------------------------
-BioInd.entered_file("leave")
+BioInd.debugging.entered_file("leave")

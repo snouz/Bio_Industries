@@ -7,10 +7,10 @@ if not BioInd.check_mods({
   "pyrawores",
   "pypetroleumhandling",
 }) then
-  BioInd.nothing_to_do("*")
+  BioInd.debugging.nothing_to_do("*")
   return
 else
-  BioInd.entered_file()
+  BioInd.debugging.entered_file()
 end
 
 
@@ -51,27 +51,27 @@ if BioInd.check_mods({
 
   ------------------------------------------------------------------------------------
   -- Make sure all techs exist!
-  BioInd.show("mod_techs", mod_techs)
+  BioInd.debugging.show("mod_techs", mod_techs)
 
   for mod_name, tech in pairs(mod_techs) do
-  BioInd.writeDebug("Checking tech %s for mod %s", {tech, mod_name})
+  BioInd.debugging.writeDebug("Checking tech %s for mod %s", {tech, mod_name})
     for i = 1, max_level do
       -- Missing techs, remove mod from list!
-  BioInd.show(tech .. i, tostring(techs[tech .. i]))
+  BioInd.debugging.show(tech .. i, tostring(techs[tech .. i]))
       if not techs[tech .. i] then
         mod_techs[mod_name] = nil
-  BioInd.writeDebug("Removed %s from list!", {mod_name})
+  BioInd.debugging.writeDebug("Removed %s from list!", {mod_name})
         break
       end
     end
-  BioInd.show("mod_techs", mod_techs)
+  BioInd.debugging.show("mod_techs", mod_techs)
   end
 
   ------------------------------------------------------------------------------------
   --                   Move our unlocks to techs from other mods!                   --
   ------------------------------------------------------------------------------------
   for m, mod_name in pairs(mod_order) do
-  BioInd.writeDebug("Priority: %s\tMod: %s", {m, mod_name})
+  BioInd.debugging.writeDebug("Priority: %s\tMod: %s", {m, mod_name})
     -- All techs from that mod exist
     if mod_techs[mod_name] then
       -- Check recipes
@@ -84,16 +84,16 @@ if BioInd.check_mods({
             if tech_level then
               recipes[recipe.name].BI_add_to_tech = recipes[recipe.name].BI_add_to_tech or {}
               table.insert(recipes[recipe.name].BI_add_to_tech, mod_techs[mod_name] .. tech_level)
-              BioInd.modified_msg("unlock", recipes[recipe.name])
+              BioInd.debugging.modified_msg("unlock", recipes[recipe.name])
             end
           end
         end
       end
       -- We've used the techs from the mod with the highest priority. Skip the rest!
-      BioInd.writeDebug("Techs from mod \"%s\" are used now. Breaking out of the loop!", {mod_name} )
+      BioInd.debugging.writeDebug("Techs from mod \"%s\" are used now. Breaking out of the loop!", {mod_name} )
       break
     else
-      BioInd.writeDebug("Target techs don't exist, trying next mod!")
+      BioInd.debugging.writeDebug("Target techs don't exist, trying next mod!")
     end
   end
 
@@ -120,7 +120,7 @@ end
 --~ if items["ash"] and mods["pycoalprocessing"] then
 mod_name = "pycoalprocessing"
 if mods[mod_name] then
-  BioInd.writeDebug("Found mod \"%s\"", {mod_name})
+  BioInd.debugging.writeDebug("Found mod \"%s\"", {mod_name})
 
 
   -- Use ash icon from pycoalprocessing in icons of recipes using ash
@@ -147,7 +147,7 @@ end
 ------------------------------------------------------------------------------------
 mod_name = "pypetroleumhandling"
 if mods[mod_name] then
-  BioInd.writeDebug("Found mod \"%s\"", {mod_name})
+  BioInd.debugging.writeDebug("Found mod \"%s\"", {mod_name})
 
   local function normalize_result(result)
     return result[1] and { name = result[1], type = "item",  amount = result[2] } or result
@@ -180,7 +180,7 @@ if mods[mod_name] then
         thxbob.lib.result_check(recipe.expensive)
         normalize_results(recipe.expensive.results)
       end
-      BioInd.modified_msg("format of results", recipe)
+      BioInd.debugging.modified_msg("format of results", recipe)
     end
   end
 end
@@ -190,4 +190,4 @@ end
 ------------------------------------------------------------------------------------
 --                                    END OF FILE                                 --
 ------------------------------------------------------------------------------------
-BioInd.entered_file("leave")
+BioInd.debugging.entered_file("leave")

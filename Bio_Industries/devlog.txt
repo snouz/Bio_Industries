@@ -35,6 +35,76 @@
     - Added new migration script to remove some tables from global.
     - @snouz: Removed your last additions to the migration script again. I believe they were only necessary because we always kept the same version number, so on_configuration_changed wouldn't trigger when you continued your game.
     - Bumped version number to 1.1.112 to enforce running of new migration scripts
-    - Added dependency on "eradicators-library". We may use its event manager functions (similar to those of stdlib) again, but we really want it for the AutoCache function which allows us to recreate some tables when the game is loaded instead of storing them in global (increasing the size of savegame files).
+    - Added dependency on "eradicators-library" (ErLib). We may use its event manager functions (similar to those of stdlib) again, but we really want it for the AutoCache function which allows us to recreate some tables when the game is loaded instead of storing them in global (increasing the size of savegame files).
     - Moved migration of Terraformer radars from 1.1.111 to 1.1.112. We just destroy the radars now, nothing else is necessary here! Missing entities will be restored automatically when the game resumes.
     - Removed unnecessary files from the menu simulations.
+
+2021-07-28
+  Changes:
+    - Added the terraformer to blacklist for "Assembler Pipe Passthrough". As the prototype now has more pipe connections, the game would crash on loading.
+
+2021-08-02
+  Bugfixes:
+    - Fixed that common.MuskForceName was lost when common.lua was split up.
+    - Fixed crash in migrations/Bio_Industries_1.01.112.lua when BI was added to an existing game.
+
+
+2021-08-08
+  Changes:
+    - Started transitioning event handling to the EventManager from ErLib. Already completed for Pollution Sensor, Seed bombs, Terraformers and Tree growing, Bio cannon and Musk floor are still missing.
+    - Rewrote function for planting by terraformers -- simplified code for better readability.
+    - Rewrote functions for planting/growing of trees -- simplified code for better readability and made it more efficient (especially with seed bombs, where hundreds of seedlings are planted at once):
+      - Look up tree names in cached list instead of querying game.entity_prototypes several times for each tree.
+      - Use surface.find_entities_filtered() once per event instead of calling surface.find_entities() three times.
+      - Call surface.create_entity without checking surface.can_place_entity when trees have been planted with a seedbomb. (This didn't make sense because seedlings were turned into the final tree immediately, not growing through several stages. However, we may still change that for more realism, and use at least some stages for seed bombs as well.)
+    - The on_tick events for pollution sensors/tree growing will now only run if there actually are pollution sensors/growing trees.
+
+
+2021-08-13
+  Bugfixes:
+    - RTFM for AutoCache and fixed the constructor functions.
+    - Fixed trigger_target_mask for spawners so the Bio cannons can attack them even if "combat-mechanics-overhaul" is active.
+
+  Changes:
+    - Transitioned Bio-cannon to ErLib's event manager
+
+
+2021-08-13
+  Changes:
+    - Fixed creation of common_entities list
+    - Separated removal of tables for obsolete common entities from global table and creation of common_entities list.
+
+2021-08-30
+  Changes:
+    - If IR2 is active, use it's refined concrete tech instead of creating our own.
+    - IF IR2 is active, Musk floor/Solar boilers are locked behind "Solar energy 1", the Solar farm is locked behind "Solar energy 2" (made with Solar arrays instead of Solar panels).
+    - If IR2 is active, the recipes for cokery and stone crusher now require iron-beams instead of steel-beams, and the first tier of the stone crushing tech requires the "Iron milestone" instead of "Steel processing".
+
+2021-09-03
+  Changes:
+    - Seedbombs don't plant saplings by projectile "seedbomb-wave-x" any longer. Instead, we use a script, so we can create the entities in several stages and take some load off UPS.
+
+2021-09-20
+  - Changes for IR2:
+    - Bio reactor: Requires assembling-machine-2 instead of assembling-machine-1
+    - Terraformer: Add electric assemblers
+    - Bio-boiler: Add large carbon-steel frame to recipe ingredients, and move unlock behind "Electronics 2"
+    - Cokery: Replace steel-plates with iron beams and stone furnace with electric furnace in recipe ingredients
+    - Stone crusher: Replace steel-plates with iron beams in recipe ingredients; move unlock from "steel-processing" to "iron milestone"
+
+
+2021-09-26
+  - Bugfixes:
+    - Added optional dependency on IndustrialRevolutionStacking to avoid start-up error due to stacked iron-ore recipe that was removed for some strange reason.
+
+
+2021-09-28
+  - Changes for IR2:
+    - Only create items for woodpulp and charcoal if IR2 is not active, otherwise use the IR2 equivalents.
+    - Only create recipe for woodpulp from wood if IR2 is not active (the IR2 recipe creates twice as much from the same input).
+    - Rename recipes for wood/woodpulp if IR2 is active, to reflect the changed result (woodpulp --> wood chips).
+    - As dart turrets are supposed to be available without research, and as iron gears are an advanced tech in IR2, use copper gears + a small copper frame instead of iron gears as recipe ingredients.
+
+2021-09-30
+  - Bugfixes:
+    - Fixed crash when "Alien Biomes" was not used (logic error in common.tree_stuff.AB_tiles).

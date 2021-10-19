@@ -163,7 +163,7 @@ common.create_entities = function(g_table, base_entity, hidden_entities)
   -- Create hidden entities
   local data
   for key, tab in pairs(hidden_entities) do
-common.debugging.writeDebug("key: %s\tname: %s", {key, tab.name})
+common.debugging.writeDebug("key: %s\tname: %s", {key, tab.name or "nil"})
     data = common.compound_entities[base_entity.name].hidden[key]
 common.debugging.show("data", data)
     entity = base_entity.surface.create_entity({

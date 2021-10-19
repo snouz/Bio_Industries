@@ -272,8 +272,11 @@ BioInd.debugging.show("Base entity", BioInd.debugging.print_name_id(base))
     BioInd.debugging.show("h_key", h_key or "nil")
 
     -- Arboretum radar -- we must add it to the table!
-    if entity.type == "radar" and
-      entity.name == entities["bi-arboretum-area"].hidden[h_key].name and base then
+    if entity.type == "radar" and base and
+        entities["bi-arboretum-area"] and
+        entities["bi-arboretum-area"].hidden and
+        entities["bi-arboretum-area"].hidden[h_key] and
+        entity.name == entities["bi-arboretum-area"].hidden[h_key].name then
       --~ global.bi_arboretum_radar_table[entity.unit_number] = base.unit_number
       local tab = BioInd.compound_entities["bi-arboretum"].add_global_tables.radar
       global[tab][entity.unit_number] = base.unit_number
@@ -282,8 +285,11 @@ BioInd.debugging.show("Base entity", BioInd.debugging.print_name_id(base))
                                   {BioInd.debugging.print_name_id(entity)})
 
     -- Bio-cannon radar -- we must add it to the table!
-    elseif entity.type == "radar" and
-      entity.name == entities["bi-bio-cannon"].hidden[h_key].name and base then
+    elseif entity.type == "radar" and base and
+        entities["bi-bio-cannon"] and
+        entities["bi-bio-cannon"].hidden and
+        entities["bi-bio-cannon"].hidden[h_key] and
+        entity.name == entities["bi-bio-cannon"].hidden[h_key].name then
       --~ global.bi_bio_cannon_radar_table[entity.unit_number] = base.unit_number
       local tab = BioInd.compound_entities["bi-bio-cannon"].add_global_tables.radar
       global[tab][entity.unit_number] = base.unit_number
@@ -298,7 +304,8 @@ BioInd.debugging.show("Base entity", BioInd.debugging.print_name_id(base))
       BI_scripts.poles.connect_poles(entity, base)
 
     -- A seedling has been planted
-    elseif entity.name == "seedling" and not event.seedbomb then
+    elseif entity.name == "seedling" and not event.seedbomb and
+            BI_scripts.trees and BI_scripts.trees.seed_planted then
       BI_scripts.trees.seed_planted(event)
       BioInd.debugging.writeDebug("Planted seedling!")
 

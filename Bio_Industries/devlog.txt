@@ -108,3 +108,7 @@
 2021-09-30
   - Bugfixes:
     - Fixed crash when "Alien Biomes" was not used (logic error in common.tree_stuff.AB_tiles).
+
+2021-10-03
+  - Bugfixes:
+    - Fixed crash when radar was placed while Bio cannons or Terraformers were disabled.
